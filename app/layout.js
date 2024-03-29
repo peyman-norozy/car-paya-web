@@ -1,4 +1,6 @@
 import "../styles/globals.css";
+import Providers from "@/store/provider";
+import MainLayout from "@/layouts/MainLayout";
 
 export const metadata = {
   title: "Create Next App",
@@ -7,8 +9,12 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <body>{children}</body>
-    </html>
+      <Providers>
+        <html lang="fa" dir="rtl">
+          <body>
+            <MainLayout>{children}</MainLayout>
+          </body>
+        </html>
+      </Providers>
   );
 }
