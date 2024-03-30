@@ -25,6 +25,7 @@ export default function EnterPasswordLogin(props) {
 
     const forgotPasswordHandler = () => {
         let fd = new FormData();
+        console.log(fd)
         fd.append("mobile", phoneData.mobile);
         fd.append("login_token", phoneData.login_token);
         setForgotButtonState(true)
