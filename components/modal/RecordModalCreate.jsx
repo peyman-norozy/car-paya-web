@@ -1,9 +1,6 @@
 import Image from "next/image";
 import { useDispatch } from "react-redux";
-import {
-  setRecordModalCreateState,
-  setRecordModalState,
-} from "@/store/HandleSlice";
+import {setRecordModalCreateState,setRecordModalState} from "@/store/todoSlice";
 import DatePickerSelection from "@/components/DatePicker";
 import Input from "@/components/Input";
 import RecordModalCard from "@/components/cards/RecordModalCard";

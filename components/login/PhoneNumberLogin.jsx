@@ -7,7 +7,7 @@ import Input from "@/components/Input";
 import {API_PATHS} from "@/configs/routes.config";
 import Button from "@/components/Button";
 import {error, forceOnlyNumberInput} from "@/utils/function-utils";
-import {getLoginOtpData} from "@/store/HandleSlice";
+import {getLoginOtpData} from "@/store/todoSlice";
 import Spinner from "@/components/Spinner";
 
 export default function PhoneNumberLogin(props) {

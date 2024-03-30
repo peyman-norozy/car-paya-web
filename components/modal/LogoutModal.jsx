@@ -1,8 +1,8 @@
 import Button from "@/components/Button";
 import { useCallback, useRef } from "react";
-import useClickOutside from "@/pages/hook/useClickOutside";
+import useClickOutside from "@/hook/useClickOutside";
 import { deleteCookie, getCookie } from "cookies-next";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import axios from "axios";
 import { API_PATHS } from "@/configs/routes.config";
 

@@ -5,7 +5,7 @@ import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
 import { useRef } from "react";
 import { useDispatch } from "react-redux";
-import { setRecordModalState } from "@/store/HandleSlice";
+import {setRecordModalState} from "@/store/todoSlice";
 
 const EditAndDeleteIcon = (props) => {
   const router = useRouter();

@@ -1,13 +1,15 @@
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
-import { useRouter } from "next/router";
+import {useParams, usePathname, useRouter} from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
-import { setTriangleState } from "@/store/HandleSlice";
+import {setTriangleState} from "@/store/todoSlice";
 
 const UserTabsCard = (props) => {
   const accordionRef = useRef();
   const [newRouter, setNewRouter] = useState("");
   const router = useRouter();
+  const params = useParams()
+  const pathName = usePathname().split("/")[1]
   const dispatch = useDispatch();
   const triangleState = useSelector((state) => state.todo.triangleState);
 
@@ -33,11 +35,11 @@ const UserTabsCard = (props) => {
 
   useEffect(() => {
     setNewRouter(
-      router.query["all-panel-tab"]
-        ? router.query["all-panel-tab"].join("/")
-        : router.pathname.split("/")[1],
+        params["all-panel-tab"]
+        ? params["all-panel-tab"].join("/")
+        : pathName,
     );
-  }, [router, newRouter]);
+  }, [router, newRouter,params,pathName]);
 
   useEffect(() => {
     for (let key of accordionRef.current.children) {

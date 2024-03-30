@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {useRouter} from "next/router";
+import {useRouter} from "next/navigation";
 import {useSelector} from "react-redux";
 import axios from "axios";
 import {API_PATHS} from "@/configs/routes.config";

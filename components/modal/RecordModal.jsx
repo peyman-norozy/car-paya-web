@@ -1,9 +1,6 @@
 import Image from "next/image";
 import { useDispatch } from "react-redux";
-import {
-  setRecordModalCreateState,
-  setRecordModalState,
-} from "@/store/HandleSlice";
+import {setRecordModalCreateState,setRecordModalState} from "@/store/todoSlice";
 import React from "react";
 import Button from "@/components/Button";
 import RecordModalCreatedCard from "@/components/cards/RecordModalCreatedCard";

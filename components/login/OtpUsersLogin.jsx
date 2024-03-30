@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import {useSelector} from "react-redux";
-import {useRouter} from "next/router";
+import {useRouter} from "next/navigation";
 import axios from "axios";
 import Button from "@/components/Button";
 import OTPInput from "react-otp-input";

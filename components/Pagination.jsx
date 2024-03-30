@@ -1,6 +1,5 @@
 // import ReactPaginate from "react-paginate";
-import { useSearchParams } from "next/navigation";
-import { useRouter } from "next/router"; // import Image from "next/image";
+import {useParams, useRouter, useSearchParams} from "next/navigation";
 import React, { useEffect, useState } from "react";
 import ResponsivePagination from "react-responsive-pagination";
 import "react-responsive-pagination/themes/classic.css";
@@ -9,9 +8,11 @@ const Pagination = (props) => {
   const [currentPage, setCurrentPage] = useState(1);
   const searchParams = useSearchParams();
   const router = useRouter();
+  const params = useParams()
+
 
   const setCurrentPageHandler = (number) => {
-    const search = router.query;
+    const search = params;
     search.page = number.toString();
     setCurrentPage(number);
     router.push({
