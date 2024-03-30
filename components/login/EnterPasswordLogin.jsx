@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import {useRouter} from "next/navigation";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import axios from "axios";
 import {API_PATHS} from "@/configs/routes.config";
 import Button from "@/components/Button";
@@ -9,6 +9,7 @@ import Input from "@/components/Input";
 import {ToastContainer} from "react-toastify";
 import Image from "next/image";
 import Spinner from "@/components/Spinner";
+import {setLoginState} from "@/store/todoSlice";
 
 export default function EnterPasswordLogin(props) {
     const [passwordEyesState, setPasswordEyesState] = useState(false);
@@ -17,7 +18,7 @@ export default function EnterPasswordLogin(props) {
     const [passwordError, setPasswordError] = useState("")
     const [passwordValue, setPasswordValue] = useState("");
     const router = useRouter();
-
+    const dispatch = useDispatch()
     const phoneData = useSelector((item) => item.todo.loginOtpData);
     const PasswordClickHnadler = () => {
         setPasswordEyesState((prev) => !prev);
@@ -55,7 +56,6 @@ export default function EnterPasswordLogin(props) {
                 .then((res) => {
                     console.log(res);
                     if (res.status === 200) {
-                        console.log(res.data);
                         let now = new Date();
                         let time = now.getTime();
                         let expireTime = time + res.data.expires_at;
@@ -75,6 +75,7 @@ export default function EnterPasswordLogin(props) {
                             }, 5000)
                         }
                         setSliderShowState(false)
+                        dispatch(setLoginState(false))
                     }
                 })
                 .catch((e) => {

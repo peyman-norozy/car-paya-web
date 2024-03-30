@@ -16,7 +16,6 @@ const DesktopHeader = (props) => {
     const accontRef = useRef();
     const close = useCallback(() => setNewLoginState(false), []);
     useClickOutside(accontRef, close);
-
     const accountClickHandler = () => {
         setNewLoginState((prevState) => !prevState);
     };

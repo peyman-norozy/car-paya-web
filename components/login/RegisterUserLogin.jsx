@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import {useRouter} from "next/navigation";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import axios from "axios";
 import Button from "@/components/Button";
 import Input from "@/components/Input";
@@ -9,6 +9,7 @@ import {API_PATHS} from "@/configs/routes.config";
 import {ToastContainer} from "react-toastify";
 import Image from "next/image";
 import Spinner from "@/components/Spinner";
+import {setLoginState} from "@/store/todoSlice";
 
 export default function RegisterUserLogin() {
     const [passwordEyesState, setPasswordEyesState] = useState({
@@ -18,10 +19,10 @@ export default function RegisterUserLogin() {
     const [sliderShowState, setSliderShowState] = useState(false)
     const [newErrorRegister, setNewErrorRegister] = useState({})
 
-
     const [genderValidate, setGenderValidate] = useState("");
 
     const router = useRouter();
+    const dispatch = useDispatch()
 
     const fd = new FormData();
 
@@ -80,16 +81,16 @@ export default function RegisterUserLogin() {
             console.log(item.value);
             switch (id) {
                 case "register_name":
-                    fd.append("first_name", item.value);
+                    fd.set("first_name", item.value);
                     break;
                 case "register_lastName":
-                    fd.append("last_name", item.value);
+                    fd.set("last_name", item.value);
                     break;
                 case "register_email":
-                    fd.append("email", item.value);
+                    fd.set("email", item.value);
                     break;
                 case "register_password":
-                    fd.append("password", item.value);
+                    fd.set("password", item.value);
                     break;
                 default:
                     "";
@@ -99,7 +100,6 @@ export default function RegisterUserLogin() {
         axios
             .post(process.env.BASE_API + API_PATHS.REGISTER, fd)
             .then((res) => {
-                console.log(res);
                 if (res.status === 200) {
                     console.log(res.data);
                     let now = new Date();
@@ -113,6 +113,7 @@ export default function RegisterUserLogin() {
                     };expires=${now.toUTCString()};path=/`;
                     router.push("/");
                     setSliderShowState(false)
+                    dispatch(setLoginState(false))
                 }
                 refreshFormData();
             })
