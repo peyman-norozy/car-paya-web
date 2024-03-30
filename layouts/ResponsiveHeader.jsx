@@ -1,16 +1,16 @@
 import Image from "next/image";
+import {useSelector} from "react-redux"
 import HeaderLogo from "@/components/HeaderLogo";
 import LoginLink from "@/components/LoginLink";
 import BasketLink from "@/components/BasketLink";
-import { useRouter } from "next/router";
+import {usePathname,useParams } from "next/navigation";
 import { useRef, useState } from "react";
-import { useSelector } from "react-redux";
 import ResponsiveMenu from "@/components/ResponsiveMenu";
 import CardPay from "@/components/CardPay";
 
 const ResponsiveHeader = (props) => {
-  const router = useRouter();
-  const pathName = router.pathname.split("/")[1];
+  const params = useParams()
+  const pathName = usePathname().split("/")[1]
   const [newMenueState, setNewMenueState] = useState(true);
   const loginState = useSelector((state) => state.todo.loginState);
   const hambergerRef = useRef();
@@ -26,7 +26,7 @@ const ResponsiveHeader = (props) => {
       className={`${
         props.className
       } font-light flex justify-between items-center px-[30px] py-[15px] sticky top-0 right-0 left-0 w-[100wh] bg-white z-[10000] drop-shadow-2xl h-[74px] ${
-        pathName === "profile" && router.query["all-panel-tab"] ? "hidden" : ""
+        pathName === "profile" && params["all-panel-tab"] ? "hidden" : ""
       }`}
       onClick={(event) => {
         event.target !== hambergerRef.current && setNewMenueState(true);
@@ -71,6 +71,7 @@ const ResponsiveHeader = (props) => {
           loginState={loginState}
           ref={asideHambergerMenuRef}
           refCategory={asideCategoryMenuRef}
+          childrenProps={props.childrenProps}
         />
       }
     </header>

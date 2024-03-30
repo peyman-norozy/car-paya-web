@@ -1,12 +1,9 @@
 import {Fragment} from "react";
-// import Header from "@/layouts/HeaderLayout";
-// import ResponsiveHeader from "@/layouts/ResponsiveHeader";
-// import Footer from "@/layouts/FooterLayout";
+import Header from "@/layouts/HeaderLayout";
+import Footer from "@/layouts/FooterLayout";
 import localFont from "next/font/local";
-// import {useDispatch, useSelector} from "react-redux";
-// import {getWindowInnerWidth, setLoginState} from "@/store/HandleSlice";
-// import {getCookie} from "cookies-next";
-// import MobileBottomNav from "@/layouts/MobileBottomNav";
+
+const muckUpData=[1,2,3,4]
 
 const YekanBakhFaNum = localFont({
     src: [
@@ -32,40 +29,15 @@ const YekanBakhFaNum = localFont({
     ],
 });
 const MainLayout = (props) => {
-    // const dispatch = useDispatch();
-    // const innerWidthNumber = useSelector(
-    //     (number) => number.todo.windowInnerWidth,
-    // );
-    //
-    // useEffect(() => {
-    //     dispatch(getWindowInnerWidth(window.innerWidth));
-    //     const handleWindowResize = () => {
-    //         dispatch(getWindowInnerWidth(window.innerWidth));
-    //     };
-    //     window.addEventListener("resize", handleWindowResize);
-    //     return () => {
-    //         window.removeEventListener("resize", handleWindowResize);
-    //     };
-    // }, [dispatch]);
-    //
-    // useEffect(() => {
-    //     const token = getCookie("Authorization");
-    //     if (token !== undefined) {
-    //         dispatch(setLoginState(false));
-    //     } else {
-    //         dispatch(setLoginState(true));
-    //     }
-    // });
-
     return (
         <Fragment>
-            {/*{innerWidthNumber < 1000 ? (*/}
-            {/*    <ResponsiveHeader className={YekanBakhFaNum.className}/>*/}
-            {/*) : (*/}
-            {/*    <Header className={YekanBakhFaNum.className}/>*/}
-            {/*)}*/}
+            <Header className={YekanBakhFaNum.className}>
+                {
+                    muckUpData.map((item,index)=><li key={index}>ahmad</li>)
+                }
+            </Header>
             <main className={`${YekanBakhFaNum.className} size1000:mt-[75px]`}>{props.children}</main>
-            {/*<Footer className={YekanBakhFaNum.className}/>*/}
+            <Footer className={YekanBakhFaNum.className}/>
             {/*{innerWidthNumber < 1000 && <MobileBottomNav/>}*/}
         </Fragment>
     );

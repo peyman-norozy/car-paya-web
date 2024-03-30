@@ -1,3 +1,4 @@
+"use client"
 import Navlink from "@/components/Navlink";
 import UserPanelAttribute from "@/components/UserPanelAttribute";
 import CategoryModal from "@/components/CategoryModal";
@@ -61,7 +62,6 @@ const NavigationBar = React.forwardRef((props, ref) => {
                 <Navlink href={item.href} styleState={props.styleState}>
                   {item.title}
                 </Navlink>
-                {/*<Link href={item.href}> {item.title}</Link>*/}
               </li>
             ) : (
               <>
@@ -104,10 +104,7 @@ const NavigationBar = React.forwardRef((props, ref) => {
                       }
                       ref={categoryOptionRef}
                     >
-                      <li>sdf</li>
-                      <li>sdf</li>
-                      <li>sdf</li>
-                      <li>sdf</li>
+                      {props.childrenProps}
                     </ul>
                   </li>
                 )}
@@ -124,6 +121,7 @@ const NavigationBar = React.forwardRef((props, ref) => {
         <CategoryModal
           onMouseEnter={categoryPoppupDisplay}
           onMouseLeave={categoryPoppupHidden}
+          childrenProps={props.childrenProps}
         />
       )}
     </nav>

@@ -2,12 +2,12 @@
 import FooterAdverticeCard from "@/components/cards/FooterAdverticeCard";
 import {INTERNAL_PATHS} from "@/configs/routes.config";
 import Image from "next/image";
-import {useRouter} from "next/router";
+import {useParams, usePathname} from "next/navigation";
 import Link from "next/link";
 
 const Footer = (props) => {
-    const router = useRouter();
-    const pathName = router.pathname.split("/")[1];
+    const params = useParams()
+    const pathName = usePathname().split("/")[1]
     const footerCardData = [
         {
             imgUrl: "/assets/icons/maintenance.svg",
@@ -43,7 +43,7 @@ const Footer = (props) => {
     return (
         <footer
             className={`${props.className} ${
-                pathName === "profile" && router.query["all-panel-tab"] ? "hidden" : ""
+                pathName === "profile" && params["all-panel-tab"] ? "hidden" : ""
             } bg-[#2C5D83] mt-16 size1000:mb-0 mb-[50px] absolute right-0 left-0`}
         >
             <div className={"max-w-[1600px] m-auto"}>

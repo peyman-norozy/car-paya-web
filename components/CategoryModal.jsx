@@ -9,11 +9,7 @@ const CategoryModal = (props) => {
         onMouseLeave={props.onMouseLeave}
       >
         <ul className="bg-red-500 mt-[20px]">
-          <li>a</li>
-          <li>a</li>
-          <li>a</li>
-          <li>a</li>
-          <li>a</li>
+            {props.childrenProps}
         </ul>
       </div>
     </Fragment>

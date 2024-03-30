@@ -3,7 +3,7 @@ import { Fragment } from "react";
 import { usePathname } from "next/navigation";
 import axios from "axios";
 import { deleteCookie, getCookie } from "cookies-next";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { API_PATHS } from "@/configs/routes.config";
 
 const UserPanelAttribute = (props) => {
