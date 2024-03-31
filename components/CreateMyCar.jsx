@@ -51,7 +51,7 @@ const CreateMyCar = () => {
     <div className="flex flex-col size1000:flex-1 w-full">
       <div>
         <Link
-          href={"my-vehicle/my-car/create"}
+          href={"/profile/my-vehicle/my-car/create"}
           className="flex items-center gap-2 bg-[#d52826] text-white px-[20px] py-[5px] rounded-5 w-[108px]"
         >
           <span>افزودن</span>

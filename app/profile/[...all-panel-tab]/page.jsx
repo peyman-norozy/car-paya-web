@@ -63,8 +63,6 @@ const AllPanelTab = () => {
   );
 
   const backClickHandler = () => {
-    console.log(router);
-    console.log(params)
     if (params) {
       router.back();
     } else {
