@@ -1,7 +1,7 @@
-import { Inter } from "next/font/google";
-import "./globals.css";
-
-const inter = Inter({ subsets: ["latin"] });
+import "../styles/globals.css";
+import Providers from "@/store/provider";
+import MainLayout from "@/layouts/MainLayout";
+import NextTopLoader from 'nextjs-toploader';
 
 export const metadata = {
   title: "Create Next App",
@@ -10,8 +10,22 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <body className={inter.className}>{children}</body>
-    </html>
+      <Providers>
+        <html lang="fa" dir="rtl">
+          <body>
+            <NextTopLoader
+              color={"#000000"}
+              height={4}
+              crawlSpeed={2000}
+              crawl={true}
+              initialPosition={0.08}
+              showSpinner={false}
+              easing="ease"
+              speed={2000}
+            />
+          <MainLayout>{children}</MainLayout>
+          </body>
+        </html>
+      </Providers>
   );
 }
