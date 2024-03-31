@@ -1,3 +1,4 @@
+"use client"
 import MainBannerCard from "@/components/cards/MainBannerCard";
 import MainBannerSlider from "@/components/MainBannerSlider";
 import VehicleRegistration from "@/components/VehicleRegistration";
