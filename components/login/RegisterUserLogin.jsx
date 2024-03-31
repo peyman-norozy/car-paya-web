@@ -10,6 +10,8 @@ import {ToastContainer} from "react-toastify";
 import Image from "next/image";
 import Spinner from "@/components/Spinner";
 import {setLoginState} from "@/store/todoSlice";
+import {postData} from "@/utils/client-api-function-utils";
+import {error} from "@/utils/function-utils";
 
 export default function RegisterUserLogin() {
     const [passwordEyesState, setPasswordEyesState] = useState({
@@ -68,7 +70,7 @@ export default function RegisterUserLogin() {
         setGenderValidate(event.target.value);
     };
 
-    const formSubmitHandler = (event) => {
+    const formSubmitHandler = async (event) => {
         event.preventDefault();
         console.log(event);
 
@@ -97,39 +99,35 @@ export default function RegisterUserLogin() {
             }
         }
         setSliderShowState(true)
-        axios
-            .post(process.env.BASE_API + API_PATHS.REGISTER, fd)
-            .then((res) => {
-                if (res.status === 200) {
-                    console.log(res.data);
-                    let now = new Date();
-                    let time = now.getTime();
-                    let expireTime = time + res.data.expires_at;
-                    console.log(expireTime);
-                    now.setTime(expireTime);
-                    console.log(now.toUTCString());
-                    document.cookie = `Authorization = ${
-                        res.data.token
-                    };expires=${now.toUTCString()};path=/`;
-                    router.push("/");
-                    setSliderShowState(false)
-                    dispatch(setLoginState(false))
-                }
-                refreshFormData();
-            })
-            .catch((e) => {
-                setSliderShowState(false)
-                console.log(e)
-                if (e.response.status === 422) {
-                    // error(e.response.data.errors);
-                    console.log(e.response.data.errors)
-                    setNewErrorRegister(e.response.data.errors)
-                    setTimeout(() => {
-                        setNewErrorRegister({})
-                    }, 5000)
-                }
-                refreshFormData();
-            });
+        const response = await postData(API_PATHS.REGISTER, fd)
+        if (response.status === 200) {
+            let now = new Date();
+            let time = now.getTime();
+            let expireTime = time + res.data.expires_at;
+            console.log(expireTime);
+            now.setTime(expireTime);
+            console.log(now.toUTCString());
+            document.cookie = `Authorization = ${
+                response.data.token
+            };expires=${now.toUTCString()};path=/`;
+            router.push("/");
+            setSliderShowState(false)
+            dispatch(setLoginState(false))
+            refreshFormData();
+        }else {
+            setSliderShowState(false)
+            if(response.response.status === 422){
+                // error(response.response.data.errors);
+                console.log(response.response.data.errors)
+                setNewErrorRegister(response.response.data.errors)
+                setTimeout(() => {
+                    setNewErrorRegister({})
+                }, 5000)            }
+            else if (response.response.status === 404){
+                console.log(404)
+            }
+            refreshFormData();
+        }
     };
 
     return (

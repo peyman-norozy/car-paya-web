@@ -1,6 +1,5 @@
 import React, {useState} from "react";
 import {useDispatch} from "react-redux";
-import axios from "axios";
 import {ToastContainer} from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Input from "@/components/Input";
@@ -9,6 +8,7 @@ import Button from "@/components/Button";
 import {error, forceOnlyNumberInput} from "@/utils/function-utils";
 import {getLoginOtpData} from "@/store/todoSlice";
 import Spinner from "@/components/Spinner";
+import {postData} from "@/utils/client-api-function-utils";
 
 export default function PhoneNumberLogin(props) {
     const [telPhoneValueNumber, setTelPhoneValueNumber] = useState("");
@@ -22,7 +22,7 @@ export default function PhoneNumberLogin(props) {
         setTelPhoneValueNumber(event.target.value);
     };
 
-    const clickTelNumberBtn = (event) => {
+    const clickTelNumberBtn = async (event) => {
         if (event.code === "Enter" || event.type === "click") {
             if (telPhoneValueNumber.length < 11) {
                 setPhoneNumberError("شماره تلفن باید ۱۱ رقم باشد")
@@ -34,40 +34,40 @@ export default function PhoneNumberLogin(props) {
             let fd = new FormData();
             fd.append("mobile", telPhoneValueNumber);
             setSliderShowState(true)
-            axios
-                .post(process.env.BASE_API + API_PATHS.GETOTP, fd)
-                .then((res) => {
-                    console.log(res.data);
-                    if (res.data.data.status.login === "exists") {
-                        dispatch(
-                            getLoginOtpData({
-                                login_token: res.data.data.login_token,
-                                mobile: telPhoneValueNumber,
-                                loginOtpState: true,
-                            }),
-                        );
-                        if (res.data.data.status.step === "register_user") {
-                            props.setLoginState("register_user");
-                        } else {
-                            props.setLoginState("user_passwordNumber");
-                        }
-                        setSliderShowState(false)
-                    } else if (res.data.data.status === "new") {
-                        dispatch(
-                            getLoginOtpData({
-                                login_token: res.data.data.login_token,
-                                mobile: telPhoneValueNumber,
-                            }),
-                        );
-                        props.setLoginState("otp_number");
-                        setSliderShowState(false)
+            const response = await postData(API_PATHS.GETOTP, fd)
+            if(response.status === 200){
+                if (response.data.data.status.login === "exists") {
+                    dispatch(
+                        getLoginOtpData({
+                            login_token: response.data.data.login_token,
+                            mobile: telPhoneValueNumber,
+                            loginOtpState: true,
+                        }),
+                    );
+                    if (response.data.data.status.step === "register_user") {
+                        props.setLoginState("register_user");
+                    } else {
+                        props.setLoginState("user_passwordNumber");
                     }
-                })
-                .catch((e) => {
-                    if (e.response.status === 422) {
-                        error(e.response.data.message);
-                    }
-                });
+                    setSliderShowState(false)
+                } else if (response.data.data.status === "new") {
+                    dispatch(
+                        getLoginOtpData({
+                            login_token: response.data.data.login_token,
+                            mobile: telPhoneValueNumber,
+                        }),
+                    );
+                    props.setLoginState("otp_number");
+                    setSliderShowState(false)
+                }
+            }else {
+                setSliderShowState(false)
+                if(response.response.status === 422){
+                    error(response.response.data.message);
+                }else if (response.response.status === 404){
+                    console.log(404)
+                }
+            }
         }
     };
 

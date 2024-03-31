@@ -1,3 +1,4 @@
+"use client"
 import { Swiper, SwiperSlide } from "swiper/react";
 import { A11y, Navigation, Pagination, Scrollbar } from "swiper/modules";
 import SpecialOffersSliderCard from "@/components/cards/SpecialOffersSliderCard";

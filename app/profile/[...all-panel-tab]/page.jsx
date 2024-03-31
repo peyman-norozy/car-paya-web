@@ -90,7 +90,7 @@ const AllPanelTab = () => {
     };
   }, [dispatch]);
 
-  console.log(RecordModalCreateState);
+  console.log(params);
 
   return (
     <Fragment>

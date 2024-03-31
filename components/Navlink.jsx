@@ -1,9 +1,8 @@
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import {usePathname} from "next/navigation";
 
 const Navlink = (props) => {
-  const router = useRouter();
-
+  const pathName = usePathname()
   return (
     <Link
       href={props.href}
@@ -12,7 +11,7 @@ const Navlink = (props) => {
           ? "inline-block w-full hover:bg-[#0004] py-2 pr-2"
           : ""
       } ${
-        props.href === router.pathname
+        props.href === pathName
           ? props.styleState === "habmergerMenue"
             ? "bg-[#0004]"
             : "bg-[#E63D32] px-3 py-1 text-white"

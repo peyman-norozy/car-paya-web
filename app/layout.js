@@ -1,6 +1,7 @@
 import "../styles/globals.css";
 import Providers from "@/store/provider";
 import MainLayout from "@/layouts/MainLayout";
+import NextTopLoader from 'nextjs-toploader';
 
 export const metadata = {
   title: "Create Next App",
@@ -12,7 +13,17 @@ export default function RootLayout({ children }) {
       <Providers>
         <html lang="fa" dir="rtl">
           <body>
-            <MainLayout>{children}</MainLayout>
+            <NextTopLoader
+              color={"#000000"}
+              height={4}
+              crawlSpeed={2000}
+              crawl={true}
+              initialPosition={0.08}
+              showSpinner={false}
+              easing="ease"
+              speed={2000}
+            />
+          <MainLayout>{children}</MainLayout>
           </body>
         </html>
       </Providers>
