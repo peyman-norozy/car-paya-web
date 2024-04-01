@@ -22,7 +22,7 @@ export default function MainBanner() {
         {
             title: "شناسنامه و سوابق خودرو",
             iconSrc: "/assets/icons/8.png",
-            href: "profile/my-vehicle/my-car",
+            href: "/profile/my-vehicle/my-car",
         },
         {
             title: "سرویس دوره ای",

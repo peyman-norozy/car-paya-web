@@ -12,7 +12,7 @@ export default function RootLayout({ children }) {
   return (
       <Providers>
         <html lang="fa" dir="rtl">
-          <body>
+          <body className="max-w-[1600px] m-auto">
             <NextTopLoader
               color={"#000000"}
               height={4}
