@@ -1,3 +1,4 @@
+"use client"
 import Label from "@/components/Label";
 import Input from "@/components/Input";
 import SelectSearchInput from "@/components/SelectSearchInput";
