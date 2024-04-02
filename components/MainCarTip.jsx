@@ -8,7 +8,7 @@ import {getCookie} from "cookies-next";
 import axios from "axios";
 import {error, forceOnlyNumberInput, success} from "@/utils/function-utils";
 import OTPInput from "react-otp-input";
-import {useRouter} from "next/router";
+import {useRouter} from "next/navigation";
 
 const MainCarTip = (props) => {
     const [newTipId, setNewTipId] = useState(null)

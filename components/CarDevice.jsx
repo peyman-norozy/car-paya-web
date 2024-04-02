@@ -12,12 +12,13 @@ import {error, numberWithCommas} from "@/utils/function-utils";
 import Button from "@/components/Button";
 import {getCookie} from "cookies-next";
 import {ToastContainer} from "react-toastify";
-import {useRouter} from "next/router";
+import {useParams, useRouter} from "next/navigation";
 import {useSearchParams} from "next/navigation";
 import {carFormData} from "@/utils/formData-utils";
 
 const CarDevice = (props) => {
     const router = useRouter();
+    const params = useParams()
     const searchParams = useSearchParams();
     const [newStartKilometerValue, setNewStartKilometerValue] = useState("");
     const [newEndKilometerValue, setNewEndKilometerValue] = useState("");
@@ -342,7 +343,7 @@ const CarDevice = (props) => {
                         "/user-panel" +
                         API_PATHS.CARS +
                         "/" +
-                        router.query["product"],
+                        params["product"],
                         editFormData,
                         {
                             headers: {
