@@ -18,11 +18,13 @@ import BatteryCard from "@/components/cards/BatteryCard";
 import PurchaseBatteryModal from "@/components/PurchaseBatteryModal";
 import axios from "axios";
 import { API_PATHS } from "@/configs/routes.config";
+import Spinner from "../Spinner";
 
 const BatteriesPage = () => {
   const [isClicked, setIsClicked] = useState(0);
   const [filterISOpen, setFilterIsOpen] = useState(false);
   const [batteryIsSelected, setBatteryIsSelected] = useState(false);
+  const [isLoading, setIsLoading] = useState(false)
   const [data,setData] = useState([])
   const[filter,setFilter] = useState('فیلتر بر اساس')
   const filterRef = useRef(null);
@@ -84,8 +86,10 @@ setFilter(event.target.innerHTML)
   //   }, []);
 
   useEffect(() => {
+    setIsLoading(true)
     axios.get(process.env.BASE_API + '/web' + '/batteries').then(res => {
       setData(res.data.data)
+      setIsLoading(false)
     }).catch(err => console.log(err))
     
   } , [])
@@ -94,6 +98,7 @@ setFilter(event.target.innerHTML)
   console.log(data);
   return (
     <Fragment>
+      
       <div className="w-[97%] size1056:w-[63%] absolute top-[5.6rem] left-[1.5%] size1090:left-[2.5%] hidden size1000:flex flex-row-reverse items-center gap-[1rem]">
           {verificationTab.map((item, index) => (
             <SelectedVehicleVerificationBox
@@ -149,7 +154,9 @@ setFilter(event.target.innerHTML)
             <p className="text-12">مقایسه محصولات</p>
           </Button>
         </div>
-        <ul className="flex flex-col gap-[1.5rem]">
+        {isLoading ?  <div className={"flex justify-center items-center h-[100px]"}>
+                                    <Spinner width={"w-[44px]"} height={"h-[44px]"}/>
+                                </div> :  <ul className="flex flex-col gap-[1.5rem]">
           {data && data.map((item, index) => (
             <li key={index}>
               <BatteryCard
@@ -158,7 +165,8 @@ setFilter(event.target.innerHTML)
               />
             </li>
           ))}
-        </ul>
+        </ul>}
+       
       </div>
       {batteryIsSelected && (
         <div
