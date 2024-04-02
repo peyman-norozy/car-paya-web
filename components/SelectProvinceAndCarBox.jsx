@@ -14,6 +14,10 @@ const SelectProvinceAndCarBox = ({ cityData }) => {
 
   const [province, setProvince] = useState([]);
   const [city, setCity] = useState([]);
+  const [selectedProvince,setSelectedProvince] = useState(null)
+  const [selectedCity,setSelectedCity] = useState(null)
+  const [provinceName,setProvinceName] = useState(null)
+  const [cityName,setCityName] = useState(null)
 
   const tabTitle = [
     { name: "خودرو" },
@@ -27,29 +31,35 @@ const SelectProvinceAndCarBox = ({ cityData }) => {
   ];
   const provinceData = [{ name: "انتخاب استان" }, { name: "انتخاب شهر " }];
 
+  console.log(selectedProvince);
+
   useEffect(() => {
     axios
       .get(process.env.BASE_API + "/web" + API_PATHS.GEOPROVINCES)
       .then((res) => {
         console.log(res.data.data);
-        setProvince(res.data.data);
+        const tehran = res.data.data.filter(item => item.title === 'تهران')
+        setProvince(tehran);
       })
       .catch((err) => console.log(err));
     axios
-      .get(process.env.BASE_API + "/web" + API_PATHS.GEOCITIES)
+      .get(process.env.BASE_API + "/web" + API_PATHS.GEOCITIES + '/' + selectedProvince)
       .then((res) => {
-        setCity(res.data.data);
+        const tehran = res.data.data.filter(item => item.title === 'تهران')
+
+        setCity(tehran);
         console.log(res.data.data);
       })
       .catch((err) => console.log(err));
-  }, []);
+  }, [selectedProvince]);
+
   return (
     <div className="w-full border-[1px]  rounded-10 shadow-[0_5px_15px_0_rgba(0,0,0,0.15)] overflow-hidden">
       <div className="py-[1rem] bg-RED_500 text-white">
         <h1 className="text-center mb-[0.75rem]">انتخاب شهر و استان</h1>
         <div className="flex items-center justify-center gap-[0.5rem]">
-          <SelectCityInput name="انتخاب استان" data={province} id="province" />
-          <SelectCityInput name="انتخاب شهر" data={city} id="city" />
+          <SelectCityInput setProvinceName={setProvinceName} setSelectedProvince={setSelectedProvince} name={provinceName === null ? "انتخاب استان" : provinceName} data={province} id="province" />
+          <SelectCityInput setCityName={setCityName} setSelectedCity={setSelectedCity} name={cityName === null ? 'انتخاب شهر' : cityName} data={city} id="city" />
         </div>
       </div>
       <div>
