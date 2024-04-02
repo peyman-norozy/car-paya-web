@@ -15,7 +15,39 @@ import VerificationThirdStep from "@/components/VerificationThirdStep";
 
 const VehicleVerification = () => {
   const [step,setStep] = useState(1)
-  
+
+  const HowWorksMockUpData = [
+    {
+      title: "انتخاب وسیله نقلیه",
+      description:
+          "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ است. ",
+      img: "/assets/icons/Perfect-Car-Service.png",
+    },
+    {
+      title: "انتخاب خدمات مورد نیاز",
+      description:
+          "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ است. ",
+      img: "/assets/icons/Doorstep-Pick-up.png",
+    },
+    {
+      title: "انتخاب مکان دریافت خدمات",
+      description:
+          "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ است. ",
+      img: "/assets/icons/service-real-time.png",
+    },
+    {
+      title: "انتخاب زمان دریافت خدمات",
+      description:
+          "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ است. ",
+      img: "/assets/icons/Doorstep-Pick-up.png",
+    },
+    {
+      title: "دریافت خدمات",
+      description:
+          "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ است. ",
+      img: "/assets/icons/Earn-While-We-Service.png",
+    },
+  ];
 
   const verificationData = [
     {
@@ -66,9 +98,6 @@ const VehicleVerification = () => {
   ];
  
 
-
-
-   
   const closeVerificationModal = () => {
     setModalIsOpen(false);
   };
@@ -84,7 +113,7 @@ const VehicleVerification = () => {
       <div>
         <CallAndConsult />
       </div>
-      <HowWorks />
+      <HowWorks data={HowWorksMockUpData}/>
     </div>
   );
 };
