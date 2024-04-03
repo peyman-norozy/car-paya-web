@@ -40,7 +40,7 @@ const VehicleVerification = () => {
 
   return (
     <>
-      {/*<VehicleVerificationPage />*/}
+      <VehicleVerificationPage />
     </>
   );
 };

@@ -92,70 +92,69 @@ const AllPanelTab = () => {
 
   return (
     <Fragment>
-      <div>sdf</div>
-      {/*<div className="mt-[50px] mb-[100px] mx-[50px]">*/}
-      {/*  <div className="flex items-center gap-4 mb-[30px]">*/}
-      {/*    <Image*/}
-      {/*      src={"/assets/icons/back.svg"}*/}
-      {/*      className={"size1000:hidden block cursor-pointer"}*/}
-      {/*      onClick={backClickHandler}*/}
-      {/*      alt="back icon"*/}
-      {/*      width={34}*/}
-      {/*      height={34}*/}
-      {/*    />*/}
-      {/*    {*/}
-      {/*      {*/}
-      {/*        "my-vehicle/my-car": (*/}
-      {/*          <TitleDescription>شناسنامه و سوابق خودرو</TitleDescription>*/}
-      {/*        ),*/}
-      {/*        "my-vehicle/my-motorcycle": (*/}
-      {/*          <TitleDescription>شناسنامه و سوابق موتور</TitleDescription>*/}
-      {/*        ),*/}
-      {/*        destination: <TitleDescription>تاریخچه سفارشات</TitleDescription>,*/}
-      {/*        "personal-file": (*/}
-      {/*          <TitleDescription>آدرس های تحویل کالا</TitleDescription>*/}
-      {/*        ),*/}
-      {/*        "loyalty-card": (*/}
-      {/*          <TitleDescription>بن ها و امتیازات تخفیف</TitleDescription>*/}
-      {/*        ),*/}
-      {/*      }[*/}
-      {/*        params["all-panel-tab"] &&*/}
-      {/*          params["all-panel-tab"].join("/")*/}
-      {/*      ]*/}
-      {/*    }*/}
-      {/*  </div>*/}
-      {/*  <div className="flex gap-4 size1000:flex-row flex-col items-start">*/}
-      {/*    <div className="shadow-[0_0_6px_0_rgba(177,177,177,1)] w-[300px] flex-col justify-center gap-4 items-center pt-2 size1000:flex hidden rounded-[10px]">*/}
-      {/*      <UserSpecifications*/}
-      {/*        style={"flex-col justify-center items-center gap-2"}*/}
-      {/*      />*/}
-      {/*      <UserTabsCard*/}
-      {/*        data={panelTabData}*/}
-      {/*        setLogoutModalState={setLogoutModalState}*/}
-      {/*      />*/}
-      {/*    </div>*/}
-      {/*    {*/}
-      {/*      {*/}
-      {/*        "my-vehicle/my-car": <CreateMyCar />,*/}
-      {/*        "my-vehicle/my-car/create": <CarDevice pageType={"create"} />,*/}
-      {/*        "my-vehicle/my-car/edit": <CarDevice pageType={"edit"} />,*/}
-      {/*        "my-vehicle/my-motorcycle": <MotorDevice />,*/}
-      {/*        destination: <div>destination</div>,*/}
-      {/*        "personal-file": <PersonalFile />,*/}
-      {/*        "user-profile": <div>user-profile</div>,*/}
-      {/*        "loyalty-card": <div>loyalty-card</div>,*/}
-      {/*      }[*/}
-      {/*        params["all-panel-tab"] &&*/}
-      {/*          params["all-panel-tab"].join("/")*/}
-      {/*      ]*/}
-      {/*    }*/}
-      {/*  </div>*/}
-      {/*  {RecordModalState && <RecordModal />}*/}
-      {/*  {RecordModalCreateState && <RecordModalCreate />}*/}
-      {/*</div>*/}
-      {/*{logoutModalState && (*/}
-      {/*  <LogoutModal setLogoutModalState={setLogoutModalState} />*/}
-      {/*)}*/}
+      <div className="mt-[50px] mb-[100px] mx-[50px]">
+        <div className="flex items-center gap-4 mb-[30px]">
+          <Image
+            src={"/assets/icons/back.svg"}
+            className={"size1000:hidden block cursor-pointer"}
+            onClick={backClickHandler}
+            alt="back icon"
+            width={34}
+            height={34}
+          />
+          {
+            {
+              "my-vehicle/my-car": (
+                <TitleDescription>شناسنامه و سوابق خودرو</TitleDescription>
+              ),
+              "my-vehicle/my-motorcycle": (
+                <TitleDescription>شناسنامه و سوابق موتور</TitleDescription>
+              ),
+              destination: <TitleDescription>تاریخچه سفارشات</TitleDescription>,
+              "personal-file": (
+                <TitleDescription>آدرس های تحویل کالا</TitleDescription>
+              ),
+              "loyalty-card": (
+                <TitleDescription>بن ها و امتیازات تخفیف</TitleDescription>
+              ),
+            }[
+              params["all-panel-tab"] &&
+                params["all-panel-tab"].join("/")
+            ]
+          }
+        </div>
+        <div className="flex gap-4 size1000:flex-row flex-col items-start">
+          <div className="shadow-[0_0_6px_0_rgba(177,177,177,1)] w-[300px] flex-col justify-center gap-4 items-center pt-2 size1000:flex hidden rounded-[10px]">
+            <UserSpecifications
+              style={"flex-col justify-center items-center gap-2"}
+            />
+            <UserTabsCard
+              data={panelTabData}
+              setLogoutModalState={setLogoutModalState}
+            />
+          </div>
+          {
+            {
+              "my-vehicle/my-car": <CreateMyCar />,
+              "my-vehicle/my-car/create": <CarDevice pageType={"create"} />,
+              "my-vehicle/my-car/edit": <CarDevice pageType={"edit"} />,
+              "my-vehicle/my-motorcycle": <MotorDevice />,
+              destination: <div>destination</div>,
+              "personal-file": <PersonalFile />,
+              "user-profile": <div>user-profile</div>,
+              "loyalty-card": <div>loyalty-card</div>,
+            }[
+              params["all-panel-tab"] &&
+                params["all-panel-tab"].join("/")
+            ]
+          }
+        </div>
+        {RecordModalState && <RecordModal />}
+        {RecordModalCreateState && <RecordModalCreate />}
+      </div>
+      {logoutModalState && (
+        <LogoutModal setLogoutModalState={setLogoutModalState} />
+      )}
     </Fragment>
   );
 };
