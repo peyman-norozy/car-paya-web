@@ -135,133 +135,134 @@ const SupplierRepresentatives = () => {
   console.log(newCities);
 
   return (
-    <form
-      className="my-[100px] font-light text-14 size617:px-[140px] px-[15px]"
-      onSubmit={agentMovingFormSubmitHandler}
-    >
-      <TitleDescription>
-        درخواست پیوستن به زنجیره تامین کنندگان
-      </TitleDescription>
-      <div className="grid size800:grid-cols-2 grid-cols-1 gap-[40px] mt-8">
-        <div className="flex flex-col gap-4">
-          <Label text={"شماره موبایل"} />
-          <Input
-            type={"text"}
-            id={"mobileNumber"}
-            name={"mobileNumber"}
-            className={
-              "border border-[#d1d1d1] rounded-5 h-[40px] pr-2 outline-0"
-            }
-          />
-        </div>
-        <div className="flex flex-col gap-4">
-          <Label text={"کد ملی"} />
-          <Input
-            type={"text"}
-            id={"nationalCode"}
-            name={"nationalCode"}
-            className={
-              "border border-[#d1d1d1] rounded-5 h-[40px] pr-2 outline-0"
-            }
-          />
-        </div>
-        <div className="flex flex-col gap-4">
-          <Label text={"نام"} />
-          <Input
-            type={"text"}
-            id={"firstName"}
-            name={"firstName"}
-            className={
-              "border border-[#d1d1d1] rounded-5 h-[40px] pr-2 outline-0"
-            }
-          />
-        </div>
-        <div className="flex flex-col gap-4">
-          <Label text={"نام خانوادگی"} />
-          <Input
-            type={"text"}
-            id={"lastName"}
-            name={"lastName"}
-            className={
-              "border border-[#d1d1d1] rounded-5 h-[40px] pr-2 outline-0"
-            }
-          />
-        </div>
-        <div className="flex flex-col gap-4">
-          <Label text={"استان"} />
-          <SelectSearchInput
-            data={newProvinces}
-            placeholder={"انتخاب کنید"}
-            onclick={selectSearchOptionHandler}
-            id={"provincesOption"}
-            newReset={newReset}
-            className={"h-[40px]"}
-          />
-        </div>
-        <div className="flex flex-col gap-4">
-          <Label text={"شهر"} />
-          <SelectSearchInput
-            data={newCities}
-            placeholder={"انتخاب کنید"}
-            onclick={selectSearchOptionHandler}
-            id={"citiesOption"}
-            newReset={newReset}
-            className={"h-[40px]"}
-          />
-        </div>
-        {newAreas.length > 0 && (
-          <div className="flex flex-col gap-4">
-            <Label text={"محله محل فعالیت"} />
-            <SelectSearchInput
-              data={newAreas}
-              placeholder={"انتخاب کنید"}
-              onclick={selectSearchOptionHandler}
-              id={"areaOption"}
-              newReset={newReset}
-              className={"h-[40px]"}
-            />
-          </div>
-        )}
-        <div className="flex flex-col gap-4">
-          <Label text={"نام شرکت"} />
-          <Input
-            type={"text"}
-            id={"companyName"}
-            name={"companyName"}
-            className={
-              "border border-[#d1d1d1] rounded-5 h-[40px] pr-2 outline-0"
-            }
-          />
-        </div>
-        <div className="flex flex-col gap-4">
-          <Label text={"حوزه فعالیت"} />
-          <SelectInput
-            data={activityData}
-            onclick={selectOptionHandler}
-            id={"activityOption"}
-            newReset={newReset}
-            className={"h-[40px]"}
-          />
-        </div>
-      </div>
-      <div className="flex flex-col gap-4 mt-8 size1050:px-[150px] px-0">
-        <Label text={"شرح درخواست"} />
-        <textarea
-          rows={10}
-          id="description"
-          name="description"
-          className="border border-[#d1d1d1] rounded-5 pr-2 pt-2 outline-0"
-        ></textarea>
-      </div>
-      <div className="text-center mt-[40px]">
-        <Button
-          type={"submit"}
-          text={"ارسال درخواست همکاری"}
-          class_name={"bg-[#453983] text-white rounded-5 w-[230px] py-[10px]"}
-        />
-      </div>
-      <ToastContainer rtl={true} />
-    </form>
+      <div>sdf</div>
+    // <form
+    //   className="my-[100px] font-light text-14 size617:px-[140px] px-[15px]"
+    //   onSubmit={agentMovingFormSubmitHandler}
+    // >
+    //   <TitleDescription>
+    //     درخواست پیوستن به زنجیره تامین کنندگان
+    //   </TitleDescription>
+    //   <div className="grid size800:grid-cols-2 grid-cols-1 gap-[40px] mt-8">
+    //     <div className="flex flex-col gap-4">
+    //       <Label text={"شماره موبایل"} />
+    //       <Input
+    //         type={"text"}
+    //         id={"mobileNumber"}
+    //         name={"mobileNumber"}
+    //         className={
+    //           "border border-[#d1d1d1] rounded-5 h-[40px] pr-2 outline-0"
+    //         }
+    //       />
+    //     </div>
+    //     <div className="flex flex-col gap-4">
+    //       <Label text={"کد ملی"} />
+    //       <Input
+    //         type={"text"}
+    //         id={"nationalCode"}
+    //         name={"nationalCode"}
+    //         className={
+    //           "border border-[#d1d1d1] rounded-5 h-[40px] pr-2 outline-0"
+    //         }
+    //       />
+    //     </div>
+    //     <div className="flex flex-col gap-4">
+    //       <Label text={"نام"} />
+    //       <Input
+    //         type={"text"}
+    //         id={"firstName"}
+    //         name={"firstName"}
+    //         className={
+    //           "border border-[#d1d1d1] rounded-5 h-[40px] pr-2 outline-0"
+    //         }
+    //       />
+    //     </div>
+    //     <div className="flex flex-col gap-4">
+    //       <Label text={"نام خانوادگی"} />
+    //       <Input
+    //         type={"text"}
+    //         id={"lastName"}
+    //         name={"lastName"}
+    //         className={
+    //           "border border-[#d1d1d1] rounded-5 h-[40px] pr-2 outline-0"
+    //         }
+    //       />
+    //     </div>
+    //     <div className="flex flex-col gap-4">
+    //       <Label text={"استان"} />
+    //       <SelectSearchInput
+    //         data={newProvinces}
+    //         placeholder={"انتخاب کنید"}
+    //         onclick={selectSearchOptionHandler}
+    //         id={"provincesOption"}
+    //         newReset={newReset}
+    //         className={"h-[40px]"}
+    //       />
+    //     </div>
+    //     <div className="flex flex-col gap-4">
+    //       <Label text={"شهر"} />
+    //       <SelectSearchInput
+    //         data={newCities}
+    //         placeholder={"انتخاب کنید"}
+    //         onclick={selectSearchOptionHandler}
+    //         id={"citiesOption"}
+    //         newReset={newReset}
+    //         className={"h-[40px]"}
+    //       />
+    //     </div>
+    //     {newAreas.length > 0 && (
+    //       <div className="flex flex-col gap-4">
+    //         <Label text={"محله محل فعالیت"} />
+    //         <SelectSearchInput
+    //           data={newAreas}
+    //           placeholder={"انتخاب کنید"}
+    //           onclick={selectSearchOptionHandler}
+    //           id={"areaOption"}
+    //           newReset={newReset}
+    //           className={"h-[40px]"}
+    //         />
+    //       </div>
+    //     )}
+    //     <div className="flex flex-col gap-4">
+    //       <Label text={"نام شرکت"} />
+    //       <Input
+    //         type={"text"}
+    //         id={"companyName"}
+    //         name={"companyName"}
+    //         className={
+    //           "border border-[#d1d1d1] rounded-5 h-[40px] pr-2 outline-0"
+    //         }
+    //       />
+    //     </div>
+    //     <div className="flex flex-col gap-4">
+    //       <Label text={"حوزه فعالیت"} />
+    //       <SelectInput
+    //         data={activityData}
+    //         onclick={selectOptionHandler}
+    //         id={"activityOption"}
+    //         newReset={newReset}
+    //         className={"h-[40px]"}
+    //       />
+    //     </div>
+    //   </div>
+    //   <div className="flex flex-col gap-4 mt-8 size1050:px-[150px] px-0">
+    //     <Label text={"شرح درخواست"} />
+    //     <textarea
+    //       rows={10}
+    //       id="description"
+    //       name="description"
+    //       className="border border-[#d1d1d1] rounded-5 pr-2 pt-2 outline-0"
+    //     ></textarea>
+    //   </div>
+    //   <div className="text-center mt-[40px]">
+    //     <Button
+    //       type={"submit"}
+    //       text={"ارسال درخواست همکاری"}
+    //       class_name={"bg-[#453983] text-white rounded-5 w-[230px] py-[10px]"}
+    //     />
+    //   </div>
+    //   <ToastContainer rtl={true} />
+    // </form>
   );
 };
 
