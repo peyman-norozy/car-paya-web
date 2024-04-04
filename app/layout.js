@@ -4,19 +4,19 @@ import Providers from "@/store/provider";
 import MainLayout from "@/layouts/MainLayout";
 import NextTopLoader from 'nextjs-toploader';
 
-export const metadata = {
-
-    title: 'کارچک',
-    description: 'کارشناسی خودرو در مراکز کارچک یا در محل شما',
-    metadataBase: new URL('https://ccme.ir'),
-    icons: [
-      {
-        src: '/favicon.ico',
-        sizes: '64x64',
-        type: 'image/x-icon',
-      },
-    ],
-};
+// export const metadata = {
+//
+//     title: 'کارچک',
+//     description: 'کارشناسی خودرو در مراکز کارچک یا در محل شما',
+//     metadataBase: new URL('https://ccme.ir'),
+//     icons: [
+//       {
+//         src: '/favicon.ico',
+//         sizes: '64x64',
+//         type: 'image/x-icon',
+//       },
+//     ],
+// };
 
 export default function RootLayout({ children }) {
   return (
