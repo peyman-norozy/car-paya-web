@@ -5,7 +5,7 @@ import MainLayout from "@/layouts/MainLayout";
 import NextTopLoader from 'nextjs-toploader';
 
 // export const metadata = {
-
+//
 //     title: 'کارچک',
 //     description: 'کارشناسی خودرو در مراکز کارچک یا در محل شما',
 //     metadataBase: new URL('https://ccme.ir'),

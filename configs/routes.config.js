@@ -40,6 +40,8 @@ export const API_PATHS = {
     ADDCAR: "/add-car",
     GETCODECAR: "/get-code-car",
     ADDCARLOGIN: "/add-car-login",
+    MAGSINDEX:"/mags/index",
+    ADDCARLOGIN: "/add-car-login",
     MAGS: '/mags',
     MAGCATEGORY : '/mag-categories'
 };

@@ -26,7 +26,7 @@ const DesktopHeader = (props) => {
 
     return (
         <header
-            className={`${props.className} h-[74px] flex justify-between items-center fixed top-0 right-0 left-0 w-[100wh] bg-white z-[1599] drop-shadow-2xl`}
+            className={`${props.className} h-[74px] flex justify-between items-center fixed top-0 right-0 left-0 w-[100wh] bg-white z-[1599] drop-shadow-[0_3px_10px_rgba(0,0,0,.1)]`}
         >
             <div
                 className={`h-full font-light flex justify-between items-center px-[30px] w-full max-w-[1600px] m-auto bg-white z-[10000]`}>

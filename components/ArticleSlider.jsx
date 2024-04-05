@@ -4,66 +4,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { A11y, Navigation, Pagination, Scrollbar } from "swiper/modules";
 import ArticleSliderCard from "@/components/cards/ArticleSliderCard";
 
-const carProductsData = [
-  {
-    discount: "تخفیف ۲۰٪",
-    imgSrc: "/assets/images/hiclipart.com (2).png",
-    alt: "oil",
-    title: "روغن موتور بوش مدل لاکچری SN حجم ۴ لیتر",
-    newPrice: "",
-    oldPrice: "",
-  },
-  {
-    discount: "تخفیف ۲۰٪",
-    imgSrc: "/assets/images/hiclipart.com (3).png",
-    alt: "oil",
-    title: "روغن موتور بوش مدل لاکچری SN حجم ۴ لیتر",
-    newPrice: "",
-    oldPrice: "",
-  },
-  {
-    discount: "تخفیف ۲۰٪",
-    imgSrc: "/assets/images/hiclipart.com.png",
-    alt: "oil",
-    title: "فیلتر هوا جک 3s 65746",
-    newPrice: "",
-    oldPrice: "",
-  },
-  {
-    discount: "تخفیف ۲۰٪",
-    imgSrc: "/assets/images/hiclipart.com (1).png",
-    alt: "oil",
-    title: "فیلتر هوا جک 3s 65746",
-    newPrice: "",
-    oldPrice: "",
-  },
-  {
-    discount: "تخفیف ۲۰٪",
-    imgSrc: "/assets/images/hiclipart.com (1).png",
-    alt: "oil",
-    title: "فیلتر هوا جک 3s 65746",
-    newPrice: "",
-    oldPrice: "",
-  },
-  {
-    discount: "تخفیف ۲۰٪",
-    imgSrc: "/assets/images/hiclipart.com (1).png",
-    alt: "oil",
-    title: "فیلتر هوا جک 3s 65746",
-    newPrice: "",
-    oldPrice: "",
-  },
-  {
-    discount: "تخفیف ۲۰٪",
-    imgSrc: "/assets/images/hiclipart.com (1).png",
-    alt: "oil",
-    title: "فیلتر هوا جک 3s 65746",
-    newPrice: "",
-    oldPrice: "",
-  },
-];
-
-const ArticleSlider = () => {
+const ArticleSlider = (props) => {
   return (
     <div className="discount_slider relative mt-[80px]">
       <h1 className="text-center text-[#2C5D83] text-24 my-8">مقالات</h1>
@@ -85,9 +26,9 @@ const ArticleSlider = () => {
           },
         }}
       >
-        {carProductsData.map((item, index) => (
-          <SwiperSlide key={item.imgSrc + index}>
-            <ArticleSliderCard />
+        {props.data.data.map((item, index) => (
+          <SwiperSlide key={item.slug}>
+            <ArticleSliderCard item={item}/>
           </SwiperSlide>
         ))}
       </Swiper>

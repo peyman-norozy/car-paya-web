@@ -25,7 +25,7 @@ const ResponsiveHeader = (props) => {
     <header
       className={`${
         props.className
-      } font-light flex justify-between items-center px-[30px] py-[15px] sticky top-0 right-0 left-0 w-[100wh] bg-white z-[1599] drop-shadow-2xl h-[74px] ${
+      } font-light flex justify-between items-center px-[30px] py-[15px] sticky top-0 right-0 left-0 w-[100wh] bg-white z-[1599] drop-shadow-[0_3px_10px_rgba(0,0,0,.1)] h-[74px] ${
         pathName === "profile" && params["all-panel-tab"] ? "hidden" : ""
       }`}
       onClick={(event) => {

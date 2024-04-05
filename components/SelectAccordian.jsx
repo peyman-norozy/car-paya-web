@@ -18,8 +18,7 @@ const SelectAccordian = (props) => {
           >
             
                   <div className="flex items-center gap-[0.75rem]">
-            <Image src={Tick} alt="" height={10} width={10} /
-                >
+            <Image src={Tick} alt="" height={10} width={10} />
                   <p className="text-[12px] size525:text-[14px]">{itm.title}</p>
                   </div>
             <Image
