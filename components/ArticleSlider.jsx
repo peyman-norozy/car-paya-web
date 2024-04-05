@@ -26,9 +26,9 @@ const ArticleSlider = (props) => {
           },
         }}
       >
-        {props.data.map((item, index) => (
-          <SwiperSlide key={item.imgSrc + index}>
-            <ArticleSliderCard />
+        {props.data.data.map((item, index) => (
+          <SwiperSlide key={item.slug}>
+            <ArticleSliderCard item={item}/>
           </SwiperSlide>
         ))}
       </Swiper>

@@ -39,5 +39,6 @@ export const API_PATHS = {
     SLIDERS: "/sliders",
     ADDCAR: "/add-car",
     GETCODECAR: "/get-code-car",
-    ADDCARLOGIN: "/add-car-login"
+    ADDCARLOGIN: "/add-car-login",
+    MAGSINDEX:"/mags/index"
 };
