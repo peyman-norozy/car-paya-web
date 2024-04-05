@@ -4,6 +4,8 @@ import SpecialOffersSlider from "@/components/SpecialOffersSlider";
 import HowWorks from "@/components/HowWorks";
 import ArticleSlider from "@/components/ArticleSlider";
 import MainBannerCard from "@/components/cards/MainBannerCard";
+import {getData} from "@/utils/api-function-utils";
+import {API_PATHS} from "@/configs/routes.config";
 
 
 const SpecialOffersSliderData = async () => {
@@ -105,65 +107,8 @@ const HowWorksData = async () => {
 };
 
 const ArticleSliderData = async () => {
-    const ArticleSliderMockUpData= [
-        {
-            discount: "تخفیف ۲۰٪",
-            imgSrc: "/assets/images/hiclipart.com (2).png",
-            alt: "oil",
-            title: "روغن موتور بوش مدل لاکچری SN حجم ۴ لیتر",
-            newPrice: "",
-            oldPrice: "",
-        },
-        {
-            discount: "تخفیف ۲۰٪",
-            imgSrc: "/assets/images/hiclipart.com (3).png",
-            alt: "oil",
-            title: "روغن موتور بوش مدل لاکچری SN حجم ۴ لیتر",
-            newPrice: "",
-            oldPrice: "",
-        },
-        {
-            discount: "تخفیف ۲۰٪",
-            imgSrc: "/assets/images/hiclipart.com.png",
-            alt: "oil",
-            title: "فیلتر هوا جک 3s 65746",
-            newPrice: "",
-            oldPrice: "",
-        },
-        {
-            discount: "تخفیف ۲۰٪",
-            imgSrc: "/assets/images/hiclipart.com (1).png",
-            alt: "oil",
-            title: "فیلتر هوا جک 3s 65746",
-            newPrice: "",
-            oldPrice: "",
-        },
-        {
-            discount: "تخفیف ۲۰٪",
-            imgSrc: "/assets/images/hiclipart.com (1).png",
-            alt: "oil",
-            title: "فیلتر هوا جک 3s 65746",
-            newPrice: "",
-            oldPrice: "",
-        },
-        {
-            discount: "تخفیف ۲۰٪",
-            imgSrc: "/assets/images/hiclipart.com (1).png",
-            alt: "oil",
-            title: "فیلتر هوا جک 3s 65746",
-            newPrice: "",
-            oldPrice: "",
-        },
-        {
-            discount: "تخفیف ۲۰٪",
-            imgSrc: "/assets/images/hiclipart.com (1).png",
-            alt: "oil",
-            title: "فیلتر هوا جک 3s 65746",
-            newPrice: "",
-            oldPrice: "",
-        },
-    ];
-    return <ArticleSlider data={ArticleSliderMockUpData} />;
+    const ArticleSliderFetchData = await getData(`/web${API_PATHS.MAGSINDEX}`)
+    return <ArticleSlider data={ArticleSliderFetchData} />;
 };
 
 export default function Home() {

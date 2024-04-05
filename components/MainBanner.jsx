@@ -1,5 +1,4 @@
 "use client"
-import MainBannerCard from "@/components/cards/MainBannerCard";
 import MainBannerSlider from "@/components/MainBannerSlider";
 import VehicleRegistration from "@/components/VehicleRegistration";
 import {useSelector} from "react-redux";
@@ -18,7 +17,7 @@ export default function MainBanner(props) {
             </div>
             {innerWidth < 1000 && <ResponsiveVehicleRegistration/>}
             <div
-                className="bg-[#ffffff] w-full h-fit px-[20px] grid size1275:grid-cols-6 size666:grid-cols-3 size460:grid-cols-2 grid-cols-1 gap-4 mt-10">
+                className="bg-[#ffffff] w-full h-fit px-[20px] grid size1275:grid-cols-6 grid-cols-3 gap-4 mt-10">
                 {props.children}
             </div>
         </div>
