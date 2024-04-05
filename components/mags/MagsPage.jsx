@@ -9,18 +9,20 @@ import MagsSlider from './MagsSlider';
 const MagsPage = () => {
 
     useEffect(() => {
-axios.get(process.env.BASE_API + '/web' + API_PATHS.MAGS).then(res => {
+axios.get(process.env.BASE_API + '/web' + API_PATHS.MAGCATEGORY).then(res => {
     console.log(res)
 }).catch(err => console.log(err))
     },[])
     return (
-        <div>
+        <div className='w-[90%] m-auto'>
+            <div className='pt-[1rem] mb-[1.5rem] flex justify-between'>
+                <h1 className='text-[32px] font-bold text-[#E73C33]'>   مجله <span className='text-[#212B5E]'>کار چک می</span></h1>
+                <div>search</div>
+            </div>
            <MagsCategorySection /> 
-           <h1 className='font-bold text-[22px] text-center mb-[1.5rem] mt-[1.85rem]'>جدیدترین مقالات</h1>
-           <article className='w-[85%] m-auto'>
            <RecentMags />
-           <MagsSlider title='پربازدیدترین مقالات'/>
-           </article>
+           <MagsSlider title='خبر روز'/>
+           <MagsSlider title='پربازدیدترین مجله ها'/>
         </div>
     );
 };

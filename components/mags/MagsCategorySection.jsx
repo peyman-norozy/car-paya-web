@@ -11,9 +11,8 @@ const MagsCategorySection = () => {
         {title : 'کارشناسی خودرو'},
     ]
     return (
-        <div className='bg-[#e73c33] flex items-center justify-center  '>
-            <span className='text-white font-bold text-18 ml-[0.5rem]'>دسته بندی‌ها</span>
-            {magcategory.map((item,index) => <div key={index} className='text-white text-14 cursor-pointer py-[0.75rem] px-[0.75rem] hover:bg-[#e5574f]' >{item.title}</div>)}
+        <div className='flex items-center gap-[1rem] '>
+            {magcategory.map((item,index) => <div key={index} className='text-[#212B5E] bg-[#ECEEF8] text-14 cursor-pointer py-[0.5rem] px-[1rem] rounded-5' >{item.title}</div>)}
         </div>
     );
 };

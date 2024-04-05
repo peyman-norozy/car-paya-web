@@ -144,6 +144,40 @@ li {
 
 }
 
+/********************** mag_slider ************************/
+
+.mag_slider .swiper-initialized {
+    padding: 10px 10px 30px 10px;
+}
+
+.mag_slider .swiper-pagination {
+    position: relative !important;
+    top: 35px !important;
+}
+
+.mag_slider .swiper-pagination-bullet {
+    position: relative;
+    width: 25px;
+    height: 25px;
+}
+
+.mag_slider .swiper-pagination-bullet {
+    background-color: #CFCFCF;
+    opacity: 1 !important;
+    width: 14px;
+    height: 14px;
+    border-radius: 50px !important;
+    transition: all .3s ease-in;
+}
+
+.mag_slider .swiper-pagination-bullet.swiper-pagination-bullet-active {
+    background-color: #3AAB38;
+    border-radius: 20px !important;
+    width: 40px;
+    transition: all .3s ease-in;
+}
+
+
 /********************** pagination ************************/
 
 .page-link {
