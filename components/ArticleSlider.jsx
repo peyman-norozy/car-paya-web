@@ -11,23 +11,12 @@ const ArticleSlider = (props) => {
       <Swiper
         modules={[Navigation, Pagination, Scrollbar, A11y]}
         spaceBetween={18}
-        slidesPerView={1}
+        slidesPerView={"auto"}
         effect="fade"
         pagination={{ clickable: true }}
-        breakpoints={{
-          1000: {
-            slidesPerView: 4,
-          },
-          748: {
-            slidesPerView: 3,
-          },
-          500: {
-            slidesPerView: 2,
-          },
-        }}
       >
         {props.data.data.map((item, index) => (
-          <SwiperSlide key={item.slug}>
+          <SwiperSlide key={item.slug} style={{width:"auto",height:"auto"}}>
             <ArticleSliderCard item={item}/>
           </SwiperSlide>
         ))}
