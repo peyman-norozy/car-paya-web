@@ -6,7 +6,6 @@ import ResponsiveVehicleRegistration from "@/components/cards/ResponsiveVehicleR
 
 export default function MainBanner(props) {
     const innerWidth = useSelector((width) => width.todo.windowInnerWidth);
-    console.log(innerWidth);
     return (
         <div>
             <div className="size-1000:pb-[40px] pb-6 ">
