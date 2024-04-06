@@ -17,20 +17,21 @@ import PeriodicServiceCard from "./cards/PeriodicServiceCard";
 
 const VerificationFirstStep = (props) => {
   const { on_click, verificationData, setStep, step } = props;
-  const [isClicked, setIsClicked] = useState(0);
+  const [isClicked, setIsClicked] = useState(5);
   const [isSelected, setIsSelected] = useState(0);
   const verificationTab = [
-    {
-      title: "کارشناسی خودرو",
-      src: verification,
-      href: "/vehicle-verification",
-    },
+
     { title: "فیلتر و روغن", src: cluch, href: "/products" },
 
     { title: "فروشگاه باتری", src: battery, href: "/batteries" },
     { title: "سرویس دوره ای", src: service, href: "/periodic-service" },
     { title: "شناسنامه و سوابق خودرو", src: car_bg, href: "/" },
     { title: "بیمه", src: insurance, href: "/" },
+    {
+      title: "کارشناسی خودرو",
+      src: verification,
+      href: "/vehicle-verification",
+    }
   ];
   const cityName = [
     { name: "تهران" },

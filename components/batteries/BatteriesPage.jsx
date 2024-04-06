@@ -21,7 +21,7 @@ import { API_PATHS } from "@/configs/routes.config";
 import Spinner from "../Spinner";
 
 const BatteriesPage = () => {
-  const [isClicked, setIsClicked] = useState(0);
+  const [isClicked, setIsClicked] = useState(1);
   const [filterISOpen, setFilterIsOpen] = useState(false);
   const [batteryIsSelected, setBatteryIsSelected] = useState(false);
   const [isLoading, setIsLoading] = useState(false)
@@ -29,16 +29,16 @@ const BatteriesPage = () => {
   const[filter,setFilter] = useState('فیلتر بر اساس')
   const filterRef = useRef(null);
   const verificationTab = [
+    { title: "فیلتر و روغن", src: cluch, href: "/products" },
     { title: "فروشگاه باتری", src: battery, href: "/batteries" },
+    { title: "سرویس دوره ای", src: service, href: "/periodic-service" },
+    { title: "شناسنامه و سوابق خودرو", src: car_bg, href: "/" },
+    { title: "بیمه", src: insurance, href: "/" },
     {
       title: "کارشناسی خودرو",
       src: verification,
       href: "/vehicle-verification",
     },
-    { title: "فیلتر و روغن", src: cluch, href: "/products" },
-    { title: "سرویس دوره ای", src: service, href: "/periodic-service" },
-    { title: "شناسنامه و سوابق خودرو", src: car_bg, href: "/" },
-    { title: "بیمه", src: insurance, href: "/" },
   ];
   const tabTitle = [
     { name: "خودرو" },

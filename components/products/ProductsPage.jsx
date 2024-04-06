@@ -21,12 +21,12 @@ const ProductsPage = () => {
   const tabTitle = [{ name: "خودرو" }, { name: "موتور سیکلت" }];
   const verificationTab = [
     { title: "فیلتر و روغن", src: cluch , href : '/‌products' },
-    { title: "کارشناسی خودرو", src: verification , href : '/vehicle-verification' },
 
     { title: 'فروشگاه باتری', src: battery , href : '/batteries' },
     { title: 'سرویس دوره ای', src: service , href : '/periodic-service' },
     { title: "شناسنامه و سوابق خودرو", src: car_bg , href : '/' },
     { title: "بیمه", src: insurance , href: '/' },
+    { title: "کارشناسی خودرو", src: verification , href : '/vehicle-verification' },
   ];
 
   const productData = [
