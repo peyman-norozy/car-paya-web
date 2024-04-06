@@ -21,29 +21,30 @@ const workData = [
 
 const periodicServiceData = [
   {
-    title: "فیلتر و روغن (لوازم یدکی)",
+    title: "کارشناسی خودرو",
     icon: "/assets/images/cluch-bumpers.png",
   },
   {
-    title: "فیلتر و روغن (لوازم یدکی)",
+    title: "بیمه",
     icon: "/assets/images/cluch-bumpers.png",
   },
   {
-    title: "فیلتر و روغن (لوازم یدکی)",
-    icon: "/assets/images/cluch-bumpers.png",
-  },
-  {
-    title: "فیلتر و روغن (لوازم یدکی)",
-    icon: "/assets/images/cluch-bumpers.png",
-  },
-  {
-    title: "فیلتر و روغن (لوازم یدکی)",
+    title: "شناسنامه و سوابق خودرو",
     icon: "/assets/images/cluch-bumpers.png",
   },
   {
     title: "سرویس دوره ای",
     icon: "/assets/images/1.png",
   },
+  {
+    title: "فروشگاه باتری",
+    icon: "/assets/images/cluch-bumpers.png",
+  },
+  {
+    title: "فیلتر و روغن (لوازم یدکی)",
+    icon: "/assets/images/cluch-bumpers.png",
+  },
+
 ];
 
 const periodicServiceUnderCardData = [
