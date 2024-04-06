@@ -1,17 +1,23 @@
 'use client'
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import MagsCategorySection from './MagsCategorySection';
 import axios from 'axios';
 import { API_PATHS } from '@/configs/routes.config';
 import RecentMags from './RecentMags';
 import MagsSlider from './MagsSlider';
+import SuggestedMags from './SuggestedMags';
 
-const MagsPage = () => {
-
+const MagsPage = (props) => {
+    const {data , category ,recent,views} = props
+    const [suggestedMagsData,setSuggestedMagData] = useState([])
+    console.log(data);
+    console.log(category);
+    console.log(recent)
+    console.log(views);
     useEffect(() => {
-axios.get(process.env.BASE_API + '/web' + API_PATHS.MAGCATEGORY).then(res => {
-    console.log(res)
-}).catch(err => console.log(err))
+        const suggestedMags = data.data.filter(item => item.suggested === 1)
+        setSuggestedMagData(suggestedMags)
+        axios.get(process.env.BASE_API + '/web' + API_PATHS.MAGS + '?order_by=views&order_dir=DESC').then(res => console.log(res)).catch(err => console.log(err))
     },[])
     return (
         <div className='w-[90%] m-auto'>
@@ -20,9 +26,10 @@ axios.get(process.env.BASE_API + '/web' + API_PATHS.MAGCATEGORY).then(res => {
                 <div>search</div>
             </div>
            <MagsCategorySection /> 
-           <RecentMags />
+           <RecentMags data={recent}/>
            <MagsSlider title='خبر روز'/>
            <MagsSlider title='پربازدیدترین مجله ها'/>
+           <SuggestedMags title='سایر مقالات پیشنهادی به کاربران' data={suggestedMagsData}/>
         </div>
     );
 };
