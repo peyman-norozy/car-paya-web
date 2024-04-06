@@ -4,10 +4,15 @@ import {INTERNAL_PATHS} from "@/configs/routes.config";
 import Image from "next/image";
 import {useParams, usePathname} from "next/navigation";
 import Link from "next/link";
+import { useSelector } from "react-redux";
+import MobileBottomNav from "./MobileBottomNav";
 
 const Footer = (props) => {
     const params = useParams()
     const pathName = usePathname().split("/")[1]
+    const innerWidthNumber = useSelector(
+        (number) => number.todo.windowInnerWidth,
+      );
     const footerCardData = [
         {
             imgUrl: "/assets/icons/maintenance.svg",
@@ -179,6 +184,7 @@ const Footer = (props) => {
                     </p>
                 </div>
             </div>
+            {innerWidthNumber < 1000 && <MobileBottomNav/>}
         </footer>
     );
 };
