@@ -24,7 +24,7 @@ const ProductsPage = () => {
 
     { title: 'فروشگاه باتری', src: battery , href : '/batteries' },
     { title: 'سرویس دوره ای', src: service , href : '/periodic-service' },
-    { title: "شناسنامه و سوابق خودرو", src: car_bg , href : '/' },
+    { title: "شناسنامه و سوابق خودرو", src: car_bg , href : "/profile/my-vehicle/my-car" },
     { title: "بیمه", src: insurance , href: '/' },
     { title: "کارشناسی خودرو", src: verification , href : '/vehicle-verification' },
   ];

@@ -39,7 +39,7 @@ const periodicServiceData = [
   {
     title: "شناسنامه و سوابق خودرو",
     icon: car_bg,
-    href: "/",
+    href: "/profile/my-vehicle/my-car",
   },
   {
     title: "سرویس دوره ای",
