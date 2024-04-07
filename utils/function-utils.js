@@ -1,4 +1,6 @@
 import {toast} from "react-toastify";
+import moment from "jalali-moment";
+
 
 function error(errorNotification) {
     toast.error(errorNotification, {
@@ -69,6 +71,11 @@ function timeStampToTime(timeStamp) {
     const time = `${hours}:${minutes}:${seconds}`;
     return time;
 }
+function persianDateCovertor(timeStamp) {
+    moment.locale("fa");
+  
+    return moment.unix(timeStamp).format("L");
+  }
 
 export {
     error,
@@ -77,4 +84,5 @@ export {
     numberWithCommas,
     timestampToPersianDate,
     timeStampToTime,
+    persianDateCovertor
 };
