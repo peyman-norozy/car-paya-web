@@ -12,23 +12,12 @@ const SpecialOffersSlider = (props) => {
       <Swiper
         modules={[Navigation, Pagination, Scrollbar, A11y]}
         spaceBetween={18}
-        slidesPerView={1}
+        slidesPerView={"auto"}
         effect="fade"
         pagination={{ clickable: true }}
-        breakpoints={{
-          1000: {
-            slidesPerView: 4,
-          },
-          748: {
-            slidesPerView: 3,
-          },
-          500: {
-            slidesPerView: 2,
-          },
-        }}
       >
         {props.data.map((item, index) => (
-          <SwiperSlide key={item.imgSrc + index}>
+          <SwiperSlide key={item.imgSrc + index} style={{width:"auto",height:"auto"}}>
             <SpecialOffersSliderCard
               data={item}
               backgrounColorStyles={"bg-[#453983]"}

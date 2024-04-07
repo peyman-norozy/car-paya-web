@@ -48,13 +48,13 @@ const MainBannerSlider = () => {
                 {
                     !sliderShowState ?
                         <SwiperSlide>
-                            <div className={`w-full h-[405px] flex justify-center items-center py-8 bg-stone-300`}>
+                            <div className={`w-full size525:h-[405px] h-[205px] flex justify-center items-center py-8 bg-stone-300`}>
                             </div>
                         </SwiperSlide> :
                         newSlider.map((item) => (
                             <SwiperSlide key={item.id}>
                                 <Fragment>
-                                    <Link href={"/contact-us"} className={`block w-full h-[405px]`}>
+                                    <Link href={"/contact-us"} className={`block w-full size525:h-[405px] h-[205px]`}>
                                         <Image
                                             src={
                                                 process.env.BASE_API +

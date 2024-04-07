@@ -38,7 +38,7 @@ const MainLayout = (props) => {
             </Header>
             <main className={`${YekanBakhFaNum.className} size1000:mt-[75px]`}>{props.children}</main>
             <Footer className={YekanBakhFaNum.className}/>
-            {/*{innerWidthNumber < 1000 && <MobileBottomNav/>}*/}
+            
         </Fragment>
     );
 };
