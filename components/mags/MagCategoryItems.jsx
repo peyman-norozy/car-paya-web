@@ -10,19 +10,17 @@ import axios from "axios";
 const MagCategoryItems = (props) => {
     const router = useRouter()
     const {data} = props
-    console.log(data);
+    const categoryData = data.data.mags.data
     if(data === 500) {
         router.push( '/not-found')
     }
-    useEffect(() => {
-        axios.get(process.env.BASE_API + "/web" + API_PATHS.MAGS +
-        "/" + props.slug).then(res => console.log(res)).catch(err => console.log(err))
-    } , [])
+    
     return (
-        <div className='grid grid-cols-4 gap-x-[1rem] gap-y-[1.25rem]'>
-            {/* {data.data.map((item,index) => <MagSliderCard data)} */}
-            hi
-        </div>
+        <>
+        {categoryData.length > 0 ? <div className='mt-[2.5rem] grid grid-cols-4 gap-x-[1rem] gap-y-[1.25rem]'>
+            {categoryData.map((item,index) => <MagSliderCard key={index} data={item} />)}
+        </div> : <p className='text-center mt-[3rem]'>مجله ای برای این دسته بندی یافت نشد</p>}
+        </>
     );
 };
 
