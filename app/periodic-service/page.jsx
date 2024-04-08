@@ -5,6 +5,12 @@ import PeriodicServiceCard from "@/components/cards/PeriodicServiceCard";
 import Input from "@/components/Input";
 import PeriodicServiceTabCard from "@/components/cards/PeriodicServiceTabCard";
 import PeriodicServiceUnderCard from "@/components/cards/PeriodicServiceUnderCard";
+import {useState} from "react";
+import cluch from "@/public/assets/images/cluch-bumpers.png";
+import battery from "@/public/assets/images/battery-product.svg";
+import service from "@/public/assets/images/periodic-service.png";
+import car_bg from "@/public/assets/images/car-background.png";
+import insurance from "@/public/assets/images/insurance.png";
 
 const workData = [
   {
@@ -23,26 +29,32 @@ const periodicServiceData = [
   {
     title: "کارشناسی خودرو",
     icon: "/assets/images/cluch-bumpers.png",
+    href: "/vehicle-verification",
   },
   {
     title: "بیمه",
-    icon: "/assets/images/cluch-bumpers.png",
+    icon: insurance,
+    href: "/",
   },
   {
     title: "شناسنامه و سوابق خودرو",
-    icon: "/assets/images/cluch-bumpers.png",
+    icon: car_bg,
+    href: "/profile/my-vehicle/my-car",
   },
   {
     title: "سرویس دوره ای",
-    icon: "/assets/images/1.png",
+    icon: service,
+    href: "/periodic-service"
   },
   {
     title: "فروشگاه باتری",
-    icon: "/assets/images/cluch-bumpers.png",
+    icon: battery,
+    href: "/batteries"
   },
   {
     title: "فیلتر و روغن (لوازم یدکی)",
-    icon: "/assets/images/cluch-bumpers.png",
+    icon: cluch,
+    href: "/products"
   },
 
 ];
@@ -81,8 +93,13 @@ const periodicServiceUnderCardData = [
 ];
 
 const PeriodicService = () => {
+  const [isClicked, setIsClicked] = useState(3);
+
+  const selectTabHandler = (index) => {
+    setIsClicked(index);
+  };
   return (
-    <div className="flex items-start gap-4 m-4">
+    <div className="flex items-start gap-4 m-4 mt-[88px]">
       <div className="w-[360px] p-4 flex flex-col gap-4 shadow-[0_0_6px_0_rgba(177,177,177,1)] rounded-10">
         <span>فاکتور فروش</span>
         <section className="flex items-center justify-between gap-4">
@@ -141,7 +158,17 @@ const PeriodicService = () => {
       <div className={"flex-1"}>
         <ul className={"flex items-baseline gap-4"}>
           {periodicServiceData.map((item, index) => {
-            return <PeriodicServiceTabCard key={index} item={item} />;
+            return <PeriodicServiceTabCard
+                href={item.href}
+                isClicked={isClicked}
+                onClick={() => selectTabHandler(index)}
+                index={index}
+                key={index}
+                title={item.title}
+                src={item.icon}
+                width={60}
+                height={60}
+            />;
           })}
         </ul>
         <div className={"mt-14"}>

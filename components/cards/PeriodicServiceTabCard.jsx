@@ -1,23 +1,29 @@
 import React from "react";
 import Image from "next/image";
+import Link from "next/link";
 
 const PeriodicServiceTabCard = (props) => {
-  const clickTabHandler = () => {};
-
+  const clickTabHandler = (props) => {};
+  const { src, alt, height, width, title, onClick, isClicked, index, href } =
+      props;
   return (
-    <li
-      className={`flex flex-col items-center flex-1 rounded-5 ${
-        // router.query.peridictTab === props.item.tabQuery
-        //   ? "shadow-[0_0_6px_0_rgba(0,0,0,1)]"
-        //   :
-        "shadow-[0_0_6px_0_rgba(177,177,177,1)]"
-      } py-4 px-1 cursor-pointer self-stretch`}
-      onClick={() => clickTabHandler()}
-    >
-      <div>
-        <Image src={props.item.icon} alt={"icon"} width={50} height={50} />
-      </div>
-      <span className={"text-12 text-center"}>{props.item.title}</span>
+    <li className={"flex-1"}>
+      <Link
+          href={href}
+          onClick={onClick}
+          className={`w-full flex flex-col items-center justify-center rounded-10 border    shadow-[0_5px_15px_0_rgba(0,0,0,0.15)] h-[110px] ${
+              isClicked === index ? "border-RED_500" : "border-[#dedede]"
+          }`}
+      >
+        <Image src={src} alt={alt} height={height} width={width} />
+        <p
+            className={`text-12 text-center ${
+                isClicked === index ? "text-RED_500" : "text-text_gray"
+            }`}
+        >
+          {title}
+        </p>
+      </Link>
     </li>
   );
 };
