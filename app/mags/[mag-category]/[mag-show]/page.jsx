@@ -1,3 +1,4 @@
+import MagComments from '@/components/mags/MagComments';
 import MagShowPage from '@/components/mags/MagShowPage';
 import MagsCategorySection from '@/components/mags/MagsCategorySection';
 import { API_PATHS } from '@/configs/routes.config';
@@ -29,6 +30,9 @@ const MagShow = (props) => {
       <div className='flex mt-[2rem]'>
         <div className='w-[65%]'>
         <MagShowData slug={props.params['mag-show']}/>
+        <div className='mt-[2rem]'>
+            <MagComments />
+        </div>
         </div>
       </div>
         </div>
