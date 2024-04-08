@@ -2,11 +2,12 @@ import Image from 'next/image';
 import React from 'react';
 import Button from '../Button';
 import moment from 'jalali-moment';
+import Link from 'next/link'
+
 
 const MagSliderCard = (props) => {
     const {data} = props
     console.log(data);
-   console.log( );
     return (
         <div className='bg-[#EAEAEA80] rounded-[1rem] overflow-hidden px-[10px] py-[1rem] shadow-[0_0_5px_rgba(0,0,0,0.5)]'>
             <Image src={process.env.BASE_API + '/web/file/' + data.image_id} alt='' width={373} height={225} className='w-full h-[225px] rounded-[0.5rem]'/>
@@ -18,7 +19,7 @@ const MagSliderCard = (props) => {
             <p className='text-[#6878CA] text-12'>{moment.unix(data.created_at).locale('fa').fromNow()}</p>
 
             <Button class_name=' text-14 text-[#354597]'>
-                <p>    بیشتر بدانید</p>
+                <Link href={`/mags/${data.mag_category_id}/${data.slug}`}>    بیشتر بدانید</Link>
             </Button>
             </div>
         </div>

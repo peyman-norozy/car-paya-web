@@ -11,11 +11,11 @@ const MagCategoryData = async (props) => {
 };
 
 const MagCategoryItemsData = async (props) => {
-    
+   
     const fetchCategoryData = await getData("/web" + API_PATHS.MAGS +
     "/" + props.slug);
     console.log(fetchCategoryData,'!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
-  return <MagCategoryItems data={fetchCategoryData} />;
+  return <MagCategoryItems data={fetchCategoryData} slug={props.slug}/>;
 }
 const MagCategory = (props) => {
 
