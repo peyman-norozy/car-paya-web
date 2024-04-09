@@ -3,8 +3,11 @@ import React from "react";
 import Button from "../Button";
 import Image from "next/image";
 import { persianDateCovertor } from "@/utils/function-utils";
+import Link from 'next/link'
+
 const SuggestedMagCard = (props) => {
     const {data} = props
+    console.log(data);
   return (
     <div className="p-[1rem] bg-[#F4F4F4] rounded-[1rem] flex items-center gap-[1rem]">
       <Image
@@ -20,7 +23,7 @@ const SuggestedMagCard = (props) => {
         <div className="flex items-center justify-between">
             <p className="text-[#6878CA] text-12">تاریخ انتشار : <span>{persianDateCovertor(data.created_at)}</span></p>
             <Button class_name=' text-14 text-[#354597]'>
-                <p>ادامه مطلب</p>
+                <Link href={`/mags/${data.mag_category_id}/${data.slug}`}>ادامه مطلب</Link>
             </Button>
         </div>
       </div>

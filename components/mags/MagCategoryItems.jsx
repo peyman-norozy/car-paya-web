@@ -10,10 +10,11 @@ import axios from "axios";
 const MagCategoryItems = (props) => {
     const router = useRouter()
     const {data} = props
-    const categoryData = data.data.mags.data
     if(data === 500) {
         router.push( '/not-found')
     }
+    
+    const categoryData = data.data.mags.data
     
     return (
         <>
