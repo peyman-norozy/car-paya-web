@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { useRouter } from "next/router";
+import {usePathname, useRouter} from "next/navigation";
 import { INTERNAL_PATHS } from "@/configs/routes.config";
 import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
@@ -9,11 +9,13 @@ import {setRecordModalState} from "@/store/todoSlice";
 
 const EditAndDeleteIcon = (props) => {
   const router = useRouter();
+  const pathName = usePathname()
   const ref = useRef();
   const dispatch = useDispatch();
   const editClickHandler = (event) => {
-    const route = router.asPath.split("?")[0];
-    router.push(route + INTERNAL_PATHS.EDIT + "?product=" + event.target.id);
+      console.log(pathName)
+    // const route = router.asPath.split("?")[0];
+    router.push(pathName + INTERNAL_PATHS.EDIT + "?product=" + event.target.id);
   };
 
   const clickRecordsHandler = () => {

@@ -50,8 +50,6 @@ const SelectSearchInput = (props) => {
   }, [props.newReset, props.placeholder]);
 
   useEffect(() => {
-    console.log(props.editId);
-
     if (props.pageType === "edit") {
       const editId = props.editId;
       const editTitle = props.editTitle;
@@ -61,8 +59,6 @@ const SelectSearchInput = (props) => {
       // }
     }
   }, [props.editId, props.editTitle, props.pageType]);
-
-  console.log(newOption);
 
   return (
     <div

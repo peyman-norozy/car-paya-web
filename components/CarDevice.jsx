@@ -12,13 +12,12 @@ import {error, numberWithCommas} from "@/utils/function-utils";
 import Button from "@/components/Button";
 import {getCookie} from "cookies-next";
 import {ToastContainer} from "react-toastify";
-import {useParams, useRouter} from "next/navigation";
+import {useRouter} from "next/navigation";
 import {useSearchParams} from "next/navigation";
 import {carFormData} from "@/utils/formData-utils";
 
 const CarDevice = (props) => {
     const router = useRouter();
-    const params = useParams()
     const searchParams = useSearchParams();
     const [newStartKilometerValue, setNewStartKilometerValue] = useState("");
     const [newEndKilometerValue, setNewEndKilometerValue] = useState("");
@@ -283,11 +282,11 @@ const CarDevice = (props) => {
                 editFormData.set("plaque[3]", newPlaque_3);
                 editFormData.set(
                     "kilometers_now",
-                    newStartKilometerValue.split(",").join(""),
+                    newStartKilometerValue ? newStartKilometerValue.split(",").join("") : "",
                 );
                 editFormData.set(
                     "kilometers_use",
-                    newEndKilometerValue.split(",").join(""),
+                    newEndKilometerValue ? newEndKilometerValue.split(",").join("") : "",
                 );
                 editFormData.set("title", newMyCarValue);
                 editFormData.set(
@@ -343,7 +342,7 @@ const CarDevice = (props) => {
                         "/user-panel" +
                         API_PATHS.CARS +
                         "/" +
-                        params["product"],
+                        searchParams.get("product"),
                         editFormData,
                         {
                             headers: {
@@ -474,14 +473,13 @@ const CarDevice = (props) => {
 
     useEffect(() => {
         if (props.pageType === "edit") {
-            const params = searchParams.get("product");
             axios
                 .get(
                     process.env.BASE_API +
                     API_PATHS.USERPANEL +
                     API_PATHS.CARS +
                     "/" +
-                    params +
+                    searchParams.get("product") +
                     "/edit",
                     {
                         headers: {
@@ -504,37 +502,37 @@ const CarDevice = (props) => {
             setNewEndKilometerValue(numberWithCommas(newEditData.kilometers_use));
             setNewEndKilometerState(true);
             setNewThirdPartyInsuranceStartAt(
-                newEditData.information.third_party_insurance_start_at,
+                newEditData.information ? newEditData.information.third_party_insurance_start_at : "",
             );
             setNewThirdPartyInsuranceEndAt(
-                newEditData.information.third_party_insurance_end_at,
+                newEditData.information ? newEditData.information.third_party_insurance_end_at : "",
             );
             setNewThirdPartyInsuranceCompany(
-                newEditData.information.third_party_insurance_company,
+                newEditData.information ? newEditData.information.third_party_insurance_company : "",
             );
             setNewThirdPartyInsuranceRemember(
-                newEditData.information.third_party_insurance_remember,
+                newEditData.information ? newEditData.information.third_party_insurance_remember : "",
             );
             setNewBodyInsuranceStartAt(
-                newEditData.information.body_insurance_start_at,
+                newEditData.information ? newEditData.information.body_insurance_start_at : "",
             );
-            setNewBodyInsuranceEndAt(newEditData.information.body_insurance_end_at);
+            setNewBodyInsuranceEndAt(newEditData.information ? newEditData.information.body_insurance_end_at : "");
             setNewBodyInsuranceCompany(
-                newEditData.information.body_insurance_company,
+                newEditData.information ? newEditData.information.body_insurance_company : "",
             );
             setNewBodyInsuranceRemember(
-                newEditData.information.body_insurance_remember,
+                newEditData.information ? newEditData.information.body_insurance_remember : "",
             );
             setNewTechnicalDiagnosisStartAt(
-                newEditData.information.technical_diagnosis_start_at,
+                newEditData.information ? newEditData.information.technical_diagnosis_start_at : "",
             );
             setNewTechnicalDiagnosisEndAt(
-                newEditData.information.technical_diagnosis_end_at,
+                newEditData.information ? newEditData.information.technical_diagnosis_end_at : "",
             );
             setNewTechnicalDiagnosisRemember(
-                newEditData.information.technical_diagnosis_remember,
+                newEditData.information ? newEditData.information.technical_diagnosis_remember : "",
             );
-            setNewFinePrice(newEditData.information.fine_price);
+            setNewFinePrice(newEditData.information ? newEditData.information.fine_price : "");
         }
     }, [newEditData]);
 
@@ -616,7 +614,7 @@ const CarDevice = (props) => {
                     <div>
                         <Input
                             type="text"
-                            value={newMyCarValue}
+                            value={newMyCarValue !== "null" ? newMyCarValue : ""}
                             placeholder="مثال: خودروی من"
                             className="border outline-none pr-2 text-14 h-[40px] placeholder:text-12 placeholder:text-right w-full rounded-5"
                             id={"carName"}
@@ -671,7 +669,7 @@ const CarDevice = (props) => {
                 pageType={props.pageType}
                 editStartAt={newThirdPartyInsuranceStartAt}
                 editEndAt={newThirdPartyInsuranceEndAt}
-                editCompany={newThirdPartyInsuranceCompany}
+                editCompany={newThirdPartyInsuranceCompany ? newThirdPartyInsuranceCompany : ""}
                 editRemember={newThirdPartyInsuranceRemember}
                 insuranceState={true}
                 violationState={false}

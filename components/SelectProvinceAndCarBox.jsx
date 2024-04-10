@@ -31,8 +31,6 @@ const SelectProvinceAndCarBox = ({ cityData }) => {
   ];
   const provinceData = [{ name: "انتخاب استان" }, { name: "انتخاب شهر " }];
 
-  console.log(selectedProvince);
-
   useEffect(() => {
     axios
       .get(process.env.BASE_API + "/web" + API_PATHS.GEOPROVINCES)
@@ -48,7 +46,6 @@ const SelectProvinceAndCarBox = ({ cityData }) => {
         const tehran = res.data.data.filter(item => item.title === 'تهران')
 
         setCity(tehran);
-        console.log(res.data.data);
       })
       .catch((err) => console.log(err));
   }, [selectedProvince]);

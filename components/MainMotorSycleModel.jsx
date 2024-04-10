@@ -5,8 +5,6 @@ import process from "next/dist/build/webpack/loaders/resolve-url-loader/lib/post
 import {API_PATHS} from "@/configs/routes.config";
 
 const MainMotorSycleModel = (props) => {
-    console.log(props.mainMotorModelData);
-
     const backClickHandler = () => {
         props.setMainMotorBrandModalDisplay(true);
         props.setMainMotorModelDisplay(false);
