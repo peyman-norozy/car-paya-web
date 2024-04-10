@@ -35,7 +35,6 @@ const SelectProvinceAndCarBox = ({ cityData }) => {
     axios
       .get(process.env.BASE_API + "/web" + API_PATHS.GEOPROVINCES)
       .then((res) => {
-        console.log(res.data.data);
         const tehran = res.data.data.filter(item => item.title === 'تهران')
         setProvince(tehran);
       })

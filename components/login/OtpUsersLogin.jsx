@@ -26,7 +26,6 @@ export default function OtpUsersLogin(props) {
                 .post(process.env.BASE_API + API_PATHS.LOGINOTP, fd)
                 .then((res) => {
                     if (res.status === 200) {
-                        console.log(res.data);
                         let now = new Date();
                         let time = now.getTime();
                         let expireTime = time + res.data.expires_at;

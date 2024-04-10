@@ -64,7 +64,6 @@ const VehicleRegistration = (props) => {
     };
 
     const clickTipHandler = (event, value, image) => {
-        console.log(value, image);
         const id = event.currentTarget.getAttribute("id");
         let tip = ""
         id === "car_model" ? tip = API_PATHS.TIPS : id === "motor_model" ? tip = API_PATHS.MOTORTIPS : null

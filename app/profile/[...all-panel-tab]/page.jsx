@@ -88,8 +88,6 @@ const AllPanelTab = () => {
     };
   }, [dispatch]);
 
-  console.log(params);
-
   return (
     <Fragment>
       <div className="mt-[50px] mb-[100px] mx-[50px]">

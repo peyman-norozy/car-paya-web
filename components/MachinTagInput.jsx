@@ -52,7 +52,6 @@ const MachinTagInput = (props) => {
 
     const selectJustNumberHandler = (event) => {
         forceOnlyNumberInput(event);
-        console.log(event.target.id);
         const id = event.target.id;
         if (id === "plaque_0") {
             props.setNewPlaque_0(event.target.value);

@@ -128,11 +128,9 @@ const GeneralCarInformation = (props) => {
             const filterData = newInsurance.filter(
                 (item) => item.slug === props.editCompany,
             );
-            console.log(filterData)
             setNewFilterEditData(filterData);
         }
     }, [props, newInsurance]);
-    console.log(newInsurance);
     return (
         <div className="flex flex-col gap-4 size411:flex-row items-center size617:gap-16 mt-6 bg-[#f4f4f4] py-4 px-3">
       <span className="text-red_shop inline-block w-full size411:w-[100px] size617:text-14 text-12">

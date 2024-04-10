@@ -32,7 +32,6 @@ export default function EnterPasswordLogin(props) {
         axios
             .post(process.env.BASE_API + API_PATHS.RESENDOTP, fd)
             .then((res) => {
-                console.log(res);
                 if (res.status === 200) {
                     props.setLoginState("otp_number");
                     setForgotButtonState(false)

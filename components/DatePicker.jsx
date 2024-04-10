@@ -6,7 +6,6 @@ import persian_fa from "react-date-object/locales/persian_fa";
 
 const DatePickerSelection = (props) => {
   const setDateHandler = (event) => {
-    console.log(event.unix);
     if (props.id_state === "thirdPartyInsurance") {
       props.id === "startDate"
         ? props.setNewThirdPartyInsuranceStartAt(event.unix)

@@ -6,7 +6,6 @@ export default function MapSelection(props) {
   let position;
   if (props.location) {
     position = props.location.split(",");
-    console.log("hi");
   } else {
     position = [35.699686, 51.338071];
   }

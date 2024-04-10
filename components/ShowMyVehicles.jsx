@@ -2,8 +2,6 @@ import Image from "next/image";
 import React from "react";
 
 const ShowMyVehicles = (props) => {
-  console.log(props.data);
-
   const selectItemHandler = (e) => {
     props.setSelectedItem(e.currentTarget.id)
     if(props.step === 'car-brands') {

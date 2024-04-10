@@ -25,7 +25,6 @@ const MainBannerSlider = () => {
                 // const m = res.data.data;
                 // m.push(res.data.data);
                 // m.push({});
-                console.log(res.data.data);
                 setNewSlider(res.data.data);
                 setSliderShowState(true)
             })

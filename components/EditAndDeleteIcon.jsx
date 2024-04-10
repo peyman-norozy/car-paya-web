@@ -13,7 +13,6 @@ const EditAndDeleteIcon = (props) => {
   const ref = useRef();
   const dispatch = useDispatch();
   const editClickHandler = (event) => {
-      console.log(pathName)
     // const route = router.asPath.split("?")[0];
     router.push(pathName + INTERNAL_PATHS.EDIT + "?product=" + event.target.id);
   };
