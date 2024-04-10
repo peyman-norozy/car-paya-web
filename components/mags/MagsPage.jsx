@@ -22,7 +22,7 @@ const MagsPage = (props) => {
     setNews(news)
   }, []);
   return (
-    <div className="w-[90%] m-auto">
+    <div className="w-[95%] size1000:w-[90%] m-auto">
       <div className="pt-[1rem] mb-[1.5rem] flex justify-between">
         <h1 className="text-[32px] font-bold text-[#E73C33]">
           {" "}

@@ -4,8 +4,8 @@ import Link from 'next/link'
 const RecentMags = ({data}) => {
   console.log(data);
   return (
-    <div className="grid grid-cols-2 h-[566px] gap-[12px] mt-[1.5rem]">
-      <Link href={`/mags/${data.data.slice(0,3)[0].mag_category_id}/${data.data.slice(0,3)[0].slug}`} className="row-start-1 row-end-3 place-self-stretch  rounded-10 overflow-hidden relative shadow-[0_0_5px_0_rgba(0,0,0,0.4)]">
+    <div className="grid grid-rows-4 size666:grid-rows-none size666:grid-cols-2 h-[680px] size666:h-[566px] gap-[12px] mt-[1.5rem]">
+      <Link href={`/mags/${data.data.slice(0,3)[0].mag_category_id}/${data.data.slice(0,3)[0].slug}`} className="row-span-2 size666:row-start-1 size666:row-end-3 place-self-stretch  rounded-10 overflow-hidden relative shadow-[0_0_5px_0_rgba(0,0,0,0.4)]">
         <Image  src={process.env.BASE_API + '/web/file/' + data.data.slice(0,3)[0].image_id} alt="" width={664} height={520} className="h-full w-full" />
         <div className="flex items-end justify-between  p-[1.5rem] absolute bottom-0 w-full bg-[linear-gradient(180deg,_#3F445F70,_#2B3048)]">
           <div>

@@ -28,7 +28,7 @@ const MagShow = (props) => {
       </div>
       <MagCategoryData />
       <div className='flex mt-[2rem]'>
-        <div className='w-[65%]'>
+        <div className='w-full size868:w-[65%]'>
         <MagShowData slug={props.params['mag-show']}/>
         <div className='mt-[2rem]'>
             <MagComments />

@@ -4,7 +4,7 @@ import Link from "next/link";
 const MagsCategorySection = ({ data }) => {
     console.log(data , '+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++');
   return (
-    <div className="flex items-center gap-[1rem] ">
+    <div className="flex items-center gap-[1rem] overflow-x-scroll pb-[0.5rem]">
       {data &&
         data.map((item, index) => (
           <Link

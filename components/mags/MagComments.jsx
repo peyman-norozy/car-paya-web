@@ -11,8 +11,8 @@ const MagComments = () => {
         <div>star rating</div>
       </div>
       <textarea className="mt-[1.5rem] min-h-[9rem] max-h-[9rem] rounded-[0.5rem] border border-[#B0B0B0] w-full"></textarea>
-      <div className="flex items-center gap-[2rem] mt-[2rem]">
-        <div className="flex items-center gap-[1.5rem] w-[80%]">
+      <div className="flex flex-col size752:flex-row items-start size752:items-center gap-[2rem] mt-[2rem]">
+        <div className="flex flex-col size752:flex-row items-start size752:items-center gap-[1.5rem] w-[80%]">
           <div className="relative flex items-center w-full h-[3rem] border border-[#B0B0B0] rounded-[0.5rem]">
             <p className="absolute top-[-12px] right-[4%] px-[0.25rem] bg-white text-[#454545] text-14">
               نام کاربری
