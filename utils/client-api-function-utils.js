@@ -11,3 +11,12 @@ export async function postData(apiRoute,fd) {
         return error
     }
 }
+
+export async function getData(apiRoute) {
+    service()
+    try {
+        return await axios.get(apiRoute)
+    }catch (error){
+        return error
+    }
+}
