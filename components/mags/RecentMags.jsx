@@ -2,7 +2,6 @@ import Image from "next/image";
 import Link from 'next/link'
 
 const RecentMags = ({data}) => {
-  console.log(data);
   return (
     <div className="grid grid-rows-4 size666:grid-rows-none size666:grid-cols-2 h-[680px] size666:h-[566px] gap-[12px] mt-[1.5rem]">
       <Link href={`/mags/${data.data.slice(0,3)[0].mag_category_id}/${data.data.slice(0,3)[0].slug}`} className="row-span-2 size666:row-start-1 size666:row-end-3 place-self-stretch  rounded-10 overflow-hidden relative shadow-[0_0_5px_0_rgba(0,0,0,0.4)]">

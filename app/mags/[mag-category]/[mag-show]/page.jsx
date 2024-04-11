@@ -17,6 +17,14 @@ const MagCategoryData = async (props) => {
     const fetchCategoryData = await getData("/web" + API_PATHS.MAGS + '-' + props.slug);
     return <MagShowPage data={fetchCategoryData.data} slug={props.slug} />;
   };
+
+  const CommentData = async (props) => {
+    
+    const fetchCategoryData = await getData("/web" + API_PATHS.MAGS + '-' + props.slug);
+    return <MagComments id={fetchCategoryData.data.mag.id}/>;
+  };
+
+  
  
 
 const MagShow = (props) => {
@@ -34,7 +42,7 @@ const MagShow = (props) => {
         <div className='w-full size868:w-[65%]'>
         <MagShowData slug={props.params['mag-show']}/>
         <div className='mt-[2rem]'>
-            <MagComments />
+            <CommentData slug={props.params['mag-show']}/>
         </div>
         </div>
       </div>

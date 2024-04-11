@@ -12,10 +12,7 @@ const MagsPage = (props) => {
   const { data, category, recent, views } = props;
   const [suggestedMagsData, setSuggestedMagData] = useState([]);
   const [news,setNews] = useState([])
-  console.log(data);
-  console.log(category.data.filter((item) => item.id === 2)[0].slug);
-  console.log(recent);
-  console.log(views);
+
   useEffect(() => {
     const suggestedMags = data.data.filter((item) => item.suggested === 1);
     setSuggestedMagData(suggestedMags);

@@ -9,7 +9,6 @@ import MagsSlider from './MagsSlider';
 
 const MagShowPage = (props) => {
     const {data} = props
-    console.log(data)
     const magsData= data.mag
     // useEffect(() => {
     //     axios.get(process.env.BASE_API + "/web" + API_PATHS.MAGS + '-' + props.slug).then(res => console.log(res)).catch(err => console.log(err))
