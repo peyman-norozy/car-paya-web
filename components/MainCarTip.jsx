@@ -36,7 +36,6 @@ const MainCarTip = (props) => {
         axios
             .post(process.env.BASE_API + "/web" + API_PATHS.ADDCAR, formData)
             .then((res) => {
-                console.log(res)
                 if (res.status === 200) {
                     success("ارسال موفقیت آمیز بود")
                     setNewTipId(null)

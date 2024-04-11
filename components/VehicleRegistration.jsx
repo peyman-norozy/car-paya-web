@@ -34,17 +34,10 @@ const VehicleRegistration = (props) => {
         setNewTabId(event.currentTarget.id);
     };
 
-
-    useEffect(() => {
-        console.log(mainModelDisplay)
-    }, [mainModelDisplay, sliderShowState]);
-    console.log(sliderShowState)
-
     const clickbrandHandler = (event, value) => {
         const id = event.currentTarget.getAttribute("id");
         let models = ""
         id === "car_brand" ? models = API_PATHS.MODELS : id === "motor_brand" ? models = API_PATHS.MOTORMODELS : null
-        console.log("peyman")
         setSliderShowState(true)
         axios
             .get(process.env.BASE_API + "/web" + models + "/" + value)
@@ -71,7 +64,6 @@ const VehicleRegistration = (props) => {
     };
 
     const clickTipHandler = (event, value, image) => {
-        console.log(value, image);
         const id = event.currentTarget.getAttribute("id");
         let tip = ""
         id === "car_model" ? tip = API_PATHS.TIPS : id === "motor_model" ? tip = API_PATHS.MOTORTIPS : null
@@ -110,8 +102,6 @@ const VehicleRegistration = (props) => {
                 }
             });
     };
-
-    console.log(mainCarTipsData);
 
     return (
         <Fragment>

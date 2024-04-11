@@ -132,8 +132,6 @@ const SupplierRepresentatives = () => {
       });
   }, []);
 
-  console.log(newCities);
-
   return (
     <form
       className="my-[100px] font-light text-14 size617:px-[140px] px-[15px]"

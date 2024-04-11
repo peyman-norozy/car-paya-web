@@ -5,8 +5,6 @@ import process from "next/dist/build/webpack/loaders/resolve-url-loader/lib/post
 import {API_PATHS} from "@/configs/routes.config";
 
 const MainCarModel = (props) => {
-    console.log(props.mainCarModelData);
-
     const backClickHandler = () => {
         props.setMainBrandModalDisplay(true);
         props.setMainModelDisplay(false);

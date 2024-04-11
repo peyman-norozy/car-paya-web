@@ -44,9 +44,11 @@ function forceOnlyNumberInput(event) {
 }
 
 function numberWithCommas(x) {
-    x = x.toString();
-    const pattern = /(-?\d+)(\d{3})/;
-    while (pattern.test(x)) x = x.replace(pattern, "$1,$2");
+    if(x){
+        x = x.toString();
+        const pattern = /(-?\d+)(\d{3})/;
+        while (pattern.test(x)) x = x.replace(pattern, "$1,$2");
+    }
     return x;
 }
 
@@ -58,7 +60,6 @@ function timestampToPersianDate(timeStamp) {
     const monthName = date.toLocaleDateString("fa-IR", {month: "long"});
 
     const dateString = `${weekDay} ${monthDay} ${monthName} ${year}`;
-    console.log(dateString);
     return dateString;
 }
 
