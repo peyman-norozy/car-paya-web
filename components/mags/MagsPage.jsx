@@ -10,6 +10,7 @@ import SuggestedMags from "./SuggestedMags";
 const MagsPage = (props) => {
   const { data, category, recent, views } = props;
   const [suggestedMagsData, setSuggestedMagData] = useState([]);
+  const [news,setNews] = useState([])
   console.log(data);
   console.log(category.data.filter((item) => item.id === 2)[0].slug);
   console.log(recent);
@@ -17,20 +18,11 @@ const MagsPage = (props) => {
   useEffect(() => {
     const suggestedMags = data.data.filter((item) => item.suggested === 1);
     setSuggestedMagData(suggestedMags);
-    axios
-      .get(
-        process.env.BASE_API +
-          "/web" +
-          API_PATHS.MAGS + '?category_id=quidem-molestias'
-        //   `?category_id=${
-        //     category.data.filter((item) => item.id === 2)[0].slug
-        //   }`
-      )
-      .then((res) => console.log(res))
-      .catch((err) => console.log(err));
+    const news = data.data.filter((item) => item.mag_category_id === 'Marisa Waters');
+    setNews(news)
   }, []);
   return (
-    <div className="w-[90%] m-auto">
+    <div className="w-[95%] size1000:w-[90%] m-auto">
       <div className="pt-[1rem] mb-[1.5rem] flex justify-between">
         <h1 className="text-[32px] font-bold text-[#E73C33]">
           {" "}
@@ -40,7 +32,7 @@ const MagsPage = (props) => {
       </div>
       <MagsCategorySection data={category.data} />
       <RecentMags data={recent} />
-      <MagsSlider title="خبر روز" />
+      <MagsSlider data={news} title='Marisa Waters' />
       <MagsSlider data={views.data} title="پربازدیدترین مجله ها" />
       <SuggestedMags
         title="سایر مقالات پیشنهادی به کاربران"

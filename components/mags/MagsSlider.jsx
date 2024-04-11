@@ -7,8 +7,7 @@ import 'swiper/css/pagination';
 
 const MagsSlider = (props) => {
   const { title , data } = props;
-  const fakeData = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-  
+  console.log(data);
   return (
     <div className="mag_slider mt-[4.7rem]">
       <h2 className="font-bold text-[22px] text-[#212B5E] px-[0.5rem] border-r-[3px] border-r-RED_500 mb-[1.5rem]">{title}</h2>
@@ -17,8 +16,14 @@ const MagsSlider = (props) => {
         effect="fade"
         pagination={{ clickable: true }}
        spaceBetween={18}
-       slidesPerView={4}
+       slidesPerView={2}
        className="swiper-horizontal"
+       breakpoints={{
+        650 : {slidesPerView: 2.5},
+        900 : {slidesPerView : 3},
+        1200 : {slidesPerView : 3.5},
+        1340: {slidesPerView : 4}
+       }}
       >
         {data &&data.map((item, index) => (
           <SwiperSlide key={index}>
