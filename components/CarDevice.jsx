@@ -15,6 +15,7 @@ import {ToastContainer} from "react-toastify";
 import {useRouter} from "next/navigation";
 import {useSearchParams} from "next/navigation";
 import {carFormData} from "@/utils/formData-utils";
+import {getData, postData, putData} from "@/utils/client-api-function-utils";
 
 const CarDevice = (props) => {
     const router = useRouter();
@@ -72,19 +73,18 @@ const CarDevice = (props) => {
     };
 
     const changesEditData = newEditData;
-    const selectSearchOptionHandler = (event) => {
-        const id = event.target.id;
-        const value = event.target.value;
-        const imageid = event.target.getAttribute("imageid");
+    const selectSearchOptionHandler = async (event) => {
+            const id = event.target.id;
+            const value = event.target.value;
+            const imageid = event.target.getAttribute("imageid");
 
-        if (id === "brandOption") {
-            setNewBrandOptionId(value);
-            axios
-                .get(process.env.BASE_API + "/web" + API_PATHS.MODELS + "/" + value)
-                .then((res) => {
+            if (id === "brandOption") {
+                setNewBrandOptionId(value);
+                const response = await getData(process.env.BASE_API + "/web" + API_PATHS.MODELS + "/" + value)
+                if (response.status === 200) {
                     setNewTip([]);
                     setNewYear([]);
-                    setNewModel(res.data.data);
+                    setNewModel(response.data.data);
                     setNewImage("");
                     if (props.pageType === "edit") {
                         changesEditData.car_model_title = (
@@ -101,24 +101,22 @@ const CarDevice = (props) => {
                         changesEditData.yearId = "";
                         // setNewEditData(changesEditData);
                     }
-                })
-                .catch((e) => {
-                    if (e.response.status === 422) {
-                        for (let key in e.response.data.errors) {
-                            error(e.response.data.errors[key][0]);
-                        }
+                } else if (response.response.status === 404) {
+                    console.log(response)
+                } else if (response.response.status === 422) {
+                    for (let key in response.response.data.errors) {
+                        error(response.response.data.errors[key][0]);
                     }
-                });
-        } else if (id === "modelOption") {
-            setNewModelOptionId(value);
-            axios
-                .get(process.env.BASE_API + "/web" + API_PATHS.TIPS + "/" + value)
-                .then((res) => {
+                }
+            } else if (id === "modelOption") {
+                setNewModelOptionId(value);
+                const response = await getData(process.env.BASE_API + "/web" + API_PATHS.TIPS + "/" + value)
+                if (response.status === 200) {
                     setNewYear([]);
                     setNewImage(
                         process.env.BASE_API + "/web" + API_PATHS.FILE + "/" + imageid,
                     );
-                    setNewTip(res.data.data);
+                    setNewTip(response.data.data);
                     if (props.pageType === "edit") {
                         changesEditData.car_tip_title = (
                             <span className="text-[#aaa]">انتخاب تیپ</span>
@@ -129,38 +127,36 @@ const CarDevice = (props) => {
                         );
                         changesEditData.yearId = "";
                     }
-                })
-                .catch((e) => {
-                    if (e.response.status === 422) {
-                        for (let key in e.response.data.errors) {
-                            error(e.response.data.errors[key][0]);
-                        }
+                } else if (response.response.status === 404) {
+                    console.log(response)
+                } else if (response.response.status === 422) {
+                    for (let key in response.response.data.errors) {
+                        error(response.response.data.errors[key][0]);
                     }
-                });
-        } else if (id === "tipOption") {
-            setNewTipOptionId(value);
-            axios
-                .get(process.env.BASE_API + "/web" + API_PATHS.YEARS + "/" + value)
-                .then((res) => {
-                    setNewYear(res.data.data);
+                }
+            } else if (id === "tipOption") {
+                setNewTipOptionId(value);
+                const response = await getData(process.env.BASE_API + "/web" + API_PATHS.YEARS + "/" + value)
+                if (response.status === 200) {
+                    setNewYear(response.data.data);
                     if (props.pageType === "edit") {
                         changesEditData.year = (
                             <span className="text-[#aaa]">سال ساخت</span>
                         );
                         changesEditData.yearId = "";
                     }
-                })
-                .catch((e) => {
-                    if (e.response.status === 422) {
-                        for (let key in e.response.data.errors) {
-                            error(e.response.data.errors[key][0]);
-                        }
+                } else if (response.response.status === 404) {
+                    console.log(response)
+                } else if (response.response.status === 422) {
+                    for (let key in response.response.data.errors) {
+                        error(response.response.data.errors[key][0]);
                     }
-                });
-        } else if (id === "productYearOption") {
-            setNewYearOptionId(value);
+                }
+            } else if (id === "productYearOption") {
+                setNewYearOptionId(value);
+            }
         }
-    };
+    ;
 
     const InputChangeHandler = (event) => {
         const id = event.target.getAttribute("id");
@@ -257,7 +253,7 @@ const CarDevice = (props) => {
         //   }
         // }, [newEditData]);
 
-    const myCarSubmitHandler = (event) => {
+    const myCarSubmitHandler = async (event) => {
             event.preventDefault();
             if (props.pageType === "edit" && Object.keys(newEditData).length > 0) {
                 editFormData.set(
@@ -335,33 +331,20 @@ const CarDevice = (props) => {
                 );
                 editFormData.set("information[fine_price]", newFinePrice);
                 editFormData.set("_method", "PUT");
-
-                axios
-                    .put(
-                        process.env.BASE_API +
-                        "/user-panel" +
-                        API_PATHS.CARS +
-                        "/" +
-                        searchParams.get("product"),
-                        editFormData,
-                        {
-                            headers: {
-                                "Content-Type": "application/json",
-                                Authorization: "Bearer " + getCookie("Authorization"),
-                            },
-                        },
-                    )
-                    .then((res) => {
-                        router.back();
-                    })
-                    .catch((e) => {
-                        console.log(e);
-                        if (e.response.status === 422) {
-                            for (let key in e.response.data.errors) {
-                                error(e.response.data.errors[key][0]);
-                            }
-                        }
-                    });
+                const response = await putData(process.env.BASE_API +
+                    "/user-panel" +
+                    API_PATHS.CARS +
+                    "/" +
+                    searchParams.get("product"), editFormData, '"Content-Type": "application/json"')
+                if (response.status === 200) {
+                    router.back();
+                } else if (response.response.status === 404) {
+                    console.log(response)
+                } else if (response.response.status === 422) {
+                    for (let key in response.response.data.errors) {
+                        error(response.response.data.errors[key][0]);
+                    }
+                }
             } else {
                 const fd = carFormData(
                     newBrandOptionId,
@@ -388,47 +371,39 @@ const CarDevice = (props) => {
                     newTechnicalDiagnosisRemember,
                     event.target.finePrice.value.split(",").join(""),
                 );
-                axios
-                    .post(process.env.BASE_API + "/user-panel" + API_PATHS.CARS, fd, {
-                        headers: {
-                            "Content-Type": "application/json",
-                            Authorization: "Bearer " + getCookie("Authorization"),
-                        },
-                    })
-                    .then((res) => {
-                        // success(res.data.data["msg"]);
-                        router.push("my-vehicle/my-car");
-                        // event.target.reset();
-                        // setNewReset(true);
-                        // setNewCitiesId("");
-                        // setNewAreas("");
-                        // setNewProvinceId("");
-                        // setActivityState("");
-                    })
-                    .catch((e) => {
-                        console.log(e);
-                        if (e.response.status === 422) {
-                            for (let key in e.response.data.errors) {
-                                error(e.response.data.errors[key][0]);
-                            }
-                        }
-                    });
+                const response = await postData(process.env.BASE_API + "/user-panel" + API_PATHS.CARS, fd, '"Content-Type": "application/json"')
+                if (response.status === 200) {
+                    // success(res.data.data["msg"]);
+                    router.push("my-vehicle/my-car");
+                    // event.target.reset();
+                    // setNewReset(true);
+                    // setNewCitiesId("");
+                    // setNewAreas("");
+                    // setNewProvinceId("");
+                    // setActivityState("");
+                } else if (response.response.status === 404) {
+                    console.log(response)
+                } else if (response.response.status === 422) {
+                    for (let key in response.response.data.errors) {
+                        error(response.response.data.errors[key][0]);
+                    }
+                }
             }
         };
 
     useEffect(() => {
-        axios
-            .get(process.env.BASE_API + "/web" + API_PATHS.BRANDS)
-            .then((res) => {
-                setNewBrand(res.data.data);
-            })
-            .catch((e) => {
-                if (e.response.status === 422) {
-                    for (let key in e.response.data.errors) {
-                        error(e.response.data.errors[key][0]);
-                    }
+        (async () => {
+            const response = await getData(process.env.BASE_API + "/web" + API_PATHS.BRANDS)
+            if (response.status === 200) {
+                setNewBrand(response.data.data);
+            } else if (response.response.status === 422) {
+                for (let key in response.response.data.errors) {
+                    error(response.response.data.errors[key][0]);
                 }
-            });
+            } else if (response.response.status === 404) {
+                console.log(response)
+            }
+        })()
     }, []);
 
     /************** fetch relation select search input data ***************/
