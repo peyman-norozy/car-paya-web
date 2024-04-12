@@ -29,7 +29,7 @@ const MagCategoryData = async (props) => {
 
 const MagShow = (props) => {
     return (
-        <div className='w-[90%] m-auto'>
+        <div className='w-[95%] size1000:w-[90%] m-auto'>
             <div className="pt-[1rem] mb-[1.5rem] flex flex-col size752:flex-row justify-between gap-[1rem] size752:gap-0">
         <h1 className="text-[32px] font-bold text-[#E73C33] text-center size752:text-start">
           {" "}

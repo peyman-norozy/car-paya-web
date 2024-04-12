@@ -15,7 +15,7 @@ const MagsSlider = (props) => {
         modules={[Navigation, Pagination, Scrollbar, A11y]}
         effect="fade"
         pagination={{ clickable: true }}
-       spaceBetween={18}
+       spaceBetween={10}
        slidesPerView={2}
        className="swiper-horizontal"
        breakpoints={{
