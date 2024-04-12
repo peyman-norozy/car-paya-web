@@ -43,5 +43,6 @@ export const API_PATHS = {
     MAGSINDEX:"/mags/index",
     ADDCARLOGIN: "/add-car-login",
     MAGS: '/mags',
-    MAGCATEGORY : '/mag-categories'
+    MAGCATEGORY : '/mag-categories',
+    MAGCOMMENTS : '/mag-comments'
 };

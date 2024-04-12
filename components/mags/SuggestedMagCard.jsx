@@ -7,7 +7,6 @@ import Link from 'next/link'
 
 const SuggestedMagCard = (props) => {
     const {data} = props
-    console.log(data);
   return (
     <div className="p-[1rem] bg-[#F4F4F4] rounded-[1rem] flex items-center gap-[1rem]">
       <Image
