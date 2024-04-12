@@ -12,14 +12,14 @@ const navBarItems = [
   { title: "خدمات", href: "/services", id: "services" },
   { title: "درباره ما", href: "/about-us", id: "about_us" },
   { title: "تماس با ما", href: "/contact-us", id: "contact_us" },
-  { title: "مقالات", href: "/articles", id: "articles" },
+  { title: "مقالات", href: "/mags", id: "mags" },
 ];
 const navBarItemsResponsive = [
   { title: "خانه", href: "/", id: "home" },
   { title: "خدمات", href: "/services", id: "services" },
   { title: "درباره ما", href: "/about-us", id: "about_us" },
   { title: "تماس با ما", href: "/contact-us", id: "contact_us" },
-  { title: "مقالات", href: "/articles", id: "articles" },
+  { title: "مقالات", href: "/mags", id: "mags" },
   { title: "دسته بندی", id: "category" },
 ];
 
