@@ -117,31 +117,37 @@ export default function Home() {
             title: "کارشناسی خودرو",
             iconSrc: "/assets/icons/Car-Inspection.png",
             href: "/vehicle-verification",
+            id:"vehicleVerification"
         },
         {
             title: "بیمه",
             iconSrc: "/assets/icons/Group.png",
             href: "#",
+            id:"insurance"
         },
         {
             title: "شناسنامه و سوابق خودرو",
             iconSrc: "/assets/icons/8.png",
             href: "/profile/my-vehicle/my-car",
+            id:"myVehicleMyCar"
         },
         {
             title: "سرویس دوره ای",
             iconSrc: "/assets/icons/1.png",
             href: "/periodic-service",
+            id:"periodicService"
         },
         {
             title: "فروشگاه باتری",
             iconSrc: "/assets/icons/battery-v3 1.png",
             href: "/batteries",
+            id:"batteries"
         },
         {
             title: "فیلتر روغن(لوازم یدکی)",
             iconSrc: "/assets/icons/ClutchBumpers.png",
             href: "/products",
+            id:"products"
         },
     ];
     return (
