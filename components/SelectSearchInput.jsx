@@ -90,7 +90,7 @@ const SelectSearchInput = (props) => {
           />
         </div>
         <ul className={`overflow-y-scroll max-h-[208px]`}>
-          {newFilterOptions.length > 0 &&
+          {newFilterOptions&&newFilterOptions.length > 0 &&
             newFilterOptions.map((item, index) => {
               return (
                 <SelectSearchInputCard
