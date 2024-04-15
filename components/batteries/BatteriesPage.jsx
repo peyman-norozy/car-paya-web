@@ -19,15 +19,18 @@ import PurchaseBatteryModal from "@/components/PurchaseBatteryModal";
 import axios from "axios";
 import { API_PATHS } from "@/configs/routes.config";
 import Spinner from "../Spinner";
+import useSetQuery from "@/hook/useSetQuery";
 
-const BatteriesPage = () => {
+const BatteriesPage = (props) => {
   const [isClicked, setIsClicked] = useState(1);
   const [filterISOpen, setFilterIsOpen] = useState(false);
   const [batteryIsSelected, setBatteryIsSelected] = useState(false);
   const [isLoading, setIsLoading] = useState(false)
-  const [data,setData] = useState([])
   const[filter,setFilter] = useState('فیلتر بر اساس')
   const filterRef = useRef(null);
+  const setQuery = useSetQuery()
+  const heightRef = useRef(null)
+  const data = props.data.data
   const verificationTab = [
     { title: "فیلتر و روغن", src: cluch, href: "/products" },
     { title: "فروشگاه باتری", src: battery, href: "/batteries" },
@@ -47,9 +50,8 @@ const BatteriesPage = () => {
   ];
 
   const filterData = [
-    { name: "جدید ترین" },
-    { name: "محبوب ترین" },
-    { name: "ارزان ترین" },
+    { name: "جدید ترین", value : 'newest' },
+    { name: "قدیمی ترین", value : 'oldest' },
   ];
 
   //   const openFilterHandler = (event) => {
@@ -65,6 +67,8 @@ const BatteriesPage = () => {
   const selectFilterHandler = (event) => {
     console.log(event.target.innerHTML);
 setFilter(event.target.innerHTML)
+console.log(event.currentTarget.getAttribute('order_by'));
+setQuery.setQuery('order_by' , event.currentTarget.getAttribute('order_by'))
   }
 
   const toggleFilterHandler = () => {
@@ -84,18 +88,9 @@ setFilter(event.target.innerHTML)
   //     window.addEventListener("click", closeFilterHandler);
   //     return () => window.removeEventListener("click", closeFilterHandler);
   //   }, []);
-
-  useEffect(() => {
-    setIsLoading(true)
-    axios.get(process.env.BASE_API + '/web' + '/batteries').then(res => {
-      setData(res.data.data)
-      setIsLoading(false)
-    }).catch(err => console.log(err))
-    
-  } , [])
+console.log(data);
 
 
-  console.log(data);
   return (
     <Fragment>
       
@@ -133,15 +128,16 @@ setFilter(event.target.innerHTML)
               <Image src={arrow} alt="" width={10} height={10} />
               <p className="text-12">{filter}</p>
               <ul
-                className={`bg-[#D9D9D9] rounded-[8px] absolute  top-[2.2rem] right-0 left-0 text-12 overflow-hidden transition-all duration-1000 ${
-                  filterISOpen ? "h-[7.5rem] py-[0.5rem] px-[0.5rem]" : "h-0 "
-                }`}
+              ref={heightRef}
+                className={`bg-[#D9D9D9] rounded-[8px] absolute  top-[2.2rem] right-0 left-0 text-12 overflow-hidden transition-all duration-1000 `}
+                style={filterISOpen ? {height  :`${heightRef.current.scrollHeight}px`} : {height : 0}}
               >
                 {filterData.map((item, index) => (
                   <li
                     className="p-[0.5rem] w-full rounded-[8px] hover:bg-[#9d9d9d]"
                     key={index}
                     onClick={selectFilterHandler}
+                    order_by={item.value}
                   >
                     {item.name}
                   </li>
