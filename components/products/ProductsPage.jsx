@@ -9,12 +9,15 @@ import service from '@/public/assets/images/periodic-service.png'
 import car_bg from '@/public/assets/images/car-background.png'
 import verification from "@/public/assets/images/vehicle-verification.png";
 import caspian from "@/public/assets/images/caspian.png";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ProductCard from "@/components/cards/ProductCard";
 import CheckFilter from "@/components/CheckFilter";
 import SelectMultipleOptions from "@/components/SelectMultipleOptions";
+import axios from "axios";
 
-const ProductsPage = () => {
+const ProductsPage = (props) => {
+  console.log(props.data.data);
+  const data = props.data.data
   const [isClicked, setIsClicked] = useState(0);
   const [isSelected,setIsSelected] = useState(null)
   
@@ -27,126 +30,6 @@ const ProductsPage = () => {
     { title: "شناسنامه و سوابق خودرو", src: car_bg , href : "/profile/my-vehicle/my-car" },
     { title: "بیمه", src: insurance , href: '/' },
     { title: "کارشناسی خودرو", src: verification , href : '/vehicle-verification' },
-  ];
-
-  const productData = [
-    {
-      image: caspian,
-      title: "روغن موتور کاسترول",
-      oldPrice: 6000000,
-      newPrice: 6000000,
-      options: [
-        { key: "مدل", value: "G7135153" },
-        { key: "حجم", value: "4 لیتر" },
-        { key: "درجه گرانروی", value: "30 w" },
-        { key: "مدل", value: "G7135153" },
-        { key: "حجم", value: "4 لیتر" },
-      ],
-    },
-    {
-      image: caspian,
-      title: "روغن موتور کاسترول",
-      oldPrice: 6000000,
-      newPrice: 6000000,
-      options: [
-        { key: "مدل", value: "G7135153" },
-        { key: "حجم", value: "4 لیتر" },
-        { key: "درجه گرانروی", value: "30 w" },
-        { key: "مدل", value: "G7135153" },
-        { key: "حجم", value: "4 لیتر" },
-      ],
-    },
-    {
-      image: caspian,
-      title: "روغن موتور کاسترول",
-      oldPrice: 6000000,
-      newPrice: 6000000,
-      options: [
-        { key: "مدل", value: "G7135153" },
-        { key: "حجم", value: "4 لیتر" },
-        { key: "درجه گرانروی", value: "30 w" },
-        { key: "مدل", value: "G7135153" },
-        { key: "حجم", value: "4 لیتر" },
-      ],
-    },
-    {
-      image: caspian,
-      title: "روغن موتور کاسترول",
-      oldPrice: 6000000,
-      newPrice: 6000000,
-      options: [
-        { key: "مدل", value: "G7135153" },
-        { key: "حجم", value: "4 لیتر" },
-        { key: "درجه گرانروی", value: "30 w" },
-        { key: "مدل", value: "G7135153" },
-        { key: "حجم", value: "4 لیتر" },
-      ],
-    },
-    {
-      image: caspian,
-      title: "روغن موتور کاسترول",
-      oldPrice: 6000000,
-      newPrice: 6000000,
-      options: [
-        { key: "مدل", value: "G7135153" },
-        { key: "حجم", value: "4 لیتر" },
-        { key: "درجه گرانروی", value: "30 w" },
-        { key: "مدل", value: "G7135153" },
-        { key: "حجم", value: "4 لیتر" },
-      ],
-    },
-    {
-      image: caspian,
-      title: "روغن موتور کاسترول",
-      oldPrice: 6000000,
-      newPrice: 6000000,
-      options: [
-        { key: "مدل", value: "G7135153" },
-        { key: "حجم", value: "4 لیتر" },
-        { key: "درجه گرانروی", value: "30 w" },
-        { key: "مدل", value: "G7135153" },
-        { key: "حجم", value: "4 لیتر" },
-      ],
-    },
-    {
-      image: caspian,
-      title: "روغن موتور کاسترول",
-      oldPrice: 6000000,
-      newPrice: 6000000,
-      options: [
-        { key: "مدل", value: "G7135153" },
-        { key: "حجم", value: "4 لیتر" },
-        { key: "درجه گرانروی", value: "30 w" },
-        { key: "مدل", value: "G7135153" },
-        { key: "حجم", value: "4 لیتر" },
-      ],
-    },
-    {
-      image: caspian,
-      title: "روغن موتور کاسترول",
-      oldPrice: 6000000,
-      newPrice: 6000000,
-      options: [
-        { key: "مدل", value: "G7135153" },
-        { key: "حجم", value: "4 لیتر" },
-        { key: "درجه گرانروی", value: "30 w" },
-        { key: "مدل", value: "G7135153" },
-        { key: "حجم", value: "4 لیتر" },
-      ],
-    },
-    {
-      image: caspian,
-      title: "روغن موتور کاسترول",
-      oldPrice: 6000000,
-      newPrice: 6000000,
-      options: [
-        { key: "مدل", value: "G7135153" },
-        { key: "حجم", value: "4 لیتر" },
-        { key: "درجه گرانروی", value: "30 w" },
-        { key: "مدل", value: "G7135153" },
-        { key: "حجم", value: "4 لیتر" },
-      ],
-    },
   ];
 
   const selectFilterOptions = [
@@ -204,7 +87,7 @@ const ProductsPage = () => {
           </div>
         </div>
         <div className="grid grid-cols-3 gap-x-[0.75rem] gap-y-[0.75rem]">
-          {productData.map((item, index) => (
+          {data.map((item, index) => (
             <ProductCard key={index} data={item} />
           ))}
         </div>

@@ -1,4 +1,5 @@
 import ProductsPage from "@/components/products/ProductsPage";
+import { getData } from "@/utils/api-function-utils";
 
 export const metadata =  {
   title: 'محصولات',
@@ -26,10 +27,15 @@ export const metadata =  {
 
 };
 
+const ProductData = async() => {
+    const fetchData = await getData('/web/products')
+    return <ProductsPage data={fetchData}/>
+}
+
 const Products = () => {
   
   return (
-   <ProductsPage />
+   <ProductData />
   );
 };
 
