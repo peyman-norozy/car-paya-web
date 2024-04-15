@@ -8,12 +8,10 @@ import insurance from '@/public/assets/images/insurance.png'
 import service from '@/public/assets/images/periodic-service.png'
 import car_bg from '@/public/assets/images/car-background.png'
 import verification from "@/public/assets/images/vehicle-verification.png";
-import caspian from "@/public/assets/images/caspian.png";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import ProductCard from "@/components/cards/ProductCard";
 import CheckFilter from "@/components/CheckFilter";
 import SelectMultipleOptions from "@/components/SelectMultipleOptions";
-import axios from "axios";
 
 const ProductsPage = (props) => {
   console.log(props.data.data);
