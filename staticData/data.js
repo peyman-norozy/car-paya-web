@@ -1,49 +1,49 @@
-export const MainBannerData = [
+export const serviceData = [
     {
         title: "کارشناسی خودرو",
-        iconSrc: "/assets/images/vehicle-verification.png",
+        icon: "/assets/images/vehicle-verification.png",
         href: "/vehicle-verification",
         id: "vehicleVerification"
     },
     {
         title: "بیمه",
-        iconSrc: "/assets/images/insurance.png",
+        icon: "/assets/images/insurance.png",
         href: "#",
         id: "insurance"
     },
     {
         title: "شناسنامه و سوابق خودرو",
-        iconSrc: "/assets/images/car-background.png",
+        icon: "/assets/images/car-background.png",
         href: "/profile/my-vehicle/my-car",
         id: "myVehicleMyCar"
     },
     {
         title: "سرویس دوره ای",
-        iconSrc: "/assets/images/periodic-service.png",
+        icon: "/assets/images/periodic-service.png",
         href: "/periodic-service",
         id: "periodicService"
     },
     {
         title: "فروشگاه باتری",
-        iconSrc: "/assets/images/battery-product.svg",
+        icon: "/assets/images/battery-product.svg",
         href: "/batteries",
         id: "batteries"
     },
     {
         title: "فیلتر روغن(لوازم یدکی)",
-        iconSrc: "/assets/images/cluch-bumpers.png",
+        icon: "/assets/images/cluch-bumpers.png",
         href: "/products",
         id: "products"
     },
     {
         title: "فیلتر روغن(لوازم یدکی)",
-        iconSrc: "/assets/images/cluch-bumpers.png",
+        icon: "/assets/images/cluch-bumpers.png",
         href: "/products",
         id: "products"
     },
     {
         title: "فیلتر روغن(لوازم یدکی)",
-        iconSrc: "/assets/images/cluch-bumpers.png",
+        icon: "/assets/images/cluch-bumpers.png",
         href: "/products",
         id: "products"
     },
@@ -138,6 +138,50 @@ export const CarProductsMockUpData = [
         oldPrice: "",
     },
 ];
+export const periodicServiceUnderCardData = [
+    {
+        title: "سرویس دوره ای اقتصادی",
+        titleDescription: "(شامل ۱۷ نوع خدمات)",
+        options: [
+            "تعویض روغن موتور",
+            "تعویض فیلتر هوا",
+            "تعویض فیلتر روغن",
+            "تعویض فیلتر کابین",
+        ],
+    },
+    {
+        title: "سرویس دوره‌ای استاندارد",
+        titleDescription: "(شامل ۱۷ نوع خدمات)",
+        options: [
+            "تعویض روغن موتور",
+            "تعویض فیلتر هوا",
+            "تعویض فیلتر روغن",
+            "تعویض فیلتر کابین",
+        ],
+    },
+    {
+        title: "سرویس دوره‌ای ویژه",
+        titleDescription: "(شامل ۱۷ نوع خدمات)",
+        options: [
+            "تعویض روغن موتور",
+            "تعویض فیلتر هوا",
+            "تعویض فیلتر روغن",
+            "تعویض فیلتر کابین",
+        ],
+    },
+];
+export const workData = [
+    {
+        title: "تعویض روغن",
+        price: 3000000,
+        has_come: 1608663149,
+    },
+    {
+        title: "تعویض روغن",
+        price: 3000000,
+        has_come: 1708863149,
+    },
+];
 
 // eslint-disable-next-line import/no-anonymous-default-export
-export default {MainBannerData, HowWorksMockUpData}
+export default {serviceData, HowWorksMockUpData,periodicServiceUnderCardData,workData}
