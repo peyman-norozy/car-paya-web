@@ -6,7 +6,7 @@ import {API_PATHS} from "@/configs/routes.config";
 import {getCookie} from "cookies-next";
 import Button from "@/components/Button";
 import OTPInput from "react-otp-input";
-import {useRouter} from "next/router";
+import {useRouter} from "next/navigation";
 import axios from "axios";
 import {error, forceOnlyNumberInput, success} from "@/utils/function-utils";
 
