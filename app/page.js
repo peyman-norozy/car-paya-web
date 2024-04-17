@@ -6,7 +6,7 @@ import ArticleSlider from "@/components/ArticleSlider";
 import MainBannerCard from "@/components/cards/MainBannerCard";
 import {getData} from "@/utils/api-function-utils";
 import {API_PATHS} from "@/configs/routes.config";
-import {MainBannerData,HowWorksMockUpData,CarProductsMockUpData} from "@/staticData/data";
+import {HowWorksMockUpData, CarProductsMockUpData, serviceData} from "@/staticData/data";
 
 const SpecialOffersSliderData = async () => {
     return <SpecialOffersSlider data={CarProductsMockUpData}/>;
@@ -25,7 +25,7 @@ export default function Home() {
     return (
         <Fragment>
             <MainBanner>
-                {MainBannerData.map((item, index) => (
+                {serviceData.map((item, index) => (
                     <MainBannerCard key={item.title + "-" + index} data={item}/>
                 ))}
             </MainBanner>
