@@ -7,11 +7,11 @@ const PeriodicServiceTabCard = (props) => {
   const { src, alt, height, width, title, onClick, isClicked, index, href } =
       props;
   return (
-    <li className={"flex-1"}>
+    <li className={"min-w-[200px]"}>
       <Link
           href={href}
           onClick={onClick}
-          className={`w-full flex flex-col items-center justify-center rounded-10 border    shadow-[0_5px_15px_0_rgba(0,0,0,0.15)] h-[110px] ${
+          className={`w-full flex flex-col items-center justify-center rounded-10 border shadow-[0_5px_15px_0_rgba(0,0,0,0.15)] h-[110px] ${
               isClicked === index ? "border-RED_500" : "border-[#dedede]"
           }`}
       >
