@@ -17,7 +17,7 @@ const MainBannerCard = (props) => {
                     <div className="m-0 w-size460:w-[64px] size460:h-[64px] w-[54px] h-[54px]"
                     >
                         <Image
-                            src={props.data.iconSrc}
+                            src={props.data.icon}
                             alt={"icon"}
                             priority={true}
                             width={74}
