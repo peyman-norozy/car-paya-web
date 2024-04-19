@@ -85,7 +85,7 @@ const ProductsPage = (props) => {
           </div>
         </div>
         <div className="grid grid-cols-3 gap-x-[0.75rem] gap-y-[0.75rem]">
-          {data.map((item, index) => (
+          {data.length === 0 ? <p className="text-center text-[#333] col-span-full">متاسفانه محصولی یافت نشد</p> : data.map((item, index) => (
             <ProductCard key={index} data={item} />
           ))}
         </div>
