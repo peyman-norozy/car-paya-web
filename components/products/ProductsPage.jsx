@@ -1,14 +1,5 @@
 'use client'
-
-import SelectedVehicleVerificationBox from "@/components/SelectedVehicleVerificationBox";
 import SelectVehicleBox from "@/components/cards/SelectVehicleBox";
-import cluch from "@/public/assets/images/cluch-bumpers.png";
-import battery from '@/public/assets/images/battery-product.svg'
-import insurance from '@/public/assets/images/insurance.png'
-import service from '@/public/assets/images/periodic-service.png'
-import car_bg from '@/public/assets/images/car-background.png'
-import verification from "@/public/assets/images/vehicle-verification.png";
-import caspian from "@/public/assets/images/caspian.png";
 import React, {useState} from "react";
 import ProductCard from "@/components/cards/ProductCard";
 import CheckFilter from "@/components/CheckFilter";
@@ -17,7 +8,6 @@ import {serviceData} from "@/staticData/data";
 import CarServicesSlider from "@/components/CarServicesSlider/CarServicesSlider";
 
 const ProductsPage = () => {
-    const [isClicked, setIsClicked] = useState(0);
     const [isSelected, setIsSelected] = useState(null)
 
     const tabTitle = [{name: "خودرو"}, {name: "موتور سیکلت"}];
@@ -33,9 +23,6 @@ const ProductsPage = () => {
     { name: "روغن" },
   ];
 
-    const selectTabHandler = (index) => {
-        setIsClicked(index);
-    };
     const selectOptionHandler = (index) => {
         setIsSelected(index)
     }
