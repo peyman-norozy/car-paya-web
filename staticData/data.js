@@ -36,16 +36,22 @@ export const serviceData = [
         id: "products"
     },
     {
-        title: "فیلتر روغن(لوازم یدکی)",
-        icon: "/assets/images/cluch-bumpers.png",
-        href: "/products",
-        id: "products"
+        title: "فروشگاه لوازم یدکی",
+        icon: "/assets/images/brake.png",
+        href: "#",
+        id: "#"
     },
     {
-        title: "فیلتر روغن(لوازم یدکی)",
-        icon: "/assets/images/cluch-bumpers.png",
-        href: "/products",
-        id: "products"
+        title: "خرید خودرو",
+        icon: "/assets/images/car.png",
+        href: "#",
+        id: "#"
+    },
+    {
+        title: "فروش خودرو",
+        icon: "/assets/images/car-sales.png",
+        href: "#",
+        id: "#"
     },
 ];
 export const HowWorksMockUpData = [
