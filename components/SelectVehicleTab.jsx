@@ -7,6 +7,8 @@ const SelectVehicleTab = (props) => {
 
     const selectTabHandler = (index) => {
         props.setIsClicked(index)
+        props.setMotorStep('motor-brands')
+        props.setStep('car-brands')
     }
     return (
         <div className={props.className}>

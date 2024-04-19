@@ -1,4 +1,5 @@
 import BatteriesPage from "@/components/batteries/BatteriesPage";
+import { getData } from "@/utils/api-function-utils";
 export const metadata =  {
   title: ' فروشگاه باطری',
   description: 'با کیفیت ترین باطری ها با ضمانت تعویض کارچک همراه با نصب و دریافت باطری فرسوده',
@@ -25,10 +26,15 @@ export const metadata =  {
 
 };
 
-const Batteries = () => {
- 
+const BatteriesData = async (props) => {
+  const fetchData = await getData('/web/batteries' + '?order_by=' + props.filter )
+  return <BatteriesPage data={fetchData}/>
+}
+
+const Batteries = (props) => {
+   console.log(props.searchParams.order_by, '$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$')
   return (
-    <BatteriesPage />
+    <BatteriesData filter={props.searchParams.order_by}/>
   );
 };
 

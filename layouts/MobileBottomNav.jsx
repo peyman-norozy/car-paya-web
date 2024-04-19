@@ -91,13 +91,13 @@ function MobileBottomNav(props) {
 
   return (
     <div className="fixed bottom-0 z-[99999999] px-[1rem] pt-[5px] pb-[0.75rem] bg-white flex items-center justify-between w-full h-[70px] shadow-[0_0_5px_0_rgba(0,0,0,0.54)]">
-      {<div ref={selectVehicleRef} onTouchStart={touchStartHandler} onTouchMove={slideDownvehicleHandler} className={`fixed  right-0 left-0 w-full  bg-[#ccc] z-[999999992] shadow-[0_0_10px_0_rgba(0,0,0,0.4)] rounded-t-[40px] transition-all duration-1000  ${modalIsOpen ? 'h-[100vh] top-[20%] bottom-0' : 'h-0 bottom-0 top-[100%]'}`}>
+      {<div ref={selectVehicleRef} onTouchStart={touchStartHandler} onTouchMove={slideDownvehicleHandler} className={`fixed  right-0 left-0 w-full  bg-[#fff] z-[999999992] shadow-[0_0_10px_0_rgba(0,0,0,0.4)] rounded-t-[40px] transition-all duration-1000  ${modalIsOpen ? 'h-[100vh] top-[20%] bottom-0' : 'h-0 bottom-0 top-[100%]'}`}>
       <div className="h-[5px] w-[6rem] rounded-[20px] bg-[#333] absolute top-[2.5%] left-[50%] translate-x-[-50%]"></div>
         <div className="z-[999999992] absolute top-[10%] right-[2%] size378:right-[6%] size411:right-[10%] size460:right-[15%] size516:right-[18%] size560:right-[22%] size617:right-[25%] size720:right-[28%] md:right-[32%]"><VehicleRegistration /></div>
         </div>}
       {modalIsOpen && <div onClick={closeModalHandler} className="fixed top-0 right-0 left-0 bottom-0 bg-black opacity-[0.8] z-[999999991] h-[100vh] w-full"></div>}
 
-      {<div ref={modalRef} onTouchStart={touchStartHandler} onTouchMove={slideDownHandler} className={`fixed  right-0 left-0 w-full  bg-[#ccc] z-[999999992] shadow-[0_0_10px_0_rgba(0,0,0,0.4)] rounded-t-[40px] transition-all duration-1000  ${serviceModalIsOpen ? 'h-[100vh] top-[20%] bottom-0' : 'h-0 bottom-0 top-[100%]'}`}>
+      {<div ref={modalRef} onTouchStart={touchStartHandler} onTouchMove={slideDownHandler} className={`fixed  right-0 left-0 w-full  bg-[#fff] z-[999999992] shadow-[0_0_10px_0_rgba(0,0,0,0.4)] rounded-t-[40px] transition-all duration-1000  ${serviceModalIsOpen ? 'h-[100vh] top-[20%] bottom-0' : 'h-0 bottom-0 top-[100%]'}`}>
         <div className="h-[5px] w-[6rem] rounded-[20px] bg-[#333] absolute top-[2.5%] left-[50%] translate-x-[-50%]"></div>
       <div className="absolute top-[10%] right-[2%] left-[2%] grid grid-cols-3 gap-[1rem]">
           {verificationTab.map((item, index) => (
