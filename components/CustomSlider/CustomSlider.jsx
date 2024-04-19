@@ -13,7 +13,7 @@ const CustomSlider = (props) => {
 
     }
     return (
-        <div className={"relative"}>
+        <div className={"relative w-full"}>
             <button onClick={nextClickHandler} className={"bg-stone-200 p-2 rounded-full absolute left-0 top-[52px]"}>
                 <Image src={"/assets/icons/angle-left.svg"} alt={"angel icon"} width={24} height={24}/>
             </button>
