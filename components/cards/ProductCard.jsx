@@ -7,8 +7,8 @@ const ProductCard = ({ data }) => {
   return (
     <div className="flex flex-col rounded-10 shadow-[0_5px_15px_0_rgba(0,0,0,0.15)] gap-[1rem} hover:shadow-[0_8px_20px_0_rgba(0,0,0,0.45)] transition-all duration-700 items-center border-[1px] border-[#dedede] px-[1.75rem] py-[1.5rem]">
       <Image src={process.env.BASE_API + '/web/file/' +data.image_id} alt="" height={80} width={80} />
-      <h1 className="text-RED_500 text-[1.35rem] text-center">{data.name}</h1>
-      <ul className="self-start leading-[1.8rem]">
+      <h1 className="text-RED_500 text-[1.35rem] text-center h-[64px] line-clamp-2">{data.name}</h1>
+      <ul className="self-start leading-[1.8rem] h-[120px]">
         {data.filters &&  data.filters.map((item, index) => (
           <li key={index} className="text-14">
             <span className="text-text_gray">{item.key}:</span>

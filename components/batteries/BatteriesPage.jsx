@@ -2,22 +2,11 @@
 
 import SelectVehicleBox from "@/components/cards/SelectVehicleBox";
 import React, { Fragment, useEffect, useRef, useState } from "react";
-import battery from "@/public/assets/images/battery-product.svg";
-import battery_product from "@/public/assets/images/battery-amargon.png";
-import cluch from "@/public/assets/images/cluch-bumpers.png";
-import insurance from "@/public/assets/images/insurance.png";
-import service from "@/public/assets/images/periodic-service.png";
-import car_bg from "@/public/assets/images/car-background.png";
-import verification from "@/public/assets/images/vehicle-verification.png";
-import compare from "@/public/assets/icons/compare.svg";
 import arrow from "@/public/assets/icons/Arrow-Down.svg";
-import SelectedVehicleVerificationBox from "@/components/SelectedVehicleVerificationBox";
-import Button from "@/components/Button";
 import Image from "next/image";
 import BatteryCard from "@/components/cards/BatteryCard";
 import PurchaseBatteryModal from "@/components/PurchaseBatteryModal";
 import axios from "axios";
-import { API_PATHS } from "@/configs/routes.config";
 import Spinner from "../Spinner";
 import CarServicesSlider from "@/components/CarServicesSlider/CarServicesSlider";
 import { serviceData } from "@/staticData/data";
