@@ -27,16 +27,16 @@ const ProductsPage = (props) => {
             </div>
             <div className="pt-0 size1000:pt-[9rem] w-full mt-[1rem] flex flex-col gap-[1.5rem]">
                 <div
-                    className="w-[97%] size1000:w-[63%] absolute top-[5.6rem] left-[1.5%] size1050:left-[-1%] hidden size1000:flex flex-row-reverse items-center gap-[1rem]">
+                    className="w-[97%] size1000:w-[63%] absolute top-[5.6rem] left-[1.5%] size1050:left-[1%] hidden size1000:flex flex-row-reverse items-center gap-[1rem]">
                     <CarServicesSlider data={serviceData}/>
                 </div>
-                <div className="flex items-center justify-between">
+                {/* <div className="flex items-center justify-between">
                     <div className="flex gap-[0.65rem]">
                         {selectFilterOptions.map((item, index) => (
                             <CheckFilter key={index} item={item.name}/>
                         ))}
                     </div>
-                </div>
+                </div> */}
                 <div className="grid grid-cols-1 size560:grid-cols-2 size800:grid-cols-3  size1000:grid-cols-2 size1228:grid-cols-3 gap-x-[0.75rem] gap-y-[0.75rem]">
                 {data.length === 0 ? <p className="text-center text-[#333] col-span-full">متاسفانه محصولی یافت نشد</p> : data.map((item, index) => (
             <ProductCard key={index} data={item} />
