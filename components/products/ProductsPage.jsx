@@ -7,8 +7,9 @@ import SelectMultipleOptions from "@/components/SelectMultipleOptions";
 import {serviceData} from "@/staticData/data";
 import CarServicesSlider from "@/components/CarServicesSlider/CarServicesSlider";
 
-const ProductsPage = () => {
+const ProductsPage = (props) => {
     const [isSelected, setIsSelected] = useState(null)
+    const data = props.data && props.data.data
 
     const tabTitle = [{name: "خودرو"}, {name: "موتور سیکلت"}];
 
