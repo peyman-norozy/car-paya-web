@@ -46,3 +46,10 @@ export const API_PATHS = {
     MAGCATEGORY : '/mag-categories',
     MAGCOMMENTS : '/mag-comments'
 };
+
+export const META_PATHS ={
+    BASEURL : 'https://ccme.ir',
+    MAGS : '/mags',
+    PRODUCTS : '/products',
+    BATTERIES : '/batteries'
+}

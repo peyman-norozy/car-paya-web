@@ -1,11 +1,12 @@
 import BatteriesPage from "@/components/batteries/BatteriesPage";
+import { META_PATHS } from "@/configs/routes.config";
 import { getData } from "@/utils/api-function-utils";
 export const metadata =  {
   title: ' فروشگاه باطری',
   description: 'با کیفیت ترین باطری ها با ضمانت تعویض کارچک همراه با نصب و دریافت باطری فرسوده',
-  metadataBase: new URL('https://ccme.ir/batteries'),
+  metadataBase: new URL(META_PATHS.BASEURL + META_PATHS.BATTERIES),
     alternates: {
-        canonical: 'https://ccme.ir',
+        canonical: META_PATHS.BASEURL,
     },
     keywords: 'باطری،خودرو',
     robots: 'index,follow',
@@ -14,10 +15,10 @@ export const metadata =  {
         description:'با کیفیت ترین باطری ها با ضمانت تعویض کارچک همراه با نصب و دریافت باطری فرسوده',
         locale: 'fa-ir',
         type: 'website',
-        url: 'https://ccme.ir',
+        url: META_PATHS.BASEURL,
         images: [
             {
-                url: "https://ccme.ir/_next/static/media/battery-product.abcd07be.svg",
+                url: `${META_PATHS.BASEURL}/_next/static/media/battery-product.abcd07be.svg`,
                 width: 32, // Specify the width of the image
                 height: 32, // Specify the height of the image
             }
