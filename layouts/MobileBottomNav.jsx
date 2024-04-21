@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import VehicleRegistration from "@/components/VehicleRegistration";
 import battery from "@/public/assets/images/battery-product.svg";
@@ -16,9 +16,12 @@ function MobileBottomNav(props) {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [serviceModalIsOpen, setServiceModalIsOpen] = useState(false);
   const [selectedTab, setSelectedTab] = useState(router.pathname);
+  const [vehicleImage,setVehicleImage] = useState('')
+  const [vehicleName,setVehicleName] = useState('')
   const modalRef = useRef(null);
   const selectVehicleRef = useRef(null);
   const startY = useRef(null);
+  
   const verificationTab = [
     { title: "فروشگاه باتری", src: battery, href: "/batteries" },
     {
@@ -92,6 +95,11 @@ function MobileBottomNav(props) {
       // setIsClicked(null);
     }
   };
+
+  useEffect(() => {
+    setVehicleImage(localStorage.getItem("vehicleImage"))
+    setVehicleName(localStorage.getItem("vehicleName"))
+  } , [modalIsOpen])
 
   return (
     <div className="fixed bottom-0 z-[99999999] px-[1rem] pt-[5px] pb-[0.75rem] bg-white flex items-center justify-between w-full h-[70px] shadow-[0_0_5px_0_rgba(0,0,0,0.54)]">
@@ -173,7 +181,7 @@ function MobileBottomNav(props) {
               : ""
           }`}
         >
-          {localStorage.getItem("vehicleImage") && index === 2 ? (
+          {vehicleImage !== '' && index === 2 ? (
             <div className="w-[40px] h-[40px]">
               <Image
                 width={60}
@@ -184,7 +192,7 @@ function MobileBottomNav(props) {
                   "/web" +
                   API_PATHS.FILE +
                   "/" +
-                  localStorage.getItem("vehicleImage")
+                  vehicleImage
                 }
                 className="rounded-[50%] w-full h-full"
               />
@@ -196,9 +204,9 @@ function MobileBottomNav(props) {
               } text-[1.25rem]`}
             />
           )}
-          {localStorage.getItem("vehicleName") && index === 2 ? (
+          {vehicleName !== '' && index === 2 ? (
             <p className={`text-[9px] text-center line-clamp-1 ${isClicked === index && "text-white"}`}>
-              {localStorage.getItem("vehicleName")}
+              {vehicleName}
             </p>
           ) : (
             <p className={`text-[9px] ${isClicked === index && "text-white"}`}>
