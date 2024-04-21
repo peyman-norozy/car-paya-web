@@ -16,8 +16,8 @@ function MobileBottomNav(props) {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [serviceModalIsOpen, setServiceModalIsOpen] = useState(false);
   const [selectedTab, setSelectedTab] = useState(router.pathname);
-  const [vehicleImage,setVehicleImage] = useState('')
-  const [vehicleName,setVehicleName] = useState('')
+  const [vehicleImage,setVehicleImage] = useState(null)
+  const [vehicleName,setVehicleName] = useState(null)
   const modalRef = useRef(null);
   const selectVehicleRef = useRef(null);
   const startY = useRef(null);
@@ -99,7 +99,9 @@ function MobileBottomNav(props) {
   useEffect(() => {
     setVehicleImage(localStorage.getItem("vehicleImage"))
     setVehicleName(localStorage.getItem("vehicleName"))
+    
   } , [modalIsOpen])
+
 
   return (
     <div className="fixed bottom-0 z-[99999999] px-[1rem] pt-[5px] pb-[0.75rem] bg-white flex items-center justify-between w-full h-[70px] shadow-[0_0_5px_0_rgba(0,0,0,0.54)]">
@@ -178,10 +180,12 @@ function MobileBottomNav(props) {
                   index === 3 &&
                   "left-[19%] size360:left-[21%] size460:left-[23%]"
                 }`
+                :
+                vehicleImage !== null && index === 2 ? 'bg-red_shop shadow-[0_0_5px_0_rgba(0,0,0,0.54)] top-[-25%] w-[70px] h-[70px]' 
               : ""
           }`}
         >
-          {vehicleImage !== '' && index === 2 ? (
+          {vehicleImage !== null && index === 2 ? (
             <div className="w-[40px] h-[40px]">
               <Image
                 width={60}
@@ -204,8 +208,8 @@ function MobileBottomNav(props) {
               } text-[1.25rem]`}
             />
           )}
-          {vehicleName !== '' && index === 2 ? (
-            <p className={`text-[9px] text-center line-clamp-1 ${isClicked === index && "text-white"}`}>
+          {vehicleName !== null && index === 2 ? (
+            <p className={`text-[9px] text-center line-clamp-1 text-white`}>
               {vehicleName}
             </p>
           ) : (
