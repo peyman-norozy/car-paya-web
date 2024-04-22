@@ -25,9 +25,9 @@ const ProductsPage = (props) => {
                     title="انتخاب وسیله نقلیه"
                 />
             </div>
-            <div className="pt-0 size1000:pt-[9rem] w-full mt-[1rem] flex flex-col gap-[1.5rem]">
+            <div className="pt-0 size1000:pt-[9rem] w-full mt-[1rem] flex flex-col gap-[1.5rem] relative">
                 <div
-                    className="w-[97%] size1000:w-[63%] absolute top-[5.6rem] left-[1.5%] size1050:left-[1%] hidden size1000:flex flex-row-reverse items-center gap-[1rem]">
+                    className="w-full absolute top-0 right-0 hidden size1000:flex flex-row-reverse items-center gap-[1rem]">
                     <CarServicesSlider data={serviceData}/>
                 </div>
                 {/* <div className="flex items-center justify-between">
