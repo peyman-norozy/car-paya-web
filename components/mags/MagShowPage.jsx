@@ -5,10 +5,11 @@ import axios from "axios";
 import { API_PATHS } from "@/configs/routes.config";
 import { persianDateCovertor } from "@/utils/function-utils";
 import MagsSlider from "./MagsSlider";
+import TrendMags from "./TrendMags";
 
 const MagShowPage = (props) => {
   const { data } = props;
-  const magsData = data.mag;
+  const magsData = data.mag && data.mag;
   useEffect(() => {
     axios
       .get(process.env.BASE_API + `/web/mag-comments?mag_id=${magsData.id}`)
@@ -76,6 +77,9 @@ const MagShowPage = (props) => {
           <Image src="/assets/icons/share.png" alt="" width={16} height={16} />
           <p className="text-12 size752:text-16">اشتراک گذاری</p>
         </div>
+      </div>
+      <div className="size974:hidden">
+        <TrendMags data={data}/>
       </div>
       <div>
         <MagsSlider

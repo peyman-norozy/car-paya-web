@@ -7,7 +7,6 @@ import Link from 'next/link'
 
 const MagSliderCard = (props) => {
     const {data} = props
-    console.log(data);
     return (
         <div className='bg-[#EAEAEA80] rounded-[1rem] overflow-hidden px-[0.25rem] size411:px-[10px] py-[1rem] shadow-[0_0_5px_rgba(0,0,0,0.5)]'>
             <Image src={process.env.BASE_API + '/web/file/' + data.image_id} alt='' width={373} height={225} className='w-full h-[225px] rounded-[0.5rem]'/>

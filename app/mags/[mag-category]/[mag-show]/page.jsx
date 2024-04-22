@@ -3,6 +3,7 @@ import MagShowPage from '@/components/mags/MagShowPage';
 import MagsCategorySection from '@/components/mags/MagsCategorySection';
 import MagsSlider from '@/components/mags/MagsSlider';
 import SearchMags from '@/components/mags/SearchMags';
+import TrendMags from '@/components/mags/TrendMags';
 import { API_PATHS, META_PATHS } from '@/configs/routes.config';
 import { getData } from '@/utils/api-function-utils';
 import React from 'react';
@@ -44,6 +45,12 @@ const MagCategoryData = async (props) => {
     return <MagShowPage data={fetchCategoryData.data} slug={props.slug} />;
   };
 
+  const TrendMagData = async (props) => {
+    
+    const fetchCategoryData = await getData("/web" + API_PATHS.MAGS + '-' + props.slug);
+    return <TrendMags data={fetchCategoryData.data} slug={props.slug}/>;
+  };
+
   const CommentData = async (props) => {
     
     const fetchCategoryData = await getData("/web" + API_PATHS.MAGS + '-' + props.slug);
@@ -64,12 +71,15 @@ const MagShow = (props) => {
         <div><SearchMags /></div>
       </div>
       <MagCategoryData />
-      <div className='flex mt-[2rem]'>
-        <div className='w-full size868:w-[65%]'>
+      <div className='flex mt-[2rem] gap-[2.5rem]'>
+        <div className='w-full size974:w-[55%] size1136:w-[65%]'>
         <MagShowData slug={props.params['mag-show']}/>
         <div className='mt-[2rem]'>
             <CommentData slug={props.params['mag-show']}/>
         </div>
+        </div>
+        <div className='hidden size974:block w-[40%]'>
+          <TrendMagData slug={props.params['mag-show']}/> 
         </div>
       </div>
         </div>
