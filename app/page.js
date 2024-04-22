@@ -26,7 +26,7 @@ export default function Home() {
         <Fragment>
             <MainBanner>
                 {serviceData.map((item, index) => (
-                    <MainBannerCard key={item.title + "-" + index} data={item}/>
+                    <MainBannerCard key={item.title + "-" + index} data={item} index={index}/>
                 ))}
             </MainBanner>
             <div>
