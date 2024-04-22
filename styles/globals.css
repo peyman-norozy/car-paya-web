@@ -47,6 +47,8 @@ input[type=number] {
     src: url("../public/assets/fonts/YekanBakhFaNum-Bold.ttf") format('truetype');
 }
 
+@import url('./carCheckIcon.css');
+
 
 body, .Toastify__toast-body {
     font-family: "YekanBakhFaNum";

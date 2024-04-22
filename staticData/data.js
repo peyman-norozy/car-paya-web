@@ -6,16 +6,10 @@ export const serviceData = [
         id: "vehicleVerification"
     },
     {
-        title: "بیمه",
-        icon: "/assets/images/insurance.png",
+        title: "دیتیلینگ",
+        icon: "/assets/images/brake.png",
         href: "#",
-        id: "insurance"
-    },
-    {
-        title: "شناسنامه و سوابق خودرو",
-        icon: "/assets/images/car-background.png",
-        href: "/profile/my-vehicle/my-car",
-        id: "myVehicleMyCar"
+        id: "detailing"
     },
     {
         title: "سرویس دوره ای",
@@ -30,22 +24,34 @@ export const serviceData = [
         id: "batteries"
     },
     {
-        title: "فیلتر روغن(لوازم یدکی)",
+        title: "فروشگاه لوازم یدکی",
         icon: "/assets/images/cluch-bumpers.png",
         href: "/products",
         id: "products"
     },
     {
-        title: "فیلتر روغن(لوازم یدکی)",
-        icon: "/assets/images/cluch-bumpers.png",
-        href: "/products",
-        id: "products"
+        title: "بیمه",
+        icon: "/assets/images/insurance.png",
+        href: "#",
+        id: "insurance"
     },
     {
-        title: "فیلتر روغن(لوازم یدکی)",
-        icon: "/assets/images/cluch-bumpers.png",
-        href: "/products",
-        id: "products"
+        title: "خرید خودرو",
+        icon: "/assets/images/car.png",
+        href: "#",
+        id: "#"
+    },
+    {
+        title: "فروش خودرو",
+        icon: "/assets/images/car-sales.png",
+        href: "#",
+        id: "#"
+    },
+    {
+        title: "شناسنامه و سوابق خودرو",
+        icon: "/assets/images/car-background.png",
+        href: "/profile/my-vehicle/my-car",
+        id: "myVehicleMyCar"
     },
 ];
 export const HowWorksMockUpData = [
