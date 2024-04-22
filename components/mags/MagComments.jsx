@@ -88,7 +88,7 @@ const MagComments = ({ id }) => {
         onSubmit={commentSubmitHandler}
         className="flex flex-col size1000:flex-row items-start size1000:items-center gap-[2rem] mt-[3rem]"
       >
-        <div className="flex flex-col size1000:flex-row items-start size1000:items-center gap-[1.5rem] w-[80%]">
+        <div className="flex flex-col size1000:flex-row items-start size1000:items-center gap-[1.5rem] w-full size1000:w-[80%]">
           <div className="relative flex items-center w-full h-[3rem] border border-[#B0B0B0] rounded-[0.5rem]">
             <p className="absolute top-[-12px] right-[4%] px-[0.25rem] bg-white text-[#454545] text-14">
               نام کاربری
@@ -130,7 +130,7 @@ const MagComments = ({ id }) => {
         </div>
         <Button
           type="submit"
-          class_name="bg-BLUE_600 text-14 size752:text-[1rem] text-white h-[3rem] rounded-[0.5rem] font-bold text-center w-[40%] size752:w-[20%]"
+          class_name="bg-BLUE_600 text-14 size752:text-[1rem] text-white h-[3rem] rounded-[0.5rem] self-end font-bold text-center w-[40%] size752:w-[20%]"
         >
           ثبت دیدگاه
         </Button>

@@ -1,12 +1,13 @@
 import ProductsPage from "@/components/products/ProductsPage";
+import { META_PATHS } from "@/configs/routes.config";
 import { getData } from "@/utils/api-function-utils";
 
 export const metadata =  {
   title: 'محصولات',
   description: 'بهترین محصولات و لوازم ماشین همراه با دریافت بهترین و سریع ترین خدمات در کارچک',
-  metadataBase: new URL('https://ccme.ir/products'),
+  metadataBase: new URL(META_PATHS.BASEURL + META_PATHS.PRODUCTS),
     alternates: {
-        canonical: 'https://ccme.ir',
+        canonical: META_PATHS.BASEURL,
     },
     keywords: 'محصولات',
     robots: 'index,follow',
@@ -15,10 +16,10 @@ export const metadata =  {
         description: 'بهترین محصولات و لوازم ماشین همراه با دریافت بهترین و سریع ترین خدمات در کارچک',
         locale: 'fa-ir',
         type: 'website',
-        url: 'https://ccme.ir',
+        url: META_PATHS.BASEURL,
         images: [
             {
-                url: 'https://ccme.ir/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fcluch-bumpers.fc3975bb.png&w=64&q=75',
+                url: `${META_PATHS.BASEURL}/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fcluch-bumpers.fc3975bb.png&w=64&q=75`,
                 width: 32, // Specify the width of the image
                 height: 32, // Specify the height of the image
             }

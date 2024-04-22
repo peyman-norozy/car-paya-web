@@ -24,9 +24,12 @@ const MainMotorSycleTip = (props) => {
         props.setMainMotorModelDisplay(true);
     };
 
-    const clickTipHandler = (id) => {
+    const clickTipHandler = (id,event) => {
         setNewTipId(id)
         setSetPhoneNumberState(true)
+        localStorage.setItem('vehicleImage', event.currentTarget.getAttribute('image'))
+        localStorage.setItem('vehicleName', event.currentTarget.getAttribute('name'))
+        localStorage.setItem('vehicleId', id)
     }
 
     const sendCarTipHandler = () => {
@@ -141,7 +144,9 @@ const MainMotorSycleTip = (props) => {
                     {props.mainMotorTipsData.map((item, index) => (
                         <div key={index}
                              className={`flex flex-col items-center gap-2 ${newTipId === item.id ? "bg-stone-200 pt-2 mx-2 rounded-5" : ""}`}
-                             onClick={() => clickTipHandler(item.id)}>
+                             image={item.image}
+                             name={item.title}
+                             onClick={(event) => clickTipHandler(item.id,event)}>
                             <div className="w-[50px] h-[50px] cursor-pointer" value={item.id}>
                                 <Image
                                     src={
