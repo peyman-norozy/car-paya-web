@@ -1,27 +1,35 @@
 import Image from "next/image";
 
 const UserSpecifications = (props) => {
-  return (
-    <div className={`flex ${props.style}`}>
-      <div className="flex flex-col justify-center items-center gap-1">
-        <Image
-          src="/assets/icons/profile.svg"
-          alt="user icon"
-          width={100}
-          height={100}
-        />
-        <span>پیمان نوروزی</span>
-      </div>
-      <div>
-        <Image
-          src="/assets/icons/edit.svg"
-          alt="edit icon"
-          width={24}
-          height={24}
-        />
-      </div>
-    </div>
-  );
+    return (
+        <div className={`flex self-start px-[26px] pt-[24px] ${props.style}`}>
+            <div className="flex items-center w-full gap-2">
+                {/*<Image*/}
+                {/*  src="/assets/icons/profile.svg"*/}
+                {/*  alt="user icon"*/}
+                {/*  width={100}*/}
+                {/*  height={100}*/}
+                {/*/>*/}
+                <div className={"relative"}>
+                    <span
+                        className={"bg-[#6878CA] w-[88px] h-[88px] text-white rounded-full flex justify-center items-center"}>ش</span>
+                    {/*<div className={"absolute top-0 bottom-0"}>*/}
+                    {/*    <Image*/}
+                    {/*        src="/assets/icons/edit.svg"*/}
+                    {/*        alt="edit icon"*/}
+                    {/*        width={24}*/}
+                    {/*        height={24}*/}
+                    {/*    />*/}
+                    {/*</div>*/}
+                </div>
+                <div className={"flex flex-col"}>
+                    <span>شیدا داوری</span>
+                    <span>0903722961</span>
+                </div>
+            </div>
+
+        </div>
+    );
 };
 
 export default UserSpecifications;

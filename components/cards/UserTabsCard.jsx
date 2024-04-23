@@ -54,6 +54,15 @@ const UserTabsCard = (props) => {
 
   return (
     <ul className="flex flex-col gap-1 w-full">
+      <li className={"font-light text-14 px-6 flex items-center justify-between"}>
+        <div
+            className="flex items-center gap-4 py-2"
+        >
+          <Image src={"/assets/icons/Vector.svg"} alt={"vector icon"} width={20} height={20} />
+          <span>کیف پول</span>
+        </div>
+        <span>۰ تومان</span>
+      </li>
       {props.data.map((item, index) => (
         <li
           key={item.id + index}
@@ -66,23 +75,24 @@ const UserTabsCard = (props) => {
           }`}
         >
           <div
-            className="flex items-center gap-4 hover:bg-stone-300 py-2 pr-4"
+            className="flex items-center gap-4 hover:bg-stone-300 py-2 px-6"
             tab_id={item.id}
             onClick={tabClickHandler}
           >
-            <Image src={item.imgSrc} alt={item.alt} width={30} height={30} />
+            <Image src={item.imgSrc} alt={item.alt} width={20} height={20} />
             <span>{item.title}</span>
             {item.id === "my-vehicle" && (
               <div
-                className={`${
-                  triangleState ? "rotate-90" : "rotate-0"
-                } transition-all`}
+                className={`flex-1 flex justify-end`}
               >
                 <Image
                   src="/assets/icons/angle-left.svg"
                   alt="angle left"
-                  width={20}
-                  height={20}
+                  className={`${
+                      triangleState ? "rotate-90" : "rotate-0"
+                  } transition-all`}
+                  width={22}
+                  height={22}
                 />
               </div>
             )}
@@ -120,14 +130,14 @@ const UserTabsCard = (props) => {
         </li>
       ))}
       <li
-        className="flex items-center gap-4 font-light text-14 cursor-pointer hover:bg-stone-300 pr-4 py-2"
+        className="flex items-center gap-4 font-light text-14 cursor-pointer hover:bg-stone-300 px-6 py-2"
         onClick={exitClickHandler}
       >
         <Image
-          src={"/assets/icons/logout.svg"}
+          src={"/assets/icons/login.svg"}
           alt={"logout icon"}
-          width={30}
-          height={30}
+          width={20}
+          height={20}
         />
         <span>خروج</span>
       </li>

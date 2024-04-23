@@ -11,13 +11,13 @@ import {setTriangleState} from "@/store/todoSlice";
 
 const panelTabData = [
   {
-    imgSrc: "/assets/icons/user-profile.svg",
+    imgSrc: "/assets/icons/PersonalIcon.svg",
     title: "اطلاعات شخصی من",
     alt: "user profile icon",
     id: "profile",
   },
   {
-    imgSrc: "/assets/icons/camera-recorder.svg",
+    imgSrc: "/assets/icons/Group.svg",
     title: "شناسنامه و سوابق وسیله نقلیه",
     alt: "my car icon",
     id: "my-vehicle",
@@ -27,19 +27,19 @@ const panelTabData = [
     ],
   },
   {
-    imgSrc: "/assets/icons/destination.svg",
+    imgSrc: "/assets/icons/Vehicle.svg",
     title: "تاریخچه سفارشات",
     alt: "destination icon",
     id: "destination",
   },
   {
-    imgSrc: "/assets/icons/file.svg",
+    imgSrc: "/assets/icons/location.svg",
     title: "آدرس های تحویل کالا",
     alt: "personal file icon",
     id: "personal-file",
   },
   {
-    imgSrc: "/assets/icons/loyalty-card.svg",
+    imgSrc: "/assets/icons/discount-shape.svg",
     title: "بن ها و امتیازات تخفیف",
     alt: "loyalty card icon",
     id: "loyalty-card",
@@ -81,7 +81,7 @@ const UserPanel = () => {
       </div>
       {innerWidthNumber > 1000 ? (
         <div className="flex gap-4 items-start">
-          <div className="shadow-[0_0_6px_0_rgba(177,177,177,1)] w-[300px] flex flex-col justify-center gap-4 items-center pt-2 rounded-[10px]">
+          <div className="shadow-[0_0_6px_0_rgba(177,177,177,1)] w-[342px] flex flex-col justify-center gap-4 items-center pt-2 rounded-[10px]">
             <UserSpecifications
               style={"flex-col justify-center items-center gap-2"}
             />
