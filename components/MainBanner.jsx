@@ -13,7 +13,7 @@ export default function MainBanner(props) {
                 <MainBannerSlider/>
             </div>
             <div
-                className="bg-[#ffffff] w-full h-fit px-[20px] grid size1275:grid-cols-4 grid-cols-3 gap-4 mt-10">
+                className="bg-[#ffffff] w-full h-fit px-[20px] grid size1228:grid-cols-5 size882:grid-cols-4 grid-cols-3 gap-4 mt-10">
                 {props.children}
             </div>
         </div>

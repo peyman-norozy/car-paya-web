@@ -25,7 +25,7 @@ const MainBannerCard = (props) => {
                             className={"w-full h-full"}
                         />
                     </div>
-                    <span className="inline-block text-center text-[#6b6b6b] size1275:text-[16px] text-[12px] ">
+                    <span className="inline-block text-center text-[#6b6b6b] size1228:text-[16px] text-[12px] ">
             {props.data.title}
           </span>
                 </Link>
