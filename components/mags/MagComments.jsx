@@ -5,15 +5,17 @@ import Image from "next/image";
 import Button from "../Button";
 import axios from "axios";
 import { API_PATHS } from "@/configs/routes.config";
-import { getCookie, hasCookie } from "cookies-next";
+import { getCookie } from "cookies-next";
 import { error, success } from "@/utils/function-utils";
 import { ToastContainer } from "react-toastify";
+import StarRatingMag from "./StarRatingMag";
 
 const MagComments = ({ id }) => {
   const [nameValue, setNameValue] = useState("");
   const [emailValue, setEmailValue] = useState("");
   const [contentValue, setContentValue] = useState("");
   const [commentError, serCommentError] = useState("");
+  const [rating, setRating] = useState(0)
 
   const nameInputHandler = (event) => {
     setNameValue(event.target.value);
@@ -40,6 +42,7 @@ const MagComments = ({ id }) => {
           email: emailValue,
           comment: contentValue,
           mag_id: id,
+          rating : rating
         },
         {
           headers: {
@@ -70,7 +73,7 @@ const MagComments = ({ id }) => {
     <div>
       <div className="flex items-center justify-between">
         <h3 className="font-medium text-[22px]">دیدگاهتان را بنویسید</h3>
-        <div>star rating</div>
+        <div><StarRatingMag setRating={setRating} rating={rating}/></div>
       </div>
       <div className="h-[10rem]">
         <textarea
@@ -90,9 +93,9 @@ const MagComments = ({ id }) => {
       >
         <div className="flex flex-col size1000:flex-row items-start size1000:items-center gap-[1.5rem] w-full size1000:w-[80%]">
           <div className="relative flex items-center w-full h-[3rem] border border-[#B0B0B0] rounded-[0.5rem]">
-            <p className="absolute top-[-12px] right-[4%] px-[0.25rem] bg-white text-[#454545] text-14">
+            <label htmlFor="name" className="absolute top-[-12px] right-[4%] px-[0.25rem] bg-white text-[#454545] text-14">
               نام کاربری
-            </p>
+            </label>
             <Image
               src="/assets/icons/user-edit.png"
               alt=""
@@ -101,17 +104,18 @@ const MagComments = ({ id }) => {
               className="mr-[10px] ml-[5px]"
             />
             <Input
+            id='name'
               value={nameValue}
-              className="outline-none pr-[5px] border-r-[2px] border-r-[#B0B0B0]"
+              className="outline-none w-full pr-[5px] border-r-[2px] border-r-[#B0B0B0]"
               type="text"
               placeholder="مثال : ایمان"
               on_change={nameInputHandler}
             />
           </div>
           <div className="relative flex items-center w-full h-[3rem] border border-[#B0B0B0] rounded-[0.5rem]">
-            <p className="absolute top-[-12px] right-[4%] px-[0.25rem] bg-white text-[#454545] text-14">
+            <label htmlFor="email" className="absolute top-[-12px] right-[4%] px-[0.25rem] bg-white text-[#454545] text-14">
               ایمیل
-            </p>
+            </label>
             <Image
               src="/assets/icons/user-edit.png"
               alt=""
@@ -120,8 +124,9 @@ const MagComments = ({ id }) => {
               className="mr-[10px] ml-[5px]"
             />
             <Input
+            id='email'
               value={emailValue}
-              className="outline-none pr-[5px] border-r-[2px] border-r-[#B0B0B0]"
+              className="outline-none pr-[5px] border-r-[2px] border-r-[#B0B0B0] w-full"
               type="text"
               placeholder="مثال : iman@gmail.com"
               on_change={emailChangeHandler}
