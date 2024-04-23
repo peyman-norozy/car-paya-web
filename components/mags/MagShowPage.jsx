@@ -10,6 +10,7 @@ import TrendMags from "./TrendMags";
 const MagShowPage = (props) => {
   const { data } = props;
   const magsData = data.mag && data.mag;
+  console.log(data);
   useEffect(() => {
     axios
       .get(process.env.BASE_API + `/web/mag-comments?mag_id=${magsData.id}`)
