@@ -24,6 +24,7 @@ const ArticleSliderData = async () => {
 export default function Home() {
     return (
         <Fragment>
+            <i className={"icon-Location-Tick-1 text-red-500 text-[100px]"}/>
             <MainBanner>
                 {serviceData.map((item, index) => (
                     <MainBannerCard key={item.title + "-" + index} data={item} index={index}/>
