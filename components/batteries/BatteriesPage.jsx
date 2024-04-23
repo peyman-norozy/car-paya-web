@@ -79,8 +79,8 @@ const BatteriesPage = (props) => {
         <div className="w-full size671:w-[70%] size720:w-[48%] size1136:w-[45%] size1000:pt-[9rem] size1056:pt-0 mt-[1rem] self-center size1056:self-auto">
           <SelectVehicleBox tabTitle={tabTitle} title="انتخاب وسیله نقلیه" />
         </div>
-        <div className="pt-0 size1056:pt-[9rem] w-full mt-[1rem] flex flex-col gap-[1.5rem]">
-          <div className="w-[97%] size1056:w-[63%] absolute top-[5.6rem] left-[1.5%] size1090:left-[2.5%] hidden size1000:flex flex-row-reverse items-center gap-[1rem]">
+        <div className="pt-0 size1056:pt-[9rem] w-full mt-[1rem] flex flex-col gap-[1.5rem] relative">
+          <div className="w-full absolute top-0 right-0  hidden size1000:flex flex-row-reverse items-center gap-[1rem]">
             <CarServicesSlider data={serviceData} />
           </div>
           <div className="flex items-center justify-between">
