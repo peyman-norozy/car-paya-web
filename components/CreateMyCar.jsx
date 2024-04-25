@@ -42,7 +42,7 @@ const CreateMyCar = () => {
     }, [searchParams, perPage, page]);
 
     return (
-        <div className="flex flex-col size1000:flex-1 w-full">
+        <div className="flex flex-col size1000:flex-1 w-full rounded-[10px] px-4 py-6 shadow-[0_0_6px_0_rgba(177,177,177,1)]">
             <div>
                 <Link
                     href={"/profile/my-vehicle/my-car/create"}
