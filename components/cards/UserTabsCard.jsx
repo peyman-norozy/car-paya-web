@@ -54,7 +54,7 @@ const UserTabsCard = (props) => {
 
   return (
     <ul className="flex flex-col gap-1 w-full">
-      <li className={"font-light text-14 px-6 flex items-center justify-between"}>
+      <li className={"font-light text-14 px-6 flex items-center justify-between mx-2"}>
         <div
             className="flex items-center gap-4 py-2"
         >
@@ -66,16 +66,15 @@ const UserTabsCard = (props) => {
       {props.data.map((item, index) => (
         <li
           key={item.id + index}
-          className={`flex flex-col font-light text-14 cursor-pointer ${
-            newRouter === item.id &&
-            newRouter !== "my-vehicle" &&
-            newRouter !== "logout"
-              ? "bg-stone-300"
-              : ""
-          }`}
+          className={`flex flex-col font-light text-14 cursor-pointer`}
         >
           <div
-            className="flex items-center gap-4 hover:bg-stone-300 py-2 px-6"
+            className={`flex items-center gap-4 hover:bg-[#EFF2FF] rounded-10 mx-2 py-4 px-6 ${
+                newRouter === item.id &&
+                newRouter !== "my-vehicle" &&
+                newRouter !== "logout"
+                ? "bg-[#EFF2FF]"
+                : ""}`}
             tab_id={item.id}
             onClick={tabClickHandler}
           >
@@ -116,8 +115,8 @@ const UserTabsCard = (props) => {
                 item.children.map((item) => (
                   <li
                     key={item.id}
-                    className={`pr-16 py-[14px] text-12 hover:bg-stone-300 flex flex-col justify-center ${
-                      newRouter === item.id ? "bg-stone-300" : ""
+                    className={`mx-10 px-6 rounded-10 py-[14px] text-12 hover:bg-[#EFF2FF] flex flex-col justify-center ${
+                      newRouter === item.id ? "bg-[#EFF2FF]" : ""
                     }`}
                     tab_id={item.id}
                     onClick={tabClickHandler}
@@ -130,7 +129,7 @@ const UserTabsCard = (props) => {
         </li>
       ))}
       <li
-        className="flex items-center gap-4 font-light text-14 cursor-pointer hover:bg-stone-300 px-6 py-2"
+        className="flex items-center gap-4 font-light text-14 cursor-pointer hover:bg-[#EFF2FF] rounded-10 px-6 py-4 mx-2 mb-4"
         onClick={exitClickHandler}
       >
         <Image
