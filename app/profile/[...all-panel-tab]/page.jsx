@@ -14,6 +14,7 @@ import MotorDevice from "@/components/MotorDevice";
 import CreateMyCar from "@/components/CreateMyCar";
 import RecordModal from "@/components/modal/RecordModal";
 import RecordModalCreate from "@/components/modal/RecordModalCreate";
+import Destination from "@/components/Destination/Destination";
 
 const panelTabData = [
   {
@@ -137,7 +138,7 @@ const AllPanelTab = () => {
               "my-vehicle/my-car/create": <CarDevice pageType={"create"} />,
               "my-vehicle/my-car/edit": <CarDevice pageType={"edit"} />,
               "my-vehicle/my-motorcycle": <MotorDevice />,
-              destination: <div>destination</div>,
+              destination: <Destination/>,
               "personal-file": <PersonalFile />,
               "user-profile": <div>user-profile</div>,
               "loyalty-card": <div>loyalty-card</div>,
