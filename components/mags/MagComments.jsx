@@ -79,7 +79,7 @@ const MagComments = ({ id }) => {
         <textarea
           value={contentValue}
           onChange={contentChangeHandler}
-          className={`mt-[1.5rem] min-h-[9rem] max-h-[9rem] rounded-[0.5rem] border ${
+          className={`mt-[1.5rem] min-h-[12rem] max-h-[12rem] rounded-[0.5rem] border ${
             commentError !== "" ? "border-RED_500" : "border-[#B0B0B0]"
           } w-full`}
         ></textarea>
@@ -89,10 +89,10 @@ const MagComments = ({ id }) => {
       </div>
       <form
         onSubmit={commentSubmitHandler}
-        className="flex flex-col size1000:flex-row items-start size1000:items-center gap-[2rem] mt-[3rem]"
+        className=" relative flex flex-col size1000:flex-row items-start size1000:items-center gap-[2rem] mt-[3rem]"
       >
         <div className="flex flex-col size1000:flex-row items-start size1000:items-center gap-[1.5rem] w-full size1000:w-[80%]">
-          <div className="relative flex items-center w-full h-[3rem] border border-[#B0B0B0] rounded-[0.5rem]">
+          {/* <div className="relative flex items-center w-full h-[3rem] border border-[#B0B0B0] rounded-[0.5rem]">
             <label htmlFor="name" className="absolute top-[-12px] right-[4%] px-[0.25rem] bg-white text-[#454545] text-14">
               نام کاربری
             </label>
@@ -131,11 +131,11 @@ const MagComments = ({ id }) => {
               placeholder="مثال : iman@gmail.com"
               on_change={emailChangeHandler}
             />
-          </div>
+          </div> */}
         </div>
         <Button
           type="submit"
-          class_name="bg-BLUE_600 text-14 size752:text-[1rem] text-white h-[3rem] rounded-[0.5rem] self-end font-bold text-center w-[40%] size752:w-[20%]"
+          class_name="bg-BLUE_600 absolute left-[2%] bottom-[5%] text-12 size752:text-[1rem] text-white h-[2rem] size752:h-[2.5rem] size1000:h-[3rem] rounded-[0.5rem] self-end font-bold text-center px-[0.5rem] size752:px-[1rem]"
         >
           ثبت دیدگاه
         </Button>
