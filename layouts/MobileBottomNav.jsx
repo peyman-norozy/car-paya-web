@@ -10,6 +10,7 @@ import verification from "@/public/assets/images/vehicle-verification.png";
 import SelectedVehicleVerificationBox from "@/components/SelectedVehicleVerificationBox";
 import Image from "next/image";
 import { API_PATHS } from "@/configs/routes.config";
+import {serviceData} from "@/staticData/data";
 
 function MobileBottomNav(props) {
   const router = useRouter();
@@ -21,19 +22,7 @@ function MobileBottomNav(props) {
   const modalRef = useRef(null);
   const selectVehicleRef = useRef(null);
   const startY = useRef(null);
-  
-  const verificationTab = [
-    { title: "فروشگاه باتری", src: battery, href: "/batteries" },
-    {
-      title: "کارشناسی خودرو",
-      src: verification,
-      href: "/vehicle-verification",
-    },
-    { title: "فیلتر و روغن", src: cluch, href: "/products" },
-    { title: "سرویس دوره ای", src: service, href: "/periodic-service" },
-    { title: "شناسنامه و سوابق خودرو", src: car_bg, href: "#" },
-    { title: "بیمه", src: insurance, href: "#" },
-  ];
+
   const mobileNavData = [
     { name: "icon-Vector", title: "صفحه نخست", class: "right-[5%]" },
     { name: "icon-Vector-1", title: "خدمات", class: "right-[26.5%]" },
@@ -142,7 +131,7 @@ function MobileBottomNav(props) {
         >
           <div className="h-[5px] w-[6rem] rounded-[20px] bg-[#333] absolute top-[2.5%] left-[50%] translate-x-[-50%]"></div>
           <div className="absolute top-[10%] right-[2%] left-[2%] grid grid-cols-3 gap-[1rem]">
-            {verificationTab.map((item, index) => (
+            {serviceData.map((item, index) => (
               <SelectedVehicleVerificationBox
                 href={item.href}
                 isClicked={selectedTab}
@@ -150,7 +139,7 @@ function MobileBottomNav(props) {
                 index={item.href}
                 key={index}
                 title={item.title}
-                src={item.src}
+                src={item.icon}
                 width={60}
                 height={60}
               />

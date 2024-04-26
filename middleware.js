@@ -50,7 +50,7 @@ export default async function middleware(req) {
             return profileResponse
         }
     } else if (
-        req.nextUrl.pathname.startsWith("/panel")
+        req.nextUrl.pathname.startsWith("/profile")
     ) {
         if (!req.cookies.has("Authorization")) {
             return loginResponse

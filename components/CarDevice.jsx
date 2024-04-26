@@ -512,7 +512,7 @@ const CarDevice = (props) => {
     }, [newEditData]);
 
     return (
-        <form className="mt-8 flex-1" onSubmit={myCarSubmitHandler}>
+        <form className="flex-1 px-4 py-6 rounded-[10px] shadow-[0_0_6px_0_rgba(177,177,177,1)]" onSubmit={myCarSubmitHandler}>
             <div
                 className="grid size1314:grid-cols-5 size1106:grid-cols-4 size690:grid-cols-3 size490:grid-cols-2 grid-cols-1 gap-2">
                 <SelectSearchInput

@@ -1,11 +1,10 @@
 "use client"
-import {useRouter,useParams} from "next/navigation";
+import {useParams, useRouter} from "next/navigation";
 import TitleDescription from "@/components/TitleDescription";
-import { Fragment, useEffect, useState } from "react";
+import {Fragment, useEffect, useState} from "react";
 import LogoutModal from "@/components/modal/LogoutModal";
 import {getWindowInnerWidth} from "@/store/todoSlice";
-import { useDispatch, useSelector } from "react-redux";
-import PersonalFile from "@/components/PersonalFile";
+import {useDispatch, useSelector} from "react-redux";
 import UserSpecifications from "@/components/UserSpecifications";
 import UserTabsCard from "@/components/cards/UserTabsCard";
 import Image from "next/image";
@@ -14,16 +13,17 @@ import MotorDevice from "@/components/MotorDevice";
 import CreateMyCar from "@/components/CreateMyCar";
 import RecordModal from "@/components/modal/RecordModal";
 import RecordModalCreate from "@/components/modal/RecordModalCreate";
+import ProductAddress from "@/components/ProductAddress/ProductAddress";
 
 const panelTabData = [
   {
-    imgSrc: "/assets/icons/user-profile.svg",
+    imgSrc: "/assets/icons/PersonalIcon.svg",
     title: "اطلاعات شخصی من",
     alt: "user profile icon",
     id: "profile",
   },
   {
-    imgSrc: "/assets/icons/camera-recorder.svg",
+    imgSrc: "/assets/icons/Group.svg",
     title: "شناسنامه و سوابق وسیله نقلیه",
     alt: "my car icon",
     id: "my-vehicle",
@@ -33,19 +33,19 @@ const panelTabData = [
     ],
   },
   {
-    imgSrc: "/assets/icons/destination.svg",
+    imgSrc: "/assets/icons/Vehicle.svg",
     title: "تاریخچه سفارشات",
     alt: "destination icon",
     id: "destination",
   },
   {
-    imgSrc: "/assets/icons/file.svg",
+    imgSrc: "/assets/icons/location.svg",
     title: "آدرس های تحویل کالا",
     alt: "personal file icon",
-    id: "personal-file",
+    id: "productAddress",
   },
   {
-    imgSrc: "/assets/icons/loyalty-card.svg",
+    imgSrc: "/assets/icons/discount-shape.svg",
     title: "بن ها و امتیازات تخفیف",
     alt: "loyalty card icon",
     id: "loyalty-card",
@@ -109,7 +109,7 @@ const AllPanelTab = () => {
                 <TitleDescription>شناسنامه و سوابق موتور</TitleDescription>
               ),
               destination: <TitleDescription>تاریخچه سفارشات</TitleDescription>,
-              "personal-file": (
+              "productAddress": (
                 <TitleDescription>آدرس های تحویل کالا</TitleDescription>
               ),
               "loyalty-card": (
@@ -122,7 +122,7 @@ const AllPanelTab = () => {
           }
         </div>
         <div className="flex gap-4 size1000:flex-row flex-col items-start">
-          <div className="shadow-[0_0_6px_0_rgba(177,177,177,1)] w-[300px] flex-col justify-center gap-4 items-center pt-2 size1000:flex hidden rounded-[10px]">
+          <div className="shadow-[0_0_6px_0_rgba(177,177,177,1)] w-[342px] flex-col justify-center gap-4 items-center pt-2 size1000:flex hidden rounded-[10px]">
             <UserSpecifications
               style={"flex-col justify-center items-center gap-2"}
             />
@@ -137,8 +137,8 @@ const AllPanelTab = () => {
               "my-vehicle/my-car/create": <CarDevice pageType={"create"} />,
               "my-vehicle/my-car/edit": <CarDevice pageType={"edit"} />,
               "my-vehicle/my-motorcycle": <MotorDevice />,
-              destination: <div>destination</div>,
-              "personal-file": <PersonalFile />,
+              destination: <div>asdfs</div>,
+              "productAddress": <ProductAddress/>,
               "user-profile": <div>user-profile</div>,
               "loyalty-card": <div>loyalty-card</div>,
             }[

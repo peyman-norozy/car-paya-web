@@ -1,13 +1,31 @@
 import axios from "axios";
-import {getCookie} from "cookies-next";
 
-export function service() {
-    axios.interceptors.request.use((request) => {
-        request.baseURL = process.env.BASE_API
-        request.headers = {
-            Authorization: "Bearer " + getCookie("Authorization"),
-            Accept: "application/json"
+const baseURL = process.env.BASE_API
+    ,isServer = typeof window === 'undefined'
+
+const api = axios.create({
+    baseURL,
+    headers:{
+        Accept: "application/json",
+        'Content-Type': 'application/json'
+    }
+})
+
+api.interceptors.request.use(async config=>{
+    if(isServer){
+        const {cookies} = (await import('next/headers'))
+            ,token = cookies().get("Authorization")?.value
+        if(token){
+            config.headers["Authorization"]=`Bearer ${token}`
         }
-        return request
-    })
-}
+    }
+    else {
+        const {getCookie} = (await import("cookies-next"))
+            ,token = getCookie("Authorization")
+        if(token){
+            config.headers["Authorization"]=`Bearer ${token}`
+        }
+    }
+    return config
+})
+export default api

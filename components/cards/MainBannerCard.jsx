@@ -4,7 +4,7 @@ import {cookies} from "next/headers";
 
 const MainBannerCard = (props) => {
     return (
-        <div className={`${props.index === 0 ? "col-span-2" : ""} size690:min-w-[200px] min-w-[100px] h-[120px]`}>
+        <div className={`${props.index === 0 ? "size882:col-span-2 col-span-1" : ""} size690:min-w-[200px] min-w-[100px] h-[120px]`}>
             <div className="flex flex-col justify-center items-center h-full">
                 <Link
                     href={
@@ -25,7 +25,7 @@ const MainBannerCard = (props) => {
                             className={"w-full h-full"}
                         />
                     </div>
-                    <span className="inline-block text-center text-[#6b6b6b] size1275:text-[16px] text-[12px] ">
+                    <span className="inline-block text-center text-[#6b6b6b] size1228:text-[16px] text-[12px] ">
             {props.data.title}
           </span>
                 </Link>
