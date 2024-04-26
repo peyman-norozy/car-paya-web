@@ -3,7 +3,7 @@ import Button from "@/components/Button";
 import Image from "next/image";
 import AddressesCard from "@/components/cards/AddressesCard";
 
-const Destination = () => {
+const ProductAddress = () => {
     const addressData = [1,2,3,4,5,6]
     return (
         <div
@@ -37,4 +37,4 @@ const Destination = () => {
     );
 };
 
-export default Destination;
+export default ProductAddress;
