@@ -35,8 +35,8 @@ const panelTabData = [
   {
     imgSrc: "/assets/icons/location.svg",
     title: "آدرس های تحویل کالا",
-    alt: "personal file icon",
-    id: "personal-file",
+    alt: "product address file icon",
+    id: "productAddress",
   },
   {
     imgSrc: "/assets/icons/discount-shape.svg",

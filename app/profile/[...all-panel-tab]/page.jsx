@@ -1,11 +1,10 @@
 "use client"
-import {useRouter,useParams} from "next/navigation";
+import {useParams, useRouter} from "next/navigation";
 import TitleDescription from "@/components/TitleDescription";
-import { Fragment, useEffect, useState } from "react";
+import {Fragment, useEffect, useState} from "react";
 import LogoutModal from "@/components/modal/LogoutModal";
 import {getWindowInnerWidth} from "@/store/todoSlice";
-import { useDispatch, useSelector } from "react-redux";
-import PersonalFile from "@/components/PersonalFile";
+import {useDispatch, useSelector} from "react-redux";
 import UserSpecifications from "@/components/UserSpecifications";
 import UserTabsCard from "@/components/cards/UserTabsCard";
 import Image from "next/image";
@@ -14,7 +13,7 @@ import MotorDevice from "@/components/MotorDevice";
 import CreateMyCar from "@/components/CreateMyCar";
 import RecordModal from "@/components/modal/RecordModal";
 import RecordModalCreate from "@/components/modal/RecordModalCreate";
-import Destination from "@/components/Destination/Destination";
+import ProductAddress from "@/components/ProductAddress/ProductAddress";
 
 const panelTabData = [
   {
@@ -43,7 +42,7 @@ const panelTabData = [
     imgSrc: "/assets/icons/location.svg",
     title: "آدرس های تحویل کالا",
     alt: "personal file icon",
-    id: "personal-file",
+    id: "productAddress",
   },
   {
     imgSrc: "/assets/icons/discount-shape.svg",
@@ -110,7 +109,7 @@ const AllPanelTab = () => {
                 <TitleDescription>شناسنامه و سوابق موتور</TitleDescription>
               ),
               destination: <TitleDescription>تاریخچه سفارشات</TitleDescription>,
-              "personal-file": (
+              "productAddress": (
                 <TitleDescription>آدرس های تحویل کالا</TitleDescription>
               ),
               "loyalty-card": (
@@ -138,8 +137,8 @@ const AllPanelTab = () => {
               "my-vehicle/my-car/create": <CarDevice pageType={"create"} />,
               "my-vehicle/my-car/edit": <CarDevice pageType={"edit"} />,
               "my-vehicle/my-motorcycle": <MotorDevice />,
-              destination: <Destination/>,
-              "personal-file": <PersonalFile />,
+              destination: <div>asdfs</div>,
+              "productAddress": <ProductAddress/>,
               "user-profile": <div>user-profile</div>,
               "loyalty-card": <div>loyalty-card</div>,
             }[
