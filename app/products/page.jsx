@@ -36,7 +36,8 @@ const ProductData = async() => {
 const Products = () => {
   
   return (
-   <ProductData />
+    <p>iman</p>
+//    <ProductData />
   );
 };
 

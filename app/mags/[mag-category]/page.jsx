@@ -59,11 +59,12 @@ const MagCategoryItemsData = async (props) => {
 const MagCategory = (props) => {
   return (
     <div className="w-[95%] m-auto size720:w-[90%]">
-      <div>
+      <p>iman</p>
+      {/* <div>
         <MagBreadCrumbData slug={props.params["mag-category"]} />
       </div>
       <MagCategoryData />
-      <MagCategoryItemsData slug={props.params["mag-category"]} />
+      <MagCategoryItemsData slug={props.params["mag-category"]} /> */}
     </div>
   );
 };

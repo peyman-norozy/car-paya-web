@@ -33,9 +33,9 @@ const BatteriesData = async (props) => {
 }
 
 const Batteries = (props) => {
-   console.log(props.searchParams.order_by, '$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$')
   return (
-    <BatteriesData filter={props.searchParams.order_by}/>
+    <p>iman</p>
+    // <BatteriesData filter={props.searchParams.order_by}/>
   );
 };
 

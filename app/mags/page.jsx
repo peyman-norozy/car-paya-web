@@ -39,7 +39,8 @@ const Mags = () => {
     }
     return (
         <div>
-            <MagsPageData />
+            <p>iman</p>
+            {/* <MagsPageData /> */}
         </div>
     );
 };
