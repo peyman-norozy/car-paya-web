@@ -77,8 +77,8 @@ const BreadCrumbData = async (props) => {
 const MagShow = (props) => {
   return (
     <div className="w-[95%] size1000:w-[90%] m-auto">
-      <p>iman</p>
-      {/* <div>
+      
+      <div>
         <BreadCrumbData slug={props.params["mag-show"]} categorySlug={props.params["mag-category"]}/>
       </div>
       <MagCategoryData />
@@ -92,7 +92,7 @@ const MagShow = (props) => {
         <div className="hidden size974:block w-[40%]">
           <TrendMagData slug={props.params["mag-show"]} />
         </div>
-      </div> */}
+      </div>
     </div>
   );
 };

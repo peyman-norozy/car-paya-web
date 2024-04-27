@@ -1,6 +1,7 @@
 import ProductsPage from "@/components/products/ProductsPage";
 import { META_PATHS } from "@/configs/routes.config";
 import { getData } from "@/utils/api-function-utils";
+import { Fragment, Suspense } from "react";
 
 export const metadata =  {
   title: 'محصولات',
@@ -36,8 +37,13 @@ const ProductData = async() => {
 const Products = () => {
   
   return (
-    <p>iman</p>
-//    <ProductData />
+    <Fragment>
+      <Suspense fallback={<div>loading</div>}>
+      <ProductData />
+
+      </Suspense>
+
+    </Fragment>
   );
 };
 
