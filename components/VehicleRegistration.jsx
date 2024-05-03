@@ -11,6 +11,8 @@ import MainMotorSycleModel from "@/components/MainMotorSycleModel";
 import MainMotorSycleTip from "@/components/MainMotorSycleTip";
 import { ToastContainer } from "react-toastify";
 import Spinner from "@/components/Spinner";
+import {useDispatch} from "react-redux";
+import {setSelectCarBrand, setSelectCarModel} from "@/store/todoSlice";
 
 const tabData = [
   { title: "خودرو", id: "car" },
@@ -31,12 +33,14 @@ const VehicleRegistration = (props) => {
   const [mainMotorModelData, setMainMotorModelData] = useState([]);
   const [mainMotorTipsData, setMainMotorTipsData] = useState([]);
   const [newTabId, setNewTabId] = useState("car");
+  const dispatch = useDispatch()
   const clickTabHandler = (event) => {
     setNewTabId(event.currentTarget.id);
   };
 
-  const clickbrandHandler = (event, value) => {
+  const clickbrandHandler = (event, value, item) => {
     const id = event.currentTarget.getAttribute("id");
+    dispatch(setSelectCarBrand(item))
     let models = "";
     id === "car_brand"
       ? (models = API_PATHS.MODELS)
@@ -69,8 +73,9 @@ const VehicleRegistration = (props) => {
       });
   };
 
-  const clickTipHandler = (event, value, image) => {
+  const clickModelHandler = (event, value, image, item) => {
     const id = event.currentTarget.getAttribute("id");
+    dispatch(setSelectCarModel(item))
     let tip = "";
     id === "car_model"
       ? (tip = API_PATHS.TIPS)
@@ -116,7 +121,7 @@ const VehicleRegistration = (props) => {
   return (
     <Fragment>
       <div
-        className={`absolute top-[10px]  ${
+        className={`${props.modalPosition?"absolute inset-0 m-auto h-fit":"absolute top-[10px]"} ${
           props.style ? props.style : "w-[340px]"
         } z-50 bg-white font-light px-4 py-4 rounded-lg`}
       >
@@ -154,7 +159,7 @@ const VehicleRegistration = (props) => {
                 mainCarModelData={mainCarModelData}
                 setMainBrandModalDisplay={setMainBrandModalDisplay}
                 setMainModelDisplay={setMainModelDisplay}
-                clickTipHandler={clickTipHandler}
+                clickModelHandler={clickModelHandler}
               />
             ) : mainTipDisplay ? (
               <MainCarTip
@@ -163,6 +168,7 @@ const VehicleRegistration = (props) => {
                 setMainModelDisplay={setMainModelDisplay}
                 sliderShowState={sliderShowState}
                 setMainBrandModalDisplay={setMainBrandModalDisplay}
+                modalPosition={props.modalPosition}
               />
             ) : null,
             motorSycle: sliderShowState ? (
@@ -179,7 +185,7 @@ const VehicleRegistration = (props) => {
                 mainMotorModelData={mainMotorModelData}
                 setMainMotorBrandModalDisplay={setMainMotorBrandModalDisplay}
                 setMainMotorModelDisplay={setMainMotorModelDisplay}
-                clickTipHandler={clickTipHandler}
+                clickModelHandler={clickModelHandler}
               />
             ) : mainMotorTipDisplay ? (
               <MainMotorSycleTip
