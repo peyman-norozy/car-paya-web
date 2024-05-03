@@ -16,6 +16,7 @@ import {useRouter} from "next/navigation";
 import {useSearchParams} from "next/navigation";
 import {carFormData} from "@/utils/formData-utils";
 import {getData, postData, putData} from "@/utils/client-api-function-utils";
+import {useSelector} from "react-redux";
 
 const CarDevice = (props) => {
     const router = useRouter();
@@ -60,6 +61,8 @@ const CarDevice = (props) => {
         useState(0);
     const [newFinePrice, setNewFinePrice] = useState("");
     const [newEditData, setNewEditData] = useState({});
+    const selectVehicleData = useSelector(vehicleData=>vehicleData.todo.selectVehicle)
+    const carYear = useSelector(year=>year.todo.carYear)
     const editFormData = new FormData();
 
     const selectOptionHandler = (event) => {
@@ -469,6 +472,19 @@ const CarDevice = (props) => {
         }
     }, [props.pageType, searchParams]);
 
+    /********** set data in create page when select car brand and tip and model is selected with modal **********/
+
+    useEffect(() => {
+        if(Object.keys(selectVehicleData).length>0){
+            console.log(selectVehicleData)
+            console.log(process.env.BASE_API + "/web" + API_PATHS.FILE + "/" + selectVehicleData.carModel.logo)
+            setNewImage(process.env.BASE_API + "/web" + API_PATHS.FILE + "/" + selectVehicleData.carModel.image)
+            setNewBrandOptionId(selectVehicleData.carBrand.id)
+            setNewModelOptionId(selectVehicleData.carModel.id)
+            setNewTipOptionId(selectVehicleData.carTip.id)
+        }
+    }, [selectVehicleData]);
+
     useEffect(() => {
         if (props.pageType === "edit" && Object.keys(newEditData).length > 0) {
             setNewMyCarValue(newEditData.title);
@@ -517,39 +533,42 @@ const CarDevice = (props) => {
                 className="grid size1314:grid-cols-5 size1106:grid-cols-4 size690:grid-cols-3 size490:grid-cols-2 grid-cols-1 gap-2">
                 <SelectSearchInput
                     data={newBrand}
-                    pageType={props.pageType}
-                    editId={newEditData.car_brand_id}
-                    editTitle={newEditData.car_brand_title}
+                    pageType={Object.keys(selectVehicleData).length>0?"edit":props.pageType}
+                    editId={Object.keys(selectVehicleData).length>0?selectVehicleData.carBrand.id:newEditData.car_brand_id}
+                    editTitle={Object.keys(selectVehicleData).length>0?selectVehicleData.carBrand.title:newEditData.car_brand_title}
                     placeholder={<span className="text-[#aaa]">انتخاب برند</span>}
                     onclick={selectSearchOptionHandler}
                     id={"brandOption"}
                     newReset={newReset}
                     className={"h-[40px]"}
+                    disabledSelectOption={true}
                 />
                 <SelectSearchInput
                     data={newModel}
-                    pageType={props.pageType}
-                    editId={newEditData.car_model_id}
-                    editTitle={newEditData.car_model_title}
+                    pageType={Object.keys(selectVehicleData).length>0?"edit":props.pageType}
+                    editId={Object.keys(selectVehicleData).length>0?selectVehicleData.carModel.id:newEditData.car_model_id}
+                    editTitle={Object.keys(selectVehicleData).length>0?selectVehicleData.carModel.title:newEditData.car_model_title}
                     placeholder={<span className="text-[#aaa]">انتخاب مدل</span>}
                     onclick={selectSearchOptionHandler}
                     id={"modelOption"}
                     newReset={newReset}
                     className={"h-[40px]"}
+                    disabledSelectOption={true}
                 />
                 <SelectSearchInput
                     data={newTip}
-                    pageType={props.pageType}
-                    editId={newEditData.car_tip_id}
-                    editTitle={newEditData.car_tip_title}
+                    pageType={Object.keys(selectVehicleData).length>0?"edit":props.pageType}
+                    editId={Object.keys(selectVehicleData).length>0?selectVehicleData.carTip.id:newEditData.car_tip_id}
+                    editTitle={Object.keys(selectVehicleData).length>0?selectVehicleData.carTip.title:newEditData.car_tip_title}
                     placeholder={<span className="text-[#aaa]">انتخاب تیپ</span>}
                     onclick={selectSearchOptionHandler}
                     id={"tipOption"}
                     newReset={newReset}
                     className={"h-[40px]"}
+                    disabledSelectOption={true}
                 />
                 <SelectSearchInput
-                    data={newYear}
+                    data={carYear.length>0?carYear:newYear}
                     pageType={props.pageType}
                     editId={newEditData.yearId}
                     editTitle={newEditData.year}
