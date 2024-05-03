@@ -17,13 +17,13 @@ const MagComments = ({ id }) => {
   const [commentError, serCommentError] = useState("");
   const [rating, setRating] = useState(0)
 
-  const nameInputHandler = (event) => {
-    setNameValue(event.target.value);
-  };
+  // const nameInputHandler = (event) => {
+  //   setNameValue(event.target.value);
+  // };
 
-  const emailChangeHandler = (event) => {
-    setEmailValue(event.target.value);
-  };
+  // const emailChangeHandler = (event) => {
+  //   setEmailValue(event.target.value);
+  // };
 
   const contentChangeHandler = (event) => {
     setContentValue(event.target.value);
@@ -38,11 +38,9 @@ const MagComments = ({ id }) => {
       .post(
         process.env.BASE_API + "/web" + API_PATHS.MAGCOMMENTS + "/store",
         {
-          name: nameValue,
-          email: emailValue,
           comment: contentValue,
           mag_id: id,
-          rating : rating
+          rate : rating
         },
         {
           headers: {

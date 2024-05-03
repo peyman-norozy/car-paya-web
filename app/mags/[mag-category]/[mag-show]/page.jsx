@@ -1,5 +1,6 @@
 import BreadCrumbMag from "@/components/mags/BreadCrumbMag";
 import MagComments from "@/components/mags/MagComments";
+import MagShowComments from "@/components/mags/MagShowComments";
 import MagShowPage from "@/components/mags/MagShowPage";
 import MagsCategorySection from "@/components/mags/MagsCategorySection";
 import MagsSlider from "@/components/mags/MagsSlider";
@@ -87,6 +88,9 @@ const MagShow = (props) => {
           <MagShowData slug={props.params["mag-show"]} />
           <div className="mt-[2rem]">
             <CommentData slug={props.params["mag-show"]} />
+          </div>
+          <div  className="mt-[2rem]">
+            <MagShowComments />
           </div>
         </div>
         <div className="hidden size974:block w-[40%]">
