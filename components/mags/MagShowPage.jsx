@@ -10,7 +10,12 @@ import TrendMags from "./TrendMags";
 const MagShowPage = (props) => {
   const { data } = props;
   const magsData = data.mag && data.mag;
-  console.log(data);
+
+
+  const saveMagHandler = () => {
+    // axios.post(process.env.BASE_API + '/mag-favorites').then(res => console.log(res)).catch(err => console.log(err))
+  }
+
   useEffect(() => {
     axios
       .get(process.env.BASE_API + `/web/mag-comments?mag_id=${magsData.id}`)
@@ -41,6 +46,7 @@ const MagShowPage = (props) => {
             alt=""
             width={16}
             height={16}
+            onClick={saveMagHandler}
           />
           <p className="text-12 size752:text-16">سیو کردن مطالب</p>
         </div>
