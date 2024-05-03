@@ -52,7 +52,7 @@ const MainCarBrand = (props) => {
                                         <div
                                             className="w-[50px] h-[50px] cursor-pointer"
                                             id={"car_brand"}
-                                            onClick={(e) => props.clickbrandHandler(e, item.id)}
+                                            onClick={(e) => props.clickbrandHandler(e, item.id,item)}
                                         >
                                             <Image
                                                 src={
