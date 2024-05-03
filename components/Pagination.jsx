@@ -1,23 +1,22 @@
 // import ReactPaginate from "react-paginate";
-import {useParams, useRouter, useSearchParams} from "next/navigation";
+import {useParams, useSearchParams} from "next/navigation";
 import React, { useEffect, useState } from "react";
 import ResponsivePagination from "react-responsive-pagination";
 import "react-responsive-pagination/themes/classic.css";
+import useSetQuery from "@/hook/useSetQuery";
 
 const Pagination = (props) => {
   const [currentPage, setCurrentPage] = useState(1);
   const searchParams = useSearchParams();
-  const router = useRouter();
   const params = useParams()
+  const setQuery = useSetQuery()
 
 
   const setCurrentPageHandler = (number) => {
     const search = params;
     search.page = number.toString();
     setCurrentPage(number);
-    router.push({
-      query: { ...search },
-    });
+    setQuery.setQuery("page",search.page)
   };
 
   useEffect(() => {
