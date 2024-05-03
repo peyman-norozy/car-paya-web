@@ -31,7 +31,7 @@ console.log(data)
 
   return (
     <div className="w-[95%] m-auto flex flex-col size1000:flex-row items-center size1000:items-start gap-[0.5rem] size1190:gap-[2rem] size1275:gap-[4rem]">
-      <div className="w-full size460:w-[80%] size617:w-[60%] size1160:w-[45%] mt-[1rem]">
+      <div className="hidden size1000:block size617:w-[60%] size1160:w-[45%] mt-[1rem]">
         <SelectVehicleBox
           myTehicleTab={0}
           tabTitle={tabTitle}

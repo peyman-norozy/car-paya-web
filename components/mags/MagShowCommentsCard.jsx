@@ -2,6 +2,7 @@ import React from "react";
 import user from "@/public/assets/images/magUser.png";
 import like from '@/public/assets/images/like.png'
 import dislike from '@/public/assets/images/dislike.png'
+import undo from '@/public/assets/images/undo.png'
 import Image from "next/image";
 
 const MagShowCommentsCard = () => {
@@ -17,14 +18,14 @@ const MagShowCommentsCard = () => {
           </div>
         </div>
       </div>
-      <div className="w-[88%] m-auto">
-        <p>comment</p>
-        <div className="flex items-center mt-[1rem]">
-            <div className="w-[10px] h-[10px] bg-[#354597]"></div>
-            <p>answer</p>
+      <div className="w-[88%] m-auto text-[#303030]">
+        <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. </p>
+        <div className="flex items-start gap-[0.5rem] mt-[1rem]">
+        <Image src={undo} alt="" width={24} height={24} />
+            <p className="text-14">پاسخ : لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. </p>
         </div>
       </div>
-      <div className="flex items-center gap-[2rem] self-end">
+      <div className="flex items-center gap-[2rem] self-end mt-[1rem]">
         <div className="flex items-center gap-[0.5rem] text-[#5EB35C]">
             <span>10</span>
             <Image src={like} alt="" width={24} height={24} />
