@@ -11,7 +11,11 @@ const SelectSearchInput = (props) => {
   const inputRef = useRef();
   const optionsRef = useRef();
   const setHeightHandler = () => {
-    setNewHeight((preveState) => !preveState);
+    if(!props.disabledSelectOption){
+      setNewHeight((preveState) => !preveState);
+    }else{
+      return null
+    }
   };
 
   const searchChangeHandler = (event) => {
@@ -69,11 +73,13 @@ const SelectSearchInput = (props) => {
         <span className="text-12 inline-block mr-2 mt-1 ">
           {props.newPlaque_1 ? props.newPlaque_1 : newOption}
         </span>
-        <RedChevron
-          custoCllasses={`absolute left-[4px] top-[12px] ${
-            props.chevronStyle
-          } ${newHeight ? "rotate-[-90deg]" : "rotate-0"}`}
-        />
+        {!props.disabledSelectOption&&
+          <RedChevron
+              custoCllasses={`absolute left-[4px] top-[12px] ${
+                  props.chevronStyle
+              } ${newHeight ? "rotate-[-90deg]" : "rotate-0"}`}
+          />
+        }
       </div>
       <div
         className={`transition-all shadow duration-700 overflow-hidden absolute w-full opacity-100 bg-[#eee] z-10 mt-[10px]  top-[24px] text-12 font-light ${
