@@ -70,12 +70,7 @@ const AllPanelTab = () => {
   );
 
   const backClickHandler = () => {
-    if (params) {
-      router.back();
-    } else {
       router.push("/panel");
-    }
-    // router.back()
   };
 
   useEffect(() => {
