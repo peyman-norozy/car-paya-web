@@ -39,11 +39,9 @@ const GeneralCarInformation = (props) => {
             }
         }
         if (props.pageType === "edit") {
-            console.log(props.editFinePrice);
             if (props.editFinePrice !== undefined) {
                 const finePriceWithCommas = numberWithCommas(props.editFinePrice);
                 setNewfinePriceValue(finePriceWithCommas);
-                console.log(finePriceWithCommas)
                 props.setNewFinePrice(finePriceWithCommas?finePriceWithCommas.split(",").join(""):"");
                 setNewTomanState(true);
             }
