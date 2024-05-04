@@ -124,7 +124,7 @@ const AllPanelTab = () => {
           }
         </div>
         <div className="flex gap-4 size1000:flex-row flex-col items-start">
-          <div className="shadow-[0_0_6px_0_rgba(177,177,177,1)] w-[342px] flex-col justify-center gap-4 items-center pt-2 size1000:flex hidden rounded-[10px]">
+          <div className="shadow-[0_0_6px_0_rgba(177,177,177,1)] w-[342px] flex-col justify-center gap-4 items-center pt-2 size1180:flex hidden rounded-[10px]">
             <UserSpecifications
               style={"flex-col justify-center items-center gap-2"}
             />

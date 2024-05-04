@@ -543,7 +543,7 @@ console.log(selectVehicleData)
         <form className="flex-1 px-[40px] py-[32px] rounded-[10px] shadow-[0_0_6px_0_rgba(177,177,177,1)] flex flex-col gap-[35px]"
               onSubmit={myCarSubmitHandler}>
             <h1 className={"text-[#354597]"}>خودرو من</h1>
-            <div className={"grid grid-cols-2 gap-[32px]"}>
+            <div className={"grid size800:grid-cols-2 grid-cols-1 gap-[32px]"}>
                 <section className="flex justify-center items-center rounded-[10px] flex-[1]">
                     <Image
                         src={
@@ -602,7 +602,7 @@ console.log(selectVehicleData)
                         خودرو</Button>
                 </section>
             </div>
-            <div className="grid grid-cols-2 gap-[32px]">
+            <div className="grid size800:grid-cols-2 grid-cols-1 gap-[32px]">
                 <div className={"relative"}>
                     <label htmlFor={"carName"} className={"bg-white px-2 font-light text-[12px] text-[#454545] absolute top-[-11px] right-[10px]"}>نام وسیله</label>
                     <Input
@@ -628,7 +628,7 @@ console.log(selectVehicleData)
                     lable={"سال ساخت"}
                 />
             </div>
-            <div className={"grid grid-cols-3 gap-[32px]"}>
+            <div className={"grid size800:grid-cols-3 size582:grid-cols-2 grid-cols-1 gap-[32px]"}>
                 <MachinTagInput
                     setNewPlaque_0={setNewPlaque_0}
                     setNewPlaque_1={setNewPlaque_1}
@@ -680,8 +680,6 @@ console.log(selectVehicleData)
                     />
                 </div>
             </div>
-
-
             <GeneralCarInformation
                 title={"بیمه ثالث"}
                 id={"thirdPartyInsurance"}
