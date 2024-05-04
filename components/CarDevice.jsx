@@ -543,7 +543,7 @@ console.log(selectVehicleData)
         <form className="flex-1 px-[40px] py-[32px] rounded-[10px] shadow-[0_0_6px_0_rgba(177,177,177,1)] flex flex-col gap-[35px]"
               onSubmit={myCarSubmitHandler}>
             <h1 className={"text-[#354597]"}>خودرو من</h1>
-            <div className={"grid grid-cols-2"}>
+            <div className={"grid grid-cols-2 gap-[32px]"}>
                 <section className="flex justify-center items-center rounded-[10px] flex-[1]">
                     <Image
                         src={
