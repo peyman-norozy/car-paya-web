@@ -169,6 +169,7 @@ const VehicleRegistration = (props) => {
                 sliderShowState={sliderShowState}
                 setMainBrandModalDisplay={setMainBrandModalDisplay}
                 modalPosition={props.modalPosition}
+                setModalState={props.setModalState}
               />
             ) : null,
             motorSycle: sliderShowState ? (
