@@ -106,7 +106,7 @@ const CreateMyCar = () => {
                 )}
             </div>
             <Pagination newTotal={newTotal} perPage={perPage}/>
-            {modalState&&<div className={"fixed top-0 right-0 w-full h-full bg-[#00000050] z-[9999]"} onClick={closeCarModalHandler}              id={"ChoseCar"}
+            {<div className={`fixed top-0 right-0 w-full h-full bg-[#00000050] transition-all duration-1000 z-[9999] ${modalState?"translate-y-[0%]":"translate-y-[100%]"}`} onClick={closeCarModalHandler}              id={"ChoseCar"}
             >
                 <SelectCarModal modalPosition={true}/>
             </div>}
