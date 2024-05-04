@@ -3,7 +3,7 @@ import VehicleRegistration from "@/components/VehicleRegistration";
 const SelectCarModal = (props) => {
     return (
         <Fragment>
-             <VehicleRegistration modalPosition={props.modalPosition}/>
+             <VehicleRegistration modalPosition={props.modalPosition} setModalState={props.setModalState}/>
         </Fragment>
     );
 };
