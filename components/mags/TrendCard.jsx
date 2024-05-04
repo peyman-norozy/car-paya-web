@@ -6,7 +6,7 @@ import React from "react";
 const TrendCard = (props) => {
   const { data } = props;
   return (
-    <Link href={`/mags/${data.mag_category_id}/${data.slug}`} className="bg-[#F6F6F6] shadow-[0_0_4px_0_rgba(168,168,168,0.25)] p-2 flex items-center gap-4 rounded-lg">
+    <Link href={`/mags/${data.slug}`} className="bg-[#F6F6F6] shadow-[0_0_4px_0_rgba(168,168,168,0.25)] p-2 flex items-center gap-4 rounded-lg">
       <Image
         src={
           process.env.BASE_API + "/web" + API_PATHS.FILE + "/" + data.image_id

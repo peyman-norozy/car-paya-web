@@ -18,7 +18,7 @@ const MagSliderCard = (props) => {
             <p className='text-[#6878CA] text-12'>{moment.unix(data.created_at).locale('fa').fromNow()}</p>
 
             <Button class_name='text-12 size752:text-14 text-[#354597]'>
-                <Link href={`/mags/${data.mag_category_id}/${data.slug}`}>    بیشتر بدانید</Link>
+                <Link href={`/mags/${data.slug}`}>    بیشتر بدانید</Link>
             </Button>
             </div>
         </div>
