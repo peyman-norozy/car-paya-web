@@ -62,6 +62,13 @@ const CommentData = async (props) => {
   return <MagComments id={fetchCategoryData.data.mag.id} />;
 };
 
+const ShowCommentData = async (props) => {
+  const fetchCategoryData = await getData(
+      "/web" + API_PATHS.MAGS + "-" + props.slug
+  );
+  return <MagShowComments id={fetchCategoryData.data.mag.id} />;
+};
+
 const BreadCrumbData = async (props) => {
   const fetchData = await getData("/web" + API_PATHS.MAGS + "-" + props.slug);
   return (
@@ -90,7 +97,7 @@ const MagShow = (props) => {
             <CommentData slug={props.params["mag-show"]} />
           </div>
           <div  className="mt-[2rem]">
-            <MagShowComments />
+            <ShowCommentData slug={props.params["mag-show"]}/>
           </div>
         </div>
         <div className="hidden size974:block w-[40%]">
