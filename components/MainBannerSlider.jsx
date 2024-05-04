@@ -53,7 +53,7 @@ const MainBannerSlider = () => {
                         newSlider.map((item) => (
                             <SwiperSlide key={item.id}>
                                 <Fragment>
-                                    <Link href={"/contact-us"} className={`block w-full size525:h-[405px] h-[205px]`}>
+                                    <Link href={item.link} className={`block w-full size525:h-[405px] h-[205px]`}>
                                         <Image
                                             src={
                                                 process.env.BASE_API +
