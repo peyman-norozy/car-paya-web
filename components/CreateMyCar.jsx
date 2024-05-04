@@ -75,7 +75,7 @@ const CreateMyCar = () => {
                     <li className="font-bold flex-1 text-center">مدل</li>
                     <li className="font-bold flex-1 text-center">تیپ</li>
                     <li className="font-bold flex-1 text-center">سال ساخت</li>
-                    <li className="flex-1"></li>
+                    <li className="font-bold flex-[1.6] text-center">عملیات</li>
                 </ul>
                 {!newSkeletonState ? (
                     innerWidth > 800 ? (

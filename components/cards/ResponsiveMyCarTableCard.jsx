@@ -47,7 +47,7 @@ const ResponsiveMyCarTableCard = (props) => {
       </div>
       <EditAndDeleteIcon
         containerClassName={"flex-row justify-end"}
-        id={props.data.id}
+        id={props.data.id} forceComplete={props.data.forceComplete}
       />
     </div>
   );
