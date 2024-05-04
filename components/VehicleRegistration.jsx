@@ -13,11 +13,12 @@ import { ToastContainer } from "react-toastify";
 import Spinner from "@/components/Spinner";
 import {useDispatch} from "react-redux";
 import {setSelectCarBrand, setSelectCarModel} from "@/store/todoSlice";
+import {hasCookie} from "cookies-next";
 
-const tabData = [
-  { title: "خودرو", id: "car" },
-  { title: "موتورسیکلت", id: "motorSycle" },
-];
+// const tabData = [
+//   { title: "خودرو", id: "car" },
+//   { title: "موتورسیکلت", id: "motorSycle" },
+// ];
 
 const VehicleRegistration = (props) => {
   const [mainBrandModalDisplay, setMainBrandModalDisplay] = useState(true);
@@ -33,7 +34,16 @@ const VehicleRegistration = (props) => {
   const [mainMotorModelData, setMainMotorModelData] = useState([]);
   const [mainMotorTipsData, setMainMotorTipsData] = useState([]);
   const [newTabId, setNewTabId] = useState("car");
+  const [tabData,setTabData] = useState([ { title: "خودرو", id: "car" },
+    { title: "موتورسیکلت", id: "motorSycle" },])
   const dispatch = useDispatch()
+
+  useEffect(() => {
+
+    if(hasCookie("Authorization")){
+      setTabData(prev=>[...prev,{ title: "خودرو من", id: "myVehicle" }])
+    }
+  }, []);
   const clickTabHandler = (event) => {
     setNewTabId(event.currentTarget.id);
   };
@@ -196,6 +206,7 @@ const VehicleRegistration = (props) => {
                 setMainMotorBrandModalDisplay={setMainMotorBrandModalDisplay}
               />
             ) : null,
+            myVehicle:<div>my vehicle</div>
           }[newTabId]
         }
       </div>
