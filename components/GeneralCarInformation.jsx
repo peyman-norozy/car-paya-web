@@ -132,16 +132,32 @@ const GeneralCarInformation = (props) => {
         }
     }, [props, newInsurance]);
     return (
-        <div className="flex flex-col gap-4 size411:flex-row items-center size617:gap-16 mt-6 bg-[#f4f4f4] py-4 px-3">
-      <span className="text-red_shop inline-block w-full size411:w-[100px] size617:text-14 text-12">
-        {props.title}
-      </span>
-            <div className="grid size1228:grid-cols-4 size617:grid-cols-2 grid-cols-1 gap-4 flex-1 items-center">
+        <div className={"flex flex-col gap-4"}>
+            <div className={"flex justify-between"}>
+               <span className={"border-r border-red-500 text-[#354597] text-14 pr-2 flex items-center"}>
+                    {props.title}
+                </span>
+                    {props.allSelectInputState && (
+                        <div className="flex items-center gap-2">
+                            <span className="text-14 text-[#354597]">یادآوری:</span>
+                            <ToggleButton
+                                onClick={toggleChangeHandler}
+                                newEnableToggle={newEnableToggle}
+                                activeText={"فعال"}
+                                InactiveText={"غیرفعال"}
+                                editData={props.editRemember}
+                                newToggleClassName={newToggleClassName}
+                            />
+                        </div>
+                    )}
+            </div>
+            <div className={`grid ${props.id === "technicalDiagnosis"?"grid-cols-2":"grid-cols-3"} gap-[32px]`}>
                 {props.violationState && (
                     <div className="relative col-span-2">
                         {newTomanState && (
                             <span className="absolute left-2 top-3 text-12">تومان</span>
                         )}
+                        <label htmlFor={props.id} className={"bg-white px-2 font-light text-[12px] text-[#454545] absolute top-[-11px] right-[10px]"}>{props.title}</label>
                         <Input
                             type="text"
                             value={newfinePriceValue}
@@ -195,11 +211,13 @@ const GeneralCarInformation = (props) => {
                         editTitle={
                             newFilterEditData.length > 0 ? newFilterEditData[0].title:<span className="text-[#aaa]">نام شرکت بیمه</span>
                         }
-                        placeholder={<span className="text-[#aaa]">نام شرکت بیمه</span>}
+                        // placeholder={<span className="text-[#aaa]">نام شرکت بیمه</span>}
                         onclick={selectSearchOptionHandler}
                         id={"insurancesOption"}
                         // newReset={newReset}
-                        className={"h-[40px] bg-white"}
+                        className={"h-[48px] bg-white"}
+                        lable={"نام شرکت بیمه"}
+
                     />
                     // <SelectInput
                     //   data={insuranceData}
@@ -208,22 +226,9 @@ const GeneralCarInformation = (props) => {
                     //   className={"h-[40px] bg-white"}
                     // />
                 )}
-                {props.allSelectInputState && (
-                    <div className="flex items-center gap-2">
-                        <span className="text-14">یادآوری:</span>
-                        <ToggleButton
-                            onClick={toggleChangeHandler}
-                            newEnableToggle={newEnableToggle}
-                            activeText={"فعال"}
-                            InactiveText={"غیرفعال"}
-                            editData={props.editRemember}
-                            newToggleClassName={newToggleClassName}
-                        />
-                    </div>
-                )}
             </div>
         </div>
-    );
+            );
 };
 
 export default GeneralCarInformation;
