@@ -16,6 +16,7 @@ import {useSearchParams} from "next/navigation";
 import {carFormData} from "@/utils/formData-utils";
 import {getData, postData, putData} from "@/utils/client-api-function-utils";
 import {useSelector} from "react-redux";
+import SelectCarModal from "@/components/modal/SelectCarModal";
 
 const CarDevice = (props) => {
     const router = useRouter();
@@ -31,6 +32,7 @@ const CarDevice = (props) => {
     const [newYear, setNewYear] = useState([]);
     const [newImage, setNewImage] = useState("");
     const [newReset, setNewReset] = useState(false);
+    const [modalState,setModalState]=useState(false)
     const [newBrandOptionId, setNewBrandOptionId] = useState("");
     const [newModelOptionId, setNewModelOptionId] = useState("");
     const [newTipOptionId, setNewTipOptionId] = useState("");
@@ -63,7 +65,7 @@ const CarDevice = (props) => {
     const selectVehicleData = useSelector(vehicleData => vehicleData.todo.selectVehicle)
     const carYear = useSelector(year => year.todo.carYear)
     const editFormData = new FormData();
-
+console.log(selectVehicleData)
     const selectOptionHandler = (event) => {
         if (event.target.id === "brandOption") {
             // setWindState(String(event.target.value));
@@ -393,6 +395,16 @@ const CarDevice = (props) => {
             }
         };
 
+    const openModalHandler =()=>{
+        setModalState(true)
+    }
+    const closeCarModalHandler = (event)=>{
+        console.log(event.target.getAttribute("id"))
+        if(event.target.id === "ChoseCar"){
+            setModalState(false)
+        }
+    }
+
     useEffect(() => {
         (async () => {
             const response = await getData(process.env.BASE_API + "/web" + API_PATHS.BRANDS)
@@ -475,12 +487,13 @@ const CarDevice = (props) => {
 
     useEffect(() => {
         if (Object.keys(selectVehicleData).length > 0) {
-            console.log(selectVehicleData)
-            console.log(process.env.BASE_API + "/web" + API_PATHS.FILE + "/" + selectVehicleData.carModel.logo)
-            setNewImage(process.env.BASE_API + "/web" + API_PATHS.FILE + "/" + selectVehicleData.carModel.image)
-            setNewBrandOptionId(selectVehicleData.carBrand.id)
-            setNewModelOptionId(selectVehicleData.carModel.id)
-            setNewTipOptionId(selectVehicleData.carTip.id)
+            console.log(selectVehicleData.carModel)
+            if(selectVehicleData.carModel){
+                setNewImage(process.env.BASE_API + "/web" + API_PATHS.FILE + "/" + selectVehicleData.carModel.image)
+            }
+            setNewBrandOptionId(selectVehicleData.carBrand&&selectVehicleData.carBrand.id)
+            setNewModelOptionId(selectVehicleData.carModel&&selectVehicleData.carModel.id)
+            setNewTipOptionId(selectVehicleData.carTip&&selectVehicleData.carTip.id)
         }
     }, [selectVehicleData]);
 
@@ -548,8 +561,8 @@ const CarDevice = (props) => {
                     <SelectSearchInput
                         data={newBrand}
                         pageType={Object.keys(selectVehicleData).length > 0 ? "edit" : props.pageType}
-                        editId={Object.keys(selectVehicleData).length > 0 ? selectVehicleData.carBrand.id : newEditData.car_brand_id}
-                        editTitle={Object.keys(selectVehicleData).length > 0 ? selectVehicleData.carBrand.title : newEditData.car_brand_title}
+                        editId={Object.keys(selectVehicleData).length > 0 ? selectVehicleData.carBrand&&selectVehicleData.carBrand.id : newEditData.car_brand_id}
+                        editTitle={Object.keys(selectVehicleData).length > 0 ? selectVehicleData.carBrand&&selectVehicleData.carBrand.title : newEditData.car_brand_title}
                         placeholder={<span className="text-[#aaa]">انتخاب برند</span>}
                         onclick={selectSearchOptionHandler}
                         id={"brandOption"}
@@ -561,8 +574,8 @@ const CarDevice = (props) => {
                     <SelectSearchInput
                         data={newModel}
                         pageType={Object.keys(selectVehicleData).length > 0 ? "edit" : props.pageType}
-                        editId={Object.keys(selectVehicleData).length > 0 ? selectVehicleData.carModel.id : newEditData.car_model_id}
-                        editTitle={Object.keys(selectVehicleData).length > 0 ? selectVehicleData.carModel.title : newEditData.car_model_title}
+                        editId={Object.keys(selectVehicleData).length > 0 ? selectVehicleData.carModel&&selectVehicleData.carModel.id : newEditData.car_model_id}
+                        editTitle={Object.keys(selectVehicleData).length > 0 ? selectVehicleData.carModel&&selectVehicleData.carModel.title : newEditData.car_model_title}
                         placeholder={<span className="text-[#aaa]">انتخاب مدل</span>}
                         onclick={selectSearchOptionHandler}
                         id={"modelOption"}
@@ -574,8 +587,8 @@ const CarDevice = (props) => {
                     <SelectSearchInput
                         data={newTip}
                         pageType={Object.keys(selectVehicleData).length > 0 ? "edit" : props.pageType}
-                        editId={Object.keys(selectVehicleData).length > 0 ? selectVehicleData.carTip.id : newEditData.car_tip_id}
-                        editTitle={Object.keys(selectVehicleData).length > 0 ? selectVehicleData.carTip.title : newEditData.car_tip_title}
+                        editId={Object.keys(selectVehicleData).length > 0 ? selectVehicleData.carTip&&selectVehicleData.carTip.id : newEditData.car_tip_id}
+                        editTitle={Object.keys(selectVehicleData).length > 0 ? selectVehicleData.carTip&&selectVehicleData.carTip.title : newEditData.car_tip_title}
                         placeholder={<span className="text-[#aaa]">انتخاب تیپ</span>}
                         onclick={selectSearchOptionHandler}
                         id={"tipOption"}
@@ -585,7 +598,7 @@ const CarDevice = (props) => {
                         lable={"انتخاب تیپ"}
                     />
                     <Button type={"button"}
-                            class_name={"bg-[#354597] text-[#FEFEFE] self-end px-[24.5px] py-[6.5px] text-[14px] rounded-5"}>تغییر
+                            class_name={"bg-[#354597] text-[#FEFEFE] self-end px-[24.5px] py-[6.5px] text-[14px] rounded-5"} on_click={openModalHandler}>تغییر
                         خودرو</Button>
                 </section>
             </div>
@@ -736,6 +749,10 @@ const CarDevice = (props) => {
                 </Button>
             </div>
             <ToastContainer rtl={true}/>
+            {modalState&&<div className={"fixed top-0 right-0 w-full h-full bg-[#00000050] z-[9999]"} onClick={closeCarModalHandler}              id={"ChoseCar"}
+            >
+                <SelectCarModal modalPosition={true} setModalState={setModalState}/>
+            </div>}
         </form>
     );
 };
