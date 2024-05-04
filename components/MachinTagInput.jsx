@@ -83,13 +83,13 @@ const MachinTagInput = (props) => {
     }, [props.newPlaque_1, carTagData.options]);
 
     return (
-        <div className="flex border-2 border-[#d1d1d1] rounded-5 h-[40px]">
-            <div className="flex flex-col w-full border-l-2 border-[#d1d1d1] items-center justify-center">
-                <span className="text-10">ایران</span>
+        <div className="flex border-2 border-[#d1d1d1] rounded-5 h-[48px] relative">
+            <div className="flex flex-col gap-1 w-full border-l-2 border-[#d1d1d1] items-center justify-center">
+                <Image src={"/assets/icons/iran.svg"} alt={"iran icon"} width={30} height={24} className={"mt-2"}/>
                 <Input
                     type="text"
                     value={props.newPlaque_3 !== "null" ? props.newPlaque_3 : ""}
-                    className="text-center text-12 outline-none border border-[#aaa] w-[90%] h-[90%] rounded-5"
+                    className="text-center text-12 outline-none border border-[#aaa] w-[90%] h-[90%] rounded-5 mb-1"
                     on_change={selectJustNumberHandler}
                     id={"plaque_3"}
                     name={"plaque_3"}
@@ -122,6 +122,7 @@ const MachinTagInput = (props) => {
                     // newReset={newReset}
                     placeholderStyle={"placeholder:text-10 pr-[4px]"}
                     chevronStyle={"top-[9px]"}
+                    chevronDisabled={true}
                     className={"border border-[#aaa] w-[100%] h-[90%] rounded-5"}
                 />
             </div>
@@ -138,14 +139,16 @@ const MachinTagInput = (props) => {
                     maxlength="2"
                 />
             </div>
-            <div className="rounded-l-[5px] overflow-hidden">
+            <div className="rounded-l-[5px] overflow-hidden w-[240px] h-[44px]">
                 <Image
-                    src="/assets/icons/machinTag.svg"
+                    src="/assets/icons/plaqueFrame.svg"
                     alt={"machine tag"}
-                    width={84}
+                    className={"w-full h-full"}
+                    width={240}
                     height={40}
                 />
             </div>
+            <span className="inline-block bg-white px-2 font-light text-[12px] text-[#454545] absolute top-[-11px] right-[10px]">پلاک</span>
         </div>
     );
 };

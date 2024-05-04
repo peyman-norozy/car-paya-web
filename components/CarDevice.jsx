@@ -3,7 +3,6 @@ import SelectSearchInput from "@/components/SelectSearchInput";
 import MachinTagInput from "@/components/MachinTagInput";
 import Image from "next/image";
 import Input from "@/components/Input";
-import MyVihicleTitle from "@/components/MyVihicleTitle";
 import GeneralCarInformation from "@/components/GeneralCarInformation";
 import axios from "axios";
 import process from "next/dist/build/webpack/loaders/resolve-url-loader/lib/postcss";
@@ -16,6 +15,8 @@ import {useRouter} from "next/navigation";
 import {useSearchParams} from "next/navigation";
 import {carFormData} from "@/utils/formData-utils";
 import {getData, postData, putData} from "@/utils/client-api-function-utils";
+import {useSelector} from "react-redux";
+import SelectCarModal from "@/components/modal/SelectCarModal";
 
 const CarDevice = (props) => {
     const router = useRouter();
@@ -31,6 +32,7 @@ const CarDevice = (props) => {
     const [newYear, setNewYear] = useState([]);
     const [newImage, setNewImage] = useState("");
     const [newReset, setNewReset] = useState(false);
+    const [modalState,setModalState]=useState(false)
     const [newBrandOptionId, setNewBrandOptionId] = useState("");
     const [newModelOptionId, setNewModelOptionId] = useState("");
     const [newTipOptionId, setNewTipOptionId] = useState("");
@@ -60,8 +62,10 @@ const CarDevice = (props) => {
         useState(0);
     const [newFinePrice, setNewFinePrice] = useState("");
     const [newEditData, setNewEditData] = useState({});
+    const selectVehicleData = useSelector(vehicleData => vehicleData.todo.selectVehicle)
+    const carYear = useSelector(year => year.todo.carYear)
     const editFormData = new FormData();
-
+console.log(selectVehicleData)
     const selectOptionHandler = (event) => {
         if (event.target.id === "brandOption") {
             // setWindState(String(event.target.value));
@@ -372,7 +376,7 @@ const CarDevice = (props) => {
                     event.target.finePrice.value.split(",").join(""),
                 );
                 const response = await postData(process.env.BASE_API + "/user-panel" + API_PATHS.CARS, fd, '"Content-Type": "application/json"')
-                if (response.status === 200||response.status===201) {
+                if (response.status === 200 || response.status === 201) {
                     // success(res.data.data["msg"]);
                     router.push("/profile/my-vehicle/my-car");
                     // event.target.reset();
@@ -390,6 +394,16 @@ const CarDevice = (props) => {
                 }
             }
         };
+
+    const openModalHandler =()=>{
+        setModalState(true)
+    }
+    const closeCarModalHandler = (event)=>{
+        console.log(event.target.getAttribute("id"))
+        if(event.target.id === "ChoseCar"){
+            setModalState(false)
+        }
+    }
 
     useEffect(() => {
         (async () => {
@@ -469,6 +483,20 @@ const CarDevice = (props) => {
         }
     }, [props.pageType, searchParams]);
 
+    /********** set data in create page when select car brand and tip and model is selected with modal **********/
+
+    useEffect(() => {
+        if (Object.keys(selectVehicleData).length > 0) {
+            console.log(selectVehicleData.carModel)
+            if(selectVehicleData.carModel){
+                setNewImage(process.env.BASE_API + "/web" + API_PATHS.FILE + "/" + selectVehicleData.carModel.image)
+            }
+            setNewBrandOptionId(selectVehicleData.carBrand&&selectVehicleData.carBrand.id)
+            setNewModelOptionId(selectVehicleData.carModel&&selectVehicleData.carModel.id)
+            setNewTipOptionId(selectVehicleData.carTip&&selectVehicleData.carTip.id)
+        }
+    }, [selectVehicleData]);
+
     useEffect(() => {
         if (props.pageType === "edit" && Object.keys(newEditData).length > 0) {
             setNewMyCarValue(newEditData.title);
@@ -512,53 +540,95 @@ const CarDevice = (props) => {
     }, [newEditData]);
 
     return (
-        <form className="flex-1 px-4 py-6 rounded-[10px] shadow-[0_0_6px_0_rgba(177,177,177,1)]" onSubmit={myCarSubmitHandler}>
-            <div
-                className="grid size1314:grid-cols-5 size1106:grid-cols-4 size690:grid-cols-3 size490:grid-cols-2 grid-cols-1 gap-2">
+        <form className="flex-1 px-[40px] py-[32px] rounded-[10px] shadow-[0_0_6px_0_rgba(177,177,177,1)] flex flex-col gap-[35px]"
+              onSubmit={myCarSubmitHandler}>
+            <h1 className={"text-[#354597]"}>خودرو من</h1>
+            <div className={"grid grid-cols-2"}>
+                <section className="flex justify-center items-center rounded-[10px] flex-[1]">
+                    <Image
+                        src={
+                            newImage && newImage !== null
+                                ? newImage
+                                : "/assets/icons/photo.svg"
+                        }
+                        alt={"car image"}
+                        className={"w-[476px] h-[295px]"}
+                        width={476}
+                        height={295}
+                    />
+                </section>
+                <section className={"flex flex-col gap-[24px] justify-center"}>
+                    <SelectSearchInput
+                        data={newBrand}
+                        pageType={Object.keys(selectVehicleData).length > 0 ? "edit" : props.pageType}
+                        editId={Object.keys(selectVehicleData).length > 0 ? selectVehicleData.carBrand&&selectVehicleData.carBrand.id : newEditData.car_brand_id}
+                        editTitle={Object.keys(selectVehicleData).length > 0 ? selectVehicleData.carBrand&&selectVehicleData.carBrand.title : newEditData.car_brand_title}
+                        placeholder={<span className="text-[#aaa]">انتخاب برند</span>}
+                        onclick={selectSearchOptionHandler}
+                        id={"brandOption"}
+                        newReset={newReset}
+                        className={"h-[48px]"}
+                        disabledSelectOption={true}
+                        lable={"انتخاب برند"}
+                    />
+                    <SelectSearchInput
+                        data={newModel}
+                        pageType={Object.keys(selectVehicleData).length > 0 ? "edit" : props.pageType}
+                        editId={Object.keys(selectVehicleData).length > 0 ? selectVehicleData.carModel&&selectVehicleData.carModel.id : newEditData.car_model_id}
+                        editTitle={Object.keys(selectVehicleData).length > 0 ? selectVehicleData.carModel&&selectVehicleData.carModel.title : newEditData.car_model_title}
+                        placeholder={<span className="text-[#aaa]">انتخاب مدل</span>}
+                        onclick={selectSearchOptionHandler}
+                        id={"modelOption"}
+                        newReset={newReset}
+                        className={"h-[48px]"}
+                        disabledSelectOption={true}
+                        lable={"انتخاب مدل"}
+                    />
+                    <SelectSearchInput
+                        data={newTip}
+                        pageType={Object.keys(selectVehicleData).length > 0 ? "edit" : props.pageType}
+                        editId={Object.keys(selectVehicleData).length > 0 ? selectVehicleData.carTip&&selectVehicleData.carTip.id : newEditData.car_tip_id}
+                        editTitle={Object.keys(selectVehicleData).length > 0 ? selectVehicleData.carTip&&selectVehicleData.carTip.title : newEditData.car_tip_title}
+                        placeholder={<span className="text-[#aaa]">انتخاب تیپ</span>}
+                        onclick={selectSearchOptionHandler}
+                        id={"tipOption"}
+                        newReset={newReset}
+                        className={"h-[48px]"}
+                        disabledSelectOption={true}
+                        lable={"انتخاب تیپ"}
+                    />
+                    <Button type={"button"}
+                            class_name={"bg-[#354597] text-[#FEFEFE] self-end px-[24.5px] py-[6.5px] text-[14px] rounded-5"} on_click={openModalHandler}>تغییر
+                        خودرو</Button>
+                </section>
+            </div>
+            <div className="grid grid-cols-2 gap-[32px]">
+                <div className={"relative"}>
+                    <label htmlFor={"carName"} className={"bg-white px-2 font-light text-[12px] text-[#454545] absolute top-[-11px] right-[10px]"}>نام وسیله</label>
+                    <Input
+                        type="text"
+                        value={newMyCarValue !== "null" ? newMyCarValue : ""}
+                        placeholder="مثال: خودروی من"
+                        className="border border-[#d1d1d1] outline-none pr-2 text-14 h-[48px] placeholder:text-12 placeholder:text-right w-full rounded-5"
+                        id={"carName"}
+                        name={"carName"}
+                        on_change={InputChangeHandler}
+                    />
+                </div>
                 <SelectSearchInput
-                    data={newBrand}
-                    pageType={props.pageType}
-                    editId={newEditData.car_brand_id}
-                    editTitle={newEditData.car_brand_title}
-                    placeholder={<span className="text-[#aaa]">انتخاب برند</span>}
-                    onclick={selectSearchOptionHandler}
-                    id={"brandOption"}
-                    newReset={newReset}
-                    className={"h-[40px]"}
-                />
-                <SelectSearchInput
-                    data={newModel}
-                    pageType={props.pageType}
-                    editId={newEditData.car_model_id}
-                    editTitle={newEditData.car_model_title}
-                    placeholder={<span className="text-[#aaa]">انتخاب مدل</span>}
-                    onclick={selectSearchOptionHandler}
-                    id={"modelOption"}
-                    newReset={newReset}
-                    className={"h-[40px]"}
-                />
-                <SelectSearchInput
-                    data={newTip}
-                    pageType={props.pageType}
-                    editId={newEditData.car_tip_id}
-                    editTitle={newEditData.car_tip_title}
-                    placeholder={<span className="text-[#aaa]">انتخاب تیپ</span>}
-                    onclick={selectSearchOptionHandler}
-                    id={"tipOption"}
-                    newReset={newReset}
-                    className={"h-[40px]"}
-                />
-                <SelectSearchInput
-                    data={newYear}
+                    data={carYear.length > 0 ? carYear : newYear}
                     pageType={props.pageType}
                     editId={newEditData.yearId}
                     editTitle={newEditData.year}
-                    placeholder={<span className="text-[#aaa]">سال ساخت</span>}
+                    // placeholder={<span className="text-[#aaa]">سال ساخت</span>}
                     onclick={selectSearchOptionHandler}
                     id={"productYearOption"}
                     newReset={newReset}
-                    className={"h-[40px]"}
+                    className={"h-[48px]"}
+                    lable={"سال ساخت"}
                 />
+            </div>
+            <div className={"grid grid-cols-3 gap-[32px]"}>
                 <MachinTagInput
                     setNewPlaque_0={setNewPlaque_0}
                     setNewPlaque_1={setNewPlaque_1}
@@ -571,73 +641,47 @@ const CarDevice = (props) => {
                     pageType={props.pageType}
                     editPlaqueData={newEditData.plaque}
                 />
-            </div>
-            <div className="flex gap-4 mt-4 size671:flex-row flex-col">
-                <div className="border border-[#d1d1d1] flex justify-center items-center rounded-[10px] flex-[1]">
-                    <Image
-                        src={
-                            newImage && newImage !== null
-                                ? newImage
-                                : "/assets/icons/photo.svg"
-                        }
-                        alt={"car image"}
-                        width={300}
-                        height={300}
+                <div className="relative">
+                    {/*<span className="absolute text-12 text-[#aaa] top-4 right-2">*/}
+                    {/*   کیلومتر فعلی خودرو*/}
+                    {/*</span>*/}
+                    <label htmlFor={"kilometerStart"} className={"bg-white px-2 font-light text-[12px] text-[#454545] absolute top-[-11px] right-[10px]"}> کیلومتر فعلی خودرو</label>
+                    {newStartKilometerState && (
+                        <span className="absolute left-2 top-4 text-12">کیلومتر</span>
+                    )}
+                    <Input
+                        type="text"
+                        value={newStartKilometerValue}
+                        id={"kilometerStart"}
+                        name={"kilometerStart"}
+                        className={`border border-[#d1d1d1] outline-none ${
+                            newStartKilometerState ? "pl-[50px]" : "pl-2"
+                        } text-14 h-[48px] placeholder:text-12 placeholder:text-right text-left w-full rounded-5`}
+                        on_change={InputChangeHandler}
                     />
                 </div>
-                <div className="flex flex-col flex-1 gap-4">
-                    <div>
-                        <Input
-                            type="text"
-                            value={newMyCarValue !== "null" ? newMyCarValue : ""}
-                            placeholder="مثال: خودروی من"
-                            className="border outline-none pr-2 text-14 h-[40px] placeholder:text-12 placeholder:text-right w-full rounded-5"
-                            id={"carName"}
-                            name={"carName"}
-                            on_change={InputChangeHandler}
-                        />
-                    </div>
-                    <div className="relative">
-            <span className="absolute text-12 text-[#aaa] top-3 right-2">
-              کیلومتر فعلی خودرو
-            </span>
-                        {newStartKilometerState && (
-                            <span className="absolute left-2 top-3 text-12">کیلومتر</span>
-                        )}
-                        <Input
-                            type="text"
-                            value={newStartKilometerValue}
-                            id={"kilometerStart"}
-                            name={"kilometerStart"}
-                            className={`border outline-none ${
-                                newStartKilometerState ? "pl-[50px]" : "pl-2"
-                            } text-14 h-[40px] placeholder:text-12 placeholder:text-right text-left w-full rounded-5`}
-                            on_change={InputChangeHandler}
-                        />
-                    </div>
-                    <div className="relative">
-            <span className="absolute text-12 text-[#aaa] top-3 right-2">
-              کیلومتر مصرفی ماهانه
-            </span>
-                        {newEndKilometerState && (
-                            <span className="absolute left-2 top-3 text-12">کیلومتر</span>
-                        )}
-                        <Input
-                            type="text"
-                            value={newEndKilometerValue}
-                            id={"kilometerEnd"}
-                            name={"kilometerEnd"}
-                            className={`border outline-none ${
-                                newEndKilometerState ? "pl-[50px]" : "pl-2"
-                            } text-14 h-[40px] placeholder:text-12 placeholder:text-right text-left w-full rounded-5`}
-                            on_change={InputChangeHandler}
-                        />
-                    </div>
+                <div className="relative">
+                    {/*<span className="absolute text-12 text-[#aaa] top-4 right-2">*/}
+                    {/*   کیلومتر مصرفی ماهانه*/}
+                    {/*</span>*/}
+                    <label htmlFor={"kilometerEnd"} className={"bg-white px-2 font-light text-[12px] text-[#454545] absolute top-[-11px] right-[10px]"}> کیلومتر مصرفی ماهانه</label>
+                    {newEndKilometerState && (
+                        <span className="absolute left-2 top-4 text-12">کیلومتر</span>
+                    )}
+                    <Input
+                        type="text"
+                        value={newEndKilometerValue}
+                        id={"kilometerEnd"}
+                        name={"kilometerEnd"}
+                        className={`border border-[#d1d1d1] outline-none ${
+                            newEndKilometerState ? "pl-[50px]" : "pl-2"
+                        } text-14 h-[48px] placeholder:text-12 placeholder:text-right text-left w-full rounded-5`}
+                        on_change={InputChangeHandler}
+                    />
                 </div>
             </div>
-            <div className="mt-6">
-                <MyVihicleTitle>اطلاعات عمومی خودرو</MyVihicleTitle>
-            </div>
+
+
             <GeneralCarInformation
                 title={"بیمه ثالث"}
                 id={"thirdPartyInsurance"}
@@ -694,17 +738,21 @@ const CarDevice = (props) => {
                 allSelectInputState={false}
                 setNewFinePrice={setNewFinePrice}
             />
-            <div className="text-center mt-6">
+            <div className="text-left mt-6">
                 <Button
                     type={"submit"}
                     class_name={
-                        "bg-red-500 text-white text-18 w-[100px] h-[40px] rounded-10 hover:bg-red-400"
+                        "bg-[#354597] text-white text-16 w-[120px] h-[40px] rounded-10 hover:bg-blue-800"
                     }
                 >
                     ثبت
                 </Button>
             </div>
             <ToastContainer rtl={true}/>
+            {modalState&&<div className={"fixed top-0 right-0 w-full h-full bg-[#00000050] z-[9999]"} onClick={closeCarModalHandler}              id={"ChoseCar"}
+            >
+                <SelectCarModal modalPosition={true} setModalState={setModalState}/>
+            </div>}
         </form>
     );
 };

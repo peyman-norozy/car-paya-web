@@ -8,12 +8,14 @@ import CreateMyCarSkeleton from "@/components/CreateMyCarSkeleton";
 import {useSelector} from "react-redux";
 import ResponsiveMyCarTableCard from "@/components/cards/ResponsiveMyCarTableCard";
 import {getData} from "@/utils/client-api-function-utils";
+import SelectCarModal from "@/components/modal/SelectCarModal";
 
 const CreateMyCar = () => {
     const [newMyCareData, setNewMyCareData] = useState([]);
     const [newTotal, setNewTotal] = useState(0);
     const searchParams = useSearchParams();
     const [newSkeletonState, setNewSkeletonState] = useState(false);
+    const [modalState,setModalState]=useState(false)
     const innerWidth = useSelector(
         (widthData) => widthData.todo.windowInnerWidth,
     );
@@ -41,16 +43,29 @@ const CreateMyCar = () => {
         })()
     }, [searchParams, perPage, page]);
 
+    console.log(newSkeletonState)
+    const closeCarModalHandler = (event)=>{
+        console.log(event.target.getAttribute("id"))
+        if(event.target.id === "ChoseCar"){
+            setModalState(false)
+        }
+    }
+
+    const openCarModalHandler = ()=>{
+        setModalState(true)
+    }
+
     return (
         <div className="flex flex-col size1000:flex-1 w-full rounded-[10px] px-4 py-6 shadow-[0_0_6px_0_rgba(177,177,177,1)]">
             <div>
-                <Link
-                    href={"/profile/my-vehicle/my-car/create"}
+                <button
+                    type={"button"}
                     className="flex items-center gap-2 bg-[#d52826] text-white px-[20px] py-[5px] rounded-5 w-[108px]"
+                    onClick={openCarModalHandler}
                 >
                     <span>افزودن</span>
                     <span className="text-20">+</span>
-                </Link>
+                </button>
             </div>
             <div className="mt-6 flex flex-col gap-4">
                 <ul className="size800:flex hidden justify-between px-4 py-2 size1190:text-16 text-14 text-stone-800 rounded-10">
@@ -91,6 +106,10 @@ const CreateMyCar = () => {
                 )}
             </div>
             <Pagination newTotal={newTotal} perPage={perPage}/>
+            {modalState&&<div className={"fixed top-0 right-0 w-full h-full bg-[#00000050] z-[9999]"} onClick={closeCarModalHandler}              id={"ChoseCar"}
+            >
+                <SelectCarModal modalPosition={true}/>
+            </div>}
         </div>
     );
 };

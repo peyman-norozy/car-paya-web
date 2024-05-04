@@ -40,7 +40,7 @@ const MainCarModel = (props) => {
                         <div
                             className="w-[50px] h-[50px] cursor-pointer"
                             id={"car_model"}
-                            onClick={(e) => props.clickTipHandler(e, item.id, item.image)}
+                            onClick={(e) => props.clickModelHandler(e, item.id, item.image,item)}
                         >
                             <Image
                                 src={

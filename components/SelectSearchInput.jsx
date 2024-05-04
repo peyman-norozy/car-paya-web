@@ -11,7 +11,11 @@ const SelectSearchInput = (props) => {
   const inputRef = useRef();
   const optionsRef = useRef();
   const setHeightHandler = () => {
-    setNewHeight((preveState) => !preveState);
+    if(!props.disabledSelectOption){
+      setNewHeight((preveState) => !preveState);
+    }else{
+      return null
+    }
   };
 
   const searchChangeHandler = (event) => {
@@ -62,18 +66,20 @@ const SelectSearchInput = (props) => {
 
   return (
     <div
-      className={`border border-[#d1d1d1] rounded-5 ${props.className} w-full cursor-text relative`}
+      className={`border border-[#d1d1d1] rounded-5 ${props.className} w-full cursor-text relative ${props.disabledSelectOption&&"bg-[#F6F6F6]"}`}
       ref={inputRef}
     >
       <div className="z-20 h-full flex items-center" onClick={setHeightHandler}>
-        <span className="text-12 inline-block mr-2 mt-1 ">
+        <span className="text-12 inline-block mr-2 mt-1 text-[#B0B0B0]">
           {props.newPlaque_1 ? props.newPlaque_1 : newOption}
         </span>
-        <RedChevron
-          custoCllasses={`absolute left-[4px] top-[12px] ${
-            props.chevronStyle
-          } ${newHeight ? "rotate-[-90deg]" : "rotate-0"}`}
-        />
+        {!props.disabledSelectOption&&!props.chevronDisabled&&
+          <RedChevron
+              custoCllasses={`absolute left-[4px] top-[16px] ${
+                  props.chevronStyle
+              } ${newHeight ? "rotate-[-90deg]" : "rotate-0"}`}
+          />
+        }
       </div>
       <div
         className={`transition-all shadow duration-700 overflow-hidden absolute w-full opacity-100 bg-[#eee] z-10 mt-[10px]  top-[24px] text-12 font-light ${
@@ -108,6 +114,7 @@ const SelectSearchInput = (props) => {
             })}
         </ul>
       </div>
+      <span className={"inline-block bg-white px-2 font-light text-[12px] text-[#454545] absolute top-[-9px] right-[10px]"}>{props.lable}</span>
     </div>
   );
 };

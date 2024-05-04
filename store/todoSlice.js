@@ -8,6 +8,8 @@ const initialState = {
     triangleState: false,
     modalState: false,
     recordModalCreateState: false,
+    selectVehicle:{},
+    carYear:[]
 };
 
 const todoSlice = createSlice({
@@ -32,6 +34,18 @@ const todoSlice = createSlice({
         setRecordModalCreateState(state, action) {
             state.recordModalCreateState = action.payload;
         },
+        setSelectCarBrand(state,action){
+            state.selectVehicle.carBrand = action.payload
+        },
+        setSelectCarModel(state,action){
+            state.selectVehicle.carModel = action.payload
+        },
+        setSelectCarTip(state,action){
+            state.selectVehicle.carTip = action.payload
+        },
+        setCarYear(state,action){
+            state.carYear = action.payload
+        }
     },
 });
 
@@ -41,7 +55,11 @@ export const {
     setLoginState,
     setTriangleState,
     setRecordModalState,
-    setRecordModalCreateState
+    setRecordModalCreateState,
+    setSelectCarBrand,
+    setSelectCarModel,
+    setSelectCarTip,
+    setCarYear
 } = todoSlice.actions
 export default todoSlice;
 
