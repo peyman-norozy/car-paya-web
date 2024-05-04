@@ -137,6 +137,9 @@ const MainCarTip = (props) => {
   };
 
   const addCarClickHandler = ()=>{
+    if(props.setModalState){
+      props.setModalState(false)
+    }
     router.push("/profile/my-vehicle/my-car/create")
   }
 
