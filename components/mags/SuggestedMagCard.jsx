@@ -28,7 +28,7 @@ const SuggestedMagCard = (props) => {
             تاریخ انتشار : <span>{persianDateCovertor(data.created_at)}</span>
           </p>
           <Button class_name="text-12 size752:text-14 text-[#354597]">
-            <Link href={`/mags/${data.mag_category_id}/${data.slug}`}>
+            <Link href={`/mags/${data.slug}`}>
               ادامه مطلب
             </Link>
           </Button>

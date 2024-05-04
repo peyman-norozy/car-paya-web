@@ -8,7 +8,7 @@ const MagsCategorySection = ({ data }) => {
       {data &&
         data.map((item, index) => (
           <Link
-            href={`/mags/${item.slug}`}
+            href={`/mags/category/${item.slug}`}
             key={index}
             className="text-[#212B5E] bg-[#ECEEF8] text-14 cursor-pointer py-[0.5rem] px-[1rem] rounded-5 "
           >

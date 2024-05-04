@@ -3,12 +3,13 @@ import MagComments from "@/components/mags/MagComments";
 import MagShowComments from "@/components/mags/MagShowComments";
 import MagShowPage from "@/components/mags/MagShowPage";
 import MagsCategorySection from "@/components/mags/MagsCategorySection";
-import MagsSlider from "@/components/mags/MagsSlider";
-import SearchMags from "@/components/mags/SearchMags";
 import TrendMags from "@/components/mags/TrendMags";
 import { API_PATHS, META_PATHS } from "@/configs/routes.config";
 import { getData } from "@/utils/api-function-utils";
 import React from "react";
+import {redirect} from "next/dist/server/api-utils";
+import {relativizeURL} from "next/dist/shared/lib/router/utils/relativize-url";
+import {notFound} from "next/navigation";
 
 export const metadata = {
   title: "مجلات",
@@ -45,6 +46,9 @@ const MagShowData = async (props) => {
   const fetchCategoryData = await getData(
     "/web" + API_PATHS.MAGS + "-" + props.slug
   );
+  if (fetchCategoryData === 500) {
+    notFound()
+  }
   return <MagShowPage data={fetchCategoryData.data} slug={props.slug} />;
 };
 
@@ -52,6 +56,9 @@ const TrendMagData = async (props) => {
   const fetchCategoryData = await getData(
     "/web" + API_PATHS.MAGS + "-" + props.slug
   );
+  if (fetchCategoryData === 500) {
+    notFound()
+  }
   return <TrendMags data={fetchCategoryData.data} slug={props.slug} />;
 };
 
@@ -59,6 +66,9 @@ const CommentData = async (props) => {
   const fetchCategoryData = await getData(
     "/web" + API_PATHS.MAGS + "-" + props.slug
   );
+  if (fetchCategoryData === 500) {
+    notFound()
+  }
   return <MagComments id={fetchCategoryData.data.mag.id} />;
 };
 
@@ -66,12 +76,19 @@ const ShowCommentData = async (props) => {
   const fetchCategoryData = await getData(
       "/web" + API_PATHS.MAGS + "-" + props.slug
   );
+  if (fetchCategoryData === 500) {
+    notFound()
+  }
   return <MagShowComments id={fetchCategoryData.data.mag.id} />;
 };
 
 const BreadCrumbData = async (props) => {
   const fetchData = await getData("/web" + API_PATHS.MAGS + "-" + props.slug);
+  if (fetchData === 500) {
+    notFound()
+  }
   return (
+
     <BreadCrumbMag
       data={[
         { name: "مقالات", url: "/mags" },
