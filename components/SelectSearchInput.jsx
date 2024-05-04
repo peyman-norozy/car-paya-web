@@ -66,16 +66,16 @@ const SelectSearchInput = (props) => {
 
   return (
     <div
-      className={`border border-[#d1d1d1] rounded-5 ${props.className} w-full cursor-text relative`}
+      className={`border border-[#d1d1d1] rounded-5 ${props.className} w-full cursor-text relative ${props.disabledSelectOption&&"bg-[#F6F6F6]"}`}
       ref={inputRef}
     >
       <div className="z-20 h-full flex items-center" onClick={setHeightHandler}>
-        <span className="text-12 inline-block mr-2 mt-1 ">
+        <span className="text-12 inline-block mr-2 mt-1 text-[#B0B0B0]">
           {props.newPlaque_1 ? props.newPlaque_1 : newOption}
         </span>
-        {!props.disabledSelectOption&&
+        {!props.disabledSelectOption&&!props.chevronDisabled&&
           <RedChevron
-              custoCllasses={`absolute left-[4px] top-[12px] ${
+              custoCllasses={`absolute left-[4px] top-[16px] ${
                   props.chevronStyle
               } ${newHeight ? "rotate-[-90deg]" : "rotate-0"}`}
           />
@@ -114,6 +114,7 @@ const SelectSearchInput = (props) => {
             })}
         </ul>
       </div>
+      <span className={"inline-block bg-white px-2 font-light text-[12px] text-[#454545] absolute top-[-9px] right-[10px]"}>{props.lable}</span>
     </div>
   );
 };
