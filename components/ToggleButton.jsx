@@ -4,7 +4,7 @@ const ToggleButton = (props) => {
   return (
     <div
       className={`${
-        props.newEnableToggle ? "bg-green-400" : "bg-stone-400"
+        props.newEnableToggle ? "bg-[#354597]" : "bg-stone-400"
       } w-[80px] rounded-2xl flex items-center h-[30px] relative`}
       onClick={props.onClick}
     >
