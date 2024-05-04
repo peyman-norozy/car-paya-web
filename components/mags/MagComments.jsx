@@ -17,13 +17,13 @@ const MagComments = ({ id }) => {
   const [commentError, serCommentError] = useState("");
   const [rating, setRating] = useState(0)
 
-  const nameInputHandler = (event) => {
-    setNameValue(event.target.value);
-  };
+  // const nameInputHandler = (event) => {
+  //   setNameValue(event.target.value);
+  // };
 
-  const emailChangeHandler = (event) => {
-    setEmailValue(event.target.value);
-  };
+  // const emailChangeHandler = (event) => {
+  //   setEmailValue(event.target.value);
+  // };
 
   const contentChangeHandler = (event) => {
     setContentValue(event.target.value);
@@ -38,11 +38,9 @@ const MagComments = ({ id }) => {
       .post(
         process.env.BASE_API + "/web" + API_PATHS.MAGCOMMENTS + "/store",
         {
-          name: nameValue,
-          email: emailValue,
           comment: contentValue,
           mag_id: id,
-          rating : rating
+          rate : rating
         },
         {
           headers: {
@@ -59,8 +57,8 @@ const MagComments = ({ id }) => {
       .catch((err) => {
         console.log(err);
 
-        if (err.response.data.message.msg.error) {
-          error(err.response.data.message.msg.error[0]);
+        if (err.response.status === 401) {
+          error('برای ثبت نظر ابتدا وارد حساب کاربری شوید');
         } else if (err.response.data.errors.comment) {
           serCommentError("فیلد کامنت الزامی است.");
           error("دیدگاه شما ثبت نشد");
@@ -79,7 +77,7 @@ const MagComments = ({ id }) => {
         <textarea
           value={contentValue}
           onChange={contentChangeHandler}
-          className={`mt-[1.5rem] min-h-[12rem] max-h-[12rem] rounded-[0.5rem] border ${
+          className={`pr-[0.75rem] pt-[0.5rem] mt-[1.5rem] min-h-[12rem] max-h-[12rem] rounded-[0.5rem] border ${
             commentError !== "" ? "border-RED_500" : "border-[#B0B0B0]"
           } w-full`}
         ></textarea>

@@ -76,7 +76,7 @@ const BatteriesPage = (props) => {
   return (
     <Fragment>
       <div className="w-[95%] size671:w-[98%] size1090:w-[95%] m-auto flex flex-col size1056:flex-row gap-[1rem] size1275:gap-[3rem]">
-        <div className="w-full size671:w-[70%] size720:w-[48%] size1136:w-[45%] size1000:pt-[9rem] size1056:pt-0 mt-[1rem] self-center size1056:self-auto">
+        <div className="hidden size1000:block size720:w-[48%] size1136:w-[45%] size1000:pt-[9rem] size1056:pt-0 mt-[1rem] self-center size1056:self-auto">
           <SelectVehicleBox tabTitle={tabTitle} title="انتخاب وسیله نقلیه" />
         </div>
         <div className="pt-0 size1056:pt-[9rem] w-full mt-[1rem] flex flex-col gap-[1.5rem] relative">

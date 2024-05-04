@@ -2,19 +2,24 @@
 import React, {useState} from 'react';
 import PeriodicServiceTabCard from "@/components/cards/PeriodicServiceTabCard";
 import CustomSlider from "@/components/CustomSlider/CustomSlider";
+import { usePathname } from 'next/navigation';
 const CarServicesSlider = (props) => {
-    const [isClicked, setIsClicked] = useState(3);
+    const pathname = usePathname()
+    console.log(pathname);
+    const [isClicked, setIsClicked] = useState(pathname);
 
     const selectTabHandler = (index) => {
         setIsClicked(index);
     };
+
+    console.log(props.data);
     return (
             <CustomSlider>
                 {props.data.map((item, index) => (
                     <PeriodicServiceTabCard
                         href={item.href}
                         isClicked={isClicked}
-                        onClick={() => selectTabHandler(index)}
+                        onClick={() => selectTabHandler(item.href)}
                         index={index}
                         key={index}
                         title={item.title}

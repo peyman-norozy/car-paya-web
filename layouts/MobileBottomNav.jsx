@@ -1,12 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import VehicleRegistration from "@/components/VehicleRegistration";
-import battery from "@/public/assets/images/battery-product.svg";
-import cluch from "@/public/assets/images/cluch-bumpers.png";
-import insurance from "@/public/assets/images/insurance.png";
-import service from "@/public/assets/images/periodic-service.png";
-import car_bg from "@/public/assets/images/car-background.png";
-import verification from "@/public/assets/images/vehicle-verification.png";
 import SelectedVehicleVerificationBox from "@/components/SelectedVehicleVerificationBox";
 import Image from "next/image";
 import { API_PATHS } from "@/configs/routes.config";
@@ -14,9 +8,10 @@ import {serviceData} from "@/staticData/data";
 
 function MobileBottomNav(props) {
   const router = useRouter();
+  const pathname = usePathname()
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [serviceModalIsOpen, setServiceModalIsOpen] = useState(false);
-  const [selectedTab, setSelectedTab] = useState(router.pathname);
+  const [selectedTab, setSelectedTab] = useState(pathname);
   const [vehicleImage,setVehicleImage] = useState(null)
   const [vehicleName,setVehicleName] = useState(null)
   const modalRef = useRef(null);
@@ -24,10 +19,10 @@ function MobileBottomNav(props) {
   const startY = useRef(null);
 
   const mobileNavData = [
-    { name: "icon-Vector", title: "صفحه نخست", class: "right-[5%]" },
+    { name: "icon-Vector-4", title: "صفحه نخست", class: "right-[5%]" },
     { name: "icon-Vector-1", title: "خدمات", class: "right-[26.5%]" },
     {
-      name: "icon-Group",
+      name: "icon-Vector-5",
       title: "انتخاب خودرو",
       class: "right-[50%] translate-x-[50%]",
     },
@@ -166,16 +161,19 @@ function MobileBottomNav(props) {
                   index === 1 &&
                   "right-[19%] size360:right-[21%] size460:right-[23%]"
                 } ${
+                  index === 2 &&
+                  "bg-white shadow-none top-[-35%] w-[80px] h-[80px]"
+                }  ${
                   index === 3 &&
                   "left-[19%] size360:left-[21%] size460:left-[23%]"
                 }`
                 :
-                vehicleImage !== null && index === 2 ? 'bg-red_shop shadow-[0_0_5px_0_rgba(0,0,0,0.54)] top-[-25%] w-[70px] h-[70px]' 
+                vehicleImage !== null && index === 2 ? 'bg-white top-[-35%] w-[80px] h-[80px]' 
               : ""
           }`}
         >
           {vehicleImage !== null && index === 2 ? (
-            <div className="w-[40px] h-[40px]">
+            <div className="w-[65px] h-[65px]">
               <Image
                 width={60}
                 height={60}
@@ -198,7 +196,7 @@ function MobileBottomNav(props) {
             />
           )}
           {vehicleName !== null && index === 2 ? (
-            <p className={`text-[9px] text-center line-clamp-1 text-white`}>
+            <p className={`text-[12px] text-center line-clamp-1 text-black`}>
               {vehicleName}
             </p>
           ) : (
