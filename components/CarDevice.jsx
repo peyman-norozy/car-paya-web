@@ -616,7 +616,7 @@ console.log(selectVehicleData)
                     />
                 </div>
                 <SelectSearchInput
-                    data={carYear.length > 0 ? carYear : newYear}
+                    data={carYear&&carYear.length > 0 ? carYear : newYear}
                     pageType={props.pageType}
                     editId={newEditData.yearId}
                     editTitle={newEditData.year}
