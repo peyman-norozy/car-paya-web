@@ -22,10 +22,10 @@ const UserTabsCard = (props) => {
 
     if (id === "logout") {
       setLogoutModalState(true);
-    } else if (id === "profile") {
+    } else if (id === "panel") {
       router.push("/" + id, undefined, { scroll: false });
     } else if (id !== "my-vehicle") {
-      router.push("/profile" + "/" + id, undefined, { scroll: false });
+      router.push("/panel" + "/" + id, undefined, { scroll: false });
     }
   };
 

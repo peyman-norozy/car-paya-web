@@ -378,7 +378,7 @@ console.log(selectVehicleData)
                 const response = await postData(process.env.BASE_API + "/user-panel" + API_PATHS.CARS, fd, '"Content-Type": "application/json"')
                 if (response.status === 200 || response.status === 201) {
                     // success(res.data.data["msg"]);
-                    router.push("/profile/my-vehicle/my-car");
+                    router.push("/panel/my-vehicle/my-car");
                     // event.target.reset();
                     // setNewReset(true);
                     // setNewCitiesId("");

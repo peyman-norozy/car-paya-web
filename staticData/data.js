@@ -50,7 +50,7 @@ export const serviceData = [
     {
         title: "شناسنامه و سوابق خودرو",
         icon: "/assets/images/car-background.png",
-        href: "/profile/my-vehicle/my-car",
+        href: "/panel/my-vehicle/my-car",
         id: "myVehicleMyCar"
     },
 ];
