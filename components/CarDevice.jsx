@@ -62,6 +62,7 @@ const CarDevice = (props) => {
         useState(0);
     const [newFinePrice, setNewFinePrice] = useState("");
     const [newEditData, setNewEditData] = useState({});
+    const [buttonDisabledState,setButtonDisabledState] = useState(false)
     const selectVehicleData = useSelector(vehicleData => vehicleData.todo.selectVehicle)
     const carYear = useSelector(year => year.todo.carYear)
     const editFormData = new FormData();
@@ -375,8 +376,10 @@ console.log(selectVehicleData)
                     newTechnicalDiagnosisRemember,
                     event.target.finePrice.value.split(",").join(""),
                 );
+                setButtonDisabledState(true)
                 const response = await postData(process.env.BASE_API + "/user-panel" + API_PATHS.CARS, fd, '"Content-Type": "application/json"')
                 if (response.status === 200 || response.status === 201) {
+                    setButtonDisabledState(false)
                     // success(res.data.data["msg"]);
                     router.push("/panel/my-vehicle/my-car");
                     // event.target.reset();
@@ -387,7 +390,9 @@ console.log(selectVehicleData)
                     // setActivityState("");
                 } else if (response.response.status === 404) {
                     console.log(response)
+                    setButtonDisabledState(false)
                 } else if (response.response.status === 422) {
+                    setButtonDisabledState(false)
                     for (let key in response.response.data.errors) {
                         error(response.response.data.errors[key][0]);
                     }
@@ -540,7 +545,7 @@ console.log(selectVehicleData)
     }, [newEditData]);
 
     return (
-        <form className="flex-1 px-[40px] py-[32px] rounded-[10px] shadow-[0_0_6px_0_rgba(177,177,177,1)] flex flex-col gap-[35px]"
+        <form className="flex-1 px-[40px] py-[32px] rounded-[10px] shadow-[0_0_6px_0_rgba(180,180,180,0.3)] flex flex-col gap-[35px]"
               onSubmit={myCarSubmitHandler}>
             <h1 className={"text-[#354597]"}>خودرو من</h1>
             <div className={"grid size800:grid-cols-2 grid-cols-1 gap-[32px]"}>
@@ -568,6 +573,7 @@ console.log(selectVehicleData)
                         id={"brandOption"}
                         newReset={newReset}
                         className={"h-[48px]"}
+                        labelCalssName={"bg-[#000000] linear-gradient-180"}
                         disabledSelectOption={true}
                         lable={"انتخاب برند"}
                     />
@@ -581,6 +587,7 @@ console.log(selectVehicleData)
                         id={"modelOption"}
                         newReset={newReset}
                         className={"h-[48px]"}
+                        labelCalssName={"bg-[#000000] linear-gradient-180"}
                         disabledSelectOption={true}
                         lable={"انتخاب مدل"}
                     />
@@ -594,6 +601,7 @@ console.log(selectVehicleData)
                         id={"tipOption"}
                         newReset={newReset}
                         className={"h-[48px]"}
+                        labelCalssName={"bg-[#000000] linear-gradient-180"}
                         disabledSelectOption={true}
                         lable={"انتخاب تیپ"}
                     />
@@ -739,11 +747,12 @@ console.log(selectVehicleData)
             <div className="text-left mt-6">
                 <Button
                     type={"submit"}
+                    disabled_btn={buttonDisabledState}
                     class_name={
                         "bg-[#354597] text-white text-16 w-[120px] h-[40px] rounded-10 hover:bg-blue-800"
                     }
                 >
-                    ثبت
+                    {buttonDisabledState?"در حال ثبت ...":"ثبت"}
                 </Button>
             </div>
             <ToastContainer rtl={true}/>
