@@ -2,9 +2,14 @@ import React from "react";
 import Button from "@/components/Button";
 import Image from "next/image";
 import {API_PATHS} from "@/configs/routes.config";
+import {useRouter} from "next/navigation";
 
 const ArticleSliderCard = (props) => {
-  console.log(props.item)
+  const router = useRouter()
+  const clickMagsHandler = (slug)=>{
+    router.push(`/mags/${slug}`)
+  }
+
   return (
     <div className="bg-white overflow-hidden border flex-1 text-14 rounded-xl bg-no-repeat bg-cover bg-center size411:w-[340px] w-[250px] h-auto">
       <div className="w-full h-full flex flex-col gap-4 z-50">
@@ -24,6 +29,7 @@ const ArticleSliderCard = (props) => {
           </div>
           <Button
             type={"button"}
+            on_click={()=>clickMagsHandler(props.item.slug)}
             class_name={
               "bg-[#EAEAEA] font-light py-3 px-2 flex item-center text-12 gap-1"
             }
