@@ -87,7 +87,7 @@ const UserPanel = () => {
       </div>
       {innerWidthNumber > 1000 ? (
         <div className="flex gap-4 items-start">
-          <div className="shadow-[0_0_6px_0_rgba(177,177,177,1)] w-[342px] flex flex-col justify-center gap-4 items-center pt-2 rounded-[10px]">
+          <div className="shadow-[0_0_6px_0_rgba(180,180,180,0.3)] w-[342px] flex flex-col justify-center gap-4 items-center pt-2 rounded-[10px]">
             <UserSpecifications
               style={"flex-col justify-center items-center gap-2"}
             />
