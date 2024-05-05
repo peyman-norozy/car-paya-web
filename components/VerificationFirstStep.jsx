@@ -75,7 +75,7 @@ const VerificationFirstStep = (props) => {
                 <div className="flex flex-col size1090:flex-row  gap-[1rem] w-full">
                     {step === 1 && (
                         <div
-                            className="w-[400px] self-center size1090:self-auto">
+                            className="w-[350px] size411:w-[400px] self-center size1090:self-auto">
                             {/* <SelectVehicleBox myTehicleTab={3} tabTitle={tabTitle} title="انتخاب وسیله نقلیه" /> */}
                             <SelectProvinceAndCarBox cityData={cityName}/>
                         </div>
@@ -140,8 +140,8 @@ const VerificationFirstStep = (props) => {
                         </div>
                     )}
 
-                    <div className="w-[calc(100%-307px)] flex flex-col gap-[1.5rem]">
-                            <div>
+                    <div className="w-full size1000:w-[calc(100%-307px)] flex flex-col gap-[1.5rem]">
+                            <div className='hidden size1000:flex'>
                                 <CarServicesSlider data={serviceData}/>
                             </div>
                         <div className="flex flex-col size830:flex-row gap-[0.5rem] size1160:gap-[1rem]">
