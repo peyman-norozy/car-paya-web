@@ -35,9 +35,9 @@ const UserPanelAttribute = (props) => {
   return (
     <Fragment>
       <Link
-        href={"/profile"}
+        href={"/panel"}
         className={`cursor-pointer hover:bg-[#0004] ${
-          firstPath === "profile" ? "bg-[#0004]" : ""
+          firstPath === "panel" ? "bg-[#0004]" : ""
         } flex items-center h-[40px] px-2`}
       >
         پنل کاربری

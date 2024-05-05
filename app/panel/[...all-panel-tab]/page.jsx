@@ -14,12 +14,19 @@ import CreateMyCar from "@/components/CreateMyCar";
 import RecordModal from "@/components/modal/RecordModal";
 import RecordModalCreate from "@/components/modal/RecordModalCreate";
 import ProductAddress from "@/components/ProductAddress/ProductAddress";
+import PersonalInformation from "@/components/PersonalInformation";
 
 const panelTabData = [
   {
     imgSrc: "/assets/icons/PersonalIcon.svg",
-    title: "اطلاعات شخصی من",
+    title: "داشبورد",
     alt: "user profile icon",
+    id: "panel",
+  },
+  {
+    imgSrc: "/assets/icons/PersonalIcon.svg",
+    title: "اطلاعات شخصی من",
+    alt: "profile icon",
     id: "profile",
   },
   {
@@ -63,12 +70,7 @@ const AllPanelTab = () => {
   );
 
   const backClickHandler = () => {
-    if (params) {
-      router.back();
-    } else {
-      router.push("/profile");
-    }
-    // router.back()
+      router.push("/panel");
   };
 
   useEffect(() => {
@@ -90,7 +92,7 @@ const AllPanelTab = () => {
 
   return (
     <Fragment>
-      <div className="mt-[50px] mb-[100px] mx-[50px]">
+      <div className="mt-[50px] mb-[100px] size460:mx-[50px] mx-[30px]">
         <div className="flex items-center gap-4 mb-[30px]">
           <Image
             src={"/assets/icons/back.svg"}
@@ -122,7 +124,7 @@ const AllPanelTab = () => {
           }
         </div>
         <div className="flex gap-4 size1000:flex-row flex-col items-start">
-          <div className="shadow-[0_0_6px_0_rgba(177,177,177,1)] w-[342px] flex-col justify-center gap-4 items-center pt-2 size1000:flex hidden rounded-[10px]">
+          <div className="shadow-[0_0_6px_0_rgba(180,180,180,0.3)] w-[342px] flex-col justify-center gap-4 items-center pt-2 size1180:flex hidden rounded-[10px]">
             <UserSpecifications
               style={"flex-col justify-center items-center gap-2"}
             />
@@ -133,6 +135,7 @@ const AllPanelTab = () => {
           </div>
           {
             {
+              "profile":<PersonalInformation/>,
               "my-vehicle/my-car": <CreateMyCar />,
               "my-vehicle/my-car/create": <CarDevice pageType={"create"} />,
               "my-vehicle/my-car/edit": <CarDevice pageType={"edit"} />,

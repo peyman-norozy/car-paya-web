@@ -114,7 +114,7 @@ const SelectSearchInput = (props) => {
             })}
         </ul>
       </div>
-      <span className={"inline-block bg-white px-2 font-light text-[12px] text-[#454545] absolute top-[-9px] right-[10px]"}>{props.lable}</span>
+      <span className={`inline-block bg-white px-2 font-light text-[12px] text-[#454545] absolute top-[-9px] right-[10px] ${props.labelCalssName}`}>{props.lable}</span>
     </div>
   );
 };

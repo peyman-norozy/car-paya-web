@@ -1,7 +1,7 @@
 import {NextResponse} from "next/server";
 
 export default async function middleware(req) {
-    const profileResponse = NextResponse.redirect(new URL("/profile", req.url))
+    const profileResponse = NextResponse.redirect(new URL("/panel", req.url))
     const loginResponse = NextResponse.redirect(new URL("/login", req.url))
     const nextResponse = NextResponse.next()
     nextResponse.cookies.delete("panel")
@@ -50,7 +50,7 @@ export default async function middleware(req) {
             return profileResponse
         }
     } else if (
-        req.nextUrl.pathname.startsWith("/profile")
+        req.nextUrl.pathname.startsWith("/panel")
     ) {
         if (!req.cookies.has("Authorization")) {
             return loginResponse

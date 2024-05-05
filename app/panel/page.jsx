@@ -12,8 +12,14 @@ import {setTriangleState} from "@/store/todoSlice";
 const panelTabData = [
   {
     imgSrc: "/assets/icons/PersonalIcon.svg",
-    title: "اطلاعات شخصی من",
+    title: "داشبورد",
     alt: "user profile icon",
+    id: "panel",
+  },
+  {
+    imgSrc: "/assets/icons/PersonalIcon.svg",
+    title: "اطلاعات شخصی من",
+    alt: "profile icon",
     id: "profile",
   },
   {
@@ -67,10 +73,10 @@ const UserPanel = () => {
 
     if (id === "logout") {
       setLogoutModalState(true);
-    } else if (id === "profile") {
+    } else if (id === "panel") {
       router.push("/" + id, undefined, { scroll: false });
     } else if (id !== "my-vehicle") {
-      router.push("/profile" + "/" + id, undefined, { scroll: false });
+      router.push("/panel" + "/" + id, undefined, { scroll: false });
     }
   };
 
@@ -81,7 +87,7 @@ const UserPanel = () => {
       </div>
       {innerWidthNumber > 1000 ? (
         <div className="flex gap-4 items-start">
-          <div className="shadow-[0_0_6px_0_rgba(177,177,177,1)] w-[342px] flex flex-col justify-center gap-4 items-center pt-2 rounded-[10px]">
+          <div className="shadow-[0_0_6px_0_rgba(180,180,180,0.3)] w-[342px] flex flex-col justify-center gap-4 items-center pt-2 rounded-[10px]">
             <UserSpecifications
               style={"flex-col justify-center items-center gap-2"}
             />

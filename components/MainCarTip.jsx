@@ -140,7 +140,7 @@ const MainCarTip = (props) => {
     if(props.setModalState){
       props.setModalState(false)
     }
-    router.push("/profile/my-vehicle/my-car/create")
+    router.push("/panel/my-vehicle/my-car/create")
   }
 
   return (

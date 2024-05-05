@@ -38,7 +38,9 @@ module.exports = {
         red_user: "#989898",
         gray_nav: "#454952",
         purple_primary: "#453984",
+        gray_light:"#ECEEF8",
         gray_light_border: "#eaeaea",
+
       },
       fontSize: {
         10: "10px",
@@ -83,6 +85,9 @@ module.exports = {
 
         size560: "560px",
         // => @media (min-width: 560px) { ... }
+
+        size582: "582px",
+        // => @media (min-width: 582px) { ... }
 
         size617: "617px",
         // => @media (min-width: 617px) { ... }
@@ -155,6 +160,9 @@ module.exports = {
 
         size1160: "1160px",
         // => @media (min-width: 1160px) { ... }
+
+        size1180: "1180px",
+        // => @media (min-width: 1180px) { ... }
 
         size1190: "1190px",
         // => @media (min-width: 1190px) { ... }

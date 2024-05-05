@@ -39,11 +39,10 @@ const GeneralCarInformation = (props) => {
             }
         }
         if (props.pageType === "edit") {
-            console.log(props.editFinePrice);
             if (props.editFinePrice !== undefined) {
                 const finePriceWithCommas = numberWithCommas(props.editFinePrice);
                 setNewfinePriceValue(finePriceWithCommas);
-                props.setNewFinePrice(finePriceWithCommas.split(",").join(""));
+                props.setNewFinePrice(finePriceWithCommas?finePriceWithCommas.split(",").join(""):"");
                 setNewTomanState(true);
             }
         }
@@ -151,7 +150,7 @@ const GeneralCarInformation = (props) => {
                         </div>
                     )}
             </div>
-            <div className={`grid ${props.id === "technicalDiagnosis"?"grid-cols-2":"grid-cols-3"} gap-[32px]`}>
+            <div className={`grid ${props.id === "technicalDiagnosis"?"size582:grid-cols-2 grid-cols-1":"size800:grid-cols-3 size582:grid-cols-2 grid-cols-1"} gap-[32px]`}>
                 {props.violationState && (
                     <div className="relative col-span-2">
                         {newTomanState && (
