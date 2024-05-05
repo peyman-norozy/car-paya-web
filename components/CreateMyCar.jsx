@@ -56,26 +56,29 @@ const CreateMyCar = () => {
     }
 
     return (
-        <div className="flex flex-col size1000:flex-1 w-full rounded-[10px] px-4 py-6 shadow-[0_0_6px_0_rgba(177,177,177,1)]">
-            <div>
-                <button
-                    type={"button"}
-                    className="flex items-center gap-2 bg-[#d52826] text-white px-[20px] py-[5px] rounded-5 w-[108px]"
-                    onClick={openCarModalHandler}
-                >
-                    <span>افزودن</span>
-                    <span className="text-20">+</span>
-                </button>
-            </div>
+        <div className="flex flex-col size1000:flex-1 w-full rounded-[10px] px-[43px] py-6 shadow-[0_0_6px_0_rgba(180,180,180,0.3)]">
+           <div className={"flex items-center justify-between"}>
+               <span className={"text-BLUE_600"}>خودرو من</span>
+               <div>
+                   <button
+                       type={"button"}
+                       className="flex items-center justify-center gap-2 border border-BLUE_600 text-BLUE_600 h-[48px] rounded-5 w-[134px]"
+                       onClick={openCarModalHandler}
+                   >
+                       <span className="text-20 border border-BLUE_600 w-[20px] h-[20px] rounded-full flex items-center justify-center">+</span>
+                       <span>افزودن</span>
+                   </button>
+               </div>
+           </div>
             <div className="mt-6 flex flex-col gap-4">
-                <ul className="size800:flex hidden justify-between px-4 py-2 size1190:text-16 text-14 text-stone-800 rounded-10">
-                    <li className="font-bold flex-1 text-center">شماره</li>
-                    <li className="font-bold flex-1 text-center">عکس</li>
-                    <li className="font-bold flex-1 text-center">برند</li>
-                    <li className="font-bold flex-1 text-center">مدل</li>
-                    <li className="font-bold flex-1 text-center">تیپ</li>
-                    <li className="font-bold flex-1 text-center">سال ساخت</li>
-                    <li className="font-bold flex-[1.6] text-center">عملیات</li>
+                <ul className="size800:flex hidden justify-between px-4 py-2 size1190:text-16 text-14 text-BLUE-500 rounded-10 bg-gray_light">
+                    <li className="font-bold flex-1 text-center text-BLUE-500">#</li>
+                    <li className="font-bold flex-1 text-center text-BLUE_500">عکس</li>
+                    <li className="font-bold flex-1 text-center text-BLUE_500">برند</li>
+                    <li className="font-bold flex-1 text-center text-BLUE_500">مدل</li>
+                    <li className="font-bold flex-1 text-center text-BLUE_500">تیپ</li>
+                    <li className="font-bold flex-1 text-center text-BLUE_500">سال ساخت</li>
+                    <li className="font-bold flex-[1.6] text-center text-BLUE_500">عملیات</li>
                 </ul>
                 {!newSkeletonState ? (
                     innerWidth > 800 ? (
