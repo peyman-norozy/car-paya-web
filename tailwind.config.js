@@ -38,7 +38,9 @@ module.exports = {
         red_user: "#989898",
         gray_nav: "#454952",
         purple_primary: "#453984",
+        gray_light:"#ECEEF8",
         gray_light_border: "#eaeaea",
+
       },
       fontSize: {
         10: "10px",
