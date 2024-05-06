@@ -1,31 +1,33 @@
 "use client";
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import Image from "next/image";
 import axios from "axios";
-import {API_PATHS} from "@/configs/routes.config";
 import {error, persianDateCovertor, success} from "@/utils/function-utils";
 import MagsSlider from "./MagsSlider";
 import TrendMags from "./TrendMags";
 import {getCookie} from "cookies-next";
+import ShareMedia from "@/components/mags/ShareMedia";
 
 const MagShowPage = (props) => {
     const {data} = props;
     const magsData = data.mag && data.mag;
 
+    const [showShare, setShowShare] = useState(false)
+
 
     const saveMagHandler = () => {
-        axios.post(process.env.BASE_API + '/web/mag-favorites?mag_id=' + data.mag.id, {} ,{
-            headers : {
-                Authorization : `Bearer ${getCookie('Authorization')}`
+        axios.post(process.env.BASE_API + '/web/mag-favorites?mag_id=' + data.mag.id, {}, {
+            headers: {
+                Authorization: `Bearer ${getCookie('Authorization')}`
             }
         }).then(res => {
-            if(res.status === 200) {
+            if (res.status === 200) {
                 success(res.data.message)
             }
         }).catch(err => {
-            if(err.response.status === 401) {
+            if (err.response.status === 401) {
                 error('برای ذخیره مقاله ابتدا وارد شوید')
-            }else if(err.response.status === 500) {
+            } else if (err.response.status === 500) {
                 error('متاسفانه مشکلی رخ داده است')
             }
         })
@@ -96,10 +98,14 @@ const MagShowPage = (props) => {
                         <span>{magsData && !magsData.author && "ایمان کرامتی"}</span>
                     </p>
                 </div>
-                <div className="flex items-center gap-[0.25rem]">
+
+                {showShare ? <div onMouseLeave={() => setShowShare(false)}>
+                    <ShareMedia />
+                </div> : <div className="flex items-center gap-[0.25rem] cursor-pointer" onMouseEnter={() => setShowShare(true)}
+                              onMouseLeave={() => setShowShare(false)}>
                     <Image src="/assets/icons/share.png" alt="" width={16} height={16}/>
                     <p className="text-12 size752:text-16">اشتراک گذاری</p>
-                </div>
+                </div>}
             </div>
             <div className="size974:hidden">
                 <TrendMags data={data}/>
