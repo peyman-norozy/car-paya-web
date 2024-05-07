@@ -9,6 +9,9 @@ import OTPInput from "react-otp-input";
 import {useRouter} from "next/navigation";
 import axios from "axios";
 import {error, forceOnlyNumberInput, success} from "@/utils/function-utils";
+import {useDispatch} from "react-redux";
+import {getData} from "@/utils/client-api-function-utils";
+import {setCarYear, setSelectCarTip} from "@/store/todoSlice";
 
 const MainMotorSycleTip = (props) => {
     const [newTipId, setNewTipId] = useState(null)
@@ -19,17 +22,30 @@ const MainMotorSycleTip = (props) => {
     const [newPhoneNumber, setNewPhoneNumber] = useState("")
 
     const router = useRouter()
+    const dispatch = useDispatch()
+
     const backClickHandler = () => {
         props.setMainMotorTipDisplay(false);
         props.setMainMotorModelDisplay(true);
     };
 
-    const clickTipHandler = (id,event) => {
-        setNewTipId(id)
-        setSetPhoneNumberState(true)
+    const clickTipHandler = async (id,event,item) => {
         localStorage.setItem('vehicleImage', event.currentTarget.getAttribute('image'))
         localStorage.setItem('vehicleName', event.currentTarget.getAttribute('name'))
         localStorage.setItem('vehicleId', id)
+        const response = await getData(process.env.BASE_API + "/web" + API_PATHS.YEARS + "/" + id)
+        if (response.status === 200) {
+            setNewTipId(id);
+            dispatch(setSelectCarTip(item))
+            setSetPhoneNumberState(true);
+            dispatch(setCarYear(response.data.data))
+        }else if (response.response.status === 404) {
+            console.log(response)
+        }else if (response.response.status === 422) {
+            for (let key in response.response.data.errors) {
+                error(response.response.data.errors[key][0]);
+            }
+        }
     }
 
     const sendCarTipHandler = () => {
@@ -115,6 +131,13 @@ const MainMotorSycleTip = (props) => {
         }
     };
 
+    const addCarClickHandler = ()=>{
+        if(props.setModalState){
+            props.setModalState(false)
+        }
+        router.push("/panel/my-vehicle/my-motorcycle/create")
+    }
+
 
     return (
         <Fragment>
@@ -146,7 +169,7 @@ const MainMotorSycleTip = (props) => {
                              className={`flex flex-col items-center gap-2 ${newTipId === item.id ? "bg-stone-200 pt-2 mx-2 rounded-5" : ""}`}
                              image={item.image}
                              name={item.title}
-                             onClick={(event) => clickTipHandler(item.id,event)}>
+                             onClick={(event) => clickTipHandler(item.id,event,item)}>
                             <div className="w-[50px] h-[50px] cursor-pointer" value={item.id}>
                                 <Image
                                     src={
@@ -170,11 +193,19 @@ const MainMotorSycleTip = (props) => {
                 </div>
                 <div>
                     {
-                        getCookie("Authorization") && newTipId ?
+                        getCookie("Authorization") && newTipId ?(
+                            props.modalPosition?
+                                <Button type={"button"}
+                                        class_name={"bg-[#3AAB38] text-white py-2 px-4 rounded-5"}
+                                        on_click={addCarClickHandler}
+                                        text={"ادامه"}/>
+                                :
                             <Button type={"button"}
                                     class_name={"bg-[#3AAB38] text-white py-2 px-4 rounded-5"}
-                                    on_click={sendCarTipHandler}>ارسال</Button>
-                            :
+                                    on_click={sendCarTipHandler}>
+                                ارسال
+                            </Button>
+                        ):
                             setPhoneNumberState ?
                                 <form className={"flex justify-between gap-4 size1000:flex-row flex-col"}
                                       onSubmit={sendPhoneNumberHandler}>

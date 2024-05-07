@@ -1,4 +1,3 @@
-import Link from "next/link";
 import MyCarTableCard from "@/components/cards/MyCarTableCard";
 import {useEffect, useState} from "react";
 import {API_PATHS} from "@/configs/routes.config";

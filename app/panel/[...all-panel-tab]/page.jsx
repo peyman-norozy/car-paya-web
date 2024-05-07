@@ -1,7 +1,7 @@
 "use client"
 import {useParams, useRouter} from "next/navigation";
 import TitleDescription from "@/components/TitleDescription";
-import {Fragment, useEffect, useState} from "react";
+import React, {Fragment, useEffect, useState} from "react";
 import LogoutModal from "@/components/modal/LogoutModal";
 import {getWindowInnerWidth} from "@/store/todoSlice";
 import {useDispatch, useSelector} from "react-redux";
@@ -9,12 +9,13 @@ import UserSpecifications from "@/components/UserSpecifications";
 import UserTabsCard from "@/components/cards/UserTabsCard";
 import Image from "next/image";
 import CarDevice from "@/components/CarDevice";
-import MotorDevice from "@/components/MotorDevice";
+import CreateMyMotor from "@/components/CreateMyMotor";
 import CreateMyCar from "@/components/CreateMyCar";
 import RecordModal from "@/components/modal/RecordModal";
 import RecordModalCreate from "@/components/modal/RecordModalCreate";
 import ProductAddress from "@/components/ProductAddress/ProductAddress";
 import PersonalInformation from "@/components/PersonalInformation";
+import MotorDevice from "@/components/MotorDevice";
 
 const panelTabData = [
   {
@@ -93,7 +94,7 @@ const AllPanelTab = () => {
   return (
     <Fragment>
       <div className="mt-[50px] mb-[100px] size460:mx-[50px] mx-[30px]">
-        <div className="flex items-center gap-4 mb-[30px]">
+        <div className="flex items-center gap-4 mb-[30px] mt-[100px]">
           <Image
             src={"/assets/icons/back.svg"}
             className={"size1000:hidden block cursor-pointer"}
@@ -104,6 +105,9 @@ const AllPanelTab = () => {
           />
           {
             {
+              "profile":(
+                  <TitleDescription>اطلاعات شخصی من</TitleDescription>
+              ),
               "my-vehicle/my-car": (
                 <TitleDescription>شناسنامه و سوابق خودرو</TitleDescription>
               ),
@@ -139,7 +143,9 @@ const AllPanelTab = () => {
               "my-vehicle/my-car": <CreateMyCar />,
               "my-vehicle/my-car/create": <CarDevice pageType={"create"} />,
               "my-vehicle/my-car/edit": <CarDevice pageType={"edit"} />,
-              "my-vehicle/my-motorcycle": <MotorDevice />,
+              "my-vehicle/my-motorcycle": <CreateMyMotor />,
+              "my-vehicle/my-motorcycle/create":<MotorDevice pageType={"create"}/>,
+              "my-vehicle/my-motorcycle/edit":<MotorDevice pageType={"edit"}/>,
               destination: <div>asdfs</div>,
               "productAddress": <ProductAddress/>,
               "user-profile": <div>user-profile</div>,

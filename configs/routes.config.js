@@ -34,6 +34,7 @@ export const API_PATHS = {
     MOTORTIPS: "/motor-tips",
     FILE: "/file",
     CARS: "/cars",
+    MOTORS:"/motors",
     USERPANEL: "/user-panel",
     INSURANCES: "/insurances",
     SLIDERS: "/sliders",
@@ -41,7 +42,6 @@ export const API_PATHS = {
     GETCODECAR: "/get-code-car",
     ADDCARLOGIN: "/add-car-login",
     MAGSINDEX:"/mags/index",
-    ADDCARLOGIN: "/add-car-login",
     MAGS: '/mags',
     MAGCATEGORY : '/mag-categories',
     MAGCOMMENTS : '/mag-comments'

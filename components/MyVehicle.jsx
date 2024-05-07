@@ -1,6 +1,6 @@
 import { useState } from "react";
 import CarDevice from "@/components/CarDevice";
-import MotorDevice from "@/components/MotorDevice";
+import CreateMyMotor from "@/components/CreateMyMotor";
 
 const MyVehicle = () => {
   const [newtab, setNewTab] = useState("car-device");
@@ -32,7 +32,7 @@ const MyVehicle = () => {
       {
         {
           "car-device": <CarDevice />,
-          "motor-device": <MotorDevice />,
+          "motor-device": <CreateMyMotor />,
         }[newtab]
       }
     </div>

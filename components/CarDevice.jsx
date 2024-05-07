@@ -66,7 +66,6 @@ const CarDevice = (props) => {
     const selectVehicleData = useSelector(vehicleData => vehicleData.todo.selectVehicle)
     const carYear = useSelector(year => year.todo.carYear)
     const editFormData = new FormData();
-console.log(selectVehicleData)
     const selectOptionHandler = (event) => {
         if (event.target.id === "brandOption") {
             // setWindState(String(event.target.value));

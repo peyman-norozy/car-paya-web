@@ -176,7 +176,6 @@ const VehicleRegistration = (props) => {
                 mainCarTipsData={mainCarTipsData}
                 setMainTipDisplay={setMainTipDisplay}
                 setMainModelDisplay={setMainModelDisplay}
-                sliderShowState={sliderShowState}
                 setMainBrandModalDisplay={setMainBrandModalDisplay}
                 modalPosition={props.modalPosition}
                 setModalState={props.setModalState}
@@ -204,6 +203,8 @@ const VehicleRegistration = (props) => {
                 setMainMotorTipDisplay={setMainMotorTipDisplay}
                 setMainMotorModelDisplay={setMainMotorModelDisplay}
                 setMainMotorBrandModalDisplay={setMainMotorBrandModalDisplay}
+                modalPosition={props.modalPosition}
+                setModalState={props.setModalState}
               />
             ) : null,
             myVehicle:<div>my vehicle</div>
