@@ -7,6 +7,7 @@ import MainBannerCard from "@/components/cards/MainBannerCard";
 import {getData} from "@/utils/api-function-utils";
 import {API_PATHS} from "@/configs/routes.config";
 import {HowWorksMockUpData, CarProductsMockUpData, serviceData} from "@/staticData/data";
+import PwaModal from "@/components/PwaModal";
 
 const SpecialOffersSliderData = async () => {
     return <SpecialOffersSlider data={CarProductsMockUpData}/>;
@@ -44,6 +45,6 @@ export default function Home() {
                     <ArticleSliderData/>
                 </Suspense>
             </div>
-
+            <PwaModal/>
         </Fragment>);
 }

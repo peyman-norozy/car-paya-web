@@ -47,8 +47,6 @@ const MainCarTip = (props) => {
         error(response.response.data.errors[key][0]);
       }
     }
-
-
     };
 
   const sendCarTipHandler = () => {

@@ -36,7 +36,7 @@ const MainMotorSycleBrand = (props) => {
                         <Spinner width={"w-[44px]"} height={"h-[44px]"}/>
                     </div>
                     :
-                    <div className=" flex flex-col items-center gap-4 mt-4 w-full">
+                    <div className="flex flex-col items-center gap-4 mt-4 w-full">
                         <span className="text-16">انتخاب برند</span>
                         <Input
                             type={"text"}
@@ -46,12 +46,13 @@ const MainMotorSycleBrand = (props) => {
                             }
                         />
                         <div className="border max-h-[180px] w-full overflow-y-scroll grid grid-cols-3 gap-4 py-4">
-                            {mainBrandData.map((item, index) => (
+                            {
+                                mainBrandData.map((item, index) => (
                                 <div key={index} className="flex flex-col items-center gap-2">
                                     <div
                                         className="w-[50px] h-[50px] cursor-pointer"
                                         id={"motor_brand"}
-                                        onClick={(e) => props.clickbrandHandler(e, item.id)}
+                                        onClick={(e) => props.clickbrandHandler(e, item.id,item)}
                                     >
                                         <Image
                                             src={

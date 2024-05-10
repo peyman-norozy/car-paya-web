@@ -1,8 +1,17 @@
+import {Metadata} from "next";
 import "../styles/globals.css";
 import "react-toastify/dist/ReactToastify.css";
 import Providers from "@/store/provider";
 import MainLayout from "@/layouts/MainLayout";
 import NextTopLoader from 'nextjs-toploader';
+
+
+export const metadata = {
+    manifest: "/manifest.json", // we are accessing our manifest file here
+    title: "car check",
+    // ... other options
+};
+
 
 // export const metadata = {
 //

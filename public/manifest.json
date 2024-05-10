@@ -1,0 +1,72 @@
+{
+  "id": "any_id",
+  "name": "car check",
+  "short_name": "Next PWA",
+  "description": "This next.js app is a PWA.",
+  "icons": [
+    {
+      "src": "./carCheck-16x16.png",
+      "sizes": "16x16",
+      "type": "image/png"
+    },
+    {
+      "src": "./carCheck-32x32.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    },
+    {
+      "src": "./carCheck-60x60.png",
+      "sizes": "60x60",
+      "type": "image/png"
+    },
+    {
+      "src": "./carCheck-120x120.png",
+      "sizes": "120x120",
+      "type": "image/png"
+    },
+    {
+      "src": "./carCheck-310x310.png",
+      "sizes": "310x310",
+      "type": "image/png"
+    }
+  ],
+  "screenshots" : [
+    {
+      "src": "./apple-icon-120x120.png",
+      "sizes": "120x120",
+      "type": "image/png",
+      "platform": "wide",
+      "label": "Homepage"
+    },
+    {
+      "src": "./ms-icon-310x310.png",
+      "sizes": "310x310",
+      "type": "image/png",
+      "platform": "wide",
+      "label": "Features"
+    }
+  ],
+  "shortcuts" : [
+    {
+      "src": "./apple-icon-120x120.png",
+      "sizes": "120x120",
+      "type": "image/png",
+      "platform": "wide",
+      "label": "Homepage"
+    },
+    {
+      "src": "./ms-icon-310x310.png",
+      "sizes": "310x310",
+      "type": "image/png",
+      "platform": "wide",
+      "label": "Features"
+    }
+  ],
+
+  "theme_color": "#FFFFFF",
+  "background_color": "#FFFFFF",
+  "start_url": "/",
+  "scope": ".",
+  "display": "standalone",
+  "orientation": "portrait"
+}

@@ -82,8 +82,8 @@ const UserPanel = () => {
 
   return (
     <div className="mt-[50px] mb-[100px] mx-[50px]">
-      <div className="mb-[30px]">
-        <TitleDescription>اطلاعات شخصی من</TitleDescription>
+      <div className="mb-[30px] mt-[100px]">
+        <TitleDescription>داشبورد</TitleDescription>
       </div>
       {innerWidthNumber > 1000 ? (
         <div className="flex gap-4 items-start">
