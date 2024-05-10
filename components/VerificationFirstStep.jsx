@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import SelectProvinceAndCarBox from "./SelectProvinceAndCarBox";
 import SelectVerificationType from "./cards/SelectVerificationType";
 import arrowLeft from "@/public/assets/icons/Arrow-Left.svg";
@@ -10,11 +10,14 @@ import CustomSlider from "@/components/CustomSlider/CustomSlider";
 import PeriodicServiceTabCard from "@/components/cards/PeriodicServiceTabCard";
 import {serviceData} from "@/staticData/data";
 import CarServicesSlider from "@/components/CarServicesSlider/CarServicesSlider";
+import {getData} from "@/utils/api-function-utils";
+import axios from "axios";
 
 const VerificationFirstStep = (props) => {
     const {on_click, verificationData, setStep, step} = props;
     const [isClicked, setIsClicked] = useState(5);
     const [isSelected, setIsSelected] = useState(0);
+    const [selectedItem, setSelectedItem] = useState(null)
     const cityName = [
         {name: "تهران"},
         {name: "تهران"},
@@ -32,7 +35,6 @@ const VerificationFirstStep = (props) => {
     ];
     const tabTitle = [
         {name: "خودرو"},
-        {name: "ماشین سنگین"},
         {name: "موتور سیکلت"},
         {name: "وسیله من"},
     ];
@@ -67,6 +69,12 @@ const VerificationFirstStep = (props) => {
         setStep(2);
     };
 
+    // useEffect(() => {
+    //        axios.get(process.env.BASE_API + '/web/expert/reservation?step=step-1&vehicle_tip_id=15').then(res => console.log(res)).catch(err => console.log(err))
+    //
+    //
+    // }, [selectedItem]);
+
     return (
         <div className="flex gap-[1rem] mb-[5rem]">
 
@@ -77,7 +85,7 @@ const VerificationFirstStep = (props) => {
                         <div
                             className="w-[350px] size411:w-[400px] self-center size1090:self-auto">
                             {/* <SelectVehicleBox myTehicleTab={3} tabTitle={tabTitle} title="انتخاب وسیله نقلیه" /> */}
-                            <SelectProvinceAndCarBox cityData={cityName}/>
+                            <SelectProvinceAndCarBox setSelectedItem={setSelectedItem} tabTitle={tabTitle} title="انتخاب وسیله نقلیه" cityData={cityName}/>
                         </div>
                     )}
                     {step === 4 && (
@@ -140,7 +148,7 @@ const VerificationFirstStep = (props) => {
                         </div>
                     )}
 
-                    <div className="w-full size1000:w-[calc(100%-307px)] flex flex-col gap-[1.5rem]">
+                    <div className="w-full size1000:w-[calc(100%-300px)] size1180:w-[calc(100%-400px)] flex flex-col gap-[1.5rem]">
                             <div className='hidden size1000:flex'>
                                 <CarServicesSlider data={serviceData}/>
                             </div>
