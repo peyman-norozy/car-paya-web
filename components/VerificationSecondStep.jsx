@@ -6,6 +6,7 @@ import warning from "@/public/assets/icons/warning.svg";
 import Button from "./Button";
 import left from "@/public/assets/icons/angle-left.svg";
 import arrowLeft from "@/public/assets/icons/Arrow-Left.svg";
+import axios from "axios";
 
 const VerificationSecondStep = (props) => {
   const { setStep } = props;
@@ -29,6 +30,7 @@ const VerificationSecondStep = (props) => {
   };
   useEffect(() => {
     window.scrollTo(0, 0)
+    axios.get(process.env.BASE_API + '/web/expert/reservation?step=step-2').then(res => console.log(res)).catch(err => console.log(err))
   }, [])
   return (
       <div className="mt-[2rem] mb-[7rem] border border-[#c0c0c0] rounded-10 shadow-[0_5px_20px_5px_rgba(0,0,0,0.5)] size966:w-[95%] size1090:w-[85%] m-auto overflow-hidden ]">
