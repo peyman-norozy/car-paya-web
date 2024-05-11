@@ -16,6 +16,7 @@ import RecordModalCreate from "@/components/modal/RecordModalCreate";
 import ProductAddress from "@/components/ProductAddress/ProductAddress";
 import PersonalInformation from "@/components/PersonalInformation";
 import MotorDevice from "@/components/MotorDevice";
+import CreateMyHeavyCar from "@/components/CreateMyHeavyCar";
 
 const panelTabData = [
   {
@@ -38,6 +39,7 @@ const panelTabData = [
     children: [
       { title: "خودرو", id: "my-vehicle/my-car" },
       { title: "موتور سیکلت", id: "my-vehicle/my-motorcycle" },
+      { title: "وسیله سنگین", id: "my-vehicle/my-heavy-car" },
     ],
   },
   {
@@ -146,6 +148,7 @@ const AllPanelTab = () => {
               "my-vehicle/my-motorcycle": <CreateMyMotor />,
               "my-vehicle/my-motorcycle/create":<MotorDevice pageType={"create"}/>,
               "my-vehicle/my-motorcycle/edit":<MotorDevice pageType={"edit"}/>,
+              "my-vehicle/my-heavy-car":<CreateMyHeavyCar/>,
               destination: <div>asdfs</div>,
               "productAddress": <ProductAddress/>,
               "user-profile": <div>user-profile</div>,
