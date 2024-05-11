@@ -4,13 +4,16 @@ import VerificationOptionAccordian from "../VerificationOptionAccordian";
 import { numberWithCommas } from "@/utils/function-utils";
 
 const SelectVerificationType = (props) => {
-  const { title, data,price,isSelected , id } = props;
+  const { title, data,price,isSelected , id , active } = props;
   const [isOpen, setIsOpen] = useState(null);
   const toggleDescriptionHandler = (index) => {
     setIsOpen((prevState) => (prevState === index ? null : index));
   };
+
   return (
-    <div className={`py-[1.5rem] w-full rounded-10 shadow-[0_5px_15px_0_rgba(0,0,0,0.15)] bg-[#FFF] border-[1px] ${isSelected === id ? 'border-RED_500' : 'border-[#dedede]'} `}>
+    <div className={`py-[1.5rem] w-full rounded-10 shadow-[0_5px_15px_0_rgba(0,0,0,0.15)] bg-[#FFF] border-[1px] overflow-hidden relative ${isSelected === id ? 'border-RED_500' : 'border-[#dedede]'} ${active ? 'cursor-pointer' : '' +
+        'cursor-not-allowed'}`}>
+        {!active && <div className='absolute top-0 w-full h-full bg-[#CCCCCC90] z-[100]'></div>}
       <div className="w-[90%] m-auto flex flex-col">
         <div className="flex items-center gap-[0.5rem] cursor-pointer" onClick={props.onClick}>
           <CheckInput isSelected={isSelected} id={id}/>
@@ -21,10 +24,10 @@ const SelectVerificationType = (props) => {
             <VerificationOptionAccordian
               onClick={() => toggleDescriptionHandler(index)}
               key={index}
-              option={item.option}
+              option={item.label}
               id={index}
               isOpen={isOpen}
-              description={item.description}
+              description={item.value}
             />
           ))}
         </div>
