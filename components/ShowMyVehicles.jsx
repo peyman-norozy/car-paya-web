@@ -14,14 +14,14 @@ const ShowMyVehicles = (props) => {
     }else if(props.step === 'car-models') {
         props.setStep('car-tips')
     }else {
-        props.setSelectedVehicle(e.currentTarget.id)
+        props.setSelectedVehicle && props.setSelectedVehicle(e.currentTarget.id)
     }
     if(props.motorStep === 'motor-brands') {
       props.setMotorStep('motor-models')
   }else if(props.motorStep === 'motor-models') {
       props.setMotorStep('motor-tips')
   }else {
-        props.setSelectedVehicle(e.currentTarget.id)
+        props.setSelectedVehicle && props.setSelectedVehicle(e.currentTarget.id)
     }
   }
 

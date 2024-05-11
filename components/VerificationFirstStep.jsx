@@ -12,11 +12,12 @@ import {serviceData} from "@/staticData/data";
 import CarServicesSlider from "@/components/CarServicesSlider/CarServicesSlider";
 import {getData} from "@/utils/api-function-utils";
 import axios from "axios";
+import {error} from "@/utils/function-utils";
 
 const VerificationFirstStep = (props) => {
     const {on_click, verificationData, setStep, step} = props;
     const [isClicked, setIsClicked] = useState(5);
-    const [isSelected, setIsSelected] = useState(0);
+    const [isSelected, setIsSelected] = useState(null);
     const [selectedItem, setSelectedItem] = useState(null)
     const cityName = [
         {name: "تهران"},
@@ -69,11 +70,13 @@ const VerificationFirstStep = (props) => {
         setStep(2);
     };
 
-    // useEffect(() => {
-    //        axios.get(process.env.BASE_API + '/web/expert/reservation?step=step-1&vehicle_tip_id=15').then(res => console.log(res)).catch(err => console.log(err))
-    //
-    //
-    // }, [selectedItem]);
+    useEffect(() => {
+           axios.get(process.env.BASE_API + '/web/expert/reservation?step=step-1&vehicle_tip_id=' + selectedItem).then(res => console.log(res)).catch(err => console.log(err))
+
+
+    }, [selectedItem]);
+
+    const active = false
 
     return (
         <div className="flex gap-[1rem] mb-[5rem]">
@@ -84,7 +87,6 @@ const VerificationFirstStep = (props) => {
                     {step === 1 && (
                         <div
                             className="w-[350px] size411:w-[400px] self-center size1090:self-auto">
-                            {/* <SelectVehicleBox myTehicleTab={3} tabTitle={tabTitle} title="انتخاب وسیله نقلیه" /> */}
                             <SelectProvinceAndCarBox setSelectedItem={setSelectedItem} tabTitle={tabTitle} title="انتخاب وسیله نقلیه" cityData={cityName}/>
                         </div>
                     )}
@@ -157,11 +159,14 @@ const VerificationFirstStep = (props) => {
                                 <SelectVerificationType
                                     isSelected={isSelected}
                                     id={index}
-                                    onClick={() => selectTypeHandler(index)}
+                                    onClick={() =>
+                                            selectTypeHandler(index)
+                                    }
                                     price={6000000}
                                     key={index}
                                     data={verificationData}
                                     title={item.name}
+                                    active={active}
                                 />
                             ))}
                         </div>
