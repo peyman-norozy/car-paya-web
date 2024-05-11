@@ -1,7 +1,7 @@
 {
   "id": "any_id",
   "name": "car check",
-  "short_name": "Next PWA",
+  "short_name": "Car Check",
   "description": "This next.js app is a PWA.",
   "icons": [
     {
