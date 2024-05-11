@@ -26,7 +26,7 @@ const CreateMyHeavyCar = () => {
             setNewSkeletonState(true);
             const response = await getData(process.env.BASE_API +
                 API_PATHS.USERPANEL +
-                API_PATHS.MOTORS +
+                API_PATHS.HEAVYCARS +
                 `?per_page=${perPage}&page=${page}`)
             if(response.status === 200){
                 setNewMyCareData(response.data.data);
