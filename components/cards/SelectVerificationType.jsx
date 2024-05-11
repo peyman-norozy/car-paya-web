@@ -24,10 +24,10 @@ const SelectVerificationType = (props) => {
             <VerificationOptionAccordian
               onClick={() => toggleDescriptionHandler(index)}
               key={index}
-              option={item.option}
+              option={item.label}
               id={index}
               isOpen={isOpen}
-              description={item.description}
+              description={item.value}
             />
           ))}
         </div>

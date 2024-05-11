@@ -19,6 +19,8 @@ const VerificationFirstStep = (props) => {
     const [isClicked, setIsClicked] = useState(5);
     const [isSelected, setIsSelected] = useState(null);
     const [selectedItem, setSelectedItem] = useState(null)
+    const [city_id, setCity_id] = useState()
+    const [data, setData] = useState([])
     const cityName = [
         {name: "تهران"},
         {name: "تهران"},
@@ -71,12 +73,19 @@ const VerificationFirstStep = (props) => {
     };
 
     useEffect(() => {
-           axios.get(process.env.BASE_API + '/web/expert/reservation?step=step-1&vehicle_tip_id=' + selectedItem).then(res => console.log(res)).catch(err => console.log(err))
+           axios.get(process.env.BASE_API + '/web/expert/reservation?step=step-1&vehicle_tip_id=' + selectedItem + '&city_id=' + city_id).then(res => {
+
+               console.log(res)
+               setData(res.data.data)
+           }).catch(err => console.log(err))
 
 
     }, [selectedItem]);
 
-    const active = false
+
+
+    const active = data.length > 0
+
 
     return (
         <div className="flex gap-[1rem] mb-[5rem]">
@@ -87,7 +96,7 @@ const VerificationFirstStep = (props) => {
                     {step === 1 && (
                         <div
                             className="w-[350px] size411:w-[400px] self-center size1090:self-auto">
-                            <SelectProvinceAndCarBox setSelectedItem={setSelectedItem} tabTitle={tabTitle} title="انتخاب وسیله نقلیه" cityData={cityName}/>
+                            <SelectProvinceAndCarBox setCity_id={setCity_id} setSelectedItem={setSelectedItem} tabTitle={tabTitle} title="انتخاب وسیله نقلیه" cityData={cityName}/>
                         </div>
                     )}
                     {step === 4 && (
@@ -154,23 +163,24 @@ const VerificationFirstStep = (props) => {
                             <div className='hidden size1000:flex'>
                                 <CarServicesSlider data={serviceData}/>
                             </div>
-                        <div className="flex flex-col size830:flex-row gap-[0.5rem] size1160:gap-[1rem]">
-                            {verificationTitle.map((item, index) => (
+                        {selectedItem && city_id ? <div
+                            className="grid grid-cols-1 size540:grid-cols-2 size752:grid-cols-3 size1000:grid-cols-2 size1190:grid-cols-3 gap-[0.5rem] size1160:gap-[1rem]">
+                            {data.length > 0 ? data.map((item, index) => (
                                 <SelectVerificationType
                                     isSelected={isSelected}
                                     id={index}
                                     onClick={() =>
-                                            selectTypeHandler(index)
+                                        selectTypeHandler(index)
                                     }
                                     price={6000000}
                                     key={index}
-                                    data={verificationData}
-                                    title={item.name}
+                                    data={item.information}
+                                    title={item.title}
                                     active={active}
                                 />
-                            ))}
-                        </div>
-                        {step === 1 && <Button
+                            )) : <p>کارشناسی برای وسیله نقلیه مورد نظر وجود ندارد</p>}
+                        </div> : <p className='text-red-500 text-[14px] italic'>ابتدا شهر و وسیله نقلیه خود را انتخاب کنید</p>}
+                        {step === 1 && data.length > 0 && <Button
                             on_click={continueVerificationHandler}
                             class_name="text-white rounded-[8px] bg-[#3AAB38] py-[0.5rem] w-[50%] size460:w-[40%] size830:w-[22%] size1228:w-[18%] flex gap-[0.5rem] items-center justify-center"
                         >

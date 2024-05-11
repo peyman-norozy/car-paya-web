@@ -125,6 +125,7 @@ const { cityData } = props
         const tehran = res.data.data.filter(item => item.title === 'تهران')
 
         setCity(tehran);
+          props.setCity_id(tehran[0].id)
       })
       .catch((err) => console.log(err));
   }, [selectedProvince]);
