@@ -8,26 +8,10 @@ import CarServicesSlider from "@/components/CarServicesSlider/CarServicesSlider"
 import axios from "axios";
 
 const ProductsPage = (props) => {
-  const data = props.data.data && props.data.data;
-//   const [data,setData] = useState()
+  const data = props.data && props.data;
 
-console.log(data)
 
   const tabTitle = [{ name: "خودرو" }, { name: "موتور سیکلت" }];
-
-//   useEffect(() => {
-//     axios
-//       .get(process.env.BASE_API + "/web/products")
-//       .then((r) => {
-//         console.log(r);
-//       })
-//       .catch((e) => console.log(e));
-//   }, []);
-
-  const selectFilterOptions = [
-    { name: "کالاهای موجود " },
-    { name: "کالاهای تخفیف دار" },
-  ];
 
   return (
     <div className="w-[95%] m-auto flex flex-col size1000:flex-row items-center size1000:items-start gap-[0.5rem] size1190:gap-[2rem] size1275:gap-[4rem]">
