@@ -8,7 +8,7 @@ export default function MainBanner(props) {
         <div>
             <div className="size-1000:pb-[40px] pb-6 ">
                 <div className="w-full h-full relative">
-                    {innerWidth >= 1000 && <VehicleRegistration/>}
+                    {innerWidth >= 1000 && <VehicleRegistration page={"homePage"}/>}
                 </div>
                 <MainBannerSlider/>
             </div>

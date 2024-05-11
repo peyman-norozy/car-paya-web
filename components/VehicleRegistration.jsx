@@ -35,15 +35,27 @@ const VehicleRegistration = (props) => {
   const [mainMotorTipsData, setMainMotorTipsData] = useState([]);
   const [newTabId, setNewTabId] = useState("car");
   const [tabData,setTabData] = useState([ { title: "خودرو", id: "car" },
-    { title: "موتورسیکلت", id: "motorSycle" },])
+    { title: "موتورسیکلت", id: "motorSycle" },{ title: "وسیله سنگین", id: "heavy-car" }])
   const dispatch = useDispatch()
 
   useEffect(() => {
-
-    if(hasCookie("Authorization")){
+    if(props.modalName ==="motorModal"){
+      setTabData([{ title: "موتورسیکلت", id: "motorSycle" }])
+      setNewTabId("motorSycle")
+    }
+    if(props.modalName === "carModal"){
+      setTabData([{ title: "خودرو", id: "car" }])
+      setNewTabId("car")
+    }
+    if(props.modalName === "heavyCarModal"){
+      setTabData([{ title: "وسیله سنگین", id: "heavy-car" }])
+      setNewTabId("heavy-car")
+    }
+    if(hasCookie("Authorization")&&props.page === "homePage"){
       setTabData(prev=>[...prev,{ title: "خودرو من", id: "myVehicle" }])
     }
   }, []);
+
   const clickTabHandler = (event) => {
     setNewTabId(event.currentTarget.id);
   };
@@ -132,7 +144,7 @@ const VehicleRegistration = (props) => {
     <Fragment>
       <div
         className={`${props.modalPosition?"absolute inset-0 m-auto h-fit":"absolute top-[10px]"} ${
-          props.style ? props.style : "w-[340px]"
+          props.style ? props.style : "size525:w-[393px] w-[320px]"
         } z-50 bg-white font-light px-4 py-4 rounded-lg`}
       >
         <div className="flex flex-col items-center">
@@ -207,6 +219,7 @@ const VehicleRegistration = (props) => {
                 setModalState={props.setModalState}
               />
             ) : null,
+            "heavy-car":<div>heavy car</div>,
             myVehicle:<div>my vehicle</div>
           }[newTabId]
         }

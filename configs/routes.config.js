@@ -35,6 +35,7 @@ export const API_PATHS = {
     FILE: "/file",
     CARS: "/cars",
     MOTORS:"/motors",
+    HEAVYCARS:"/heavy-cars",
     USERPANEL: "/user-panel",
     INSURANCES: "/insurances",
     SLIDERS: "/sliders",

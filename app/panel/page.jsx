@@ -30,6 +30,7 @@ const panelTabData = [
     children: [
       { title: "خودرو", id: "my-vehicle/my-car" },
       { title: "موتور سیکلت", id: "my-vehicle/my-motorcycle" },
+      { title: "وسیله سنگین", id: "my-vehicle/my-heavy-car" },
     ],
   },
   {
