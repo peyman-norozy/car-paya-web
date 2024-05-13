@@ -104,7 +104,6 @@ const VehicleVerificationPage = (props) => {
   const closeVerificationModal = () => {
     setModalIsOpen(false);
   };
-  console.log(params.vehicle_tip)
   return (
     <div className="w-[98%]  m-auto size1160:w-[95%]">
       {params.vehicle_tip === undefined && <VerificationFirstStep setStep={setStep} step={step} verificationData={verificationData}/> }

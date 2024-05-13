@@ -21,7 +21,7 @@ const VerificationFirstStep = (props) => {
     const [isSelected, setIsSelected] = useState(null);
     const [selectedItem, setSelectedItem] = useState(null)
     const [city_id, setCity_id] = useState()
-    const [message, setMessage] = useState('ابتدا شهر و وسیله نقلیه خود را انتخاب کنید')
+    const [message, setMessage] = useState('')
     const [data, setData] = useState([])
     const setQuery= useSetQuery()
     const cityName = [
@@ -190,7 +190,7 @@ const VerificationFirstStep = (props) => {
                                 />
                             )) : <p>کارشناسی برای وسیله نقلیه مورد نظر وجود ندارد</p>}
                         </div> : <p className='text-red-500 text-[14px] italic'>{message}</p>}
-                        {<Button
+                        {step === 1 && data.length > 0 &&<Button
                             on_click={continueVerificationHandler}
                             class_name="text-white rounded-[8px] bg-[#3AAB38] py-[0.5rem] w-[50%] size460:w-[40%] size830:w-[22%] size1228:w-[18%] flex gap-[0.5rem] items-center justify-center"
                         >

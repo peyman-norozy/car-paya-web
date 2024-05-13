@@ -5,7 +5,6 @@ import {persianDateCovertor, timestampToPersianDate, timeStampToTime} from "@/ut
 const SelectReserveTimeAndDate = (props) => {
     const {day  ,data, setIsSelected , isSelected} = props
 
-    console.log(data)
     return (
         <div className='bg-[#f6f6f6] rounded-[0.5rem] shadow-[0_0_15px_2px_rgba(0,0,0,0.15)] p-[1rem] flex items-center gap-[5rem] size690:gap-0 size690:justify-between'>
             <div className='flex flex-col items-center justify-center'>
