@@ -15,8 +15,10 @@ import VerificationThirdStep from "@/components/VerificationThirdStep";
 
 
 
-const VehicleVerificationPage = () => {
+const VehicleVerificationPage = (props) => {
+  const {params} = props
   const [step,setStep] = useState(1)
+
 
   const HowWorksMockUpData = [
     {
@@ -102,13 +104,13 @@ const VehicleVerificationPage = () => {
   const closeVerificationModal = () => {
     setModalIsOpen(false);
   };
- 
+  console.log(params.vehicle_tip)
   return (
     <div className="w-[98%]  m-auto size1160:w-[95%]">
-      {step === 1 && <VerificationFirstStep setStep={setStep} step={step} verificationData={verificationData}/> }
-      {step === 2 && <VerificationSecondStep setStep={setStep}/>}
-      {step === 3 && <VerificationThirdStep setStep={setStep}/>}
-      {step === 4 && <VerificationFirstStep setStep={setStep} step={step} verificationData={verificationData}/> }
+      {params.vehicle_tip === undefined && <VerificationFirstStep setStep={setStep} step={step} verificationData={verificationData}/> }
+      {params.vehicle_tip !== undefined && <VerificationSecondStep setStep={setStep}/>}
+      {/*{step === 3 && <VerificationThirdStep setStep={setStep}/>}*/}
+      {/*{step === 4 && <VerificationFirstStep setStep={setStep} step={step} verificationData={verificationData}/> }*/}
       <div>
         <CallAndConsult />
       </div>

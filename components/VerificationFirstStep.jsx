@@ -13,6 +13,7 @@ import CarServicesSlider from "@/components/CarServicesSlider/CarServicesSlider"
 import {getData} from "@/utils/api-function-utils";
 import axios from "axios";
 import {error} from "@/utils/function-utils";
+import useSetQuery from "@/hook/useSetQuery";
 
 const VerificationFirstStep = (props) => {
     const {on_click, verificationData, setStep, step} = props;
@@ -22,6 +23,7 @@ const VerificationFirstStep = (props) => {
     const [city_id, setCity_id] = useState()
     const [message, setMessage] = useState('ابتدا شهر و وسیله نقلیه خود را انتخاب کنید')
     const [data, setData] = useState([])
+    const setQuery= useSetQuery()
     const cityName = [
         {name: "تهران"},
         {name: "تهران"},
@@ -70,7 +72,9 @@ const VerificationFirstStep = (props) => {
     };
 
     const continueVerificationHandler = () => {
-        setStep(2);
+        setQuery.setMultiQuery([{key : 'city_id' , value : city_id} , {key : 'vehicle_tip', value : selectedItem}])
+        // setStep(2);
+
     };
 
     useEffect(() => {
