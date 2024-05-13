@@ -17,6 +17,7 @@ import ProductAddress from "@/components/ProductAddress/ProductAddress";
 import PersonalInformation from "@/components/PersonalInformation";
 import MotorDevice from "@/components/MotorDevice";
 import CreateMyHeavyCar from "@/components/CreateMyHeavyCar";
+import HeavyCarDevice from "@/components/HeavyCarDevice";
 
 const panelTabData = [
   {
@@ -149,6 +150,8 @@ const AllPanelTab = () => {
               "my-vehicle/my-motorcycle/create":<MotorDevice pageType={"create"}/>,
               "my-vehicle/my-motorcycle/edit":<MotorDevice pageType={"edit"}/>,
               "my-vehicle/my-heavy-car":<CreateMyHeavyCar/>,
+              "my-vehicle/my-heavy-car/create":<HeavyCarDevice pageType={"create"}/>,
+              "my-vehicle/my-heavy-car/edit":<HeavyCarDevice pageType={"edit"}/>,
               destination: <div>asdfs</div>,
               "productAddress": <ProductAddress/>,
               "user-profile": <div>user-profile</div>,
