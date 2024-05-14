@@ -7,6 +7,7 @@ import Button from "./Button";
 import left from "@/public/assets/icons/angle-left.svg";
 import arrowLeft from "@/public/assets/icons/Arrow-Left.svg";
 import axios from "axios";
+import {usePathname, useRouter} from "next/navigation";
 
 const VerificationSecondStep = (props) => {
   const { setStep } = props;
@@ -14,6 +15,8 @@ const VerificationSecondStep = (props) => {
   const [selectWeek, setSelectWeek] = useState(0);
   const [data, setData] = useState([])
   const [isSelected, setIsSelected] = useState(null)
+  const router = useRouter()
+  const pathname = usePathname()
 
   const dayData = [
     { day: "سه شنبه" },
@@ -45,7 +48,10 @@ const VerificationSecondStep = (props) => {
             alt=""
             height={20}
             width={20}
-            onClick={() => setStep(1)}
+            onClick={() => {
+
+              router.replace(pathname, undefined, { shallow: true });
+            }}
             className="cursor-pointer"
           />
         </div>
