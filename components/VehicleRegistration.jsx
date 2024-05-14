@@ -119,13 +119,14 @@ const VehicleRegistration = (props) => {
       ? (tip = API_PATHS.TIPS)
       : id === "motor_model"
       ? (tip = API_PATHS.MOTORTIPS)
-      : id === "heavyCar_brand"
+      : id === "heavyCar_model"
       ?(tip = API_PATHS.HEAVYCARTIPS)
       : null;
     setSliderShowState(true);
     axios
       .get(process.env.BASE_API + "/web" + tip + "/" + value)
       .then((res) => {
+        console.log(res.data.data)
         if (id === "car_model") {
           res.data.data.filter((item) => {
             if (item.id === value) {
@@ -147,7 +148,7 @@ const VehicleRegistration = (props) => {
           setMainMotorTipDisplay(true);
           setMainMotorModelDisplay(false);
           setSliderShowState(false);
-        } else if (id === "heavyCar_brand"){
+        } else if (id === "heavyCar_model"){
           res.data.data.filter((item) => {
             if (item.id === value) {
               return (item.image = image);
@@ -155,7 +156,7 @@ const VehicleRegistration = (props) => {
           });
           setMainHeavyCarTipsData(res.data.data);
           setMainHeavyCarTipDisplay(true);
-          setMainHeavyCarModelDisplay(true);
+          setMainHeavyCarModelDisplay(false);
           setSliderShowState(false)
         }
       })
