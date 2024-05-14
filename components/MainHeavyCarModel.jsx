@@ -37,7 +37,7 @@ const MainHeavyCarModel = (props) => {
                     <div key={index} className="flex flex-col items-center gap-2">
                         <div
                             className="w-[50px] h-[50px] cursor-pointer"
-                            id={"motor_model"}
+                            id={"heavyCar_model"}
                             onClick={(e) => props.clickModelHandler(e, item.id, item.image,item)}
                         >
                             <Image
