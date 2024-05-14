@@ -36,11 +36,11 @@ export const ldJsonData = {
 };
 
 
-const VehicleVerification = () => {
-
+const VehicleVerification = (props) => {
+    console.log(props, '%%%%%%%%%%%%%%%%%%%%%%%%%')
   return (
     <>
-      <VehicleVerificationPage />
+      <VehicleVerificationPage params={props.searchParams}/>
     </>
   );
 };

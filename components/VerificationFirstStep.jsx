@@ -13,6 +13,7 @@ import CarServicesSlider from "@/components/CarServicesSlider/CarServicesSlider"
 import {getData} from "@/utils/api-function-utils";
 import axios from "axios";
 import {error} from "@/utils/function-utils";
+import useSetQuery from "@/hook/useSetQuery";
 
 const VerificationFirstStep = (props) => {
     const {on_click, verificationData, setStep, step} = props;
@@ -20,7 +21,9 @@ const VerificationFirstStep = (props) => {
     const [isSelected, setIsSelected] = useState(null);
     const [selectedItem, setSelectedItem] = useState(null)
     const [city_id, setCity_id] = useState()
+    const [message, setMessage] = useState('')
     const [data, setData] = useState([])
+    const setQuery= useSetQuery()
     const cityName = [
         {name: "تهران"},
         {name: "تهران"},
@@ -69,18 +72,25 @@ const VerificationFirstStep = (props) => {
     };
 
     const continueVerificationHandler = () => {
-        setStep(2);
+        setQuery.setMultiQuery([{key : 'city_id' , value : city_id} , {key : 'vehicle_tip', value : selectedItem}])
+        // setStep(2);
+
     };
 
     useEffect(() => {
-           axios.get(process.env.BASE_API + '/web/expert/reservation?step=step-1&vehicle_tip_id=' + selectedItem + '&city_id=' + city_id).then(res => {
+        const city =  city_id === undefined ? '' :  '&city_id=' + city_id
+        const vehicle_tip = selectedItem === null ? '' : '&vehicle_tip_id=' + selectedItem
+           axios.get(process.env.BASE_API + '/web/expert/reservation?step=step-1' + vehicle_tip + city).then(res => {
 
                console.log(res)
                setData(res.data.data)
-           }).catch(err => console.log(err))
+           }).catch(err =>{
+               setMessage(err.response.data.message)
+               console.log(err)
+           })
 
 
-    }, [selectedItem]);
+    }, [selectedItem , city_id]);
 
 
 
@@ -179,8 +189,8 @@ const VerificationFirstStep = (props) => {
                                     active={active}
                                 />
                             )) : <p>کارشناسی برای وسیله نقلیه مورد نظر وجود ندارد</p>}
-                        </div> : <p className='text-red-500 text-[14px] italic'>ابتدا شهر و وسیله نقلیه خود را انتخاب کنید</p>}
-                        {step === 1 && data.length > 0 && <Button
+                        </div> : <p className='text-red-500 text-[14px] italic'>{message}</p>}
+                        {step === 1 && data.length > 0 &&<Button
                             on_click={continueVerificationHandler}
                             class_name="text-white rounded-[8px] bg-[#3AAB38] py-[0.5rem] w-[50%] size460:w-[40%] size830:w-[22%] size1228:w-[18%] flex gap-[0.5rem] items-center justify-center"
                         >

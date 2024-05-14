@@ -12,6 +12,8 @@ const VerificationSecondStep = (props) => {
   const { setStep } = props;
 
   const [selectWeek, setSelectWeek] = useState(0);
+  const [data, setData] = useState([])
+  const [isSelected, setIsSelected] = useState(null)
 
   const dayData = [
     { day: "سه شنبه" },
@@ -30,7 +32,9 @@ const VerificationSecondStep = (props) => {
   };
   useEffect(() => {
     window.scrollTo(0, 0)
-    axios.get(process.env.BASE_API + '/web/expert/reservation?step=step-2').then(res => console.log(res)).catch(err => console.log(err))
+    axios.get(process.env.BASE_API + '/web/expert/reservation?step=step-2').then(res => {
+      setData(Object.keys(res.data).map((key) => [key, res.data[key]]))
+    }).catch(err => console.log(err))
   }, [])
   return (
       <div className="mt-[2rem] mb-[7rem] border border-[#c0c0c0] rounded-10 shadow-[0_5px_20px_5px_rgba(0,0,0,0.5)] size966:w-[95%] size1090:w-[85%] m-auto overflow-hidden ]">
@@ -47,8 +51,8 @@ const VerificationSecondStep = (props) => {
         </div>
         <div className="overflow-x-scroll">
           <div className="px-[1rem] md:px-[3rem] pt-[3.2rem] flex flex-col gap-[1.5rem] w-[950px] size966:w-full">
-            {dayData.map((item, index) => (
-              <SelectReserveTimeAndDate day={item.day} key={index} />
+            {data.map((item, index) => (
+              <SelectReserveTimeAndDate setIsSelected={setIsSelected} isSelected={isSelected} day={item[0]} data={item[1]} key={index} />
             ))}
           </div>
         </div>
@@ -60,34 +64,6 @@ const VerificationSecondStep = (props) => {
           </p>
         </div>
         <div className="px-[1rem] md:px-[3rem] mb-[3.5rem] flex flex-col gap-[1rem] md:flex-row md:items-center md:gap-0 justify-between">
-          <div className="flex items-center gap-[0.65rem]">
-            <Button
-              on_click={previousWeekHandler}
-              class_name="relative bg-[#F6F6F6] flex items-center gap-[0.25rem] py-[0.5rem] px-[1.25rem] rounded-10 shadow-[0_2px_10px_2px_rgba(0,0,0,0.1)] overflow-hidden"
-            >
-              <Image
-                src={left}
-                alt=""
-                height={15}
-                width={15}
-                className="rotate-180"
-              />
-              <p className="text-14">هفته قبلی</p>
-              {selectWeek === 0 && (
-                <div className="absolute inset-0 w-full h-full bg-[#ddd] opacity-[0.5]"></div>
-              )}
-            </Button>
-            <Button
-              on_click={nextWeekHandler}
-              class_name="relative bg-[#F6F6F6] flex items-center gap-[0.25rem] py-[0.5rem] px-[1.25rem] rounded-10 shadow-[0_2px_10px_2px_rgba(0,0,0,0.1)] overflow-hidden"
-            >
-              <p className="text-14">هفته بعدی</p>
-              <Image src={left} alt="" height={15} width={15} />
-              {selectWeek === 1 && (
-                <div className="absolute inset-0 w-full h-full bg-[#ddd] opacity-[0.5]"></div>
-              )}
-            </Button>
-          </div>
           <Button
             class_name="bg-[#3AAB38] w-max   flex items-center gap-[0.25rem] py-[0.5rem] px-[1.25rem] rounded-10 shadow-[0_2px_10px_2px_rgba(0,0,0,0.1)] hover:bg-[#109b38]"
             on_click={() => setStep(3)}
