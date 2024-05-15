@@ -17,12 +17,14 @@ const Input = (props, ref) => {
     readOnly,
     value,
     icon,
+    autoFocus
   } = props;
 
   return (
     <>
       <input
-        type={type}
+          autoFocus={autoFocus}
+          type={type}
         placeholder={placeholder}
         className={className}
         id={id}
