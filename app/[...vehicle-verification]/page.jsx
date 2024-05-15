@@ -40,8 +40,7 @@ export const ldJsonData = {
 const VehicleVerification = (props) => {
   return (
     <>
-      {/*<VehicleVerificationPage params={props.searchParams}/>*/}
-        <VerificationLogin />
+      <VehicleVerificationPage params={props.searchParams}/>
     </>
   );
 };
