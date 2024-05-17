@@ -110,7 +110,6 @@ const VehicleVerificationPage = (props) => {
       {params.vehicle_tip !== undefined && <VerificationSecondStep setStep={setStep}/>}
       {/*{step === 3 && <VerificationThirdStep setStep={setStep}/>}*/}
       {/*{step === 4 && <VerificationFirstStep setStep={setStep} step={step} verificationData={verificationData}/> }*/}
-      <HowWorks data={HowWorksMockUpData}/>
     </div>
   );
 };

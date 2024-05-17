@@ -11,6 +11,7 @@ import useSetQuery from "@/hook/useSetQuery";
 import {Fa0} from "react-icons/fa6";
 import CallAndConsult from "@/components/CallAndConsult";
 import CostumerSatisfaction from "@/components/vehicle-verification/CostumerSatisfaction";
+import FrequentQuestions from "@/components/vehicle-verification/FrequentQuestions";
 
 const VerificationFirstStep = (props) => {
     const {on_click, verificationData, setStep, step} = props;
@@ -148,6 +149,7 @@ const VerificationFirstStep = (props) => {
         </div>
             <div className='w-full size882:w-[80%] size1136:w-[60%] size1275:w-[70%] m-auto'>
                 <CostumerSatisfaction />
+                <FrequentQuestions />
             </div>
         </Fragment>
     );
