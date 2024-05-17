@@ -10,6 +10,7 @@ import axios from "axios";
 import useSetQuery from "@/hook/useSetQuery";
 import {Fa0} from "react-icons/fa6";
 import CallAndConsult from "@/components/CallAndConsult";
+import CostumerSatisfaction from "@/components/vehicle-verification/CostumerSatisfaction";
 
 const VerificationFirstStep = (props) => {
     const {on_click, verificationData, setStep, step} = props;
@@ -142,9 +143,12 @@ const VerificationFirstStep = (props) => {
             </div>
 
         </div>
-        <div>
+        <div className={'mb-[2rem] size1275:mb-[4rem]'}>
             <CallAndConsult />
         </div>
+            <div className='w-full size882:w-[80%] size1136:w-[60%] size1275:w-[70%] m-auto'>
+                <CostumerSatisfaction />
+            </div>
         </Fragment>
     );
 };
