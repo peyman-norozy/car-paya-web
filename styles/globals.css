@@ -181,6 +181,39 @@ li {
     transition: all .3s ease-in;
 }
 
+/********************** verification_slider ************************/
+
+.verification_slider .swiper-initialized {
+    padding: 10px 0 30px 0;
+}
+
+.verification_slider .swiper-pagination {
+    position: relative !important;
+    top: 25px !important;
+}
+
+.verification_slider .swiper-pagination-bullet {
+    position: relative;
+    width: 15px;
+    height: 15px;
+}
+
+.verification_slider .swiper-pagination-bullet {
+    background-color: #CFCFCF;
+    opacity: 1 !important;
+    width: 7px;
+    height: 7px;
+    border-radius: 50px !important;
+    transition: all .3s ease-in;
+}
+
+.verification_slider .swiper-pagination-bullet.swiper-pagination-bullet-active {
+    background-color: #3AAB38;
+    border-radius: 20px !important;
+    width: 30px;
+    transition: all .3s ease-in;
+}
+
 
 /********************** pagination ************************/
 

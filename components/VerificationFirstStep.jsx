@@ -12,6 +12,7 @@ import {Fa0} from "react-icons/fa6";
 import CallAndConsult from "@/components/CallAndConsult";
 import CostumerSatisfaction from "@/components/vehicle-verification/CostumerSatisfaction";
 import FrequentQuestions from "@/components/vehicle-verification/FrequentQuestions";
+import CustomersComment from "@/components/vehicle-verification/CustomersComment";
 
 const VerificationFirstStep = (props) => {
     const {on_click, verificationData, setStep, step} = props;
@@ -144,6 +145,9 @@ const VerificationFirstStep = (props) => {
             </div>
 
         </div>
+            <div>
+                <CustomersComment />
+            </div>
         <div className={'mb-[2rem] size1275:mb-[4rem]'}>
             <CallAndConsult />
         </div>
