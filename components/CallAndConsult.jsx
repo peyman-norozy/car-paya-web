@@ -1,20 +1,26 @@
 import Image from 'next/image';
 import React from 'react';
 import phone from '@/public/assets/icons/phone.svg'
+import Button from "@/components/Button";
 
 const CallAndConsult = () => {
     return (
-        <div className='bg-[#f6f6f6] w-full py-[1.5rem] '>
-          <div className='flex flex-col items-center gap-[1.5rem] w-max m-auto'>
-          <h1 className='text-[22px] text-[#2C5D83]'>مشاوره و ثبت تماس تلفنی</h1>
-          <div className='flex items-center justify-center gap-[0.5rem]'>
-            <Image src={phone} alt='' height={20} width={20} />
-            <p className='text-text_gray'>02188109524</p>
 
-          </div>
-          <p className='text-14'>ساعت کاری 8:00 - 21:00</p>
-          </div>
-            
+    <div className='flex flex-col gap-4 size690:gap-0 size690:flex-row items-center justify-between w-[95%] size690:w-[80%] m-auto pr-0 lg:pr-[30px]  size1228:pr-[70px] py-4 size690:py-[4rem] lg:w-full shadow-[0_0_8px_rgba(239,239,239,0.5)]'>
+             <div className={'flex flex-col justify-center items-center size690:items-start gap-3 w-full size690:w-[50%] lg:w-[28%]'}>
+                 <h3 className={'text-[20px] pb-2 size690:pb-0 border-b-[2px] border-BLUE_600 size690:border-none'}><span className={'text-BLUE_600'}>کارشناسی خودرو </span> لازمه چون </h3>
+                 <p className={'text-[#303030]'}>تیم <span className={'text-red-500 text-18'}> چــک کــار مـــی</span> بهترین مجموعه کارشناسی خودرو حضوری
+                     در خدمت مشتریان بوده کارشناسان کادر ما آموزش دیده
+                     و با تجربه آماده ارائه خدمات رسانی به شما هستند .</p>
+             </div>
+            <div className={'flex flex-col gap-4 justify-center items-center'}>
+<p>مشاور و ثبت درخواست تلفنی</p>
+                <Button class_name={'text-RED_400 flex items-center justify-center w-fit gap-2 px-4 py-2 border rounded-lg border-RED_400'}>
+                    <p>۰۲۱-۸۸۱۰۹۵۲۴</p>
+                    <i className={'cc-calling'} />
+                </Button>
+            </div>
+        <Image src={'/assets/images/lambo.png'} alt={''} width={400} height={200} className={'hidden lg:block'}/>
         </div>
     );
 };

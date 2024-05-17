@@ -105,14 +105,11 @@ const VehicleVerificationPage = (props) => {
     setModalIsOpen(false);
   };
   return (
-    <div className="w-[98%]  m-auto size1160:w-[95%]">
+    <div>
       {params.vehicle_tip === undefined && <VerificationFirstStep setStep={setStep} step={step} verificationData={verificationData}/> }
       {params.vehicle_tip !== undefined && <VerificationSecondStep setStep={setStep}/>}
       {/*{step === 3 && <VerificationThirdStep setStep={setStep}/>}*/}
       {/*{step === 4 && <VerificationFirstStep setStep={setStep} step={step} verificationData={verificationData}/> }*/}
-      <div>
-        <CallAndConsult />
-      </div>
       <HowWorks data={HowWorksMockUpData}/>
     </div>
   );

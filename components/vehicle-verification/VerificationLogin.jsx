@@ -8,6 +8,7 @@ import {error} from "@/utils/function-utils";
 import {ToastContainer} from "react-toastify";
 import OTPInput from "react-otp-input";
 import Timer from "@/components/vehicle-verification/Timer";
+import axios from "axios";
 
 const VerificationLogin = () => {
     const [nameValue, setNameValue] = useState('')
@@ -28,9 +29,8 @@ const VerificationLogin = () => {
     const nameAndMobileSubmitHandler = (event) => {
         event.preventDefault()
         if (rulesState) {
-            const fd = new FormData()
-            fd.append("name", nameValue)
-            fd.append("mobile", mobileValue)
+            // axios.post(process.env.BASE_API + '/web/expert/reservation?step=step-4?name=' + nameValue + '&mobile=' + mobileValue + '&otp=').then(res => console.log(res)).catch(err => log.err
+            // )
             setLoginState('otp')
         } else {
             error('پذیرفتن قوانين كارچك و سياست نامه حريم خصوصی الزامیست')
@@ -88,19 +88,18 @@ const VerificationLogin = () => {
                                 کنید</h2>
                             <OTPInput value={otp}
                                       onChange={setOtp} inputType={"tel"} containerStyle={{
-                                          width: "100%",
-                                gap: '16px',
-                                direction : 'ltr'
+                                width: "100%", gap: '16px', direction: 'ltr'
                             }}
                                       inputStyle='border border-[#D1D1D1] w-[56px] h-[56px] rounded-[4px] outline-none text-center flex-1'
                                       shouldAutoFocus={true} numInputs={4}
                                       renderInput={(props) => <input {...props} />}/>
                             <div className={'my-[1rem] text-12 flex items-center justify-between'}>
                                 <div className={'flex items-center'}>
-                                    <Timer />
+                                    <Timer/>
                                     <p>مانده تا دریافت مجدد کد</p>
                                 </div>
-                                <p className={'text-RED_400 cursor-pointer'} onClick={() => setLoginState('name')}>ویرایش شماره موبایل</p>
+                                <p className={'text-RED_400 cursor-pointer'}
+                                   onClick={() => setLoginState('name')}>ویرایش شماره موبایل</p>
                             </div>
                             <Button
                                 class_name={'bg-BLUE_600 py-[10px] px-3 rounded-lg flex items-center gap-1 text-white w-fit self-end'}>
@@ -112,8 +111,7 @@ const VerificationLogin = () => {
             })()}
             <Image src='/assets/images/LoginImage.svg' alt='login image' width={702} height={462}/>
             <ToastContainer/>
-        </div>
-    );
+        </div>);
 };
 
 export default VerificationLogin;
