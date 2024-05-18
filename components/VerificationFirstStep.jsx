@@ -102,10 +102,11 @@ const VerificationFirstStep = (props) => {
                             <div className={'relative'}>
                                 <Image src={'/assets/images/mainPicVerification.png'} alt={''} width={824} height={377}
                                        className={'w-full min-h-[200px] lg:h-[377px]'}/>
-                                <div className={'absolute right-[4%] size690:top-[20%] flex flex-col gap-2'}>
-                                    <h1 className={'text-[24px] text-BLUE_500'}>کــارشــنــاســی خــودرو</h1>
-                                    <h1 className={'text-[22px]'}>با کارشناس های ما مطمعن خرید کنید</h1>
-                                    <h1 className={'text-[22px] text-RED_400'}>کار چک می کنار شماست</h1>
+                                <div className={'absolute right-[4%] top-[10%] size690:top-[20%] flex flex-col gap-2'}>
+                                    <h1 className={'text-14 size582:text-[24px] text-BLUE_500'}>کــارشــنــاســی خــودرو</h1>
+                                    <h1 className={'text-12 size582:text-[22px]'}>با کارشناس های ما مطمعن خرید کنید</h1>
+                                    <h1 className={'text-12 size582:text-[22px] text-RED_400'}>کار چک می کنار شماست</h1>
+                                    <button className={'bg-BLUE_700 mt-1 size690:mt-3 w-fit text-12 size690:text-[16px] p-[8px] text-white rounded-[4px]'}> درخواست کارشناسی</button>
                                 </div>
                             </div>
                         </div>
