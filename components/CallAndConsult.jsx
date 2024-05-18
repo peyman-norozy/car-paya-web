@@ -15,7 +15,7 @@ const CallAndConsult = () => {
              </div>
             <div className={'flex flex-col gap-4 justify-center items-center'}>
 <p>مشاور و ثبت درخواست تلفنی</p>
-                <Button class_name={'text-RED_400 flex items-center justify-center w-fit gap-2 px-4 py-2 border rounded-lg border-RED_400'}>
+                <Button class_name={'text-RED_400 hover:text-white hover:bg-RED_400 flex items-center justify-center w-fit gap-2 px-4 py-2 border rounded-lg border-RED_400'}>
                     <p>۰۲۱-۸۸۱۰۹۵۲۴</p>
                     <i className={'cc-calling'} />
                 </Button>

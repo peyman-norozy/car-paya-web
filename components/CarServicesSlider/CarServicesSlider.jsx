@@ -25,7 +25,7 @@ const CarServicesSlider = (props) => {
                         title={item.title}
                         src={item.icon}
                         width={60}
-                        height={60}
+                        height={40}
                     />
                 ))}
             </CustomSlider>

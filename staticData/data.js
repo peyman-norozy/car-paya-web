@@ -1,55 +1,55 @@
 export const serviceData = [
     {
         title: "کارشناسی خودرو",
-        icon: "/assets/images/vehicle-verification.png",
+        icon: "/assets/images/verification.png",
         href: "/vehicle-verification",
         id: "vehicleVerification"
     },
     {
         title: "دیتیلینگ",
-        icon: "/assets/images/brake.png",
+        icon: "/assets/images/detailing.png",
         href: "#",
         id: "detailing"
     },
     {
         title: "سرویس دوره ای",
-        icon: "/assets/images/periodic-service.png",
+        icon: "/assets/images/periodicservice.png",
         href: "/periodic-service",
         id: "periodicService"
     },
     {
         title: "فروشگاه باتری",
-        icon: "/assets/images/battery-product.svg",
+        icon: "/assets/images/battery.png",
         href: "/batteries",
         id: "batteries"
     },
     {
         title: "فروشگاه لوازم یدکی",
-        icon: "/assets/images/cluch-bumpers.png",
+        icon: "/assets/images/filter.png",
         href: "/products",
         id: "products"
     },
     {
         title: "بیمه",
-        icon: "/assets/images/insurance.png",
+        icon: "/assets/images/insurancecar.png",
         href: "#",
         id: "insurance"
     },
     {
         title: "خرید خودرو",
-        icon: "/assets/images/car.png",
+        icon: "/assets/images/buycar.png",
         href: "#",
         id: "#"
     },
     {
         title: "فروش خودرو",
-        icon: "/assets/images/car-sales.png",
+        icon: "/assets/images/sellCar.png",
         href: "#",
         id: "#"
     },
     {
-        title: "شناسنامه و سوابق خودرو",
-        icon: "/assets/images/car-background.png",
+        title: "شناسنامه و سوابق",
+        icon: "/assets/images/records.png",
         href: "/panel/my-vehicle/my-car",
         id: "myVehicleMyCar"
     },
