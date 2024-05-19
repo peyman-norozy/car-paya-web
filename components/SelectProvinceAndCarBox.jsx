@@ -5,12 +5,14 @@ import Input from "@/components/Input";
 import ShowMyVehicles from "@/components/ShowMyVehicles";
 import Spinner from "@/components/Spinner";
 import useSetQuery from "@/hook/useSetQuery";
+import {error} from "@/utils/function-utils";
 
 const SelectProvinceAndCarBox = (props) => {
     const {cityData} = props
     const [province, setProvince] = useState([]);
     const [city, setCity] = useState([]);
     const [selectedProvince, setSelectedProvince] = useState(null)
+    const [message, setMessage] = useState(null)
     const [selectedCity, setSelectedCity] = useState(null)
     const [provinceName, setProvinceName] = useState(null)
     const [cityName, setCityName] = useState('')
@@ -61,8 +63,16 @@ const SelectProvinceAndCarBox = (props) => {
     }
 
     const packageStepHandler = () => {
-        setQuery.setMultiQuery([{key: 'city_id', value: 87}, {key: 'vehicle_tip', value: selectedItem}])
-        // setStep(2);
+        const city =  '&city_id=' + 87
+        const vehicle_tip = selectedItem === null ? '' : '&vehicle_tip_id=' + selectedItem
+        axios.get(process.env.BASE_API + '/web/expert/reservation?step=step-1' + vehicle_tip + city).then(res => {
+
+            setQuery.setMultiQuery([{key: 'city_id', value: 87}, {key: 'vehicle_tip', value: selectedItem}])
+
+        }).catch(err => {
+            error(err.response.data.message)
+            console.log(err)
+        })
 
     };
 
@@ -171,7 +181,7 @@ const SelectProvinceAndCarBox = (props) => {
 
     return (
         <div className={'rounded-2xl flex flex-col shadow-[0_0_8px_rgba(226,226,226,0.5)] px-[26px] pt-5 pb-2'}>
-            <h2 className={'text-14 font-medium mb-5'}>برای ثبت کارشناسی استان و شهر خود را انتخاب کنید</h2>
+            <h2 className={'text-14 font-medium mb-5'}>{'برای ثبت کارشناسی استان و شهر خود را انتخاب کنید'}</h2>
             <div
                 className={'rounded-lg flex items-center border border-[#B0B0B0] p-[10px] text-[#3D3D3D] h-[2.5rem] mb-[1rem] relative'}>
                 <input ref={cityRef} value={cityName} id={'city'} type={'text'} className={'w-full h-full outline-none text-[#3D3D3D]'} onClick={citySearchHandler}/>

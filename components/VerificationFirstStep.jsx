@@ -9,6 +9,7 @@ import CallAndConsult from "@/components/CallAndConsult";
 import CostumerSatisfaction from "@/components/vehicle-verification/CostumerSatisfaction";
 import FrequentQuestions from "@/components/vehicle-verification/FrequentQuestions";
 import CustomersComment from "@/components/vehicle-verification/CustomersComment";
+import {ToastContainer} from "react-toastify";
 
 const VerificationFirstStep = (props) => {
     const {on_click, verificationData, setStep, step} = props;
@@ -89,7 +90,7 @@ const VerificationFirstStep = (props) => {
                     <div className="flex flex-col size1090:flex-row  gap-[1rem] w-full">
                         <div
                             className="hidden lg:block w-[350px] size411:w-[400px] self-center size1090:self-auto">
-                            <SelectProvinceAndCarBox setCity_id={setCity_id} setSelectedItem={setSelectedItem}
+                            <SelectProvinceAndCarBox city_id={city_id} setCity_id={setCity_id} setSelectedItem={setSelectedItem}
                                                      tabTitle={tabTitle} title="انتخاب وسیله نقلیه"
                                                      cityData={cityName}/>
                         </div>
@@ -124,6 +125,7 @@ const VerificationFirstStep = (props) => {
                 <CostumerSatisfaction/>
                 <FrequentQuestions/>
             </div>
+            <ToastContainer />
         </Fragment>
     );
 };
