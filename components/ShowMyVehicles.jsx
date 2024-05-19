@@ -29,7 +29,7 @@ const ShowMyVehicles = (props) => {
     <div className="relative grid grid-cols-3 gap-x-[0.5rem] gap-y-[0.5rem] rounded-10 border-gray_light_border border-[1px] w-full h-[10rem] p-[1rem] overflow-y-scroll">
       {props.data.map((item, index) => (
         <div key={index} title={item.slug} id={item.id} onClick={selectItemHandler} className="flex flex-col items-center gap-[0.25rem]  w-full cursor-pointer">
-          <div className="h-[30px] w-[64px] rounded-5 overflow-hidden">
+          <div className="h-[35px] w-[35px] rounded-5 overflow-hidden">
             <Image
               src={props.step === 'car-brands' ? process.env.BASE_API + "/web/file/" + item.logo : process.env.BASE_API + "/web/file/" + item.image}
               alt={item.name}

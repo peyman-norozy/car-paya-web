@@ -12,7 +12,7 @@ const SelectProvinceAndCarBox = (props) => {
     const [selectedProvince, setSelectedProvince] = useState(null)
     const [selectedCity, setSelectedCity] = useState(null)
     const [provinceName, setProvinceName] = useState(null)
-    const [cityName, setCityName] = useState(null)
+    const [cityName, setCityName] = useState('')
     const [isClicked, setIsClicked] = useState(0);
     const [isSelected,setIsSelected] = useState(false)
     const [carBrands, setCarBrands] = useState([]);
@@ -45,6 +45,11 @@ const SelectProvinceAndCarBox = (props) => {
 
     const citySearchHandler = () => {
         setIsSelected(true)
+    }
+
+    const selectCityHandler = (e) => {
+        setCityName(e.target.innerHTML)
+        setIsSelected(false)
     }
 
     const selectTabHandler = (index) => {
@@ -137,91 +142,37 @@ const SelectProvinceAndCarBox = (props) => {
             .catch((err) => console.log(err));
     }, [selectedProvince]);
 
+    useEffect(() => {
+        document.body.addEventListener('click' , (event) => {
+            if (event.target !== cityRef.current) {
+                setIsSelected(false)
+            }
+
+        })
+        return () => {
+            document.body.removeEventListener('click' , (event) => {
+                if (event.target !== cityRef.current) {
+                    setIsSelected(false)
+                }
+
+            })
+        }
+    }, []);
+
 
     return (
-        // <div className="w-full border-[1px]  rounded-10 shadow-[0_5px_15px_0_rgba(0,0,0,0.15)] overflow-hidden">
-        //   <div className="py-[1rem] bg-RED_500 text-white">
-        //     <h1 className="text-center mb-[0.75rem]">انتخاب شهر و استان</h1>
-        //     <div className="flex items-center justify-center gap-[0.5rem]">
-        //       <SelectCityInput setProvinceName={setProvinceName} setSelectedProvince={setSelectedProvince}
-        //                        name={provinceName === null ? "انتخاب استان" : provinceName} data={province}
-        //                        id="province"/>
-        //       <SelectCityInput setCityName={setCityName} setSelectedCity={setSelectedCity}
-        //                        name={cityName === null ? 'انتخاب شهر' : cityName} data={city} id="city"/>
-        //     </div>
-        //   </div>
-        //   <div className="shadow-[0_0_6px_0_rgba(177,177,177,1)] rounded-b-10">
-        //     <div className="w-[95%] m-auto py-[1rem]">
-        //       <h1 className="text-text_gray w-full text-center mb-[0.5rem]">
-        //         {props.title}
-        //       </h1>
-        //       <div className="mb-[1.5rem]">
-        //         <SelectVehicleTab
-        //             className="flex items-center justify-center gap-[0.5rem]"
-        //             tabTitle={props.tabTitle}
-        //             setIsClicked={setIsClicked}
-        //             isClicked={isClicked}
-        //             setMotorStep={setMotorStep}
-        //             setStep={setStep}
-        //
-        //         />
-        //       </div>
-        //       <div className="flex items-start justify-between">
-        //         <Image
-        //             src="/assets/icons/Arrow-Left 1.svg"
-        //             alt=""
-        //             width={20}
-        //             height={20}
-        //             className={`${step === "car-brands" ? "hidden" : "rotate-180"} `}
-        //             onClick={backStepHandler}
-        //         />
-        //         <h1 className="text-text_gray w-full self-center text-center mb-[1.25rem]">
-        //           {step === "car-brands" || motorStep === "motor-brands"
-        //               ? "انتخاب برند"
-        //               : step === "car-models" || motorStep === "motor-models"
-        //                   ? "انتخاب مدل"
-        //                   : "انتخاب وسیله نقلیه"}
-        //         </h1>
-        //       </div>
-        //       <div className="mb-[1.5rem]">
-        //         <SearchInput placeholder="جستجو برند، مدل، تیپ"/>
-        //       </div>
-        //       {isLoading ? (
-        //           <div className={"flex justify-center items-center h-[100px]"}>
-        //             <Spinner width={"w-[44px]"} height={"h-[44px]"}/>
-        //           </div>
-        //       ) : (
-        //           <ShowMyVehicles
-        //               setSelectedVehicle={props.setSelectedItem}
-        //               setSelectedItem={setSelectedItem}
-        //               setStep={setStep}
-        //               step={step}
-        //               motorStep={motorStep}
-        //               setMotorStep={setMotorStep}
-        //               data={
-        //                 isClicked === 0
-        //                     ? carBrands
-        //                     : isClicked === 1
-        //                         ? motorBrands
-        //                         : myVehicleData
-        //               }
-        //           />
-        //       )}
-        //     </div>
-        //   </div>
-        // </div>box-shadow: 0px 0px 8px 0px rgba(226, 226, 226, 0.5);
-        <div className={'rounded-2xl shadow-[0_0_8px_rgba(226,226,226,0.5)] px-[26px] pt-5 pb-2'}>
+        <div className={'rounded-2xl flex flex-col shadow-[0_0_8px_rgba(226,226,226,0.5)] px-[26px] pt-5 pb-2'}>
             <h2 className={'text-14 font-medium mb-5'}>برای ثبت کارشناسی استان و شهر خود را انتخاب کنید</h2>
             <div
                 className={'rounded-lg flex items-center border border-[#B0B0B0] p-[10px] text-[#3D3D3D] h-[2.5rem] mb-[1rem] relative'}>
-                <input id={'city'} type={'text'} className={'w-full h-full outline-none text-[#3D3D3D]'} onClick={citySearchHandler}/>
+                <input ref={cityRef} value={cityName} id={'city'} type={'text'} className={'w-full h-full outline-none text-[#3D3D3D]'} onClick={citySearchHandler}/>
                 <i className={'cc-arrow-down'}/>
                 <label htmlFor={'city'}
                        className={'text-[#454545] text-14 absolute top-[-30%] bg-white right-[5%] px-1'}> استان/شهر <span
                     className={'text-RED_400'}> * </span></label>
-                {/*<ul ref={cityRef} className={`${isSelected ? cityRef.current.scrollHeight + 'px' : 'h-0'} bg-white absolute bottom-[-50px] right-0 w-full px-[12px] py-2 overflow-scroll max-h-[10rem]`}>*/}
-                {/*    {cityData.map((item, index) => <li className={'py-[6px] pr-[12px] hover:bg-BLUE_100 rounded-lg'} key={index}>{item.name}</li>)}*/}
-                {/*</ul>*/}
+                <ul ref={cityRef} className={`${isSelected ? cityRef.current.scrollHeight + 'px px-[12px] py-2' : 'h-0'}  shadow-[0_0_12px_rgba(226,226,226,0.8)] bg-white absolute bottom-[-50px] right-0 w-full overflow-scroll max-h-[10rem]`}>
+                    {cityData.map((item, index) => <li className={'py-[6px] pr-[12px] hover:bg-BLUE_100 rounded-lg'} onClick={selectCityHandler} key={index}>{item.name}</li>)}
+                </ul>
             </div>
             <h3 className={'text-14 mb-2 font-medium'}>انتخاب وسیله نقلیه</h3>
             <div className={'flex items-center gap-4 mb-2'}>
@@ -270,6 +221,10 @@ const SelectProvinceAndCarBox = (props) => {
                               }
                           />
                       )}
+            <button
+                className={'bg-BLUE_700 mt-1 w-fit text-12 p-[8px] text-white self-end rounded-[4px]'}> درخواست
+                کارشناسی
+            </button>
 
         </div>
     );

@@ -106,7 +106,7 @@ const VerificationFirstStep = (props) => {
                                     <h1 className={'text-14 size582:text-[24px] text-BLUE_500'}>کــارشــنــاســی خــودرو</h1>
                                     <h1 className={'text-12 size582:text-[22px]'}>با کارشناس های ما مطمعن خرید کنید</h1>
                                     <h1 className={'text-12 size582:text-[22px] text-RED_400'}>کار چک می کنار شماست</h1>
-                                    <button className={'bg-BLUE_700 mt-1 size690:mt-3 w-fit text-12 size690:text-[16px] p-[8px] text-white rounded-[4px]'}> درخواست کارشناسی</button>
+                                    <button className={'bg-BLUE_700 mt-1 size690:mt-3 lg:hidden w-fit text-12 size690:text-[16px] p-[8px] text-white rounded-[4px]'}> درخواست کارشناسی</button>
                                 </div>
                             </div>
                         </div>
