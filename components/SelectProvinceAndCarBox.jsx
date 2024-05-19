@@ -4,6 +4,7 @@ import {API_PATHS} from "@/configs/routes.config";
 import Input from "@/components/Input";
 import ShowMyVehicles from "@/components/ShowMyVehicles";
 import Spinner from "@/components/Spinner";
+import useSetQuery from "@/hook/useSetQuery";
 
 const SelectProvinceAndCarBox = (props) => {
     const {cityData} = props
@@ -25,6 +26,7 @@ const SelectProvinceAndCarBox = (props) => {
     const [isLoading, setIsLoading] = useState(false);
 
     const cityRef = useRef()
+    const setQuery = useSetQuery()
 
     const myVehicleData = [];
 
@@ -57,6 +59,13 @@ const SelectProvinceAndCarBox = (props) => {
         setMotorStep('motor-brands')
         setStep('car-brands')
     }
+
+    const packageStepHandler = () => {
+        setQuery.setMultiQuery([{key: 'city_id', value: 87}, {key: 'vehicle_tip', value: selectedItem}])
+        // setStep(2);
+
+    };
+
 
     useEffect(() => {
         setIsLoading(true);
@@ -222,6 +231,7 @@ const SelectProvinceAndCarBox = (props) => {
                           />
                       )}
             <button
+                onClick={packageStepHandler}
                 className={'bg-BLUE_700 mt-1 w-fit text-12 p-[8px] text-white self-end rounded-[4px]'}> درخواست
                 کارشناسی
             </button>
