@@ -2,7 +2,7 @@ import MyCarTableCard from "@/components/cards/MyCarTableCard";
 import {useEffect, useState} from "react";
 import {API_PATHS} from "@/configs/routes.config";
 import Pagination from "@/components/Pagination";
-import {useSearchParams} from "next/navigation";
+import {notFound, useSearchParams} from "next/navigation";
 import CreateMyCarSkeleton from "@/components/CreateMyCarSkeleton";
 import {useSelector} from "react-redux";
 import ResponsiveMyCarTableCard from "@/components/cards/ResponsiveMyCarTableCard";
@@ -37,6 +37,7 @@ const CreateMyCar = () => {
               console.log(response)
             }else if(response.response.status === 404){
               console.log(response)
+              notFound()
             }
           setNewSkeletonState(false);
         })()

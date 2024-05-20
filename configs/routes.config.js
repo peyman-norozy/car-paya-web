@@ -49,7 +49,8 @@ export const API_PATHS = {
     MAGSINDEX:"/mags/index",
     MAGS: '/mags',
     MAGCATEGORY : '/mag-categories',
-    MAGCOMMENTS : '/mag-comments'
+    MAGCOMMENTS : '/mag-comments',
+    GETPRODUCT:"/get-product"
 };
 
 export const META_PATHS ={
