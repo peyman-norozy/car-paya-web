@@ -31,6 +31,7 @@ export const metadata =  {
 
 const ProductData = async() => {
     const fetchData = await getData('/web/products')
+
     if(fetchData === 500) {
         return <div className='text-red-500 w-[90%] m-auto text-center mt-[200px]'>متاسفانه خطای 500 رخ داده است</div>
     }

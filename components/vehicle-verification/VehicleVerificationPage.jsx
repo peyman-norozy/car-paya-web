@@ -13,103 +13,28 @@ import VerificationFirstStep from "@/components/VerificationFirstStep";
 import VerificationSecondStep from "@/components/VerificationSecondStep";
 import VerificationThirdStep from "@/components/VerificationThirdStep";
 import PackageStep from "@/components/vehicle-verification/PackageStep";
+import useSetQuery from "@/hook/useSetQuery";
+import {useSelector} from "react-redux";
+import VerificationLogin from "@/components/vehicle-verification/VerificationLogin";
 
 
 
 const VehicleVerificationPage = (props) => {
   const {params} = props
   const [step,setStep] = useState(1)
+  const loginState = useSelector(state => state.todo.verificationLogin)
 
 
-  const HowWorksMockUpData = [
-    {
-      title: "انتخاب وسیله نقلیه",
-      description:
-          "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ است. ",
-      img: "/assets/icons/Perfect-Car-Service.png",
-    },
-    {
-      title: "انتخاب خدمات مورد نیاز",
-      description:
-          "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ است. ",
-      img: "/assets/icons/Doorstep-Pick-up.png",
-    },
-    {
-      title: "انتخاب مکان دریافت خدمات",
-      description:
-          "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ است. ",
-      img: "/assets/icons/service-real-time.png",
-    },
-    {
-      title: "انتخاب زمان دریافت خدمات",
-      description:
-          "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ است. ",
-      img: "/assets/icons/Doorstep-Pick-up.png",
-    },
-    {
-      title: "دریافت خدمات",
-      description:
-          "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ است. ",
-      img: "/assets/icons/Earn-While-We-Service.png",
-    },
-  ];
-  const verificationData = [
-    {
-      option: "حضور همزمان کارشناس فنی و خودرو",
-      description: [
-        { descriptionList: "تعویض و آسیب دیدگی قطعات" },
-        { descriptionList: "تعویض و آسیب دیدگی قطعات" },
-        { descriptionList: "تعویض و آسیب دیدگی قطعات" },
-        { descriptionList: "تعویض و آسیب دیدگی قطعات" },
-      ],
-    },
-    {
-      option: "حضور همزمان کارشناس فنی و خودرو",
-      description: [
-        { descriptionList: "تعویض و آسیب دیدگی قطعات" },
-        { descriptionList: "تعویض و آسیب دیدگی قطعات" },
-        { descriptionList: "تعویض و آسیب دیدگی قطعات" },
-        { descriptionList: "تعویض و آسیب دیدگی قطعات" },
-      ],
-    },
-    {
-      option: "حضور همزمان کارشناس فنی و خودرو",
-      description: [
-        { descriptionList: "تعویض و آسیب دیدگی قطعات" },
-        { descriptionList: "تعویض و آسیب دیدگی قطعات" },
-        { descriptionList: "تعویض و آسیب دیدگی قطعات" },
-        { descriptionList: "تعویض و آسیب دیدگی قطعات" },
-      ],
-    },
-    {
-      option: "حضور همزمان کارشناس فنی و خودرو",
-      description: [
-        { descriptionList: "تعویض و آسیب دیدگی قطعات" },
-        { descriptionList: "تعویض و آسیب دیدگی قطعات" },
-        { descriptionList: "تعویض و آسیب دیدگی قطعات" },
-        { descriptionList: "تعویض و آسیب دیدگی قطعات" },
-      ],
-    },
-    {
-      option: "حضور همزمان کارشناس فنی و خودرو",
-      description: [
-        { descriptionList: "تعویض و آسیب دیدگی قطعات" },
-        { descriptionList: "تعویض و آسیب دیدگی قطعات" },
-        { descriptionList: "تعویض و آسیب دیدگی قطعات" },
-        { descriptionList: "تعویض و آسیب دیدگی قطعات" },
-      ],
-    },
-  ];
- 
 
   const closeVerificationModal = () => {
     setModalIsOpen(false);
   };
   return (
     <div>
-      {params.vehicle_tip === undefined && <VerificationFirstStep setStep={setStep} step={step} verificationData={verificationData}/> }
-      {params.vehicle_tip !== undefined && <PackageStep />}
-      {/*{params.vehicle_tip !== undefined && <VerificationSecondStep setStep={setStep}/>}*/}
+      {params.vehicle_tip === undefined && <VerificationFirstStep setStep={setStep} step={step}/> }
+      {params.vehicle_tip !== undefined && params.city_id !== undefined && params.package_id === undefined && <PackageStep />}
+      {params.vehicle_tip !== undefined && params.city_id !== undefined && params.package_id !== undefined && !loginState && <VerificationSecondStep setStep={setStep}/>}
+      {params.vehicle_tip !== undefined && params.city_id !== undefined && params.package_id !== undefined && loginState && <VerificationLogin />}
       {/*{step === 3 && <VerificationThirdStep setStep={setStep}/>}*/}
       {/*{step === 4 && <VerificationFirstStep setStep={setStep} step={step} verificationData={verificationData}/> }*/}
     </div>

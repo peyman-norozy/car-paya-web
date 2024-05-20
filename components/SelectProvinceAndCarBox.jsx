@@ -214,9 +214,12 @@ const SelectProvinceAndCarBox = (props) => {
             <div
                 className={'rounded-lg flex items-center border border-[#B0B0B0] p-[10px] text-[#3D3D3D] relative h-[2.5rem] mb-2'}>
                 <input id={'brand'} type={'text'} className={'w-full h-full outline-none text-[#3D3D3D]'}/>
-                <i className={'cc-arrow-down'}/>
                 <label htmlFor={'brand'}
-                       className={'text-[#454545] text-14 absolute top-[-30%] bg-white right-[5%] px-1'}> برند<span
+                       className={'text-[#454545] text-14 absolute top-[-30%] bg-white right-[5%] px-1'}> {step === "car-brands" || motorStep === "motor-brands"
+                    ? "انتخاب برند"
+                    : step === "car-models" || motorStep === "motor-models"
+                        ? "انتخاب مدل"
+                        : ""}<span
                     className={'text-RED_400'}> * </span></label>
             </div>
             {isLoading ? (

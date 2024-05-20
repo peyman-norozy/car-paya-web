@@ -8,9 +8,8 @@ import CarServicesSlider from "@/components/CarServicesSlider/CarServicesSlider"
 import axios from "axios";
 
 const ProductsPage = (props) => {
-  const data = props.data && props.data;
+  const data = props.data && props.data.data;
 
-console.log(data)
   const tabTitle = [{ name: "خودرو" }, { name: "موتور سیکلت" }];
 
   return (
@@ -39,7 +38,7 @@ console.log(data)
               متاسفانه محصولی یافت نشد
             </p>
           ) : (
-            data.data.map((item, index) => <ProductCard key={index} data={item} />)
+            data.map((item, index) => <ProductCard key={index} data={item} />)
           )}
         </div>
       </div>
