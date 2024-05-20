@@ -1,4 +1,5 @@
 import VehicleVerificationPage from '@/components/vehicle-verification/VehicleVerificationPage';
+import VerificationLogin from "@/components/vehicle-verification/VerificationLogin";
 
 export const metadata =  {
   title: 'کارشناسی خودرو',
@@ -37,7 +38,6 @@ export const ldJsonData = {
 
 
 const VehicleVerification = (props) => {
-    console.log(props, '%%%%%%%%%%%%%%%%%%%%%%%%%')
   return (
     <>
       <VehicleVerificationPage params={props.searchParams}/>
