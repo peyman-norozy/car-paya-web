@@ -9,7 +9,8 @@ const initialState = {
     modalState: false,
     recordModalCreateState: false,
     selectVehicle:{},
-    carYear:[]
+    carYear:[],
+    verificationLogin : false
 };
 
 const todoSlice = createSlice({
@@ -45,7 +46,10 @@ const todoSlice = createSlice({
         },
         setCarYear(state,action){
             state.carYear = action.payload
-        }
+        },
+        setVerificationLogin(state, action) {
+            state.verificationLogin = action.payload;
+        },
     },
 });
 
@@ -59,7 +63,8 @@ export const {
     setSelectCarBrand,
     setSelectCarModel,
     setSelectCarTip,
-    setCarYear
+    setCarYear,
+    setVerificationLogin
 } = todoSlice.actions
 export default todoSlice;
 
