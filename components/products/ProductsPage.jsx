@@ -10,7 +10,6 @@ import axios from "axios";
 const ProductsPage = (props) => {
   const data = props.data && props.data.data;
 
-
   const tabTitle = [{ name: "خودرو" }, { name: "موتور سیکلت" }];
 
   return (
