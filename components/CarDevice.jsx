@@ -448,13 +448,15 @@ const CarDevice = (props) => {
             axios
                 .all(endpoints.map((endpoint) => axios.get(endpoint)))
                 .then((data) => {
-                    setNewImage(
-                        process.env.BASE_API +
-                        "/web" +
-                        API_PATHS.FILE +
-                        "/" +
-                        data[0].data.data[0].image,
-                    );
+                    if(data[0].data.data[0]){
+                        setNewImage(
+                            process.env.BASE_API +
+                            "/web" +
+                            API_PATHS.FILE +
+                            "/" +
+                            data[0].data.data[0].image,
+                        );
+                    }
                     setNewModel(data[0].data.data);
                     setNewTip(data[1].data.data);
                     setNewYear(data[2].data.data);
@@ -757,7 +759,7 @@ const CarDevice = (props) => {
             <ToastContainer rtl={true}/>
             {<div className={`fixed top-0 right-0 w-full h-full bg-[#00000050] transition-all duration-1000 z-[9999] ${modalState?"translate-y-[0%]":"translate-y-[100%]"}`} onClick={closeCarModalHandler}              id={"ChoseCar"}
             >
-                <SelectCarModal modalPosition={true} setModalState={setModalState}/>
+                <SelectCarModal modalPosition={true} modalName={"carModal"} setModalState={setModalState}/>
             </div>}
         </form>
     );

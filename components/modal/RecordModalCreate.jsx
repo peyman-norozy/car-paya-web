@@ -1,35 +1,76 @@
 import Image from "next/image";
-import { useDispatch } from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {setRecordModalCreateState,setRecordModalState} from "@/store/todoSlice";
 import DatePickerSelection from "@/components/DatePicker";
 import Input from "@/components/Input";
 import RecordModalCard from "@/components/cards/RecordModalCard";
-import React, { useState } from "react";
-import { numberWithCommas } from "@/utils/function-utils";
+import React, {useRef, useState} from "react";
+import {error, numberWithCommas} from "@/utils/function-utils";
 import Button from "@/components/Button";
+import { postData } from "@/utils/client-api-function-utils";
+import {API_PATHS} from "@/configs/routes.config";
+import {notFound} from "next/navigation";
 
 const exapleArray = [
-  { title: "روغن موتور" },
-  { title: "فیلتر هوا" },
-  { title: "فیلتر روغن" },
-  { title: "ضد یخ" },
-  { title: "روغن ترمز" },
-  { title: "روغن هیدرولیک" },
-  { title: "شمع" },
-  { title: "لاستیک" },
-  { title: "تسمه تایم" },
-  { title: "لنت جلو" },
+  { title: "روغن موتور" , id:0 },
+  { title: "فیلتر هوا", id:1 },
+  { title: "فیلتر روغن", id:2 },
+  { title: "فیلتر کابین", id:3 },
+  { title: "فیلتر بنزین", id:4 },
+  { title: "فیلتر گیربکس اتوماتیک", id:5 },
+  { title: "روغن گیربکس دستی", id:6 },
+  { title: "روغن گیربکس اتومات", id:7 },
+  { title: "ضد یخ" , id:8},
+  { title: "روغن ترمز", id:9 },
+  { title: "روغن هیدرولیک", id:10 },
+  { title: "مکمل و اکتان", id:11 },
+  { title: "شمع", id:12 },
+  { title: "لاستیک", id:13 },
+  { title: "باتری", id:14 },
+  { title: "دینام", id:15 },
+  { title: "واسگارین", id:16 },
+  { title: "تسمه تایم", id:17 },
+  { title: "لنت جلو" , id:18},
+  { title: "لنت عقب" , id:19},
 ];
 
-const RecordModalCreate = () => {
+const RecordModalCreate = (props) => {
   const [newStartKilometerState, setNewStartKilometerState] = useState(false);
   const [newStartKilometerValue, setNewStartKilometerValue] = useState("");
+  const [newAddDateHistory,setNewAddDateHistory]=useState("")
+  const vehicleId = useSelector(item=>item.todo.vehicleId)
+  const newRoute = useRef(null)
+  console.log(vehicleId)
+  const newDetailArray =[
+    {title:"روغن موتور",status:"VISIT",product_id:""},
+    {title:"فیلتر هوا",status:"VISIT",product_id:""},
+    {title:"فیلتر روغن",status:"VISIT",product_id:""},
+    {title: "فیلتر کابین",status:"VISIT",product_id:""},
+    {title: "فیلتر بنزین",status:"VISIT",product_id:""},
+    {title: "فیلتر گیربکس اتوماتیک",status:"VISIT",product_id:""},
+    {title: "روغن گیربکس دستی",status:"VISIT",product_id:""},
+    {title: "روغن گیربکس اتومات",status:"VISIT",product_id:""},
+    {title:"ضد یخ",status:"VISIT",product_id:""},
+    {title:"روغن ترمز",status:"VISIT",product_id:""},
+    {title:"روغن هیدرولیک",status:"VISIT",product_id:""},
+    {title: "مکمل و اکتان",status:"VISIT",product_id:""},
+    {title:"شمع",status:"VISIT",product_id:""},
+    {title:"لاستیک",status:"VISIT",product_id:""},
+    {title: "باتری",status:"VISIT",product_id:""},
+    {title: "دینام",status:"VISIT",product_id:""},
+    {title: "واسگارین", status:"VISIT",product_id:""},
+    {title:"تسمه تایم",status:"VISIT",product_id:""},
+    {title:"لنت جلو",status:"VISIT",product_id:""},
+    {title: "لنت عقب" ,status:"VISIT",product_id:""},
+
+  ]
 
   const dispatch = useDispatch();
   const clickBackHandler = () => {
     dispatch(setRecordModalCreateState(false));
     dispatch(setRecordModalState(true));
   };
+
 
   const InputChangeHandler = (event) => {
     const id = event.target.getAttribute("id");
@@ -49,6 +90,41 @@ const RecordModalCreate = () => {
         : setNewStartKilometerValue(numberWithCommas(changeStringToNumber));
     }
   };
+
+  console.log(props.params)
+  const sendClickHandler = async ()=>{
+    console.log(newDetailArray)
+    const formData = new FormData()
+    formData.set("date",newAddDateHistory)
+    formData.set("kilometers_current",newStartKilometerValue)
+    for(let i=0; i<newDetailArray.length;i++ ){
+      formData.set(`detail[${i}][status]`,newDetailArray[i].status)
+      formData.set(`detail[${i}][product_id]`,newDetailArray[i].product_id)
+      formData.set(`detail[${i}][title]`,newDetailArray[i].title)
+    }
+
+    if(props.params.includes("my-car")){
+      newRoute.current = "/car-history"
+    }else if(props.params.includes("my-motorcycle")){
+      newRoute.current = "/motor-history"
+    }else if(props.params.includes("my-heavy-car")){
+      newRoute.current = "/heavyCar-history"
+    }
+    const fetchData = await postData(`${API_PATHS.USERPANEL}${newRoute.current}/store/${vehicleId}`,formData)
+    if (fetchData.status === 200 || fetchData.status === 201) {
+      dispatch(setRecordModalCreateState(false));
+      dispatch(setRecordModalState(true));
+    } else if (fetchData.response.status === 404) {
+      console.log(fetchData)
+      notFound()
+    } else if (fetchData.response.status === 422) {
+      for (let key in fetchData.response.data.errors) {
+        error(fetchData.response.data.errors[key][0]);
+      }
+    }
+    console.log(newAddDateHistory)
+    console.log(newStartKilometerValue)
+  }
 
   return (
     <div className="fixed w-full h-full bg-[#ffffff69] inset-0 m-auto z-[99999]">
@@ -72,10 +148,8 @@ const RecordModalCreate = () => {
               // editData={props.editStartAt}
               // editCompany={props.editCompany}
               // editRemember={props.editRemember}
-              // id_state={props.id}
-              // setNewThirdPartyInsuranceStartAt={
-              //   props.setNewThirdPartyInsuranceStartAt
-              // }
+              id_state={"addHistory"}
+              setNewAddDateHistory={setNewAddDateHistory}
               // setNewBodyInsuranceStartAt={props.setNewBodyInsuranceStartAt}
               // setNewTechnicalDiagnosisStartAt={
               //   props.setNewTechnicalDiagnosisStartAt
@@ -110,11 +184,11 @@ const RecordModalCreate = () => {
           </ul>
           <div className="h-[calc(100vh-390px)] flex flex-col gap-4 overflow-y-auto px-8 py-4">
             {exapleArray.map((item, index) => (
-              <RecordModalCard key={index} item={item} />
+              <RecordModalCard key={item.id} item={item} newDetailArray={newDetailArray}/>
             ))}
           </div>
           <div className={"mt-4 flex justify-end gap-4 px-[32px]"}>
-            <Button class_name={"bg-green-500 text-white px-10 py-2 rounded-5"}>
+            <Button type={"button"} class_name={"bg-green-500 text-white px-10 py-2 rounded-5"} on_click={sendClickHandler}>
               ثبت
             </Button>
             <Button

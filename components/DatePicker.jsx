@@ -18,6 +18,8 @@ const DatePickerSelection = (props) => {
       props.id === "startDate"
         ? props.setNewTechnicalDiagnosisStartAt(event.unix)
         : props.setNewTechnicalDiagnosisEndAt(event.unix);
+    }else if (props.id_state === "addHistory"){
+        props.setNewAddDateHistory(event.unix)
     }
   };
 

@@ -48,6 +48,11 @@ const panelTabData = [
     title: "تاریخچه سفارشات",
     alt: "destination icon",
     id: "destination",
+    children: [
+      { title: "خریدها", id: "my-vehicle/my-car" },
+      { title: "کارشناسی", id: "my-vehicle/my-motorcycle" },
+      { title: "سرویس دوره ای", id: "my-vehicle/my-heavy-car" },
+    ],
   },
   {
     imgSrc: "/assets/icons/location.svg",
@@ -63,7 +68,7 @@ const panelTabData = [
   },
 ];
 
-const AllPanelTab = () => {
+const AllPanelTab = (props) => {
   const [logoutModalState, setLogoutModalState] = useState(false);
   const router = useRouter();
   const params = useParams()
@@ -162,8 +167,8 @@ const AllPanelTab = () => {
             ]
           }
         </div>
-        {RecordModalState && <RecordModal />}
-        {RecordModalCreateState && <RecordModalCreate />}
+        {RecordModalState && <RecordModal params={props.params["all-panel-tab"]}/>}
+        {RecordModalCreateState && <RecordModalCreate params={props.params["all-panel-tab"]}/>}
       </div>
       {logoutModalState && (
         <LogoutModal setLogoutModalState={setLogoutModalState} />

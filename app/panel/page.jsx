@@ -38,6 +38,11 @@ const panelTabData = [
     title: "تاریخچه سفارشات",
     alt: "destination icon",
     id: "destination",
+    children: [
+      { title: "خریدها", id: "my-vehicle/my-car" },
+      { title: "کارشناسی", id: "my-vehicle/my-motorcycle" },
+      { title: "سرویس دوره ای", id: "my-vehicle/my-heavy-car" },
+    ],
   },
   {
     imgSrc: "/assets/icons/location.svg",

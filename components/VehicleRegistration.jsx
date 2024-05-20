@@ -64,7 +64,7 @@ const VehicleRegistration = (props) => {
     if(hasCookie("Authorization")&&props.page === "homePage"){
       setTabData(prev=>[...prev,{ title: "خودرو من", id: "myVehicle" }])
     }
-  }, []);
+  }, [props.modalName,props.page]);
 
   const clickTabHandler = (event) => {
     setNewTabId(event.currentTarget.id);

@@ -1,12 +1,13 @@
 import Image from "next/image";
-import {usePathname, useRouter} from "next/navigation";
-import { INTERNAL_PATHS } from "@/configs/routes.config";
-import Popup from "reactjs-popup";
+import {notFound, usePathname, useRouter} from "next/navigation";
+import {API_PATHS, INTERNAL_PATHS} from "@/configs/routes.config";
 import "reactjs-popup/dist/index.css";
-import { useRef } from "react";
+import React, { useRef } from "react";
 import { useDispatch } from "react-redux";
-import {setRecordModalState} from "@/store/todoSlice";
+import {setRecordModalState, setTipId, setVehicleId} from "@/store/todoSlice";
 import Button from "@/components/Button";
+import {getData} from "@/utils/client-api-function-utils";
+import {error} from "@/utils/function-utils";
 
 const EditAndDeleteIcon = (props) => {
   const router = useRouter();
@@ -20,6 +21,8 @@ const EditAndDeleteIcon = (props) => {
 
   const clickRecordsHandler = () => {
     dispatch(setRecordModalState(true));
+    dispatch(setVehicleId(props.id))
+    dispatch(setTipId(props.tipId))
   };
 
   return (
