@@ -10,7 +10,7 @@ import axios from "axios";
 const ProductsPage = (props) => {
   const data = props.data && props.data;
 
-
+console.log(data)
   const tabTitle = [{ name: "خودرو" }, { name: "موتور سیکلت" }];
 
   return (
@@ -39,7 +39,7 @@ const ProductsPage = (props) => {
               متاسفانه محصولی یافت نشد
             </p>
           ) : (
-            data.map((item, index) => <ProductCard key={index} data={item} />)
+            data.data.map((item, index) => <ProductCard key={index} data={item} />)
           )}
         </div>
       </div>
