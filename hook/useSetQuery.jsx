@@ -24,7 +24,16 @@ const useSetQuery = () => {
         const query = search ? `?${search}` : ''
         router.push(pathname + query)
     }, []);
-    return {setQuery,setMultiQuery}
+    const deleteQuery = useCallback((data) => {
+        const params = new URLSearchParams(searchParams.toString())
+        data.map((item)=>{
+            params.delete(data)
+        })
+        const search = params.toString()
+        const query = search ? `?${search}` : ''
+        router.push(pathname + query)
+    }, []);
+    return {setQuery,setMultiQuery ,deleteQuery}
 };
 
 export default useSetQuery;

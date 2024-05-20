@@ -9,6 +9,7 @@ import arrowLeft from "@/public/assets/icons/Arrow-Left.svg";
 import axios from "axios";
 import {usePathname, useRouter} from "next/navigation";
 import ReserveTimeVerification from "@/components/vehicle-verification/ReserveTimeVerification";
+import useSetQuery from "@/hook/useSetQuery";
 
 const VerificationSecondStep = (props) => {
   const { setStep } = props;
@@ -21,6 +22,7 @@ const VerificationSecondStep = (props) => {
   const [isSelected, setIsSelected] = useState(null)
   const router = useRouter()
   const pathname = usePathname()
+  const setQuery = useSetQuery()
 
   const pp = [1,2,3,4]
 
@@ -31,6 +33,7 @@ const VerificationSecondStep = (props) => {
   }
 
   const backStepHandler = () => {
+    setQuery.deleteQuery(['package_id'])
   }
 
   useEffect(() => {
