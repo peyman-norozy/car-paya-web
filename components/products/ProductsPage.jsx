@@ -8,8 +8,7 @@ import CarServicesSlider from "@/components/CarServicesSlider/CarServicesSlider"
 import axios from "axios";
 
 const ProductsPage = (props) => {
-  const data = props.data && props.data;
-
+  const data = props.data && props.data.data;
 
   const tabTitle = [{ name: "خودرو" }, { name: "موتور سیکلت" }];
 
