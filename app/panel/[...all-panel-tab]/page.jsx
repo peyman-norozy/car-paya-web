@@ -146,25 +146,32 @@ const AllPanelTab = (props) => {
             />
           </div>
           {
-            {
-              "profile":<PersonalInformation/>,
-              "my-vehicle/my-car": <CreateMyCar />,
-              "my-vehicle/my-car/create": <CarDevice pageType={"create"} />,
-              "my-vehicle/my-car/edit": <CarDevice pageType={"edit"} />,
-              "my-vehicle/my-motorcycle": <CreateMyMotor />,
-              "my-vehicle/my-motorcycle/create":<MotorDevice pageType={"create"}/>,
-              "my-vehicle/my-motorcycle/edit":<MotorDevice pageType={"edit"}/>,
-              "my-vehicle/my-heavy-car":<CreateMyHeavyCar/>,
-              "my-vehicle/my-heavy-car/create":<HeavyCarDevice pageType={"create"}/>,
-              "my-vehicle/my-heavy-car/edit":<HeavyCarDevice pageType={"edit"}/>,
-              destination: <div>asdfs</div>,
-              "productAddress": <ProductAddress/>,
-              "user-profile": <div>user-profile</div>,
-              "loyalty-card": <div>loyalty-card</div>,
-            }[
-              params["all-panel-tab"] &&
-                params["all-panel-tab"].join("/")
-            ]
+            (()=>{
+              switch ( params["all-panel-tab"] && params["all-panel-tab"].join("/")) {
+                case "my-vehicle/my-car":
+                  return <CreateMyCar />;
+                case "my-vehicle/my-car/create":
+                  return <CarDevice pageType={"create"} />;
+                case "my-vehicle/my-car/edit":
+                  return <CarDevice pageType={"edit"} />;
+                case "my-vehicle/my-motorcycle":
+                  return <CreateMyMotor />;
+                case "my-vehicle/my-motorcycle/create":
+                  return <MotorDevice pageType={"create"} />;
+                case "my-vehicle/my-motorcycle/edit":
+                  return <MotorDevice pageType={"edit"} />;
+                case "my-vehicle/my-heavy-car":
+                  return <CreateMyHeavyCar />;
+                case "my-vehicle/my-heavy-car/create":
+                  return <HeavyCarDevice pageType={"create"} />;
+                case "my-vehicle/my-heavy-car/edit":
+                  return <HeavyCarDevice pageType={"edit"} />;
+                case "destination":
+                  return <div>asdfs</div>;
+                default:
+                  return null;
+              }
+            })()
           }
         </div>
         {RecordModalState && <RecordModal params={props.params["all-panel-tab"]}/>}
