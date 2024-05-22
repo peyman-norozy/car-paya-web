@@ -1,5 +1,5 @@
 "use client"
-import {useParams, useRouter} from "next/navigation";
+import {notFound, useParams, useRouter} from "next/navigation";
 import TitleDescription from "@/components/TitleDescription";
 import React, {Fragment, useEffect, useState} from "react";
 import LogoutModal from "@/components/modal/LogoutModal";
@@ -69,6 +69,7 @@ const panelTabData = [
 ];
 
 const AllPanelTab = (props) => {
+  console.log(props)
   const [logoutModalState, setLogoutModalState] = useState(false);
   const router = useRouter();
   const params = useParams()
@@ -169,7 +170,7 @@ const AllPanelTab = (props) => {
                 case "destination":
                   return <div>asdfs</div>;
                 default:
-                  return null;
+                  notFound()
               }
             })()
           }
