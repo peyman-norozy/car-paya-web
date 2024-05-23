@@ -6,11 +6,11 @@ export default function HeaderLogo() {
   return (
     <div>
       <Image
-        src="/assets/icons/Image-1.svg"
+        src="/assets/icons/Logo.svg"
         alt="site logo"
-        className="size868:w-[227px] w-[140px] cursor-pointer"
-        width={227}
-        height={44}
+        className="w-[75px] h-[65px] cursor-pointer"
+        width={75}
+        height={65}
         onClick={() => router.push("/")}
       />
     </div>
