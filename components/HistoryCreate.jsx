@@ -190,6 +190,7 @@ const HistoryCreate = (props) => {
           {exapleArray.map((item) => (
             <RecordModalCard
               key={item.id}
+              params={props.params}
               item={item}
               newDetailArray={newDetailArray}
             />

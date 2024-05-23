@@ -9,7 +9,6 @@ const initialState = {
   selectVehicle: {},
   carYear: [],
   verificationLogin: false,
-  tipId: 0,
 };
 
 const todoSlice = createSlice({
@@ -40,9 +39,6 @@ const todoSlice = createSlice({
     setCarYear(state, action) {
       state.carYear = action.payload;
     },
-    setTipId(state, action) {
-      state.tipId = action.payload;
-    },
     setVerificationLogin(state, action) {
       state.verificationLogin = action.payload;
     },
@@ -58,7 +54,6 @@ export const {
   setSelectCarModel,
   setSelectCarTip,
   setCarYear,
-  setTipId,
   setVerificationLogin,
 } = todoSlice.actions;
 export default todoSlice;

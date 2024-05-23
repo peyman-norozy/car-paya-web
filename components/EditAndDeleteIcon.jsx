@@ -11,14 +11,12 @@ const EditAndDeleteIcon = (props) => {
   const router = useRouter();
   const pathName = usePathname();
   const ref = useRef();
-  const dispatch = useDispatch();
   const editClickHandler = (event) => {
     router.push(pathName + INTERNAL_PATHS.EDIT + "?product=" + event.target.id);
   };
 
   const clickRecordsHandler = () => {
-    router.push(pathName + "/" + props.id + "/history");
-    dispatch(setTipId(props.tipId));
+    router.push(pathName + "/" + props.id + "/" + props.tipId + "/history");
   };
 
   return (

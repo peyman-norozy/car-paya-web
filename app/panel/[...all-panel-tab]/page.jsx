@@ -142,25 +142,25 @@ const AllPanelTab = (props) => {
           </div>
           {(() => {
             if (
-              props.params["all-panel-tab"].length >= 4 &&
-              props.params["all-panel-tab"][3] !== "history"
+              props.params["all-panel-tab"].length >= 5 &&
+              props.params["all-panel-tab"][4] !== "history"
+            ) {
+              return notFound();
+            }
+            if (
+              props.params["all-panel-tab"].length === 6 &&
+              props.params["all-panel-tab"][5] !== "create"
             ) {
               return notFound();
             }
             if (
               props.params["all-panel-tab"].length === 5 &&
-              props.params["all-panel-tab"][4] !== "create"
-            ) {
-              return notFound();
-            }
-            if (
-              props.params["all-panel-tab"].length === 4 &&
-              props.params["all-panel-tab"][3] === "history"
+              props.params["all-panel-tab"][4] === "history"
             ) {
               return <History params={props.params["all-panel-tab"]} />;
             } else if (
-              props.params["all-panel-tab"].length === 5 &&
-              props.params["all-panel-tab"][4] === "create"
+              props.params["all-panel-tab"].length === 6 &&
+              props.params["all-panel-tab"][5] === "create"
             ) {
               return <HistoryCreate params={props.params["all-panel-tab"]} />;
             }
