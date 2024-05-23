@@ -1,9 +1,4 @@
-import Image from "next/image";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  setRecordModalCreateState,
-  setRecordModalState,
-} from "@/store/todoSlice";
+import { useDispatch } from "react-redux";
 import DatePickerSelection from "@/components/DatePicker";
 import Input from "@/components/Input";
 import RecordModalCard from "@/components/cards/RecordModalCard";
@@ -13,7 +8,6 @@ import Button from "@/components/Button";
 import { postData } from "@/utils/client-api-function-utils";
 import { API_PATHS } from "@/configs/routes.config";
 import { notFound, usePathname, useRouter } from "next/navigation";
-import { router } from "next/client";
 
 const exapleArray = [
   { title: "روغن موتور", id: 0 },
@@ -115,8 +109,7 @@ const HistoryCreate = (props) => {
       formData,
     );
     if (fetchData.status === 200 || fetchData.status === 201) {
-      dispatch(setRecordModalCreateState(false));
-      dispatch(setRecordModalState(true));
+      router.push("/" + pathName.split("/").splice(1, 6).join("/"));
     } else if (fetchData.response.status === 404) {
       console.log(fetchData);
       notFound();
