@@ -88,7 +88,8 @@ const RecordModalCard = (props) => {
   };
 
   return (
-    <div className="flex justify-between items-center shadow-[0_0_6px_0_rgba(177,177,177,1)] text-14 text-stone-800 rounded-10 px-4 py-4">
+    <div className="flex justify-between items-center text-14 text-stone-800 rounded-10 py-4 odd:bg-[#FCE9E8] even:bg-[#F7F8FC]">
+      <span className="flex-1 flex justify-center">{props.index}</span>
       <span className="flex-1 flex justify-center">{props.item.title}</span>
       <div className="flex-1 flex justify-center">
         <ToggleButton

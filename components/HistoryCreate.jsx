@@ -135,7 +135,7 @@ const HistoryCreate = (props) => {
 
   return (
     <div className="flex flex-col size1000:flex-1 w-full rounded-[10px] px-[43px] py-6 shadow-[0_0_6px_0_rgba(180,180,180,0.3)]">
-      <div className={"flex items-center gap-2"}>
+      <div className={"flex items-center gap-2 mb-[34px]"}>
         <i
           onClick={backAddHistory}
           className={"cc-arrow-right text-[30px] text-[#354597] cursor-pointer"}
@@ -161,7 +161,7 @@ const HistoryCreate = (props) => {
         </div>
 
         <div className="relative flex-1">
-          <span className="absolute text-12 text-[#aaa] top-3 right-2">
+          <span className="absolute text-12 text-[#aaa] top-[-10px] bg-white px-2 right-2">
             کیلومتر فعلی خودرو
           </span>
           {newStartKilometerState && (
@@ -172,23 +172,25 @@ const HistoryCreate = (props) => {
             value={newStartKilometerValue}
             id={"kilometerStart"}
             name={"kilometerStart"}
-            className={`border outline-none ${
+            className={`border border-[#B0B0B0] outline-none ${
               newStartKilometerState ? "pl-[50px]" : "pl-2"
-            } text-14 h-[40px] placeholder:text-12 placeholder:text-right text-left w-full rounded-5`}
+            } text-14 h-full placeholder:text-12 placeholder:text-right text-left w-full rounded-5`}
             on_change={InputChangeHandler}
           />
         </div>
       </div>
       <div className="mt-6 flex flex-col px-[60px]">
-        <ul className="size800:flex hidden justify-between py-2 px-[50px] size1190:text-16 text-14 text-stone-800 rounded-10">
+        <ul className="size800:flex hidden justify-between py-2 size1190:text-16 text-14 text-stone-800 rounded-10 bg-[#ECEEF8]">
+          <li className="font-bold flex-1 text-center">#</li>
           <li className="font-bold flex-1 text-center">عنوان</li>
           <li className="font-bold flex-1 text-center">وضعیت</li>
           <li className="flex-1"></li>
         </ul>
-        <div className="h-[calc(100vh-420px)] flex flex-col gap-4 overflow-y-auto px-8 py-4">
-          {exapleArray.map((item) => (
+        <div className="flex flex-col gap-4 overflow-y-auto py-4">
+          {exapleArray.map((item, index) => (
             <RecordModalCard
               key={item.id}
+              index={index}
               params={props.params}
               item={item}
               newDetailArray={newDetailArray}
