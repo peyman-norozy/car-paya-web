@@ -12,7 +12,7 @@ import { error, numberWithCommas } from "@/utils/function-utils";
 import Button from "@/components/Button";
 import { postData } from "@/utils/client-api-function-utils";
 import { API_PATHS } from "@/configs/routes.config";
-import { notFound, useRouter } from "next/navigation";
+import { notFound, usePathname, useRouter } from "next/navigation";
 import { router } from "next/client";
 
 const exapleArray = [
@@ -44,6 +44,7 @@ const HistoryCreate = (props) => {
   const [newAddDateHistory, setNewAddDateHistory] = useState("");
   const vehicleId = props.params[2];
   const router = useRouter();
+  const pathName = usePathname();
   const newRoute = useRef(null);
   console.log(vehicleId);
   const newDetailArray = [
@@ -70,9 +71,6 @@ const HistoryCreate = (props) => {
   ];
 
   const dispatch = useDispatch();
-  const clickBackHandler = () => {
-    router.back();
-  };
 
   const InputChangeHandler = (event) => {
     const id = event.target.getAttribute("id");
@@ -131,17 +129,18 @@ const HistoryCreate = (props) => {
     console.log(newStartKilometerValue);
   };
 
+  const backAddHistory = () => {
+    router.push("/" + pathName.split("/").splice(1, 6).join("/"));
+  };
+
   return (
     <div className="flex flex-col size1000:flex-1 w-full rounded-[10px] px-[43px] py-6 shadow-[0_0_6px_0_rgba(180,180,180,0.3)]">
-      <div>
-        <Image
-          src={"/assets/icons/back.svg"}
-          alt={"back icon"}
-          className="cursor-pointer"
-          onClick={clickBackHandler}
-          width={24}
-          height={24}
+      <div className={"flex items-center gap-2"}>
+        <i
+          onClick={backAddHistory}
+          className={"cc-arrow-right text-[30px] text-[#354597] cursor-pointer"}
         />
+        <span className={"text-[#354597]"}>افزودن سابقه</span>
       </div>
       <div className="flex gap-4 px-[60px] mt-[20px]">
         <div className="flex-1">
@@ -206,7 +205,7 @@ const HistoryCreate = (props) => {
           </Button>
           <Button
             class_name={"bg-red-500 text-white px-10 py-2 rounded-5"}
-            on_click={clickBackHandler}
+            on_click={backAddHistory}
           >
             لغو
           </Button>
