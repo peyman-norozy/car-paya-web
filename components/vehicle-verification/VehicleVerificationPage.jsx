@@ -34,8 +34,8 @@ const VehicleVerificationPage = (props) => {
       {params.step === "step-1" && <PackageStep />}
       {params.step === "step-2" && <VerificationSecondStep setStep={setStep} />}
       {params.step === "step-3" && <VerificationLogin />}
-      {/*{step === 3 && <VerificationThirdStep setStep={setStep}/>}*/}
-      {/*<VerificationLastStep />*/}
+      {params.step === "step-4" && <VerificationThirdStep setStep={setStep} />}
+      {params.step === "step-5" && <VerificationLastStep />}
     </div>
   );
 };

@@ -1,7 +1,7 @@
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import ReserveTimeVerification from "@/components/vehicle-verification/ReserveTimeVerification";
 import useSetQuery from "@/hook/useSetQuery";
 import { useDispatch } from "react-redux";
@@ -9,6 +9,9 @@ import { setVerificationLogin } from "@/store/todoSlice";
 
 const VerificationSecondStep = (props) => {
   const { setStep } = props;
+  const searchParams = useSearchParams();
+  const city_id = searchParams.get("city_id");
+  const selectedItem = searchParams.get("vehicle_tip");
 
   const [selectWeek, setSelectWeek] = useState(0);
   const [optionIsOpen, setOptionIsOpen] = useState(false);
@@ -26,10 +29,28 @@ const VerificationSecondStep = (props) => {
       .get(process.env.BASE_API + "/web/expert/reservation?step=step-3")
       .then((res) => {
         console.log(res);
+        setQuery.setMultiQuery([
+          { key: "step", value: "step-4" },
+          { key: "city_id", value: city_id },
+          {
+            key: "vehicle_tip",
+            value: selectedItem,
+          },
+          { key: "package_id", value: 2 },
+        ]);
       })
       .catch((err) => {
         if (err.response.status === 401) {
           dispatch(setVerificationLogin(true));
+          setQuery.setMultiQuery([
+            { key: "step", value: "step-3" },
+            { key: "city_id", value: city_id },
+            {
+              key: "vehicle_tip",
+              value: selectedItem,
+            },
+            { key: "package_id", value: 2 },
+          ]);
         }
       });
   };
