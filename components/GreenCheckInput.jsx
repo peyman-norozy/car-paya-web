@@ -5,8 +5,8 @@ import Image from 'next/image';
 const GreenCheckInput = (props) => {
     const {isSelected, class_name , on_click} = props
     return (
-            <div className={`w-[1rem] h-[1rem] border-[1px] border-[#C0C0C0] relative ${class_name}`} onClick={on_click}>
-         {isSelected && <Image src={check} alt='' height={20} width={20} className='absolute bottom-[15%] left-[13%]'/>}
+            <div className={`w-[1.5rem] h-[1.5rem] flex items-center justify-center border-[1px] border-[#C0C0C0] relative ${class_name}`} onClick={on_click}>
+                {isSelected && <div className={'w-[1.2rem] h-[1.2rem] rounded-[50%] bg-BLUE_700'}></div>}
         </div>
     );
 };
