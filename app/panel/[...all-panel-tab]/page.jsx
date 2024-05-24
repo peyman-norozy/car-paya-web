@@ -1,23 +1,23 @@
-"use client"
-import {useParams, useRouter} from "next/navigation";
+"use client";
+import { notFound, useRouter } from "next/navigation";
 import TitleDescription from "@/components/TitleDescription";
-import React, {Fragment, useEffect, useState} from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import LogoutModal from "@/components/modal/LogoutModal";
-import {getWindowInnerWidth} from "@/store/todoSlice";
-import {useDispatch, useSelector} from "react-redux";
+import { getWindowInnerWidth } from "@/store/todoSlice";
+import { useDispatch } from "react-redux";
 import UserSpecifications from "@/components/UserSpecifications";
 import UserTabsCard from "@/components/cards/UserTabsCard";
 import Image from "next/image";
 import CarDevice from "@/components/CarDevice";
 import CreateMyMotor from "@/components/CreateMyMotor";
 import CreateMyCar from "@/components/CreateMyCar";
-import RecordModal from "@/components/modal/RecordModal";
-import RecordModalCreate from "@/components/modal/RecordModalCreate";
 import ProductAddress from "@/components/ProductAddress/ProductAddress";
 import PersonalInformation from "@/components/PersonalInformation";
 import MotorDevice from "@/components/MotorDevice";
 import CreateMyHeavyCar from "@/components/CreateMyHeavyCar";
 import HeavyCarDevice from "@/components/HeavyCarDevice";
+import History from "@/components/History";
+import HistoryCreate from "@/components/HistoryCreate";
 
 const panelTabData = [
   {
@@ -71,22 +71,19 @@ const panelTabData = [
 const AllPanelTab = (props) => {
   const [logoutModalState, setLogoutModalState] = useState(false);
   const router = useRouter();
-  const params = useParams()
   const dispatch = useDispatch();
-  const RecordModalState = useSelector((state) => state.todo.modalState);
-  const RecordModalCreateState = useSelector(
-    (state) => state.todo.recordModalCreateState,
-  );
 
+  console.log(props);
+  console.log(props.params["all-panel-tab"][2]);
   const backClickHandler = () => {
-      router.push("/panel");
+    router.push("/panel");
   };
 
   useEffect(() => {
-    if (params["all-panel-tab"] === "logout") {
+    if (props.params["all-panel-tab"] === "logout") {
       router.push("my-vehicle", undefined, { scroll: false });
     }
-  }, [router, params]);
+  }, [router, props.params]);
 
   useEffect(() => {
     dispatch(getWindowInnerWidth(window.innerWidth));
@@ -113,9 +110,7 @@ const AllPanelTab = (props) => {
           />
           {
             {
-              "profile":(
-                  <TitleDescription>اطلاعات شخصی من</TitleDescription>
-              ),
+              profile: <TitleDescription>اطلاعات شخصی من</TitleDescription>,
               "my-vehicle/my-car": (
                 <TitleDescription>شناسنامه و سوابق خودرو</TitleDescription>
               ),
@@ -123,15 +118,15 @@ const AllPanelTab = (props) => {
                 <TitleDescription>شناسنامه و سوابق موتور</TitleDescription>
               ),
               destination: <TitleDescription>تاریخچه سفارشات</TitleDescription>,
-              "productAddress": (
+              productAddress: (
                 <TitleDescription>آدرس های تحویل کالا</TitleDescription>
               ),
               "loyalty-card": (
                 <TitleDescription>بن ها و امتیازات تخفیف</TitleDescription>
               ),
             }[
-              params["all-panel-tab"] &&
-                params["all-panel-tab"].join("/")
+              props.params["all-panel-tab"] &&
+                props.params["all-panel-tab"].join("/")
             ]
           }
         </div>
@@ -145,30 +140,65 @@ const AllPanelTab = (props) => {
               setLogoutModalState={setLogoutModalState}
             />
           </div>
-          {
-            {
-              "profile":<PersonalInformation/>,
-              "my-vehicle/my-car": <CreateMyCar />,
-              "my-vehicle/my-car/create": <CarDevice pageType={"create"} />,
-              "my-vehicle/my-car/edit": <CarDevice pageType={"edit"} />,
-              "my-vehicle/my-motorcycle": <CreateMyMotor />,
-              "my-vehicle/my-motorcycle/create":<MotorDevice pageType={"create"}/>,
-              "my-vehicle/my-motorcycle/edit":<MotorDevice pageType={"edit"}/>,
-              "my-vehicle/my-heavy-car":<CreateMyHeavyCar/>,
-              "my-vehicle/my-heavy-car/create":<HeavyCarDevice pageType={"create"}/>,
-              "my-vehicle/my-heavy-car/edit":<HeavyCarDevice pageType={"edit"}/>,
-              destination: <div>asdfs</div>,
-              "productAddress": <ProductAddress/>,
-              "user-profile": <div>user-profile</div>,
-              "loyalty-card": <div>loyalty-card</div>,
-            }[
-              params["all-panel-tab"] &&
-                params["all-panel-tab"].join("/")
-            ]
-          }
+          {(() => {
+            if (
+              props.params["all-panel-tab"].length >= 5 &&
+              props.params["all-panel-tab"][4] !== "history"
+            ) {
+              return notFound();
+            }
+            if (
+              props.params["all-panel-tab"].length === 6 &&
+              props.params["all-panel-tab"][5] !== "create"
+            ) {
+              return notFound();
+            }
+            if (
+              props.params["all-panel-tab"].length === 5 &&
+              props.params["all-panel-tab"][4] === "history"
+            ) {
+              return <History params={props.params["all-panel-tab"]} />;
+            } else if (
+              props.params["all-panel-tab"].length === 6 &&
+              props.params["all-panel-tab"][5] === "create"
+            ) {
+              return <HistoryCreate params={props.params["all-panel-tab"]} />;
+            }
+            switch (
+              props.params["all-panel-tab"] &&
+              props.params["all-panel-tab"].join("/")
+            ) {
+              case "my-vehicle/my-car":
+                return <CreateMyCar />;
+              case "my-vehicle/my-car/create":
+                return <CarDevice pageType={"create"} />;
+              case "my-vehicle/my-car/edit":
+                return <CarDevice pageType={"edit"} />;
+              case "my-vehicle/my-motorcycle":
+                return <CreateMyMotor />;
+              case "my-vehicle/my-motorcycle/create":
+                return <MotorDevice pageType={"create"} />;
+              case "my-vehicle/my-motorcycle/edit":
+                return <MotorDevice pageType={"edit"} />;
+              case "my-vehicle/my-heavy-car":
+                return <CreateMyHeavyCar />;
+              case "my-vehicle/my-heavy-car/create":
+                return <HeavyCarDevice pageType={"create"} />;
+              case "my-vehicle/my-heavy-car/edit":
+                return <HeavyCarDevice pageType={"edit"} />;
+              case "productAddress":
+                return <ProductAddress />;
+              case "user-profile":
+                return <div>user-profile</div>;
+              case "loyalty-card":
+                return <div>loyalty-card</div>;
+              case "destination":
+                return <div>asdfs</div>;
+              default:
+                notFound();
+            }
+          })()}
         </div>
-        {RecordModalState && <RecordModal params={props.params["all-panel-tab"]}/>}
-        {RecordModalCreateState && <RecordModalCreate params={props.params["all-panel-tab"]}/>}
       </div>
       {logoutModalState && (
         <LogoutModal setLogoutModalState={setLogoutModalState} />

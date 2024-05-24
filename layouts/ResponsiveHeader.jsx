@@ -1,16 +1,15 @@
-import Image from "next/image";
-import {useSelector} from "react-redux"
+import { useSelector } from "react-redux";
 import HeaderLogo from "@/components/HeaderLogo";
 import LoginLink from "@/components/LoginLink";
 import BasketLink from "@/components/BasketLink";
-import {usePathname,useParams } from "next/navigation";
+import { usePathname, useParams } from "next/navigation";
 import { useRef, useState } from "react";
 import ResponsiveMenu from "@/components/ResponsiveMenu";
 import CardPay from "@/components/CardPay";
 
 const ResponsiveHeader = (props) => {
-  const params = useParams()
-  const pathName = usePathname().split("/")[1]
+  const params = useParams();
+  const pathName = usePathname().split("/")[1];
   const [newMenueState, setNewMenueState] = useState(true);
   const loginState = useSelector((state) => state.todo.loginState);
   const hambergerRef = useRef();
@@ -43,25 +42,19 @@ const ResponsiveHeader = (props) => {
       }}
     >
       <div className="flex justify-center items-center gap-4">
-        <div
-          className={`cursor-pointer transition-all ${
-            newMenueState ? "rotate-0" : "rotate-[-90deg]"
-          }`}
-          onClick={asideMenuCloseHandler}
-        >
-          <Image
-            src="/assets/icons/menu.svg"
-            alt="menue icon"
-            ref={hambergerRef}
-            width={24}
-            height={24}
-          />
-        </div>
         <HeaderLogo />
       </div>
       <div className="flex items-center gap-[10px]">
         <CardPay />
         <BasketLink />
+        <div
+          className={`cursor-pointer transition-all flex items-center ${
+            newMenueState ? "rotate-0" : "rotate-[-90deg]"
+          }`}
+          onClick={asideMenuCloseHandler}
+        >
+          <i className={"cc-menu text-[34px]"} ref={hambergerRef} />
+        </div>
         {loginState && <LoginLink />}
       </div>
       {

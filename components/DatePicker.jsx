@@ -18,14 +18,21 @@ const DatePickerSelection = (props) => {
       props.id === "startDate"
         ? props.setNewTechnicalDiagnosisStartAt(event.unix)
         : props.setNewTechnicalDiagnosisEndAt(event.unix);
-    }else if (props.id_state === "addHistory"){
-        props.setNewAddDateHistory(event.unix)
+    } else if (props.id_state === "addHistory") {
+      props.setNewAddDateHistory(event.unix);
     }
   };
 
   return (
     <div style={{ direction: "rtl" }} className={"relative"}>
-      <label htmlFor={props.id} className={"bg-white px-2 font-light text-[12px] text-[#454545] absolute top-[-11px] right-[10px]"}>{props.placeholder}</label>
+      <label
+        htmlFor={props.id}
+        className={
+          "bg-white px-2 font-light text-[12px] text-[#454545] absolute top-[-11px] right-[10px]"
+        }
+      >
+        {props.placeholder}
+      </label>
       <DatePicker
         value={props.editData * 1000}
         calendar={persian}
@@ -36,7 +43,7 @@ const DatePickerSelection = (props) => {
         containerClassName={"w-full"}
         onChange={setDateHandler}
         inputClass={
-          "text-14 outline-none border border-[#d1d1d1] rounded-5 h-[48px] pr-2 w-full placeholder:text-12"
+          "text-14 outline-none border border-[#B0B0B0] rounded-5 h-[48px] pr-2 w-full placeholder:text-12"
         }
       />
     </div>
