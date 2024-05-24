@@ -52,9 +52,9 @@ const SelectVerificationPlace = (props) => {
     };
 
     return (
-        <div>
+        <div className={'w-[95%] m-auto size690:w-full'}>
             <div
-                className={`relative bg-[#ECEEF8] px-[1rem] py-[1rem] rounded-10 flex justify-between ${
+                className={`relative bg-[#ECEEF8] px-[1rem] py-[1rem] rounded-10 flex flex-col gap-5 size690:gap-0 size690:flex-row justify-between ${
                     isSelected === id ? "opacity-[1]" : "opacity-[0.5]"
                 }`}
                 onClick={onClick}
@@ -68,7 +68,7 @@ const SelectVerificationPlace = (props) => {
                   <h1 className="font-bold text-18">{title}</h1>
                 </div>
                 <p className="text-14 text-[#505050]">{description}</p></div>
-              {isSelected === 0 && <button className={'rounded-lg border border-BLUE_600 py-3 px-2 text-BLUE_600  bg-white flex items-center gap-2'}>
+              {isSelected === 0 && <button className={'rounded-lg self-end w-fit border border-BLUE_600 py-3 px-2 text-BLUE_600  bg-white flex items-center gap-2'}>
                 <i className={'cc-location text-18'} />
                 <p className={'text-14'}>ثبت آدرس جدید</p>
               </button>}

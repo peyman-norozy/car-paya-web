@@ -12,6 +12,7 @@ const MyLocations = (props) => {
         <div
             className={`p-[0.75rem] size411:p-[1rem] flex flex-col gap-[1.25rem] size900:gap-0 size900:flex-row justify-between rounded-10 shadow-[0_0_7px_0_rgba(209,209,209,0.3)] border cursor-pointer ${isSelected === id && ''}`}
             onClick={on_click}>
+            <i className={'cc-menu-kebab text-24 self-end size900:hidden'} />
             <div>
                 <div className='flex items-center gap-[0.25rem] mb-[0.63rem]'>
                     <i className={'cc-location text-[24px]'} />
@@ -28,7 +29,7 @@ const MyLocations = (props) => {
                     <MapSelection setLocation={null}/>
 
                 </div>
-                <i className={'cc-menu-kebab text-18'}/>
+                <i className={'cc-menu-kebab text-18 hidden size900:block'}/>
 
             </div>
         </div>
