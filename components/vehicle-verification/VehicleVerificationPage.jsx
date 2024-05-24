@@ -16,6 +16,7 @@ import PackageStep from "@/components/vehicle-verification/PackageStep";
 import useSetQuery from "@/hook/useSetQuery";
 import {useSelector} from "react-redux";
 import VerificationLogin from "@/components/vehicle-verification/VerificationLogin";
+import VerificationLastStep from "@/components/vehicle-verification/VerificationLastStep";
 
 
 
@@ -31,13 +32,12 @@ const VehicleVerificationPage = (props) => {
   };
   return (
     <div>
-      <VerificationThirdStep />
-      {/*{params.vehicle_tip === undefined && <VerificationFirstStep setStep={setStep} step={step}/> }*/}
-      {/*{params.vehicle_tip !== undefined && params.city_id !== undefined && params.package_id === undefined && <PackageStep />}*/}
-      {/*{params.vehicle_tip !== undefined && params.city_id !== undefined && params.package_id !== undefined && !loginState && <VerificationSecondStep setStep={setStep}/>}*/}
-      {/*{params.vehicle_tip !== undefined && params.city_id !== undefined && params.package_id !== undefined && loginState && <VerificationLogin />}*/}
+      {params.vehicle_tip === undefined && <VerificationFirstStep setStep={setStep} step={step}/> }
+      {params.vehicle_tip !== undefined && params.city_id !== undefined && params.package_id === undefined && <PackageStep />}
+      {params.vehicle_tip !== undefined && params.city_id !== undefined && params.package_id !== undefined && !loginState && <VerificationSecondStep setStep={setStep}/>}
+      {params.vehicle_tip !== undefined && params.city_id !== undefined && params.package_id !== undefined && loginState && <VerificationLogin />}
       {/*{step === 3 && <VerificationThirdStep setStep={setStep}/>}*/}
-      {/*{step === 4 && <VerificationFirstStep setStep={setStep} step={step} verificationData={verificationData}/> }*/}
+      {/*<VerificationLastStep />*/}
     </div>
   );
 };
