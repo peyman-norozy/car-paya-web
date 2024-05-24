@@ -29,9 +29,12 @@ const VerificationLogin = () => {
     const nameAndMobileSubmitHandler = (event) => {
         event.preventDefault()
         if (rulesState) {
-            // axios.post(process.env.BASE_API + '/web/expert/reservation?step=step-4?name=' + nameValue + '&mobile=' + mobileValue + '&otp=').then(res => console.log(res)).catch(err => log.err
-            // )
-            setLoginState('otp')
+            axios.post(process.env.BASE_API + '/web/expert/reservation?step=step-4?name=' + nameValue + '&mobile=' + mobileValue + '&otp=').then(res => {
+                console.log(res)
+                setLoginState('otp')
+            }).catch(err => console.log(err)
+            )
+
         } else {
             error('پذیرفتن قوانين كارچك و سياست نامه حريم خصوصی الزامیست')
         }

@@ -8,8 +8,8 @@ const CarCheckLocations = (props) => {
     props;
   return (
     <div
-      className={`p-[1rem] flex flex-col gap-[0.5rem] size900:gap-0 size900:flex-row justify-between rounded-10 shadow-[0_0_7px_0_rgba(0,0,0,0.5)] border cursor-pointer ${
-        isSelected === id && "border-green-500"
+      className={`p-[1rem] flex flex-col gap-[0.5rem] size900:gap-0 size900:flex-row justify-between rounded-10 border shadow-[0_0_10px_0_rgba(209,209,209,0.3)] cursor-pointer ${
+        isSelected === id && ""
       }`}
       onClick={on_click}
     >
@@ -19,7 +19,8 @@ const CarCheckLocations = (props) => {
             isSelected={isSelected === id}
             class_name="rounded-[50%] w-[1.35rem] h-[1.35rem]"
           />
-          <h2 className="text-18">{title}</h2>
+          <h2 className="text-18 text-BLUE_600">{title}</h2>
+
         </div>
         <ul className="text-14 flex flex-col gap-[0.5rem]">
             <li><span className="font-bold">نام و نام خانوادگی مسئول:</span>{name}</li>

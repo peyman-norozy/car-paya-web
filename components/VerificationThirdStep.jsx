@@ -1,6 +1,6 @@
 import arrow from "@/public/assets/icons/Arrow-Left 1.svg";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import ChangeServiceTime from "./ChangeServiceTime";
 import SelectVerificationPlace from "./SelectVerificationPlace";
 
@@ -21,26 +21,25 @@ const VerificationThirdStep = (props) => {
         window.scrollTo(0, 0)
       }, [])
     return (
-        <div className="mt-[2rem] mb-[7rem] border border-[#c0c0c0] rounded-10 shadow-[0_5px_20px_5px_rgba(0,0,0,0.5)] size966:w-[95%] size1090:w-[85%] m-auto overflow-hidden ]">
-        <div className="py-[1.2rem] px-[1rem] md:px-[3rem] flex items-center justify-between bg-[#EAEAEA]">
-          <h1 className="text-text_gray text-18">انتخاب مکان دریافت خدمات</h1>
-          <Image
-            src={arrow}
-            alt=""
-            height={20}
-            width={20}
-            onClick={() => setStep(2)}
-            className="cursor-pointer"
-          />
-        </div>
-        <div className="py-[3rem] px-[0.75rem] md:px-[3rem]">
-          <ChangeServiceTime on_click={() => setStep(2)}/>
-          <div className="mt-[1.5rem] flex flex-col gap-[1.5rem]">
-            {placeData.map((item,index) => <SelectVerificationPlace setStep={setStep} options={index === 1 && 'options'} isSelected={isSelected} id={index} key={index} onClick={() => selectPlaceHandler(index)} title={item.title} description={item.description}/>)}
-          </div>
+        <div className="pt-[2rem] mb-[7rem] size966:w-[95%] size1090:w-[85%] m-auto overflow-hidden ]">
+            <div className={'flex items-center gap-2 size752:gap-[16px] text-BLUE_600 w-full'}>
+                <i className={'cc-arrow-right text-24 cursor-pointer'}/>
+                <p className={'p-[6px] text-14 size752:text-16 w-full border-b border-BLUE_600'}>چه مکانی اماده دریافت کارشناس هستید؟</p>
+            </div>
+            <div className="pb-[3rem] pt-4">
+                <ChangeServiceTime on_click={() => setStep(2)}/>
+                <div className="mt-[5rem] flex flex-col gap-[1.5rem]">
+                    {placeData.map((item, index) => <SelectVerificationPlace setStep={setStep}
+                                                                             options={index === 1 && 'options'}
+                                                                             isSelected={isSelected} id={index}
+                                                                             key={index}
+                                                                             onClick={() => selectPlaceHandler(index)}
+                                                                             title={item.title}
+                                                                             description={item.description}/>)}
+                </div>
 
+            </div>
         </div>
-    </div>
     );
 };
 
