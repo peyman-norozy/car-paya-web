@@ -7,19 +7,19 @@ export const serviceData = [
   },
   {
     title: "دیتیلینگ",
-    icon: "/assets/images/DET.webp",
+    icon: "/assets/images/Detail2.webp",
     href: "#",
     id: "detailing",
   },
   {
     title: "سرویس دوره ای",
-    icon: "/assets/images/periodicservice.png",
+    icon: "/assets/images/polisherright.webp",
     href: "/periodic-service",
     id: "periodicService",
   },
   {
     title: "باتری",
-    icon: "/assets/images/BATRY.webp",
+    icon: "/assets/images/buttry.webp",
     href: "/batteries",
     id: "batteries",
   },
@@ -37,13 +37,13 @@ export const serviceData = [
   },
   {
     title: "خرید خودرو",
-    icon: "/assets/images/buycar.png",
+    icon: "/assets/images/KEYBUY.webp",
     href: "#",
     id: "#",
   },
   {
     title: "فروش خودرو",
-    icon: "/assets/images/sellCar.png",
+    icon: "/assets/images/KEYSELL.webp",
     href: "#",
     id: "#",
   },
