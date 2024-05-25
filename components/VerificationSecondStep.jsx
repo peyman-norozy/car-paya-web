@@ -56,7 +56,15 @@ const VerificationSecondStep = (props) => {
   };
 
   const backStepHandler = () => {
-    setQuery.deleteQuery(["package_id"]);
+    setQuery.setMultiQuery([
+      { key: "step", value: "step-1" },
+      { key: "city_id", value: city_id },
+      {
+        key: "vehicle_tip",
+        value: selectedItem,
+      },
+      { key: "package_id", value: 2 },
+    ]);
   };
 
   useEffect(() => {
