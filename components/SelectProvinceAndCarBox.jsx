@@ -26,6 +26,8 @@ const SelectProvinceAndCarBox = (props) => {
   const [step, setStep] = useState("car-brands");
   const [motorStep, setMotorStep] = useState("motor-brands");
   const [isLoading, setIsLoading] = useState(false);
+  const [searchValue, setSearchValue] = useState([]);
+  const [searchInputValue, setSearchInputValue] = useState("");
 
   const cityRef = useRef();
   const setQuery = useSetQuery();
@@ -46,6 +48,28 @@ const SelectProvinceAndCarBox = (props) => {
       setSelectedItem(motorModel);
     }
   };
+
+  const searchVehicleHandler = (e) => {
+    if (isClicked === 0) {
+      setSearchInputValue(e.target.value);
+      console.log("iman");
+      const result = searchValue.filter((i) =>
+        i.title.includes(e.target.value),
+      );
+      setCarBrands(result);
+    } else if (isClicked === 1) {
+      setSearchInputValue(e.target.value);
+      console.log("peyman");
+      const result = searchValue.filter((i) =>
+        i.title.includes(e.target.value),
+      );
+      setMotorBrands(result);
+    }
+  };
+
+  useEffect(() => {
+    setSearchInputValue("");
+  }, [isClicked]);
 
   const citySearchHandler = () => {
     setIsSelected(true);
@@ -93,6 +117,7 @@ const SelectProvinceAndCarBox = (props) => {
         .get(process.env.BASE_API + "/web" + "/car-brands")
         .then((res) => {
           setIsLoading(false);
+          setSearchValue(res.data.data);
           setCarBrands(res.data.data);
         })
         .catch((err) => console.log(err));
@@ -101,6 +126,7 @@ const SelectProvinceAndCarBox = (props) => {
         .get(process.env.BASE_API + "/web" + "/car-models/" + selectedItem)
         .then((res) => {
           setCarBrands(res.data.data);
+          setSearchValue(res.data.data);
           setCarModel(selectedItem);
           setIsLoading(false);
         })
@@ -110,6 +136,7 @@ const SelectProvinceAndCarBox = (props) => {
         .get(process.env.BASE_API + "/web" + "/car-tips/" + selectedItem)
         .then((res) => {
           setCarBrands(res.data.data);
+          setSearchValue(res.data.data);
           setIsLoading(false);
         })
         .catch((err) => console.log(err));
@@ -119,6 +146,7 @@ const SelectProvinceAndCarBox = (props) => {
         .get(process.env.BASE_API + "/web" + "/motor-brands")
         .then((res) => {
           setMotorBrands(res.data.data);
+          setSearchValue(res.data.data);
           setIsLoading(false);
         })
         .catch((err) => console.log(err));
@@ -127,6 +155,7 @@ const SelectProvinceAndCarBox = (props) => {
         .get(process.env.BASE_API + "/web" + "/motor-models/" + selectedItem)
         .then((res) => {
           setMotorBrands(res.data.data);
+          setSearchValue(res.data.data);
           setMotorModel(selectedItem);
           setIsLoading(false);
         })
@@ -136,6 +165,7 @@ const SelectProvinceAndCarBox = (props) => {
         .get(process.env.BASE_API + "/web" + "/motor-tips/" + selectedItem)
         .then((res) => {
           setMotorBrands(res.data.data);
+          setSearchValue(res.data.data);
           setIsLoading(false);
         })
         .catch((err) => console.log(err));
@@ -275,6 +305,8 @@ const SelectProvinceAndCarBox = (props) => {
         <input
           id={"brand"}
           type={"text"}
+          onChange={searchVehicleHandler}
+          value={searchInputValue}
           className={"w-full h-full outline-none text-[#3D3D3D]"}
         />
         <label
