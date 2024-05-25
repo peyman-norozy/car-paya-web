@@ -257,13 +257,16 @@ const SelectProvinceAndCarBox = (props) => {
         <p className={"text-14 font-medium"}>کارشناسی وسیله من</p>
         <Input type={"checkbox"} className={"h-[22px] w-[22px]"} />
       </div>
-      <h4 className={"text-14 font-medium mb-5"}>
-        {step === "car-brands" || motorStep === "motor-brands"
-          ? "انتخاب برند"
-          : step === "car-models" || motorStep === "motor-models"
-            ? "انتخاب مدل"
-            : ""}
-      </h4>
+      <div className={"flex gap-2"}>
+        <i className={"cc-arrow-right text-18"} onClick={backStepHandler} />
+        <h4 className={"text-14 font-medium mb-5"}>
+          {step === "car-brands" || motorStep === "motor-brands"
+            ? "انتخاب برند"
+            : step === "car-models" || motorStep === "motor-models"
+              ? "انتخاب مدل"
+              : "انتخاب وسیله نقلیه"}
+        </h4>
+      </div>
       <div
         className={
           "rounded-lg flex items-center border border-[#B0B0B0] p-[10px] text-[#3D3D3D] relative h-[2.5rem] mb-2"
@@ -285,7 +288,7 @@ const SelectProvinceAndCarBox = (props) => {
             ? "انتخاب برند"
             : step === "car-models" || motorStep === "motor-models"
               ? "انتخاب مدل"
-              : ""}
+              : "انتخاب وسیله نقلیه"}
           <span className={"text-RED_400"}> * </span>
         </label>
       </div>
