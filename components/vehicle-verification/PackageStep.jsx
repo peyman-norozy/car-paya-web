@@ -56,6 +56,7 @@ const PackageStep = () => {
       { key: "package_id", value: 2 },
     ]);
   };
+
   return (
     <div
       className={
@@ -88,6 +89,7 @@ const PackageStep = () => {
           {data.map((item, index) => (
             <li key={index}>
               <PackageCard
+                options={item.information}
                 isSelected={isSelected}
                 id={item.id}
                 setIsSelected={setIsSelected}

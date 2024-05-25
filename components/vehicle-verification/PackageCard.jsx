@@ -1,7 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 
 const PackageCard = (props) => {
-  const { title, setIsSelected, id, isSelected, onClick } = props;
+  const { title, id, isSelected, onClick, options } = props;
+  const [optionsIsOpen, setOptionsIsOpen] = useState(false);
+
+  const openOptionHandler = () => {
+    setOptionsIsOpen((prevState) => !prevState);
+  };
 
   return (
     <div
@@ -26,19 +31,34 @@ const PackageCard = (props) => {
           ۱٬۰۰۰٬۰۰ تومان
         </p>
       </div>
-      {props.options && (
-        <div className={"flex items-center justify-between"}>
-          <div className={"flex items-center gap-2 justify-center "}>
-            <p>-</p>
-            <h6
-              className={"font-medium text-12 size752:text-14 text-[#303030]"}
+      {options &&
+        isSelected === id &&
+        options.map((item, index) => (
+          <div key={index}>
+            <div
+              onClick={openOptionHandler}
+              className={"flex items-center justify-between cursor-pointer"}
             >
-              برسی رنگ بدنه
-            </h6>
+              <div className={"flex items-center gap-2 justify-center "}>
+                <p>-</p>
+                <h6
+                  className={
+                    "font-medium text-12 size752:text-14 text-[#303030]"
+                  }
+                >
+                  {item.label}
+                </h6>
+              </div>
+              <i className={"cc-arrow-down"} />
+            </div>
+            {optionsIsOpen && (
+              <div
+                className={"p-[12px] text-12 text-gray-500"}
+                dangerouslySetInnerHTML={{ __html: item.value }}
+              ></div>
+            )}
           </div>
-          <i className={"cc-arrow-down"} />
-        </div>
-      )}
+        ))}
     </div>
   );
 };
