@@ -242,9 +242,11 @@ const SelectProvinceAndCarBox = (props) => {
         {tabTitle.map((item, i) => (
           <div
             onClick={() => selectTabHandler(i)}
-            className={
-              "bg-[#F9FAFF99] text-BLUE_800 text-14 py-[10px] text-center w-full shadow-[0_0_4px_rgba(180,180,180,0.25)] cursor-pointer"
-            }
+            className={`bg-[#F9FAFF99] text-BLUE_800 text-14 py-[10px] text-center w-full rounded-lg cursor-pointer ${
+              isClicked === i
+                ? "shadow-[0_0_8px_rgba(15,69,247,0.5)]"
+                : "shadow-[0_0_4px_rgba(180,180,180,0.25)]"
+            }`}
             key={i}
           >
             {item.name}
