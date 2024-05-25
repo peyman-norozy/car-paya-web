@@ -295,6 +295,7 @@ const SelectProvinceAndCarBox = (props) => {
         </div>
       ) : (
         <ShowMyVehicles
+          selectedItem={selectedItem}
           setSelectedVehicle={props.setSelectedItem}
           setSelectedItem={setSelectedItem}
           setStep={setStep}

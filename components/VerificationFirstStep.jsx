@@ -97,6 +97,7 @@ const VerificationFirstStep = (props) => {
             <SelectProvinceAndCarBox
               city_id={city_id}
               setCity_id={setCity_id}
+              selectedItem={selectedItem}
               setSelectedItem={setSelectedItem}
               tabTitle={tabTitle}
               title="انتخاب وسیله نقلیه"
