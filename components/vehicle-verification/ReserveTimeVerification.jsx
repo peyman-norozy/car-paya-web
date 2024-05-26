@@ -12,8 +12,8 @@ const ReserveTimeVerification = (props) => {
     setTimeDetail(
       data[1].map((item) => [
         { time: item.start_time + ":30", id: item.id },
-        { time: item.start_time + 1 + ":00", id: item.id },
-        { time: item.start_time + 1 + ":30", id: item.id },
+        { time: +item.start_time + 1 + ":00", id: item.id },
+        { time: +item.start_time + 1 + ":30", id: item.id },
         { time: item.end_time + ":00", id: item.id },
         { time: item.end_time + ":30", id: item.id },
       ]),
@@ -66,13 +66,13 @@ const ReserveTimeVerification = (props) => {
                     >
                       <p>{item.time}</p>
                       <div
-                        onClick={() => setTimeIsSelected(item.id)}
+                        onClick={(e) => setTimeIsSelected(item.id + item.time)}
                         className={
                           "rounded-[50%] border border-[#EBEDF9] w-6 h-6 flex item-center justify-center"
                         }
                       >
                         <div
-                          className={`w-[18px] h-[18px] m-auto rounded-[50%]  ${timeIsSelected === item.id ? "bg-green-700" : "bg-[#EBEDF9]"}`}
+                          className={`w-[18px] h-[18px] m-auto rounded-[50%]  ${timeIsSelected === item.id + item.time ? "bg-green-700" : "bg-[#EBEDF9]"}`}
                         ></div>
                       </div>
                     </div>
