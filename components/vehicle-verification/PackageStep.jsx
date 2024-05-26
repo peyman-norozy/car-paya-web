@@ -60,7 +60,7 @@ const PackageStep = () => {
   return (
     <div
       className={
-        "flex items-center  justify-between pt-[28px] w-[95%] size1136:w-[85%] m-auto"
+        "flex items-center  justify-between pt-[28px] w-[95%] size1136:w-[85%] m-auto "
       }
     >
       <div className={"w-full size1000:w-[50%] flex flex-col"}>

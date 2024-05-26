@@ -11,10 +11,13 @@ const PackageCard = (props) => {
   return (
     <div
       className={
-        "p-[0.75rem] size752:p-[1.5rem] border border-[#848484] rounded-lg flex flex-col gap-3"
+        "p-[0.75rem] size752:p-[1.5rem] border border-[#848484] rounded-lg flex flex-col gap-3 "
       }
     >
-      <div className={"flex  items-center justify-between"} onClick={onClick}>
+      <div
+        className={"flex  items-center justify-between cursor-pointer"}
+        onClick={onClick}
+      >
         <div className={"flex items-center gap-2 justify-center "}>
           <div
             className={

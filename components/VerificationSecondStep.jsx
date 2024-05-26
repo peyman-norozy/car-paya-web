@@ -13,7 +13,7 @@ const VerificationSecondStep = (props) => {
   const city_id = searchParams.get("city_id");
   const selectedItem = searchParams.get("vehicle_tip");
 
-  const [selectWeek, setSelectWeek] = useState(0);
+  const [loginState, setLoginState] = useState();
   const [optionIsOpen, setOptionIsOpen] = useState(false);
   const [timeIsSelected, setTimeIsSelected] = useState(null);
 
@@ -25,34 +25,27 @@ const VerificationSecondStep = (props) => {
   const dispatch = useDispatch();
 
   const continueSecondStepHandler = () => {
-    axios
-      .get(process.env.BASE_API + "/web/expert/reservation?step=step-3")
-      .then((res) => {
-        console.log(res);
-        setQuery.setMultiQuery([
-          { key: "step", value: "step-4" },
-          { key: "city_id", value: city_id },
-          {
-            key: "vehicle_tip",
-            value: selectedItem,
-          },
-          { key: "package_id", value: 2 },
-        ]);
-      })
-      .catch((err) => {
-        if (err.response.status === 401) {
-          dispatch(setVerificationLogin(true));
-          setQuery.setMultiQuery([
-            { key: "step", value: "step-3" },
-            { key: "city_id", value: city_id },
-            {
-              key: "vehicle_tip",
-              value: selectedItem,
-            },
-            { key: "package_id", value: 2 },
-          ]);
-        }
-      });
+    if (loginState) {
+      setQuery.setMultiQuery([
+        { key: "step", value: "step-4" },
+        { key: "city_id", value: city_id },
+        {
+          key: "vehicle_tip",
+          value: selectedItem,
+        },
+        { key: "package_id", value: 2 },
+      ]);
+    } else {
+      setQuery.setMultiQuery([
+        { key: "step", value: "step-3" },
+        { key: "city_id", value: city_id },
+        {
+          key: "vehicle_tip",
+          value: selectedItem,
+        },
+        { key: "package_id", value: 2 },
+      ]);
+    }
   };
 
   const backStepHandler = () => {
@@ -72,6 +65,8 @@ const VerificationSecondStep = (props) => {
     axios
       .get(process.env.BASE_API + "/web/expert/reservation?step=step-2")
       .then((res) => {
+        setLoginState(res.data["check_auth"]);
+        console.log(res.data["check_auth"]);
         setData(
           Object.keys(res.data["time-reserve"]).map((key) => [
             key,

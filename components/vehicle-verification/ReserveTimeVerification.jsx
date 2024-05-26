@@ -1,11 +1,26 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 const ReserveTimeVerification = (props) => {
-  const { data } = props;
+  const { data, setTimeIsSelected, timeIsSelected } = props;
   const { optionIsOpen, setOptionIsOpen } = props;
+  const [timeDetail, setTimeDetail] = useState();
   const weekDay =
     data &&
     new Date(data[0] * 1000).toLocaleDateString("fa-IR", { weekday: "long" });
+
+  useEffect(() => {
+    setTimeDetail(
+      data[1].map((item) => [
+        { time: item.start_time + ":30", id: item.id },
+        { time: item.start_time + 1 + ":00", id: item.id },
+        { time: item.start_time + 1 + ":30", id: item.id },
+        { time: item.end_time + ":00", id: item.id },
+        { time: item.end_time + ":30", id: item.id },
+      ]),
+    );
+  }, []);
+
+  console.log(timeDetail);
 
   const openOptionHandler = (index) => {
     setOptionIsOpen((prevState) => (prevState === index ? null : index));
@@ -41,24 +56,23 @@ const ReserveTimeVerification = (props) => {
                   "grid grid-cols-2 place-content-center border-t border-t-[#EBEDF9] w-[85%] m-auto justify-items-center py-3 gap-y-4"
                 }
               >
-                {data &&
-                  data[1].map((item, index) => (
+                {item.id &&
+                  timeDetail[0].map((item, index) => (
                     <div
                       key={index}
                       className={
                         "flex items-center p-2 border-b border-b-[#F5F6FF] gap-6"
                       }
                     >
-                      <p>۱۳:۰۰</p>
+                      <p>{item.time}</p>
                       <div
+                        onClick={() => setTimeIsSelected(item.id)}
                         className={
                           "rounded-[50%] border border-[#EBEDF9] w-6 h-6 flex item-center justify-center"
                         }
                       >
                         <div
-                          className={
-                            "w-[18px] h-[18px] m-auto rounded-[50%] bg-[#EBEDF9]"
-                          }
+                          className={`w-[18px] h-[18px] m-auto rounded-[50%]  ${timeIsSelected === item.id ? "bg-green-700" : "bg-[#EBEDF9]"}`}
                         ></div>
                       </div>
                     </div>
