@@ -1,37 +1,37 @@
 export const serviceData = [
   {
     title: "کارشناسی خودرو",
-    icon: "/assets/images/CARSHENASI.webp",
+    icon: "/assets/images/Detail2.webp",
     href: "/vehicle-verification",
     id: "vehicleVerification",
   },
   {
     title: "دیتیلینگ",
-    icon: "/assets/images/Detail2.webp",
+    icon: "/assets/images/polisherright.webp",
     href: "#",
     id: "detailing",
   },
   {
     title: "سرویس دوره ای",
-    icon: "/assets/images/polisherright.webp",
+    icon: "/assets/images/sevisdorei2.webp",
     href: "/periodic-service",
     id: "periodicService",
   },
   {
     title: "باتری",
-    icon: "/assets/images/buttry.webp",
+    icon: "/assets/images/BUTTRY2ZARDMESHKI.webp",
     href: "/batteries",
     id: "batteries",
   },
   {
     title: "لوازم یدکی",
-    icon: "/assets/images/filter.png",
+    icon: "/assets/images/LAVAZEMYADAKIZARD.webp",
     href: "/products",
     id: "products",
   },
   {
     title: "بیمه",
-    icon: "/assets/images/insurancecar.png",
+    icon: "/assets/images/SHILD.webp",
     href: "#",
     id: "insurance",
   },
@@ -49,7 +49,7 @@ export const serviceData = [
   },
   {
     title: "شناسنامه و سوابق",
-    icon: "/assets/images/records.png",
+    icon: "/assets/images/SHENASNAME3.webp",
     href: "/panel/my-vehicle/my-car",
     id: "myVehicleMyCar",
   },
