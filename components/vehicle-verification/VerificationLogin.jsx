@@ -22,6 +22,7 @@ const VerificationLogin = () => {
   const searchParams = useSearchParams();
   const city_id = searchParams.get("city_id");
   const selectedItem = searchParams.get("vehicle_tip");
+  const time_id = searchParams.get("time_id");
 
   const nameChangeHandler = (event) => {
     setNameValue(event.target.value);
@@ -32,17 +33,29 @@ const VerificationLogin = () => {
   const rulesChangeHandler = (event) => {
     setRulesState(event.target.checked);
   };
+  const otpSubmitHandler = (event) => {
+    event.preventDefault();
+    setQuery.setMultiQuery([
+      { key: "city_id", value: city_id },
+      {
+        key: "vehicle_tip",
+        value: selectedItem,
+      },
+      { key: "step", value: "step-4" },
+      { key: "package_id", value: 2 },
+      { key: "time_id", value: time_id },
+    ]);
+  };
   const nameAndMobileSubmitHandler = (event) => {
     event.preventDefault();
     if (rulesState) {
       axios
-        .post(
+        .get(
           process.env.BASE_API +
-            "/web/expert/reservation?step=step-4?name=" +
+            "/web/expert/reservation?step=step-3&name=" +
             nameValue +
             "&mobile=" +
-            mobileValue +
-            "&otp=",
+            mobileValue,
         )
         .then((res) => {
           setLoginState("otp");
@@ -145,7 +158,7 @@ const VerificationLogin = () => {
             );
           case "otp":
             return (
-              <form className={"flex flex-col"}>
+              <form onSubmit={otpSubmitHandler} className={"flex flex-col"}>
                 <h2 className={"text-18 font-medium mb-[1.5rem]"}>
                   {" "}
                   برای ادامه اطلاعات فردی خود را وارد کنید
@@ -180,25 +193,15 @@ const VerificationLogin = () => {
                     ویرایش شماره موبایل
                   </p>
                 </div>
-                <Button
-                  on_click={() => {
-                    setQuery.setMultiQuery([
-                      { key: "step", value: "step-4" },
-                      { key: "city_id", value: city_id },
-                      {
-                        key: "vehicle_tip",
-                        value: selectedItem,
-                      },
-                      { key: "package_id", value: 2 },
-                    ]);
-                  }}
-                  class_name={
+                <button
+                  type={"submit"}
+                  className={
                     "bg-BLUE_600 py-[10px] px-3 rounded-lg flex items-center gap-1 text-white w-fit self-end"
                   }
                 >
                   <p className={"text-14"}>تایید و ادامه</p>
                   <i className={"cc-left text-[24px]"} />
-                </Button>
+                </button>
               </form>
             );
         }

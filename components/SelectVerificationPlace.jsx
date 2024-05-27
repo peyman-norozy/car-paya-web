@@ -9,8 +9,7 @@ import { useSearchParams } from "next/navigation";
 import useSetQuery from "@/hook/useSetQuery";
 
 const SelectVerificationPlace = (props) => {
-  const { title, description, id, onClick, isSelected, options, setStep } =
-    props;
+  const { title, description, id, onClick, isSelected } = props;
   const [isClicked, setIsClicked] = useState(null);
   const [isChecked, setIsChecked] = useState(false);
   const searchParams = useSearchParams();
