@@ -188,6 +188,54 @@ export const workData = [
     has_come: 1708863149,
   },
 ];
+export const panelTabData = [
+  {
+    imgSrc: "/assets/icons/PersonalIcon.svg",
+    title: "داشبورد",
+    alt: "user profile icon",
+    id: "panel",
+  },
+  {
+    imgSrc: "/assets/icons/PersonalIcon.svg",
+    title: "اطلاعات شخصی من",
+    alt: "profile icon",
+    id: "profile",
+  },
+  {
+    imgSrc: "/assets/icons/Group.svg",
+    title: "شناسنامه و سوابق وسیله نقلیه",
+    alt: "my car icon",
+    id: "my-vehicle",
+    children: [
+      { title: "خودرو", id: "my-vehicle/my-car" },
+      { title: "موتور سیکلت", id: "my-vehicle/my-motorcycle" },
+      { title: "وسیله سنگین", id: "my-vehicle/my-heavy-car" },
+    ],
+  },
+  {
+    imgSrc: "/assets/icons/Vehicle.svg",
+    title: "تاریخچه سفارشات",
+    alt: "destination icon",
+    id: "destination",
+    children: [
+      { title: "خریدها", id: "history-orders/buys" },
+      { title: "کارشناسی", id: "history-orders/verification" },
+      { title: "سرویس دوره ای", id: "history-orders/Detail" },
+    ],
+  },
+  {
+    imgSrc: "/assets/icons/location.svg",
+    title: "آدرس های تحویل کالا",
+    alt: "product address file icon",
+    id: "productAddress",
+  },
+  {
+    imgSrc: "/assets/icons/discount-shape.svg",
+    title: "بن ها و امتیازات تخفیف",
+    alt: "loyalty card icon",
+    id: "loyalty-card",
+  },
+];
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
@@ -195,4 +243,5 @@ export default {
   HowWorksMockUpData,
   periodicServiceUnderCardData,
   workData,
+  panelTabData,
 };
