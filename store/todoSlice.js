@@ -5,7 +5,6 @@ const initialState = {
   loginOtpData: {},
   windowInnerWidth: 0,
   loginState: true,
-  triangleState: false,
   selectVehicle: {},
   carYear: [],
   verificationLogin: false,
@@ -23,9 +22,6 @@ const todoSlice = createSlice({
     },
     setLoginState(state, action) {
       state.loginState = action.payload;
-    },
-    setTriangleState(state, action) {
-      state.triangleState = action.payload;
     },
     setSelectCarBrand(state, action) {
       state.selectVehicle.carBrand = action.payload;
@@ -49,7 +45,6 @@ export const {
   getLoginOtpData,
   getWindowInnerWidth,
   setLoginState,
-  setTriangleState,
   setSelectCarBrand,
   setSelectCarModel,
   setSelectCarTip,
