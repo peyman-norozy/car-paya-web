@@ -57,7 +57,7 @@ const VerificationThirdStep = (props) => {
         </p>
       </div>
       <div className="pb-[3rem] pt-4">
-        <ChangeServiceTime />
+        <ChangeServiceTime on_click={backstopHandler} />
         <div className="mt-[5rem] flex flex-col gap-[1.5rem]">
           {placeData.map((item, index) => (
             <SelectVerificationPlace
