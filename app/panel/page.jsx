@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { useRouter } from "next/navigation";
 import TitleDescription from "@/components/TitleDescription";
 import { useState } from "react";
@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import UserSpecifications from "@/components/UserSpecifications";
 import UserTabsCard from "@/components/cards/UserTabsCard";
 import LogoutModal from "@/components/modal/LogoutModal";
-import {setTriangleState} from "@/store/todoSlice";
+import { setTriangleState } from "@/store/todoSlice";
 
 const panelTabData = [
   {
@@ -93,7 +93,7 @@ const UserPanel = () => {
       </div>
       {innerWidthNumber > 1000 ? (
         <div className="flex gap-4 items-start">
-          <div className="shadow-[0_0_6px_0_rgba(180,180,180,0.3)] w-[342px] flex flex-col justify-center gap-4 items-center pt-2 rounded-[10px]">
+          <div className="shadow-[0_0_6px_0_rgba(180,180,180,0.3)] w-[342px] flex flex-col justify-center gap-4 items-center pt-2 rounded-[10px] sticky top-[81px]">
             <UserSpecifications
               style={"flex-col justify-center items-center gap-2"}
             />
