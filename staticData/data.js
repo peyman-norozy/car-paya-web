@@ -1,19 +1,19 @@
 export const serviceData = [
   {
     title: "کارشناسی خودرو",
-    icon: "/assets/images/sevisdorei2.webp",
+    icon: "/assets/images/Detail2.webp",
     href: "/vehicle-verification",
     id: "vehicleVerification",
   },
   {
     title: "دیتیلینگ",
-    icon: "/assets/images/Detail2.webp",
+    icon: "/assets/images/polisherright.webp",
     href: "#",
     id: "detailing",
   },
   {
     title: "سرویس دوره ای",
-    icon: "/assets/images/polisherright.webp",
+    icon: "/assets/images/sevisdorei2.webp",
     href: "/periodic-service",
     id: "periodicService",
   },
