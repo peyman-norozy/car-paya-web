@@ -18,63 +18,13 @@ import CreateMyHeavyCar from "@/components/CreateMyHeavyCar";
 import HeavyCarDevice from "@/components/HeavyCarDevice";
 import History from "@/components/History";
 import HistoryCreate from "@/components/HistoryCreate";
-
-const panelTabData = [
-  {
-    imgSrc: "/assets/icons/PersonalIcon.svg",
-    title: "داشبورد",
-    alt: "user profile icon",
-    id: "panel",
-  },
-  {
-    imgSrc: "/assets/icons/PersonalIcon.svg",
-    title: "اطلاعات شخصی من",
-    alt: "profile icon",
-    id: "profile",
-  },
-  {
-    imgSrc: "/assets/icons/Group.svg",
-    title: "شناسنامه و سوابق وسیله نقلیه",
-    alt: "my car icon",
-    id: "my-vehicle",
-    children: [
-      { title: "خودرو", id: "my-vehicle/my-car" },
-      { title: "موتور سیکلت", id: "my-vehicle/my-motorcycle" },
-      { title: "وسیله سنگین", id: "my-vehicle/my-heavy-car" },
-    ],
-  },
-  {
-    imgSrc: "/assets/icons/Vehicle.svg",
-    title: "تاریخچه سفارشات",
-    alt: "destination icon",
-    id: "destination",
-    children: [
-      { title: "خریدها", id: "my-vehicle/my-car" },
-      { title: "کارشناسی", id: "my-vehicle/my-motorcycle" },
-      { title: "سرویس دوره ای", id: "my-vehicle/my-heavy-car" },
-    ],
-  },
-  {
-    imgSrc: "/assets/icons/location.svg",
-    title: "آدرس های تحویل کالا",
-    alt: "personal file icon",
-    id: "productAddress",
-  },
-  {
-    imgSrc: "/assets/icons/discount-shape.svg",
-    title: "بن ها و امتیازات تخفیف",
-    alt: "loyalty card icon",
-    id: "loyalty-card",
-  },
-];
+import { panelTabData } from "@/staticData/data";
 
 const AllPanelTab = (props) => {
   const [logoutModalState, setLogoutModalState] = useState(false);
   const router = useRouter();
   const dispatch = useDispatch();
 
-  console.log(props);
-  console.log(props.params["all-panel-tab"][2]);
   const backClickHandler = () => {
     router.push("/panel");
   };
@@ -188,12 +138,16 @@ const AllPanelTab = (props) => {
                 return <HeavyCarDevice pageType={"edit"} />;
               case "productAddress":
                 return <ProductAddress />;
+              case "history-orders/buys":
+                return <div>buys</div>;
+              case "history-orders/verification":
+                return <div>verification</div>;
+              case "history-orders/Detail":
+                return <div>Detail</div>;
               case "user-profile":
                 return <div>user-profile</div>;
               case "loyalty-card":
                 return <div>loyalty-card</div>;
-              case "destination":
-                return <div>asdfs</div>;
               default:
                 notFound();
             }
