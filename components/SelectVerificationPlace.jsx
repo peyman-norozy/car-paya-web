@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import GreenCheckInput from "./GreenCheckInput";
 import MyLocations from "./MyLocations";
 import Button from "./Button";
@@ -7,12 +7,14 @@ import Input from "@/components/Input";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import useSetQuery from "@/hook/useSetQuery";
+import axios from "axios";
+import AddAddressModal from "@/components/vehicle-verification/AddAddressModal";
 
 const SelectVerificationPlace = (props) => {
-  const { title, description, id, onClick, isSelected, options, setStep } =
-    props;
+  const { title, description, id, onClick, isSelected } = props;
   const [isClicked, setIsClicked] = useState(null);
   const [isChecked, setIsChecked] = useState(false);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
   const searchParams = useSearchParams();
   const setQuery = useSetQuery();
   const city_id = searchParams.get("city_id");
@@ -50,6 +52,10 @@ const SelectVerificationPlace = (props) => {
     },
   ];
 
+  const openModalHandler = () => {
+    setModalIsOpen(true);
+  };
+
   const selectLocationHandler = (index) => {
     setIsClicked(index);
   };
@@ -70,8 +76,39 @@ const SelectVerificationPlace = (props) => {
     setIsChecked((prevState) => !prevState);
   };
 
+  useEffect(() => {
+    axios
+      .get(
+        process.env.BASE_API +
+          "/web/expert/reservation?step=step-5&type=Expert",
+      )
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err));
+  }, []);
+
   return (
-    <div className={"w-[95%] m-auto size690:w-full"}>
+    <div className={"w-[95%] m-auto size690:w-full relative"}>
+      {modalIsOpen && (
+        <div>
+          <div>
+            <div
+              className={
+                "fixed max-h-[90%] w-[80%] m-auto inset-0 z-[10000000000] overflow-scroll"
+              }
+            >
+              <AddAddressModal setModalIsOpen={setModalIsOpen} />
+            </div>
+            <div
+              onClick={() => {
+                setModalIsOpen(false);
+              }}
+              className={
+                "w-full h-[100vh] fixed top-0 right-0 bg-black opacity-[0.5] z-[100000000]"
+              }
+            ></div>
+          </div>
+        </div>
+      )}
       <div
         className={`relative bg-[#ECEEF8] px-[1rem] py-[1rem] rounded-10 flex flex-col gap-5 size690:gap-0 size690:flex-row justify-between ${
           isSelected === id ? "opacity-[1]" : "opacity-[0.5]"
@@ -90,6 +127,7 @@ const SelectVerificationPlace = (props) => {
         </div>
         {isSelected === 0 && (
           <button
+            onClick={openModalHandler}
             className={
               "rounded-lg self-end w-fit border border-BLUE_600 py-3 px-2 text-BLUE_600  bg-white flex items-center gap-2"
             }

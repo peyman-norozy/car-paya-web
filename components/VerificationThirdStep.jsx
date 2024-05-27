@@ -1,6 +1,4 @@
-import arrow from "@/public/assets/icons/Arrow-Left 1.svg";
-import Image from "next/image";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import ChangeServiceTime from "./ChangeServiceTime";
 import SelectVerificationPlace from "./SelectVerificationPlace";
 import useSetQuery from "@/hook/useSetQuery";
@@ -39,11 +37,6 @@ const VerificationThirdStep = (props) => {
       { key: "package_id", value: 2 },
     ]);
   };
-
-  const { setStep } = props;
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
   return (
     <div className="pt-[2rem] mb-[7rem] size966:w-[95%] size1090:w-[85%] m-auto overflow-hidden ]">
       <div
@@ -64,11 +57,10 @@ const VerificationThirdStep = (props) => {
         </p>
       </div>
       <div className="pb-[3rem] pt-4">
-        <ChangeServiceTime on_click={() => setStep(2)} />
+        <ChangeServiceTime on_click={backstopHandler} />
         <div className="mt-[5rem] flex flex-col gap-[1.5rem]">
           {placeData.map((item, index) => (
             <SelectVerificationPlace
-              setStep={setStep}
               options={index === 1 && "options"}
               isSelected={isSelected}
               id={index}
