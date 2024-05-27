@@ -11,7 +11,7 @@ const ReserveTimeVerification = (props) => {
   useEffect(() => {
     setTimeDetail(
       data[1].map((item) => [
-        { time: item.start_time + ":30", id: item.id },
+        { time: item.start_time + ":00", id: item.id },
         { time: +item.start_time + 1 + ":00", id: item.id },
         { time: +item.start_time + 1 + ":30", id: item.id },
         { time: item.end_time + ":00", id: item.id },
@@ -56,27 +56,90 @@ const ReserveTimeVerification = (props) => {
                   "grid grid-cols-2 place-content-center border-t border-t-[#EBEDF9] w-[85%] m-auto justify-items-center py-3 gap-y-4"
                 }
               >
-                {item.id &&
-                  timeDetail[0].map((item, index) => (
+                {/*first time*/}
+                <div
+                  key={index}
+                  className={
+                    "flex items-center p-2 border-b border-b-[#F5F6FF] gap-6"
+                  }
+                >
+                  <p>{item.start_time + ":00"}</p>
+                  <div
+                    onClick={(e) =>
+                      setTimeIsSelected(item.id + item.start_time + ":00")
+                    }
+                    className={
+                      "rounded-[50%] border border-[#EBEDF9] w-6 h-6 flex item-center justify-center"
+                    }
+                  >
                     <div
-                      key={index}
-                      className={
-                        "flex items-center p-2 border-b border-b-[#F5F6FF] gap-6"
-                      }
-                    >
-                      <p>{item.time}</p>
-                      <div
-                        onClick={(e) => setTimeIsSelected(item.id + item.time)}
-                        className={
-                          "rounded-[50%] border border-[#EBEDF9] w-6 h-6 flex item-center justify-center"
-                        }
-                      >
-                        <div
-                          className={`w-[18px] h-[18px] m-auto rounded-[50%]  ${timeIsSelected === item.id + item.time ? "bg-green-700" : "bg-[#EBEDF9]"}`}
-                        ></div>
-                      </div>
-                    </div>
-                  ))}
+                      className={`w-[18px] h-[18px] m-auto rounded-[50%] transition-all duration-500 ease-out  ${timeIsSelected === item.id + item.start_time + ":00" ? "bg-BLUE_600" : "bg-[#EBEDF9]"}`}
+                    ></div>
+                  </div>
+                </div>
+                {/*    second time*/}
+                <div
+                  key={index}
+                  className={
+                    "flex items-center p-2 border-b border-b-[#F5F6FF] gap-6"
+                  }
+                >
+                  <p>{+item.start_time + 1 + ":00"}</p>
+                  <div
+                    onClick={(e) =>
+                      setTimeIsSelected(item.id + +item.start_time + 1 + ":00")
+                    }
+                    className={
+                      "rounded-[50%] border border-[#EBEDF9] w-6 h-6 flex item-center justify-center"
+                    }
+                  >
+                    <div
+                      className={`w-[18px] h-[18px] m-auto rounded-[50%] transition-all duration-500 ease-out ${timeIsSelected === item.id + +item.start_time + 1 + ":00" ? "bg-BLUE_600" : "bg-[#EBEDF9]"}`}
+                    ></div>
+                  </div>
+                </div>
+                {/*    third time*/}
+                <div
+                  key={index}
+                  className={
+                    "flex items-center p-2 border-b border-b-[#F5F6FF] gap-6"
+                  }
+                >
+                  <p>{item.start_time + ":30"}</p>
+                  <div
+                    onClick={(e) =>
+                      setTimeIsSelected(item.id + item.start_time + ":30")
+                    }
+                    className={
+                      "rounded-[50%] border border-[#EBEDF9] w-6 h-6 flex item-center justify-center"
+                    }
+                  >
+                    <div
+                      className={`w-[18px] h-[18px] m-auto rounded-[50%] transition-all duration-500 ease-out ${timeIsSelected === item.id + item.start_time + ":30" ? "bg-BLUE_600" : "bg-[#EBEDF9]"}`}
+                    ></div>
+                  </div>
+                </div>
+                {/*    forth time*/}
+                <div
+                  key={index}
+                  className={
+                    "flex items-center p-2 border-b border-b-[#F5F6FF] gap-6"
+                  }
+                >
+                  <p>{+item.start_time + 1 + ":30"}</p>
+                  <div
+                    onClick={(e) =>
+                      setTimeIsSelected(item.id + +item.start_time + 1 + ":30")
+                    }
+                    className={
+                      "rounded-[50%] border border-[#EBEDF9] w-6 h-6 flex item-center justify-center"
+                    }
+                  >
+                    <div
+                      className={`w-[18px] h-[18px] m-auto rounded-[50%] transition-all duration-500 ease-out ${timeIsSelected === item.id + +item.start_time + 1 + ":30" ? "bg-BLUE_600" : "bg-[#EBEDF9]"}`}
+                    ></div>
+                  </div>
+                </div>
               </div>
             )}
           </div>

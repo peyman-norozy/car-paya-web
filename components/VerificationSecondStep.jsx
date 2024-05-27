@@ -6,6 +6,8 @@ import ReserveTimeVerification from "@/components/vehicle-verification/ReserveTi
 import useSetQuery from "@/hook/useSetQuery";
 import { useDispatch } from "react-redux";
 import { setVerificationLogin } from "@/store/todoSlice";
+import { error } from "@/utils/function-utils";
+import { ToastContainer } from "react-toastify";
 
 const VerificationSecondStep = (props) => {
   const { setStep } = props;
@@ -25,26 +27,33 @@ const VerificationSecondStep = (props) => {
   const dispatch = useDispatch();
 
   const continueSecondStepHandler = () => {
-    if (loginState) {
-      setQuery.setMultiQuery([
-        { key: "step", value: "step-4" },
-        { key: "city_id", value: city_id },
-        {
-          key: "vehicle_tip",
-          value: selectedItem,
-        },
-        { key: "package_id", value: 2 },
-      ]);
+    if (timeIsSelected === null) {
+      error("زمان مورد نظر را انتخاب کنید");
+      window.scroll({ top: 0, left: 0, behavior: "smooth" });
     } else {
-      setQuery.setMultiQuery([
-        { key: "step", value: "step-3" },
-        { key: "city_id", value: city_id },
-        {
-          key: "vehicle_tip",
-          value: selectedItem,
-        },
-        { key: "package_id", value: 2 },
-      ]);
+      if (loginState) {
+        setQuery.setMultiQuery([
+          { key: "step", value: "step-4" },
+          { key: "city_id", value: city_id },
+          {
+            key: "vehicle_tip",
+            value: selectedItem,
+          },
+          { key: "package_id", value: 2 },
+          { key: "time_id", value: timeIsSelected },
+        ]);
+      } else {
+        setQuery.setMultiQuery([
+          { key: "step", value: "step-3" },
+          { key: "city_id", value: city_id },
+          {
+            key: "vehicle_tip",
+            value: selectedItem,
+          },
+          { key: "package_id", value: 2 },
+          { key: "time_id", value: timeIsSelected },
+        ]);
+      }
     }
   };
 
@@ -130,6 +139,7 @@ const VerificationSecondStep = (props) => {
         height={544}
         className={"hidden size1000:block"}
       />
+      <ToastContainer />
     </div>
   );
 };
