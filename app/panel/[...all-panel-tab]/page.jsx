@@ -19,6 +19,7 @@ import HeavyCarDevice from "@/components/HeavyCarDevice";
 import History from "@/components/History";
 import HistoryCreate from "@/components/HistoryCreate";
 import { panelTabData } from "@/staticData/data";
+import Discount from "@/components/Discount/Discount";
 
 const AllPanelTab = (props) => {
   const [logoutModalState, setLogoutModalState] = useState(false);
@@ -146,8 +147,8 @@ const AllPanelTab = (props) => {
                 return <div>Detail</div>;
               case "profile":
                 return <PersonalInformation />;
-              case "loyalty-card":
-                return <div>loyalty-card</div>;
+              case "discount":
+                return <Discount />;
               default:
                 notFound();
             }

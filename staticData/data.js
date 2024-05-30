@@ -232,8 +232,8 @@ export const panelTabData = [
   {
     imgSrc: "/assets/icons/discount-shape.svg",
     title: "بن ها و امتیازات تخفیف",
-    alt: "loyalty card icon",
-    id: "loyalty-card",
+    alt: "discount icon",
+    id: "discount",
   },
 ];
 
