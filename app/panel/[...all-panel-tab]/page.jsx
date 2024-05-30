@@ -144,8 +144,8 @@ const AllPanelTab = (props) => {
                 return <div>verification</div>;
               case "history-orders/Detail":
                 return <div>Detail</div>;
-              case "user-profile":
-                return <div>user-profile</div>;
+              case "profile":
+                return <PersonalInformation />;
               case "loyalty-card":
                 return <div>loyalty-card</div>;
               default:
