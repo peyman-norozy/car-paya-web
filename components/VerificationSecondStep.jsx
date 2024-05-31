@@ -8,6 +8,7 @@ import { useDispatch } from "react-redux";
 import { setVerificationLogin } from "@/store/todoSlice";
 import { error } from "@/utils/function-utils";
 import { ToastContainer } from "react-toastify";
+import { getCookie } from "cookies-next";
 
 const VerificationSecondStep = (props) => {
   const { setStep } = props;
@@ -72,7 +73,11 @@ const VerificationSecondStep = (props) => {
   useEffect(() => {
     window.scrollTo(0, 0);
     axios
-      .get(process.env.BASE_API + "/web/expert/reservation?step=step-2")
+      .get(process.env.BASE_API + "/web/expert/reservation?step=step-2", {
+        headers: {
+          Authorization: "Bearer " + getCookie("Authorization"),
+        },
+      })
       .then((res) => {
         setLoginState(res.data["check_auth"]);
         console.log(res.data["check_auth"]);

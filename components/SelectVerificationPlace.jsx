@@ -17,6 +17,7 @@ const SelectVerificationPlace = (props) => {
   const [isChecked, setIsChecked] = useState(false);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [carCheckLocations, setCarCheckLocations] = useState([]);
+  const [selectedPlaceId, setSelectedPlaceId] = useState(null);
   const searchParams = useSearchParams();
   const setQuery = useSetQuery();
   const city_id = searchParams.get("city_id");
