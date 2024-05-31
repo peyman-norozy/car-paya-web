@@ -9,12 +9,14 @@ import { useSearchParams } from "next/navigation";
 import useSetQuery from "@/hook/useSetQuery";
 import axios from "axios";
 import AddAddressModal from "@/components/vehicle-verification/AddAddressModal";
+import { getCookie } from "cookies-next";
 
 const SelectVerificationPlace = (props) => {
   const { title, description, id, onClick, isSelected } = props;
   const [isClicked, setIsClicked] = useState(null);
   const [isChecked, setIsChecked] = useState(false);
   const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [carCheckLocations, setCarCheckLocations] = useState([]);
   const searchParams = useSearchParams();
   const setQuery = useSetQuery();
   const city_id = searchParams.get("city_id");
@@ -32,23 +34,6 @@ const SelectVerificationPlace = (props) => {
       province: "تهران",
       city: "تهران",
       neighborhood: "آیت الله کاشانی",
-    },
-  ];
-
-  const carCheckLocations = [
-    {
-      name: "حسام حسامی",
-      call: "0912 425-2522",
-      code: "021021",
-      address: "تهران، کوروش بزرگ، بین داریوش اول و داریوش دوم پلاک 6",
-      title: "کارشناسی خودرو ایمان",
-    },
-    {
-      name: "حسام حسامی",
-      call: "0912 425-2522",
-      code: "021021",
-      address: "تهران، کوروش بزرگ، بین داریوش اول و داریوش دوم پلاک 6",
-      title: "کارشناسی خودرو ایمان",
     },
   ];
 
@@ -77,10 +62,35 @@ const SelectVerificationPlace = (props) => {
   };
 
   useEffect(() => {
+    //   verification in carcheck place
     axios
       .get(
         process.env.BASE_API +
-          "/web/expert/reservation?step=step-5&type=Expert",
+          "/web/expert/reservation?step=step-5&type=DELEGATE&city_id=" +
+          city_id,
+        {
+          headers: {
+            Authorization: "Bearer " + getCookie("Authorization"),
+          },
+        },
+      )
+      .then((res) => {
+        setCarCheckLocations(res.data.data);
+        console.log(res);
+      })
+      .catch((err) => console.log(err));
+    //   ///////////////////////////////////
+    //   verification in costumers place
+    axios
+      .get(
+        process.env.BASE_API +
+          "/web/expert/reservation?step=step-5&type=Expert&city_id=" +
+          city_id,
+        {
+          headers: {
+            Authorization: "Bearer " + getCookie("Authorization"),
+          },
+        },
       )
       .then((res) => console.log(res))
       .catch((err) => console.log(err));
@@ -157,10 +167,11 @@ const SelectVerificationPlace = (props) => {
                   key={index}
                   id={index}
                   name={item.name}
-                  call={item.call}
-                  code={item.code}
+                  longitude={item.longitude}
+                  latitude={item.latitude}
+                  code={item.code_delegate}
                   address={item.address}
-                  title={item.title}
+                  title={item.name}
                   isSelected={isClicked}
                   on_click={() => selectLocationHandler(index)}
                 />
