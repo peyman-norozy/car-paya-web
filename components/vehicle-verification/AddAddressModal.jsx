@@ -3,11 +3,12 @@ import React, { useCallback, useEffect, useState } from "react";
 import ProfileEditeSelectInput from "@/components/ProfileEditeSelectInput";
 import CheckBox from "@/components/CheckBox";
 import AddressInput from "@/components/AddressInput";
-import { getData, postData, putData } from "@/utils/api-function-utils";
+import { getData } from "@/utils/api-function-utils";
 import { API_PATHS } from "@/configs/routes.config";
 import { useRouter } from "next/navigation";
 import SpinnerPackage from "@/components/SpinnerPackage";
 import MapDirection from "@/components/MapDirection";
+import { postData } from "@/utils/client-api-function-utils";
 
 const AddressModal = (props) => {
   const router = useRouter();
@@ -22,15 +23,16 @@ const AddressModal = (props) => {
   const [editData, setEditData] = useState({});
   const [mapPosition, setMapPosition] = useState("");
   const [ItarateMapData, setItarateMapData] = useState({});
-
+  console.log(mapPosition);
   const addressFormSubmitHandler = async (event) => {
     event.preventDefault();
-
-    let checkBoxState = "0";
-    if (event.target.userDelivery.checked === false) {
-      checkBoxState = "0";
-    } else if (event.target.userDelivery.checked === true) {
-      checkBoxState = "1";
+    if (props.deliveryPackage) {
+      let checkBoxState = "0";
+      if (event.target.userDelivery.checked === false) {
+        checkBoxState = "0";
+      } else if (event.target.userDelivery.checked === true) {
+        checkBoxState = "1";
+      }
     }
 
     const formData = new FormData();
@@ -39,13 +41,17 @@ const AddressModal = (props) => {
     formData.set("postal_code", event.target.postalCode.value.toString());
     formData.set("province_id", provincesId);
     formData.set("city_id", cityId);
-    formData.set("user_delivery", checkBoxState);
-    formData.set(
-      "receiver_cellphone",
-      event.target.phoneNumber.value.toString(),
-    );
-    formData.set("receiver_name", event.target.fullName.value);
-    formData.set("map", mapPosition);
+
+    {
+      props.deliveryPackage && formData.set("user_delivery", checkBoxState);
+      formData.set(
+        "receiver_cellphone",
+        event.target.phoneNumber.value.toString(),
+      );
+      formData.set("receiver_name", event.target.fullName.value);
+    }
+    formData.set("latitude", mapPosition.split(",")[0]);
+    formData.set("longitude", mapPosition.split(",")[1]);
 
     if (props.pageType === "edite") {
       formData.set("X-HTTP-Method-Override", "PUT");
@@ -99,8 +105,6 @@ const AddressModal = (props) => {
   useEffect(() => {
     (async () => {
       const getProvinces = await getData("/web" + API_PATHS.GEOPROVINCES);
-      console.log(getProvinces);
-
       if (getProvinces.status === "success") {
         setProvincesData(getProvinces.data);
       } else if (getProvinces.status === 404) {

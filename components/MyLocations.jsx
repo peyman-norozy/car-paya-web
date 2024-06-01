@@ -8,10 +8,15 @@ import MapSelection from "./MapSelection";
 import { useSelector } from "react-redux";
 
 const MyLocations = (props) => {
-  const { isSelected, on_click, id, title, province, city, neighborhood } =
+  const { isSelected, on_click, id, title, province, city, address, map } =
     props;
   const [showOption, setShowOption] = useState(false);
   const kebabRef = useRef(null);
+
+  const latitude = map.split(",")[0];
+  const longitude = map.split(",")[1];
+
+  const location = latitude.toString() + "," + longitude.toString();
 
   const showOptionHandler = () => {
     setShowOption((prevState) => !prevState);
@@ -37,7 +42,7 @@ const MyLocations = (props) => {
       <div>
         <div className="flex items-center gap-[0.25rem] mb-[0.63rem]">
           <i className={"cc-location text-[24px]"} />
-          <h2 className="text-18"> آدرس : {title}</h2>
+          <h2 className="text-18">{title}</h2>
         </div>
         <ul className="flex flex-col items-start gap-[0.75rem] text-14 mb-[2rem]">
           <li>
@@ -46,11 +51,14 @@ const MyLocations = (props) => {
           <li>
             <span className="font-bold">شهر :</span> {city}
           </li>
+          <li>
+            <span className="font-bold">آدرس :</span> {address}
+          </li>
         </ul>
       </div>
       <div className="h-[150px] w-full flex gap-[1rem] size900:w-[360px] rounded-[0.5rem] overflow-hidden">
         <div className="h-full w-full">
-          <MapSelection setLocation={null} />
+          <MapSelection location={location} setLocation={null} />
         </div>
         <i
           ref={kebabRef}

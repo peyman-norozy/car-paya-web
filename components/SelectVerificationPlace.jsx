@@ -17,13 +17,12 @@ const SelectVerificationPlace = (props) => {
   const [isChecked, setIsChecked] = useState(false);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [carCheckLocations, setCarCheckLocations] = useState([]);
+  const [myLocationData, setMyLocationData] = useState([]);
   const [selectedPlaceId, setSelectedPlaceId] = useState(null);
   const searchParams = useSearchParams();
   const setQuery = useSetQuery();
   const city_id = searchParams.get("city_id");
   const selectedItem = searchParams.get("vehicle_tip");
-
-  const myLocationData = [];
 
   const openModalHandler = () => {
     setModalIsOpen(true);
@@ -64,7 +63,6 @@ const SelectVerificationPlace = (props) => {
       )
       .then((res) => {
         setCarCheckLocations(res.data.data);
-        console.log(res);
       })
       .catch((err) => console.log(err));
     //   ///////////////////////////////////
@@ -80,9 +78,13 @@ const SelectVerificationPlace = (props) => {
           },
         },
       )
-      .then((res) => console.log(res))
+      .then((res) => {
+        setMyLocationData(res.data.data);
+      })
       .catch((err) => console.log(err));
   }, []);
+
+  console.log(myLocationData);
 
   return (
     <div className={"w-[95%] m-auto size690:w-full relative"}>
@@ -91,6 +93,7 @@ const SelectVerificationPlace = (props) => {
           <div>
             <div className={"fixed  w-[45%] m-auto inset-0 z-[10000000000]"}>
               <AddAddressModal
+                getDataFetch={setMyLocationData}
                 pageType={"create"}
                 setModalIsOpen={setModalIsOpen}
               />
@@ -139,10 +142,11 @@ const SelectVerificationPlace = (props) => {
           {isSelected === 0
             ? myLocationData.map((item, index) => (
                 <MyLocations
-                  province={item.province}
-                  city={item.city}
-                  neighborhood={item.neighborhood}
+                  province={item.province_name}
+                  city={item.city_name}
                   title={item.title}
+                  address={item.address}
+                  map={item.map}
                   id={index}
                   key={index}
                   isSelected={isClicked}
