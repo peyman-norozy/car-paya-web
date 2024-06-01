@@ -74,7 +74,7 @@ const SelectVerificationPlace = (props) => {
     axios
       .get(
         process.env.BASE_API +
-          "/web/expert/reservation?step=step-5&type=Expert&city_id=" +
+          "/web/expert/reservation?step=step-5&type=EXPERT&city_id=" +
           city_id,
         {
           headers: {
@@ -143,7 +143,7 @@ const SelectVerificationPlace = (props) => {
       </div>
       {isSelected === id && (
         <div className=" w-full flex flex-col gap-[1.5rem] mt-[1.5rem]">
-          {isSelected === 0
+          {myLocationData.length > 0 && isSelected === 0
             ? myLocationData.map((item, index) => (
                 <MyLocations
                   setFetchData={setFetchData}
