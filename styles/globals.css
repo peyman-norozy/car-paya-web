@@ -148,6 +148,14 @@ li {
 
 }
 
+/*******************************leaflet map in address_Map ******************************************/
+
+.address_Map .leaflet-container {
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+}
+
 /********************** mag_slider ************************/
 
 .mag_slider .swiper-initialized {

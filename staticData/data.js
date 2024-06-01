@@ -1,55 +1,55 @@
 export const serviceData = [
   {
     title: "کارشناسی خودرو",
-    icon: "/assets/images/Detail2.webp",
+    icon: "/assets/images/karshenasi.png",
     href: "/vehicle-verification",
     id: "vehicleVerification",
   },
   {
     title: "دیتیلینگ",
-    icon: "/assets/images/polisherright.webp",
+    icon: "/assets/images/polisher.png",
     href: "#",
     id: "detailing",
   },
   {
     title: "سرویس دوره ای",
-    icon: "/assets/images/sevisdorei2.webp",
+    icon: "/assets/images/servis.png",
     href: "/periodic-service",
     id: "periodicService",
   },
   {
     title: "باتری",
-    icon: "/assets/images/BUTTRY2ZARDMESHKI.webp",
+    icon: "/assets/images/buttry.png",
     href: "/batteries",
     id: "batteries",
   },
   {
     title: "لوازم یدکی",
-    icon: "/assets/images/LAVAZEMYADAKIZARD.webp",
+    icon: "/assets/images/laazemyadaki.png",
     href: "/products",
     id: "products",
   },
   {
     title: "بیمه",
-    icon: "/assets/images/SHILD.webp",
+    icon: "/assets/images/oilavazemyadaki.png",
     href: "#",
     id: "insurance",
   },
   {
     title: "خرید خودرو",
-    icon: "/assets/images/KEYBUY.webp",
+    icon: "/assets/images/keybuy.png",
     href: "#",
     id: "#",
   },
   {
     title: "فروش خودرو",
-    icon: "/assets/images/KEYSELL.webp",
+    icon: "/assets/images/keysell.png",
     href: "#",
     id: "#",
   },
   {
     title: "شناسنامه و سوابق",
-    icon: "/assets/images/SHENASNAME3.webp",
+    icon: "/assets/images/shnasname.png",
     href: "/panel/my-vehicle/my-car",
     id: "myVehicleMyCar",
   },
@@ -188,6 +188,54 @@ export const workData = [
     has_come: 1708863149,
   },
 ];
+export const panelTabData = [
+  {
+    imgSrc: "/assets/icons/PersonalIcon.svg",
+    title: "داشبورد",
+    alt: "user profile icon",
+    id: "panel",
+  },
+  {
+    imgSrc: "/assets/icons/PersonalIcon.svg",
+    title: "اطلاعات شخصی من",
+    alt: "profile icon",
+    id: "profile",
+  },
+  {
+    imgSrc: "/assets/icons/Group.svg",
+    title: "شناسنامه و سوابق وسیله نقلیه",
+    alt: "my car icon",
+    id: "my-vehicle",
+    children: [
+      { title: "خودرو", id: "my-vehicle/my-car" },
+      { title: "موتور سیکلت", id: "my-vehicle/my-motorcycle" },
+      { title: "وسیله سنگین", id: "my-vehicle/my-heavy-car" },
+    ],
+  },
+  {
+    imgSrc: "/assets/icons/Vehicle.svg",
+    title: "تاریخچه سفارشات",
+    alt: "destination icon",
+    id: "destination",
+    children: [
+      { title: "خریدها", id: "history-orders/buys" },
+      { title: "کارشناسی", id: "history-orders/verification" },
+      { title: "سرویس دوره ای", id: "history-orders/Detail" },
+    ],
+  },
+  {
+    imgSrc: "/assets/icons/location.svg",
+    title: "آدرس های تحویل کالا",
+    alt: "product address file icon",
+    id: "productAddress",
+  },
+  {
+    imgSrc: "/assets/icons/discount-shape.svg",
+    title: "بن ها و امتیازات تخفیف",
+    alt: "discount icon",
+    id: "discount",
+  },
+];
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
@@ -195,4 +243,5 @@ export default {
   HowWorksMockUpData,
   periodicServiceUnderCardData,
   workData,
+  panelTabData,
 };
