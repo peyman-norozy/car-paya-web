@@ -48,7 +48,7 @@ const MyLocations = (props) => {
   }, []);
   return (
     <div
-      className={`relative p-[0.75rem] size411:p-[1rem] flex flex-col gap-[1.25rem] size900:gap-0 size900:flex-row justify-between rounded-10 shadow-[0_0_7px_0_rgba(209,209,209,0.3)] border cursor-pointer ${isSelected === id && ""}`}
+      className={`relative p-[0.75rem] size411:p-[1rem] flex flex-col gap-[1.25rem] size900:gap-0 size900:flex-row justify-between rounded-10 shadow-[0_0_7px_0_rgba(209,209,209,0.3)] border cursor-pointer ${isSelected === id && "border-BLUE_600"}`}
       onClick={on_click}
     >
       {modalIsOpen && (

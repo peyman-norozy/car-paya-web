@@ -12,6 +12,7 @@ import { getCookie } from "cookies-next";
 const VerificationSecondStep = (props) => {
   const { setStep } = props;
   const searchParams = useSearchParams();
+  const params = new URLSearchParams(searchParams.toString());
   const city_id = searchParams.get("city_id");
   const selectedItem = searchParams.get("vehicle_tip");
   const package_id = searchParams.get("package_id");
@@ -56,15 +57,11 @@ const VerificationSecondStep = (props) => {
   };
 
   const backStepHandler = () => {
-    setQuery.setMultiQuery([
-      { key: "step", value: "step-1" },
-      { key: "city_id", value: city_id },
-      {
-        key: "vehicle_tip",
-        value: selectedItem,
-      },
-      { key: "package_id", value: package_id },
-    ]);
+    setQuery.deleteSingleQuery(
+      [{ key: "package_id", value: package_id }],
+      params,
+    );
+    setQuery.updateMultiQuery([{ key: "step", value: "step-1" }], params);
   };
 
   useEffect(() => {

@@ -18,7 +18,7 @@ const SelectVerificationPlace = (props) => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [carCheckLocations, setCarCheckLocations] = useState([]);
   const [myLocationData, setMyLocationData] = useState([]);
-  const [selectedPlaceId, setSelectedPlaceId] = useState(null);
+  const [selectedPlaceId, setSelectedPlaceId] = useState({});
   const [fetchData, setFetchData] = useState();
 
   const searchParams = useSearchParams();
@@ -26,13 +26,15 @@ const SelectVerificationPlace = (props) => {
   const city_id = searchParams.get("city_id");
   const selectedItem = searchParams.get("vehicle_tip");
   const package_id = searchParams.get("package_id");
+  const time_id = searchParams.get("time_id");
 
   const openModalHandler = () => {
     setModalIsOpen(true);
   };
 
-  const selectLocationHandler = (index) => {
-    setIsClicked(index);
+  const selectLocationHandler = (id, label) => {
+    setSelectedPlaceId({ label: label, value: id });
+    setIsClicked(id);
   };
 
   const continueStepHandler = () => {
@@ -44,6 +46,8 @@ const SelectVerificationPlace = (props) => {
         value: selectedItem,
       },
       { key: "package_id", value: package_id },
+      { key: "time_id", value: time_id },
+      { key: selectedPlaceId.label, value: selectedPlaceId.value },
     ]);
   };
 
@@ -146,6 +150,8 @@ const SelectVerificationPlace = (props) => {
           {myLocationData.length > 0 && isSelected === 0
             ? myLocationData.map((item, index) => (
                 <MyLocations
+                  selectedPlaceId={selectedPlaceId}
+                  setSelectedPlaceId={setSelectedPlaceId}
                   setFetchData={setFetchData}
                   modalIsOpen={modalIsOpen}
                   setModalIsOpen={setModalIsOpen}
@@ -157,14 +163,16 @@ const SelectVerificationPlace = (props) => {
                   id={item.id}
                   key={index}
                   isSelected={isClicked}
-                  on_click={() => selectLocationHandler(index)}
+                  on_click={() => selectLocationHandler(item.id, "expert-id")}
                 />
               ))
             : carCheckLocations.length > 0 &&
               carCheckLocations.map((item, index) => (
                 <CarCheckLocations
+                  selectedPlaceId={selectedPlaceId}
+                  setSelectedPlaceId={setSelectedPlaceId}
                   key={index}
-                  id={index}
+                  id={item.id}
                   name={item.name}
                   longitude={item.longitude}
                   latitude={item.latitude}
@@ -172,7 +180,7 @@ const SelectVerificationPlace = (props) => {
                   address={item.address}
                   title={item.name}
                   isSelected={isClicked}
-                  on_click={() => selectLocationHandler(index)}
+                  on_click={() => selectLocationHandler(item.id, "delegate-id")}
                 />
               ))}
 

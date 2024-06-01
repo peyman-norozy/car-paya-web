@@ -9,10 +9,21 @@ const VerificationLastStep = () => {
   const city_id = searchParams.get("city_id");
   const selectedItem = searchParams.get("vehicle_tip");
   const package_id = searchParams.get("package_id");
+  const time_id = searchParams.get("time_id");
+  const params = new URLSearchParams(searchParams.toString());
 
   const setQuery = useSetQuery();
 
   const backStepHandler = () => {
+    setQuery.deleteSingleQuery(
+      [
+        {
+          key: "time_id",
+          value: time_id,
+        },
+      ],
+      params,
+    );
     setQuery.setMultiQuery([
       { key: "step", value: "step-4" },
       { key: "city_id", value: city_id },
@@ -21,6 +32,7 @@ const VerificationLastStep = () => {
         value: selectedItem,
       },
       { key: "package_id", value: package_id },
+      { key: "time_id", value: time_id },
     ]);
   };
   return (
