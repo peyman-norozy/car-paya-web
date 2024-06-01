@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import GreenCheckInput from "./GreenCheckInput";
 import Map from "./Map";
 import MapSelection from "./MapSelection";
@@ -16,7 +16,10 @@ const CarCheckLocations = (props) => {
     latitude,
     longitude,
   } = props;
-  const location = latitude.toString() + "," + longitude.toString();
+  const [location, setLocation] = useState();
+  if (latitude && longitude) {
+    setLocation(latitude.toString() + "," + longitude.toString());
+  }
   return (
     <div
       className={`p-[1rem] flex flex-col gap-[0.5rem] size900:gap-0 size900:flex-row justify-between rounded-10 border shadow-[0_0_10px_0_rgba(209,209,209,0.3)] cursor-pointer ${

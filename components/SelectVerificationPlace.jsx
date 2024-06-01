@@ -142,12 +142,15 @@ const SelectVerificationPlace = (props) => {
           {isSelected === 0
             ? myLocationData.map((item, index) => (
                 <MyLocations
+                  setMyLocationData={setMyLocationData}
+                  modalIsOpen={modalIsOpen}
+                  setModalIsOpen={setModalIsOpen}
                   province={item.province_name}
                   city={item.city_name}
                   title={item.title}
                   address={item.address}
                   map={item.map}
-                  id={index}
+                  id={item.id}
                   key={index}
                   isSelected={isClicked}
                   on_click={() => selectLocationHandler(index)}

@@ -6,10 +6,22 @@ import Image from "next/image";
 import GreenCheckInput from "./GreenCheckInput";
 import MapSelection from "./MapSelection";
 import { useSelector } from "react-redux";
+import AddAddressModal from "@/components/vehicle-verification/AddAddressModal";
 
 const MyLocations = (props) => {
-  const { isSelected, on_click, id, title, province, city, address, map } =
-    props;
+  const {
+    isSelected,
+    on_click,
+    id,
+    title,
+    province,
+    city,
+    address,
+    map,
+    setModalIsOpen,
+    modalIsOpen,
+    setMyLocationData,
+  } = props;
   const [showOption, setShowOption] = useState(false);
   const kebabRef = useRef(null);
 
@@ -38,6 +50,28 @@ const MyLocations = (props) => {
       className={`relative p-[0.75rem] size411:p-[1rem] flex flex-col gap-[1.25rem] size900:gap-0 size900:flex-row justify-between rounded-10 shadow-[0_0_7px_0_rgba(209,209,209,0.3)] border cursor-pointer ${isSelected === id && ""}`}
       onClick={on_click}
     >
+      {modalIsOpen && (
+        <div>
+          <div>
+            <div className={"fixed  w-[45%] m-auto inset-0 z-[10000000000]"}>
+              <AddAddressModal
+                getDataFetch={setMyLocationData}
+                pageType={"create"}
+                setModalIsOpen={setModalIsOpen}
+                addressEditId={id}
+              />
+            </div>
+            <div
+              onClick={() => {
+                setModalIsOpen(false);
+              }}
+              className={
+                "w-full h-[100vh] fixed top-0 right-0 bg-black opacity-[0.5] z-[100000000]"
+              }
+            ></div>
+          </div>
+        </div>
+      )}
       <i className={"cc-menu-kebab text-24 self-end size900:hidden"} />
       <div>
         <div className="flex items-center gap-[0.25rem] mb-[0.63rem]">
@@ -76,6 +110,7 @@ const MyLocations = (props) => {
             className={
               "flex items-center gap-2 w-full p-1 rounded-lg hover:bg-gray-300"
             }
+            onClick={() => setModalIsOpen(true)}
           >
             <i className={"cc-edit text-16"} />
             <p className={"text-14"}>ویرایش</p>

@@ -8,7 +8,7 @@ import { API_PATHS } from "@/configs/routes.config";
 import { useRouter } from "next/navigation";
 import SpinnerPackage from "@/components/SpinnerPackage";
 import MapDirection from "@/components/MapDirection";
-import { postData } from "@/utils/client-api-function-utils";
+import { postData, putData } from "@/utils/client-api-function-utils";
 
 const AddressModal = (props) => {
   const router = useRouter();
