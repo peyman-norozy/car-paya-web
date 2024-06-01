@@ -19,6 +19,8 @@ const SelectVerificationPlace = (props) => {
   const [carCheckLocations, setCarCheckLocations] = useState([]);
   const [myLocationData, setMyLocationData] = useState([]);
   const [selectedPlaceId, setSelectedPlaceId] = useState(null);
+  const [fetchData, setFetchData] = useState();
+
   const searchParams = useSearchParams();
   const setQuery = useSetQuery();
   const city_id = searchParams.get("city_id");
@@ -63,6 +65,7 @@ const SelectVerificationPlace = (props) => {
         },
       )
       .then((res) => {
+        console.log(res.data.data);
         setCarCheckLocations(res.data.data);
       })
       .catch((err) => console.log(err));
@@ -83,7 +86,7 @@ const SelectVerificationPlace = (props) => {
         setMyLocationData(res.data.data);
       })
       .catch((err) => console.log(err));
-  }, []);
+  }, [fetchData]);
 
   console.log(myLocationData);
 
@@ -143,7 +146,7 @@ const SelectVerificationPlace = (props) => {
           {isSelected === 0
             ? myLocationData.map((item, index) => (
                 <MyLocations
-                  setMyLocationData={setMyLocationData}
+                  setFetchData={setFetchData}
                   modalIsOpen={modalIsOpen}
                   setModalIsOpen={setModalIsOpen}
                   province={item.province_name}

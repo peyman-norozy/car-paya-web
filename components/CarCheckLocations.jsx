@@ -16,9 +16,9 @@ const CarCheckLocations = (props) => {
     latitude,
     longitude,
   } = props;
-  const [location, setLocation] = useState();
+  let location = "";
   if (latitude && longitude) {
-    setLocation(latitude.toString() + "," + longitude.toString());
+    location = latitude.toString() + "," + longitude.toString();
   }
   return (
     <div
