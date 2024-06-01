@@ -23,6 +23,7 @@ const VerificationLogin = () => {
   const city_id = searchParams.get("city_id");
   const selectedItem = searchParams.get("vehicle_tip");
   const time_id = searchParams.get("time_id");
+  const package_id = searchParams.get("package_id");
 
   const nameChangeHandler = (event) => {
     setNameValue(event.target.value);
@@ -42,7 +43,7 @@ const VerificationLogin = () => {
         value: selectedItem,
       },
       { key: "step", value: "step-4" },
-      { key: "package_id", value: 2 },
+      { key: "package_id", value: package_id },
       { key: "time_id", value: time_id },
     ]);
   };

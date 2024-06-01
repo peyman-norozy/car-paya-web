@@ -53,7 +53,7 @@ const PackageStep = () => {
         key: "vehicle_tip",
         value: selectedItem,
       },
-      { key: "package_id", value: 2 },
+      { key: "package_id", value: isSelected },
     ]);
   };
 

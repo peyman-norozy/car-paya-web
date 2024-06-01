@@ -5,7 +5,6 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import ReserveTimeVerification from "@/components/vehicle-verification/ReserveTimeVerification";
 import useSetQuery from "@/hook/useSetQuery";
 import { useDispatch } from "react-redux";
-import { setVerificationLogin } from "@/store/todoSlice";
 import { error } from "@/utils/function-utils";
 import { ToastContainer } from "react-toastify";
 import { getCookie } from "cookies-next";
@@ -15,6 +14,7 @@ const VerificationSecondStep = (props) => {
   const searchParams = useSearchParams();
   const city_id = searchParams.get("city_id");
   const selectedItem = searchParams.get("vehicle_tip");
+  const package_id = searchParams.get("package_id");
 
   const [loginState, setLoginState] = useState();
   const [optionIsOpen, setOptionIsOpen] = useState(false);
@@ -22,10 +22,7 @@ const VerificationSecondStep = (props) => {
 
   const [data, setData] = useState([]);
   const [isSelected, setIsSelected] = useState(null);
-  const router = useRouter();
-  const pathname = usePathname();
   const setQuery = useSetQuery();
-  const dispatch = useDispatch();
 
   const continueSecondStepHandler = () => {
     if (timeIsSelected === null) {
@@ -40,7 +37,7 @@ const VerificationSecondStep = (props) => {
             key: "vehicle_tip",
             value: selectedItem,
           },
-          { key: "package_id", value: 2 },
+          { key: "package_id", value: package_id },
           { key: "time_id", value: timeIsSelected },
         ]);
       } else {
@@ -51,7 +48,7 @@ const VerificationSecondStep = (props) => {
             key: "vehicle_tip",
             value: selectedItem,
           },
-          { key: "package_id", value: 2 },
+          { key: "package_id", value: package_id },
           { key: "time_id", value: timeIsSelected },
         ]);
       }
@@ -66,7 +63,7 @@ const VerificationSecondStep = (props) => {
         key: "vehicle_tip",
         value: selectedItem,
       },
-      { key: "package_id", value: 2 },
+      { key: "package_id", value: package_id },
     ]);
   };
 

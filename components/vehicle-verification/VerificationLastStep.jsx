@@ -8,6 +8,7 @@ const VerificationLastStep = () => {
   const searchParams = useSearchParams();
   const city_id = searchParams.get("city_id");
   const selectedItem = searchParams.get("vehicle_tip");
+  const package_id = searchParams.get("package_id");
 
   const setQuery = useSetQuery();
 
@@ -19,7 +20,7 @@ const VerificationLastStep = () => {
         key: "vehicle_tip",
         value: selectedItem,
       },
-      { key: "package_id", value: 2 },
+      { key: "package_id", value: package_id },
     ]);
   };
   return (
