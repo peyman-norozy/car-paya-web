@@ -90,7 +90,7 @@ const ProfileEditeSelectInput = (props) => {
     <div className={`${props.containderClassName} flex flex-col relative`}>
       <div className={"relative"} ref={selectGenderRef}>
         <i
-          className={`${props.icon} absolute text-[20px] top-[15px] right-[10px] border-l border-l-stone-500 pl-2`}
+          className={`${props.icon} absolute text-[20px] top-[15px] right-[10px] border-l border-l-stone-500 pl-2 z-10`}
         />
         <input
           type={props.type}
@@ -105,7 +105,7 @@ const ProfileEditeSelectInput = (props) => {
           value={props.selectOptionData}
         />
         <i
-          className={`dt-arrow-point-left-o text-[24px] absolute left-1 top-[13px] ${optionHeightHandler && props.data.length > 0 ? "rotate-[-90deg]" : "rotate-0"} transition-all`}
+          className={`cc-arrow-down text-[24px] absolute left-1 top-[13px] ${optionHeightHandler && props.data.length > 0 ? "rotate-[-90deg]" : "rotate-0"} transition-all`}
         />
         <label
           className={
@@ -116,7 +116,7 @@ const ProfileEditeSelectInput = (props) => {
           {props.star && (
             <span
               className={
-                "inline-block text-red-500 text-[24px] absolute bg-white h-[20px] left-[-9px]"
+                "inline-block text-red-500 text-[14px] absolute bg-white left-[-9px]"
               }
             >
               *

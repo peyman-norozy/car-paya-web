@@ -37,7 +37,7 @@ const AddressInput = (props) => {
         {props.star && (
           <span
             className={
-              "inline-block text-red-500 text-[24px] absolute bg-white h-[20px] left-[-9px]"
+              "inline-block text-red-500 text-[14px] absolute bg-white left-[-9px]"
             }
           >
             *

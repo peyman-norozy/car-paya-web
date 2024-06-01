@@ -82,7 +82,9 @@ const AddressModal = (props) => {
 
   const fetchCityData = useCallback(
     async (slug) => {
-      const getCity = await getData(API_PATHS.CITIES, { province_slug: slug });
+      const getCity = await getData("/web" + API_PATHS.GEOCITIES, {
+        province_slug: slug,
+      });
       if (getCity.status === "success") {
         setCitiesData(getCity.data);
       } else if (getCity.status === 404) {
@@ -98,7 +100,9 @@ const AddressModal = (props) => {
 
   useEffect(() => {
     (async () => {
-      const getProvinces = await getData(API_PATHS.PROVINCES);
+      const getProvinces = await getData("/web" + API_PATHS.GEOPROVINCES);
+      console.log(getProvinces);
+
       if (getProvinces.status === "success") {
         setProvincesData(getProvinces.data);
       } else if (getProvinces.status === 404) {
@@ -158,11 +162,17 @@ const AddressModal = (props) => {
   return (
     <form
       className={
-        "absolute inset-0 m-auto my-[100px] w-[656px] min-h-[192px] bg-[#FFFFFF] p-[10px] rounded-[10px] overflow-hidden flex flex-col gap-[20px] overflow-y-scroll"
+        "absolute inset-0 m-auto my-[100px] w-[789px] min-h-[192px] h-[80%] bg-[#FFFFFF] px-[40px] py-[24px] rounded-[10px] overflow-hidden flex flex-col gap-[20px] overflow-y-scroll"
       }
       onSubmit={addressFormSubmitHandler}
     >
-      <h1 className={"text-center font-bold text-[#454545]"}>افزودن آدرس</h1>
+      <div className={"flex -items-center justify-between"}>
+        <h1 className={"text-center font-bold text-[#454545]"}>افزودن آدرس</h1>
+        <i
+          className={"cc-close-circle text-24"}
+          onClick={() => props.setModalIsOpen(false)}
+        />
+      </div>
       <div className={"address_Map w-[100%]"}>
         {editData.map ? (
           <MapDirection
@@ -183,7 +193,7 @@ const AddressModal = (props) => {
         <div className={"col-span-2"}>
           <AddressInput
             type={"text"}
-            icon={"dt-user-o"}
+            icon={"cc-location"}
             editData={editData.address}
             ItaratedAddress={ItarateMapData.address}
             pageType={props.pageType}
@@ -204,7 +214,7 @@ const AddressModal = (props) => {
         <div className={"z-[99999]"}>
           <ProfileEditeSelectInput
             type={"text"}
-            icon={"dt-gender"}
+            icon={"cc-edit"}
             title={"استان"}
             data={provincesData}
             height={"h-[200px]"}
@@ -231,7 +241,7 @@ const AddressModal = (props) => {
         <div className={"z-[99999]"}>
           <ProfileEditeSelectInput
             type={"text"}
-            icon={"dt-gender"}
+            icon={"cc-edit"}
             title={"شهر"}
             data={citiesData}
             star={true}
@@ -258,7 +268,7 @@ const AddressModal = (props) => {
             editData={editData.title}
             pageType={props.pageType}
             id={"title"}
-            icon={"dt-user-o"}
+            icon={"cc-document-align-right"}
             title={"عنوان"}
             star={true}
             // profileData={""}
@@ -267,7 +277,7 @@ const AddressModal = (props) => {
         <div className={"col-span-2"}>
           <AddressInput
             type={"text"}
-            icon={"dt-user-o"}
+            icon={"cc-document-align-right"}
             title={"کد پستی(تهران اختیاری)"}
             editData={editData.postal_code}
             pageType={props.pageType}
@@ -286,19 +296,21 @@ const AddressModal = (props) => {
         </div>
       </div>
       <div className={"h-[1px] bg-stone-300"}></div>
-      <div>
-        <CheckBox
-          name={"userDelivery"}
-          id={"userDelivery"}
-          editData={editData.user_delivery}
-          title={"بسته را خودم تحویل میگیریم"}
-        />
-      </div>
+      {props.deliveryPackage && (
+        <div>
+          <CheckBox
+            name={"userDelivery"}
+            id={"userDelivery"}
+            editData={editData.user_delivery}
+            title={"بسته را خودم تحویل میگیریم"}
+          />
+        </div>
+      )}
       <div className={"grid grid-cols-2 gap-6"}>
         <div>
           <AddressInput
             type={"text"}
-            icon={"dt-user-o"}
+            icon={"cc-user"}
             title={"نام/نام خانوادگی گیرنده"}
             editData={editData.receiver_name}
             pageType={props.pageType}
@@ -312,7 +324,7 @@ const AddressModal = (props) => {
         <div>
           <AddressInput
             type={"text"}
-            icon={"dt-user-o"}
+            icon={"cc-call"}
             title={"شماره موبایل گیرنده"}
             editData={editData.receiver_cellphone}
             pageType={props.pageType}
@@ -323,32 +335,15 @@ const AddressModal = (props) => {
           />
         </div>
       </div>
-      <div className={"flex justify-center gap-4"}>
-        <button
-          type={"button"}
-          className={
-            "text-[#EE7691] text-[14px] w-[190px] h-[40px] rounded-[10px] border border-[#EE7691]"
-          }
-        >
-          انصراف
-        </button>
-        <button
-          disabled={loading}
-          type={"submit"}
-          className={
-            "text-[#F6F6F6] text-[14px] w-[190px] h-[40px] rounded-[10px] bg-[#EE7691]"
-          }
-        >
-          {!loading && <span>ثبت آدرس</span>}
-          <SpinnerPackage
-            color={"#ffffff"}
-            size={4}
-            typeSpinner={"SyncLoader"}
-            speedMultiplier={0.8}
-            loading={loading}
-          />
-        </button>
-      </div>
+      <button
+        type={"submit"}
+        className={
+          "bg-BLUE_700 self-end flex items-center gap-2 mt-4 size690:mt-3 w-fit text-12 size690:text-[16px] p-[8px] text-white rounded-[4px]"
+        }
+      >
+        <p>تایید و ادامه</p>
+        <i className={"cc-left text-[20px]"} />
+      </button>
     </form>
   );
 };

@@ -23,20 +23,7 @@ const SelectVerificationPlace = (props) => {
   const city_id = searchParams.get("city_id");
   const selectedItem = searchParams.get("vehicle_tip");
 
-  const myLocationData = [
-    {
-      title: "غرب",
-      province: "تهران",
-      city: "تهران",
-      neighborhood: "آیت الله کاشانی",
-    },
-    {
-      title: "غرب",
-      province: "تهران",
-      city: "تهران",
-      neighborhood: "آیت الله کاشانی",
-    },
-  ];
+  const myLocationData = [];
 
   const openModalHandler = () => {
     setModalIsOpen(true);
@@ -102,12 +89,11 @@ const SelectVerificationPlace = (props) => {
       {modalIsOpen && (
         <div>
           <div>
-            <div
-              className={
-                "fixed max-h-[90%] w-[80%] m-auto inset-0 z-[10000000000] overflow-scroll"
-              }
-            >
-              <AddAddressModal setModalIsOpen={setModalIsOpen} />
+            <div className={"fixed  w-[45%] m-auto inset-0 z-[10000000000]"}>
+              <AddAddressModal
+                pageType={"create"}
+                setModalIsOpen={setModalIsOpen}
+              />
             </div>
             <div
               onClick={() => {
@@ -163,7 +149,8 @@ const SelectVerificationPlace = (props) => {
                   on_click={() => selectLocationHandler(index)}
                 />
               ))
-            : carCheckLocations.map((item, index) => (
+            : carCheckLocations.length > 0 &&
+              carCheckLocations.map((item, index) => (
                 <CarCheckLocations
                   key={index}
                   id={index}
