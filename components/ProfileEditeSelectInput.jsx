@@ -36,7 +36,7 @@ const ProfileEditeSelectInput = (props) => {
     if (props.relation) {
       props.setCity("");
       props.setCityId("");
-      const getCity = await getData(API_PATHS.CITIES, { province_slug: value });
+      const getCity = await getData("web" + API_PATHS.GEOCITIES + "/" + idAt);
       if (getCity.status === "success") {
         setOptionValue(idAt);
         props.setProvinces(event.target.innerText);

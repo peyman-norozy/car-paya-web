@@ -82,9 +82,7 @@ const AddressModal = (props) => {
 
   const fetchCityData = useCallback(
     async (slug) => {
-      const getCity = await getData("/web" + API_PATHS.GEOCITIES, {
-        province_slug: slug,
-      });
+      const getCity = await getData("/web" + API_PATHS.GEOCITIES);
       if (getCity.status === "success") {
         setCitiesData(getCity.data);
       } else if (getCity.status === 404) {
