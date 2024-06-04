@@ -6,10 +6,10 @@ import { useSearchParams } from "next/navigation";
 import { getData } from "@/utils/api-function-utils";
 import axios from "axios";
 import { getCookie } from "cookies-next";
+import { numberWithCommas } from "@/utils/function-utils";
 
 const VerificationLastStep = () => {
   const searchParams = useSearchParams();
-  // const [locationId, setLocationId] = useState();
   const city_id = searchParams.get("city_id");
   const selectedItem = searchParams.get("vehicle_tip");
   const package_id = searchParams.get("package_id");
@@ -17,9 +17,7 @@ const VerificationLastStep = () => {
   const expert_id = searchParams.get("expert-id");
   const delegate_id = searchParams.get("delegate-id");
   const params = new URLSearchParams(searchParams.toString());
-
-  const exact_time = time_id.split("/")[0];
-  console.log(exact_time);
+  const [data, setData] = useState("");
 
   const setQuery = useSetQuery();
   console.log(expert_id, delegate_id);
@@ -29,6 +27,12 @@ const VerificationLastStep = () => {
   } else {
     locationId = "&expert_id=null&delegate_id=" + delegate_id;
   }
+
+  const weekDay =
+    data &&
+    new Date(data.created_at * 1000).toLocaleDateString("fa-IR", {
+      weekday: "long",
+    });
 
   const backStepHandler = () => {
     // setQuery.deleteSingleQuery(
@@ -73,7 +77,9 @@ const VerificationLastStep = () => {
           },
         },
       )
-      .then((res) => console.log(res))
+      .then((res) => {
+        setData(res.data.data);
+      })
       .catch((err) => console.log(err));
   }, []);
   return (
@@ -97,9 +103,9 @@ const VerificationLastStep = () => {
           سرویس مد نظر خود را انتخاب کنید
         </p>
       </div>
-      <div className={"flex items-center my-[1.75rem]"}>
-        <p>فردا ــــ یک شنبه</p>
-        <p>ساعت ۱۰:۰۰</p>
+      <div className={"flex items-center gap-2 my-[1.75rem]"}>
+        <p>{weekDay}</p>
+        <p>ساعت {data.exact_time}</p>
       </div>
       <CarCheckLocations
         id={2}
@@ -146,7 +152,7 @@ const VerificationLastStep = () => {
         <h5 className={"text-BLUE_600"}>جزیات قیمت سرویس</h5>
         <div className={"flex items-center justify-between"}>
           <p>قیمت سرویس</p>
-          <p>۷۳۵٬۰۰۰ تومان</p>
+          <p>{numberWithCommas(data.price)} تومان</p>
         </div>
         <div className={"flex items-center justify-between"}>
           <p>کد تخفیف</p>
@@ -160,7 +166,7 @@ const VerificationLastStep = () => {
       >
         <div className={"text-BLUE_600 text-16 size752:text-18"}>
           <p className={"border-b border-b-BLUE_600"}>جمع قابل پرداخت</p>
-          <p>۷۳۵٬۰۰۰ تومان</p>
+          <p>{numberWithCommas(data.price)} تومان</p>
         </div>
         <button
           className={
