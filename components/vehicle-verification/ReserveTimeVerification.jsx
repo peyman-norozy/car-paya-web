@@ -3,28 +3,14 @@ import React, { useEffect, useState } from "react";
 const ReserveTimeVerification = (props) => {
   const { data, setTimeIsSelected, timeIsSelected } = props;
   const { optionIsOpen, setOptionIsOpen } = props;
-  const [timeDetail, setTimeDetail] = useState();
   const weekDay =
     data &&
     new Date(data[0] * 1000).toLocaleDateString("fa-IR", { weekday: "long" });
 
-  useEffect(() => {
-    setTimeDetail(
-      data[1].map((item) => [
-        { time: item.start_time + ":00", id: item.id },
-        { time: +item.start_time + 1 + ":00", id: item.id },
-        { time: +item.start_time + 1 + ":30", id: item.id },
-        { time: item.end_time + ":00", id: item.id },
-        { time: item.end_time + ":30", id: item.id },
-      ]),
-    );
-  }, []);
-
-  console.log(timeDetail);
-
   const openOptionHandler = (index) => {
     setOptionIsOpen((prevState) => (prevState === index ? null : index));
   };
+
   return (
     <div className={"grid grid-cols-1 size666:grid-cols-2 gap-4"}>
       <div
@@ -66,14 +52,14 @@ const ReserveTimeVerification = (props) => {
                   <p>{item.start_time + ":00"}</p>
                   <div
                     onClick={(e) =>
-                      setTimeIsSelected(item.id + item.start_time + ":00")
+                      setTimeIsSelected(item.id + "/" + item.start_time + ":00")
                     }
                     className={
                       "rounded-[50%] border border-[#EBEDF9] w-6 h-6 flex item-center justify-center"
                     }
                   >
                     <div
-                      className={`w-[18px] h-[18px] m-auto rounded-[50%] transition-all duration-500 ease-out  ${timeIsSelected === item.id + item.start_time + ":00" ? "bg-BLUE_600" : "bg-[#EBEDF9]"}`}
+                      className={`w-[18px] h-[18px] m-auto rounded-[50%] transition-all duration-500 ease-out  ${timeIsSelected === item.id + "/" + +item.start_time + ":00" ? "bg-BLUE_600" : "bg-[#EBEDF9]"}`}
                     ></div>
                   </div>
                 </div>
@@ -87,14 +73,16 @@ const ReserveTimeVerification = (props) => {
                   <p>{+item.start_time + 1 + ":00"}</p>
                   <div
                     onClick={(e) =>
-                      setTimeIsSelected(item.id + +item.start_time + 1 + ":00")
+                      setTimeIsSelected(
+                        item.id + "/" + (+item.start_time + 1) + ":00",
+                      )
                     }
                     className={
                       "rounded-[50%] border border-[#EBEDF9] w-6 h-6 flex item-center justify-center"
                     }
                   >
                     <div
-                      className={`w-[18px] h-[18px] m-auto rounded-[50%] transition-all duration-500 ease-out ${timeIsSelected === item.id + +item.start_time + 1 + ":00" ? "bg-BLUE_600" : "bg-[#EBEDF9]"}`}
+                      className={`w-[18px] h-[18px] m-auto rounded-[50%] transition-all duration-500 ease-out ${timeIsSelected === item.id + "/" + (+item.start_time + 1) + ":00" ? "bg-BLUE_600" : "bg-[#EBEDF9]"}`}
                     ></div>
                   </div>
                 </div>
@@ -108,14 +96,14 @@ const ReserveTimeVerification = (props) => {
                   <p>{item.start_time + ":30"}</p>
                   <div
                     onClick={(e) =>
-                      setTimeIsSelected(item.id + item.start_time + ":30")
+                      setTimeIsSelected(item.id + "/" + item.start_time + ":30")
                     }
                     className={
                       "rounded-[50%] border border-[#EBEDF9] w-6 h-6 flex item-center justify-center"
                     }
                   >
                     <div
-                      className={`w-[18px] h-[18px] m-auto rounded-[50%] transition-all duration-500 ease-out ${timeIsSelected === item.id + item.start_time + ":30" ? "bg-BLUE_600" : "bg-[#EBEDF9]"}`}
+                      className={`w-[18px] h-[18px] m-auto rounded-[50%] transition-all duration-500 ease-out ${timeIsSelected === item.id + "/" + +item.start_time + ":30" ? "bg-BLUE_600" : "bg-[#EBEDF9]"}`}
                     ></div>
                   </div>
                 </div>
@@ -129,14 +117,16 @@ const ReserveTimeVerification = (props) => {
                   <p>{+item.start_time + 1 + ":30"}</p>
                   <div
                     onClick={(e) =>
-                      setTimeIsSelected(item.id + +item.start_time + 1 + ":30")
+                      setTimeIsSelected(
+                        item.id + "/" + (+item.start_time + 1) + ":30",
+                      )
                     }
                     className={
                       "rounded-[50%] border border-[#EBEDF9] w-6 h-6 flex item-center justify-center"
                     }
                   >
                     <div
-                      className={`w-[18px] h-[18px] m-auto rounded-[50%] transition-all duration-500 ease-out ${timeIsSelected === item.id + +item.start_time + 1 + ":30" ? "bg-BLUE_600" : "bg-[#EBEDF9]"}`}
+                      className={`w-[18px] h-[18px] m-auto rounded-[50%] transition-all duration-500 ease-out ${timeIsSelected === item.id + "/" + (+item.start_time + 1) + ":30" ? "bg-BLUE_600" : "bg-[#EBEDF9]"}`}
                     ></div>
                   </div>
                 </div>

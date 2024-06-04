@@ -1,12 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
-import Button from "./Button";
-import refresh from "@/public/assets/icons/refresh.svg";
-import cross from "@/public/assets/icons/cross.svg";
-import Image from "next/image";
-import GreenCheckInput from "./GreenCheckInput";
 import MapSelection from "./MapSelection";
-import { useSelector } from "react-redux";
 import AddAddressModal from "@/components/vehicle-verification/AddAddressModal";
+import axios from "axios";
+import { API_PATHS } from "@/configs/routes.config";
 
 const MyLocations = (props) => {
   const {
@@ -33,6 +29,12 @@ const MyLocations = (props) => {
 
   const showOptionHandler = () => {
     setShowOption((prevState) => !prevState);
+  };
+  const deleteLocationHandler = () => {
+    // axios
+    //   .get(process.env.BASE_API + API_PATHS.DASHBOARDUSERADDRESS)
+    //   .then((res) => console.log(res))
+    //   .catch((err) => console.log(err));
   };
   useEffect(() => {
     window.addEventListener("click", (e) => {
@@ -117,6 +119,7 @@ const MyLocations = (props) => {
             <p className={"text-14"}>ویرایش</p>
           </div>
           <div
+            onClick={deleteLocationHandler}
             className={
               "flex items-center gap-2 w-full p-1 rounded-lg text-RED_400 hover:bg-gray-300"
             }
