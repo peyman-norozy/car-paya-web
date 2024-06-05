@@ -1,17 +1,49 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import CarCheckLocations from "@/components/CarCheckLocations";
 import Input from "@/components/Input";
 import useSetQuery from "@/hook/useSetQuery";
 import { useSearchParams } from "next/navigation";
+import { getData } from "@/utils/api-function-utils";
+import axios from "axios";
+import { getCookie } from "cookies-next";
+import { numberWithCommas } from "@/utils/function-utils";
 
 const VerificationLastStep = () => {
   const searchParams = useSearchParams();
   const city_id = searchParams.get("city_id");
   const selectedItem = searchParams.get("vehicle_tip");
+  const package_id = searchParams.get("package_id");
+  const time_id = searchParams.get("time_id");
+  const expert_id = searchParams.get("expert-id");
+  const delegate_id = searchParams.get("delegate-id");
+  const params = new URLSearchParams(searchParams.toString());
+  const [data, setData] = useState("");
 
   const setQuery = useSetQuery();
+  console.log(expert_id, delegate_id);
+  let locationId = "";
+  if (delegate_id === null) {
+    locationId = "&expert_id=1&user_address_id=" + expert_id;
+  } else {
+    locationId = "&expert_id=null&delegate_id=" + delegate_id;
+  }
+
+  const weekDay =
+    data &&
+    new Date(data.created_at * 1000).toLocaleDateString("fa-IR", {
+      weekday: "long",
+    });
 
   const backStepHandler = () => {
+    // setQuery.deleteSingleQuery(
+    //   [
+    //     {
+    //       key: "time_id",
+    //       value: time_id,
+    //     },
+    //   ],
+    //   params,
+    // );
     setQuery.setMultiQuery([
       { key: "step", value: "step-4" },
       { key: "city_id", value: city_id },
@@ -19,9 +51,37 @@ const VerificationLastStep = () => {
         key: "vehicle_tip",
         value: selectedItem,
       },
-      { key: "package_id", value: 2 },
+      { key: "package_id", value: package_id },
+      { key: "time_id", value: time_id },
     ]);
   };
+
+  useEffect(() => {
+    axios
+      .get(
+        process.env.BASE_API +
+          "/web/expert/reservation?step=step-6&package_price_id=" +
+          package_id +
+          "&city_id=" +
+          city_id +
+          "&exact_time=" +
+          time_id.split("/")[1] +
+          "&reservation_time_slice_id=" +
+          time_id.split("/")[0] +
+          "&vehicle_tip_id=" +
+          selectedItem +
+          locationId,
+        {
+          headers: {
+            Authorization: `Bearer ${getCookie("Authorization")}`,
+          },
+        },
+      )
+      .then((res) => {
+        setData(res.data.data);
+      })
+      .catch((err) => console.log(err));
+  }, []);
   return (
     <div
       className={"w-[90%] size1000:w-[80%] size1136:w-[70%] m-auto pt-[2rem]"}
@@ -43,9 +103,9 @@ const VerificationLastStep = () => {
           سرویس مد نظر خود را انتخاب کنید
         </p>
       </div>
-      <div className={"flex items-center my-[1.75rem]"}>
-        <p>فردا ــــ یک شنبه</p>
-        <p>ساعت ۱۰:۰۰</p>
+      <div className={"flex items-center gap-2 my-[1.75rem]"}>
+        <p>{weekDay}</p>
+        <p>ساعت {data.exact_time}</p>
       </div>
       <CarCheckLocations
         id={2}
@@ -92,7 +152,7 @@ const VerificationLastStep = () => {
         <h5 className={"text-BLUE_600"}>جزیات قیمت سرویس</h5>
         <div className={"flex items-center justify-between"}>
           <p>قیمت سرویس</p>
-          <p>۷۳۵٬۰۰۰ تومان</p>
+          <p>{numberWithCommas(data.price)} تومان</p>
         </div>
         <div className={"flex items-center justify-between"}>
           <p>کد تخفیف</p>
@@ -106,7 +166,7 @@ const VerificationLastStep = () => {
       >
         <div className={"text-BLUE_600 text-16 size752:text-18"}>
           <p className={"border-b border-b-BLUE_600"}>جمع قابل پرداخت</p>
-          <p>۷۳۵٬۰۰۰ تومان</p>
+          <p>{numberWithCommas(data.price)} تومان</p>
         </div>
         <button
           className={

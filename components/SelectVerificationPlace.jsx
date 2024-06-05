@@ -18,18 +18,23 @@ const SelectVerificationPlace = (props) => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [carCheckLocations, setCarCheckLocations] = useState([]);
   const [myLocationData, setMyLocationData] = useState([]);
-  const [selectedPlaceId, setSelectedPlaceId] = useState(null);
+  const [selectedPlaceId, setSelectedPlaceId] = useState({});
+  const [fetchData, setFetchData] = useState();
+
   const searchParams = useSearchParams();
   const setQuery = useSetQuery();
   const city_id = searchParams.get("city_id");
   const selectedItem = searchParams.get("vehicle_tip");
+  const package_id = searchParams.get("package_id");
+  const time_id = searchParams.get("time_id");
 
   const openModalHandler = () => {
     setModalIsOpen(true);
   };
 
-  const selectLocationHandler = (index) => {
-    setIsClicked(index);
+  const selectLocationHandler = (id, label) => {
+    setSelectedPlaceId({ label: label, value: id });
+    setIsClicked(id);
   };
 
   const continueStepHandler = () => {
@@ -40,7 +45,9 @@ const SelectVerificationPlace = (props) => {
         key: "vehicle_tip",
         value: selectedItem,
       },
-      { key: "package_id", value: 2 },
+      { key: "package_id", value: package_id },
+      { key: "time_id", value: time_id },
+      { key: selectedPlaceId.label, value: selectedPlaceId.value },
     ]);
   };
 
@@ -62,6 +69,7 @@ const SelectVerificationPlace = (props) => {
         },
       )
       .then((res) => {
+        console.log(res.data.data);
         setCarCheckLocations(res.data.data);
       })
       .catch((err) => console.log(err));
@@ -70,7 +78,7 @@ const SelectVerificationPlace = (props) => {
     axios
       .get(
         process.env.BASE_API +
-          "/web/expert/reservation?step=step-5&type=Expert&city_id=" +
+          "/web/expert/reservation?step=step-5&type=EXPERT&city_id=" +
           city_id,
         {
           headers: {
@@ -82,9 +90,7 @@ const SelectVerificationPlace = (props) => {
         setMyLocationData(res.data.data);
       })
       .catch((err) => console.log(err));
-  }, []);
-
-  console.log(myLocationData);
+  }, [fetchData]);
 
   return (
     <div className={"w-[95%] m-auto size690:w-full relative"}>
@@ -139,10 +145,12 @@ const SelectVerificationPlace = (props) => {
       </div>
       {isSelected === id && (
         <div className=" w-full flex flex-col gap-[1.5rem] mt-[1.5rem]">
-          {isSelected === 0
+          {myLocationData.length > 0 && isSelected === 0
             ? myLocationData.map((item, index) => (
                 <MyLocations
-                  setMyLocationData={setMyLocationData}
+                  selectedPlaceId={selectedPlaceId}
+                  setSelectedPlaceId={setSelectedPlaceId}
+                  setFetchData={setFetchData}
                   modalIsOpen={modalIsOpen}
                   setModalIsOpen={setModalIsOpen}
                   province={item.province_name}
@@ -153,14 +161,16 @@ const SelectVerificationPlace = (props) => {
                   id={item.id}
                   key={index}
                   isSelected={isClicked}
-                  on_click={() => selectLocationHandler(index)}
+                  on_click={() => selectLocationHandler(item.id, "expert-id")}
                 />
               ))
             : carCheckLocations.length > 0 &&
               carCheckLocations.map((item, index) => (
                 <CarCheckLocations
+                  selectedPlaceId={selectedPlaceId}
+                  setSelectedPlaceId={setSelectedPlaceId}
                   key={index}
-                  id={index}
+                  id={item.id}
                   name={item.name}
                   longitude={item.longitude}
                   latitude={item.latitude}
@@ -168,7 +178,7 @@ const SelectVerificationPlace = (props) => {
                   address={item.address}
                   title={item.name}
                   isSelected={isClicked}
-                  on_click={() => selectLocationHandler(index)}
+                  on_click={() => selectLocationHandler(item.id, "delegate-id")}
                 />
               ))}
 

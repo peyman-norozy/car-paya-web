@@ -62,7 +62,7 @@ const AddressModal = (props) => {
       );
       if (update.status === 200) {
         props.getDataFetch();
-        props.setAddressModalState(false);
+        props.setModalIsOpen(false);
       } else if (update.status === 422) {
         setErrorData(update.data.errors);
         console.log(update.data.errors);
@@ -74,8 +74,8 @@ const AddressModal = (props) => {
       setLoading(true);
       const post = await postData(API_PATHS.DASHBOARDUSERADDRESS, formData);
       if (post.status === 200) {
-        props.getDataFetch();
-        props.setAddressModalState(false);
+        props.getDataFetch(post.data);
+        props.setModalIsOpen(false);
       } else if (post.status === 422) {
         setErrorData(post.data.errors);
         console.log(post.data.errors);

@@ -9,6 +9,9 @@ const VerificationThirdStep = (props) => {
   const searchParams = useSearchParams();
   const city_id = searchParams.get("city_id");
   const selectedItem = searchParams.get("vehicle_tip");
+  const package_id = searchParams.get("package_id");
+  const time_id = searchParams.get("time_id");
+  const params = new URLSearchParams(searchParams.toString());
   const setQuery = useSetQuery();
 
   const placeData = [
@@ -27,15 +30,16 @@ const VerificationThirdStep = (props) => {
   };
 
   const backstopHandler = () => {
-    setQuery.setMultiQuery([
-      { key: "step", value: "step-2" },
-      { key: "city_id", value: city_id },
-      {
-        key: "vehicle_tip",
-        value: selectedItem,
-      },
-      { key: "package_id", value: 2 },
-    ]);
+    setQuery.deleteSingleQuery(
+      [
+        {
+          key: "time_id",
+          value: time_id,
+        },
+      ],
+      params,
+    );
+    setQuery.updateMultiQuery([{ key: "step", value: "step-2" }], params);
   };
   return (
     <div className="pt-[2rem] mb-[7rem] size966:w-[95%] size1090:w-[85%] m-auto overflow-hidden ]">

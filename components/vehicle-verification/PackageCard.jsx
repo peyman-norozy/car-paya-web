@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 const PackageCard = (props) => {
-  const { title, id, isSelected, onClick, options } = props;
+  const { title, id, isSelected, onClick, options, price } = props;
   const [optionsIsOpen, setOptionsIsOpen] = useState(false);
 
   const openOptionHandler = () => {
@@ -31,7 +31,7 @@ const PackageCard = (props) => {
           <h6 className={"font-medium text-14 size752:text-16"}>{title}</h6>
         </div>
         <p className={"text-BLUE_600 text-14 size752:text-16"}>
-          ۱٬۰۰۰٬۰۰ تومان
+          {price.toLocaleString()} تومان
         </p>
       </div>
       {options &&

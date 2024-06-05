@@ -5,7 +5,6 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import ReserveTimeVerification from "@/components/vehicle-verification/ReserveTimeVerification";
 import useSetQuery from "@/hook/useSetQuery";
 import { useDispatch } from "react-redux";
-import { setVerificationLogin } from "@/store/todoSlice";
 import { error } from "@/utils/function-utils";
 import { ToastContainer } from "react-toastify";
 import { getCookie } from "cookies-next";
@@ -13,8 +12,10 @@ import { getCookie } from "cookies-next";
 const VerificationSecondStep = (props) => {
   const { setStep } = props;
   const searchParams = useSearchParams();
+  const params = new URLSearchParams(searchParams.toString());
   const city_id = searchParams.get("city_id");
   const selectedItem = searchParams.get("vehicle_tip");
+  const package_id = searchParams.get("package_id");
 
   const [loginState, setLoginState] = useState();
   const [optionIsOpen, setOptionIsOpen] = useState(false);
@@ -22,10 +23,7 @@ const VerificationSecondStep = (props) => {
 
   const [data, setData] = useState([]);
   const [isSelected, setIsSelected] = useState(null);
-  const router = useRouter();
-  const pathname = usePathname();
   const setQuery = useSetQuery();
-  const dispatch = useDispatch();
 
   const continueSecondStepHandler = () => {
     if (timeIsSelected === null) {
@@ -40,7 +38,7 @@ const VerificationSecondStep = (props) => {
             key: "vehicle_tip",
             value: selectedItem,
           },
-          { key: "package_id", value: 2 },
+          { key: "package_id", value: package_id },
           { key: "time_id", value: timeIsSelected },
         ]);
       } else {
@@ -51,7 +49,7 @@ const VerificationSecondStep = (props) => {
             key: "vehicle_tip",
             value: selectedItem,
           },
-          { key: "package_id", value: 2 },
+          { key: "package_id", value: package_id },
           { key: "time_id", value: timeIsSelected },
         ]);
       }
@@ -59,15 +57,11 @@ const VerificationSecondStep = (props) => {
   };
 
   const backStepHandler = () => {
-    setQuery.setMultiQuery([
-      { key: "step", value: "step-1" },
-      { key: "city_id", value: city_id },
-      {
-        key: "vehicle_tip",
-        value: selectedItem,
-      },
-      { key: "package_id", value: 2 },
-    ]);
+    setQuery.deleteSingleQuery(
+      [{ key: "package_id", value: package_id }],
+      params,
+    );
+    setQuery.updateMultiQuery([{ key: "step", value: "step-1" }], params);
   };
 
   useEffect(() => {

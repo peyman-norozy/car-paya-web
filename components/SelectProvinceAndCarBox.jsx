@@ -87,7 +87,7 @@ const SelectProvinceAndCarBox = (props) => {
   };
 
   const packageStepHandler = () => {
-    const city = "&city_id=" + 5;
+    const city = "&city_id=" + 87;
     const vehicle_tip =
       selectedItem === null ? "" : "&vehicle_tip_id=" + selectedItem;
     axios
@@ -99,7 +99,7 @@ const SelectProvinceAndCarBox = (props) => {
       )
       .then((res) => {
         setQuery.setMultiQuery([
-          { key: "city_id", value: 5 },
+          { key: "city_id", value: 87 },
           { key: "vehicle_tip", value: selectedItem },
           { key: "step", value: "step-1" },
         ]);
