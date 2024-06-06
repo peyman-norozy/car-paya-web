@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import CarCheckLocations from "@/components/CarCheckLocations";
 import Input from "@/components/Input";
 import useSetQuery from "@/hook/useSetQuery";
-import { useSearchParams } from "next/navigation";
+import { notFound, useSearchParams } from "next/navigation";
 import { getData } from "@/utils/api-function-utils";
 import axios from "axios";
 import { getCookie } from "cookies-next";
@@ -35,25 +35,20 @@ const VerificationLastStep = () => {
     });
 
   const backStepHandler = () => {
-    // setQuery.deleteSingleQuery(
-    //   [
-    //     {
-    //       key: "time_id",
-    //       value: time_id,
-    //     },
-    //   ],
-    //   params,
-    // );
-    setQuery.setMultiQuery([
-      { key: "step", value: "step-4" },
-      { key: "city_id", value: city_id },
-      {
-        key: "vehicle_tip",
-        value: selectedItem,
-      },
-      { key: "package_id", value: package_id },
-      { key: "time_id", value: time_id },
-    ]);
+    setQuery.deleteSingleQuery(
+      [
+        {
+          key: "expert-id",
+          value: expert_id,
+        },
+        {
+          key: "delegate-id",
+          value: delegate_id,
+        },
+      ],
+      params,
+    );
+    setQuery.updateMultiQuery([{ key: "step", value: "step-4" }], params);
   };
 
   useEffect(() => {
@@ -80,7 +75,11 @@ const VerificationLastStep = () => {
       .then((res) => {
         setData(res.data.data);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        if (err.response.status === 500) {
+          console.log(err);
+        }
+      });
   }, []);
   return (
     <div
