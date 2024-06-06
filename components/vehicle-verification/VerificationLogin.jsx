@@ -5,7 +5,7 @@ import Input from "@/components/Input";
 import Link from "next/link";
 import Button from "@/components/Button";
 import { error, forceOnlyNumberInput } from "@/utils/function-utils";
-import { ToastContainer } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 import OTPInput from "react-otp-input";
 import Timer from "@/components/vehicle-verification/Timer";
 import axios from "axios";
@@ -64,7 +64,9 @@ const VerificationLogin = () => {
           setLoginState("otp");
         })
         .catch((err) => {
-          setLoginState("otp");
+          if (err.response.status === 422) {
+            error(err.response.data.message[0]);
+          }
         });
     } else {
       error("پذیرفتن قوانين كارچك و سياست نامه حريم خصوصی الزامیست");
