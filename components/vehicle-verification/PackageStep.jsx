@@ -60,7 +60,7 @@ const PackageStep = () => {
   return (
     <div
       className={
-        "flex items-center  justify-between pt-[28px] w-[95%] size1136:w-[85%] m-auto "
+        "flex items-start  justify-between pt-[28px] w-[95%] size1136:w-[85%] m-auto "
       }
     >
       <div className={"w-full size1000:w-[50%] flex flex-col"}>
@@ -111,7 +111,7 @@ const PackageStep = () => {
         </button>
       </div>
       <Image
-        src={"assets/images/packagePic.svg"}
+        src={"/assets/images/packagePic.svg"}
         alt={""}
         width={544}
         height={544}
