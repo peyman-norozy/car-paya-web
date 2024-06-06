@@ -6,6 +6,10 @@ const ShowMyVehicles = (props) => {
   const pathname = usePathname();
   const [selectedVehicle, setSelectedVehicle] = useState(false);
   const selectItemHandler = (e, id) => {
+    console.log();
+    if (e.currentTarget.getAttribute("image") !== null) {
+      props.setImage(e.currentTarget.getAttribute("image"));
+    }
     setSelectedVehicle(id);
     const newUrl =
       "/" +
@@ -42,6 +46,7 @@ const ShowMyVehicles = (props) => {
           key={index}
           title={item.slug}
           id={item.id}
+          image={item.image}
           onClick={(event) => selectItemHandler(event, item.id)}
           className={`flex flex-col items-center gap-[0.25rem] h-fit w-full cursor-pointer ${selectedVehicle === item.id && "bg-gray-300 w-fit rounded-lg"}`}
         >
@@ -50,7 +55,9 @@ const ShowMyVehicles = (props) => {
               src={
                 props.step === "car-brands"
                   ? process.env.BASE_API + "/web/file/" + item.logo
-                  : process.env.BASE_API + "/web/file/" + item.image
+                  : props.step === "car-models"
+                    ? process.env.BASE_API + "/web/file/" + item.image
+                    : process.env.BASE_API + "/web/file/" + props.image
               }
               alt={item.name}
               width={100}

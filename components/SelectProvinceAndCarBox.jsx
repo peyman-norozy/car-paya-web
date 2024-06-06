@@ -25,6 +25,7 @@ const SelectProvinceAndCarBox = (props) => {
   const [isLoading, setIsLoading] = useState(false);
   const [searchValue, setSearchValue] = useState([]);
   const [searchInputValue, setSearchInputValue] = useState("");
+  const [image, setImage] = useState("");
 
   const cityRef = useRef();
   const setQuery = useSetQuery();
@@ -222,6 +223,8 @@ const SelectProvinceAndCarBox = (props) => {
     };
   }, []);
 
+  console.log(carBrands);
+
   return (
     <div
       className={
@@ -343,6 +346,8 @@ const SelectProvinceAndCarBox = (props) => {
           setSelectedItem={setSelectedItem}
           setStep={setStep}
           step={step}
+          setImage={setImage}
+          image={image}
           motorStep={motorStep}
           setMotorStep={setMotorStep}
           data={
