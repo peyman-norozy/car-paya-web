@@ -20,16 +20,20 @@ const VerificationSecondStep = (props) => {
   const [loginState, setLoginState] = useState();
   const [optionIsOpen, setOptionIsOpen] = useState(false);
   const [timeIsSelected, setTimeIsSelected] = useState(null);
+  const [buttonIsdisabled, setButtonIsdisabled] = useState(false);
 
   const [data, setData] = useState([]);
   const [isSelected, setIsSelected] = useState(null);
   const setQuery = useSetQuery();
 
   const continueSecondStepHandler = () => {
+    setButtonIsdisabled(true);
     if (timeIsSelected === null) {
+      setButtonIsdisabled(false);
       error("زمان مورد نظر را انتخاب کنید");
       window.scroll({ top: 0, left: 0, behavior: "smooth" });
     } else {
+      setButtonIsdisabled(false);
       if (loginState) {
         setQuery.setMultiQuery([
           { key: "step", value: "step-4" },
@@ -122,17 +126,16 @@ const VerificationSecondStep = (props) => {
           ))}
         </div>
         <button
+          disabled={buttonIsdisabled}
           onClick={continueSecondStepHandler}
-          className={
-            "bg-BLUE_700 self-end flex items-center gap-2 mt-4 size690:mt-3 w-fit text-12 size690:text-[16px] p-[8px] text-white rounded-[4px]"
-          }
+          className={`${buttonIsdisabled ? "bg-BLUE_700 bg-opacity-[0.5] cursor-not-allowed" : "bg-BLUE_700"} self-end flex items-center gap-2 mt-4 size690:mt-3 w-fit text-12 size690:text-[16px] p-[8px] text-white rounded-[4px]`}
         >
           <p>تایید و ادامه</p>
           <i className={"cc-left text-[20px]"} />
         </button>
       </div>
       <Image
-        src={"assets/images/reserveTimePic.svg"}
+        src={"/assets/images/reserveTimePic.svg"}
         alt={""}
         width={544}
         height={544}
