@@ -23,7 +23,7 @@ const VerificationLastStep = () => {
   console.log(expert_id, delegate_id);
   let locationId = "";
   if (delegate_id === null) {
-    locationId = "&expert_id=1&user_address_id=" + expert_id;
+    locationId = "&expert_id=2&user_address_id=" + expert_id;
   } else {
     locationId = "&expert_id=null&delegate_id=" + delegate_id;
   }

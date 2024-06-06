@@ -6,7 +6,7 @@ const ShowMyVehicles = (props) => {
   const pathname = usePathname();
   const [selectedVehicle, setSelectedVehicle] = useState(false);
   const selectItemHandler = (e, id) => {
-    setSelectedVehicle(props.selectedItem === id);
+    setSelectedVehicle(id);
     const newUrl =
       "/" +
       pathname.split("/")[1] +
@@ -43,7 +43,7 @@ const ShowMyVehicles = (props) => {
           title={item.slug}
           id={item.id}
           onClick={(event) => selectItemHandler(event, item.id)}
-          className={`flex flex-col items-center gap-[0.25rem] h-fit w-full cursor-pointer ${selectedVehicle && "border border-gray-600 rounded-lg"}`}
+          className={`flex flex-col items-center gap-[0.25rem] h-fit w-full cursor-pointer ${selectedVehicle === item.id && "bg-gray-300 w-fit rounded-lg"}`}
         >
           <div className={`h-[35px] w-[35px] rounded-5 overflow-hidden `}>
             <Image
