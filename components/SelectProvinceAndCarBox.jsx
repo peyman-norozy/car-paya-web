@@ -12,9 +12,6 @@ const SelectProvinceAndCarBox = (props) => {
   const [province, setProvince] = useState([]);
   const [city, setCity] = useState([]);
   const [selectedProvince, setSelectedProvince] = useState(null);
-  const [message, setMessage] = useState(null);
-  const [selectedCity, setSelectedCity] = useState(null);
-  const [provinceName, setProvinceName] = useState(null);
   const [cityName, setCityName] = useState("");
   const [isClicked, setIsClicked] = useState(0);
   const [isSelected, setIsSelected] = useState(false);
@@ -69,7 +66,7 @@ const SelectProvinceAndCarBox = (props) => {
 
   useEffect(() => {
     setSearchInputValue("");
-  }, [isClicked]);
+  }, [isClicked, selectedItem]);
 
   const selectCityHandler = (e) => {
     setCityName(e.target.innerHTML);
@@ -224,8 +221,6 @@ const SelectProvinceAndCarBox = (props) => {
       });
     };
   }, []);
-
-  console.log(city);
 
   return (
     <div

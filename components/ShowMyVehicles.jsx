@@ -45,7 +45,7 @@ const ShowMyVehicles = (props) => {
           onClick={(event) => selectItemHandler(event, item.id)}
           className={`flex flex-col items-center gap-[0.25rem] h-fit w-full cursor-pointer ${selectedVehicle === item.id && "bg-gray-300 w-fit rounded-lg"}`}
         >
-          <div className={`h-[35px] w-[35px] rounded-5 overflow-hidden `}>
+          <div className={`h-[50px] w-[50px] rounded-5 overflow-hidden `}>
             <Image
               src={
                 props.step === "car-brands"
