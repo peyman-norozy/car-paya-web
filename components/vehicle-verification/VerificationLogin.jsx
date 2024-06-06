@@ -4,7 +4,7 @@ import Image from "next/image";
 import Input from "@/components/Input";
 import Link from "next/link";
 import Button from "@/components/Button";
-import { error } from "@/utils/function-utils";
+import { error, forceOnlyNumberInput } from "@/utils/function-utils";
 import { ToastContainer } from "react-toastify";
 import OTPInput from "react-otp-input";
 import Timer from "@/components/vehicle-verification/Timer";
@@ -29,7 +29,9 @@ const VerificationLogin = () => {
     setNameValue(event.target.value);
   };
   const mobileChangeHandler = (event) => {
-    setMobileValue(event.target.value);
+    if (event.target.value.length < 10) {
+      setMobileValue(forceOnlyNumberInput(event));
+    }
   };
   const rulesChangeHandler = (event) => {
     setRulesState(event.target.checked);
@@ -117,6 +119,7 @@ const VerificationLogin = () => {
                     value={mobileValue}
                     on_change={mobileChangeHandler}
                     type={"tel"}
+                    maxlength={11}
                     className={
                       "w-full h-full rounded-lg outline-none pr-1 text-[#3D3D3D]"
                     }
