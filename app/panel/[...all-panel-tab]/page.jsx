@@ -94,8 +94,8 @@ const AllPanelTab = (props) => {
             ]
           }
         </div>
-        <div className="flex gap-4 size1000:flex-row flex-col items-start">
-          <div className="shadow-[0_0_6px_0_rgba(180,180,180,0.3)] w-[342px] flex-col justify-center gap-4 items-center pt-2 size1180:flex hidden rounded-[10px] sticky top-[81px]">
+        <div className="flex gap-4 size1000:flex-row flex-col">
+          <div className="shadow-[0_0_6px_0_rgba(180,180,180,0.3)] w-[342px] flex-col justify-start h-fit gap-4 items-center pt-2 size1180:flex hidden rounded-[10px] sticky top-[81px]">
             <UserSpecifications
               style={"flex-col justify-center items-center gap-2"}
             />
