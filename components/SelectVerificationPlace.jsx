@@ -10,6 +10,8 @@ import useSetQuery from "@/hook/useSetQuery";
 import axios from "axios";
 import AddAddressModal from "@/components/vehicle-verification/AddAddressModal";
 import { getCookie } from "cookies-next";
+import { error } from "@/utils/function-utils";
+import { ToastContainer } from "react-toastify";
 
 const SelectVerificationPlace = (props) => {
   const { title, description, id, onClick, isSelected } = props;
@@ -38,21 +40,32 @@ const SelectVerificationPlace = (props) => {
   };
 
   const continueStepHandler = () => {
-    setQuery.setMultiQuery([
-      { key: "step", value: "step-5" },
-      { key: "city_id", value: city_id },
-      {
-        key: "vehicle_tip",
-        value: selectedItem,
-      },
-      { key: "package_id", value: package_id },
-      { key: "time_id", value: time_id },
-      { key: selectedPlaceId.label, value: selectedPlaceId.value },
-    ]);
+    if (
+      selectedPlaceId.label !== undefined &&
+      selectedPlaceId.value !== undefined
+    ) {
+      if (isChecked) {
+        setQuery.setMultiQuery([
+          { key: "step", value: "step-5" },
+          { key: "city_id", value: city_id },
+          {
+            key: "vehicle_tip",
+            value: selectedItem,
+          },
+          { key: "package_id", value: package_id },
+          { key: "time_id", value: time_id },
+          { key: selectedPlaceId.label, value: selectedPlaceId.value },
+        ]);
+      } else {
+        error("با قوانین و سیاست نامه موافقت کنید");
+      }
+    } else {
+      error("لوکیشن مورد نظر را انتخاب کنید");
+    }
   };
 
-  const checkRulesHandler = () => {
-    setIsChecked((prevState) => !prevState);
+  const rulesChangeHandler = (e) => {
+    setIsChecked(e.target.checked);
   };
 
   useEffect(() => {
@@ -185,7 +198,11 @@ const SelectVerificationPlace = (props) => {
           <div>
             <div className="flex flex-col items-start gap-[1rem] size525:flex-row size525:gap-0 size525:items-center justify-between mb-[3rem]">
               <div className={"flex items-center gap-1 mb-[1rem]"}>
-                <Input type={"checkbox"} className={"h-[22px] w-[22px]"} />
+                <Input
+                  type={"checkbox"}
+                  on_change={rulesChangeHandler}
+                  className={"h-[22px] w-[22px]"}
+                />
                 <p className={"text-14"}>
                   <Link href="#" className={"text-RED_400"}>
                     قوانین کارچک
@@ -211,6 +228,7 @@ const SelectVerificationPlace = (props) => {
           </div>
         </div>
       )}
+      <ToastContainer />
     </div>
   );
 };
