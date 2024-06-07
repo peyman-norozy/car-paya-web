@@ -4,7 +4,6 @@ import { getData } from "@/utils/api-function-utils";
 import { API_PATHS } from "@/configs/routes.config";
 import { useRouter } from "next/navigation";
 
-const fackeArray = [null, null, null, null, null];
 const Discount = () => {
   const [discountData, setDiscountData] = useState([]);
   const router = useRouter();
