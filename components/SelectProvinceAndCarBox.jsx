@@ -12,9 +12,6 @@ const SelectProvinceAndCarBox = (props) => {
   const [province, setProvince] = useState([]);
   const [city, setCity] = useState([]);
   const [selectedProvince, setSelectedProvince] = useState(null);
-  const [message, setMessage] = useState(null);
-  const [selectedCity, setSelectedCity] = useState(null);
-  const [provinceName, setProvinceName] = useState(null);
   const [cityName, setCityName] = useState("");
   const [isClicked, setIsClicked] = useState(0);
   const [isSelected, setIsSelected] = useState(false);
@@ -28,6 +25,7 @@ const SelectProvinceAndCarBox = (props) => {
   const [isLoading, setIsLoading] = useState(false);
   const [searchValue, setSearchValue] = useState([]);
   const [searchInputValue, setSearchInputValue] = useState("");
+  const [image, setImage] = useState("");
 
   const cityRef = useRef();
   const setQuery = useSetQuery();
@@ -69,15 +67,22 @@ const SelectProvinceAndCarBox = (props) => {
 
   useEffect(() => {
     setSearchInputValue("");
-  }, [isClicked]);
-
-  const citySearchHandler = () => {
-    setIsSelected(true);
-  };
+  }, [isClicked, selectedItem]);
 
   const selectCityHandler = (e) => {
     setCityName(e.target.innerHTML);
     setIsSelected(false);
+  };
+
+  const cityChangeHandler = (e) => {
+    setCityName(e.target.value);
+    setCity(cityData.filter((i) => i.name.includes(e.target.value)));
+
+    if (e.target.value.length >= 1) {
+      setIsSelected(true);
+    } else {
+      setIsSelected(false);
+    }
   };
 
   const selectTabHandler = (index) => {
@@ -178,8 +183,6 @@ const SelectProvinceAndCarBox = (props) => {
     { name: "ماشین سنگین" },
   ];
 
-  const provinceData = [{ name: "انتخاب استان" }, { name: "انتخاب شهر " }];
-
   useEffect(() => {
     axios
       .get(process.env.BASE_API + "/web" + API_PATHS.GEOPROVINCES)
@@ -220,6 +223,8 @@ const SelectProvinceAndCarBox = (props) => {
     };
   }, []);
 
+  console.log(carBrands);
+
   return (
     <div
       className={
@@ -240,7 +245,7 @@ const SelectProvinceAndCarBox = (props) => {
           id={"city"}
           type={"text"}
           className={"w-full h-full outline-none text-[#3D3D3D]"}
-          onClick={citySearchHandler}
+          onChange={cityChangeHandler}
         />
         <i className={"cc-arrow-down"} />
         <label
@@ -256,15 +261,21 @@ const SelectProvinceAndCarBox = (props) => {
           ref={cityRef}
           className={`${isSelected ? cityRef.current.scrollHeight + "px px-[12px] py-2" : "h-0"}  shadow-[0_0_12px_rgba(226,226,226,0.8)] bg-white absolute bottom-[-50px] right-0 w-full overflow-scroll max-h-[10rem]`}
         >
-          {cityData.map((item, index) => (
-            <li
-              className={"py-[6px] pr-[12px] hover:bg-BLUE_100 rounded-lg"}
-              onClick={selectCityHandler}
-              key={index}
-            >
-              {item.name}
-            </li>
-          ))}
+          {city.length > 0 ? (
+            city.map((item, index) => (
+              <li
+                className={"py-[6px] pr-[12px] hover:bg-BLUE_100 rounded-lg"}
+                onClick={selectCityHandler}
+                key={index}
+              >
+                {item.name}
+              </li>
+            ))
+          ) : (
+            <p className={"py-[6px] pr-[12px] text-12 rounded-lg"}>
+              شهر یا استان مورد نظر یافت نشد
+            </p>
+          )}
         </ul>
       </div>
       <h3 className={"text-14 mb-2 font-medium"}>انتخاب وسیله نقلیه</h3>
@@ -335,6 +346,8 @@ const SelectProvinceAndCarBox = (props) => {
           setSelectedItem={setSelectedItem}
           setStep={setStep}
           step={step}
+          setImage={setImage}
+          image={image}
           motorStep={motorStep}
           setMotorStep={setMotorStep}
           data={

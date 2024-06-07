@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 const PackageCard = (props) => {
   const { title, id, isSelected, onClick, options, price } = props;
-  const [optionsIsOpen, setOptionsIsOpen] = useState(false);
+  const [optionsIsOpen, setOptionsIsOpen] = useState(true);
 
   const openOptionHandler = () => {
     setOptionsIsOpen((prevState) => !prevState);
@@ -35,7 +35,6 @@ const PackageCard = (props) => {
         </p>
       </div>
       {options &&
-        isSelected === id &&
         options.map((item, index) => (
           <div key={index}>
             <div

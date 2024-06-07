@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { persianDateCovertor } from "@/utils/function-utils";
 
 const ReserveTimeVerification = (props) => {
   const { data, setTimeIsSelected, timeIsSelected } = props;
@@ -19,7 +20,10 @@ const ReserveTimeVerification = (props) => {
         }
       >
         <p>۸:۰۰ تا ۱۲:۰۰ پیشنهاد ما</p>
-        <p className={"text-18"}>{weekDay}</p>
+        <div className={"flex items-end gap-2"}>
+          <p className={"text-18"}>{weekDay}</p>
+          <p className={"text-14"}>{persianDateCovertor(data[0])}</p>
+        </div>
       </div>
       {data &&
         data[1].map((item, index) => (

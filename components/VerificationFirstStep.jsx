@@ -28,32 +28,6 @@ const VerificationFirstStep = (props) => {
     { name: "وسیله من" },
   ];
 
-  const verificationTitle = [
-    { name: "کارشناسی اقتصادی" },
-    { name: "کارشناسی استاندارد" },
-    { name: "کارشناسی حرفه ای" },
-  ];
-  const workData = [
-    {
-      title: "تعویض روغن",
-      price: 3000000,
-      has_come: 1608663149,
-    },
-    {
-      title: "تعویض روغن",
-      price: 3000000,
-      has_come: 1708863149,
-    },
-  ];
-
-  const selectTabHandler = (index) => {
-    setIsClicked(index);
-  };
-
-  const selectTypeHandler = (index) => {
-    setIsSelected(index);
-  };
-
   const PackageStepHandler = () => {
     // setQuery.setMultiQuery([{key: 'city_id', value: city_id}, {key: 'vehicle_tip', value: selectedItem}])
     // setStep(2);

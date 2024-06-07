@@ -3,10 +3,9 @@ import CarCheckLocations from "@/components/CarCheckLocations";
 import Input from "@/components/Input";
 import useSetQuery from "@/hook/useSetQuery";
 import { useSearchParams } from "next/navigation";
-import { getData } from "@/utils/api-function-utils";
 import axios from "axios";
 import { getCookie } from "cookies-next";
-import { numberWithCommas } from "@/utils/function-utils";
+import { numberWithCommas, persianDateCovertor } from "@/utils/function-utils";
 
 const VerificationLastStep = () => {
   const searchParams = useSearchParams();
@@ -18,12 +17,12 @@ const VerificationLastStep = () => {
   const delegate_id = searchParams.get("delegate-id");
   const params = new URLSearchParams(searchParams.toString());
   const [data, setData] = useState("");
+  const [discountValue, setDiscountValue] = useState("");
 
   const setQuery = useSetQuery();
-  console.log(expert_id, delegate_id);
   let locationId = "";
   if (delegate_id === null) {
-    locationId = "&expert_id=1&user_address_id=" + expert_id;
+    locationId = "&expert_id=2&user_address_id=" + expert_id;
   } else {
     locationId = "&expert_id=null&delegate_id=" + delegate_id;
   }
@@ -34,26 +33,39 @@ const VerificationLastStep = () => {
       weekday: "long",
     });
 
+  const discountChangeHandler = (e) => {
+    setDiscountValue(e.target.value);
+  };
+
+  const discountSubmitHandler = (e) => {
+    e.preventDefault();
+    const fd = new FormData();
+    fd.set("master_id", data.id);
+    fd.set("coupon_code", discountValue);
+    axios
+      .post(process.env.BASE_API + "/web/cart/discount-master", fd)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   const backStepHandler = () => {
-    // setQuery.deleteSingleQuery(
-    //   [
-    //     {
-    //       key: "time_id",
-    //       value: time_id,
-    //     },
-    //   ],
-    //   params,
-    // );
-    setQuery.setMultiQuery([
-      { key: "step", value: "step-4" },
-      { key: "city_id", value: city_id },
-      {
-        key: "vehicle_tip",
-        value: selectedItem,
-      },
-      { key: "package_id", value: package_id },
-      { key: "time_id", value: time_id },
-    ]);
+    setQuery.deleteSingleQuery(
+      [
+        {
+          key: "expert-id",
+          value: expert_id,
+        },
+        {
+          key: "delegate-id",
+          value: delegate_id,
+        },
+      ],
+      params,
+    );
+    setQuery.updateMultiQuery([{ key: "step", value: "step-4" }], params);
   };
 
   useEffect(() => {
@@ -80,7 +92,11 @@ const VerificationLastStep = () => {
       .then((res) => {
         setData(res.data.data);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        if (err.response.status === 500) {
+          console.log(err);
+        }
+      });
   }, []);
   return (
     <div
@@ -100,11 +116,12 @@ const VerificationLastStep = () => {
             "p-[6px] text-14 size752:text-16 w-full border-b border-BLUE_600"
           }
         >
-          سرویس مد نظر خود را انتخاب کنید
+          جزئیات درخواست کارشناسی
         </p>
       </div>
       <div className={"flex items-center gap-2 my-[1.75rem]"}>
         <p>{weekDay}</p>
+        <p>{new Date(data.created_at * 1000).toLocaleDateString("fa-IR")}</p>
         <p>ساعت {data.exact_time}</p>
       </div>
       <CarCheckLocations
@@ -115,7 +132,10 @@ const VerificationLastStep = () => {
         address={"تهران، کوروش بزرگ، بین داریوش اول و داریوش دوم پلاک 6"}
         title={"کارشناسی خودرو ایمان"}
       />
-      <div className={"mt-[36px] w-full size1000:w-[60%]"}>
+      <form
+        onSubmit={discountSubmitHandler}
+        className={"mt-[36px] w-full size1000:w-[60%]"}
+      >
         <h4 className={"mb-[18px]"}>کد تخفیف دارید ؟</h4>
         <div
           className={
@@ -125,21 +145,23 @@ const VerificationLastStep = () => {
           <i className="cc-user border-l-[2px] border-l-[#B0B0B0] pl-2 text-[#3D3D3D] text-[20px]" />
           <Input
             autoFocus
+            value={discountValue}
             type={"text"}
-            foc
+            on_change={discountChangeHandler}
             className={
               "w-full h-full rounded-lg outline-none pr-1 text-[#3D3D3D]"
             }
-            id={"name"}
+            id={"discount"}
           />
           <label
-            htmlFor={"name"}
+            htmlFor={"discount"}
             className="absolute top-[-30%] bg-white right-[3%] px-1 text-14 text-[#454545]"
           >
             کد تخفیف
             <span className={"text-red-500"}>*</span>
           </label>
           <button
+            type={"submit"}
             className={
               "bg-BLUE_700 text-white py-[10px] px-[3rem] rounded-lg self-end h-full"
             }
@@ -147,7 +169,7 @@ const VerificationLastStep = () => {
             تایید
           </button>
         </div>
-      </div>
+      </form>
       <div className={"mt-[24px] w-full size1000:w-[60%] flex flex-col  gap-4"}>
         <h5 className={"text-BLUE_600"}>جزیات قیمت سرویس</h5>
         <div className={"flex items-center justify-between"}>
