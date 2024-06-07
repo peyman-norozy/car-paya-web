@@ -25,12 +25,15 @@ const VerificationLogin = () => {
   const time_id = searchParams.get("time_id");
   const package_id = searchParams.get("package_id");
 
+  console.log(otp);
+
   const nameChangeHandler = (event) => {
     setNameValue(event.target.value);
   };
   const mobileChangeHandler = (event) => {
-    if (event.target.value.length < 10) {
-      setMobileValue(forceOnlyNumberInput(event));
+    if (event.target.value.trim().length < 12) {
+      forceOnlyNumberInput(event);
+      setMobileValue(event.target.value.trim());
     }
   };
   const rulesChangeHandler = (event) => {
@@ -38,17 +41,36 @@ const VerificationLogin = () => {
   };
   const otpSubmitHandler = (event) => {
     event.preventDefault();
-    setQuery.setMultiQuery([
-      { key: "city_id", value: city_id },
-      {
-        key: "vehicle_tip",
-        value: selectedItem,
-      },
-      { key: "step", value: "step-4" },
-      { key: "package_id", value: package_id },
-      { key: "time_id", value: time_id },
-    ]);
+    axios
+      .get(
+        process.env.BASE_API +
+          "/web/expert/reservation?step=step-3&name=" +
+          nameValue +
+          "&mobile=" +
+          mobileValue +
+          "&otp=" +
+          otp,
+      )
+      .then((res) => {
+        setQuery.setMultiQuery([
+          { key: "city_id", value: city_id },
+          {
+            key: "vehicle_tip",
+            value: selectedItem,
+          },
+          { key: "step", value: "step-4" },
+          { key: "package_id", value: package_id },
+          { key: "time_id", value: time_id },
+        ]);
+      })
+      .catch((err) => {
+        console.log(err);
+        if (err.response.status === 422) {
+          error(err.response.data.message[0]);
+        }
+      });
   };
+  console.log(mobileValue);
   const nameAndMobileSubmitHandler = (event) => {
     event.preventDefault();
     if (rulesState) {
