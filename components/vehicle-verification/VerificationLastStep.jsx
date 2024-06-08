@@ -24,7 +24,7 @@ const VerificationLastStep = () => {
   if (delegate_id === null) {
     locationId = "&expert_id=2&user_address_id=" + expert_id;
   } else {
-    locationId = "&expert_id=null&delegate_id=" + delegate_id;
+    locationId = "&delegate_id=" + delegate_id;
   }
 
   const weekDay =

@@ -43,13 +43,7 @@ const VerificationLogin = () => {
     event.preventDefault();
     axios
       .get(
-        process.env.BASE_API +
-          "/web/expert/reservation?step=step-3&name=" +
-          nameValue +
-          "&mobile=" +
-          mobileValue +
-          "&otp=" +
-          otp,
+        process.env.BASE_API + "/web/expert/reservation?step=step-4&otp=" + otp,
       )
       .then((res) => {
         setQuery.setMultiQuery([
@@ -70,7 +64,6 @@ const VerificationLogin = () => {
         }
       });
   };
-  console.log(mobileValue);
   const nameAndMobileSubmitHandler = (event) => {
     event.preventDefault();
     if (rulesState) {
