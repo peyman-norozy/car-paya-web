@@ -158,8 +158,9 @@ const SelectVerificationPlace = (props) => {
       </div>
       {isSelected === id && (
         <div className=" w-full flex flex-col gap-[1.5rem] mt-[1.5rem]">
-          {myLocationData.length > 0 && isSelected === 0
-            ? myLocationData.map((item, index) => (
+          {isSelected === 0 ? (
+            myLocationData.length > 0 ? (
+              myLocationData.map((item, index) => (
                 <MyLocations
                   selectedPlaceId={selectedPlaceId}
                   setSelectedPlaceId={setSelectedPlaceId}
@@ -177,23 +178,29 @@ const SelectVerificationPlace = (props) => {
                   on_click={() => selectLocationHandler(item.id, "expert-id")}
                 />
               ))
-            : carCheckLocations.length > 0 &&
-              carCheckLocations.map((item, index) => (
-                <CarCheckLocations
-                  selectedPlaceId={selectedPlaceId}
-                  setSelectedPlaceId={setSelectedPlaceId}
-                  key={index}
-                  id={item.id}
-                  name={item.name}
-                  longitude={item.longitude}
-                  latitude={item.latitude}
-                  code={item.code_delegate}
-                  address={item.address}
-                  title={item.name}
-                  isSelected={isClicked}
-                  on_click={() => selectLocationHandler(item.id, "delegate-id")}
-                />
-              ))}
+            ) : (
+              <p>آدرسی برای شما ثبت نشده است</p>
+            )
+          ) : carCheckLocations.length > 0 ? (
+            carCheckLocations.map((item, index) => (
+              <CarCheckLocations
+                selectedPlaceId={selectedPlaceId}
+                setSelectedPlaceId={setSelectedPlaceId}
+                key={index}
+                id={item.id}
+                name={item.name}
+                longitude={item.longitude}
+                latitude={item.latitude}
+                code={item.code_delegate}
+                address={item.address}
+                title={item.name}
+                isSelected={isClicked}
+                on_click={() => selectLocationHandler(item.id, "delegate-id")}
+              />
+            ))
+          ) : (
+            ""
+          )}
 
           <div>
             <div className="flex flex-col items-start gap-[1rem] size525:flex-row size525:gap-0 size525:items-center justify-between mb-[3rem]">
