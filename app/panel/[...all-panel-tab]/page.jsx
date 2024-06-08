@@ -1,5 +1,10 @@
 "use client";
-import { notFound, useRouter } from "next/navigation";
+import {
+  notFound,
+  useRouter,
+  useSearchParams,
+  usePathname,
+} from "next/navigation";
 import TitleDescription from "@/components/TitleDescription";
 import React, { Fragment, useEffect, useState } from "react";
 import LogoutModal from "@/components/modal/LogoutModal";
@@ -20,11 +25,17 @@ import History from "@/components/History";
 import HistoryCreate from "@/components/HistoryCreate";
 import { panelTabData } from "@/staticData/data";
 import Discount from "@/components/Discount/Discount";
+import Verification from "@/components/vehicle-verification/Verification";
 
 const AllPanelTab = (props) => {
   const [logoutModalState, setLogoutModalState] = useState(false);
   const router = useRouter();
   const dispatch = useDispatch();
+  const pathName = usePathname();
+  const query = useSearchParams();
+  const allUrl = query.get("status")
+    ? pathName + "?" + "status=" + query.get("status")
+    : pathName;
 
   const backClickHandler = () => {
     router.push("/panel");
@@ -47,9 +58,11 @@ const AllPanelTab = (props) => {
     };
   }, [dispatch]);
 
+  console.log(allUrl);
+
   return (
     <Fragment>
-      <div className="mt-[50px] mb-[100px] size460:mx-[50px] mx-[30px]">
+      <div className="mt-[50px] mb-[100px] size690:mx-[50px] mx-0">
         <div className="flex items-center gap-4 mb-[30px] mt-[100px]">
           <Image
             src={"/assets/icons/back.svg"}
@@ -81,8 +94,8 @@ const AllPanelTab = (props) => {
             ]
           }
         </div>
-        <div className="flex gap-4 size1000:flex-row flex-col items-start">
-          <div className="shadow-[0_0_6px_0_rgba(180,180,180,0.3)] w-[342px] flex-col justify-center gap-4 items-center pt-2 size1180:flex hidden rounded-[10px] sticky top-[81px]">
+        <div className="flex gap-4 size1000:flex-row flex-col">
+          <div className="shadow-[0_0_6px_0_rgba(180,180,180,0.3)] w-[342px] flex-col justify-start h-fit gap-4 items-center pt-2 size1180:flex hidden rounded-[10px] sticky top-[81px]">
             <UserSpecifications
               style={"flex-col justify-center items-center gap-2"}
             />
@@ -115,42 +128,49 @@ const AllPanelTab = (props) => {
             ) {
               return <HistoryCreate params={props.params["all-panel-tab"]} />;
             }
-            switch (
-              props.params["all-panel-tab"] &&
-              props.params["all-panel-tab"].join("/")
-            ) {
-              case "my-vehicle/my-car":
+            switch (allUrl) {
+              case "/panel/my-vehicle/my-car":
                 return <CreateMyCar />;
-              case "my-vehicle/my-car/create":
+              case "/panel/my-vehicle/my-car/create":
                 return <CarDevice pageType={"create"} />;
-              case "my-vehicle/my-car/edit":
+              case "/panel/my-vehicle/my-car/edit":
                 return <CarDevice pageType={"edit"} />;
-              case "my-vehicle/my-motorcycle":
+              case "/panel/my-vehicle/my-motorcycle":
                 return <CreateMyMotor />;
-              case "my-vehicle/my-motorcycle/create":
+              case "/panel/my-vehicle/my-motorcycle/create":
                 return <MotorDevice pageType={"create"} />;
-              case "my-vehicle/my-motorcycle/edit":
+              case "/panel/my-vehicle/my-motorcycle/edit":
                 return <MotorDevice pageType={"edit"} />;
-              case "my-vehicle/my-heavy-car":
+              case "/panel/my-vehicle/my-heavy-car":
                 return <CreateMyHeavyCar />;
-              case "my-vehicle/my-heavy-car/create":
+              case "/panel/my-vehicle/my-heavy-car/create":
                 return <HeavyCarDevice pageType={"create"} />;
-              case "my-vehicle/my-heavy-car/edit":
+              case "/panel/my-vehicle/my-heavy-car/edit":
                 return <HeavyCarDevice pageType={"edit"} />;
-              case "productAddress":
+              case "/panel/productAddress":
                 return <ProductAddress />;
-              case "history-orders/buys":
+              case "/panel/history-orders/buys":
                 return <div>buys</div>;
-              case "history-orders/verification":
-                return <div>verification</div>;
-              case "history-orders/Detail":
+              case "/panel/history-orders/verification?status=CURRENT":
+                return <Verification params={props} />;
+              case "/panel/history-orders/verification?status=DELIVERED":
+                return <Verification params={props} />;
+              case "/panel/history-orders/verification?status=REFUSE":
+                return <Verification params={props} />;
+              case "/panel/history-orders/Detail":
                 return <div>Detail</div>;
-              case "profile":
+              case "/panel/profile":
                 return <PersonalInformation />;
-              case "discount":
+              case "/panel/discount":
                 return <Discount />;
               default:
-                notFound();
+                if (allUrl === "/panel/history-orders/verification") {
+                  router.push(
+                    "/panel/history-orders/verification?status=CURRENT",
+                  );
+                } else {
+                  return notFound();
+                }
             }
           })()}
         </div>

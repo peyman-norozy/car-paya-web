@@ -14,7 +14,7 @@ function DisplayPosition(props) {
     console.log(mapLocation.split(","));
     const lat = mapLocation.split(",")[0];
     const lon = mapLocation.split(",")[1];
-    const fetchData3 = await getData(`${API_PATHS.ADDRESS}`, {
+    const fetchData3 = await getData(`/web${API_PATHS.ADDRESS}`, {
       lat: lat,
       lon: lon,
     });

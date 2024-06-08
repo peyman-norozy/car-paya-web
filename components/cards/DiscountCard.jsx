@@ -1,6 +1,7 @@
 import React from "react";
+import { persianDateCovertor } from "@/utils/function-utils";
 
-const DiscountCard = () => {
+const DiscountCard = (props) => {
   return (
     <li className="flex flex-col gap-[16px] size1000:flex-1 w-full rounded-[10px] px-[43px] py-6 shadow-[0_0_6px_0_rgba(180,180,180,0.3)]">
       <div className={"flex items-center gap-3"}>
@@ -11,13 +12,13 @@ const DiscountCard = () => {
         ></span>
         <div className={"flex gap-1"}>
           <span className={"text-[#888888] font-light"}>تاریخ انقضا</span>
-          <span className={"text-[#888888] font-light"}>۱۴۰۳/۱۲/۱۸</span>
+          <span className={"text-[#888888] font-light"}>
+            {persianDateCovertor(props.item.expired_at)}
+          </span>
         </div>
       </div>
       <div className={"flex justify-between items-center"}>
-        <p className={"text-[#3D3D3D]"}>
-          کد تخفیف حراجستون مهر ماهی 10 درصد تخفیف خودرو شما
-        </p>
+        <p className={"text-[#3D3D3D]"}>{props.item.description}</p>
         <section className={"flex items-center gap-[8px]"}>
           <i
             className={
