@@ -89,7 +89,7 @@ const VerificationLogin = () => {
   };
 
   return (
-    <div className="flex items-center justify-between w-[95%] size1180:w-[90%] size1275:w-[80%] m-auto py-[4rem]">
+    <div className="flex items-center justify-center lg:justify-between w-[95%] size1180:w-[90%] size1275:w-[80%] m-auto py-[4rem]">
       {(() => {
         switch (loginState) {
           case "name":
@@ -232,6 +232,7 @@ const VerificationLogin = () => {
         alt="login image"
         width={702}
         height={462}
+        className={"hidden lg:block"}
       />
       <ToastContainer />
     </div>
