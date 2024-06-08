@@ -32,11 +32,11 @@ const Verification = (props) => {
   };
 
   return (
-    <div className="flex-1 px-[40px] py-[32px] rounded-[10px] shadow-[0_0_6px_0_rgba(180,180,180,0.3)] flex flex-col gap-[35px]">
+    <div className="flex-1 size617:px-[40px] px-[17px] py-[32px] rounded-[10px] shadow-[0_0_6px_0_rgba(180,180,180,0.3)] flex flex-col gap-[35px]">
       <h1 className={"text-[#354597]"}>سفارش های من</h1>
       <div
         className={
-          "flex justify-around items-center gap-4 px-2 mx-4 rounded-[10px]"
+          "flex size617:justify-around justify-between items-center size617:gap-4 gap-2 size617:px-2 px-0 size617:mx-4 mx-0 rounded-[10px]"
         }
       >
         {ordersTab.map((item) => {

@@ -62,7 +62,7 @@ const AllPanelTab = (props) => {
 
   return (
     <Fragment>
-      <div className="mt-[50px] mb-[100px] size460:mx-[50px] mx-[30px]">
+      <div className="mt-[50px] mb-[100px] size690:mx-[50px] mx-0">
         <div className="flex items-center gap-4 mb-[30px] mt-[100px]">
           <Image
             src={"/assets/icons/back.svg"}
