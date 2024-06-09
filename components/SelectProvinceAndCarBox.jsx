@@ -6,6 +6,7 @@ import ShowMyVehicles from "@/components/ShowMyVehicles";
 import Spinner from "@/components/Spinner";
 import useSetQuery from "@/hook/useSetQuery";
 import { error } from "@/utils/function-utils";
+import { getCookie } from "cookies-next";
 
 const SelectProvinceAndCarBox = (props) => {
   const { cityData } = props;
@@ -20,6 +21,8 @@ const SelectProvinceAndCarBox = (props) => {
   const [carModel, setCarModel] = useState([]);
   const [motorModel, setMotorModel] = useState([]);
   const [selectedItem, setSelectedItem] = useState(null);
+  const [myVehicleData, setMyVehicleData] = useState([]);
+  const [myVehicleIsChecked, setMyVehicleIsChecked] = useState(false);
   const [step, setStep] = useState("car-brands");
   const [motorStep, setMotorStep] = useState("motor-brands");
   const [isLoading, setIsLoading] = useState(false);
@@ -29,8 +32,6 @@ const SelectProvinceAndCarBox = (props) => {
 
   const cityRef = useRef();
   const setQuery = useSetQuery();
-
-  const myVehicleData = [];
 
   const backStepHandler = () => {
     if (step === "car-models") {
@@ -44,6 +45,34 @@ const SelectProvinceAndCarBox = (props) => {
     } else if (motorStep === "motor-tips") {
       setMotorStep("motor-models");
       setSelectedItem(motorModel);
+    }
+  };
+
+  const myVehicleChangeHandler = (event) => {
+    setMyVehicleIsChecked(event.target.checked);
+    setIsLoading(true);
+    if (event.target.checked) {
+      axios
+        .get(process.env.BASE_API + "/web/vehicles", {
+          headers: {
+            Authorization: `Bearer ${getCookie("Authorization")}`,
+          },
+        })
+        .then((res) => {
+          console.log(res.data);
+          setMyVehicleData(res.data.data);
+          setStep("car-tips");
+          setMotorStep("motor-tips");
+          setIsLoading(false);
+        })
+        .catch((err) => {
+          console.log(err);
+          setIsLoading(false);
+          if (err.response.status === 401) {
+            error("برای نمایش وسیله های من ابتدا وارد حساب کاربری شوید");
+          }
+        });
+    } else {
     }
   };
 
@@ -185,25 +214,9 @@ const SelectProvinceAndCarBox = (props) => {
 
   useEffect(() => {
     axios
-      .get(process.env.BASE_API + "/web" + API_PATHS.GEOPROVINCES)
+      .get(process.env.BASE_API + "/web/geo/province_cities?title=")
       .then((res) => {
-        const tehran = res.data.data.filter((item) => item.title === "تهران");
-        setProvince(tehran);
-      })
-      .catch((err) => console.log(err));
-    axios
-      .get(
-        process.env.BASE_API +
-          "/web" +
-          API_PATHS.GEOCITIES +
-          "/" +
-          selectedProvince,
-      )
-      .then((res) => {
-        const tehran = res.data.data.filter((item) => item.title === "تهران");
-
-        setCity(tehran);
-        props.setCity_id(tehran[0].id);
+        console.log(res.data);
       })
       .catch((err) => console.log(err));
   }, [selectedProvince]);
@@ -296,7 +309,11 @@ const SelectProvinceAndCarBox = (props) => {
       </div>
       <div className={"flex items-center gap-2 mb-4"}>
         <p className={"text-14 font-medium"}>کارشناسی وسیله من</p>
-        <Input type={"checkbox"} className={"h-[22px] w-[22px]"} />
+        <Input
+          type={"checkbox"}
+          on_change={myVehicleChangeHandler}
+          className={"h-[22px] w-[22px]"}
+        />
       </div>
       <div className={"flex gap-2"}>
         <i className={"cc-arrow-right text-18"} onClick={backStepHandler} />
@@ -350,12 +367,15 @@ const SelectProvinceAndCarBox = (props) => {
           image={image}
           motorStep={motorStep}
           setMotorStep={setMotorStep}
+          myVehicleIsChecked={myVehicleIsChecked}
           data={
-            isClicked === 0
-              ? carBrands
-              : isClicked === 1
-                ? motorBrands
-                : myVehicleData
+            myVehicleIsChecked
+              ? myVehicleData
+              : isClicked === 0
+                ? carBrands
+                : isClicked === 1
+                  ? motorBrands
+                  : ""
           }
         />
       )}

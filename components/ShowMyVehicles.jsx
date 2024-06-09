@@ -41,33 +41,39 @@ const ShowMyVehicles = (props) => {
 
   return (
     <div className="relative grid grid-cols-3 gap-x-[0.5rem] gap-y-[0.5rem] rounded-10 border-gray_light_border border-[1px] w-full h-[10rem] p-[1rem] overflow-y-scroll">
-      {props.data.map((item, index) => (
-        <div
-          key={index}
-          title={item.slug}
-          id={item.id}
-          image={item.image}
-          onClick={(event) => selectItemHandler(event, item.id)}
-          className={`flex flex-col items-center gap-[0.25rem] h-fit w-full cursor-pointer ${selectedVehicle === item.id && "bg-gray-300 w-fit rounded-lg"}`}
-        >
-          <div className={`h-[50px] w-[50px] rounded-5 overflow-hidden `}>
-            <Image
-              src={
-                props.step === "car-brands"
-                  ? process.env.BASE_API + "/web/file/" + item.logo
-                  : props.step === "car-models"
-                    ? process.env.BASE_API + "/web/file/" + item.image
-                    : process.env.BASE_API + "/web/file/" + props.image
-              }
-              alt={item.name}
-              width={100}
-              height={100}
-              className="w-full h-full"
-            />
+      {props.data.length > 0 ? (
+        props.data.map((item, index) => (
+          <div
+            key={index}
+            title={item.slug}
+            id={item.id}
+            image={item.image}
+            onClick={(event) => selectItemHandler(event, item.id)}
+            className={`flex flex-col items-center gap-[0.25rem] h-fit w-full cursor-pointer ${selectedVehicle === item.id && "bg-gray-300 w-fit rounded-lg"}`}
+          >
+            <div className={`h-[50px] w-[50px] rounded-5 overflow-hidden `}>
+              <Image
+                src={
+                  props.myVehicleIsChecked
+                    ? process.env.BASE_API + "/web/file/" + item.car_image_id
+                    : props.step === "car-brands"
+                      ? process.env.BASE_API + "/web/file/" + item.logo
+                      : props.step === "car-models"
+                        ? process.env.BASE_API + "/web/file/" + item.image
+                        : process.env.BASE_API + "/web/file/" + props.image
+                }
+                alt={item.name}
+                width={100}
+                height={100}
+                className="w-full h-full"
+              />
+            </div>
+            <p className="text-12 line-clamp-1">{item.title}</p>
           </div>
-          <p className="text-12 line-clamp-1">{item.title}</p>
-        </div>
-      ))}
+        ))
+      ) : (
+        <p className={"col-span-full"}>وسیله نقلیه ای برای نمایش وجود ندارد</p>
+      )}
     </div>
   );
 };
