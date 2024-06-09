@@ -43,7 +43,11 @@ const VerificationLogin = () => {
     event.preventDefault();
     axios
       .get(
-        process.env.BASE_API + "/web/expert/reservation?step=step-4&otp=" + otp,
+        process.env.BASE_API +
+          "/web/expert/reservation?step=step-4&otp=" +
+          otp +
+          "&mobile=" +
+          mobileValue,
       )
       .then((res) => {
         setQuery.setMultiQuery([
@@ -60,7 +64,7 @@ const VerificationLogin = () => {
       .catch((err) => {
         console.log(err);
         if (err.response.status === 422) {
-          error(err.response.data.message[0]);
+          error(err.response.data.errors.otp[0]);
         }
       });
   };
