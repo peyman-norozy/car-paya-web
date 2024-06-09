@@ -5,7 +5,12 @@ import useSetQuery from "@/hook/useSetQuery";
 import { useSearchParams } from "next/navigation";
 import axios from "axios";
 import { getCookie } from "cookies-next";
-import { numberWithCommas, persianDateCovertor } from "@/utils/function-utils";
+import {
+  error,
+  numberWithCommas,
+  persianDateCovertor,
+} from "@/utils/function-utils";
+import { ToastContainer } from "react-toastify";
 
 const VerificationLastStep = () => {
   const searchParams = useSearchParams();
@@ -17,6 +22,8 @@ const VerificationLastStep = () => {
   const delegate_id = searchParams.get("delegate-id");
   const params = new URLSearchParams(searchParams.toString());
   const [data, setData] = useState("");
+  const [price, setPrice] = useState(null);
+  const [discount, setDiscount] = useState(null);
   const [discountValue, setDiscountValue] = useState("");
 
   const setQuery = useSetQuery();
@@ -46,9 +53,15 @@ const VerificationLastStep = () => {
       .post(process.env.BASE_API + "/web/cart/discount-master", fd)
       .then((res) => {
         console.log(res);
+        setPrice(res.data.data.price_total);
+        setDiscount(res.data.data.discount_total);
+        setDiscountValue("");
       })
       .catch((err) => {
         console.log(err);
+        if (err.response.status === 422) {
+          error(err.response.data.message);
+        }
       });
   };
   const backStepHandler = () => {
@@ -177,8 +190,8 @@ const VerificationLastStep = () => {
           <p>{numberWithCommas(data.price)} تومان</p>
         </div>
         <div className={"flex items-center justify-between"}>
-          <p>کد تخفیف</p>
-          <p></p>
+          <p>تخفیف</p>
+          <p>{discount ? discount.toLocaleString() + "تومان" : ""} </p>
         </div>
       </div>
       <div
@@ -188,7 +201,10 @@ const VerificationLastStep = () => {
       >
         <div className={"text-BLUE_600 text-16 size752:text-18"}>
           <p className={"border-b border-b-BLUE_600"}>جمع قابل پرداخت</p>
-          <p>{numberWithCommas(data.price)} تومان</p>
+          <p>
+            {price ? price.toLocaleString() : numberWithCommas(data.price)}
+            تومان
+          </p>
         </div>
         <button
           className={
@@ -198,6 +214,7 @@ const VerificationLastStep = () => {
           تایید
         </button>
       </div>
+      <ToastContainer />
     </div>
   );
 };
