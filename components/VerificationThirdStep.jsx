@@ -25,10 +25,6 @@ const VerificationThirdStep = (props) => {
     },
   ];
 
-  const selectPlaceHandler = (id) => {
-    setIsSelected(id);
-  };
-
   const backstopHandler = () => {
     setQuery.deleteSingleQuery(
       [
@@ -69,7 +65,7 @@ const VerificationThirdStep = (props) => {
               isSelected={isSelected}
               id={index}
               key={index}
-              onClick={() => selectPlaceHandler(index)}
+              setIsSelected={setIsSelected}
               title={item.title}
               description={item.description}
             />

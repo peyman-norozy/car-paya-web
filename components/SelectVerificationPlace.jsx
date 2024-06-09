@@ -14,7 +14,7 @@ import { error } from "@/utils/function-utils";
 import { ToastContainer } from "react-toastify";
 
 const SelectVerificationPlace = (props) => {
-  const { title, description, id, onClick, isSelected } = props;
+  const { title, description, id, setIsSelected, isSelected } = props;
   const [isClicked, setIsClicked] = useState(null);
   const [isChecked, setIsChecked] = useState(false);
   const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -37,6 +37,13 @@ const SelectVerificationPlace = (props) => {
   const selectLocationHandler = (id, label) => {
     setSelectedPlaceId({ label: label, value: id });
     setIsClicked(id);
+  };
+  const selectPlaceHandler = (id) => {
+    if (carCheckLocations.length > 0) {
+      setIsSelected(id);
+    } else {
+      return "";
+    }
   };
 
   const continueStepHandler = () => {
@@ -132,7 +139,7 @@ const SelectVerificationPlace = (props) => {
         className={`relative bg-[#ECEEF8] px-[1rem] py-[1rem] rounded-10 flex flex-col gap-5 size690:gap-0 size690:flex-row justify-between ${
           isSelected === id ? "opacity-[1]" : "opacity-[0.5]"
         }`}
-        onClick={onClick}
+        onClick={() => selectPlaceHandler(id)}
       >
         <div>
           <div className="flex items-center gap-[0.5rem] mb-[0.25rem]">
