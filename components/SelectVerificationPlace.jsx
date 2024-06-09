@@ -144,7 +144,7 @@ const SelectVerificationPlace = (props) => {
           </div>
           <p className="text-14 text-[#505050]">{description}</p>
         </div>
-        {isSelected === 0 && (
+        {isSelected === id && isSelected === 0 && (
           <button
             onClick={openModalHandler}
             className={
@@ -204,24 +204,24 @@ const SelectVerificationPlace = (props) => {
 
           <div>
             <div className="flex flex-col items-start gap-[1rem] size525:flex-row size525:gap-0 size525:items-center justify-between mb-[3rem]">
-              <div className={"flex items-center gap-1 mb-[1rem]"}>
-                <Input
-                  type={"checkbox"}
-                  on_change={rulesChangeHandler}
-                  className={"h-[22px] w-[22px]"}
-                />
-                <p className={"text-14"}>
-                  <Link href="#" className={"text-RED_400"}>
-                    قوانین کارچک
-                  </Link>{" "}
-                  و{" "}
-                  <Link href="#" className={"text-BLUE_600"}>
-                    {" "}
-                    سياست نامه حريم خصوصی
-                  </Link>
-                  . را میپذیرم.
-                </p>
-              </div>
+              {/*<div className={"flex items-center gap-1 mb-[1rem]"}>*/}
+              {/*  <Input*/}
+              {/*    type={"checkbox"}*/}
+              {/*    on_change={rulesChangeHandler}*/}
+              {/*    className={"h-[22px] w-[22px]"}*/}
+              {/*  />*/}
+              {/*  <p className={"text-14"}>*/}
+              {/*    <Link href="#" className={"text-RED_400"}>*/}
+              {/*      قوانین کارچک*/}
+              {/*    </Link>{" "}*/}
+              {/*    و{" "}*/}
+              {/*    <Link href="#" className={"text-BLUE_600"}>*/}
+              {/*      {" "}*/}
+              {/*      سياست نامه حريم خصوصی*/}
+              {/*    </Link>*/}
+              {/*    . را میپذیرم.*/}
+              {/*  </p>*/}
+              {/*</div>*/}
               <Button
                 on_click={continueStepHandler}
                 class_name={

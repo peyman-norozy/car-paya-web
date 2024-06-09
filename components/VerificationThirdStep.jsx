@@ -5,7 +5,7 @@ import useSetQuery from "@/hook/useSetQuery";
 import { useSearchParams } from "next/navigation";
 
 const VerificationThirdStep = (props) => {
-  const [isSelected, setIsSelected] = useState(false);
+  const [isSelected, setIsSelected] = useState(0);
   const searchParams = useSearchParams();
   const city_id = searchParams.get("city_id");
   const selectedItem = searchParams.get("vehicle_tip");
