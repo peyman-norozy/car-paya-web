@@ -16,7 +16,6 @@ import { ToastContainer } from "react-toastify";
 const SelectVerificationPlace = (props) => {
   const { title, description, id, setIsSelected, isSelected } = props;
   const [isClicked, setIsClicked] = useState(null);
-  const [isChecked, setIsChecked] = useState(false);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [carCheckLocations, setCarCheckLocations] = useState([]);
   const [myLocationData, setMyLocationData] = useState([]);
@@ -51,28 +50,20 @@ const SelectVerificationPlace = (props) => {
       selectedPlaceId.label !== undefined &&
       selectedPlaceId.value !== undefined
     ) {
-      if (isChecked) {
-        setQuery.setMultiQuery([
-          { key: "step", value: "step-5" },
-          { key: "city_id", value: city_id },
-          {
-            key: "vehicle_tip",
-            value: selectedItem,
-          },
-          { key: "package_id", value: package_id },
-          { key: "time_id", value: time_id },
-          { key: selectedPlaceId.label, value: selectedPlaceId.value },
-        ]);
-      } else {
-        error("با قوانین و سیاست نامه موافقت کنید");
-      }
+      setQuery.setMultiQuery([
+        { key: "step", value: "step-5" },
+        { key: "city_id", value: city_id },
+        {
+          key: "vehicle_tip",
+          value: selectedItem,
+        },
+        { key: "package_id", value: package_id },
+        { key: "time_id", value: time_id },
+        { key: selectedPlaceId.label, value: selectedPlaceId.value },
+      ]);
     } else {
       error("لوکیشن مورد نظر را انتخاب کنید");
     }
-  };
-
-  const rulesChangeHandler = (e) => {
-    setIsChecked(e.target.checked);
   };
 
   useEffect(() => {
