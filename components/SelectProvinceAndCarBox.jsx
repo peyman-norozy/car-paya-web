@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
 import axios from "axios";
-import { API_PATHS } from "@/configs/routes.config";
 import Input from "@/components/Input";
 import ShowMyVehicles from "@/components/ShowMyVehicles";
 import Spinner from "@/components/Spinner";
@@ -59,7 +58,6 @@ const SelectProvinceAndCarBox = (props) => {
           },
         })
         .then((res) => {
-          console.log(res.data);
           setMyVehicleData(res.data.data);
           setStep("car-tips");
           setMotorStep("motor-tips");
@@ -73,6 +71,7 @@ const SelectProvinceAndCarBox = (props) => {
           }
         });
     } else {
+      setIsLoading(false);
     }
   };
 

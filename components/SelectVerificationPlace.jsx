@@ -14,7 +14,8 @@ import { error } from "@/utils/function-utils";
 import { ToastContainer } from "react-toastify";
 
 const SelectVerificationPlace = (props) => {
-  const { title, description, id, setIsSelected, isSelected } = props;
+  const { title, description, id, setIsSelected, isSelected, setChosenTime } =
+    props;
   const [isClicked, setIsClicked] = useState(null);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [carCheckLocations, setCarCheckLocations] = useState([]);
@@ -72,7 +73,9 @@ const SelectVerificationPlace = (props) => {
       .get(
         process.env.BASE_API +
           "/web/expert/reservation?step=step-5&type=DELEGATE&city_id=" +
-          city_id,
+          city_id +
+          "&reservation_time_slice_id=" +
+          time_id.split("/")[0],
         {
           headers: {
             Authorization: "Bearer " + getCookie("Authorization"),
@@ -80,8 +83,8 @@ const SelectVerificationPlace = (props) => {
         },
       )
       .then((res) => {
-        console.log(res.data.data);
         setCarCheckLocations(res.data.data);
+        setChosenTime(res.data.time);
       })
       .catch((err) => console.log(err));
     //   ///////////////////////////////////
@@ -90,7 +93,9 @@ const SelectVerificationPlace = (props) => {
       .get(
         process.env.BASE_API +
           "/web/expert/reservation?step=step-5&type=EXPERT&city_id=" +
-          city_id,
+          city_id +
+          "&reservation_time_slice_id=" +
+          time_id.split("/")[0],
         {
           headers: {
             Authorization: "Bearer " + getCookie("Authorization"),
@@ -99,6 +104,7 @@ const SelectVerificationPlace = (props) => {
       )
       .then((res) => {
         setMyLocationData(res.data.data);
+        setChosenTime(res.data.time);
       })
       .catch((err) => console.log(err));
   }, [fetchData]);
