@@ -15,6 +15,7 @@ const CarCheckLocations = (props) => {
     address,
     latitude,
     longitude,
+    last,
   } = props;
   let location = "";
   if (latitude && longitude) {
@@ -29,10 +30,12 @@ const CarCheckLocations = (props) => {
     >
       <div>
         <div className="flex items-center gap-[0.25rem] mb-[1.5rem]">
-          <GreenCheckInput
-            isSelected={isSelected === id}
-            class_name="rounded-[50%] w-[1.35rem] h-[1.35rem]"
-          />
+          {!last && (
+            <GreenCheckInput
+              isSelected={isSelected === id}
+              class_name="rounded-[50%] w-[1.35rem] h-[1.35rem]"
+            />
+          )}
           <h2 className="text-18 text-BLUE_600">{title}</h2>
         </div>
         <ul className="text-14 flex flex-col gap-[0.5rem]">

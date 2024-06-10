@@ -11,6 +11,7 @@ import {
   persianDateCovertor,
 } from "@/utils/function-utils";
 import { ToastContainer } from "react-toastify";
+import MyLocations from "@/components/MyLocations";
 
 const VerificationLastStep = () => {
   const searchParams = useSearchParams();
@@ -111,6 +112,7 @@ const VerificationLastStep = () => {
         }
       });
   }, []);
+
   return (
     <div
       className={"w-[90%] size1000:w-[80%] size1136:w-[70%] m-auto pt-[2rem]"}
@@ -137,14 +139,27 @@ const VerificationLastStep = () => {
         <p>{new Date(data.created_at * 1000).toLocaleDateString("fa-IR")}</p>
         <p>ساعت {data.exact_time}</p>
       </div>
-      <CarCheckLocations
-        id={2}
-        name={"حسام حسامی"}
-        call={"0912 425-2522"}
-        code={"021021"}
-        address={"تهران، کوروش بزرگ، بین داریوش اول و داریوش دوم پلاک 6"}
-        title={"کارشناسی خودرو ایمان"}
-      />
+      {data.address_info && data.address_info.code_delegate ? (
+        <CarCheckLocations
+          id={2}
+          name={data.address_info && data.address_info.name}
+          code={data.address_info && data.address_info.code_delegate}
+          address={data.address_info && data.address_info.address}
+          title={data.address_info && data.address_info.name}
+          latitude={data.address_info && data.address_info.map.split(",")[0]}
+          longitude={data.address_info && data.address_info.map.split(",")[1]}
+          last={true}
+        />
+      ) : (
+        <MyLocations
+          title={data.address_info && data.address_info.title}
+          address={data.address_info && data.address_info.address}
+          map={","}
+          province={data.address_info && data.address_info.province_name}
+          city={data.address_info && data.address_info.city_name}
+        />
+      )}
+
       <form
         onSubmit={discountSubmitHandler}
         className={"mt-[36px] w-full size1000:w-[60%]"}
