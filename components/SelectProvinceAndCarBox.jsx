@@ -48,9 +48,9 @@ const SelectProvinceAndCarBox = (props) => {
   };
 
   const myVehicleChangeHandler = (event) => {
-    setMyVehicleIsChecked(event.target.checked);
     setIsLoading(true);
     if (event.target.checked) {
+      setMyVehicleIsChecked(true);
       axios
         .get(process.env.BASE_API + "/web/vehicles", {
           headers: {
@@ -71,7 +71,10 @@ const SelectProvinceAndCarBox = (props) => {
           }
         });
     } else {
+      setMyVehicleIsChecked(false);
       setIsLoading(false);
+      setStep("car-brands");
+      setMotorStep("motor-brands");
     }
   };
 
@@ -203,7 +206,7 @@ const SelectProvinceAndCarBox = (props) => {
         })
         .catch((err) => console.log(err));
     }
-  }, [step, motorStep, isClicked]);
+  }, [step, motorStep, isClicked, myVehicleIsChecked]);
 
   const tabTitle = [
     { name: "خودرو" },
@@ -234,8 +237,6 @@ const SelectProvinceAndCarBox = (props) => {
       });
     };
   }, []);
-
-  console.log(carBrands);
 
   return (
     <div
