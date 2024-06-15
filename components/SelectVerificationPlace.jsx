@@ -169,8 +169,6 @@ const SelectVerificationPlace = (props) => {
                   selectedPlaceId={selectedPlaceId}
                   setSelectedPlaceId={setSelectedPlaceId}
                   setFetchData={setFetchData}
-                  modalIsOpen={modalIsOpen}
-                  setModalIsOpen={setModalIsOpen}
                   province={item.province_name}
                   city={item.city_name}
                   title={item.title}

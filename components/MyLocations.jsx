@@ -14,12 +14,11 @@ const MyLocations = (props) => {
     city,
     address,
     map,
-    setModalIsOpen,
-    modalIsOpen,
     setFetchData,
   } = props;
 
   const [showOption, setShowOption] = useState(false);
+  const [modalIsOpen, setModalIsOpen] = useState();
   const kebabRef = useRef(null);
 
   const latitude = map.split(",")[0];
@@ -59,7 +58,7 @@ const MyLocations = (props) => {
             <div className={"fixed  w-[45%] m-auto inset-0 z-[10000000000]"}>
               <AddAddressModal
                 getDataFetch={setFetchData}
-                pageType={"create"}
+                pageType={"edite"}
                 setModalIsOpen={setModalIsOpen}
                 addressEditId={id}
               />
