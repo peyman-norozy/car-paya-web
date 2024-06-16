@@ -231,7 +231,7 @@ const SelectProvinceAndCarBox = (props) => {
           setHeavyCarBrands(res.data.data);
         })
         .catch((err) => console.log(err));
-    } else if (heavyCarStep === "car-models") {
+    } else if (heavyCarStep === "heavy-car-models") {
       axios
         .get(
           process.env.BASE_API + "/web" + "/heavy-car-models/" + selectedItem,
@@ -243,7 +243,7 @@ const SelectProvinceAndCarBox = (props) => {
           setIsLoading(false);
         })
         .catch((err) => console.log(err));
-    } else if (heavyCarStep === "car-tips") {
+    } else if (heavyCarStep === "heavy-car-tips") {
       axios
         .get(process.env.BASE_API + "/web" + "/heavy-car-tips/" + selectedItem)
         .then((res) => {
