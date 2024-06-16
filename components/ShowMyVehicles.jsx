@@ -37,6 +37,13 @@ const ShowMyVehicles = (props) => {
     } else {
       props.setSelectedVehicle && props.setSelectedVehicle(e.currentTarget.id);
     }
+    if (props.heavyCarStep === "heavy-car-brands") {
+      props.setHeavyCarStep("heavy-car-models");
+    } else if (props.heavyCarStep === "heavy-car-models") {
+      props.setHeavyCarStep("heavy-car-tips");
+    } else {
+      props.setSelectedVehicle && props.setSelectedVehicle(e.currentTarget.id);
+    }
   };
 
   return (

@@ -19,11 +19,14 @@ const SelectProvinceAndCarBox = (props) => {
   const [motorBrands, setMotorBrands] = useState([]);
   const [carModel, setCarModel] = useState([]);
   const [motorModel, setMotorModel] = useState([]);
+  const [heavyCarBrands, setHeavyCarBrands] = useState([]);
+  const [heavyCarModel, setHeavyCarModel] = useState([]);
   const [selectedItem, setSelectedItem] = useState(null);
   const [myVehicleData, setMyVehicleData] = useState([]);
   const [myVehicleIsChecked, setMyVehicleIsChecked] = useState(false);
   const [step, setStep] = useState("car-brands");
   const [motorStep, setMotorStep] = useState("motor-brands");
+  const [heavyCarStep, setHeavyCarStep] = useState("heavy-car-brands");
   const [isLoading, setIsLoading] = useState(false);
   const [searchValue, setSearchValue] = useState([]);
   const [searchInputValue, setSearchInputValue] = useState("");
@@ -45,6 +48,12 @@ const SelectProvinceAndCarBox = (props) => {
       setMotorStep("motor-models");
       setSelectedItem(motorModel);
     }
+    if (heavyCarStep === "heavy-car-models") {
+      setHeavyCarStep("heavy-car-brands");
+    } else if (heavyCarStep === "heavy-car-tips") {
+      setHeavyCarStep("heavy-car-models");
+      setSelectedItem(heavyCarModel);
+    }
   };
 
   const myVehicleChangeHandler = (event) => {
@@ -61,6 +70,7 @@ const SelectProvinceAndCarBox = (props) => {
           setMyVehicleData(res.data.data);
           setStep("car-tips");
           setMotorStep("motor-tips");
+          setHeavyCarStep("heavy-car-tips");
           setIsLoading(false);
         })
         .catch((err) => {
@@ -75,24 +85,29 @@ const SelectProvinceAndCarBox = (props) => {
       setIsLoading(false);
       setStep("car-brands");
       setMotorStep("motor-brands");
+      setHeavyCarStep("heavy-car-brands");
     }
   };
 
   const searchVehicleHandler = (e) => {
     if (isClicked === 0) {
       setSearchInputValue(e.target.value);
-      console.log("iman");
       const result = searchValue.filter((i) =>
         i.title.includes(e.target.value),
       );
       setCarBrands(result);
     } else if (isClicked === 1) {
       setSearchInputValue(e.target.value);
-      console.log("peyman");
       const result = searchValue.filter((i) =>
         i.title.includes(e.target.value),
       );
       setMotorBrands(result);
+    } else if (isClicked === 2) {
+      setSearchInputValue(e.target.value);
+      const result = searchValue.filter((i) =>
+        i.title.includes(e.target.value),
+      );
+      setHeavyCarBrands(result);
     }
   };
 
@@ -120,6 +135,7 @@ const SelectProvinceAndCarBox = (props) => {
     setIsClicked(index);
     setMotorStep("motor-brands");
     setStep("car-brands");
+    setHeavyCarStep("heavy-car-brands");
   };
 
   const packageStepHandler = () => {
@@ -206,7 +222,38 @@ const SelectProvinceAndCarBox = (props) => {
         })
         .catch((err) => console.log(err));
     }
-  }, [step, motorStep, isClicked, myVehicleIsChecked]);
+    if (heavyCarStep === "heavy-car-brands") {
+      axios
+        .get(process.env.BASE_API + "/web" + "/heavy-car-brands")
+        .then((res) => {
+          setIsLoading(false);
+          setSearchValue(res.data.data);
+          setHeavyCarBrands(res.data.data);
+        })
+        .catch((err) => console.log(err));
+    } else if (heavyCarStep === "car-models") {
+      axios
+        .get(
+          process.env.BASE_API + "/web" + "/heavy-car-models/" + selectedItem,
+        )
+        .then((res) => {
+          setHeavyCarBrands(res.data.data);
+          setSearchValue(res.data.data);
+          setHeavyCarModel(selectedItem);
+          setIsLoading(false);
+        })
+        .catch((err) => console.log(err));
+    } else if (heavyCarStep === "car-tips") {
+      axios
+        .get(process.env.BASE_API + "/web" + "/heavy-car-tips/" + selectedItem)
+        .then((res) => {
+          setHeavyCarBrands(res.data.data);
+          setSearchValue(res.data.data);
+          setIsLoading(false);
+        })
+        .catch((err) => console.log(err));
+    }
+  }, [step, motorStep, isClicked, myVehicleIsChecked, heavyCarStep]);
 
   const tabTitle = [
     { name: "خودرو" },
@@ -367,6 +414,8 @@ const SelectProvinceAndCarBox = (props) => {
           image={image}
           motorStep={motorStep}
           setMotorStep={setMotorStep}
+          heavyCarStep={heavyCarStep}
+          setHeavyCarStep={setHeavyCarStep}
           myVehicleIsChecked={myVehicleIsChecked}
           data={
             myVehicleIsChecked
@@ -375,7 +424,9 @@ const SelectProvinceAndCarBox = (props) => {
                 ? carBrands
                 : isClicked === 1
                   ? motorBrands
-                  : ""
+                  : isClicked === 2
+                    ? heavyCarBrands
+                    : ""
           }
         />
       )}
