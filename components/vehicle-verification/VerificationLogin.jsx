@@ -86,7 +86,11 @@ const VerificationLogin = () => {
         })
         .catch((err) => {
           if (err.response.status === 422) {
-            error(err.response.data.message[0]);
+            console.log(err);
+            err.response.data.message.mobile &&
+              error(err.response.data.message.mobile[0]);
+            err.response.data.message.name &&
+              error(err.response.data.message.name[0]);
           }
         });
     } else {
