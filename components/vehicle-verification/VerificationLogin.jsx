@@ -11,6 +11,7 @@ import Timer from "@/components/vehicle-verification/Timer";
 import axios from "axios";
 import useSetQuery from "@/hook/useSetQuery";
 import { useSearchParams } from "next/navigation";
+import { setCookie } from "cookies-next";
 
 const VerificationLogin = () => {
   const [nameValue, setNameValue] = useState("");
@@ -50,6 +51,7 @@ const VerificationLogin = () => {
           mobileValue,
       )
       .then((res) => {
+        setCookie("Authorization", res.data.token);
         setQuery.setMultiQuery([
           { key: "city_id", value: city_id },
           {
