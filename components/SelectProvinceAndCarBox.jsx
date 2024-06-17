@@ -150,14 +150,21 @@ const SelectProvinceAndCarBox = (props) => {
           city,
       )
       .then((res) => {
-        setQuery.setMultiQuery([
-          { key: "city_id", value: 87 },
-          { key: "vehicle_tip", value: selectedItem },
-          { key: "step", value: "step-1" },
-        ]);
+        console.log(res.data);
+        if (res.data.data.length === 0) {
+          error("پکبجی برای این وسیله نقلیه وجود ندارد");
+        } else {
+          setQuery.setMultiQuery([
+            { key: "city_id", value: 87 },
+            { key: "vehicle_tip", value: selectedItem },
+            { key: "step", value: "step-1" },
+          ]);
+        }
       })
       .catch((err) => {
-        error(err.response.data.message);
+        if (err.response.status) {
+          error(err.response.data.message.vehicle_tip_id[0]);
+        }
         console.log(err);
       });
   };
