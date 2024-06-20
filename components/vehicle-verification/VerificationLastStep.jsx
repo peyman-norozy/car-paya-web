@@ -37,7 +37,7 @@ const VerificationLastStep = () => {
 
   const weekDay =
     data &&
-    new Date(data.created_at * 1000).toLocaleDateString("fa-IR", {
+    new Date(data.reservation_time_day * 1000).toLocaleDateString("fa-IR", {
       weekday: "long",
     });
 
@@ -136,7 +136,11 @@ const VerificationLastStep = () => {
       </div>
       <div className={"flex items-center gap-2 my-[1.75rem]"}>
         <p>{weekDay}</p>
-        <p>{new Date(data.created_at * 1000).toLocaleDateString("fa-IR")}</p>
+        <p>
+          {new Date(data.reservation_time_day * 1000).toLocaleDateString(
+            "fa-IR",
+          )}
+        </p>
         <p>ساعت {data.exact_time}</p>
       </div>
       {data.address_info && data.address_info.code_delegate ? (
