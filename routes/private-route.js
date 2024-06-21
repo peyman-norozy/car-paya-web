@@ -1,7 +1,7 @@
 "use client";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { deleteCookie } from "cookies-next";
+import { deleteCookie, getCookie } from "cookies-next";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "@/store/loginCheckerSlice";
 
@@ -12,10 +12,15 @@ const PrivateRoute = ({ children }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    // if(authValue) {
-    dispatch(loginUser()).then((res) => console.log(res));
-    // }
+    if (getCookie("Authorization")) {
+      dispatch(loginUser()).then((res) => console.log(res));
+    }
   }, []);
+
+  if (!getCookie("Authorization")) {
+    router.push("/login");
+    return;
+  }
 
   if (loginResult.user === null && loginResult.error === null) {
     return <div style={{ width: "100%", height: "600px" }}>... loading</div>;
