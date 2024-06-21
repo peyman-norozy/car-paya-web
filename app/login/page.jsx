@@ -11,9 +11,6 @@ const ProtectedRoute = dynamic(() => import("@/routes/protected-route"), {
 });
 export default function Login() {
   const [loginState, setLoginState] = useState("phone_number");
-  useEffect(() => {
-    console.log("peyman");
-  }, []);
 
   return (
     <ProtectedRoute>
