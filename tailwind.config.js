@@ -5,6 +5,7 @@ module.exports = {
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
     "./layouts/**/*.{js,ts,jsx,tsx,mdx}",
+    "./routes/**/*.{js,ts,jsx,tsx,mdx",
   ],
   theme: {
     extend: {
@@ -14,33 +15,32 @@ module.exports = {
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
       colors: {
-        text_gray: '#303030',
-        RED_100: '#fad3d1',
-        RED_200: '#f4a8a4',
-        RED_300: '#ef7c76',
-        RED_400: '#e95149',
-        RED_500: '#e73c33',
-        RED_600: '#b61e16',
-        RED_700: '#891610',
-        RED_800: '#5b0f0b',
-        RED_900: '#5b0f0b',
-        BLUE_50: '#eceef8',
-        BLUE_100: '#d9ddf2',
-        BLUE_200: '#b4bce4',
-        BLUE_300: '#8e9ad7',
-        BLUE_400: '#6878ca',
-        BLUE_500: '#212b5e',
-        BLUE_600: '#354597',
-        BLUE_700: '#283471',
-        BLUE_800: '#1b234b',
-        BLUE_900: '#0d1126',
+        text_gray: "#303030",
+        RED_100: "#fad3d1",
+        RED_200: "#f4a8a4",
+        RED_300: "#ef7c76",
+        RED_400: "#e95149",
+        RED_500: "#e73c33",
+        RED_600: "#b61e16",
+        RED_700: "#891610",
+        RED_800: "#5b0f0b",
+        RED_900: "#5b0f0b",
+        BLUE_50: "#eceef8",
+        BLUE_100: "#d9ddf2",
+        BLUE_200: "#b4bce4",
+        BLUE_300: "#8e9ad7",
+        BLUE_400: "#6878ca",
+        BLUE_500: "#212b5e",
+        BLUE_600: "#354597",
+        BLUE_700: "#283471",
+        BLUE_800: "#1b234b",
+        BLUE_900: "#0d1126",
         red_shop: "#d52726",
         red_user: "#989898",
         gray_nav: "#454952",
         purple_primary: "#453984",
-        gray_light:"#ECEEF8",
+        gray_light: "#ECEEF8",
         gray_light_border: "#eaeaea",
-
       },
       fontSize: {
         10: "10px",
@@ -191,8 +191,8 @@ module.exports = {
         size1470: "1470px",
         // => @media (min-width: 1470px) { ... }
 
-        size1510: '1510px',
-// => @media (min-width: 1510px) { ... }
+        size1510: "1510px",
+        // => @media (min-width: 1510px) { ... }
         size1570: "1570px",
         // => @media (min-width: 1570px) { ... }
 
