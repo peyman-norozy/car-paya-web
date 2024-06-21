@@ -19,6 +19,7 @@ const PrivateRoute = ({ children }) => {
 
   if (!getCookie("Authorization")) {
     router.push("/login");
+    deleteCookie("Authorization");
     return;
   }
 
