@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "@/store/loginCheckerSlice";
 import { useEffect } from "react";
 import { deleteCookie, getCookie } from "cookies-next";
+import { setLoginState } from "@/store/todoSlice";
 
 const ProtectedRoute = ({ children }) => {
   const loginResult = useSelector((item) => item.loginChecker);
@@ -17,11 +18,13 @@ const ProtectedRoute = ({ children }) => {
   }, []);
 
   if (!getCookie("Authorization")) {
+    dispatch(setLoginState(true));
     return children;
   }
 
   if (loginResult.error) {
     deleteCookie("Authorization");
+    dispatch(setLoginState(true));
     return children;
   }
 
