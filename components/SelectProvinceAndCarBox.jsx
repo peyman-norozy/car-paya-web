@@ -1,11 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
 import axios from "axios";
-import { API_PATHS } from "@/configs/routes.config";
 import Input from "@/components/Input";
 import ShowMyVehicles from "@/components/ShowMyVehicles";
 import Spinner from "@/components/Spinner";
 import useSetQuery from "@/hook/useSetQuery";
 import { error } from "@/utils/function-utils";
+import { getCookie } from "cookies-next";
 
 const SelectProvinceAndCarBox = (props) => {
   const { cityData } = props;
@@ -19,9 +19,14 @@ const SelectProvinceAndCarBox = (props) => {
   const [motorBrands, setMotorBrands] = useState([]);
   const [carModel, setCarModel] = useState([]);
   const [motorModel, setMotorModel] = useState([]);
+  const [heavyCarBrands, setHeavyCarBrands] = useState([]);
+  const [heavyCarModel, setHeavyCarModel] = useState([]);
   const [selectedItem, setSelectedItem] = useState(null);
+  const [myVehicleData, setMyVehicleData] = useState([]);
+  const [myVehicleIsChecked, setMyVehicleIsChecked] = useState(false);
   const [step, setStep] = useState("car-brands");
   const [motorStep, setMotorStep] = useState("motor-brands");
+  const [heavyCarStep, setHeavyCarStep] = useState("heavy-car-brands");
   const [isLoading, setIsLoading] = useState(false);
   const [searchValue, setSearchValue] = useState([]);
   const [searchInputValue, setSearchInputValue] = useState("");
@@ -29,8 +34,6 @@ const SelectProvinceAndCarBox = (props) => {
 
   const cityRef = useRef();
   const setQuery = useSetQuery();
-
-  const myVehicleData = [];
 
   const backStepHandler = () => {
     if (step === "car-models") {
@@ -45,23 +48,66 @@ const SelectProvinceAndCarBox = (props) => {
       setMotorStep("motor-models");
       setSelectedItem(motorModel);
     }
+    if (heavyCarStep === "heavy-car-models") {
+      setHeavyCarStep("heavy-car-brands");
+    } else if (heavyCarStep === "heavy-car-tips") {
+      setHeavyCarStep("heavy-car-models");
+      setSelectedItem(heavyCarModel);
+    }
+  };
+
+  const myVehicleChangeHandler = (event) => {
+    setIsLoading(true);
+    if (event.target.checked) {
+      setMyVehicleIsChecked(true);
+      axios
+        .get(process.env.BASE_API + "/web/vehicles", {
+          headers: {
+            Authorization: `Bearer ${getCookie("Authorization")}`,
+          },
+        })
+        .then((res) => {
+          setMyVehicleData(res.data.data);
+          setStep("car-tips");
+          setMotorStep("motor-tips");
+          setHeavyCarStep("heavy-car-tips");
+          setIsLoading(false);
+        })
+        .catch((err) => {
+          console.log(err);
+          setIsLoading(false);
+          if (err.response.status === 401) {
+            error("برای نمایش وسیله های من ابتدا وارد حساب کاربری شوید");
+          }
+        });
+    } else {
+      setMyVehicleIsChecked(false);
+      setIsLoading(false);
+      setStep("car-brands");
+      setMotorStep("motor-brands");
+      setHeavyCarStep("heavy-car-brands");
+    }
   };
 
   const searchVehicleHandler = (e) => {
     if (isClicked === 0) {
       setSearchInputValue(e.target.value);
-      console.log("iman");
       const result = searchValue.filter((i) =>
         i.title.includes(e.target.value),
       );
       setCarBrands(result);
     } else if (isClicked === 1) {
       setSearchInputValue(e.target.value);
-      console.log("peyman");
       const result = searchValue.filter((i) =>
         i.title.includes(e.target.value),
       );
       setMotorBrands(result);
+    } else if (isClicked === 2) {
+      setSearchInputValue(e.target.value);
+      const result = searchValue.filter((i) =>
+        i.title.includes(e.target.value),
+      );
+      setHeavyCarBrands(result);
     }
   };
 
@@ -89,6 +135,7 @@ const SelectProvinceAndCarBox = (props) => {
     setIsClicked(index);
     setMotorStep("motor-brands");
     setStep("car-brands");
+    setHeavyCarStep("heavy-car-brands");
   };
 
   const packageStepHandler = () => {
@@ -103,14 +150,21 @@ const SelectProvinceAndCarBox = (props) => {
           city,
       )
       .then((res) => {
-        setQuery.setMultiQuery([
-          { key: "city_id", value: 87 },
-          { key: "vehicle_tip", value: selectedItem },
-          { key: "step", value: "step-1" },
-        ]);
+        console.log(res.data);
+        if (res.data.data.length === 0) {
+          error("پکبجی برای این وسیله نقلیه وجود ندارد");
+        } else {
+          setQuery.setMultiQuery([
+            { key: "city_id", value: 87 },
+            { key: "vehicle_tip", value: selectedItem },
+            { key: "step", value: "step-1" },
+          ]);
+        }
       })
       .catch((err) => {
-        error(err.response.data.message);
+        if (err.response.status) {
+          error(err.response.data.message.vehicle_tip_id[0]);
+        }
         console.log(err);
       });
   };
@@ -175,7 +229,38 @@ const SelectProvinceAndCarBox = (props) => {
         })
         .catch((err) => console.log(err));
     }
-  }, [step, motorStep, isClicked]);
+    if (heavyCarStep === "heavy-car-brands") {
+      axios
+        .get(process.env.BASE_API + "/web" + "/heavy-car-brands")
+        .then((res) => {
+          setIsLoading(false);
+          setSearchValue(res.data.data);
+          setHeavyCarBrands(res.data.data);
+        })
+        .catch((err) => console.log(err));
+    } else if (heavyCarStep === "heavy-car-models") {
+      axios
+        .get(
+          process.env.BASE_API + "/web" + "/heavy-car-models/" + selectedItem,
+        )
+        .then((res) => {
+          setHeavyCarBrands(res.data.data);
+          setSearchValue(res.data.data);
+          setHeavyCarModel(selectedItem);
+          setIsLoading(false);
+        })
+        .catch((err) => console.log(err));
+    } else if (heavyCarStep === "heavy-car-tips") {
+      axios
+        .get(process.env.BASE_API + "/web" + "/heavy-car-tips/" + selectedItem)
+        .then((res) => {
+          setHeavyCarBrands(res.data.data);
+          setSearchValue(res.data.data);
+          setIsLoading(false);
+        })
+        .catch((err) => console.log(err));
+    }
+  }, [step, motorStep, isClicked, myVehicleIsChecked, heavyCarStep]);
 
   const tabTitle = [
     { name: "خودرو" },
@@ -185,25 +270,9 @@ const SelectProvinceAndCarBox = (props) => {
 
   useEffect(() => {
     axios
-      .get(process.env.BASE_API + "/web" + API_PATHS.GEOPROVINCES)
+      .get(process.env.BASE_API + "/web/geo/province_cities?title=")
       .then((res) => {
-        const tehran = res.data.data.filter((item) => item.title === "تهران");
-        setProvince(tehran);
-      })
-      .catch((err) => console.log(err));
-    axios
-      .get(
-        process.env.BASE_API +
-          "/web" +
-          API_PATHS.GEOCITIES +
-          "/" +
-          selectedProvince,
-      )
-      .then((res) => {
-        const tehran = res.data.data.filter((item) => item.title === "تهران");
-
-        setCity(tehran);
-        props.setCity_id(tehran[0].id);
+        console.log(res.data);
       })
       .catch((err) => console.log(err));
   }, [selectedProvince]);
@@ -222,8 +291,6 @@ const SelectProvinceAndCarBox = (props) => {
       });
     };
   }, []);
-
-  console.log(carBrands);
 
   return (
     <div
@@ -296,7 +363,11 @@ const SelectProvinceAndCarBox = (props) => {
       </div>
       <div className={"flex items-center gap-2 mb-4"}>
         <p className={"text-14 font-medium"}>کارشناسی وسیله من</p>
-        <Input type={"checkbox"} className={"h-[22px] w-[22px]"} />
+        <Input
+          type={"checkbox"}
+          on_change={myVehicleChangeHandler}
+          className={"h-[22px] w-[22px]"}
+        />
       </div>
       <div className={"flex gap-2"}>
         <i className={"cc-arrow-right text-18"} onClick={backStepHandler} />
@@ -350,12 +421,19 @@ const SelectProvinceAndCarBox = (props) => {
           image={image}
           motorStep={motorStep}
           setMotorStep={setMotorStep}
+          heavyCarStep={heavyCarStep}
+          setHeavyCarStep={setHeavyCarStep}
+          myVehicleIsChecked={myVehicleIsChecked}
           data={
-            isClicked === 0
-              ? carBrands
-              : isClicked === 1
-                ? motorBrands
-                : myVehicleData
+            myVehicleIsChecked
+              ? myVehicleData
+              : isClicked === 0
+                ? carBrands
+                : isClicked === 1
+                  ? motorBrands
+                  : isClicked === 2
+                    ? heavyCarBrands
+                    : ""
           }
         />
       )}

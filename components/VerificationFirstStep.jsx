@@ -101,7 +101,7 @@ const VerificationFirstStep = (props) => {
               <div className={"relative"}>
                 <Image
                   src={"/assets/images/mainPicVerification.png"}
-                  alt={""}
+                  alt={"car"}
                   width={824}
                   height={377}
                   className={"w-full min-h-[200px] lg:h-[377px]"}

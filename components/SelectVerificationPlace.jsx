@@ -14,9 +14,9 @@ import { error } from "@/utils/function-utils";
 import { ToastContainer } from "react-toastify";
 
 const SelectVerificationPlace = (props) => {
-  const { title, description, id, onClick, isSelected } = props;
+  const { title, description, id, setIsSelected, isSelected, setChosenTime } =
+    props;
   const [isClicked, setIsClicked] = useState(null);
-  const [isChecked, setIsChecked] = useState(false);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [carCheckLocations, setCarCheckLocations] = useState([]);
   const [myLocationData, setMyLocationData] = useState([]);
@@ -38,34 +38,33 @@ const SelectVerificationPlace = (props) => {
     setSelectedPlaceId({ label: label, value: id });
     setIsClicked(id);
   };
+  const selectPlaceHandler = (id) => {
+    if (carCheckLocations.length > 0) {
+      setIsSelected(id);
+    } else {
+      return "";
+    }
+  };
 
   const continueStepHandler = () => {
     if (
       selectedPlaceId.label !== undefined &&
       selectedPlaceId.value !== undefined
     ) {
-      if (isChecked) {
-        setQuery.setMultiQuery([
-          { key: "step", value: "step-5" },
-          { key: "city_id", value: city_id },
-          {
-            key: "vehicle_tip",
-            value: selectedItem,
-          },
-          { key: "package_id", value: package_id },
-          { key: "time_id", value: time_id },
-          { key: selectedPlaceId.label, value: selectedPlaceId.value },
-        ]);
-      } else {
-        error("با قوانین و سیاست نامه موافقت کنید");
-      }
+      setQuery.setMultiQuery([
+        { key: "step", value: "step-5" },
+        { key: "city_id", value: city_id },
+        {
+          key: "vehicle_tip",
+          value: selectedItem,
+        },
+        { key: "package_id", value: package_id },
+        { key: "time_id", value: time_id },
+        { key: selectedPlaceId.label, value: selectedPlaceId.value },
+      ]);
     } else {
       error("لوکیشن مورد نظر را انتخاب کنید");
     }
-  };
-
-  const rulesChangeHandler = (e) => {
-    setIsChecked(e.target.checked);
   };
 
   useEffect(() => {
@@ -74,7 +73,9 @@ const SelectVerificationPlace = (props) => {
       .get(
         process.env.BASE_API +
           "/web/expert/reservation?step=step-5&type=DELEGATE&city_id=" +
-          city_id,
+          city_id +
+          "&reservation_time_slice_id=" +
+          time_id.split("/")[0],
         {
           headers: {
             Authorization: "Bearer " + getCookie("Authorization"),
@@ -82,8 +83,8 @@ const SelectVerificationPlace = (props) => {
         },
       )
       .then((res) => {
-        console.log(res.data.data);
         setCarCheckLocations(res.data.data);
+        setChosenTime(res.data.time);
       })
       .catch((err) => console.log(err));
     //   ///////////////////////////////////
@@ -92,7 +93,9 @@ const SelectVerificationPlace = (props) => {
       .get(
         process.env.BASE_API +
           "/web/expert/reservation?step=step-5&type=EXPERT&city_id=" +
-          city_id,
+          city_id +
+          "&reservation_time_slice_id=" +
+          time_id.split("/")[0],
         {
           headers: {
             Authorization: "Bearer " + getCookie("Authorization"),
@@ -101,6 +104,7 @@ const SelectVerificationPlace = (props) => {
       )
       .then((res) => {
         setMyLocationData(res.data.data);
+        setChosenTime(res.data.time);
       })
       .catch((err) => console.log(err));
   }, [fetchData]);
@@ -132,7 +136,7 @@ const SelectVerificationPlace = (props) => {
         className={`relative bg-[#ECEEF8] px-[1rem] py-[1rem] rounded-10 flex flex-col gap-5 size690:gap-0 size690:flex-row justify-between ${
           isSelected === id ? "opacity-[1]" : "opacity-[0.5]"
         }`}
-        onClick={onClick}
+        onClick={() => selectPlaceHandler(id)}
       >
         <div>
           <div className="flex items-center gap-[0.5rem] mb-[0.25rem]">
@@ -144,7 +148,7 @@ const SelectVerificationPlace = (props) => {
           </div>
           <p className="text-14 text-[#505050]">{description}</p>
         </div>
-        {isSelected === 0 && (
+        {isSelected === id && isSelected === 0 && (
           <button
             onClick={openModalHandler}
             className={
@@ -158,14 +162,13 @@ const SelectVerificationPlace = (props) => {
       </div>
       {isSelected === id && (
         <div className=" w-full flex flex-col gap-[1.5rem] mt-[1.5rem]">
-          {myLocationData.length > 0 && isSelected === 0
-            ? myLocationData.map((item, index) => (
+          {isSelected === 0 ? (
+            myLocationData.length > 0 ? (
+              myLocationData.map((item, index) => (
                 <MyLocations
                   selectedPlaceId={selectedPlaceId}
                   setSelectedPlaceId={setSelectedPlaceId}
                   setFetchData={setFetchData}
-                  modalIsOpen={modalIsOpen}
-                  setModalIsOpen={setModalIsOpen}
                   province={item.province_name}
                   city={item.city_name}
                   title={item.title}
@@ -177,44 +180,50 @@ const SelectVerificationPlace = (props) => {
                   on_click={() => selectLocationHandler(item.id, "expert-id")}
                 />
               ))
-            : carCheckLocations.length > 0 &&
-              carCheckLocations.map((item, index) => (
-                <CarCheckLocations
-                  selectedPlaceId={selectedPlaceId}
-                  setSelectedPlaceId={setSelectedPlaceId}
-                  key={index}
-                  id={item.id}
-                  name={item.name}
-                  longitude={item.longitude}
-                  latitude={item.latitude}
-                  code={item.code_delegate}
-                  address={item.address}
-                  title={item.name}
-                  isSelected={isClicked}
-                  on_click={() => selectLocationHandler(item.id, "delegate-id")}
-                />
-              ))}
+            ) : (
+              <p>آدرسی برای شما ثبت نشده است</p>
+            )
+          ) : carCheckLocations.length > 0 ? (
+            carCheckLocations.map((item, index) => (
+              <CarCheckLocations
+                selectedPlaceId={selectedPlaceId}
+                setSelectedPlaceId={setSelectedPlaceId}
+                key={index}
+                id={item.id}
+                name={item.name}
+                longitude={item.longitude}
+                latitude={item.latitude}
+                code={item.code_delegate}
+                address={item.address}
+                title={item.name}
+                isSelected={isClicked}
+                on_click={() => selectLocationHandler(item.id, "delegate-id")}
+              />
+            ))
+          ) : (
+            ""
+          )}
 
           <div>
             <div className="flex flex-col items-start gap-[1rem] size525:flex-row size525:gap-0 size525:items-center justify-between mb-[3rem]">
-              <div className={"flex items-center gap-1 mb-[1rem]"}>
-                <Input
-                  type={"checkbox"}
-                  on_change={rulesChangeHandler}
-                  className={"h-[22px] w-[22px]"}
-                />
-                <p className={"text-14"}>
-                  <Link href="#" className={"text-RED_400"}>
-                    قوانین کارچک
-                  </Link>{" "}
-                  و{" "}
-                  <Link href="#" className={"text-BLUE_600"}>
-                    {" "}
-                    سياست نامه حريم خصوصی
-                  </Link>
-                  . را میپذیرم.
-                </p>
-              </div>
+              {/*<div className={"flex items-center gap-1 mb-[1rem]"}>*/}
+              {/*  <Input*/}
+              {/*    type={"checkbox"}*/}
+              {/*    on_change={rulesChangeHandler}*/}
+              {/*    className={"h-[22px] w-[22px]"}*/}
+              {/*  />*/}
+              {/*  <p className={"text-14"}>*/}
+              {/*    <Link href="#" className={"text-RED_400"}>*/}
+              {/*      قوانین کارچک*/}
+              {/*    </Link>{" "}*/}
+              {/*    و{" "}*/}
+              {/*    <Link href="#" className={"text-BLUE_600"}>*/}
+              {/*      {" "}*/}
+              {/*      سياست نامه حريم خصوصی*/}
+              {/*    </Link>*/}
+              {/*    . را میپذیرم.*/}
+              {/*  </p>*/}
+              {/*</div>*/}
               <Button
                 on_click={continueStepHandler}
                 class_name={

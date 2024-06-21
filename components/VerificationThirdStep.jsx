@@ -5,7 +5,8 @@ import useSetQuery from "@/hook/useSetQuery";
 import { useSearchParams } from "next/navigation";
 
 const VerificationThirdStep = (props) => {
-  const [isSelected, setIsSelected] = useState(false);
+  const [isSelected, setIsSelected] = useState(0);
+  const [chosenTime, setChosenTime] = useState("");
   const searchParams = useSearchParams();
   const city_id = searchParams.get("city_id");
   const selectedItem = searchParams.get("vehicle_tip");
@@ -24,10 +25,6 @@ const VerificationThirdStep = (props) => {
       description: "برای کارشناسی باید به یکی از مراکز کارچک مراجعه کنید.",
     },
   ];
-
-  const selectPlaceHandler = (id) => {
-    setIsSelected(id);
-  };
 
   const backstopHandler = () => {
     setQuery.deleteSingleQuery(
@@ -61,7 +58,11 @@ const VerificationThirdStep = (props) => {
         </p>
       </div>
       <div className="pb-[3rem] pt-4">
-        <ChangeServiceTime on_click={backstopHandler} />
+        <ChangeServiceTime
+          on_click={backstopHandler}
+          exact_time={time_id.split("/")[1]}
+          chosenTime={chosenTime}
+        />
         <div className="mt-[5rem] flex flex-col gap-[1.5rem]">
           {placeData.map((item, index) => (
             <SelectVerificationPlace
@@ -69,9 +70,10 @@ const VerificationThirdStep = (props) => {
               isSelected={isSelected}
               id={index}
               key={index}
-              onClick={() => selectPlaceHandler(index)}
+              setIsSelected={setIsSelected}
               title={item.title}
               description={item.description}
+              setChosenTime={setChosenTime}
             />
           ))}
         </div>

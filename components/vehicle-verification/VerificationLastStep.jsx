@@ -5,7 +5,13 @@ import useSetQuery from "@/hook/useSetQuery";
 import { useSearchParams } from "next/navigation";
 import axios from "axios";
 import { getCookie } from "cookies-next";
-import { numberWithCommas, persianDateCovertor } from "@/utils/function-utils";
+import {
+  error,
+  numberWithCommas,
+  persianDateCovertor,
+} from "@/utils/function-utils";
+import { ToastContainer } from "react-toastify";
+import MyLocations from "@/components/MyLocations";
 
 const VerificationLastStep = () => {
   const searchParams = useSearchParams();
@@ -17,6 +23,8 @@ const VerificationLastStep = () => {
   const delegate_id = searchParams.get("delegate-id");
   const params = new URLSearchParams(searchParams.toString());
   const [data, setData] = useState("");
+  const [price, setPrice] = useState(null);
+  const [discount, setDiscount] = useState(null);
   const [discountValue, setDiscountValue] = useState("");
 
   const setQuery = useSetQuery();
@@ -24,12 +32,12 @@ const VerificationLastStep = () => {
   if (delegate_id === null) {
     locationId = "&expert_id=2&user_address_id=" + expert_id;
   } else {
-    locationId = "&expert_id=null&delegate_id=" + delegate_id;
+    locationId = "&delegate_id=" + delegate_id;
   }
 
   const weekDay =
     data &&
-    new Date(data.created_at * 1000).toLocaleDateString("fa-IR", {
+    new Date(data.reservation_time_day * 1000).toLocaleDateString("fa-IR", {
       weekday: "long",
     });
 
@@ -46,9 +54,15 @@ const VerificationLastStep = () => {
       .post(process.env.BASE_API + "/web/cart/discount-master", fd)
       .then((res) => {
         console.log(res);
+        setPrice(res.data.data.price_total);
+        setDiscount(res.data.data.discount_total);
+        setDiscountValue("");
       })
       .catch((err) => {
         console.log(err);
+        if (err.response.status === 422) {
+          error(err.response.data.message);
+        }
       });
   };
   const backStepHandler = () => {
@@ -98,6 +112,7 @@ const VerificationLastStep = () => {
         }
       });
   }, []);
+
   return (
     <div
       className={"w-[90%] size1000:w-[80%] size1136:w-[70%] m-auto pt-[2rem]"}
@@ -121,17 +136,34 @@ const VerificationLastStep = () => {
       </div>
       <div className={"flex items-center gap-2 my-[1.75rem]"}>
         <p>{weekDay}</p>
-        <p>{new Date(data.created_at * 1000).toLocaleDateString("fa-IR")}</p>
+        <p>
+          {new Date(data.reservation_time_day * 1000).toLocaleDateString(
+            "fa-IR",
+          )}
+        </p>
         <p>ساعت {data.exact_time}</p>
       </div>
-      <CarCheckLocations
-        id={2}
-        name={"حسام حسامی"}
-        call={"0912 425-2522"}
-        code={"021021"}
-        address={"تهران، کوروش بزرگ، بین داریوش اول و داریوش دوم پلاک 6"}
-        title={"کارشناسی خودرو ایمان"}
-      />
+      {data.address_info && data.address_info.code_delegate ? (
+        <CarCheckLocations
+          id={2}
+          name={data.address_info && data.address_info.name}
+          code={data.address_info && data.address_info.code_delegate}
+          address={data.address_info && data.address_info.address}
+          title={data.address_info && data.address_info.name}
+          latitude={data.address_info && data.address_info.map.split(",")[0]}
+          longitude={data.address_info && data.address_info.map.split(",")[1]}
+          last={true}
+        />
+      ) : (
+        <MyLocations
+          title={data.address_info && data.address_info.title}
+          address={data.address_info && data.address_info.address}
+          map={","}
+          province={data.address_info && data.address_info.province_name}
+          city={data.address_info && data.address_info.city_name}
+        />
+      )}
+
       <form
         onSubmit={discountSubmitHandler}
         className={"mt-[36px] w-full size1000:w-[60%]"}
@@ -177,8 +209,8 @@ const VerificationLastStep = () => {
           <p>{numberWithCommas(data.price)} تومان</p>
         </div>
         <div className={"flex items-center justify-between"}>
-          <p>کد تخفیف</p>
-          <p></p>
+          <p>تخفیف</p>
+          <p>{discount ? discount.toLocaleString() + "تومان" : ""} </p>
         </div>
       </div>
       <div
@@ -188,7 +220,10 @@ const VerificationLastStep = () => {
       >
         <div className={"text-BLUE_600 text-16 size752:text-18"}>
           <p className={"border-b border-b-BLUE_600"}>جمع قابل پرداخت</p>
-          <p>{numberWithCommas(data.price)} تومان</p>
+          <p>
+            {price ? price.toLocaleString() : numberWithCommas(data.price)}
+            تومان
+          </p>
         </div>
         <button
           className={
@@ -198,6 +233,7 @@ const VerificationLastStep = () => {
           تایید
         </button>
       </div>
+      <ToastContainer />
     </div>
   );
 };

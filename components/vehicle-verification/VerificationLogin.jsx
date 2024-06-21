@@ -11,6 +11,7 @@ import Timer from "@/components/vehicle-verification/Timer";
 import axios from "axios";
 import useSetQuery from "@/hook/useSetQuery";
 import { useSearchParams } from "next/navigation";
+import { setCookie } from "cookies-next";
 
 const VerificationLogin = () => {
   const [nameValue, setNameValue] = useState("");
@@ -44,14 +45,13 @@ const VerificationLogin = () => {
     axios
       .get(
         process.env.BASE_API +
-          "/web/expert/reservation?step=step-3&name=" +
-          nameValue +
+          "/web/expert/reservation?step=step-4&otp=" +
+          otp +
           "&mobile=" +
-          mobileValue +
-          "&otp=" +
-          otp,
+          mobileValue,
       )
       .then((res) => {
+        setCookie("Authorization", res.data.token);
         setQuery.setMultiQuery([
           { key: "city_id", value: city_id },
           {
@@ -66,11 +66,10 @@ const VerificationLogin = () => {
       .catch((err) => {
         console.log(err);
         if (err.response.status === 422) {
-          error(err.response.data.message[0]);
+          error(err.response.data.errors.otp[0]);
         }
       });
   };
-  console.log(mobileValue);
   const nameAndMobileSubmitHandler = (event) => {
     event.preventDefault();
     if (rulesState) {
@@ -87,7 +86,11 @@ const VerificationLogin = () => {
         })
         .catch((err) => {
           if (err.response.status === 422) {
-            error(err.response.data.message[0]);
+            console.log(err);
+            err.response.data.message.mobile &&
+              error(err.response.data.message.mobile[0]);
+            err.response.data.message.name &&
+              error(err.response.data.message.name[0]);
           }
         });
     } else {
@@ -96,7 +99,7 @@ const VerificationLogin = () => {
   };
 
   return (
-    <div className="flex items-center justify-between w-[95%] size1180:w-[90%] size1275:w-[80%] m-auto py-[4rem]">
+    <div className="flex items-center justify-center lg:justify-between w-[95%] size1180:w-[90%] size1275:w-[80%] m-auto py-[4rem]">
       {(() => {
         switch (loginState) {
           case "name":
@@ -239,6 +242,7 @@ const VerificationLogin = () => {
         alt="login image"
         width={702}
         height={462}
+        className={"hidden lg:block"}
       />
       <ToastContainer />
     </div>
