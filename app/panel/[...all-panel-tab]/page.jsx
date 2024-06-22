@@ -26,6 +26,7 @@ import HistoryCreate from "@/components/HistoryCreate";
 import { panelTabData } from "@/staticData/data";
 import Discount from "@/components/Discount/Discount";
 import Verification from "@/components/vehicle-verification/Verification";
+import PrivateRoute from "@/routes/private-route";
 
 const AllPanelTab = (props) => {
   const [logoutModalState, setLogoutModalState] = useState(false);
@@ -61,7 +62,7 @@ const AllPanelTab = (props) => {
   console.log(allUrl);
 
   return (
-    <Fragment>
+    <PrivateRoute>
       <div className="mt-[50px] mb-[100px] size690:mx-[50px] mx-0">
         <div className="flex items-center gap-4 mb-[30px] mt-[100px]">
           <Image
@@ -178,7 +179,7 @@ const AllPanelTab = (props) => {
       {logoutModalState && (
         <LogoutModal setLogoutModalState={setLogoutModalState} />
       )}
-    </Fragment>
+    </PrivateRoute>
   );
 };
 
