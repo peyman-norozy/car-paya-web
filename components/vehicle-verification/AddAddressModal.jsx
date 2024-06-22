@@ -44,11 +44,13 @@ const AddressModal = (props) => {
 
     {
       props.deliveryPackage && formData.set("user_delivery", checkBoxState);
-      formData.set(
-        "receiver_cellphone",
-        event.target.phoneNumber.value.toString(),
-      );
-      formData.set("receiver_name", event.target.fullName.value);
+      props.deliveryPackage &&
+        formData.set(
+          "receiver_cellphone",
+          event.target.phoneNumber.value.toString(),
+        );
+      props.deliveryPackage &&
+        formData.set("receiver_name", event.target.fullName.value);
     }
     formData.set("latitude", mapPosition.split(",")[0]);
     formData.set("longitude", mapPosition.split(",")[1]);
@@ -63,6 +65,7 @@ const AddressModal = (props) => {
       if (update.status === 200) {
         props.getDataFetch();
         props.setModalIsOpen(false);
+        props.setIsLoading(true);
       } else if (update.status === 422) {
         setErrorData(update.data.errors);
         console.log(update.data.errors);
@@ -76,6 +79,7 @@ const AddressModal = (props) => {
       if (post.status === 200) {
         props.getDataFetch(post.data);
         props.setModalIsOpen(false);
+        props.setIsLoading(true);
       } else if (post.status === 422) {
         setErrorData(post.data.errors);
         console.log(post.data.errors);
@@ -308,43 +312,44 @@ const AddressModal = (props) => {
           />
         </div>
       )}
-      <div className={"grid grid-cols-2 gap-6"}>
-        <div>
-          <AddressInput
-            type={"text"}
-            icon={"cc-user"}
-            title={"نام/نام خانوادگی گیرنده"}
-            editData={editData.receiver_name}
-            pageType={props.pageType}
-            star={true}
-            name={"fullName"}
-            id={"fullName"}
-            // onChange={nameChangeHandler}
-            // profileData={""}
-          />
+      {props.deliveryPackage && (
+        <div className={"grid grid-cols-2 gap-6"}>
+          <div>
+            <AddressInput
+              type={"text"}
+              icon={"cc-user"}
+              title={"نام/نام خانوادگی گیرنده"}
+              editData={editData.receiver_name}
+              pageType={props.pageType}
+              star={true}
+              name={"fullName"}
+              id={"fullName"}
+              // onChange={nameChangeHandler}
+              // profileData={""}
+            />
+          </div>
+          <div>
+            <AddressInput
+              type={"text"}
+              icon={"cc-call"}
+              title={"شماره موبایل گیرنده"}
+              editData={editData.receiver_cellphone}
+              pageType={props.pageType}
+              star={true}
+              name={"phoneNumber"}
+              id={"phoneNumber"}
+              // profileData={""}
+            />
+          </div>
         </div>
-        <div>
-          <AddressInput
-            type={"text"}
-            icon={"cc-call"}
-            title={"شماره موبایل گیرنده"}
-            editData={editData.receiver_cellphone}
-            pageType={props.pageType}
-            star={true}
-            name={"phoneNumber"}
-            id={"phoneNumber"}
-            // profileData={""}
-          />
-        </div>
-      </div>
+      )}
       <button
         type={"submit"}
         className={
           "bg-BLUE_700 self-end flex items-center gap-2 mt-4 size690:mt-3 w-fit text-12 size690:text-[16px] p-[8px] text-white rounded-[4px]"
         }
       >
-        <p>تایید و ادامه</p>
-        <i className={"cc-left text-[20px]"} />
+        <p>ثبت آدرس</p>
       </button>
     </form>
   );
