@@ -22,10 +22,11 @@ const MyLocations = (props) => {
   const [modalIsOpen, setModalIsOpen] = useState();
   const kebabRef = useRef(null);
 
-  const latitude = map.split(",")[0];
-  const longitude = map.split(",")[1];
+  const latitude = map && map.split(",")[0];
+  const longitude = map && map.split(",")[1];
 
-  const location = latitude.toString() + "," + longitude.toString();
+  const location =
+    latitude && longitude && latitude.toString() + "," + longitude.toString();
 
   const showOptionHandler = () => {
     setShowOption((prevState) => !prevState);
