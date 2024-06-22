@@ -52,8 +52,10 @@ const AddressModal = (props) => {
       props.deliveryPackage &&
         formData.set("receiver_name", event.target.fullName.value);
     }
-    formData.set("latitude", mapPosition.split(",")[0]);
-    formData.set("longitude", mapPosition.split(",")[1]);
+    formData.set(
+      "map",
+      `${mapPosition.split(",")[0]},${mapPosition.split(",")[1]}`,
+    );
 
     if (props.pageType === "edite") {
       formData.set("X-HTTP-Method-Override", "PUT");
