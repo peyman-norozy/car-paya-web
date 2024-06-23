@@ -1,5 +1,8 @@
 import Image from "next/image";
 import TabsCard from "@/components/cards/TabsCard";
+import { useEffect } from "react";
+import { getData } from "@/utils/api-function-utils";
+import { API_PATHS } from "@/configs/routes.config";
 
 const UserTabsCard = (props) => {
   const exitClickHandler = () => {

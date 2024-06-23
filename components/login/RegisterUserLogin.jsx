@@ -13,6 +13,7 @@ import { setLoginState } from "@/store/todoSlice";
 import { postData } from "@/utils/client-api-function-utils";
 import { error } from "@/utils/function-utils";
 import { loginUser } from "@/store/loginCheckerSlice";
+import { getData } from "@/utils/api-function-utils";
 
 export default function RegisterUserLogin() {
   const [passwordEyesState, setPasswordEyesState] = useState({
@@ -116,6 +117,9 @@ export default function RegisterUserLogin() {
       setSliderShowState(false);
       dispatch(setLoginState(false));
       refreshFormData();
+      const getProfileData = await getData(API_PATHS.DASHBOARDPROFILE);
+      console.log(getProfileData);
+      localStorage.setItem("profileData", JSON.stringify(getProfileData.data));
     } else {
       setSliderShowState(false);
       if (response.response.status === 422) {

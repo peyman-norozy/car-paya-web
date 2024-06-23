@@ -5,13 +5,13 @@ import axios from "axios";
 import { deleteCookie, getCookie } from "cookies-next";
 import { useRouter } from "next/navigation";
 import { API_PATHS } from "@/configs/routes.config";
-import {useDispatch} from "react-redux";
-import {setLoginState} from "@/store/todoSlice";
+import { useDispatch } from "react-redux";
+import { setLoginState } from "@/store/todoSlice";
 
 const UserPanelAttribute = (props) => {
   const pathname = usePathname();
   const router = useRouter();
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const firstPath = pathname !== null && pathname.split("/")[1];
 
   const exitLogin = () => {
@@ -27,6 +27,7 @@ const UserPanelAttribute = (props) => {
       )
       .then(() => {
         deleteCookie("Authorization");
+        localStorage.removeItem("profileData");
         dispatch(setLoginState(true));
         router.push("/");
       });
