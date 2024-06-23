@@ -44,11 +44,13 @@ const AddressModal = (props) => {
 
     {
       props.deliveryPackage && formData.set("user_delivery", checkBoxState);
-      formData.set(
-        "receiver_cellphone",
-        event.target.phoneNumber.value.toString(),
-      );
-      formData.set("receiver_name", event.target.fullName.value);
+      props.deliveryPackage &&
+        formData.set(
+          "receiver_cellphone",
+          event.target.phoneNumber.value.toString(),
+        );
+      props.deliveryPackage &&
+        formData.set("receiver_name", event.target.fullName.value);
     }
     formData.set("latitude", mapPosition.split(",")[0]);
     formData.set("longitude", mapPosition.split(",")[1]);
@@ -63,6 +65,7 @@ const AddressModal = (props) => {
       if (update.status === 200) {
         props.getDataFetch();
         props.setModalIsOpen(false);
+        props.setIsLoading(true);
       } else if (update.status === 422) {
         setErrorData(update.data.errors);
         console.log(update.data.errors);

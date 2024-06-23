@@ -9,9 +9,9 @@ import axios from "axios";
 import { error, forceOnlyNumberInput, success } from "@/utils/function-utils";
 import OTPInput from "react-otp-input";
 import { useRouter } from "next/navigation";
-import {useDispatch} from "react-redux";
-import {setCarYear, setSelectCarTip} from "@/store/todoSlice";
-import {getData} from "@/utils/client-api-function-utils";
+import { useDispatch } from "react-redux";
+import { setCarYear, setSelectCarTip } from "@/store/todoSlice";
+import { getData } from "@/utils/client-api-function-utils";
 
 const MainCarTip = (props) => {
   const [newTipId, setNewTipId] = useState(null);
@@ -20,34 +20,42 @@ const MainCarTip = (props) => {
   const [otp, setOtp] = useState("");
   const [setLoginToken, setSetLoginToken] = useState("");
   const [newPhoneNumber, setNewPhoneNumber] = useState("");
-  const [carData,setCarData] = useState({})
+  const [carData, setCarData] = useState({});
 
   const router = useRouter();
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   const backClickHandler = () => {
     props.setMainTipDisplay(false);
     props.setMainModelDisplay(true);
   };
 
-  const clickTipHandler = async (id,event,item) => {
-    localStorage.setItem('vehicleImage', event.currentTarget.getAttribute('image'))
-    localStorage.setItem('vehicleName', event.currentTarget.getAttribute('name'))
-    localStorage.setItem('vehicleId', id)
-    const response = await getData(process.env.BASE_API + "/web" + API_PATHS.YEARS + "/" + id)
+  const clickTipHandler = async (id, event, item) => {
+    localStorage.setItem(
+      "vehicleImage",
+      event.currentTarget.getAttribute("image"),
+    );
+    localStorage.setItem(
+      "vehicleName",
+      event.currentTarget.getAttribute("name"),
+    );
+    localStorage.setItem("vehicleId", id);
+    const response = await getData(
+      process.env.BASE_API + "/web" + API_PATHS.YEARS + "/" + id,
+    );
     if (response.status === 200) {
       setNewTipId(id);
-      dispatch(setSelectCarTip(item))
+      dispatch(setSelectCarTip(item));
       setSetPhoneNumberState(true);
-      dispatch(setCarYear(response.data.data))
-    }else if (response.response.status === 404) {
-      console.log(response)
-    }else if (response.response.status === 422) {
+      dispatch(setCarYear(response.data.data));
+    } else if (response.response.status === 404) {
+      console.log(response);
+    } else if (response.response.status === 422) {
       for (let key in response.response.data.errors) {
         error(response.response.data.errors[key][0]);
       }
     }
-    };
+  };
 
   const sendCarTipHandler = () => {
     const formData = new FormData();
@@ -134,12 +142,13 @@ const MainCarTip = (props) => {
     }
   };
 
-  const addCarClickHandler = ()=>{
-    if(props.setModalState){
-      props.setModalState(false)
+  const addCarClickHandler = () => {
+    if (props.setModalState) {
+      props.setModalState(false);
     }
-    router.push("/panel/my-vehicle/my-car/create")
-  }
+    router.push("/panel/my-vehicle/my-car/create");
+  };
+  console.log(props.mainCarTipsData);
 
   return (
     <Fragment>
@@ -174,7 +183,7 @@ const MainCarTip = (props) => {
               }`}
               image={item.image}
               name={item.title}
-              onClick={(event) => clickTipHandler(item.id,event,item)}
+              onClick={(event) => clickTipHandler(item.id, event, item)}
             >
               <div className="w-[50px] h-[50px] cursor-pointer" value={item.id}>
                 <Image
@@ -199,19 +208,22 @@ const MainCarTip = (props) => {
         </div>
         <div>
           {getCookie("Authorization") && newTipId ? (
-              props.modalPosition?
-                  <Button type={"button"}
-                          class_name={"bg-[#3AAB38] text-white py-2 px-4 rounded-5"}
-                          on_click={addCarClickHandler}
-                          text={"ادامه"}/>
-                          :
-            <Button
-              type={"button"}
-              class_name={"bg-[#3AAB38] text-white py-2 px-4 rounded-5"}
-              on_click={sendCarTipHandler}
-            >
-              ارسال
-            </Button>
+            props.modalPosition ? (
+              <Button
+                type={"button"}
+                class_name={"bg-[#3AAB38] text-white py-2 px-4 rounded-5"}
+                on_click={addCarClickHandler}
+                text={"ادامه"}
+              />
+            ) : (
+              <Button
+                type={"button"}
+                class_name={"bg-[#3AAB38] text-white py-2 px-4 rounded-5"}
+                on_click={sendCarTipHandler}
+              >
+                ارسال
+              </Button>
+            )
           ) : setPhoneNumberState ? (
             <form
               className={

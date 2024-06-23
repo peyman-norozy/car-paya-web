@@ -15,6 +15,7 @@ const MyLocations = (props) => {
     address,
     map,
     setFetchData,
+    setIsLoading,
   } = props;
 
   const [showOption, setShowOption] = useState(false);
@@ -61,6 +62,7 @@ const MyLocations = (props) => {
                 pageType={"edite"}
                 setModalIsOpen={setModalIsOpen}
                 addressEditId={id}
+                setIsLoading={setIsLoading}
               />
             </div>
             <div

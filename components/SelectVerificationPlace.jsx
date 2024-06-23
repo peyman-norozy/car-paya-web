@@ -12,6 +12,7 @@ import AddAddressModal from "@/components/vehicle-verification/AddAddressModal";
 import { getCookie } from "cookies-next";
 import { error } from "@/utils/function-utils";
 import { ToastContainer } from "react-toastify";
+import Spinner from "@/components/Spinner";
 
 const SelectVerificationPlace = (props) => {
   const { title, description, id, setIsSelected, isSelected, setChosenTime } =
@@ -22,6 +23,7 @@ const SelectVerificationPlace = (props) => {
   const [myLocationData, setMyLocationData] = useState([]);
   const [selectedPlaceId, setSelectedPlaceId] = useState({});
   const [fetchData, setFetchData] = useState();
+  const [isLoading, setIsLoading] = useState(false);
 
   const searchParams = useSearchParams();
   const setQuery = useSetQuery();
@@ -103,11 +105,13 @@ const SelectVerificationPlace = (props) => {
         },
       )
       .then((res) => {
+        console.log(res.data.data);
         setMyLocationData(res.data.data);
+        setIsLoading(false);
         setChosenTime(res.data.time);
       })
       .catch((err) => console.log(err));
-  }, [fetchData]);
+  }, [fetchData, modalIsOpen]);
 
   return (
     <div className={"w-[95%] m-auto size690:w-full relative"}>
@@ -119,6 +123,7 @@ const SelectVerificationPlace = (props) => {
                 getDataFetch={setMyLocationData}
                 pageType={"create"}
                 setModalIsOpen={setModalIsOpen}
+                setIsLoading={setIsLoading}
               />
             </div>
             <div
@@ -130,6 +135,25 @@ const SelectVerificationPlace = (props) => {
               }
             ></div>
           </div>
+        </div>
+      )}
+      {isLoading && (
+        <div>
+          <div
+            className={
+              "fixed flex items-center justify-center flex-col gap-4  w-fit h-[100px] m-auto inset-0 z-[10000000000]"
+            }
+          >
+            <Spinner width={"w-[44px]"} height={"h-[44px]"} />
+            <p className={"text-white text-18 font-bold"}>
+              درحال دریافت اطلاعات{" "}
+            </p>
+          </div>
+          <div
+            className={
+              "w-full h-[100vh] fixed top-0 right-0 bg-black opacity-[0.5] z-[100000000]"
+            }
+          ></div>
         </div>
       )}
       <div
@@ -166,6 +190,7 @@ const SelectVerificationPlace = (props) => {
             myLocationData.length > 0 ? (
               myLocationData.map((item, index) => (
                 <MyLocations
+                  setIsLoading={setIsLoading}
                   selectedPlaceId={selectedPlaceId}
                   setSelectedPlaceId={setSelectedPlaceId}
                   setFetchData={setFetchData}

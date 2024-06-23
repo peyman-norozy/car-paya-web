@@ -136,6 +136,8 @@ const SelectProvinceAndCarBox = (props) => {
     setMotorStep("motor-brands");
     setStep("car-brands");
     setHeavyCarStep("heavy-car-brands");
+    setMyVehicleIsChecked(false);
+    document.getElementById("checkbox").checked = false;
   };
 
   const packageStepHandler = () => {
@@ -367,10 +369,16 @@ const SelectProvinceAndCarBox = (props) => {
           type={"checkbox"}
           on_change={myVehicleChangeHandler}
           className={"h-[22px] w-[22px]"}
+          id={"checkbox"}
         />
       </div>
       <div className={"flex gap-2"}>
-        <i className={"cc-arrow-right text-18"} onClick={backStepHandler} />
+        {!myVehicleIsChecked && (
+          <i
+            className={`cc-arrow-right text-18 ${(step === "car-brands" && "hidden") || (motorStep === "motor-brands" && "hidden")}`}
+            onClick={backStepHandler}
+          />
+        )}
         <h4 className={"text-14 font-medium mb-5"}>
           {step === "car-brands" || motorStep === "motor-brands"
             ? "انتخاب برند"
