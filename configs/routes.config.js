@@ -52,6 +52,7 @@ export const API_PATHS = {
   MAGCOMMENTS: "/mag-comments",
   GETPRODUCT: "/get-product",
   DASHBOARDUSERADDRESS: "/user-panel/user-address",
+  DASHBOARDPROFILE: "/user-panel/profile",
   ADDRESS: "/address",
   COUPONS: "/coupons",
 };

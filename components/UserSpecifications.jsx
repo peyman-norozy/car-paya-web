@@ -1,6 +1,8 @@
+import React from "react"
 import Image from "next/image";
 
 const UserSpecifications = (props) => {
+
     return (
         <div className={`flex self-start px-[26px] pt-[24px] ${props.style}`}>
             <div className="flex items-center w-full gap-2">
@@ -32,4 +34,4 @@ const UserSpecifications = (props) => {
     );
 };
 
-export default UserSpecifications;
+export default React.memo(UserSpecifications);

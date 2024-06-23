@@ -73,9 +73,10 @@ const AddressModal = (props) => {
     } else {
       setLoading(true);
       const post = await postData(API_PATHS.DASHBOARDUSERADDRESS, formData);
-      if (post.status === 200) {
-        props.getDataFetch(post.data);
-        props.setModalIsOpen(false);
+      if (post.status === 200 || post.status === 204) {
+        // props.getDataFetch(post.data);
+        // props.setModalIsOpen(false);
+        props.setAddressModalState(false)
       } else if (post.status === 422) {
         setErrorData(post.data.errors);
         console.log(post.data.errors);
@@ -161,6 +162,8 @@ const AddressModal = (props) => {
     }
   }, [ItarateMapData, props.pageType, editData]);
 
+  console.log(ItarateMapData)
+
   return (
     <form
       className={
@@ -197,13 +200,13 @@ const AddressModal = (props) => {
             type={"text"}
             icon={"cc-location"}
             editData={editData.address}
-            ItaratedAddress={ItarateMapData.address}
+            ItaratedAddress={ItarateMapData.address_compact}
             pageType={props.pageType}
             title={"آدرس"}
             star={true}
             name={"address"}
             id={"address"}
-            // profileData={""}
+          // profileData={""}
           />
           {errroData.address && (
             <span
@@ -230,7 +233,7 @@ const AddressModal = (props) => {
             setProvincesId={setProvincesId}
             name={"province"}
             id={"province"}
-            // profileData={""}
+          // profileData={""}
           />
           {errroData.province_id && (
             <span
@@ -253,7 +256,7 @@ const AddressModal = (props) => {
             setCityId={setCityId}
             name={"city"}
             id={"city"}
-            // profileData={""}
+          // profileData={""}
           />
           {errroData.city_id && (
             <span
@@ -273,7 +276,7 @@ const AddressModal = (props) => {
             icon={"cc-document-align-right"}
             title={"عنوان"}
             star={true}
-            // profileData={""}
+          // profileData={""}
           />
         </div>
         <div className={"col-span-2"}>
@@ -286,7 +289,7 @@ const AddressModal = (props) => {
             id={"postalCode"}
             name={"postalCode"}
             star={true}
-            // profileData={""}
+          // profileData={""}
           />
           {errroData.postal_code && (
             <span
@@ -319,8 +322,8 @@ const AddressModal = (props) => {
             star={true}
             name={"fullName"}
             id={"fullName"}
-            // onChange={nameChangeHandler}
-            // profileData={""}
+          // onChange={nameChangeHandler}
+          // profileData={""}
           />
         </div>
         <div>
@@ -333,7 +336,7 @@ const AddressModal = (props) => {
             star={true}
             name={"phoneNumber"}
             id={"phoneNumber"}
-            // profileData={""}
+          // profileData={""}
           />
         </div>
       </div>
@@ -343,7 +346,7 @@ const AddressModal = (props) => {
           "bg-BLUE_700 self-end flex items-center gap-2 mt-4 size690:mt-3 w-fit text-12 size690:text-[16px] p-[8px] text-white rounded-[4px]"
         }
       >
-        <p>تایید و ادامه</p>
+        <span>تایید و ادامه</span>
         <i className={"cc-left text-[20px]"} />
       </button>
     </form>

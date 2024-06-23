@@ -10,3 +10,12 @@ export async function getData(apiRoute, params) {
     return error.response.status;
   }
 }
+
+export async function deleteData(apiRoute) {
+  try {
+    const res = await api.delete(apiRoute);
+    return res;
+  } catch (error) {
+    return error.response.status;
+  }
+}
