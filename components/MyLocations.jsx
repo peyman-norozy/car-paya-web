@@ -22,11 +22,6 @@ const MyLocations = (props) => {
   const [modalIsOpen, setModalIsOpen] = useState();
   const kebabRef = useRef(null);
 
-  const latitude = map.split(",")[0];
-  const longitude = map.split(",")[1];
-
-  const location = latitude.toString() + "," + longitude.toString();
-
   const showOptionHandler = () => {
     setShowOption((prevState) => !prevState);
   };
@@ -96,7 +91,7 @@ const MyLocations = (props) => {
       </div>
       <div className="h-[150px] w-full flex gap-[1rem] size900:w-[360px] rounded-[0.5rem] overflow-hidden">
         <div className="h-full w-full">
-          <MapSelection location={location} setLocation={null} />
+          <MapSelection location={map} setLocation={null} />
         </div>
         <i
           ref={kebabRef}

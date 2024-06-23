@@ -113,10 +113,10 @@ const VerificationLastStep = () => {
       });
   }, []);
 
+  console.log(data.address_info && data.address_info);
+
   return (
-    <div
-      className={"w-[90%] size1000:w-[80%] size1136:w-[70%] m-auto pt-[2rem]"}
-    >
+    <div className={"w-[90%] size1000:w-[80%] m-auto pt-[2rem]"}>
       <div
         className={
           "flex items-center gap-2 size752:gap-[16px] text-BLUE_600 w-full mb-4"
@@ -158,7 +158,7 @@ const VerificationLastStep = () => {
         <MyLocations
           title={data.address_info && data.address_info.title}
           address={data.address_info && data.address_info.address}
-          map={","}
+          map={data.address_info && data.address_info.map}
           province={data.address_info && data.address_info.province_name}
           city={data.address_info && data.address_info.city_name}
         />

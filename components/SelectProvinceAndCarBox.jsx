@@ -96,6 +96,7 @@ const SelectProvinceAndCarBox = (props) => {
         i.title.includes(e.target.value),
       );
       setCarBrands(result);
+      console.log(result);
     } else if (isClicked === 1) {
       setSearchInputValue(e.target.value);
       const result = searchValue.filter((i) =>
@@ -173,94 +174,100 @@ const SelectProvinceAndCarBox = (props) => {
 
   useEffect(() => {
     setIsLoading(true);
-    if (step === "car-brands") {
-      axios
-        .get(process.env.BASE_API + "/web" + "/car-brands")
-        .then((res) => {
-          setIsLoading(false);
-          setSearchValue(res.data.data);
-          setCarBrands(res.data.data);
-        })
-        .catch((err) => console.log(err));
-    } else if (step === "car-models") {
-      axios
-        .get(process.env.BASE_API + "/web" + "/car-models/" + selectedItem)
-        .then((res) => {
-          setCarBrands(res.data.data);
-          setSearchValue(res.data.data);
-          setCarModel(selectedItem);
-          setIsLoading(false);
-        })
-        .catch((err) => console.log(err));
-    } else if (step === "car-tips") {
-      axios
-        .get(process.env.BASE_API + "/web" + "/car-tips/" + selectedItem)
-        .then((res) => {
-          setCarBrands(res.data.data);
-          setSearchValue(res.data.data);
-          setIsLoading(false);
-        })
-        .catch((err) => console.log(err));
-    }
-    if (motorStep === "motor-brands") {
-      axios
-        .get(process.env.BASE_API + "/web" + "/motor-brands")
-        .then((res) => {
-          setMotorBrands(res.data.data);
-          setSearchValue(res.data.data);
-          setIsLoading(false);
-        })
-        .catch((err) => console.log(err));
-    } else if (motorStep === "motor-models") {
-      axios
-        .get(process.env.BASE_API + "/web" + "/motor-models/" + selectedItem)
-        .then((res) => {
-          setMotorBrands(res.data.data);
-          setSearchValue(res.data.data);
-          setMotorModel(selectedItem);
-          setIsLoading(false);
-        })
-        .catch((err) => console.log(err));
-    } else if (motorStep === "motor-tips") {
-      axios
-        .get(process.env.BASE_API + "/web" + "/motor-tips/" + selectedItem)
-        .then((res) => {
-          setMotorBrands(res.data.data);
-          setSearchValue(res.data.data);
-          setIsLoading(false);
-        })
-        .catch((err) => console.log(err));
-    }
-    if (heavyCarStep === "heavy-car-brands") {
-      axios
-        .get(process.env.BASE_API + "/web" + "/heavy-car-brands")
-        .then((res) => {
-          setIsLoading(false);
-          setSearchValue(res.data.data);
-          setHeavyCarBrands(res.data.data);
-        })
-        .catch((err) => console.log(err));
-    } else if (heavyCarStep === "heavy-car-models") {
-      axios
-        .get(
-          process.env.BASE_API + "/web" + "/heavy-car-models/" + selectedItem,
-        )
-        .then((res) => {
-          setHeavyCarBrands(res.data.data);
-          setSearchValue(res.data.data);
-          setHeavyCarModel(selectedItem);
-          setIsLoading(false);
-        })
-        .catch((err) => console.log(err));
-    } else if (heavyCarStep === "heavy-car-tips") {
-      axios
-        .get(process.env.BASE_API + "/web" + "/heavy-car-tips/" + selectedItem)
-        .then((res) => {
-          setHeavyCarBrands(res.data.data);
-          setSearchValue(res.data.data);
-          setIsLoading(false);
-        })
-        .catch((err) => console.log(err));
+    if (isClicked === 0) {
+      if (step === "car-brands") {
+        axios
+          .get(process.env.BASE_API + "/web" + "/car-brands")
+          .then((res) => {
+            setIsLoading(false);
+            setSearchValue(res.data.data);
+            setCarBrands(res.data.data);
+          })
+          .catch((err) => console.log(err));
+      } else if (step === "car-models") {
+        axios
+          .get(process.env.BASE_API + "/web" + "/car-models/" + selectedItem)
+          .then((res) => {
+            setCarBrands(res.data.data);
+            setSearchValue(res.data.data);
+            setCarModel(selectedItem);
+            setIsLoading(false);
+          })
+          .catch((err) => console.log(err));
+      } else if (step === "car-tips") {
+        axios
+          .get(process.env.BASE_API + "/web" + "/car-tips/" + selectedItem)
+          .then((res) => {
+            setCarBrands(res.data.data);
+            setSearchValue(res.data.data);
+            setIsLoading(false);
+          })
+          .catch((err) => console.log(err));
+      }
+    } else if (isClicked === 1) {
+      if (motorStep === "motor-brands") {
+        axios
+          .get(process.env.BASE_API + "/web" + "/motor-brands")
+          .then((res) => {
+            setMotorBrands(res.data.data);
+            setSearchValue(res.data.data);
+            setIsLoading(false);
+          })
+          .catch((err) => console.log(err));
+      } else if (motorStep === "motor-models") {
+        axios
+          .get(process.env.BASE_API + "/web" + "/motor-models/" + selectedItem)
+          .then((res) => {
+            setMotorBrands(res.data.data);
+            setSearchValue(res.data.data);
+            setMotorModel(selectedItem);
+            setIsLoading(false);
+          })
+          .catch((err) => console.log(err));
+      } else if (motorStep === "motor-tips") {
+        axios
+          .get(process.env.BASE_API + "/web" + "/motor-tips/" + selectedItem)
+          .then((res) => {
+            setMotorBrands(res.data.data);
+            setSearchValue(res.data.data);
+            setIsLoading(false);
+          })
+          .catch((err) => console.log(err));
+      }
+    } else if (isClicked === 2) {
+      if (heavyCarStep === "heavy-car-brands") {
+        axios
+          .get(process.env.BASE_API + "/web" + "/heavy-car-brands")
+          .then((res) => {
+            setIsLoading(false);
+            setSearchValue(res.data.data);
+            setHeavyCarBrands(res.data.data);
+          })
+          .catch((err) => console.log(err));
+      } else if (heavyCarStep === "heavy-car-models") {
+        axios
+          .get(
+            process.env.BASE_API + "/web" + "/heavy-car-models/" + selectedItem,
+          )
+          .then((res) => {
+            setHeavyCarBrands(res.data.data);
+            setSearchValue(res.data.data);
+            setHeavyCarModel(selectedItem);
+            setIsLoading(false);
+          })
+          .catch((err) => console.log(err));
+      } else if (heavyCarStep === "heavy-car-tips") {
+        axios
+          .get(
+            process.env.BASE_API + "/web" + "/heavy-car-tips/" + selectedItem,
+          )
+          .then((res) => {
+            setHeavyCarBrands(res.data.data);
+            setSearchValue(res.data.data);
+            setIsLoading(false);
+          })
+          .catch((err) => console.log(err));
+      }
     }
   }, [step, motorStep, isClicked, myVehicleIsChecked, heavyCarStep]);
 
