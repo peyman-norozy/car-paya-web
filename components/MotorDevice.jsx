@@ -376,7 +376,7 @@ const MotorDevice = (props) => {
                     event.target.finePrice.value.split(",").join(""),
                 );
                 setButtonDisabledState(true)
-                const response = await postData(process.env.BASE_API + "/user-panel" + API_PATHS.CARS, fd, '"Content-Type": "application/json"')
+                const response = await postData(process.env.BASE_API + "/user-panel" + API_PATHS.MOTORS, fd, '"Content-Type": "application/json"')
                 if (response.status === 200 || response.status === 201) {
                     setButtonDisabledState(false)
                     // success(res.data.data["msg"]);

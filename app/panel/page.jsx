@@ -8,6 +8,8 @@ import UserSpecifications from "@/components/UserSpecifications";
 import UserTabsCard from "@/components/cards/UserTabsCard";
 import LogoutModal from "@/components/modal/LogoutModal";
 import { panelTabData } from "@/staticData/data";
+import { useRouter } from "next/navigation";
+import { getCookie } from "cookies-next";
 const PrivateRoute = dynamic(() => import("@/routes/private-route"), {
   ssr: false,
 });
@@ -17,8 +19,15 @@ const UserPanel = () => {
     (number) => number.todo.windowInnerWidth,
   );
 
+  const router = useRouter()
+
+  if (!getCookie("Authorization")) {
+    router.push("/login")
+    return
+  }
+
   return (
-    <PrivateRoute>
+    <>
       <div className="mt-[50px] mb-[100px] mx-[50px]">
         <div className="mb-[30px] mt-[100px]">
           <TitleDescription>داشبورد</TitleDescription>
@@ -34,7 +43,9 @@ const UserPanel = () => {
                 setLogoutModalState={setLogoutModalState}
               />
             </div>
-            <PersonalFile />
+            <PrivateRoute>
+              <PersonalFile />
+            </PrivateRoute>
             {/*<div role="status" className="animate-pulse flex flex-col gap-8 flex-1">*/}
             {/*  <div className="h-8 bg-gray-200 rounded-lg dark:bg-gray-400 mb-2.5"></div>*/}
             {/*  <div className="h-8 bg-gray-200 rounded-lg dark:bg-gray-400 mb-2.5"></div>*/}
@@ -50,7 +61,9 @@ const UserPanel = () => {
               style={"flex-row items-center justify-between"}
             />
             <hr />
-            <PersonalFile />
+            <PrivateRoute>
+              <PersonalFile />
+            </PrivateRoute>
             <UserTabsCard
               data={panelTabData}
               setLogoutModalState={setLogoutModalState}
@@ -61,7 +74,7 @@ const UserPanel = () => {
           <LogoutModal setLogoutModalState={setLogoutModalState} />
         )}
       </div>
-    </PrivateRoute>
+    </>
   );
 };
 

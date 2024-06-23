@@ -1,14 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import Button from "@/components/Button";
 import Image from "next/image";
 import AddressesCard from "@/components/cards/AddressesCard";
 import AddAddressModal from "@/components/vehicle-verification/AddAddressModal";
+import { getData } from "@/utils/api-function-utils";
+import { API_PATHS } from "@/configs/routes.config";
 
 const ProductAddress = () => {
   const [addreesModalState, setAddressModalState] = useState(false);
+  const [addressData, setAddressData] = useState({})
   const [pageType, setPageType] = useState("");
 
-  const addressData = [1, 2, 3, 4, 5, 6];
+  // const addressData = [1, 2, 3, 4, 5, 6];
 
   const closeModalHandler = (event) => {
     if (event.target.id === "addressModal") {
@@ -19,6 +22,19 @@ const ProductAddress = () => {
     setAddressModalState(true);
     setPageType("create");
   };
+
+  const getAddressFetchData = useCallback(() => {
+    (async () => {
+      const getAddressData = await getData(API_PATHS.DASHBOARDUSERADDRESS)
+      setAddressData(getAddressData)
+    })()
+  }, [])
+
+  useEffect(() => {
+    getAddressFetchData()
+  }, [])
+
+
   return (
     <div
       className={
@@ -45,8 +61,8 @@ const ProductAddress = () => {
       </div>
       {4 > 3 ? (
         <ul className={"flex flex-col gap-4"}>
-          {addressData.map((item, index) => (
-            <AddressesCard key={index} />
+          {addressData.data && addressData.data.map((item, index) => (
+            <AddressesCard key={index} item={item} getAddressFetchData={getAddressFetchData} />
           ))}
         </ul>
       ) : (
@@ -76,7 +92,7 @@ const ProductAddress = () => {
             // getDataFetch={getDataFetch}
             setAddressModalState={setAddressModalState}
             pageType={pageType}
-            // addressEditId={addressEditId}
+          // addressEditId={addressEditId}
           />
         </div>
       )}{" "}

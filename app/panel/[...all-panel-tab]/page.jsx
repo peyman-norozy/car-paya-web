@@ -59,10 +59,20 @@ const AllPanelTab = (props) => {
     };
   }, [dispatch]);
 
+  useEffect(() => {
+    console.log("peyman")
+    (
+      async () => {
+        const getProfileData = await getData(API_PATHS.DASHBOARDPROFILE)
+        console.log(getProfileData)
+      }
+    )()
+  }, [])
+
   console.log(allUrl);
 
   return (
-    <PrivateRoute>
+    <>
       <div className="mt-[50px] mb-[100px] size690:mx-[50px] mx-0">
         <div className="flex items-center gap-4 mb-[30px] mt-[100px]">
           <Image
@@ -90,8 +100,8 @@ const AllPanelTab = (props) => {
                 <TitleDescription>بن ها و امتیازات تخفیف</TitleDescription>
               ),
             }[
-              props.params["all-panel-tab"] &&
-                props.params["all-panel-tab"].join("/")
+            props.params["all-panel-tab"] &&
+            props.params["all-panel-tab"].join("/")
             ]
           }
         </div>
@@ -105,81 +115,83 @@ const AllPanelTab = (props) => {
               setLogoutModalState={setLogoutModalState}
             />
           </div>
-          {(() => {
-            if (
-              props.params["all-panel-tab"].length >= 5 &&
-              props.params["all-panel-tab"][4] !== "history"
-            ) {
-              return notFound();
-            }
-            if (
-              props.params["all-panel-tab"].length === 6 &&
-              props.params["all-panel-tab"][5] !== "create"
-            ) {
-              return notFound();
-            }
-            if (
-              props.params["all-panel-tab"].length === 5 &&
-              props.params["all-panel-tab"][4] === "history"
-            ) {
-              return <History params={props.params["all-panel-tab"]} />;
-            } else if (
-              props.params["all-panel-tab"].length === 6 &&
-              props.params["all-panel-tab"][5] === "create"
-            ) {
-              return <HistoryCreate params={props.params["all-panel-tab"]} />;
-            }
-            switch (allUrl) {
-              case "/panel/my-vehicle/my-car":
-                return <CreateMyCar />;
-              case "/panel/my-vehicle/my-car/create":
-                return <CarDevice pageType={"create"} />;
-              case "/panel/my-vehicle/my-car/edit":
-                return <CarDevice pageType={"edit"} />;
-              case "/panel/my-vehicle/my-motorcycle":
-                return <CreateMyMotor />;
-              case "/panel/my-vehicle/my-motorcycle/create":
-                return <MotorDevice pageType={"create"} />;
-              case "/panel/my-vehicle/my-motorcycle/edit":
-                return <MotorDevice pageType={"edit"} />;
-              case "/panel/my-vehicle/my-heavy-car":
-                return <CreateMyHeavyCar />;
-              case "/panel/my-vehicle/my-heavy-car/create":
-                return <HeavyCarDevice pageType={"create"} />;
-              case "/panel/my-vehicle/my-heavy-car/edit":
-                return <HeavyCarDevice pageType={"edit"} />;
-              case "/panel/productAddress":
-                return <ProductAddress />;
-              case "/panel/history-orders/buys":
-                return <div>buys</div>;
-              case "/panel/history-orders/verification?status=CURRENT":
-                return <Verification params={props} />;
-              case "/panel/history-orders/verification?status=DELIVERED":
-                return <Verification params={props} />;
-              case "/panel/history-orders/verification?status=REFUSE":
-                return <Verification params={props} />;
-              case "/panel/history-orders/Detail":
-                return <div>Detail</div>;
-              case "/panel/profile":
-                return <PersonalInformation />;
-              case "/panel/discount":
-                return <Discount />;
-              default:
-                if (allUrl === "/panel/history-orders/verification") {
-                  router.push(
-                    "/panel/history-orders/verification?status=CURRENT",
-                  );
-                } else {
-                  return notFound();
-                }
-            }
-          })()}
+          <PrivateRoute>
+            {(() => {
+              if (
+                props.params["all-panel-tab"].length >= 5 &&
+                props.params["all-panel-tab"][4] !== "history"
+              ) {
+                return notFound();
+              }
+              if (
+                props.params["all-panel-tab"].length === 6 &&
+                props.params["all-panel-tab"][5] !== "create"
+              ) {
+                return notFound();
+              }
+              if (
+                props.params["all-panel-tab"].length === 5 &&
+                props.params["all-panel-tab"][4] === "history"
+              ) {
+                return <History params={props.params["all-panel-tab"]} />;
+              } else if (
+                props.params["all-panel-tab"].length === 6 &&
+                props.params["all-panel-tab"][5] === "create"
+              ) {
+                return <HistoryCreate params={props.params["all-panel-tab"]} />;
+              }
+              switch (allUrl) {
+                case "/panel/my-vehicle/my-car":
+                  return <CreateMyCar />;
+                case "/panel/my-vehicle/my-car/create":
+                  return <CarDevice pageType={"create"} />;
+                case "/panel/my-vehicle/my-car/edit":
+                  return <CarDevice pageType={"edit"} />;
+                case "/panel/my-vehicle/my-motorcycle":
+                  return <CreateMyMotor />;
+                case "/panel/my-vehicle/my-motorcycle/create":
+                  return <MotorDevice pageType={"create"} />;
+                case "/panel/my-vehicle/my-motorcycle/edit":
+                  return <MotorDevice pageType={"edit"} />;
+                case "/panel/my-vehicle/my-heavy-car":
+                  return <CreateMyHeavyCar />;
+                case "/panel/my-vehicle/my-heavy-car/create":
+                  return <HeavyCarDevice pageType={"create"} />;
+                case "/panel/my-vehicle/my-heavy-car/edit":
+                  return <HeavyCarDevice pageType={"edit"} />;
+                case "/panel/productAddress":
+                  return <ProductAddress />;
+                case "/panel/history-orders/buys":
+                  return <div>buys</div>;
+                case "/panel/history-orders/verification?status=CURRENT":
+                  return <Verification params={props} />;
+                case "/panel/history-orders/verification?status=DELIVERED":
+                  return <Verification params={props} />;
+                case "/panel/history-orders/verification?status=REFUSE":
+                  return <Verification params={props} />;
+                case "/panel/history-orders/Detail":
+                  return <div>Detail</div>;
+                case "/panel/profile":
+                  return <PersonalInformation />;
+                case "/panel/discount":
+                  return <Discount />;
+                default:
+                  if (allUrl === "/panel/history-orders/verification") {
+                    router.push(
+                      "/panel/history-orders/verification?status=CURRENT",
+                    );
+                  } else {
+                    return notFound();
+                  }
+              }
+            })()}
+          </PrivateRoute>
         </div>
       </div>
       {logoutModalState && (
         <LogoutModal setLogoutModalState={setLogoutModalState} />
       )}
-    </PrivateRoute>
+    </>
   );
 };
 

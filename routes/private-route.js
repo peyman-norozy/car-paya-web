@@ -13,6 +13,7 @@ const PrivateRoute = ({ children }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    console.log(getCookie("Authorization"))
     if (getCookie("Authorization")) {
       dispatch(loginUser()).then((res) => console.log(res));
     }

@@ -24,9 +24,9 @@ function carFormData(
   finePrice,
 ) {
   const fd = new FormData();
-  fd.append("car_brand_id", newBrandOptionId);
-  fd.append("car_model_id", newModelOptionId);
-  fd.append("car_tip_id", newTipOptionId);
+  fd.append("vehicle_brand_id", newBrandOptionId);
+  fd.append("vehicle_model_id", newModelOptionId);
+  fd.append("vehicle_tip_id", newTipOptionId);
   fd.append("year", newYearOptionId);
   fd.append("plaque[0]", plaque_0);
   fd.append("plaque[1]", newPlaque_1);
