@@ -3,6 +3,18 @@ import ProfileEditeInput from "@/components/ProfileEditeInput/ProfileEditeInput"
 import PrivateRoute from "@/routes/private-route";
 
 const PersonalInformation = () => {
+  const profileData = JSON.parse(localStorage.getItem("profileData"));
+
+  const changeNameHandler = (e) => {
+    console.log(e);
+    console.log(e);
+    console.log(e);
+    console.log(e);
+    console.log(e);
+    console.log(e);
+    console.log(e);
+  };
+
   return (
     <PrivateRoute>
       <div
@@ -13,12 +25,43 @@ const PersonalInformation = () => {
         <form className={"flex flex-col gap-[43px]"}>
           <h1 className={"text-center font-bold"}>اطلاعات حساب</h1>
           <div className={"grid size617:grid-cols-2 grid-cols-1 gap-[58px]"}>
-            <ProfileEditeInput icon={"dt-user-o"} title={"نام"} />
-            <ProfileEditeInput icon={"dt-user-o"} title={"نام خانوادگی"} />
-            <ProfileEditeInput icon={"dt-call-calling-o"} title={"موبایل"} />
-            <ProfileEditeInput icon={"dt-call-calling-o"} title={"کد ملی"} />
-            <ProfileEditeInput icon={"dt-mail"} title={"ایمیل"} />
-            <ProfileEditeInput icon={"dt-gender"} title={"جنسیت"} />
+            <ProfileEditeInput
+              icon={"dt-user-o"}
+              className={"pr-[4px]"}
+              title={"نام"}
+              value={profileData.name}
+              onChange={changeNameHandler}
+            />
+            <ProfileEditeInput
+              icon={"dt-user-o"}
+              className={"pr-[4px]"}
+              title={"نام خانوادگی"}
+              value={""}
+            />
+            <ProfileEditeInput
+              icon={"dt-call-calling-o"}
+              className={"pr-[4px]"}
+              title={"موبایل"}
+              value={profileData.mobile}
+            />
+            <ProfileEditeInput
+              icon={"dt-call-calling-o"}
+              className={"pr-[4px]"}
+              title={"کد ملی"}
+              value={""}
+            />
+            <ProfileEditeInput
+              icon={"dt-mail"}
+              className={"pr-[4px]"}
+              title={"ایمیل"}
+              value={""}
+            />
+            <ProfileEditeInput
+              icon={"dt-gender"}
+              className={"pr-[4px]"}
+              title={"جنسیت"}
+              value={""}
+            />
           </div>
           <button
             type={"submit"}

@@ -6,14 +6,16 @@ import AddAddressModal from "@/components/vehicle-verification/AddAddressModal";
 import { getData } from "@/utils/api-function-utils";
 import { API_PATHS } from "@/configs/routes.config";
 import PrivateRoute from "@/routes/private-route";
+import { ToastContainer } from "react-toastify";
 
 const ProductAddress = () => {
   const [addreesModalState, setAddressModalState] = useState(false);
+  const [addressEditId, setAddressEditId] = useState("")
+
   const [addressData, setAddressData] = useState({});
   const [pageType, setPageType] = useState("");
 
-  // const addressData = [1, 2, 3, 4, 5, 6];
-
+  console.log(addressData)
   const closeModalHandler = (event) => {
     if (event.target.id === "addressModal") {
       setAddressModalState(false);
@@ -60,14 +62,17 @@ const ProductAddress = () => {
             <span className={"text-[#354597] font-light"}>ثبت آدرس جدید</span>
           </Button>
         </div>
-        {4 > 3 ? (
+        {addressData.data && addressData.data.length > 0 ? (
           <ul className={"flex flex-col gap-4"}>
-            {addressData.data &&
+            {
               addressData.data.map((item, index) => (
                 <AddressesCard
                   key={index}
                   item={item}
                   getAddressFetchData={getAddressFetchData}
+                  setAddressModalState={setAddressModalState}
+                  setPageType={setPageType}
+                  setAddressEditId={setAddressEditId}
                 />
               ))}
           </ul>
@@ -96,13 +101,16 @@ const ProductAddress = () => {
           >
             <AddAddressModal
               // getDataFetch={getDataFetch}
+              getAddressFetchData={getAddressFetchData}
               setAddressModalState={setAddressModalState}
               pageType={pageType}
-              // addressEditId={addressEditId}
+              addressEditId={addressEditId}
             />
           </div>
         )}{" "}
       </div>
+      <ToastContainer rtl={true} />
+
     </PrivateRoute>
   );
 };
