@@ -79,14 +79,14 @@ const AddressModal = (props) => {
       setLoading(true);
       const post = await postData(API_PATHS.DASHBOARDUSERADDRESS, formData);
       if (post.status === 200) {
-        props.setAddressModalState(false)
-        props.getAddressFetchData()
+        props.setAddressModalState(false);
+        props.getAddressFetchData();
         // props.getDataFetch(post.data);
         // props.setModalIsOpen(false);
         // props.setIsLoading(true);
-      } else if (post.status === 422) {
-        setErrorData(post.data.errors);
-        console.log(post.data.errors);
+      } else if (post.response.status === 422) {
+        setErrorData(post.response.data.errors);
+        console.log(post.response.data.errors);
       } else if (post.status === 404) {
         console.log(post);
       }
@@ -134,13 +134,13 @@ const AddressModal = (props) => {
   }, [fetchCityData, ItarateMapData]);
 
   useEffect(() => {
-    console.log(props)
+    console.log(props);
     if (props.pageType === "edite") {
       (async () => {
         const getEditData = await getData(
           API_PATHS.DASHBOARDUSERADDRESS + "/" + props.addressEditId + "/edit",
         );
-        console.log(getEditData)
+        console.log(getEditData);
         if (getEditData.status === "success") {
           setEditData(getEditData.data);
           await fetchCityData(getEditData.data.province_slug);
@@ -170,6 +170,8 @@ const AddressModal = (props) => {
       setProvincesId(ItarateMapData.province_id);
     }
   }, [ItarateMapData, props.pageType, editData]);
+
+  console.log(editData);
 
   return (
     <form
@@ -213,7 +215,7 @@ const AddressModal = (props) => {
             star={true}
             name={"address"}
             id={"address"}
-          // profileData={""}
+            // profileData={""}
           />
           {errroData.address && (
             <span
@@ -240,7 +242,7 @@ const AddressModal = (props) => {
             setProvincesId={setProvincesId}
             name={"province"}
             id={"province"}
-          // profileData={""}
+            // profileData={""}
           />
           {errroData.province_id && (
             <span
@@ -263,7 +265,7 @@ const AddressModal = (props) => {
             setCityId={setCityId}
             name={"city"}
             id={"city"}
-          // profileData={""}
+            // profileData={""}
           />
           {errroData.city_id && (
             <span
@@ -283,8 +285,15 @@ const AddressModal = (props) => {
             icon={"cc-document-align-right"}
             title={"عنوان"}
             star={true}
-          // profileData={""}
+            // profileData={""}
           />
+          {errroData.city_id && (
+            <span
+              className={"inline-block text-[12px] text-red-500 font-bold mt-2"}
+            >
+              {errroData.city_id && errroData.title[0]}
+            </span>
+          )}
         </div>
         <div className={"col-span-2"}>
           <AddressInput
@@ -296,7 +305,7 @@ const AddressModal = (props) => {
             id={"postalCode"}
             name={"postalCode"}
             star={true}
-          // profileData={""}
+            // profileData={""}
           />
           {errroData.postal_code && (
             <span
@@ -330,8 +339,8 @@ const AddressModal = (props) => {
               star={true}
               name={"fullName"}
               id={"fullName"}
-            // onChange={nameChangeHandler}
-            // profileData={""}
+              // onChange={nameChangeHandler}
+              // profileData={""}
             />
           </div>
           <div>
@@ -344,7 +353,7 @@ const AddressModal = (props) => {
               star={true}
               name={"phoneNumber"}
               id={"phoneNumber"}
-            // profileData={""}
+              // profileData={""}
             />
           </div>
         </div>
