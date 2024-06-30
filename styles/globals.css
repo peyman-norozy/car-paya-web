@@ -141,6 +141,11 @@ li {
     border-radius: 50%;
 }
 
+.batteries .swiper-slide{
+    width: 90px !important;
+    height: 90px !important;
+}
+
 .main_banner_slider .swiper-button-next::after, .main_banner_slider .swiper-button-prev::after {
     color: #eee;
     padding: 5px;
