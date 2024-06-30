@@ -119,7 +119,12 @@ export default function RegisterUserLogin() {
       refreshFormData();
       const getProfileData = await getData(API_PATHS.DASHBOARDPROFILE);
       console.log(getProfileData);
-      localStorage.setItem("profileData", JSON.stringify(getProfileData.data));
+      if (getProfileData.status === "success") {
+        localStorage.setItem(
+          "profileData",
+          JSON.stringify(getProfileData.data),
+        );
+      }
     } else {
       setSliderShowState(false);
       if (response.response.status === 422) {
