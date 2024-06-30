@@ -12,6 +12,7 @@ const ProfileEditeInput = (props) => {
         id={props.id}
         className={`border border-1 border-[#B0B0B0] rounded-[8px] h-[48px] w-full outline-none ${props.className ? props.className : "pr-[50px]"}`}
         value={props.value}
+        disabled={props.disabled}
         onChange={props.onChange}
       />
       <label
