@@ -1,12 +1,25 @@
 import React, { useEffect, useState } from "react";
 import ProfileEditeInput from "@/components/ProfileEditeInput/ProfileEditeInput";
 import PrivateRoute from "@/routes/private-route";
+import ProfileEditeSelectInput from "@/components/ProfileEditeSelectInput";
+import SelectOption from "@/components/SelectOption/SelectOption";
+import { postData, putData } from "@/utils/client-api-function-utils";
+import { API_PATHS } from "@/configs/routes.config";
+import { getData } from "@/utils/api-function-utils";
+import { ToastContainer } from "react-toastify";
+import { success } from "@/utils/function-utils";
+
+const genderData = [
+  { title: "آقا", value: "MALE" },
+  { title: "خانم", value: "FEMALE" },
+];
 
 const PersonalInformation = () => {
   const profileData = JSON.parse(localStorage.getItem("profileData"));
   const [name, setName] = useState("");
   const [mobile, setMobile] = useState("");
   const [email, setEmail] = useState("");
+  const [loading, setLoading] = useState(false);
   console.log(profileData);
 
   useEffect(() => {
@@ -15,9 +28,34 @@ const PersonalInformation = () => {
     setEmail(profileData.email);
   }, []);
 
-  const formSubmitHandler = (event) => {
+  const formSubmitHandler = async (event) => {
     event.preventDefault();
-    console.log(event.target.name);
+    console.log(event.target.name.value);
+    console.log(event.target.mobile.value);
+    console.log(event.target.nationalCode.value);
+    console.log(event.target.email.value);
+    console.log(event.target.gender.value);
+    const fd = new FormData();
+    fd.set("mobile", event.target.mobile.value);
+    fd.set("full_name", event.target.name.value);
+    fd.set("national_code", event.target.nationalCode.value);
+    fd.set("email", event.target.email.value);
+    fd.set("gender", event.target.gender.value);
+    fd.set("X-HTTP-Method-Override", "PUT");
+    setLoading(true);
+    const postProfileEdit = await putData(
+      API_PATHS.USERPANEL + API_PATHS.PROFILE,
+      fd,
+    );
+
+    const getProfileData = await getData(API_PATHS.DASHBOARDPROFILE);
+    if (getProfileData.status === "success") {
+      localStorage.setItem("profileData", JSON.stringify(getProfileData.data));
+    }
+    if (postProfileEdit.data.status === "success") {
+      success(postProfileEdit.data.message);
+    }
+    setLoading(false);
   };
 
   return (
@@ -36,21 +74,21 @@ const PersonalInformation = () => {
             <ProfileEditeInput
               icon={"dt-user-o"}
               className={"pr-[4px]"}
-              title={"نام"}
+              title={"نام و نام خانوادگی"}
               value={name}
               name={"name"}
               id={"name"}
               onChange={(event) => setName(event.target.value)}
             />
-            <ProfileEditeInput
-              icon={"dt-user-o"}
-              className={"pr-[4px]"}
-              title={"نام خانوادگی"}
-              value={""}
-              name={"lastName"}
-              id={"lastName"}
-              // onChange={(event) => setMobile(event.target.value)}
-            />
+            {/*<ProfileEditeInput*/}
+            {/*  icon={"dt-user-o"}*/}
+            {/*  className={"pr-[4px]"}*/}
+            {/*  title={"نام خانوادگی"}*/}
+            {/*  value={""}*/}
+            {/*  name={"lastName"}*/}
+            {/*  id={"lastName"}*/}
+            {/*  // onChange={(event) => setMobile(event.target.value)}*/}
+            {/*/>*/}
             <ProfileEditeInput
               icon={"dt-call-calling-o"}
               className={"pr-[4px]"}
@@ -58,6 +96,7 @@ const PersonalInformation = () => {
               value={mobile}
               name={"mobile"}
               id={"mobile"}
+              disabled={true}
               onChange={(event) => setMobile(event.target.value)}
             />
             <ProfileEditeInput
@@ -78,26 +117,35 @@ const PersonalInformation = () => {
               id={"email"}
               onChange={(event) => setEmail(event.target.value)}
             />
-            <ProfileEditeInput
-              icon={"dt-gender"}
-              className={"pr-[4px]"}
+            <SelectOption
               title={"جنسیت"}
-              value={""}
+              data={genderData}
               name={"gender"}
               id={"gender"}
-              // onChange={changeNameHandler}
+              className={"pr-[4px]"}
             />
+            {/*<ProfileEditeInput*/}
+            {/*  icon={"dt-gender"}*/}
+            {/*  className={"pr-[4px]"}*/}
+            {/*  title={"جنسیت"}*/}
+            {/*  value={""}*/}
+            {/*  name={"gender"}*/}
+            {/*  id={"gender"}*/}
+            {/*  // onChange={changeNameHandler}*/}
+            {/*/>*/}
           </div>
           <button
             type={"submit"}
+            disabled={loading}
             className={
               "bg-[#354597] w-[150px] h-[40px] size460:self-end self-center mt-[50px] text-[#F6F6F6] rounded-[10px] hover:bg-[#354960]"
             }
           >
-            ثبت تغییرات
+            {loading ? "در حال ثبت" : "ثبت تغییرات"}
           </button>
         </form>
       </div>
+      <ToastContainer rtl={true} />
     </PrivateRoute>
   );
 };
