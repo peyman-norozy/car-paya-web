@@ -31,7 +31,8 @@ export const metadata = {
 const BatteriesData = async (props) => {
   console.log(props);
   const fetchData = await getData(
-    "/web/batteries" + "?order_by=" + props.filter,
+    "/web/batteries",
+    // + "?order_by=" + props.filter,
   );
   return <BatteriesPage data={fetchData} />;
 };
