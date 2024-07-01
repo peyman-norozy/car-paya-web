@@ -1,7 +1,7 @@
 import BatteriesPage from "@/components/batteries/BatteriesPage";
 import { META_PATHS } from "@/configs/routes.config";
 import { getData } from "@/utils/api-function-utils";
-import BatteriesShow from "@/components/ProductShow/ProductShow";
+import ProductShow from "@/components/ProductShow/ProductShow";
 export const metadata = {
   title: " فروشگاه باطری",
   description:
@@ -35,7 +35,7 @@ export const metadata = {
 // }
 
 const Batteries = (props) => {
-  return <BatteriesShow filter={props.searchParams.order_by} />;
+  return <ProductShow filter={props.searchParams.order_by} />;
 };
 
 export default Batteries;
