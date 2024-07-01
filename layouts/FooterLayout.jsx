@@ -49,7 +49,7 @@ const Footer = (props) => {
     <footer
       className={`${props.className} ${
         pathName === "panel" && params["all-panel-tab"] ? "hidden" : ""
-      } bg-[#2C5D83] mt-16 size1000:mb-0 mb-[50px] absolute right-0 left-0 size671:pb-[120px] pb-[170px]`}
+      } bg-[#2C5D83] size1000:mb-0 mb-[50px] absolute right-0 left-0 size671:pb-[120px] pb-[170px]`}
     >
       <div className={"max-w-[1600px] m-auto"}>
         <div>
