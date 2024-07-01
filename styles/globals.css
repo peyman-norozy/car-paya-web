@@ -272,3 +272,27 @@ li {
 ::-webkit-scrollbar-thumb:hover {
     background: #555;
 }
+
+/*************************** show product shadow text when close accordion *******************************/
+
+.divShowProduct {
+    background-color: white;
+}
+
+.showProduct {
+    color: black;
+    position: relative;
+    width: 100%;
+    mix-blend-mode: hard-light;
+}
+
+.showProduct::after {
+    position: absolute;
+    content: "";
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    background: linear-gradient(transparent, gray);
+    pointer-events: none;
+}
