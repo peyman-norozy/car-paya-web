@@ -65,7 +65,6 @@ const ProductSlider = () => {
           </Swiper>
         </div>
       </div>
-      <div>sdfsd</div>
     </div>
   );
 };

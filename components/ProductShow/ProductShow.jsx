@@ -1,6 +1,9 @@
 import React from "react";
 import ProductSlider from "@/components/ProductSlider/ProductSlider";
 import Image from "next/image";
+import { numberWithCommas } from "@/utils/function-utils";
+import ProductIntroduction from "@/components/ProductIntroduction/ProductIntroduction";
+import UserComment from "@/components/UserComment/UserComment";
 
 const ProductShow = () => {
   return (
@@ -49,7 +52,7 @@ const ProductShow = () => {
           <div>
             <div
               className={
-                "sticky w-[319px] h-[482px] top-[100px] bg-[#FDFDFD] shadow-[0_0px_26px_0_rgba(0,0,0,0.1)] rounded-[5px] p-[22px]"
+                "w-[319px] h-full bg-[#FDFDFD] shadow-[0_0px_26px_0_rgba(0,0,0,0.1)] rounded-[5px] p-[22px]"
               }
             >
               <div className={"flex flex-row-reverse gap-4 p-[10px]"}>
@@ -148,10 +151,55 @@ const ProductShow = () => {
                 </section>
               </div>
               <hr className={"mt-[18px] mb-[18px]"} />
-              <div>fffff</div>
+              <div className={"flex items-center justify-between"}>
+                <div className={"w-[48px] h-[48px] relative"}>
+                  <Image
+                    src={"/assets/icons/OBJECTS.svg"}
+                    alt={"icon"}
+                    width={48}
+                    height={48}
+                  />
+                  <span
+                    className={
+                      "text-white absolute top-[11px] right-[13px] text-[14px]"
+                    }
+                  >
+                    18%
+                  </span>
+                </div>
+                <div className={"relative"}>
+                  <span>{numberWithCommas(430000)}</span>
+                  <span>تومان</span>
+                  <div
+                    className={
+                      "text-left text-[#919191] absolute top-[28px] left-0 line-through"
+                    }
+                  >
+                    {numberWithCommas(570000)}
+                  </div>
+                </div>
+              </div>
+              <button
+                className={
+                  "bg-[#354597] text-center text-white flex items-center justify-center gap-2 text-[14px] w-full py-2 mt-[24px] rounded-[10px]"
+                }
+              >
+                <Image
+                  src={"/assets/icons/shopping-cart.svg"}
+                  alt={"icon"}
+                  width={24}
+                  height={24}
+                />
+                <span>افزودن به سبد خرید</span>
+              </button>
             </div>
           </div>
         </section>
+      </div>
+      <ProductIntroduction />
+      <div className={"max-w-[1600px] m-auto flex mt-[32px]"}>
+        <UserComment />
+        <div className={"w-[100px] bg-red-950"}>ss</div>
       </div>
     </div>
   );
