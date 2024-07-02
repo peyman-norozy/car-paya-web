@@ -6,16 +6,15 @@ const StarRating = (props) => {
     console.log(newRating);
   };
   return (
-    <div>
-      <ReactStars
-        count={5}
-        onChange={ratingChanged}
-        size={44}
-        color2={"#ffd700"}
-        edit={props.edit}
-        value={props.value}
-      />
-    </div>
+    <ReactStars
+      count={5}
+      onChange={ratingChanged}
+      size={props.size}
+      color2={"#ffd700"}
+      edit={props.edit}
+      half={false}
+      value={props.value}
+    />
   );
 };
 
