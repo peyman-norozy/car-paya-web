@@ -1,9 +1,11 @@
 import React from "react";
-import ProductSlider from "@/components/ProductSlider/ProductSlider";
+import ProductShowSlider from "@/components/ProductShowSlider/ProductShowSlider";
 import Image from "next/image";
 import { numberWithCommas } from "@/utils/function-utils";
 import ProductIntroduction from "@/components/ProductIntroduction/ProductIntroduction";
 import UserComment from "@/components/UserComment/UserComment";
+import ProductSlider from "@/components/ProductSlider/ProductSlider";
+import ProductSliderCard from "@/components/cards/ProductSliderCard/ProductSliderCard";
 
 const ProductShow = () => {
   return (
@@ -15,7 +17,7 @@ const ProductShow = () => {
               "flex gap-[21px] p-[16px] bg-[#FDFDFD] shadow-[0_0px_26px_0_rgba(0,0,0,0.1)] rounded-[5px]"
             }
           >
-            <ProductSlider />
+            <ProductShowSlider />
             <div className={"flex flex-col gap-[16px]"}>
               <h1>روغن موتور خودرو بهران مدل تکتاز 20W50 حجم 3.785 لیتر</h1>
               <h2>ویژگی ها</h2>
@@ -197,9 +199,19 @@ const ProductShow = () => {
         </section>
       </div>
       <ProductIntroduction />
-      <div className={"max-w-[1600px] m-auto flex mt-[32px]"}>
+      <div className={"max-w-[1600px] m-auto flex mt-[32px] gap-[32px]"}>
         <UserComment />
-        <div className={"w-[100px] bg-red-950"}>ss</div>
+        <div
+          className={
+            "w-[319px] text-[#354597] bg-[#ECEEF8] self-start rounded-[10px]"
+          }
+        >
+          <p className={"px-[16px] py-[11px]"}>پیشنهاد کار چک می</p>
+          <ProductSliderCard width={"w-full"} />
+        </div>
+      </div>
+      <div className={"max-w-[1600px] m-auto"}>
+        <ProductSlider />
       </div>
     </div>
   );
