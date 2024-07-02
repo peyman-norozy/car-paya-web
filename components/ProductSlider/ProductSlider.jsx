@@ -1,70 +1,33 @@
 "use client";
-import React, { useRef, useState } from "react";
-// Import Swiper React components
+import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { A11y, Navigation, Pagination, Scrollbar } from "swiper/modules";
+import ProductSliderCard from "@/components/cards/ProductSliderCard/ProductSliderCard";
 
-// Import Swiper styles
-import "swiper/css";
-import "swiper/css/free-mode";
-import "swiper/css/navigation";
-import "swiper/css/thumbs";
+const fakeArray = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
-// import "./styles.css";
-
-const fakeData = [0, 0, 0];
-
-// import required modules
-import { FreeMode, Navigation, Thumbs } from "swiper/modules";
-import Image from "next/image";
 const ProductSlider = () => {
-  const [thumbsSwiper, setThumbsSwiper] = useState(null);
-
   return (
-    <div>
-      <div>
-        <div className={"w-[344px] h-[344px]"}>
-          <Swiper
-            style={{
-              "--swiper-navigation-color": "#fff",
-              "--swiper-pagination-color": "#fff",
-            }}
-            spaceBetween={10}
-            navigation={true}
-            thumbs={{ swiper: thumbsSwiper }}
-            modules={[FreeMode, Navigation, Thumbs]}
-            className="mySwiper2"
+    <div className="product_slider relative mt-[80px] pb-[56px]">
+      <h1 className="text-right text-[#2C5D83] text-24 py-4 mb-8 border-r-2 border-[#2C5D83] pr-2">
+        محصولات چک کار می
+      </h1>
+      <Swiper
+        modules={[Navigation, Pagination, Scrollbar, A11y]}
+        spaceBetween={18}
+        slidesPerView={"auto"}
+        effect="fade"
+        pagination={{ clickable: true }}
+      >
+        {fakeArray.map((item, index) => (
+          <SwiperSlide
+            key={item.slug}
+            style={{ width: "auto", height: "auto" }}
           >
-            {fakeData.map((item, index) => (
-              <SwiperSlide key={index}>
-                <img
-                  src="https://swiperjs.com/demos/images/nature-1.jpg"
-                  className={"rounded-[5px]"}
-                />
-              </SwiperSlide>
-            ))}
-          </Swiper>
-        </div>
-        <div className={"w-[344px] mt-[16px] batteries"}>
-          <Swiper
-            onSwiper={setThumbsSwiper}
-            spaceBetween={16}
-            slidesPerView={4}
-            freeMode={true}
-            watchSlidesProgress={true}
-            modules={[FreeMode, Navigation, Thumbs]}
-            className="mySwiper"
-          >
-            {fakeData.map((item, index) => (
-              <SwiperSlide key={index}>
-                <img
-                  src="https://swiperjs.com/demos/images/nature-1.jpg"
-                  className={"rounded-[5px]"}
-                />
-              </SwiperSlide>
-            ))}
-          </Swiper>
-        </div>
-      </div>
+            <ProductSliderCard />
+          </SwiperSlide>
+        ))}
+      </Swiper>
     </div>
   );
 };
