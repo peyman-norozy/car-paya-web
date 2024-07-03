@@ -61,7 +61,7 @@ const AddressModal = (props) => {
       formData.set("X-HTTP-Method-Override", "PUT");
       setLoading(true);
       const update = await putData(
-        API_PATHS.DASHBOARDUSERADDRESS + "/" + props.addressEditId,
+        API_PATHS.DASHBOARDUSERADDRESS + "/" + props.addressEditId + "/edit",
         formData,
       );
       if (update.status === 200) {
@@ -137,6 +137,8 @@ const AddressModal = (props) => {
         const getEditData = await getData(
           API_PATHS.DASHBOARDUSERADDRESS + "/" + props.addressEditId + "/edit",
         );
+        console.log(props.addressEditId);
+        console.log(getEditData);
         if (getEditData.status === "success") {
           setEditData(getEditData.data);
           await fetchCityData(getEditData.data.province_slug);

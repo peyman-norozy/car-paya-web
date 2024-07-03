@@ -113,6 +113,8 @@ const SelectVerificationPlace = (props) => {
       .catch((err) => console.log(err));
   }, [fetchData, modalIsOpen]);
 
+  console.log(myLocationData);
+
   return (
     <div className={"w-[95%] m-auto size690:w-full relative"}>
       {modalIsOpen && (
