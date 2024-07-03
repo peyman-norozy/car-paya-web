@@ -2,6 +2,7 @@ import BatteriesPage from "@/components/batteries/BatteriesPage";
 import { META_PATHS } from "@/configs/routes.config";
 import { getData } from "@/utils/api-function-utils";
 import ProductShow from "@/components/ProductShow/ProductShow";
+import { Suspense } from "react";
 export const metadata = {
   title: " فروشگاه باطری",
   description:
@@ -39,10 +40,12 @@ const BatteriesData = async (props) => {
 
 const Batteries = (props) => {
   return (
-    <BatteriesData
-      filter={props.searchParams.order_by}
-      params={props.params.batteries}
-    />
+    <Suspense fallback={<div>....Loading</div>}>
+      <BatteriesData
+        filter={props.searchParams.order_by}
+        params={props.params.batteries}
+      />
+    </Suspense>
   );
 };
 
