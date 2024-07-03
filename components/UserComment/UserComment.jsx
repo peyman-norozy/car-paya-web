@@ -25,7 +25,11 @@ const UserComment = () => {
             className={"p-2"}
           />
         </section>
-        <section className={"mt-[24px] flex justify-between gap-[33px]"}>
+        <section
+          className={
+            "mt-[24px] flex size746:flex-row flex-col justify-between gap-[33px]"
+          }
+        >
           <div className={"flex-1"}>
             <ProfileEditeInput
               icon={"dt-user-o"}
@@ -48,7 +52,7 @@ const UserComment = () => {
           </div>
           <Button
             class_name={
-              "flex items-center justify-center gap-2 border border-[#354597] text-[#354597] px-[10px] rounded-5 w-[174px] h-[48px]"
+              "flex items-center justify-center gap-2 border border-[#354597] text-[#354597] px-[10px] rounded-5 size746:w-[174px] w-full h-[48px]"
             }
           >
             <i className={"cc-messages text-[24px]"} />
@@ -90,10 +94,10 @@ const UserComment = () => {
                   <span>1402/10/10</span>
                 </div>
               </div>
-              <div className={"px-[64px]"}>
+              <div className={"size746:px-[64px] px-[10px]"}>
                 <p
                   className={
-                    "text-[14px] leading-7 text-[#303030] text-justify"
+                    "text-[14px] leading-7 text-[#303030] size746:text-justify text-right"
                   }
                 >
                   لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و
@@ -122,7 +126,7 @@ const UserComment = () => {
                     className={"self-start mt-1"}
                   />
                   <span className={"self-start mt-1"}>پاسخ:</span>
-                  <p className={"leading-7 text-justify"}>
+                  <p className={"leading-7 size746:text-justify text-right"}>
                     تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای
                     کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و
                     آینده، شناخت فراوان جامعه و متخصصان را می طلبد.

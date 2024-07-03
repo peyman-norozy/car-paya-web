@@ -14,7 +14,7 @@ const ProductIntroduction = () => {
   };
   return (
     <div
-      className={`max-w-[1600px] m-auto bg-white mt-[24px] shadow-[0_0px_26px_0_rgba(0,0,0,0.1)] rounded-[5px] pt-[24px] px-[21px] flex flex-col ${scollHeight === 120 ? "divShowProduct" : ""}`}
+      className={`max-w-[1600px] mt-[24px] size1056:mx-auto mx-[20px] bg-white  shadow-[0_0px_26px_0_rgba(0,0,0,0.1)] rounded-[5px] pt-[24px] px-[21px] flex flex-col ${scollHeight === 120 ? "divShowProduct" : ""}`}
     >
       <h3 className={"text-[18px] pb-4"}>معرفی محصول</h3>
       <p

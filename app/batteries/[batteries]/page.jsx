@@ -29,13 +29,21 @@ export const metadata = {
   },
 };
 
-// const BatteriesData = async (props) => {
-//     const fetchData = await getData('/web/batteries' + '?order_by=' + props.filter )
-//     return <BatteriesPage data={fetchData}/>
-// }
+const BatteriesData = async (props) => {
+  const fetchData = await getData(
+    "/web/battery" + "/" + props.params,
+    // + "?order_by=" + props.filter,
+  );
+  return <ProductShow data={fetchData} />;
+};
 
 const Batteries = (props) => {
-  return <ProductShow filter={props.searchParams.order_by} />;
+  return (
+    <BatteriesData
+      filter={props.searchParams.order_by}
+      params={props.params.batteries}
+    />
+  );
 };
 
 export default Batteries;

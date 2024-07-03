@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import ProductShowSlider from "@/components/ProductShowSlider/ProductShowSlider";
 import Image from "next/image";
@@ -7,19 +8,24 @@ import UserComment from "@/components/UserComment/UserComment";
 import ProductSlider from "@/components/ProductSlider/ProductSlider";
 import ProductSliderCard from "@/components/cards/ProductSliderCard/ProductSliderCard";
 
-const ProductShow = () => {
+const ProductShow = ({ data }) => {
+  const butteriesData = data.data;
   return (
-    <div className={"mt-[77px] bg-[#F9F9F9]"}>
+    <div className={"size1056:mt-[77px] mt-0 bg-[#F9F9F9]"}>
       <div className={"max-w-[1600px] m-auto pt-[16px]"}>
-        <section className={"flex gap-[21px]"}>
+        <section
+          className={
+            "flex gap-[21px] size1056:mx-0 mx-[20px] size752:flex-row flex-col"
+          }
+        >
           <div
             className={
-              "flex gap-[21px] p-[16px] bg-[#FDFDFD] shadow-[0_0px_26px_0_rgba(0,0,0,0.1)] rounded-[5px]"
+              "flex size1056:flex-row flex-col size1056:items-start items-center gap-[21px] p-[16px] bg-[#FDFDFD] shadow-[0_0px_26px_0_rgba(0,0,0,0.1)] rounded-[5px]"
             }
           >
             <ProductShowSlider />
             <div className={"flex flex-col gap-[16px]"}>
-              <h1>روغن موتور خودرو بهران مدل تکتاز 20W50 حجم 3.785 لیتر</h1>
+              <h1>{butteriesData.name}</h1>
               <h2>ویژگی ها</h2>
               <div>
                 <span>حجم کالا : </span>
@@ -54,7 +60,7 @@ const ProductShow = () => {
           <div>
             <div
               className={
-                "w-[319px] h-full bg-[#FDFDFD] shadow-[0_0px_26px_0_rgba(0,0,0,0.1)] rounded-[5px] p-[22px]"
+                "size752:w-[319px] w-full h-full bg-[#FDFDFD] shadow-[0_0px_26px_0_rgba(0,0,0,0.1)] rounded-[5px] p-[22px]"
               }
             >
               <div className={"flex flex-row-reverse gap-4 p-[10px]"}>
@@ -199,15 +205,21 @@ const ProductShow = () => {
         </section>
       </div>
       <ProductIntroduction />
-      <div className={"max-w-[1600px] m-auto flex mt-[32px] gap-[32px]"}>
+      <div
+        className={
+          "max-w-[1600px] mt-[32px] size1056:mx-auto mx-[20px] m-auto flex gap-[32px] size1056:flex-row flex-col-reverse"
+        }
+      >
         <UserComment />
         <div
           className={
-            "w-[319px] text-[#354597] bg-[#ECEEF8] self-start rounded-[10px]"
+            "size1056:w-[319px] w-full text-[#354597] bg-[#ECEEF8] self-start rounded-[10px]"
           }
         >
-          <p className={"px-[16px] py-[11px]"}>پیشنهاد کار چک می</p>
-          <ProductSliderCard width={"w-full"} />
+          <p className={"px-[16px] py-[11px] size1056:text-right text-center"}>
+            پیشنهاد کار چک می
+          </p>
+          <ProductSliderCard width={"w-full"} responsiveWidth={"w-full"} />
         </div>
       </div>
       <div className={"max-w-[1600px] m-auto"}>

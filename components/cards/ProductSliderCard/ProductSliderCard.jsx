@@ -16,7 +16,7 @@ const ProductSliderCard = (props) => {
             alt={"article image"}
             width={483}
             height={225}
-            className={"w-[484px] h-[225px]"}
+            className={` ${props.responsiveWidth ? `size1056:w-[484px] ${props.responsiveWidth}  h-[225px]` : "w-[484px] h-[225px]"}`}
           />
         </div>
         <div className="pb-4 flex flex-col items-center">

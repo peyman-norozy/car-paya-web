@@ -21,8 +21,12 @@ const ProductShowSlider = () => {
 
   return (
     <div>
-      <div>
-        <div className={"w-[344px] h-[344px]"}>
+      <div className={"flex flex-col items-center"}>
+        <div
+          className={
+            "size460:w-[344px] w-[280px] size490:h-[244px] h-[250px] flex justify-center"
+          }
+        >
           <Swiper
             style={{
               "--swiper-navigation-color": "#fff",
@@ -36,15 +40,18 @@ const ProductShowSlider = () => {
           >
             {fakeData.map((item, index) => (
               <SwiperSlide key={index}>
-                <img
-                  src="https://swiperjs.com/demos/images/nature-1.jpg"
+                <Image
+                  src={"/assets/images/lambo.png"}
+                  alt={"slider image"}
                   className={"rounded-[5px]"}
+                  width={344}
+                  height={344}
                 />
               </SwiperSlide>
             ))}
           </Swiper>
         </div>
-        <div className={"w-[344px] mt-[16px] batteries"}>
+        <div className={"size460:w-[344px] w-[280px] mt-[16px] batteries"}>
           <Swiper
             onSwiper={setThumbsSwiper}
             spaceBetween={16}
@@ -56,9 +63,12 @@ const ProductShowSlider = () => {
           >
             {fakeData.map((item, index) => (
               <SwiperSlide key={index}>
-                <img
-                  src="https://swiperjs.com/demos/images/nature-1.jpg"
+                <Image
+                  src={"/assets/images/lambo.png"}
+                  alt={"slider image"}
                   className={"rounded-[5px]"}
+                  width={344}
+                  height={344}
                 />
               </SwiperSlide>
             ))}
