@@ -11,6 +11,7 @@ import Image from "next/image";
 import Spinner from "@/components/Spinner";
 import { setLoginState } from "@/store/todoSlice";
 import { loginUser } from "@/store/loginCheckerSlice";
+import { getData } from "@/utils/api-function-utils";
 
 export default function EnterPasswordLogin(props) {
   const [passwordEyesState, setPasswordEyesState] = useState(false);
@@ -68,6 +69,18 @@ export default function EnterPasswordLogin(props) {
               };expires=${now.toUTCString()};path=/`;
               router.push("/");
               dispatch(loginUser()).then((res) => console.log(res));
+              (async () => {
+                const getProfileData = await getData(
+                  API_PATHS.DASHBOARDPROFILE,
+                );
+                console.log(getProfileData);
+                if (getProfileData.status === "success") {
+                  localStorage.setItem(
+                    "profileData",
+                    JSON.stringify(getProfileData.data),
+                  );
+                }
+              })();
             } else {
               // error(res.data.errors);
               setPasswordError(res.data.errors);

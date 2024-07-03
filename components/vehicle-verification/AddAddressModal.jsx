@@ -61,7 +61,7 @@ const AddressModal = (props) => {
       formData.set("X-HTTP-Method-Override", "PUT");
       setLoading(true);
       const update = await putData(
-        API_PATHS.DASHBOARDUSERADDRESS + "/" + props.addressEditId + "/edit",
+        API_PATHS.DASHBOARDUSERADDRESS + "/" + props.addressEditId,
         formData,
       );
       if (update.status === 200) {
@@ -79,12 +79,14 @@ const AddressModal = (props) => {
       setLoading(true);
       const post = await postData(API_PATHS.DASHBOARDUSERADDRESS, formData);
       if (post.status === 200) {
-        props.getDataFetch(post.data);
-        props.setModalIsOpen(false);
-        props.setIsLoading(true);
-      } else if (post.status === 422) {
-        setErrorData(post.data.errors);
-        console.log(post.data.errors);
+        props.setAddressModalState(false);
+        props.getAddressFetchData();
+        // props.getDataFetch(post.data);
+        // props.setModalIsOpen(false);
+        // props.setIsLoading(true);
+      } else if (post.response.status === 422) {
+        setErrorData(post.response.data.errors);
+        console.log(post.response.data.errors);
       } else if (post.status === 404) {
         console.log(post);
       }
@@ -132,13 +134,12 @@ const AddressModal = (props) => {
   }, [fetchCityData, ItarateMapData]);
 
   useEffect(() => {
+    console.log(props);
     if (props.pageType === "edite") {
       (async () => {
         const getEditData = await getData(
           API_PATHS.DASHBOARDUSERADDRESS + "/" + props.addressEditId + "/edit",
         );
-        console.log(props.addressEditId);
-        console.log(getEditData);
         if (getEditData.status === "success") {
           setEditData(getEditData.data);
           await fetchCityData(getEditData.data.province_slug);
@@ -168,6 +169,8 @@ const AddressModal = (props) => {
       setProvincesId(ItarateMapData.province_id);
     }
   }, [ItarateMapData, props.pageType, editData]);
+
+  console.log(editData);
 
   return (
     <form
@@ -283,6 +286,13 @@ const AddressModal = (props) => {
             star={true}
             // profileData={""}
           />
+          {errroData.city_id && (
+            <span
+              className={"inline-block text-[12px] text-red-500 font-bold mt-2"}
+            >
+              {errroData.city_id && errroData.title[0]}
+            </span>
+          )}
         </div>
         <div className={"col-span-2"}>
           <AddressInput

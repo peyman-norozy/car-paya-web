@@ -1,7 +1,7 @@
 "use client";
 import dynamic from "next/dynamic";
 import TitleDescription from "@/components/TitleDescription";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import PersonalFile from "@/components/PersonalFile";
 import { useSelector } from "react-redux";
 import UserSpecifications from "@/components/UserSpecifications";
@@ -15,15 +15,25 @@ const PrivateRoute = dynamic(() => import("@/routes/private-route"), {
 });
 const UserPanel = () => {
   const [logoutModalState, setLogoutModalState] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
   const innerWidthNumber = useSelector(
     (number) => number.todo.windowInnerWidth,
   );
 
-  const router = useRouter()
+  const router = useRouter();
 
-  if (!getCookie("Authorization")) {
-    router.push("/login")
-    return
+  useEffect(() => {
+    const authCookie = getCookie("Authorization");
+    if (!authCookie) {
+      router.push("/login");
+    } else {
+      setIsAuthenticated(true);
+    }
+  }, [router]);
+
+  if (!isAuthenticated) {
+    return <div>... loading</div>;
   }
 
   return (

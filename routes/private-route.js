@@ -13,7 +13,7 @@ const PrivateRoute = ({ children }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    console.log(getCookie("Authorization"))
+    console.log(getCookie("Authorization"));
     if (getCookie("Authorization")) {
       dispatch(loginUser()).then((res) => console.log(res));
     }
@@ -29,18 +29,6 @@ const PrivateRoute = ({ children }) => {
   if (loginResult.user === null && loginResult.error === null) {
     return <div style={{ width: "100%", height: "600px" }}>... loading</div>;
   }
-
-  // if(loginResult.error && loginResult.loading === false && loginResult.user === null){
-  //     deleteCookie("Authorization")
-  //     router.push("/login")
-  //     return
-  // }
-
-  // if(loginResult.user === null){
-  //     return(
-  //         <div>... loading</div>
-  //     )
-  // }
 
   if (loginResult.error) {
     dispatch(setLoginState(true));

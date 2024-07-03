@@ -4,9 +4,18 @@ import Button from "../Button";
 import star from "@/public/assets/icons/Star-red.svg";
 import toman from "@/public/assets/icons/toman.svg";
 import { numberWithCommas } from "@/utils/function-utils";
+import { usePathname, useRouter } from "next/navigation";
 
 const BatteryCard = ({ data, setBatteryIsSelected }) => {
   console.log(data);
+  const router = useRouter();
+  const pathName = usePathname();
+
+  const batteryShowHandler = () => {
+    console.log(data.id);
+    router.push(pathName + "/" + data.id);
+  };
+
   return (
     <div className="w-full text-14 size1160:text-16 rounded-10 shadow-[0_0_6px_0_rgba(177,177,177,1)]  p-[0.5rem] size1228:p-[1.5rem] pb-[1.5rem]  flex flex-col size671:flex-row gap-[1rem] size671:gap-0 items-center justify-between">
       <Image
@@ -14,15 +23,20 @@ const BatteryCard = ({ data, setBatteryIsSelected }) => {
         alt={data.name}
         height={100}
         width={116}
+        className={"cursor-pointer"}
+        onClick={batteryShowHandler}
       />
-      <div className="w-full size671:w-auto ">
+      <div
+        className="w-full size671:w-auto cursor-pointer"
+        onClick={batteryShowHandler}
+      >
         <h1 className="text-[1.25rem] text-center size671:text-start font-bold text-[#303030]">
-          {data.name}
+          {data.filters.brand} {data.name}
         </h1>
         <ul className="grid grid-cols-2 justify-items-start gap-x-[5rem] gap-y-[0.75rem] text-text_gray my-[1rem]">
           <li className="flex items-center gap-[0.25rem]">
             <p>آمپر:</p>
-            <p>30</p>
+            <p>{data.filters.amper}</p>
           </li>
           <li className="flex items-center gap-[0.25rem]">
             <p>تکنولوژی:</p>
@@ -62,7 +76,7 @@ const BatteryCard = ({ data, setBatteryIsSelected }) => {
               className="mb-[0.35rem] self-start mt-[0.25rem]"
             />
             <div className="flex flex-col size671:flex-row gap-[0.75rem] pt-[0.25rem]">
-              <p>قیمت با دریافت باطری فرسوده</p>
+              <p>قیمت با دریافت باطری فرسوده هم آمپر</p>
               <div className="flex items-center gap-[0.75rem]">
                 <span className="flex items-center gap-[0.25rem] line-through text-center">
                   {numberWithCommas(data.price)}

@@ -1,17 +1,15 @@
-import {Metadata} from "next";
+import { Metadata } from "next";
 import "../styles/globals.css";
 import "react-toastify/dist/ReactToastify.css";
 import Providers from "@/store/provider";
 import MainLayout from "@/layouts/MainLayout";
-import NextTopLoader from 'nextjs-toploader';
-
+import NextTopLoader from "nextjs-toploader";
 
 export const metadata = {
-    manifest: "/manifest.json", // we are accessing our manifest file here
-    title: "car check",
-    // ... other options
+  manifest: "/manifest.json", // we are accessing our manifest file here
+  title: "car check",
+  // ... other options
 };
-
 
 // export const metadata = {
 //
@@ -29,22 +27,22 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-      <Providers>
-        <html lang="fa" dir="rtl">
-          <body className="max-w-[1600px] m-auto">
-            <NextTopLoader
-              color={"#000000"}
-              height={4}
-              crawlSpeed={2000}
-              crawl={true}
-              initialPosition={0.08}
-              showSpinner={false}
-              easing="ease"
-              speed={2000}
-            />
+    <Providers>
+      <html lang="fa" dir="rtl">
+        <body>
+          <NextTopLoader
+            color={"#000000"}
+            height={4}
+            crawlSpeed={2000}
+            crawl={true}
+            initialPosition={0.08}
+            showSpinner={false}
+            easing="ease"
+            speed={2000}
+          />
           <MainLayout>{children}</MainLayout>
-          </body>
-        </html>
-      </Providers>
+        </body>
+      </html>
+    </Providers>
   );
 }

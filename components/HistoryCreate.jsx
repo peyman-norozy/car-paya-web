@@ -8,6 +8,7 @@ import Button from "@/components/Button";
 import { postData } from "@/utils/client-api-function-utils";
 import { API_PATHS } from "@/configs/routes.config";
 import { notFound, usePathname, useRouter } from "next/navigation";
+import PrivateRoute from "@/routes/private-route";
 
 const exapleArray = [
   { title: "روغن موتور", id: 0 },
@@ -127,86 +128,90 @@ const HistoryCreate = (props) => {
   };
 
   return (
-    <div className="flex flex-col size1000:flex-1 w-full rounded-[10px] px-[43px] py-6 shadow-[0_0_6px_0_rgba(180,180,180,0.3)]">
-      <div className={"flex items-center gap-2 mb-[34px]"}>
-        <i
-          onClick={backAddHistory}
-          className={"cc-arrow-right text-[30px] text-[#354597] cursor-pointer"}
-        />
-        <span className={"text-[#354597]"}>افزودن سابقه</span>
-      </div>
-      <div className="flex gap-4 px-[60px] mt-[20px]">
-        <div className="flex-1">
-          <DatePickerSelection
-            placeholder={"تاریخ"}
-            id={"startDate"}
-            // pageType={props.pageType}
-            // editData={props.editStartAt}
-            // editCompany={props.editCompany}
-            // editRemember={props.editRemember}
-            id_state={"addHistory"}
-            setNewAddDateHistory={setNewAddDateHistory}
-            // setNewBodyInsuranceStartAt={props.setNewBodyInsuranceStartAt}
-            // setNewTechnicalDiagnosisStartAt={
-            //   props.setNewTechnicalDiagnosisStartAt
-            // }
+    <PrivateRoute>
+      <div className="flex flex-col size1000:flex-1 w-full rounded-[10px] px-[43px] py-6 shadow-[0_0_6px_0_rgba(180,180,180,0.3)]">
+        <div className={"flex items-center gap-2 mb-[34px]"}>
+          <i
+            onClick={backAddHistory}
+            className={
+              "cc-arrow-right text-[30px] text-[#354597] cursor-pointer"
+            }
           />
+          <span className={"text-[#354597]"}>افزودن سابقه</span>
         </div>
-
-        <div className="relative flex-1">
-          <span className="absolute text-12 text-[#aaa] top-[-10px] bg-white px-2 right-2">
-            کیلومتر فعلی خودرو
-          </span>
-          {newStartKilometerState && (
-            <span className="absolute left-2 top-3 text-12">کیلومتر</span>
-          )}
-          <Input
-            type="text"
-            value={newStartKilometerValue}
-            id={"kilometerStart"}
-            name={"kilometerStart"}
-            className={`border border-[#B0B0B0] outline-none ${
-              newStartKilometerState ? "pl-[50px]" : "pl-2"
-            } text-14 h-full placeholder:text-12 placeholder:text-right text-left w-full rounded-5`}
-            on_change={InputChangeHandler}
-          />
-        </div>
-      </div>
-      <div className="mt-6 flex flex-col px-[60px]">
-        <ul className="size800:flex hidden justify-between py-2 size1190:text-16 text-14 text-stone-800 rounded-10 bg-[#ECEEF8]">
-          <li className="font-bold flex-1 text-center">#</li>
-          <li className="font-bold flex-1 text-center">عنوان</li>
-          <li className="font-bold flex-1 text-center">وضعیت</li>
-          <li className="flex-1"></li>
-        </ul>
-        <div className="flex flex-col gap-4 overflow-y-auto py-4">
-          {exapleArray.map((item, index) => (
-            <RecordModalCard
-              key={item.id}
-              index={index}
-              params={props.params}
-              item={item}
-              newDetailArray={newDetailArray}
+        <div className="flex gap-4 px-[60px] mt-[20px]">
+          <div className="flex-1">
+            <DatePickerSelection
+              placeholder={"تاریخ"}
+              id={"startDate"}
+              // pageType={props.pageType}
+              // editData={props.editStartAt}
+              // editCompany={props.editCompany}
+              // editRemember={props.editRemember}
+              id_state={"addHistory"}
+              setNewAddDateHistory={setNewAddDateHistory}
+              // setNewBodyInsuranceStartAt={props.setNewBodyInsuranceStartAt}
+              // setNewTechnicalDiagnosisStartAt={
+              //   props.setNewTechnicalDiagnosisStartAt
+              // }
             />
-          ))}
+          </div>
+
+          <div className="relative flex-1">
+            <span className="absolute text-12 text-[#aaa] top-[-10px] bg-white px-2 right-2">
+              کیلومتر فعلی خودرو
+            </span>
+            {newStartKilometerState && (
+              <span className="absolute left-2 top-3 text-12">کیلومتر</span>
+            )}
+            <Input
+              type="text"
+              value={newStartKilometerValue}
+              id={"kilometerStart"}
+              name={"kilometerStart"}
+              className={`border border-[#B0B0B0] outline-none ${
+                newStartKilometerState ? "pl-[50px]" : "pl-2"
+              } text-14 h-full placeholder:text-12 placeholder:text-right text-left w-full rounded-5`}
+              on_change={InputChangeHandler}
+            />
+          </div>
         </div>
-        <div className={"mt-4 flex justify-end gap-4 px-[32px]"}>
-          <Button
-            type={"button"}
-            class_name={"bg-green-500 text-white px-10 py-2 rounded-5"}
-            on_click={sendClickHandler}
-          >
-            ثبت
-          </Button>
-          <Button
-            class_name={"bg-red-500 text-white px-10 py-2 rounded-5"}
-            on_click={backAddHistory}
-          >
-            لغو
-          </Button>
+        <div className="mt-6 flex flex-col px-[60px]">
+          <ul className="size800:flex hidden justify-between py-2 size1190:text-16 text-14 text-stone-800 rounded-10 bg-[#ECEEF8]">
+            <li className="font-bold flex-1 text-center">#</li>
+            <li className="font-bold flex-1 text-center">عنوان</li>
+            <li className="font-bold flex-1 text-center">وضعیت</li>
+            <li className="flex-1"></li>
+          </ul>
+          <div className="flex flex-col gap-4 overflow-y-auto py-4">
+            {exapleArray.map((item, index) => (
+              <RecordModalCard
+                key={item.id}
+                index={index}
+                params={props.params}
+                item={item}
+                newDetailArray={newDetailArray}
+              />
+            ))}
+          </div>
+          <div className={"mt-4 flex justify-end gap-4 px-[32px]"}>
+            <Button
+              type={"button"}
+              class_name={"bg-green-500 text-white px-10 py-2 rounded-5"}
+              on_click={sendClickHandler}
+            >
+              ثبت
+            </Button>
+            <Button
+              class_name={"bg-red-500 text-white px-10 py-2 rounded-5"}
+              on_click={backAddHistory}
+            >
+              لغو
+            </Button>
+          </div>
         </div>
       </div>
-    </div>
+    </PrivateRoute>
   );
 };
 

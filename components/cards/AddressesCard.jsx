@@ -57,7 +57,7 @@ const AddressesCard = (props) => {
                 <Image src={"/assets/images/image 22.png"} alt={"icon"} width={165} height={117} className={"ml-5"} />
             </div>
             {
-                addressModalState && <AddressModal setDeleteModalState={setDeleteModalState} />
+                addressModalState && <AddressModal setDeleteModalState={setDeleteModalState} setAddressModalState={props.setAddressModalState} setPageType={props.setPageType} setAddressEditId={props.setAddressEditId} addressId={props.item.id} />
             }
             {
                 deleteModalState && <DeleteAddressModal id={props.item.id} setDeleteModalState={setDeleteModalState} title={"آیا ازحذف آدرس از لیست آدرس هااطمینان دارید؟!"} getAddressFetchData={props.getAddressFetchData} />

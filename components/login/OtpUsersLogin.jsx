@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import Button from "@/components/Button";
@@ -8,6 +8,7 @@ import { API_PATHS } from "@/configs/routes.config";
 import { ToastContainer } from "react-toastify";
 import Spinner from "@/components/Spinner";
 import { loginUser } from "@/store/loginCheckerSlice";
+import { getData } from "@/utils/api-function-utils";
 
 export default function OtpUsersLogin(props) {
   const [otp, setOtp] = useState("");
@@ -15,6 +16,7 @@ export default function OtpUsersLogin(props) {
   const [newErrorText, setNewErrorText] = useState("");
   const otpData = useSelector((data) => data.todo.loginOtpData);
   const router = useRouter();
+  const dispatch = useDispatch();
 
   const postOtp = () => {
     let fd = new FormData();
@@ -42,6 +44,16 @@ export default function OtpUsersLogin(props) {
           .then(() => {
             router.push("/");
             dispatch(loginUser()).then((res) => console.log(res));
+            (async () => {
+              const getProfileData = await getData(API_PATHS.DASHBOARDPROFILE);
+              console.log(getProfileData);
+              if (getProfileData.status === "success") {
+                localStorage.setItem(
+                  "profileData",
+                  JSON.stringify(getProfileData.data),
+                );
+              }
+            })();
           })
           .catch((e) => {
             setSliderShowState(false);
