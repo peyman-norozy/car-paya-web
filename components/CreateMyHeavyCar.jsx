@@ -60,7 +60,7 @@ const CreateMyHeavyCar = () => {
     <PrivateRoute>
       <div className="flex flex-col size1000:flex-1 w-full rounded-[10px] px-[43px] py-6 shadow-[0_0_6px_0_rgba(180,180,180,0.3)]">
         <div className={"flex items-center justify-between"}>
-          <span className={"text-BLUE_600"}>موتور سیکلت من</span>
+          <span className={"text-BLUE_600"}>وسیله سنگین من</span>
           <div>
             <button
               type={"button"}

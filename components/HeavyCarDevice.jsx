@@ -391,7 +391,7 @@ const HeavyCarDevice = (props) => {
       if (response.status === 200 || response.status === 201) {
         setButtonDisabledState(false);
         // success(res.data.data["msg"]);
-        router.push("/panel/my-vehicle/my-motorcycle");
+        router.push("/panel/my-vehicle/my-heavy-car");
         // event.target.reset();
         // setNewReset(true);
         // setNewCitiesId("");
