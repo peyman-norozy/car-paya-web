@@ -16,6 +16,8 @@ const BatteryCard = ({ data, setBatteryIsSelected }) => {
     router.push(pathName + "/" + data.id);
   };
 
+  console.log(data);
+
   return (
     <div className="w-full text-14 size1160:text-16 rounded-10 shadow-[0_0_6px_0_rgba(177,177,177,1)]  p-[0.5rem] size1228:p-[1.5rem] pb-[1.5rem]  flex flex-col size671:flex-row gap-[1rem] size671:gap-0 items-center justify-between">
       <Image

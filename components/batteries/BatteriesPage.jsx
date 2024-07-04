@@ -11,6 +11,7 @@ import Spinner from "../Spinner";
 import CarServicesSlider from "@/components/CarServicesSlider/CarServicesSlider";
 import { serviceData } from "@/staticData/data";
 import useSetQuery from "@/hook/useSetQuery";
+import { getData } from "@/utils/api-function-utils";
 
 const BatteriesPage = (props) => {
   const [isClicked, setIsClicked] = useState(1);
@@ -18,10 +19,13 @@ const BatteriesPage = (props) => {
   const [batteryIsSelected, setBatteryIsSelected] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [filter, setFilter] = useState("فیلتر بر اساس");
+  const [selectedItem, setSelectedItem] = useState(null);
+  const [step, setStep] = useState("car-brands");
+  const [selectFilterData, setSelectFilterData] = useState([]);
   const filterRef = useRef(null);
   const setQuery = useSetQuery();
   const heightRef = useRef(null);
-  const data = props.data.data;
+  const data = selectFilterData.length > 0 ? selectFilterData : props.data.data;
   const tabTitle = [
     { name: "خودرو" },
     { name: "موتور سیکلت" },
@@ -73,11 +77,35 @@ const BatteriesPage = (props) => {
   }, []);
 
   console.log(data);
+
+  useEffect(() => {
+    console.log(selectedItem);
+    console.log(step);
+    if (step === "car-tips") {
+      (async () => {
+        const getFilterBatteries = await getData(
+          `/web/attach/car/battery/${selectedItem}`,
+        );
+        // console.log(getFilterBatteries.data);
+        setSelectFilterData(getFilterBatteries.data);
+      })();
+    }
+  }, [step]);
+
+  console.log(selectFilterData);
+
   return (
     <Fragment>
       <div className="w-[95%] size671:w-[98%] size1090:w-[95%] m-auto flex flex-col size1056:flex-row gap-[1rem] size1275:gap-[3rem]">
         <div className="hidden size1000:block size720:w-[48%] size1136:w-[45%] size1000:pt-[9rem] size1056:pt-0 mt-[1rem] self-center size1056:self-auto">
-          <SelectVehicleBox tabTitle={tabTitle} title="انتخاب وسیله نقلیه" />
+          <SelectVehicleBox
+            tabTitle={tabTitle}
+            title="انتخاب وسیله نقلیه"
+            setSelectedItem={setSelectedItem}
+            selectedItem={selectedItem}
+            setStep={setStep}
+            step={step}
+          />
         </div>
         <div className="pt-0 size1056:pt-[9rem] w-full mt-[1rem] flex flex-col gap-[1.5rem] relative">
           <div className="w-full absolute top-0 right-0  hidden size1000:flex flex-row-reverse items-center gap-[1rem]">
