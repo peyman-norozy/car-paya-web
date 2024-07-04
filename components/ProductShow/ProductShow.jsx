@@ -25,7 +25,7 @@ const ProductShow = ({ data }) => {
           >
             <ProductShowSlider />
             <div className={"flex flex-col gap-[16px]"}>
-              <h1>{butteriesData.name}</h1>
+              <h1>{butteriesData && butteriesData.name}</h1>
               <h2>ویژگی ها</h2>
               <div>
                 <span>حجم کالا : </span>

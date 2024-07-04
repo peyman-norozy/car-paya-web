@@ -1,15 +1,15 @@
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 
 const ShowMyVehicles = (props) => {
   const pathname = usePathname();
   const [selectedVehicle, setSelectedVehicle] = useState(false);
   const selectItemHandler = (e, id) => {
-    console.log();
     if (e.currentTarget.getAttribute("image") !== null) {
       props.setImage(e.currentTarget.getAttribute("image"));
     }
+    console.log(id);
     setSelectedVehicle(id);
     const newUrl =
       "/" +
@@ -21,7 +21,6 @@ const ShowMyVehicles = (props) => {
       "",
       newUrl,
     );
-
     props.setSelectedItem(e.currentTarget.id);
     if (props.step === "car-brands") {
       props.setStep("car-models");

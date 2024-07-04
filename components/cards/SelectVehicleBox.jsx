@@ -14,31 +14,31 @@ const SelectVehicleBox = (props) => {
   const [motorBrands, setMotorBrands] = useState([]);
   const [carModel, setCarModel] = useState([]);
   const [motorModel, setMotorModel] = useState([]);
-  const [selectedItem, setSelectedItem] = useState(null);
-  const [step, setStep] = useState("car-brands");
+  // const [step, setStep] = useState("car-brands");
   const [motorStep, setMotorStep] = useState("motor-brands");
   const [isLoading, setIsLoading] = useState(false);
+  const [image, setImage] = useState("");
 
   const myVehicleData = [];
 
   const backStepHandler = () => {
-    if (step === "car-models") {
-      setStep("car-brands");
-    } else if (step === "car-tips") {
-      setStep("car-models");
-      setSelectedItem(carModel);
+    if (props.step === "car-models") {
+      props.setStep("car-brands");
+    } else if (props.step === "car-tips") {
+      props.setStep("car-models");
+      props.setSelectedItem(carModel);
     }
     if (motorStep === "motor-models") {
       setMotorStep("motor-brands");
     } else if (motorStep === "motor-tips") {
       setMotorStep("motor-models");
-      setSelectedItem(motorModel);
+      props.setSelectedItem(motorModel);
     }
   };
 
   useEffect(() => {
     setIsLoading(true);
-    if (step === "car-brands") {
+    if (props.step === "car-brands") {
       axios
         .get(process.env.BASE_API + "/web" + "/car-brands")
         .then((res) => {
@@ -46,18 +46,20 @@ const SelectVehicleBox = (props) => {
           setCarBrands(res.data.data);
         })
         .catch((err) => console.log(err));
-    } else if (step === "car-models") {
+    } else if (props.step === "car-models") {
       axios
-        .get(process.env.BASE_API + "/web" + "/car-models/" + selectedItem)
+        .get(
+          process.env.BASE_API + "/web" + "/car-models/" + props.selectedItem,
+        )
         .then((res) => {
           setCarBrands(res.data.data);
-          setCarModel(selectedItem);
+          setCarModel(props.selectedItem);
           setIsLoading(false);
         })
         .catch((err) => console.log(err));
-    } else if (step === "car-tips") {
+    } else if (props.step === "car-tips") {
       axios
-        .get(process.env.BASE_API + "/web" + "/car-tips/" + selectedItem)
+        .get(process.env.BASE_API + "/web" + "/car-tips/" + props.selectedItem)
         .then((res) => {
           setCarBrands(res.data.data);
           setIsLoading(false);
@@ -74,24 +76,27 @@ const SelectVehicleBox = (props) => {
         .catch((err) => console.log(err));
     } else if (motorStep === "motor-models") {
       axios
-        .get(process.env.BASE_API + "/web" + "/motor-models/" + selectedItem)
+        .get(
+          process.env.BASE_API + "/web" + "/motor-models/" + props.selectedItem,
+        )
         .then((res) => {
           setMotorBrands(res.data.data);
-          setMotorModel(selectedItem);
+          setMotorModel(props.selectedItem);
           setIsLoading(false);
         })
         .catch((err) => console.log(err));
     } else if (motorStep === "motor-tips") {
       axios
-        .get(process.env.BASE_API + "/web" + "/motor-tips/" + selectedItem)
+        .get(
+          process.env.BASE_API + "/web" + "/motor-tips/" + props.selectedItem,
+        )
         .then((res) => {
           setMotorBrands(res.data.data);
           setIsLoading(false);
         })
         .catch((err) => console.log(err));
     }
-  }, [step, motorStep,isClicked]);
-
+  }, [props.step, motorStep, isClicked]);
 
   return (
     <div className="shadow-[0_0_6px_0_rgba(177,177,177,1)] rounded-10">
@@ -106,8 +111,7 @@ const SelectVehicleBox = (props) => {
             setIsClicked={setIsClicked}
             isClicked={isClicked}
             setMotorStep={setMotorStep}
-            setStep={setStep}
-            
+            setStep={props.setStep}
           />
         </div>
         <div className="flex items-start justify-between">
@@ -116,15 +120,15 @@ const SelectVehicleBox = (props) => {
             alt=""
             width={20}
             height={20}
-            className={`${step === "car-brands" ? "hidden" : "rotate-180"} `}
+            className={`${props.step === "car-brands" ? "hidden" : "rotate-180"} `}
             onClick={backStepHandler}
           />
           <h1 className="text-text_gray w-full self-center text-center mb-[1.25rem]">
-            {step === "car-brands" || motorStep === "motor-brands"
+            {props.step === "car-brands" || motorStep === "motor-brands"
               ? "انتخاب برند"
-              : step === "car-models" || motorStep === "motor-models"
-              ? "انتخاب مدل"
-              : "انتخاب وسیله نقلیه"}
+              : props.step === "car-models" || motorStep === "motor-models"
+                ? "انتخاب مدل"
+                : "انتخاب وسیله نقلیه"}
           </h1>
         </div>
         <div className="mb-[1.5rem]">
@@ -136,17 +140,19 @@ const SelectVehicleBox = (props) => {
           </div>
         ) : (
           <ShowMyVehicles
-            setSelectedItem={setSelectedItem}
-            setStep={setStep}
-            step={step}
+            setSelectedItem={props.setSelectedItem}
+            setStep={props.setStep}
+            step={props.step}
+            setImage={setImage}
+            image={image}
             motorStep={motorStep}
             setMotorStep={setMotorStep}
             data={
               isClicked === 0
                 ? carBrands
                 : isClicked === 1
-                ? motorBrands
-                : myVehicleData
+                  ? motorBrands
+                  : myVehicleData
             }
           />
         )}

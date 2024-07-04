@@ -31,6 +31,8 @@ const SelectProvinceAndCarBox = (props) => {
   const [searchValue, setSearchValue] = useState([]);
   const [searchInputValue, setSearchInputValue] = useState("");
   const [image, setImage] = useState("");
+  const [provienceCity, setProvienceCity] = useState([]);
+  const [cityId, setCityId] = useState("");
 
   const cityRef = useRef();
   const setQuery = useSetQuery();
@@ -116,14 +118,15 @@ const SelectProvinceAndCarBox = (props) => {
     setSearchInputValue("");
   }, [isClicked, selectedItem]);
 
-  const selectCityHandler = (e) => {
+  const selectCityHandler = (e, cityId) => {
     setCityName(e.target.innerHTML);
+    setCityId(cityId);
     setIsSelected(false);
   };
 
   const cityChangeHandler = (e) => {
     setCityName(e.target.value);
-    setCity(cityData.filter((i) => i.name.includes(e.target.value)));
+    setCity(provienceCity.filter((i) => i.label.includes(e.target.value)));
 
     if (e.target.value.length >= 1) {
       setIsSelected(true);
@@ -142,9 +145,10 @@ const SelectProvinceAndCarBox = (props) => {
   };
 
   const packageStepHandler = () => {
-    const city = "&city_id=" + 87;
+    const city = "&city_id=" + cityId;
     const vehicle_tip =
       selectedItem === null ? "" : "&vehicle_tip_id=" + selectedItem;
+    console.log(vehicle_tip, city);
     axios
       .get(
         process.env.BASE_API +
@@ -158,7 +162,7 @@ const SelectProvinceAndCarBox = (props) => {
           error("پکبجی برای این وسیله نقلیه وجود ندارد");
         } else {
           setQuery.setMultiQuery([
-            { key: "city_id", value: 87 },
+            { key: "city_id", value: cityId },
             { key: "vehicle_tip", value: selectedItem },
             { key: "step", value: "step-1" },
           ]);
@@ -279,9 +283,12 @@ const SelectProvinceAndCarBox = (props) => {
 
   useEffect(() => {
     axios
-      .get(process.env.BASE_API + "/web/geo/province_cities?title=")
+      .get(process.env.BASE_API + "/web/geo/province-cities")
       .then((res) => {
-        console.log(res.data);
+        if (res.data.status === "success") {
+          setProvienceCity([res.data.data[98]]);
+          // setCity(res.data.data[98]);
+        }
       })
       .catch((err) => console.log(err));
   }, [selectedProvince]);
@@ -300,6 +307,10 @@ const SelectProvinceAndCarBox = (props) => {
       });
     };
   }, []);
+
+  console.log(provienceCity);
+  console.log(cityId);
+  console.log(selectedItem);
 
   return (
     <div
@@ -321,6 +332,7 @@ const SelectProvinceAndCarBox = (props) => {
           id={"city"}
           type={"text"}
           className={"w-full h-full outline-none text-[#3D3D3D]"}
+          autoComplete={"off"}
           onChange={cityChangeHandler}
         />
         <i className={"cc-arrow-down"} />
@@ -330,7 +342,6 @@ const SelectProvinceAndCarBox = (props) => {
             "text-[#454545] text-14 absolute top-[-30%] bg-white right-[5%] px-1"
           }
         >
-          {" "}
           استان/شهر <span className={"text-RED_400"}> * </span>
         </label>
         <ul
@@ -341,10 +352,10 @@ const SelectProvinceAndCarBox = (props) => {
             city.map((item, index) => (
               <li
                 className={"py-[6px] pr-[12px] hover:bg-BLUE_100 rounded-lg"}
-                onClick={selectCityHandler}
+                onClick={(event) => selectCityHandler(event, item.cityId)}
                 key={index}
               >
-                {item.name}
+                {item.label}
               </li>
             ))
           ) : (
@@ -412,7 +423,6 @@ const SelectProvinceAndCarBox = (props) => {
             "text-[#454545] text-14 absolute top-[-30%] bg-white right-[5%] px-1"
           }
         >
-          {" "}
           {step === "car-brands" || motorStep === "motor-brands"
             ? "انتخاب برند"
             : step === "car-models" || motorStep === "motor-models"
@@ -458,7 +468,6 @@ const SelectProvinceAndCarBox = (props) => {
           "bg-BLUE_700 mt-1 w-fit text-12 p-[8px] text-white self-end rounded-[4px]"
         }
       >
-        {" "}
         درخواست کارشناسی
       </button>
     </div>

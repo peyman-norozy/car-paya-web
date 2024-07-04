@@ -56,7 +56,6 @@ const PackageStep = () => {
       { key: "package_id", value: isSelected },
     ]);
   };
-
   return (
     <div
       className={
