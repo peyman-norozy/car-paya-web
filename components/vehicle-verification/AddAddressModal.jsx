@@ -140,7 +140,6 @@ const AddressModal = (props) => {
         const getEditData = await getData(
           API_PATHS.DASHBOARDUSERADDRESS + "/" + props.addressEditId + "/edit",
         );
-        console.log(getEditData);
         if (getEditData.status === "success") {
           setEditData(getEditData.data);
           await fetchCityData(getEditData.data.province_slug);
