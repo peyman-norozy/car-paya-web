@@ -141,6 +141,7 @@ const SelectVehicleBox = (props) => {
         ) : (
           <ShowMyVehicles
             setSelectedItem={props.setSelectedItem}
+            selectedItem={props.selectedItem}
             setStep={props.setStep}
             step={props.step}
             setImage={setImage}

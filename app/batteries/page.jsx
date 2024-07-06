@@ -30,18 +30,31 @@ export const metadata = {
 };
 
 const BatteriesData = async (props) => {
-  console.log(props);
-  const fetchData = await getData(
-    "/web/batteries",
-    // + "?order_by=" + props.filter,
-  );
-  return <BatteriesPage data={fetchData} />;
+  // console.log(props.filter.selectTipState.split(","), "dddddd");
+  console.log(props.filter, "ddkdkdkdkdk");
+  const fetchState = props.filter.selectTipState?.split(",");
+  if (fetchState && fetchState.length > 0 && fetchState[0] === "true") {
+    const getFilterBatteries = await getData(
+      `/web/attach/car/battery/${fetchState[1]}`,
+    );
+    return (
+      <BatteriesPage data={getFilterBatteries} searchParams={props.filter} />
+    );
+  } else {
+    const fetchData = await getData(
+      "/web/batteries",
+      // + "?order_by=" + props.filter,
+    );
+    console.log(fetchData, "asdfsadfsadfsdfsdfsdfsdf");
+    return <BatteriesPage data={fetchData} searchParams={props.filter} />;
+  }
 };
 
 const Batteries = (props) => {
+  console.log(props, "aaaaaa");
   return (
     <Suspense fallback={<div>....Loading</div>}>
-      <BatteriesData filter={props.searchParams.order_by} />;
+      <BatteriesData filter={props.searchParams} />;
     </Suspense>
   );
 };

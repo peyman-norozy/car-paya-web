@@ -14,6 +14,7 @@ import useSetQuery from "@/hook/useSetQuery";
 import { getData } from "@/utils/api-function-utils";
 
 const BatteriesPage = (props) => {
+  const query = useSetQuery();
   const [isClicked, setIsClicked] = useState(1);
   const [filterISOpen, setFilterIsOpen] = useState(false);
   const [batteryIsSelected, setBatteryIsSelected] = useState(false);
@@ -78,21 +79,27 @@ const BatteriesPage = (props) => {
 
   console.log(data);
 
-  useEffect(() => {
-    console.log(selectedItem);
-    console.log(step);
-    if (step === "car-tips") {
-      (async () => {
-        const getFilterBatteries = await getData(
-          `/web/attach/car/battery/${selectedItem}`,
-        );
-        // console.log(getFilterBatteries.data);
-        setSelectFilterData(getFilterBatteries.data);
-      })();
-    }
-  }, [step]);
+  // useEffect(() => {
+  //   console.log(props.searchParams);
+  //   if (
+  //     props.searchParams.selectTipState &&
+  //     props.searchParams.selectTipState.split(",")[0] === "true"
+  //   ) {
+  //     setStep("car-models");
+  //   } else {
+  //     setStep("car-brands");
+  //   }
+  // }, []);
+
+  // useEffect(() => {
+  //   console.log(props.searchParams.selectTipState);
+  //   if (!props.searchParams.selectTipState) {
+  //     query.setQuery("selectTipState", "car-brands");
+  //   }
+  // }, []);
 
   console.log(selectFilterData);
+  console.log(props.searchParams);
 
   return (
     <Fragment>
@@ -104,6 +111,7 @@ const BatteriesPage = (props) => {
             setSelectedItem={setSelectedItem}
             selectedItem={selectedItem}
             setStep={setStep}
+            searchParams={props.searchParams}
             step={step}
           />
         </div>

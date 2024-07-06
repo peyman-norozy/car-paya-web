@@ -26,9 +26,7 @@ const useSetQuery = () => {
   }, []);
   const deleteQuery = useCallback((data) => {
     const params = new URLSearchParams(searchParams.toString());
-    data.map((item) => {
-      params.delete(data);
-    });
+    params.delete(data);
     const search = params.toString();
     const query = search ? `?${search}` : "";
     router.push(pathname + query);

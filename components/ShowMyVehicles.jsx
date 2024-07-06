@@ -1,9 +1,10 @@
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
-import { usePathname } from "next/navigation";
+import useSetQuery from "@/hook/useSetQuery";
 
 const ShowMyVehicles = (props) => {
-  const pathname = usePathname();
+  const query = useSetQuery();
+
   const [selectedVehicle, setSelectedVehicle] = useState(false);
   const selectItemHandler = (e, id) => {
     if (e.currentTarget.getAttribute("image") !== null) {
@@ -11,16 +12,26 @@ const ShowMyVehicles = (props) => {
     }
     console.log(id);
     setSelectedVehicle(id);
-    const newUrl =
-      "/" +
-      pathname.split("/")[1] +
-      "/" +
-      e.currentTarget.getAttribute("title");
-    window.history.replaceState(
-      { ...window.history.state, as: newUrl, url: newUrl },
-      "",
-      newUrl,
-    );
+
+    // const newUrl =
+    //   "/" +
+    //   pathname.split("/")[1] +
+    //   "/" +
+    //   e.currentTarget.getAttribute("title");
+    // window.history.replaceState(
+    //   { ...window.history.state, as: newUrl, url: newUrl },
+    //   "",
+    //   newUrl,
+    // );
+
+    if (
+      props.step === "car-tips" ||
+      props.step === "motor-tips" ||
+      props.step === "heavy-car-tips"
+    ) {
+      query.setQuery("selectTipState", `${true},${props.selectedItem}`);
+    }
+
     props.setSelectedItem(e.currentTarget.id);
     if (props.step === "car-brands") {
       props.setStep("car-models");
@@ -44,6 +55,12 @@ const ShowMyVehicles = (props) => {
       props.setSelectedVehicle && props.setSelectedVehicle(e.currentTarget.id);
     }
   };
+
+  useEffect(() => {
+    query.deleteQuery("selectTipState");
+  }, []);
+
+  console.log(props.step);
 
   return (
     <div className="relative grid grid-cols-3 gap-x-[0.5rem] gap-y-[0.5rem] rounded-10 border-gray_light_border border-[1px] w-full h-[10rem] p-[1rem] overflow-y-scroll">
