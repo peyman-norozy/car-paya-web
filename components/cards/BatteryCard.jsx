@@ -38,28 +38,28 @@ const BatteryCard = ({ data, setBatteryIsSelected }) => {
         <ul className="grid grid-cols-2 justify-items-start gap-x-[5rem] gap-y-[0.75rem] text-text_gray my-[1rem]">
           <li className="flex items-center gap-[0.25rem]">
             <p>آمپر:</p>
-            <p>{data.filters.amper}</p>
+            <p>{data.amp}</p>
           </li>
           <li className="flex items-center gap-[0.25rem]">
             <p>تکنولوژی:</p>
-            <p>اتمی</p>
+            <p>{data.filters.Technology}</p>
           </li>
           <li className="flex items-center gap-[0.25rem]">
             <p>ولتاژ:</p>
-            <p>12</p>
+            <p>{data.filters.voltage}</p>
           </li>
           <li className="flex items-center gap-[0.25rem]">
             <p>قطب:</p>
-            <p>شمال</p>
+            <p>{data.filters.pole}</p>
           </li>
           <li className="flex items-center gap-[0.25rem]">
             <p>گارانتی:</p>
-            <p>24 ماه</p>
+            <p>{data.filters.warranty}</p>
           </li>
 
           <li className="flex items-center gap-[0.25rem]">
             <p>نوع:</p>
-            <p>خارجی</p>
+            <p>{data.filters.type}</p>
           </li>
         </ul>
         <ul className="flex flex-col gap-[0.5rem]">
@@ -81,7 +81,7 @@ const BatteryCard = ({ data, setBatteryIsSelected }) => {
               <p>قیمت با دریافت باطری فرسوده هم آمپر</p>
               <div className="flex items-center gap-[0.75rem]">
                 <span className="flex items-center gap-[0.25rem] line-through text-center">
-                  {numberWithCommas(data.price)}
+                  {numberWithCommas(data.discounted_price)}
                   <Image
                     src={toman}
                     alt=""
@@ -91,7 +91,7 @@ const BatteryCard = ({ data, setBatteryIsSelected }) => {
                   />
                 </span>
                 <span className="flex items-center gap-[0.25rem] text-center">
-                  {numberWithCommas(data.discounted_price)}
+                  {numberWithCommas(data["same_amp"])}
                   <Image
                     src={toman}
                     alt=""

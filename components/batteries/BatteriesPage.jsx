@@ -29,6 +29,9 @@ const BatteriesPage = (props) => {
   const subFilterRef = useRef();
   const setQuery = useSetQuery();
   const heightRef = useRef(null);
+  if (props.filterData === 500) {
+    // alert("500 server error");
+  }
   const data = selectFilterData.length > 0 ? selectFilterData : props.data.data;
   const tabTitle = [
     { name: "خودرو" },
@@ -41,12 +44,20 @@ const BatteriesPage = (props) => {
     { name: "برند", value: "brand" },
   ];
 
+  useEffect(() => {
+    (async () => {
+      const filterFetchData = await getData("/web/get/filter");
+      console.log(filterFetchData);
+    })();
+  }, []);
+
   const brandOption = [
     { name: "سپاهان", value: "sepahan" },
     { name: "صباباتری", value: "sababatry" },
     { name: "آذر باتری", value: "azarbatry" },
     { name: "کاسپین", value: "caspian" },
   ];
+  console.log(props.filterData);
 
   const selectFilterHandler = (event) => {
     setFilter(event.target.innerText);
@@ -189,7 +200,7 @@ const BatteriesPage = (props) => {
                 {filterModalState && (
                   <div
                     className={
-                      "bg-white rounded-[8px] absolute right-[137px] pr-1 text-12 overflow-hidden transition-all duration-1000"
+                      "bg-white rounded-[8px] absolute right-[137px] pr-1 text-12 overflow-hidden transition-all duration-1000 w-[137px]"
                     }
                     ref={subFilterRef}
                     id={"sub_filter"}

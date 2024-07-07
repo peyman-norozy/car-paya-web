@@ -31,14 +31,19 @@ export const metadata = {
 
 const BatteriesData = async (props) => {
   // console.log(props.filter.selectTipState.split(","), "dddddd");
-  console.log(props.filter, "ddkdkdkdkdk");
+  const filterFetchData = await getData("/web/get/filter");
+  console.log(filterFetchData);
   const fetchState = props.filter.selectTipState?.split(",");
   if (fetchState && fetchState.length > 0 && fetchState[0] === "true") {
     const getFilterBatteries = await getData(
       `/web/attach/car/battery/${fetchState[1]}`,
     );
     return (
-      <BatteriesPage data={getFilterBatteries} searchParams={props.filter} />
+      <BatteriesPage
+        data={getFilterBatteries}
+        searchParams={props.filter}
+        filterData={filterFetchData}
+      />
     );
   } else {
     const fetchData = await getData(
@@ -46,7 +51,13 @@ const BatteriesData = async (props) => {
       // + "?order_by=" + props.filter,
     );
     console.log(fetchData, "asdfsadfsadfsdfsdfsdfsdf");
-    return <BatteriesPage data={fetchData} searchParams={props.filter} />;
+    return (
+      <BatteriesPage
+        data={fetchData}
+        searchParams={props.filter}
+        filterData={filterFetchData}
+      />
+    );
   }
 };
 
