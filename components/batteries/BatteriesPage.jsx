@@ -173,17 +173,17 @@ const BatteriesPage = (props) => {
             </ul>
           )}
         </div>
-        {batteryIsSelected && (
-          <div
-            onClick={() => setBatteryIsSelected(false)}
-            className="h-[100vh] w-full bg-[#000] opacity-[0.8] z-[10] fixed top-0 right-0 left-0 bottom-0"
-          ></div>
-        )}
-        {batteryIsSelected && (
-          <div className="w-[75%] size900:w-[50%] m-auto fixed top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] z-[15]">
-            <PurchaseBatteryModal setBatteryIsSelected={setBatteryIsSelected} />
-          </div>
-        )}
+
+        <div
+          onClick={() => setBatteryIsSelected(false)}
+          className={` w-full transition-all duration-500 ${batteryIsSelected ? "bg-[#000] opacity-[0.8] h-[100vh]" : "opacity-0 h-0"} fixed top-0 right-0 left-0 bottom-0 z-[9999]`}
+        ></div>
+
+        <div
+          className={`w-[75%] size900:w-[50%] m-auto fixed transition-all duration-1000 ${batteryIsSelected ? "top-[50%]" : "top-[-50%]"} left-[50%] translate-x-[-50%] translate-y-[-50%] z-[99999]`}
+        >
+          <PurchaseBatteryModal setBatteryIsSelected={setBatteryIsSelected} />
+        </div>
       </div>
     </Fragment>
   );

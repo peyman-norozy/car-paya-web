@@ -106,7 +106,7 @@ const BatteryCard = ({ data, setBatteryIsSelected }) => {
         </ul>
       </div>
       <Button
-        // on_click={() => setBatteryIsSelected(true)}
+        on_click={() => setBatteryIsSelected(true)}
         class_name="bg-RED_500 rounded-[8px] text-white py-[0.5rem] px-[1rem] size1314:py-[1rem] size1314:px-[2rem] self-start size671:self-end hover:bg-RED_600"
       >
         اضافه به سبد خرید
