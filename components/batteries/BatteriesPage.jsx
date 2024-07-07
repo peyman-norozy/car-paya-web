@@ -23,7 +23,10 @@ const BatteriesPage = (props) => {
   const [selectedItem, setSelectedItem] = useState(null);
   const [step, setStep] = useState("car-brands");
   const [selectFilterData, setSelectFilterData] = useState([]);
+  const [topDistance, setTopDistance] = useState(0);
+  const [filterModalState, setFilterModalState] = useState(false);
   const filterRef = useRef(null);
+  const subFilterRef = useRef();
   const setQuery = useSetQuery();
   const heightRef = useRef(null);
   const data = selectFilterData.length > 0 ? selectFilterData : props.data.data;
@@ -34,14 +37,19 @@ const BatteriesPage = (props) => {
   ];
 
   const filterData = [
-    { name: "جدید ترین", value: "newest" },
-    { name: "قدیمی ترین", value: "oldest" },
-    { name: "پربازدید ترین", value: "views" },
+    { name: "آمپر", value: "amper" },
+    { name: "برند", value: "brand" },
+  ];
+
+  const brandOption = [
+    { name: "سپاهان", value: "sepahan" },
+    { name: "صباباتری", value: "sababatry" },
+    { name: "آذر باتری", value: "azarbatry" },
+    { name: "کاسپین", value: "caspian" },
   ];
 
   const selectFilterHandler = (event) => {
-    console.log(event.target.innerHTML);
-    setFilter(event.target.innerHTML);
+    setFilter(event.target.innerText);
     console.log(event.currentTarget.getAttribute("order_by"));
     setQuery.setQuery("order_by", event.currentTarget.getAttribute("order_by"));
   };
@@ -56,6 +64,31 @@ const BatteriesPage = (props) => {
     if (event.target.offsetParent !== filterRef.current) {
       setFilterIsOpen(false);
     }
+  };
+
+  const filterMouseEnter = (event) => {
+    const rect = event.target.getBoundingClientRect();
+    setFilterModalState(true);
+    setTopDistance(rect.top);
+  };
+
+  const filterMouseLeave = (event) => {
+    console.log(event.relatedTarget.id);
+    console.log(subFilterRef.current);
+
+    if (event.relatedTarget.id !== "sub_filter") {
+      setFilterModalState(false);
+    } else {
+      setFilterModalState(true);
+    }
+  };
+
+  const subFilterMouseEnter = () => {
+    console.log(subFilterRef.current);
+  };
+
+  const subFilterMouseLeave = () => {
+    setFilterModalState(false);
   };
 
   useEffect(() => {
@@ -100,6 +133,7 @@ const BatteriesPage = (props) => {
 
   console.log(selectFilterData);
   console.log(props.searchParams);
+  console.log(topDistance);
 
   return (
     <Fragment>
@@ -130,7 +164,7 @@ const BatteriesPage = (props) => {
                 <p className="text-12">{filter}</p>
                 <ul
                   ref={heightRef}
-                  className={`bg-[#D9D9D9] rounded-[8px] absolute  top-[2.2rem] right-0 left-0 text-12 overflow-hidden transition-all duration-1000`}
+                  className={`bg-[#D9D9D9] rounded-[8px] absolute  top-[2.2rem] right-0 left-0 text-12 overflow-hidden transition-all duration-500`}
                   style={
                     filterISOpen
                       ? { height: `${heightRef.current.scrollHeight}px` }
@@ -139,15 +173,44 @@ const BatteriesPage = (props) => {
                 >
                   {filterData.map((item, index) => (
                     <li
-                      className="p-[0.5rem] w-full rounded-[8px] hover:bg-[#9d9d9d]"
+                      className="p-[0.5rem] w-full rounded-[8px] hover:bg-[#9d9d9d] flex items-center justify-between"
                       key={index}
                       onClick={selectFilterHandler}
+                      onMouseEnter={filterMouseEnter}
+                      onMouseLeave={filterMouseLeave}
                       order_by={item.value}
                     >
-                      {item.name}
+                      <span>{item.name}</span>
+                      <i className={"cc-left text-[20px]"} />
                     </li>
                   ))}
                 </ul>
+
+                {filterModalState && (
+                  <div
+                    className={
+                      "bg-white rounded-[8px] absolute right-[137px] pr-1 text-12 overflow-hidden transition-all duration-1000"
+                    }
+                    ref={subFilterRef}
+                    id={"sub_filter"}
+                    onMouseEnter={subFilterMouseEnter}
+                    onMouseLeave={subFilterMouseLeave}
+                    style={{
+                      top: topDistance === 0 ? "0" : topDistance - 236 + "px",
+                    }}
+                  >
+                    <ul className={`bg-[#D9D9D9]`}>
+                      {brandOption.map((item) => (
+                        <li
+                          key={item.value}
+                          className="p-[0.5rem] w-full rounded-[8px] hover:bg-[#9d9d9d] flex items-center justify-between"
+                        >
+                          {item.name}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
               </div>
             </div>
             {/* <Button class_name="bg-[#D9D9D9] rounded-[8px] py-[0.5rem] px-[1.5rem] flex items-center gap-[0.5rem] text-text_gray">
