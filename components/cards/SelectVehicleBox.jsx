@@ -7,6 +7,8 @@ import ShowMyVehicles from "../ShowMyVehicles";
 import axios from "axios";
 import Image from "next/image";
 import Spinner from "../Spinner";
+import { useDispatch } from "react-redux";
+import { setVehicleData } from "@/store/todoSlice";
 
 const SelectVehicleBox = (props) => {
   const [isClicked, setIsClicked] = useState(0);
@@ -18,6 +20,7 @@ const SelectVehicleBox = (props) => {
   const [motorStep, setMotorStep] = useState("motor-brands");
   const [isLoading, setIsLoading] = useState(false);
   const [image, setImage] = useState("");
+  const dispatch = useDispatch();
 
   const myVehicleData = [];
 
@@ -98,6 +101,18 @@ const SelectVehicleBox = (props) => {
     }
   }, [props.step, motorStep, isClicked]);
 
+  useEffect(() => {
+    dispatch(
+      setVehicleData(
+        isClicked === 0
+          ? carBrands
+          : isClicked === 1
+            ? motorBrands
+            : myVehicleData,
+      ),
+    );
+  }, [carBrands, dispatch, isClicked, motorBrands, myVehicleData]);
+
   return (
     <div className="shadow-[0_0_6px_0_rgba(177,177,177,1)] rounded-10">
       <div className="w-[95%] m-auto py-[1rem]">
@@ -148,13 +163,6 @@ const SelectVehicleBox = (props) => {
             image={image}
             motorStep={motorStep}
             setMotorStep={setMotorStep}
-            data={
-              isClicked === 0
-                ? carBrands
-                : isClicked === 1
-                  ? motorBrands
-                  : myVehicleData
-            }
           />
         )}
       </div>

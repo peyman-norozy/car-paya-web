@@ -32,7 +32,6 @@ export const metadata = {
 const BatteriesData = async (props) => {
   // console.log(props.filter.selectTipState.split(","), "dddddd");
   const filterFetchData = await getData("/web/get/filter");
-  console.log(filterFetchData);
   const fetchState = props.filter.selectTipState?.split(",");
   if (fetchState && fetchState.length > 0 && fetchState[0] === "true") {
     const getFilterBatteries = await getData(

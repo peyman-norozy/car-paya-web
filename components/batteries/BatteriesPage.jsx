@@ -25,6 +25,7 @@ const BatteriesPage = (props) => {
   const [selectFilterData, setSelectFilterData] = useState([]);
   const [topDistance, setTopDistance] = useState(0);
   const [filterModalState, setFilterModalState] = useState(false);
+  const [filterId, setFilterId] = useState("");
   const filterRef = useRef(null);
   const subFilterRef = useRef();
   const setQuery = useSetQuery();
@@ -36,6 +37,7 @@ const BatteriesPage = (props) => {
   const tabTitle = [
     { name: "خودرو" },
     { name: "موتور سیکلت" },
+    { name: "وسیله سنگین" },
     { name: "وسیله من" },
   ];
 
@@ -52,10 +54,24 @@ const BatteriesPage = (props) => {
   }, []);
 
   const brandOption = [
-    { name: "سپاهان", value: "sepahan" },
-    { name: "صباباتری", value: "sababatry" },
-    { name: "آذر باتری", value: "azarbatry" },
-    { name: "کاسپین", value: "caspian" },
+    {
+      id: "amper",
+      amper: [
+        { value: "25", label: "باتری 25 آمپر" },
+        { value: "45", label: "باتری 45 آمپر" },
+        { value: "56", label: "باتری 56 آمپر" },
+        { value: "77", label: "باتری 77 آمپر" },
+      ],
+    },
+    {
+      id: "brand",
+      brand: [
+        { value: "سپاهان", label: "sepahan" },
+        { value: "صباباتری", label: "sababatry" },
+        { value: "آذر باتری", label: "azarbatry" },
+        { value: "کاسپین", label: "caspian" },
+      ],
+    },
   ];
   console.log(props.filterData);
 
@@ -81,6 +97,8 @@ const BatteriesPage = (props) => {
     const rect = event.target.getBoundingClientRect();
     setFilterModalState(true);
     setTopDistance(rect.top);
+    console.log(event.target.id);
+    setFilterId(event.target.id);
   };
 
   const filterMouseLeave = (event) => {
@@ -190,6 +208,7 @@ const BatteriesPage = (props) => {
                       onMouseEnter={filterMouseEnter}
                       onMouseLeave={filterMouseLeave}
                       order_by={item.value}
+                      id={item.value}
                     >
                       <span>{item.name}</span>
                       <i className={"cc-left text-[20px]"} />

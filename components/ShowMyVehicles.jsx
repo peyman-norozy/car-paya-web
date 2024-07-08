@@ -1,11 +1,14 @@
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import useSetQuery from "@/hook/useSetQuery";
+import { useSelector } from "react-redux";
 
 const ShowMyVehicles = (props) => {
   const query = useSetQuery();
-
+  const [vehicleData, setVehicleData] = useState([]);
   const [selectedVehicle, setSelectedVehicle] = useState(false);
+  const data = useSelector((item) => item.todo.vehicleData);
+  console.log(data);
   const selectItemHandler = (e, id) => {
     if (e.currentTarget.getAttribute("image") !== null) {
       props.setImage(e.currentTarget.getAttribute("image"));
@@ -60,12 +63,14 @@ const ShowMyVehicles = (props) => {
     query.deleteQuery("selectTipState");
   }, []);
 
-  console.log(props.step);
+  useEffect(() => {
+    setVehicleData([...data]);
+  }, [data]);
 
   return (
     <div className="relative grid grid-cols-3 gap-x-[0.5rem] gap-y-[0.5rem] rounded-10 border-gray_light_border border-[1px] w-full h-[10rem] p-[1rem] overflow-y-scroll">
-      {props.data.length > 0 ? (
-        props.data.map((item, index) => (
+      {vehicleData.length > 0 ? (
+        vehicleData.map((item, index) => (
           <div
             key={index}
             title={item.slug}
