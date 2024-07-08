@@ -1,0 +1,42 @@
+"use client";
+import React, { useEffect, useState } from "react";
+import MagsCategorySection from "./MagsCategorySection";
+import axios from "axios";
+import { API_PATHS } from "@/configs/routes.config";
+import RecentMags from "./RecentMags";
+import MagsSlider from "./MagsSlider";
+import SuggestedMags from "./SuggestedMags";
+import SearchMags from "./SearchMags";
+import BreadCrumbMag from "./BreadCrumbMag";
+
+const MagsPage = (props) => {
+  const { data, category, recent, views } = props;
+  const [suggestedMagsData, setSuggestedMagData] = useState([]);
+  const [news,setNews] = useState([])
+
+  useEffect(() => {
+    const suggestedMags = data.data.filter((item) => item.suggested === 1);
+    setSuggestedMagData(suggestedMags);
+    const news = data.data.filter((item) => item.mag_category_id === 'Marisa Waters');
+    setNews(news)
+  }, []);
+  return (
+    <div className="w-[95%] size1000:w-[90%] m-auto">
+     <div>
+      <BreadCrumbMag data={[
+        {name : 'مقالات' , url : '/mags'}
+      ]} />
+      </div>
+      <MagsCategorySection data={category.data} />
+      <RecentMags data={recent} />
+      <MagsSlider data={news} title='Marisa Waters' />
+      <MagsSlider data={views.data} title="پربازدیدترین مجله ها" />
+      <SuggestedMags
+        title="سایر مقالات پیشنهادی به کاربران"
+        data={suggestedMagsData}
+      />
+    </div>
+  );
+};
+
+export default MagsPage;

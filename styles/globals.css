@@ -1,0 +1,298 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import url('./icons.css');
+
+@layer utilities {
+    /* Hide scrollbar for Chrome, Safari and Opera */
+    .no-scrollbar::-webkit-scrollbar {
+        display: none;
+    }
+
+    /* Hide scrollbar for IE, Edge and Firefox */
+    .no-scrollbar {
+        -ms-overflow-style: none; /* IE and Edge */
+        scrollbar-width: none; /* Firefox */
+    }
+}
+
+.linear-gradient-180{
+    background: linear-gradient(180deg,rgba(255,255,255,1) 50%,rgba(246,246,246,1) 50%);
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+    -moz-appearance: textfield;
+}
+
+/*@font-face {*/
+/*    font-family: 'YekanBakhFaNum';*/
+/*    src: url("../public/assets/fonts/YekanBakhFaNum-Black.ttf") format('truetype');*/
+/*    src: url("../public/assets/fonts/YekanBakhFaNum-Bold.ttf") format('truetype');*/
+/*    src: url("../public/assets/fonts/YekanBakhFaNum-ExtraBlack.ttf") format('truetype');*/
+/*    src: url("../public/assets/fonts/YekanBakhFaNum-ExtraBold.ttf") format('truetype');*/
+/*    src: url("../public/assets/fonts/YekanBakhFaNum-Light.ttf") format('truetype');*/
+/*    src: url("../public/assets/fonts/YekanBakhFaNum-Regular.ttf") format('truetype');*/
+/*    src: url("../public/assets/fonts/YekanBakhFaNum-SemiBold.ttf") format('truetype');*/
+/*    src: url("../public/assets/fonts/YekanBakhFaNum-Thin.ttf") format('truetype');*/
+/*}*/
+
+@font-face {
+    font-family: 'YekanBakhFaNum';
+    src: url("../public/assets/fonts/YekanBakhFaNum-Bold.ttf") format('truetype');
+}
+
+@import url('./carCheckIcon.css');
+
+
+body, .Toastify__toast-body {
+    font-family: "YekanBakhFaNum";
+}
+
+li {
+    margin: 0;
+}
+
+/********************** discount_slider ************************/
+
+.discount_slider .swiper-initialized {
+    padding: 0 10px 30px 10px;
+}
+
+.discount_slider .swiper-pagination {
+    position: relative !important;
+    top: 35px !important;
+}
+
+.discount_slider .swiper-pagination-bullet {
+    position: relative;
+    width: 25px;
+    height: 25px;
+}
+
+.discount_slider .swiper-pagination-bullet {
+    background-color: #CFCFCF;
+    opacity: 1 !important;
+    width: 14px;
+    height: 14px;
+    border-radius: 50px !important;
+    transition: all .3s ease-in;
+}
+
+.discount_slider .swiper-pagination-bullet.swiper-pagination-bullet-active {
+    background-color: #3AAB38;
+    border-radius: 20px !important;
+    width: 40px;
+    transition: all .3s ease-in;
+}
+
+/************************* main_banner_slider *****************************/
+
+.main_banner_slider .swiper {
+    width: 100%;
+    height: 100%;
+}
+
+.main_banner_slider .swiper-slide {
+    text-align: center;
+    font-size: 18px;
+    background: #fff;
+    /* Center slide text vertically */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.main_banner_slider .swiper-slide img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.main_banner_slider .swiper-pagination-bullet {
+    background-color: #FFFFFF;
+    opacity: 1 !important;
+    width: 14px;
+    height: 14px;
+    border-radius: 50px !important;
+    transition: all .3s ease-in;
+
+}
+
+.main_banner_slider .swiper-pagination-bullet.swiper-pagination-bullet-active {
+    background-color: #E73C33;
+    border-radius: 20px !important;
+    width: 40px;
+    transition: all .3s ease-in;
+}
+
+.main_banner_slider .swiper-button-next, .main_banner_slider .swiper-button-prev {
+    background-color: #be2727;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+.batteries .swiper-slide{
+    width: 90px !important;
+    height: 90px !important;
+}
+
+.main_banner_slider .swiper-button-next::after, .main_banner_slider .swiper-button-prev::after {
+    color: #eee;
+    padding: 5px;
+    font-size: 20px;
+
+}
+
+/*******************************leaflet map in address_Map ******************************************/
+
+.address_Map .leaflet-container {
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+}
+
+/********************** mag_slider ************************/
+
+.mag_slider .swiper-initialized {
+    padding: 10px 10px 30px 10px;
+}
+
+.mag_slider .swiper-pagination {
+    position: relative !important;
+    top: 35px !important;
+}
+
+.mag_slider .swiper-pagination-bullet {
+    position: relative;
+    width: 25px;
+    height: 25px;
+}
+
+.mag_slider .swiper-pagination-bullet {
+    background-color: #CFCFCF;
+    opacity: 1 !important;
+    width: 14px;
+    height: 14px;
+    border-radius: 50px !important;
+    transition: all .3s ease-in;
+}
+
+.mag_slider .swiper-pagination-bullet.swiper-pagination-bullet-active {
+    background-color: #3AAB38;
+    border-radius: 20px !important;
+    width: 40px;
+    transition: all .3s ease-in;
+}
+
+/********************** verification_slider ************************/
+
+.verification_slider .swiper-initialized {
+    padding: 10px 0 30px 0;
+}
+
+.verification_slider .swiper-pagination {
+    position: relative !important;
+    top: 25px !important;
+}
+
+.verification_slider .swiper-pagination-bullet {
+    position: relative;
+    width: 15px;
+    height: 15px;
+}
+
+.verification_slider .swiper-pagination-bullet {
+    background-color: #CFCFCF;
+    opacity: 1 !important;
+    width: 7px;
+    height: 7px;
+    border-radius: 50px !important;
+    transition: all .3s ease-in;
+}
+
+.verification_slider .swiper-pagination-bullet.swiper-pagination-bullet-active {
+    background-color: #3AAB38;
+    border-radius: 20px !important;
+    width: 30px;
+    transition: all .3s ease-in;
+}
+
+
+/********************** pagination ************************/
+
+.page-link {
+    font-size: 10px !important;
+}
+
+.page-item.active .page-link {
+    background-color: red !important;
+    border: none !important;
+}
+
+/***************** poppup ****************/
+.popup-content {
+    width: 100px !important;
+    left: 64px !important;
+}
+
+
+/********************** scrollbar ************************/
+
+
+/* width */
+::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+    
+}
+ 
+/* Track */
+::-webkit-scrollbar-track {
+   
+    border-radius: 5px;
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #333;
+    border-radius: 5px;
+}
+ 
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+/*************************** show product shadow text when close accordion *******************************/
+
+.divShowProduct {
+    background-color: white;
+}
+
+.showProduct {
+    color: black;
+    position: relative;
+    width: 100%;
+    mix-blend-mode: hard-light;
+}
+
+.showProduct::after {
+    position: absolute;
+    content: "";
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    background: linear-gradient(transparent, gray);
+    pointer-events: none;
+}

@@ -1,0 +1,197 @@
+@font-face {
+    font-family: 'carcheck';
+    src:  url('../public/assets/fonts/carcheck.eot?gu585w');
+    src:  url('../public/assets/fonts/carcheck.eot?gu585w#iefix') format('embedded-opentype'),
+    url('../public/assets/fonts/carcheck.ttf?gu585w') format('truetype'),
+    url('../public/assets/fonts/carcheck.woff?gu585w') format('woff'),
+    url('../public/assets/fonts/carcheck.svg?gu585w#dokhtaroon') format('svg');
+    font-weight: normal;
+    font-style: normal;
+    font-display: block;
+}
+
+
+i {
+    /* use !important to prevent issues with browser extensions that change fonts */
+    font-family: 'carcheck' !important;
+    speak: never;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+
+    /* Better Font Rendering =========== */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.cc-calling:before {
+    content: "\e900";
+}
+.cc-car:before {
+    content: "\e901";
+}
+.cc-vector-stroke:before {
+    content: "\e902";
+}
+.cc-menu-kebab:before {
+    content: "\e903";
+    color: #2d264b;
+}
+.cc-search:before {
+    content: "\e904";
+}
+.cc-car-o:before {
+    content: "\e905";
+}
+.cc-copy:before {
+    content: "\e906";
+}
+.cc-document-cloud:before {
+    content: "\e907";
+}
+.cc-calender:before {
+    content: "\e908";
+}
+.cc-discount-shape:before {
+    content: "\e913";
+}
+.cc-logout:before {
+    content: "\e915";
+}
+.cc-bookmark:before {
+    content: "\e916";
+}
+.cc-buy:before {
+    content: "\e917";
+}
+.cc-left:before {
+    content: "\e918";
+}
+.cc-message:before {
+    content: "\e919";
+}
+.cc-profile-circle:before {
+    content: "\e91a";
+}
+.cc-profile-octagon:before {
+    content: "\e91b";
+}
+.cc-rght:before {
+    content: "\e91c";
+}
+.cc-show:before {
+    content: "\e91d";
+}
+.cc-tick:before {
+    content: "\e91e";
+}
+.cc-wallet:before {
+    content: "\e91f";
+}
+.cc-calender-o:before {
+    content: "\e920";
+}
+.cc-close-circle:before {
+    content: "\e922";
+}
+.cc-document-align-right:before {
+    content: "\e923";
+}
+.cc-edit:before {
+    content: "\e924";
+}
+.cc-filter:before {
+    content: "\e925";
+}
+.cc-location-tik:before {
+    content: "\e927";
+}
+.cc-add:before {
+    content: "\e928";
+}
+.cc-arrow-down:before {
+    content: "\e929";
+}
+.cc-arrow-right:before {
+    content: "\e92a";
+}
+.cc-arrow-up:before {
+    content: "\e92b";
+}
+.cc-discount-shape-o:before {
+    content: "\e92e";
+}
+.cc-gallery:before {
+    content: "\e930";
+}
+.cc-link:before {
+    content: "\e932";
+}
+.cc-location:before {
+    content: "\e933";
+}
+.cc-login:before {
+    content: "\e934";
+}
+.cc-menu:before {
+    content: "\e935";
+}
+.cc-messages:before {
+    content: "\e936";
+}
+.cc-smart-car:before {
+    content: "\e937";
+}
+.cc-star:before {
+    content: "\e938";
+}
+.cc-star-o:before {
+    content: "\e939";
+}
+.cc-timer:before {
+    content: "\e93a";
+}
+.cc-undo:before {
+    content: "\e93b";
+}
+.cc-user-edit:before {
+    content: "\e93c";
+}
+.cc-calendar:before {
+    content: "\e909";
+}
+.cc-dislike:before {
+    content: "\e90a";
+}
+.cc-location-slash:before {
+    content: "\e90b";
+}
+.cc-sms:before {
+    content: "\e90c";
+}
+.cc-user:before {
+    content: "\e90d";
+}
+.cc-telegram:before {
+    content: "\e90e";
+}
+.cc-facebook:before {
+    content: "\e90f";
+}
+.cc-whatsapp:before {
+    content: "\e910";
+}
+.cc-twitter:before {
+    content: "\e911";
+}
+.cc-share:before {
+    content: "\e912";
+}
+.cc-sort_down:before {
+    content: "\e914";
+}
+.cc-call:before {
+    content: "\e926";
+}
