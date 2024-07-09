@@ -12,6 +12,7 @@ import CarServicesSlider from "@/components/CarServicesSlider/CarServicesSlider"
 import { serviceData } from "@/staticData/data";
 import useSetQuery from "@/hook/useSetQuery";
 import { getData } from "@/utils/api-function-utils";
+import SubFilterCard from "@/components/cards/SubFilterCard";
 
 const BatteriesPage = (props) => {
   const query = useSetQuery();
@@ -42,16 +43,9 @@ const BatteriesPage = (props) => {
   ];
 
   const filterData = [
-    { name: "آمپر", value: "amper" },
+    { name: "آمپر", value: "getAmp" },
     { name: "برند", value: "brand" },
   ];
-
-  useEffect(() => {
-    (async () => {
-      const filterFetchData = await getData("/web/get/filter");
-      console.log(filterFetchData);
-    })();
-  }, []);
 
   const brandOption = [
     {
@@ -73,6 +67,7 @@ const BatteriesPage = (props) => {
       ],
     },
   ];
+
   console.log(props.filterData);
 
   const selectFilterHandler = (event) => {
@@ -160,10 +155,6 @@ const BatteriesPage = (props) => {
   //   }
   // }, []);
 
-  console.log(selectFilterData);
-  console.log(props.searchParams);
-  console.log(topDistance);
-
   return (
     <Fragment>
       <div className="w-[95%] size671:w-[98%] size1090:w-[95%] m-auto flex flex-col size1056:flex-row gap-[1rem] size1275:gap-[3rem]">
@@ -229,14 +220,14 @@ const BatteriesPage = (props) => {
                       top: topDistance === 0 ? "0" : topDistance - 236 + "px",
                     }}
                   >
-                    <ul className={`bg-[#D9D9D9]`}>
-                      {brandOption.map((item) => (
-                        <li
+                    <ul className={`bg-[#D9D9D9] h-[250px] overflow-y-scroll`}>
+                      {props.filterData[filterId].map((item) => (
+                        <SubFilterCard
                           key={item.value}
-                          className="p-[0.5rem] w-full rounded-[8px] hover:bg-[#9d9d9d] flex items-center justify-between"
-                        >
-                          {item.name}
-                        </li>
+                          filterId={filterId}
+                          item={item}
+                          setFilterModalState={setFilterModalState}
+                        />
                       ))}
                     </ul>
                   </div>
