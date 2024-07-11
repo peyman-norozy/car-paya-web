@@ -1,3 +1,4 @@
+'use client'
 import React, { useEffect, useState } from "react";
 import SelectVehicleTab from "../SelectVehicleTab";
 import SearchInput from "../SearchInput";
