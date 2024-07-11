@@ -126,7 +126,6 @@ const VerificationFirstStep = (props) => {
                       "bg-BLUE_700 mt-1 size690:mt-3 lg:hidden w-fit text-12 size690:text-[16px] p-[8px] text-white rounded-[4px]"
                     }
                   >
-                    {" "}
                     درخواست کارشناسی
                   </button>
                 </div>

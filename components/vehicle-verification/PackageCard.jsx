@@ -2,6 +2,7 @@ import React, { useState } from "react";
 
 const PackageCard = (props) => {
   const { title, id, isSelected, onClick, options, price } = props;
+  console.log(props);
   const [optionsIsOpen, setOptionsIsOpen] = useState(true);
 
   const openOptionHandler = () => {

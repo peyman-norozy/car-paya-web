@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 // import cross from "@/public/assets/icons/cross.svg";
 import Image from "next/image";
 import Button from "./Button";
 import GreenCheckInput from "./GreenCheckInput";
 import { numberWithCommas } from "@/utils/function-utils";
 import ProfileEditeSelectInput from "@/components/ProfileEditeSelectInput";
+import { useSelector } from "react-redux";
+import { getData } from "@/utils/api-function-utils";
 // import Toman from "@/public/assets/icons/Toman.svg";
 // import arrowLeft from "@/public/assets/icons/Arrow-Left.svg";
 
@@ -15,50 +17,220 @@ const PurchaseBatteryModal = (props) => {
   const [provinces, setProvinces] = useState("");
   const [selectOption, setSelectOption] = useState("");
   const [cityId, setCityId] = useState("");
-
-  const purchseOptions = [
+  const [totalPrice, setTotalPrice] = useState({ price: 0, productId: "" });
+  const batteriesData = useSelector((data) => data.todo.batteriesData);
+  const [nobatteriesData, setNobatteriesData] = useState({});
+  const [sameAmpBattery, setSameAmpBattery] = useState({});
+  const [amperSelectData, setAmperSelectData] = useState([]);
+  console.log(props);
+  const [purchseOptions, setPurchseOption] = useState([
     {
-      title: "باتری سوزوکی 70 آمپر ",
-      titleDescription: "(با باتری فرسوده هم آمپر)",
+      title: "باتری سوزوکی 70 آمپر",
       price: 0,
       id: "oldSameAmperBattery",
+      productId: "",
     },
     {
       title: "باتری سوزوکی 70 آمپر با باتری فرسوده آمپر متفاوت",
-      titleDescription: "",
-
-      price: 1200000,
+      price: 0,
       id: "selectAmper",
+      productId: "",
     },
     {
       title: "باتری سوزوکی 70 آمپر",
-      titleDescription: "(بدون باتری فرسوده)",
       price: 1200000,
       id: "noneOldBattery",
+      productId: "",
     },
-  ];
+  ]);
 
-  const amperSelectData = [
-    { title: "۳۰ آمپر", id: 30 },
-    { title: "۴۰ آمپر", id: 40 },
-    { title: "۵۰ آمپر", id: 50 },
-    { title: "۶۰ آمپر", id: 60 },
-    { title: "۷۰ آمپر", id: 70 },
-    { title: "۸۰ آمپر", id: 80 },
-    { title: "۹۰ آمپر", id: 90 },
-    { title: "۱۰۰ آمپر", id: 100 },
-  ];
+  // const amperSelectData = [
+  //   { title: "۳۰ آمپر", id: 30 },
+  //   { title: "۴۰ آمپر", id: 40 },
+  //   { title: "۶۰ آمپر", id: 60 },
+  //   { title: "۷۰ آمپر", id: 70 },
+  //   { title: "۸۰ آمپر", id: 80 },
+  //   { title: "۹۰ آمپر", id: 90 },
+  //   { title: "۱۰۰ آمپر", id: 100 },
+  // ];
 
-  const selectOptionHandler = (index) => {
+  const selectOptionHandler = (index, totalPrice, productId, id) => {
     setIsSelected(index);
+    console.log(totalPrice, productId, id);
+    if (id === "noneOldBattery") {
+      setTotalPrice({
+        price: nobatteriesData.calculation.payment_price,
+        productId: productId,
+      });
+    } else if (id === "selectAmper") {
+      console.log(cityId);
+      setTotalPrice({
+        price: 0,
+        productId: batteriesData.id,
+      });
+    } else if (id === "oldSameAmperBattery") {
+      setTotalPrice({
+        price: sameAmpBattery.calculation,
+        productId: batteriesData.id,
+      });
+    }
   };
   const selectPriceHandler = (event) => {
     setSelectedPrice(event.target.getAttribute("price"));
   };
 
+  const clickSelectTimeHandler = () => {
+    console.log("peyman");
+  };
+
+  useEffect(() => {
+    if (cityId) {
+      console.log("slfjsdlfsj");
+      (async () => {
+        const selectAmpBatteriesData = await getData(
+          "/web/reservation/battery?step=step-1",
+          {
+            product_id: batteriesData.id,
+            type: "SWING_AMP",
+            amp: cityId,
+          },
+        );
+        console.log(selectAmpBatteriesData);
+        const newPurchseOption = purchseOptions.map((option) => {
+          if (option.id === "selectAmper") {
+            return (option.price =
+              selectAmpBatteriesData.calculation.difference_same_amp);
+          } else {
+            return option;
+          }
+        });
+        setTotalPrice({
+          price: selectAmpBatteriesData.calculation.payment_price,
+          productId: batteriesData.id,
+        });
+        if (selectAmpBatteriesData === 500) {
+          console.log(selectAmpBatteriesData, "server error");
+        } else if (selectAmpBatteriesData === 404) {
+          console.log(selectAmpBatteriesData, "route not corect");
+        }
+      })();
+    }
+  }, [cityId]);
+
+  useEffect(() => {
+    if (
+      Object.keys(batteriesData).length > 0 &&
+      Object.keys(nobatteriesData).length > 0 &&
+      Object.keys(sameAmpBattery).length > 0
+    ) {
+      console.log(batteriesData);
+      console.log(nobatteriesData);
+      const newbatteriesOption = purchseOptions.map((option) => {
+        if (option.id === "oldSameAmperBattery") {
+          option.title = ` باتری ${sameAmpBattery.product_name} آمپر (با باتری فرسوده هم آمپر) `;
+          option.productId = batteriesData.id;
+          console.log(sameAmpBattery, batteriesData);
+          setTotalPrice({
+            price: sameAmpBattery.calculation,
+            productId: batteriesData.id,
+          });
+          return option;
+        } else if (option.id === "selectAmper") {
+          option.title = ` باتری ${batteriesData.name} ${batteriesData.amp} آمپر با باتری فرسوده آمپر متفاوت `;
+          option.productId = batteriesData.id;
+          return option;
+        } else if (option.id === "noneOldBattery") {
+          option.title = ` باتری ${nobatteriesData["product_name"]} آمپر (بدون باتری فرسوده) `;
+          option.productId = batteriesData.id;
+          option.price = nobatteriesData.calculation.difference_same_amp;
+          return option;
+        }
+      });
+      console.log(newbatteriesOption);
+      setPurchseOption(newbatteriesOption);
+    }
+  }, [nobatteriesData, batteriesData]);
+  console.log(batteriesData);
+
+  useEffect(() => {
+    if (props.batteryIsSelected) {
+      console.log(batteriesData);
+      setIsSelected(0);
+      (async () => {
+        const getBatteriesData = await getData(
+          "/web/reservation/battery?step=step-1",
+          {
+            product_id: batteriesData.id,
+            type: "NO_BATTERY",
+          },
+        );
+        console.log(getBatteriesData);
+        const newAmperOptions = getBatteriesData.amp.map((item) => {
+          return { title: item.label, id: item.value };
+        });
+        setAmperSelectData(newAmperOptions);
+        if (getBatteriesData === 500) {
+          console.log(getBatteriesData, "server error");
+        } else if (getBatteriesData === 404) {
+          console.log(getBatteriesData, "route not corect");
+        }
+        const getSameAmpBattery = await getData(
+          "/web/reservation/battery?step=step-1",
+          {
+            product_id: batteriesData.id,
+            type: "SAME_AMP",
+            amp: batteriesData.amp,
+          },
+        );
+        console.log(getSameAmpBattery);
+        setNobatteriesData(getBatteriesData);
+        setSameAmpBattery(getSameAmpBattery);
+        console.log(getBatteriesData);
+      })();
+    }
+  }, [props.batteryIsSelected]);
+
+  useEffect(() => {
+    setCityId("");
+    setSelectOption("");
+  }, [isSelected]);
+
+  useEffect(() => {
+    // if (isSelected === 1) {
+    setPurchseOption((prev) =>
+      prev.map((item) => {
+        if (item.id === "selectAmper") {
+          item.price = 0;
+        }
+        return item;
+      }),
+    );
+    // setTotalPrice({
+    //   price: 0,
+    //   productId: batteriesData.id,
+    // });
+    // (async () => {
+    //   const AmperOptions = await getData(
+    //     "/web/reservation/battery?step=step-1",
+    //     {
+    //       product_id: batteriesData.id,
+    //       type: "SWING_AMP",
+    //       amp: batteriesData.amp,
+    //     },
+    //   );
+    //   console.log(AmperOptions);
+    //   if (AmperOptions === 500) {
+    //     console.log(AmperOptions, "server error");
+    //   } else if (AmperOptions === 404) {
+    //     console.log(AmperOptions, "route not corect");
+    //   }
+    // })();
+    // }
+  }, [isSelected]);
+
   return (
     <div className="rounded-10 overflow-hidden w-full shadow-[0_0_5px_0_rgba(0,0,0,0.4)]">
-      <div className="bg-[#eaeaea] flex items-center justify-between px-[1.25rem] py-[1rem] ">
+      <div className="bg-[#eaeaea] flex items-center justify-between px-[1.25rem] py-[1rem]">
         <h2 className="text-18">خرید باطری</h2>
         {/*<Image*/}
         {/*  src={cross}*/}
@@ -81,12 +253,18 @@ const PurchaseBatteryModal = (props) => {
               <div className={"flex items-center gap-2"}>
                 <GreenCheckInput
                   isSelected={isSelected === index}
-                  on_click={() => selectOptionHandler(index)}
+                  on_click={() =>
+                    selectOptionHandler(
+                      index,
+                      item.price,
+                      item.productId,
+                      item.id,
+                    )
+                  }
                   class_name="rounded-[50%] cursor-pointer self-start"
                 />
                 <h3 className={`text-14 size1000:text-16`}>
                   <span> {item.title}</span>
-                  <span>{item.titleDescription}</span>
                   {item.id === "selectAmper" ? (
                     <div className={"mt-4"}>
                       <ProfileEditeSelectInput
@@ -95,6 +273,7 @@ const PurchaseBatteryModal = (props) => {
                         title={"انتخاب آمپر"}
                         data={amperSelectData}
                         height={"h-[200px]"}
+                        disabled={isSelected !== 1}
                         // star={true}
                         relation={false}
                         // setCitiesData={setCitiesData}
@@ -114,7 +293,9 @@ const PurchaseBatteryModal = (props) => {
               </div>
               <div className="flex mr-[0.2rem] size933:mr-[1rem]">
                 <p className="mt-[0.5rem] flex items-center gap-2">
-                  {numberWithCommas(item.price)}
+                  {item.price.toString().split("")[0] === "-"
+                    ? numberWithCommas(item.price)
+                    : "+" + numberWithCommas(item.price)}
                   <span>تومان</span>
                 </p>
                 {/*<Image src={Toman} alt="" width={20} height={20} />*/}
@@ -127,11 +308,17 @@ const PurchaseBatteryModal = (props) => {
           <div className="flex items-center gap-[0.25rem] size1000:gap-[0.5rem]">
             <p>مبلغ قابل پرداخت: </p>
             <div className="flex size1000:mr-[1rem]">
-              <p className="mt-[0.5rem]">{numberWithCommas(1200000)}</p>
+              <p className="mt-[0.5rem]">
+                <span> {numberWithCommas(totalPrice.price)} </span>
+                <span>تومان </span>
+              </p>
               {/*<Image src={Toman} alt="" width={20} height={20}/>*/}
             </div>
           </div>
-          <Button class_name="bg-[#3aab38] rounded-10 hover:shadow-[0_0_5px_0_rgba(0,0,0,0.4)] flex items-center justify-center ga-[0.25rem] text-white px-[1.5rem] py-[0.5rem]">
+          <Button
+            class_name="bg-[#3aab38] rounded-10 hover:shadow-[0_0_5px_0_rgba(0,0,0,0.4)] flex items-center justify-center ga-[0.25rem] text-white px-[1.5rem] py-[0.5rem]"
+            on_click={clickSelectTimeHandler}
+          >
             <p> تایید و ادامه</p>
             {/*<Image src={arrowLeft} alt="" height={20} width={20} />*/}
           </Button>

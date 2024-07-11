@@ -6,6 +6,8 @@ import Spinner from "@/components/Spinner";
 import useSetQuery from "@/hook/useSetQuery";
 import { error } from "@/utils/function-utils";
 import { getCookie } from "cookies-next";
+import { setVehicleData } from "@/store/todoSlice";
+import { useDispatch } from "react-redux";
 
 const SelectProvinceAndCarBox = (props) => {
   const { cityData } = props;
@@ -33,6 +35,7 @@ const SelectProvinceAndCarBox = (props) => {
   const [image, setImage] = useState("");
   const [provienceCity, setProvienceCity] = useState([]);
   const [cityId, setCityId] = useState("");
+  const dispatch = useDispatch();
 
   const cityRef = useRef();
   const setQuery = useSetQuery();
@@ -308,6 +311,30 @@ const SelectProvinceAndCarBox = (props) => {
     };
   }, []);
 
+  useEffect(() => {
+    dispatch(
+      setVehicleData(
+        myVehicleIsChecked
+          ? myVehicleData
+          : isClicked === 0
+            ? carBrands
+            : isClicked === 1
+              ? motorBrands
+              : isClicked === 2
+                ? heavyCarBrands
+                : "",
+      ),
+    );
+  }, [
+    dispatch,
+    heavyCarBrands,
+    carBrands,
+    isClicked,
+    motorBrands,
+    myVehicleData,
+    myVehicleIsChecked,
+  ]);
+
   console.log(provienceCity);
   console.log(cityId);
   console.log(selectedItem);
@@ -449,17 +476,17 @@ const SelectProvinceAndCarBox = (props) => {
           heavyCarStep={heavyCarStep}
           setHeavyCarStep={setHeavyCarStep}
           myVehicleIsChecked={myVehicleIsChecked}
-          data={
-            myVehicleIsChecked
-              ? myVehicleData
-              : isClicked === 0
-                ? carBrands
-                : isClicked === 1
-                  ? motorBrands
-                  : isClicked === 2
-                    ? heavyCarBrands
-                    : ""
-          }
+          // data={
+          //   myVehicleIsChecked
+          //     ? myVehicleData
+          //     : isClicked === 0
+          //       ? carBrands
+          //       : isClicked === 1
+          //         ? motorBrands
+          //         : isClicked === 2
+          //           ? heavyCarBrands
+          //           : ""
+          // }
         />
       )}
       <button

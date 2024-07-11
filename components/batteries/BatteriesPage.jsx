@@ -134,8 +134,6 @@ const BatteriesPage = (props) => {
       });
   }, []);
 
-  console.log(data);
-
   // useEffect(() => {
   //   console.log(props.searchParams);
   //   if (
@@ -221,7 +219,7 @@ const BatteriesPage = (props) => {
                     }}
                   >
                     <ul className={`bg-[#D9D9D9] h-[250px] overflow-y-scroll`}>
-                      {props.filterData[filterId].map((item) => (
+                      {props.filterData[filterId]?.map((item) => (
                         <SubFilterCard
                           key={item.value}
                           filterId={filterId}
@@ -246,13 +244,12 @@ const BatteriesPage = (props) => {
           ) : (
             <ul className="flex flex-col gap-[1.5rem]">
               {data &&
-                data.map((item, index) => (
-                  <li key={index}>
-                    <BatteryCard
-                      setBatteryIsSelected={setBatteryIsSelected}
-                      data={item}
-                    />
-                  </li>
+                data.map((item) => (
+                  <BatteryCard
+                    key={item.id}
+                    setBatteryIsSelected={setBatteryIsSelected}
+                    data={item}
+                  />
                 ))}
             </ul>
           )}
@@ -266,7 +263,10 @@ const BatteriesPage = (props) => {
         <div
           className={`w-[75%] size900:w-[50%] m-auto fixed transition-all duration-1000 ${batteryIsSelected ? "top-[50%]" : "top-[-50%]"} left-[50%] translate-x-[-50%] translate-y-[-50%] z-[99999]`}
         >
-          <PurchaseBatteryModal setBatteryIsSelected={setBatteryIsSelected} />
+          <PurchaseBatteryModal
+            setBatteryIsSelected={setBatteryIsSelected}
+            batteryIsSelected={batteryIsSelected}
+          />
         </div>
       </div>
     </Fragment>

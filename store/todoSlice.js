@@ -9,6 +9,7 @@ const initialState = {
   carYear: [],
   verificationLogin: false,
   vehicleData: [],
+  batteriesData: {},
 };
 
 const todoSlice = createSlice({
@@ -42,6 +43,9 @@ const todoSlice = createSlice({
     setVehicleData(state, action) {
       state.vehicleData = action.payload;
     },
+    setBatteriesData(state, action) {
+      state.batteriesData = action.payload;
+    },
   },
 });
 
@@ -55,5 +59,6 @@ export const {
   setCarYear,
   setVerificationLogin,
   setVehicleData,
+  setBatteriesData,
 } = todoSlice.actions;
 export default todoSlice;
