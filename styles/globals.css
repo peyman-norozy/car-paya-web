@@ -32,33 +32,99 @@ input[type=number] {
     -moz-appearance: textfield;
 }
 
-/*@font-face {*/
-/*    font-family: 'YekanBakhFaNum';*/
-/*    src: url("../public/assets/fonts/YekanBakhFaNum-Black.ttf") format('truetype');*/
-/*    src: url("../public/assets/fonts/YekanBakhFaNum-Bold.ttf") format('truetype');*/
-/*    src: url("../public/assets/fonts/YekanBakhFaNum-ExtraBlack.ttf") format('truetype');*/
-/*    src: url("../public/assets/fonts/YekanBakhFaNum-ExtraBold.ttf") format('truetype');*/
-/*    src: url("../public/assets/fonts/YekanBakhFaNum-Light.ttf") format('truetype');*/
-/*    src: url("../public/assets/fonts/YekanBakhFaNum-Regular.ttf") format('truetype');*/
-/*    src: url("../public/assets/fonts/YekanBakhFaNum-SemiBold.ttf") format('truetype');*/
-/*    src: url("../public/assets/fonts/YekanBakhFaNum-Thin.ttf") format('truetype');*/
-/*}*/
-
 @font-face {
-    font-family: 'YekanBakhFaNum';
-    src: url("../public/assets/fonts/YekanBakhFaNum-Bold.ttf") format('truetype');
-}
+    font-family: YekanBakh;
+    src: url(../public/assets/fonts/webfonts/woff/YekanBakh-Thin.woff) format("woff"),
+      url(../public/assets/fonts/ttf/YekanBakh-Thin.ttf) format("truetype"),
+      url(../public/assets/fonts/otf/YekanBakh-Thin.otf) format("otf"),
+      url(../public/assets/fonts/webfonts/woff2/YekanBakh-Thin.woff2) format("woff2");
+    font-weight: 200;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: YekanBakh;
+    src: url(../public/assets/fonts/webfonts/woff/YekanBakh-Light.woff) format("woff"),
+      url(../public/assets/fonts/ttf/YekanBakh-Light.ttf) format("truetype"),
+      url(../public/assets/fonts/otf/YekanBakh-Light.otf) format("otf"),
+      url(../public/assets/fonts/webfonts/woff2/YekanBakh-Light.woff2) format("woff2");
+    font-weight: 300;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: YekanBakh;
+    src: url(../public/assets/fonts/webfonts/woff/YekanBakh-Regular.woff) format("woff"),
+      url(../public/assets/fonts/ttf/YekanBakh-Regular.ttf) format("truetype"),
+      url(../public/assets/fonts/otf/YekanBakh-Regular.otf) format("otf"),
+      url(../public/assets/fonts/webfonts/woff2/YekanBakh-Regular.woff2) format("woff2");
+    font-weight: 400;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: YekanBakh;
+    src: url(../public/assets/fonts/webfonts/woff/YekanBakh-SemiBold.woff) format("woff"),
+      url(../public/assets/fonts/ttf/YekanBakh-SemiBold.ttf) format("truetype"),
+      url(../public/assets/fonts/otf/YekanBakh-SemiBold.otf) format("otf"),
+      url(../public/assets/fonts/webfonts/woff2/YekanBakh-SemiBold.woff2) format("woff2");
+    font-weight: 500;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: YekanBakh;
+    src: url(../public/assets/fonts/webfonts/woff/YekanBakh-Bold.woff) format("woff"),
+      url(../public/assets/fonts/ttf/YekanBakh-Bold.ttf) format("truetype"),
+      url(../public/assets/fonts/otf/YekanBakh-Bold.otf) format("otf"),
+      url(../public/assets/fonts/webfonts/woff2/YekanBakh-Bold.woff2) format("woff2");
+    font-weight: 600;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: YekanBakh;
+    src: url(../public/assets/fonts/webfonts/woff/YekanBakh-ExtraBold.woff) format("woff"),
+      url(../public/assets/fonts/ttf/YekanBakh-ExtraBold.ttf) format("truetype"),
+      url(../public/assets/fonts/otf/YekanBakh-ExtraBold.otf) format("otf"),
+      url(../public/assets/fonts/webfonts/woff2/YekanBakh-ExtraBold.woff2) format("woff2");
+    font-weight: 700;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: YekanBakh;
+    src: url(../public/assets/fonts/webfonts/woff/YekanBakh-Black.woff) format("woff"),
+      url(../public/assets/fonts/ttf/YekanBakh-Black.ttf) format("truetype"),
+      url(../public/assets/fonts/otf/YekanBakh-Black.otf) format("otf"),
+      url(../public/assets/fonts/webfonts/woff2/YekanBakh-Black.woff2) format("woff2");
+    font-weight: 800;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: YekanBakh;
+    src: url(../public/assets/fonts/webfonts/woff/YekanBakh-ExtraBlack.woff) format("woff"),
+      url(../public/assets/fonts/ttf/YekanBakh-ExtraBlack.ttf) format("truetype"),
+      url(../public/assets/fonts/otf/YekanBakh-ExtraBlack.otf) format("otf"),
+      url(../public/assets/fonts/webfonts/woff2/YekanBakh-ExtraBlack.woff2) format("woff2");
+    font-weight: 900;
+    font-style: normal;
+  }
 
 @import url('./carCheckIcon.css');
 
 
 body, .Toastify__toast-body {
-    font-family: "YekanBakhFaNum";
+    font-family: "YekanBakh";
 }
 
 li {
     margin: 0;
 }
+
+.hide_scrollbar::-webkit-scrollbar {
+    display: none;
+}
+  
+.hide_scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
 
 /********************** discount_slider ************************/
 
