@@ -6,6 +6,7 @@ import PeriodicServiceUnderCard from "@/components/cards/PeriodicServiceUnderCar
 import {Suspense} from "react";
 import {serviceData,workData} from "@/staticData/data";
 import CarServicesSlider from "@/components/CarServicesSlider/CarServicesSlider";
+import SelectVehicleBoxComponent from "@/components/periodic-service-components/SelectVehicleBoxComponent";
 
 const CarServicesSliderData = async () => {
   return <CarServicesSlider data={serviceData}/>;
@@ -22,10 +23,10 @@ const periodicServiceUnderCardData ={
   ],
 };
 
-const PeriodicService = () => {
+const PeriodicService = (props) => {
   return (
-    <div className="flex items-start gap-8 m-4 mt-[88px]">
-      <div className="w-[360px] p-4 flex flex-col gap-4 shadow-[0_0_6px_0_rgba(177,177,177,1)] rounded-10">
+    <div className="flex items-start gap-8 mt-[88px] max-w-[1676px] m-auto p-4">
+      {/* <div className="w-[360px] p-4 flex flex-col gap-4 shadow-[0_0_6px_0_rgba(177,177,177,1)] rounded-10">
         <span>فاکتور فروش</span>
         <section className="flex items-center justify-between gap-4">
           <div className="flex items-center gap-4">
@@ -79,13 +80,22 @@ const PeriodicService = () => {
             <span>6.000.000 تومان</span>
           </div>
         </section>
-      </div>
-      <div className={"w-[calc(100%-392px)]"}>
+      </div> */}
+      <SelectVehicleBoxComponent searchParams={props.searchParams}/>
+      <div className={"w-[calc(100%-450px)] flex flex-col"}>
         <Suspense fallback={<div>....Loading</div>}>
           <CarServicesSliderData/>
         </Suspense>
-        <div className={"mt-14"}>
-        <PeriodicServiceUnderCard key={1} item={periodicServiceUnderCardData} />
+        <div className={"mt-14 flex flex-col gap-20"}>
+          <PeriodicServiceUnderCard key={1} item={periodicServiceUnderCardData} />
+          <div className="bg-[#F6F6F6] p-6 flex-col gap-6 items-center flex rounded-10">
+            <span className="text-[#2C5D83] font-bold text-[28px] text-center">مشاوره و ثبت تماس تلفنی</span>
+            <div className="flex gap-1 items-center">
+              <i className="cc-call text-[20px]"/>
+              <span className="text-[20px]">021-58919</span>
+            </div>
+            <span className="text-[20px]">ساعت کاری 8:00 - 21:00</span>
+          </div>
         </div>
       </div>
     </div>
