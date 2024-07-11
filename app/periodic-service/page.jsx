@@ -4,16 +4,27 @@ import PeriodicServiceCard from "@/components/cards/PeriodicServiceCard";
 import Input from "@/components/Input";
 import PeriodicServiceUnderCard from "@/components/cards/PeriodicServiceUnderCard";
 import {Suspense} from "react";
-import {serviceData,periodicServiceUnderCardData,workData} from "@/staticData/data";
+import {serviceData,workData} from "@/staticData/data";
 import CarServicesSlider from "@/components/CarServicesSlider/CarServicesSlider";
 
 const CarServicesSliderData = async () => {
   return <CarServicesSlider data={serviceData}/>;
 };
 
+const periodicServiceUnderCardData ={
+  title: "سرویس دوره ای",
+  titleDescription: "(شامل ١٧ بخش مي‌باشد كه كاربر بنا به نیاز خود نسبت به انتخاب خدمات اقدام مي‌نمايد)",
+  options: [
+    "تعویض روغن موتور",
+    "تعویض فیلتر هوا",
+    "تعویض فیلتر روغن",
+    "تعویض فیلتر کابین",
+  ],
+};
+
 const PeriodicService = () => {
   return (
-    <div className="flex items-start gap-4 m-4 mt-[88px]">
+    <div className="flex items-start gap-8 m-4 mt-[88px]">
       <div className="w-[360px] p-4 flex flex-col gap-4 shadow-[0_0_6px_0_rgba(177,177,177,1)] rounded-10">
         <span>فاکتور فروش</span>
         <section className="flex items-center justify-between gap-4">
@@ -69,16 +80,12 @@ const PeriodicService = () => {
           </div>
         </section>
       </div>
-      <div className={"w-[calc(100%-360px)]"}>
+      <div className={"w-[calc(100%-392px)]"}>
         <Suspense fallback={<div>....Loading</div>}>
           <CarServicesSliderData/>
         </Suspense>
         <div className={"mt-14"}>
-          <ul className={"flex flex-col gap-4"}>
-            {periodicServiceUnderCardData.map((item, index) => (
-              <PeriodicServiceUnderCard key={index} item={item} />
-            ))}
-          </ul>
+        <PeriodicServiceUnderCard key={1} item={periodicServiceUnderCardData} />
         </div>
       </div>
     </div>

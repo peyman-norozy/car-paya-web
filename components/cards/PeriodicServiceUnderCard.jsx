@@ -4,10 +4,8 @@ import Button from "@/components/Button";
 
 const PeriodicServiceUnderCard = (props) => {
   return (
-    <li
-      className={
-        "shadow-[0_0_6px_0_rgba(177,177,177,1)] rounded-10 py-4 px-4 flex items-center gap-8"
-      }
+    <div
+      className={"shadow-[0_0_6px_0_rgba(177,177,177,1)] rounded-10 py-4 px-4 flex items-center gap-12"}
     >
       <div className={"w-[100px] h-[100px]"}>
         <Image
@@ -18,7 +16,7 @@ const PeriodicServiceUnderCard = (props) => {
         />
       </div>
       <div className={"flex flex-col gap-4 flex-1"}>
-        <div className={"flex items-center gap-2"}>
+        <div className={"flex flex-col gap-1 items-start font-bold text-[22px]"}>
           <span>{props.item.title}</span>
           <span className={"text-12 font-light"}>
             {props.item.titleDescription}
@@ -33,20 +31,21 @@ const PeriodicServiceUnderCard = (props) => {
                 width={24}
                 height={24}
               />
-              <span className={"font-light text-14"}>{item}</span>
+              <span className={" text-18"}>{item}</span>
             </li>
           ))}
         </ul>
         <Button
           type={"button"}
           class_name={
-            "bg-[#E73C33] text-white font-light text-14 self-start px-10 py-2 rounded-5"
+            "bg-[#E73C33] text-white font-light text-14 self-start px-10 py-2 rounded-5 flex items-center gap-1"
           }
         >
-          انتخاب خدمات
+          <i className="cc-login text-xl"/>
+          <span className="text-18 ">انتخاب خدمات</span>
         </Button>
       </div>
-    </li>
+    </div>
   );
 };
 
