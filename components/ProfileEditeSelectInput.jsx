@@ -87,7 +87,9 @@ const ProfileEditeSelectInput = (props) => {
   }, [props.profileData]);
 
   return (
-    <div className={`${props.containderClassName} flex flex-col relative`}>
+    <div
+      className={`${props.containderClassName} flex flex-col relative ${props.disabled ? "opacity-40" : "opacity-100"}`}
+    >
       <div className={"relative"} ref={selectGenderRef}>
         <i
           className={`${props.icon} absolute text-[20px] top-[15px] right-[10px] border-l border-l-stone-500 pl-2 z-10`}
@@ -96,6 +98,7 @@ const ProfileEditeSelectInput = (props) => {
           type={props.type}
           name={props.name}
           id={props.id}
+          disabled={props.disabled}
           autoComplete={"off"}
           className={
             "border border-1 border-[#B0B0B0] rounded-[8px] h-[48px] w-full outline-none pr-[50px] caret-transparent relative"
