@@ -13,6 +13,7 @@ import { serviceData } from "@/staticData/data";
 import useSetQuery from "@/hook/useSetQuery";
 import { getData } from "@/utils/api-function-utils";
 import SubFilterCard from "@/components/cards/SubFilterCard";
+import VerificationSecondStep from "@/components/VerificationSecondStep";
 
 const BatteriesPage = (props) => {
   const query = useSetQuery();
@@ -23,9 +24,11 @@ const BatteriesPage = (props) => {
   const [filter, setFilter] = useState("فیلتر بر اساس");
   const [selectedItem, setSelectedItem] = useState(null);
   const [step, setStep] = useState("car-brands");
+  const [modalStep, setModalStep] = useState(1);
   const [selectFilterData, setSelectFilterData] = useState([]);
   const [topDistance, setTopDistance] = useState(0);
   const [filterModalState, setFilterModalState] = useState(false);
+  const [timeModalState, setTimeModalState] = useState(false);
   const [filterId, setFilterId] = useState("");
   const filterRef = useRef(null);
   const subFilterRef = useRef();
@@ -34,6 +37,7 @@ const BatteriesPage = (props) => {
   if (props.filterData === 500) {
     // alert("500 server error");
   }
+  console.log(props);
   const data = selectFilterData.length > 0 ? selectFilterData : props.data.data;
   const tabTitle = [
     { name: "خودرو" },
@@ -256,7 +260,9 @@ const BatteriesPage = (props) => {
         </div>
 
         <div
-          onClick={() => setBatteryIsSelected(false)}
+          onClick={() => {
+            setBatteryIsSelected(false);
+          }}
           className={` w-full transition-all duration-500 ${batteryIsSelected ? "bg-[#000] opacity-[0.8] h-[100vh]" : "opacity-0 h-0"} fixed top-0 right-0 left-0 bottom-0 z-[9999]`}
         ></div>
 
