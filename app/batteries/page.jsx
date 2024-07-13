@@ -30,7 +30,7 @@ export const metadata = {
 };
 
 const BatteriesData = async (props) => {
-  // console.log(props.filter.selectTipState.split(","), "dddddd");
+  console.log(props, "");
   const filterFetchData = await getData("/web/get/filter");
   const fetchState = props.filter.selectTipState?.split(",");
   if (fetchState && fetchState.length > 0 && fetchState[0] === "true") {
@@ -48,8 +48,11 @@ const BatteriesData = async (props) => {
     const fetchData = await getData(
       "/web/batteries",
       // + "?order_by=" + props.filter,
+      {
+        amp: props.filter.amp,
+        brand: props.filter.brand,
+      },
     );
-    console.log(fetchData, "asdfsadfsadfsdfsdfsdfsdf");
     return (
       <BatteriesPage
         data={fetchData}
@@ -61,7 +64,6 @@ const BatteriesData = async (props) => {
 };
 
 const Batteries = (props) => {
-  console.log(props, "aaaaaa");
   return (
     <Suspense fallback={<div>....Loading</div>}>
       <BatteriesData filter={props.searchParams} />;

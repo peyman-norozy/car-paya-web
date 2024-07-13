@@ -12,6 +12,8 @@ import CarServicesSlider from "@/components/CarServicesSlider/CarServicesSlider"
 import { serviceData } from "@/staticData/data";
 import useSetQuery from "@/hook/useSetQuery";
 import { getData } from "@/utils/api-function-utils";
+import SubFilterCard from "@/components/cards/SubFilterCard";
+import VerificationSecondStep from "@/components/VerificationSecondStep";
 
 const BatteriesPage = (props) => {
   const query = useSetQuery();
@@ -22,9 +24,11 @@ const BatteriesPage = (props) => {
   const [filter, setFilter] = useState("فیلتر بر اساس");
   const [selectedItem, setSelectedItem] = useState(null);
   const [step, setStep] = useState("car-brands");
+  const [modalStep, setModalStep] = useState(1);
   const [selectFilterData, setSelectFilterData] = useState([]);
   const [topDistance, setTopDistance] = useState(0);
   const [filterModalState, setFilterModalState] = useState(false);
+  const [timeModalState, setTimeModalState] = useState(false);
   const [filterId, setFilterId] = useState("");
   const filterRef = useRef(null);
   const subFilterRef = useRef();
@@ -33,6 +37,7 @@ const BatteriesPage = (props) => {
   if (props.filterData === 500) {
     // alert("500 server error");
   }
+  console.log(props);
   const data = selectFilterData.length > 0 ? selectFilterData : props.data.data;
   const tabTitle = [
     { name: "خودرو" },
@@ -42,16 +47,9 @@ const BatteriesPage = (props) => {
   ];
 
   const filterData = [
-    { name: "آمپر", value: "amper" },
+    { name: "آمپر", value: "getAmp" },
     { name: "برند", value: "brand" },
   ];
-
-  useEffect(() => {
-    (async () => {
-      const filterFetchData = await getData("/web/get/filter");
-      console.log(filterFetchData);
-    })();
-  }, []);
 
   const brandOption = [
     {
@@ -73,6 +71,7 @@ const BatteriesPage = (props) => {
       ],
     },
   ];
+
   console.log(props.filterData);
 
   const selectFilterHandler = (event) => {
@@ -139,8 +138,6 @@ const BatteriesPage = (props) => {
       });
   }, []);
 
-  console.log(data);
-
   // useEffect(() => {
   //   console.log(props.searchParams);
   //   if (
@@ -159,10 +156,6 @@ const BatteriesPage = (props) => {
   //     query.setQuery("selectTipState", "car-brands");
   //   }
   // }, []);
-
-  console.log(selectFilterData);
-  console.log(props.searchParams);
-  console.log(topDistance);
 
   return (
     <Fragment>
@@ -229,14 +222,14 @@ const BatteriesPage = (props) => {
                       top: topDistance === 0 ? "0" : topDistance - 236 + "px",
                     }}
                   >
-                    <ul className={`bg-[#D9D9D9]`}>
-                      {brandOption.map((item) => (
-                        <li
+                    <ul className={`bg-[#D9D9D9] h-[250px] overflow-y-scroll`}>
+                      {props.filterData[filterId]?.map((item) => (
+                        <SubFilterCard
                           key={item.value}
-                          className="p-[0.5rem] w-full rounded-[8px] hover:bg-[#9d9d9d] flex items-center justify-between"
-                        >
-                          {item.name}
-                        </li>
+                          filterId={filterId}
+                          item={item}
+                          setFilterModalState={setFilterModalState}
+                        />
                       ))}
                     </ul>
                   </div>
@@ -255,27 +248,31 @@ const BatteriesPage = (props) => {
           ) : (
             <ul className="flex flex-col gap-[1.5rem]">
               {data &&
-                data.map((item, index) => (
-                  <li key={index}>
-                    <BatteryCard
-                      setBatteryIsSelected={setBatteryIsSelected}
-                      data={item}
-                    />
-                  </li>
+                data.map((item) => (
+                  <BatteryCard
+                    key={item.id}
+                    setBatteryIsSelected={setBatteryIsSelected}
+                    data={item}
+                  />
                 ))}
             </ul>
           )}
         </div>
 
         <div
-          onClick={() => setBatteryIsSelected(false)}
+          onClick={() => {
+            setBatteryIsSelected(false);
+          }}
           className={` w-full transition-all duration-500 ${batteryIsSelected ? "bg-[#000] opacity-[0.8] h-[100vh]" : "opacity-0 h-0"} fixed top-0 right-0 left-0 bottom-0 z-[9999]`}
         ></div>
 
         <div
           className={`w-[75%] size900:w-[50%] m-auto fixed transition-all duration-1000 ${batteryIsSelected ? "top-[50%]" : "top-[-50%]"} left-[50%] translate-x-[-50%] translate-y-[-50%] z-[99999]`}
         >
-          <PurchaseBatteryModal setBatteryIsSelected={setBatteryIsSelected} />
+          <PurchaseBatteryModal
+            setBatteryIsSelected={setBatteryIsSelected}
+            batteryIsSelected={batteryIsSelected}
+          />
         </div>
       </div>
     </Fragment>
