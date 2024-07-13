@@ -4,9 +4,10 @@ import PeriodicServiceCard from "@/components/cards/PeriodicServiceCard";
 import Input from "@/components/Input";
 import PeriodicServiceUnderCard from "@/components/cards/PeriodicServiceUnderCard";
 import {Suspense} from "react";
-import {serviceData,workData} from "@/staticData/data";
+import {HowWorksMockUpData, serviceData,workData} from "@/staticData/data";
 import CarServicesSlider from "@/components/CarServicesSlider/CarServicesSlider";
 import SelectVehicleBoxComponent from "@/components/periodic-service-components/SelectVehicleBoxComponent";
+import HowWorks from "@/components/HowWorks";
 
 const CarServicesSliderData = async () => {
   return <CarServicesSlider data={serviceData}/>;
@@ -25,7 +26,7 @@ const periodicServiceUnderCardData ={
 
 const PeriodicService = (props) => {
   return (
-    <div className="flex items-start gap-8 mt-[88px] max-w-[1676px] m-auto p-4">
+    <div className="flex items-start gap-8 mt-[88px] max-w-[1676px] m-auto p-4 relative">
       {/* <div className="w-[360px] p-4 flex flex-col gap-4 shadow-[0_0_6px_0_rgba(177,177,177,1)] rounded-10">
         <span>فاکتور فروش</span>
         <section className="flex items-center justify-between gap-4">
@@ -88,7 +89,7 @@ const PeriodicService = (props) => {
         </Suspense>
         <div className={"mt-14 flex flex-col gap-20"}>
           <PeriodicServiceUnderCard key={1} item={periodicServiceUnderCardData} />
-          <div className="bg-[#F6F6F6] p-6 flex-col gap-6 items-center flex rounded-10">
+          <div className="bg-[#cccccc] p-6 flex-col gap-6 items-center flex rounded-10">
             <span className="text-[#2C5D83] font-bold text-[28px] text-center">مشاوره و ثبت تماس تلفنی</span>
             <div className="flex gap-1 items-center">
               <i className="cc-call text-[20px]"/>
@@ -96,6 +97,7 @@ const PeriodicService = (props) => {
             </div>
             <span className="text-[20px]">ساعت کاری 8:00 - 21:00</span>
           </div>
+          <HowWorks data={HowWorksMockUpData} removeImage={true}/>
         </div>
       </div>
     </div>

@@ -5,7 +5,7 @@ import Image from "next/image";
 const HowWorks = (props) => {
   return (
     <div className="flex size1000:flex-row flex-col items-center gap-16 mt-24">
-      <section>
+      {!props.removeImage&&<section>
         <Image
           src={"/assets/images/car-service-repair.png"}
           alt={"how works"}
@@ -13,7 +13,7 @@ const HowWorks = (props) => {
           height={595.05}
           className={"w-[529px] h-[695.05px]"}
         />
-      </section>
+      </section>}
       <section className="flex-1 size1000:px-0 pl-[20px] pr-[30px]">
         <h1 className="text-[#2C5D83] text-24 my-10">
           کار چک می چگونه کار می کند؟

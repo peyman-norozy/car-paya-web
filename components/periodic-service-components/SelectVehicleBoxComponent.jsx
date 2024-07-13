@@ -15,7 +15,7 @@ const SelectVehicleBoxComponent = (props) => {
   ];
 
     return ( 
-        <div className="hidden size1000:block size720:w-[48%] size1136:w-[45%] size1000:pt-[9rem] size1056:pt-0 mt-[1rem] self-center size1056:self-auto sticky">
+        <div className="hidden size1000:block size720:w-[48%] size1136:w-[45%] size1000:pt-[9rem] size1056:pt-0 self-center size1056:self-auto sticky top-[100px]">
           <SelectVehicleBox
             tabTitle={tabTitle}
             title="انتخاب وسیله نقلیه"
