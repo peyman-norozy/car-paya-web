@@ -4,8 +4,8 @@ import Image from "next/image";
 
 const HowWorks = (props) => {
   return (
-    <div className={`flex size1000:flex-row flex-col items-center gap-16`}>
-      {!props.removeImage&&<section>
+    <div className={`lg:flex flex-row items-center gap-16`}>
+      {!props.removeImage&&<section className="hidden lg:inline-block">
         <Image
           src={"/assets/images/car-service-repair.png"}
           alt={"how works"}
@@ -14,8 +14,8 @@ const HowWorks = (props) => {
           className={"w-[529px] h-[695.05px]"}
         />
       </section>}
-      <section className="flex-1 size1000:px-0 pl-[20px] pr-[30px]">
-        <h1 className="text-[#2C5D83] text-24 my-10">
+      <section className="flex-1 size1000:px-0 pl-[20px] pr-[30px] w-full">
+        <h1 className="text-[#2C5D83] text-24 my-5 md:my-8">
           کار چک می چگونه کار می کند؟
         </h1>
         <ul className="flex flex-col h-[calc(100%-120px)] gap-8 justify-between w-full border-r-2 pr-8">

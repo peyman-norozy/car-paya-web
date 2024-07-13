@@ -40,10 +40,9 @@ const TopRepresentatives = (props) => {
         clients:"+200",
         satisfaction:5
       }]
-    console.log(props);
     return ( 
-    <div className="discount_slider relative mt-[80px]">
-      <h1 className="text-center text-[#2C5D83] text-24 my-8">مقالات</h1>
+    <div className="discount_slider relative">
+      <h1 className="text-center text-[#2C5D83] text-24 my-5 md:my-8">مقالات</h1>
         <Swiper
         modules={[Navigation, Pagination, Scrollbar, A11y]}
         spaceBetween={18}
@@ -53,13 +52,13 @@ const TopRepresentatives = (props) => {
         >
           {TopRepresentativesData.map((item, index) => (
             <SwiperSlide key={index} style={{width: 'fit-content'}}>
-              <div className="border border-[#c0c0c0] flex flex-col">
-                        <div className="size-[300px] bg-sky-950"></div>
-                        <div className="p-6 flex flex-col gap-[6px] text-[#303030]">
-                            <span className="font-semibold text-[20px]">نام نمایندگی: {item.name}</span>
-                            <span className="text-[18px]">سابقه کار: {item.experience} سال</span>
-                            <span className="text-[18px]">تعداد مراجعه کننده: {item.clients} نفر</span>
-                            <span className="text-[18px]">میزان رضایت: {item.satisfaction}</span>
+              <div className="border border-[#c0c0c0] flex flex-col w-[200px] md:w-[300px] h-auto aspect-[300/480]">
+                        <div className="size-[200px] md:size-[300px] aspect-auto bg-sky-950"></div>
+                        <div className="p-2 md:p-6 flex flex-col gap-[6px] text-[#303030]">
+                            <span className="font-semibold text-base md:text-[20px] line-clamp-1">نام نمایندگی: {item.name}</span>
+                            <span className="text-sm md:text-[18px] line-clamp-1">سابقه کار: {item.experience} سال</span>
+                            <span className="text-sm md:text-[18px] line-clamp-1">تعداد مراجعه کننده: {item.clients} نفر</span>
+                            <span className="text-sm md:text-[18px] line-clamp-1">میزان رضایت: {item.satisfaction}</span>
                         </div>
                     </div>
             </SwiperSlide>
