@@ -4,7 +4,7 @@ import Image from "next/image";
 
 const HowWorks = (props) => {
   return (
-    <div className="flex size1000:flex-row flex-col items-center gap-16 mt-24">
+    <div className={`flex size1000:flex-row flex-col items-center gap-16`}>
       {!props.removeImage&&<section>
         <Image
           src={"/assets/images/car-service-repair.png"}
