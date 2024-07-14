@@ -44,6 +44,7 @@ const MainCarTip = (props) => {
       process.env.BASE_API + "/web" + API_PATHS.YEARS + "/" + id,
     );
     if (response.status === 200) {
+      console.log(response);
       setNewTipId(id);
       dispatch(setSelectCarTip(item));
       setSetPhoneNumberState(true);
