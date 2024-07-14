@@ -144,7 +144,7 @@ const VerificationFirstStep = (props) => {
         <CostumerSatisfaction />
         <FrequentQuestions />
       </div>
-      <ToastContainer />
+      <ToastContainer rtl={true} />
     </div>
   );
 };
