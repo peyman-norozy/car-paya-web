@@ -1,6 +1,6 @@
 import React from "react";
 import Image from "next/image";
-import Button from "@/components/Button";
+import Link from "next/link";
 
 const PeriodicServiceUnderCard = (props) => {
   return (
@@ -36,15 +36,12 @@ const PeriodicServiceUnderCard = (props) => {
             </li>
           ))}
         </ul>
-        <Button
-          type={"button"}
-          class_name={
-            "bg-[#E73C33] text-white font-light text-14 self-start px-6 md:px-10 py-1 md:py-2 rounded-5 flex items-center gap-1"
-          }
-        >
+        <Link
+          href={"/periodic-service/service-selection"}
+          className={"bg-[#E73C33] text-white font-light text-14 self-start px-6 md:px-10 py-1 md:py-2 rounded-5 flex items-center gap-1"}>
           <i className="cc-login text-xl"/>
           <span className="text-base md:text-18">انتخاب خدمات</span>
-        </Button>
+        </Link>
       </div>
     </div>
   );
