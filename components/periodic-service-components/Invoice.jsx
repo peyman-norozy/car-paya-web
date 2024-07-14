@@ -4,7 +4,7 @@ import Link from "next/link";
 
 const Invoice = () => {
     return ( 
-        <div className="relative h-full">
+        <div className="relative h-full hidden lg:inline-block">
                 <div className="w-[400px] p-4 flex flex-col gap-4 shadow-[0_0_10px_5px_rgba(0,0,0,0.15)] rounded-lg">
                     <span className="text-[#303030]">فاکتور فروش</span>
                     <Image src={car} width={200} height={150} className="w-[60%] aspect-auto m-auto"/>
