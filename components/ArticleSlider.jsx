@@ -6,7 +6,7 @@ import ArticleSliderCard from "@/components/cards/ArticleSliderCard";
 
 const ArticleSlider = (props) => {
   return (
-    <div className="discount_slider relative mt-[80px]">
+    <div className="discount_slider relative">
       <h1 className="text-center text-[#2C5D83] text-24 my-8">مقالات</h1>
       <Swiper
         modules={[Navigation, Pagination, Scrollbar, A11y]}
