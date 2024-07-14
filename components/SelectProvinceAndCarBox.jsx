@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import axios from "axios";
 import Input from "@/components/Input";
 import ShowMyVehicles from "@/components/ShowMyVehicles";
@@ -8,6 +8,7 @@ import { error } from "@/utils/function-utils";
 import { getCookie } from "cookies-next";
 import { setVehicleData } from "@/store/todoSlice";
 import { useDispatch } from "react-redux";
+import useClickOutside from "@/hook/useClickOutside";
 
 const SelectProvinceAndCarBox = (props) => {
   const { cityData } = props;
@@ -38,6 +39,9 @@ const SelectProvinceAndCarBox = (props) => {
   const dispatch = useDispatch();
 
   const cityRef = useRef();
+  const close = useCallback(() => setIsSelected(false), []);
+  useClickOutside(cityRef, close);
+
   const setQuery = useSetQuery();
 
   const backStepHandler = () => {
@@ -172,9 +176,16 @@ const SelectProvinceAndCarBox = (props) => {
         }
       })
       .catch((err) => {
-        if (err.response.status) {
-          error(err.response.data.message.vehicle_tip_id[0]);
+        console.log(err.response.status);
+        if (err.response.status === 422) {
+          for (let key in err.response.data.message) {
+            console.log(err.response.data.message[key][0]);
+            error(err.response.data.message[key][0]);
+          }
         }
+        // if (err.response.status) {
+        //   error(err.response.data.message.vehicle_tip_id[0]);
+        // }
         console.log(err);
       });
   };
@@ -289,27 +300,13 @@ const SelectProvinceAndCarBox = (props) => {
       .get(process.env.BASE_API + "/web/geo/province-cities")
       .then((res) => {
         if (res.data.status === "success") {
-          setProvienceCity([res.data.data[98]]);
-          // setCity(res.data.data[98]);
+          console.log(res.data.data);
+          setProvienceCity(res.data.data);
+          setCity(res.data.data);
         }
       })
       .catch((err) => console.log(err));
   }, [selectedProvince]);
-
-  useEffect(() => {
-    document.body.addEventListener("click", (event) => {
-      if (event.target !== cityRef.current) {
-        setIsSelected(false);
-      }
-    });
-    return () => {
-      document.body.removeEventListener("click", (event) => {
-        if (event.target !== cityRef.current) {
-          setIsSelected(false);
-        }
-      });
-    };
-  }, []);
 
   useEffect(() => {
     dispatch(
@@ -335,9 +332,9 @@ const SelectProvinceAndCarBox = (props) => {
     myVehicleIsChecked,
   ]);
 
-  console.log(provienceCity);
-  console.log(cityId);
-  console.log(selectedItem);
+  const focusInputHandler = () => {
+    setIsSelected(true);
+  };
 
   return (
     <div
@@ -361,6 +358,7 @@ const SelectProvinceAndCarBox = (props) => {
           className={"w-full h-full outline-none text-[#3D3D3D]"}
           autoComplete={"off"}
           onChange={cityChangeHandler}
+          onFocus={focusInputHandler}
         />
         <i className={"cc-arrow-down"} />
         <label
@@ -372,8 +370,8 @@ const SelectProvinceAndCarBox = (props) => {
           استان/شهر <span className={"text-RED_400"}> * </span>
         </label>
         <ul
-          ref={cityRef}
-          className={`${isSelected ? cityRef.current.scrollHeight + "px px-[12px] py-2" : "h-0"}  shadow-[0_0_12px_rgba(226,226,226,0.8)] bg-white absolute bottom-[-50px] right-0 w-full overflow-scroll max-h-[10rem]`}
+          // ref={cityRef}
+          className={`${isSelected ? cityRef.current.scrollHeight + "px px-[12px] py-2" : "h-0"}  shadow-[0_0_12px_rgba(226,226,226,0.8)] bg-white absolute right-0 top-[40px] w-full overflow-scroll max-h-[10rem]`}
         >
           {city.length > 0 ? (
             city.map((item, index) => (
