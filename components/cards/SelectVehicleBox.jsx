@@ -10,14 +10,19 @@ import Image from "next/image";
 import Spinner from "../Spinner";
 import { useDispatch } from "react-redux";
 import { setVehicleData } from "@/store/todoSlice";
+import { usePathname } from "next/navigation";
 
 const SelectVehicleBox = (props) => {
+  const pathName = usePathname();
   const [carBrands, setCarBrands] = useState([]);
   const [motorBrands, setMotorBrands] = useState([]);
   const [heavyCarBrands, setHeavyCarBrands] = useState([]);
   const [carModel, setCarModel] = useState([]);
   const [motorModel, setMotorModel] = useState([]);
   const [heavyCarModel, setHeavyCarModel] = useState([]);
+  const [filterData, setFilterData] = useState([]);
+  const [vehicleData, setVehicleData] = useState([]);
+
   // const [step, setStep] = useState("car-brands");
   const [motorStep, setMotorStep] = useState("motor-brands");
   const [heavyCarStep, setHeavyCarStep] = useState("heavy-car-brands");
@@ -141,25 +146,31 @@ const SelectVehicleBox = (props) => {
   }, [props.step, motorStep]);
 
   useEffect(() => {
-    dispatch(
-      setVehicleData(
-        props.searchParams["attribute_value"] === "car"
-          ? carBrands
-          : props.searchParams["attribute_value"] === "motor"
-            ? motorBrands
-            : props.searchParams["attribute_value"] === "heavy_car"
-              ? heavyCarBrands
-              : myVehicleData,
-      ),
+    setVehicleData(
+      props.searchParams["attribute_value"] === "car"
+        ? carBrands
+        : props.searchParams["attribute_value"] === "motor"
+          ? motorBrands
+          : props.searchParams["attribute_value"] === "heavy_car"
+            ? heavyCarBrands
+            : myVehicleData,
     );
   }, [
     carBrands,
     dispatch,
     motorBrands,
     heavyCarBrands,
-    myVehicleData,
+    // myVehicleData,
     props.searchParams,
   ]);
+
+  console.log(filterData);
+  console.log(pathName);
+
+  useEffect(() => {
+    console.log(vehicleData);
+    setFilterData(vehicleData);
+  }, [vehicleData]);
 
   return (
     <div className="shadow-[0_0_6px_0_rgba(177,177,177,1)] rounded-10">
@@ -195,7 +206,11 @@ const SelectVehicleBox = (props) => {
           </h1>
         </div>
         <div className="mb-[1.5rem]">
-          <SearchInput placeholder="جستجو برند، مدل، تیپ" />
+          <SearchInput
+            placeholder="جستجو برند، مدل، تیپ"
+            setFilterData={setFilterData}
+            vehicleData={vehicleData}
+          />
         </div>
         {isLoading ? (
           <div className={"flex justify-center items-center h-[100px]"}>
@@ -205,6 +220,7 @@ const SelectVehicleBox = (props) => {
           <ShowMyVehicles
             setSelectedItem={props.setSelectedItem}
             selectedItem={props.selectedItem}
+            filterData={filterData}
             setStep={props.setStep}
             step={props.step}
             setImage={setImage}
