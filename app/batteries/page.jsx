@@ -30,7 +30,7 @@ export const metadata = {
 };
 
 const BatteriesData = async (props) => {
-  console.log(props, "");
+  console.log(props, "dsfdf");
   const filterFetchData = await getData("/web/get/filter");
   const fetchState = props.filter.selectTipState?.split(",");
   if (fetchState && fetchState.length > 0 && fetchState[0] === "true") {
@@ -51,6 +51,8 @@ const BatteriesData = async (props) => {
       {
         amp: props.filter.amp,
         brand: props.filter.brand,
+        attribute_slug: props.filter.attribute_slug,
+        attribute_value: props.filter.attribute_value,
       },
     );
     return (

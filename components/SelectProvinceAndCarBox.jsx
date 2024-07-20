@@ -127,7 +127,7 @@ const SelectProvinceAndCarBox = (props) => {
 
   const selectCityHandler = (e, cityId) => {
     setCityName(e.target.innerHTML);
-    setCityId(cityId);
+    setCityId(87);
     setIsSelected(false);
   };
 
@@ -153,6 +153,7 @@ const SelectProvinceAndCarBox = (props) => {
 
   const packageStepHandler = () => {
     const city = "&city_id=" + cityId;
+    console.log(selectedItem);
     const vehicle_tip =
       selectedItem === null ? "" : "&vehicle_tip_id=" + selectedItem;
     console.log(vehicle_tip, city);
@@ -300,7 +301,6 @@ const SelectProvinceAndCarBox = (props) => {
       .get(process.env.BASE_API + "/web/geo/province-cities")
       .then((res) => {
         if (res.data.status === "success") {
-          console.log(res.data.data);
           setProvienceCity(res.data.data);
           setCity(res.data.data);
         }
