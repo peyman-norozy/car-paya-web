@@ -147,7 +147,7 @@ const VerificationSecondStep = (props) => {
       </div>
       <Image
         src={"/assets/images/reserveTimePic.svg"}
-        alt={""}
+        alt={"reserveTime"}
         width={544}
         height={544}
         className={"hidden size1000:block"}
