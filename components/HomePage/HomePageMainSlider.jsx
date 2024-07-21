@@ -11,8 +11,8 @@ import Image from "next/image";
 
 const HomePageMainSlider = () => {
     return ( 
-        <div className="w-full home_banner_slider">
-                  <Swiper
+        <div className="w-full home_banner_slider overflow-hidden rounded-[32px]">
+                <Swiper
                 cssMode={true}
                 autoplay={true}
                 pagination={{clickable: true}}
@@ -21,15 +21,15 @@ const HomePageMainSlider = () => {
                 keyboard={true}
                 modules={[Pagination, Mousewheel, Keyboard, Autoplay]}
                 className="mySwiper"
-            >
+                >
                 <SwiperSlide>
-                    <Image src={sliderCar} className="w-full aspect-[1344/574] rounded-[32px]"/>
+                    <Image src={sliderCar} className="w-full aspect-[1344/574]"/>
                 </SwiperSlide> 
                 <SwiperSlide>
-                 <Image src={sliderCar} className="w-full aspect-[1344/574] rounded-[32px]"/>
+                    <Image src={sliderCar} className="w-full aspect-[1344/574]"/>
                 </SwiperSlide> 
                 <SwiperSlide>
-                    <Image src={sliderCar} className="w-full aspect-[1344/574] rounded-[32px]"/>
+                    <Image src={sliderCar} className="w-full aspect-[1344/574]"/>
                 </SwiperSlide> 
             </Swiper>
         </div>
