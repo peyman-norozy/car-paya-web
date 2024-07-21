@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import React, { useEffect, useState } from "react";
 import SelectVehicleTab from "../SelectVehicleTab";
 import SearchInput from "../SearchInput";
@@ -10,15 +10,22 @@ import Image from "next/image";
 import Spinner from "../Spinner";
 import { useDispatch } from "react-redux";
 import { setVehicleData } from "@/store/todoSlice";
+import { usePathname } from "next/navigation";
 
 const SelectVehicleBox = (props) => {
-  const [isClicked, setIsClicked] = useState(0);
+  const pathName = usePathname();
   const [carBrands, setCarBrands] = useState([]);
   const [motorBrands, setMotorBrands] = useState([]);
+  const [heavyCarBrands, setHeavyCarBrands] = useState([]);
   const [carModel, setCarModel] = useState([]);
   const [motorModel, setMotorModel] = useState([]);
+  const [heavyCarModel, setHeavyCarModel] = useState([]);
+  const [filterData, setFilterData] = useState([]);
+  const [vehicleData, setVehicleData] = useState([]);
+
   // const [step, setStep] = useState("car-brands");
   const [motorStep, setMotorStep] = useState("motor-brands");
+  const [heavyCarStep, setHeavyCarStep] = useState("heavy-car-brands");
   const [isLoading, setIsLoading] = useState(false);
   const [image, setImage] = useState("");
   const dispatch = useDispatch();
@@ -100,19 +107,70 @@ const SelectVehicleBox = (props) => {
         })
         .catch((err) => console.log(err));
     }
-  }, [props.step, motorStep, isClicked]);
+    if (heavyCarStep === "heavy-car-brands") {
+      axios
+        .get(process.env.BASE_API + "/web" + "/heavy-car-brands")
+        .then((res) => {
+          setHeavyCarBrands(res.data.data);
+          setIsLoading(false);
+        })
+        .catch((err) => console.log(err));
+    } else if (heavyCarStep === "heavy-car-models") {
+      axios
+        .get(
+          process.env.BASE_API +
+            "/web" +
+            "/heavy-car-models/" +
+            props.selectedItem,
+        )
+        .then((res) => {
+          setHeavyCarBrands(res.data.data);
+          setHeavyCarModel(props.selectedItem);
+          setIsLoading(false);
+        })
+        .catch((err) => console.log(err));
+    } else if (heavyCarStep === "heavy-car-tips") {
+      axios
+        .get(
+          process.env.BASE_API +
+            "/web" +
+            "/heavy-car-tips/" +
+            props.selectedItem,
+        )
+        .then((res) => {
+          setHeavyCarBrands(res.data.data);
+          setIsLoading(false);
+        })
+        .catch((err) => console.log(err));
+    }
+  }, [props.step, motorStep]);
 
   useEffect(() => {
-    dispatch(
-      setVehicleData(
-        isClicked === 0
-          ? carBrands
-          : isClicked === 1
-            ? motorBrands
+    setVehicleData(
+      props.searchParams["attribute_value"] === "car"
+        ? carBrands
+        : props.searchParams["attribute_value"] === "motor"
+          ? motorBrands
+          : props.searchParams["attribute_value"] === "heavy_car"
+            ? heavyCarBrands
             : myVehicleData,
-      ),
     );
-  }, [carBrands, dispatch, isClicked, motorBrands, myVehicleData]);
+  }, [
+    carBrands,
+    dispatch,
+    motorBrands,
+    heavyCarBrands,
+    // myVehicleData,
+    props.searchParams,
+  ]);
+
+  console.log(filterData);
+  console.log(pathName);
+
+  useEffect(() => {
+    console.log(vehicleData);
+    setFilterData(vehicleData);
+  }, [vehicleData]);
 
   return (
     <div className="shadow-[0_0_6px_0_rgba(177,177,177,1)] rounded-10">
@@ -124,9 +182,9 @@ const SelectVehicleBox = (props) => {
           <SelectVehicleTab
             className="flex items-center justify-center gap-[0.5rem]"
             tabTitle={props.tabTitle}
-            setIsClicked={setIsClicked}
-            isClicked={isClicked}
+            searchParams={props.searchParams}
             setMotorStep={setMotorStep}
+            setHeavyCarStep={setHeavyCarStep}
             setStep={props.setStep}
           />
         </div>
@@ -148,7 +206,11 @@ const SelectVehicleBox = (props) => {
           </h1>
         </div>
         <div className="mb-[1.5rem]">
-          <SearchInput placeholder="جستجو برند، مدل، تیپ" />
+          <SearchInput
+            placeholder="جستجو برند، مدل، تیپ"
+            setFilterData={setFilterData}
+            vehicleData={vehicleData}
+          />
         </div>
         {isLoading ? (
           <div className={"flex justify-center items-center h-[100px]"}>
@@ -158,12 +220,15 @@ const SelectVehicleBox = (props) => {
           <ShowMyVehicles
             setSelectedItem={props.setSelectedItem}
             selectedItem={props.selectedItem}
+            filterData={filterData}
             setStep={props.setStep}
             step={props.step}
             setImage={setImage}
             image={image}
             motorStep={motorStep}
             setMotorStep={setMotorStep}
+            setHeavyCarStep={setHeavyCarStep}
+            heavyCarStep={heavyCarStep}
           />
         )}
       </div>

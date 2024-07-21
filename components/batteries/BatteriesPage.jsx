@@ -40,10 +40,10 @@ const BatteriesPage = (props) => {
   console.log(props);
   const data = selectFilterData.length > 0 ? selectFilterData : props.data.data;
   const tabTitle = [
-    { name: "خودرو" },
-    { name: "موتور سیکلت" },
-    { name: "وسیله سنگین" },
-    { name: "وسیله من" },
+    { name: "خودرو", attributeSlug: "type_vehicle", slug: "car" },
+    { name: "موتور سیکلت", attributeSlug: "type_vehicle", slug: "motor" },
+    { name: "وسیله سنگین", attributeSlug: "type_vehicle", slug: "heavy_car" },
+    { name: "وسیله من", attributeSlug: "type_vehicle", slug: "my_vehicle" },
   ];
 
   const filterData = [
@@ -125,18 +125,27 @@ const BatteriesPage = (props) => {
   }, []);
 
   useEffect(() => {
-    setIsLoading(true);
-    axios
-      .get(process.env.BASE_API + "/web" + "/batteries")
-      .then((res) => {
-        setData(res.data.data);
-        setIsLoading(false);
-      })
-      .catch((err) => {
-        setIsLoading(false);
-        console.log(err);
-      });
+    if (props.searchParams.attribute_slug === undefined) {
+      query.setMultiQuery([
+        { key: "attribute_slug", value: "type_vehicle" },
+        { key: "attribute_value", value: "car" },
+      ]);
+    }
   }, []);
+
+  // useEffect(() => {
+  //   setIsLoading(true);
+  //   axios
+  //     .get(process.env.BASE_API + "/web" + "/batteries")
+  //     .then((res) => {
+  //       setData(res.data.data);
+  //       setIsLoading(false);
+  //     })
+  //     .catch((err) => {
+  //       setIsLoading(false);
+  //       console.log(err);
+  //     });
+  // }, []);
 
   // useEffect(() => {
   //   console.log(props.searchParams);
