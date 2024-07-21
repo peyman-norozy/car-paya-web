@@ -1,6 +1,6 @@
 const CartPage = () => {
     return ( 
-        <div className="flex flex-row max-w-[1676px] w-full m-auto px-4 mt-6 lg:mt-28 mb-10 gap-6">
+        <div className="flex flex-col lg:flex-row max-w-[1676px] w-full m-auto px-4 mt-6 lg:mt-28 mb-6 lg:mb-10 gap-6">
             <div className="bg-white sm:shadow-[0_0_8px_0_rgba(151,151,151,0.25)] flex flex-col w-full lg:w-[calc(100%-340px)] rounded-2xl sm:p-6 gap-4 sm:gap-8">
                 <div className="overflow-x-scroll shadow-[0_0_8px_0_rgba(151,151,151,0.25)] rounded-lg">
                     <div className="flex items-center  p-4 gap-2">
@@ -64,7 +64,7 @@ const CartPage = () => {
                             </div>
                         </div>
                     </div>
-                 </div>
+                 </div> 
                  <div className="w-full bg-white sm:bg-[#ECEEF880] flex flex-col sm:flex-row sm:gap-1 rounded-lg items-end sm:items-center shadow-[0_0_8px_0_rgba(162,162,162,0.25)]">
                     <i className="cc-twitter text-2xl pt-2 px-2 sm:pb-2"/>
                     <div className="w-full bg-white rounded-lg flex justify-between px-4 pb-4 sm:pt-4 relative flex-col min-[1350px]:flex-row gap-4">
@@ -86,7 +86,7 @@ const CartPage = () => {
                     </div>
                  </div>
             </div>
-            <div className="shadow-[0_0_10px_0_rgba(128,117,248,0.3)] px-6 py-4 gap-5 flex-col items-center h-fit rounded-lg min-w-[320px] hidden lg:flex">
+            <div className="shadow-[0_0_10px_0_rgba(128,117,248,0.3)] px-6 py-4 gap-5 flex-col items-center h-fit rounded-lg min-w-[320px] flex">
                 <span className="text-2xl font-medium text-[#262626]">جمع کل سبد خرید</span>
                 <div className="flex justify-between items-center w-full">
                     <span className="font-medium text-[#262626]">قیمت کالاها (3)</span>
@@ -97,7 +97,7 @@ const CartPage = () => {
                     <span className="font-medium text-[#262626] text-18">جمع کل</span>
                     <span className="font-medium text-[#888888]">۷۹۲/۰۰۰ تومان</span>
                 </div>
-                <button className="w-full p-[10px] text-[#FEFEFE] bg-[#354597] rounded-[8px] text-14">تایید و تکمیل سفارش</button>
+                <button className="w-full p-[10px] text-[#FEFEFE] bg-[#354597] rounded-[8px] text-14">انتخاب موقعیت</button>
             </div>
         </div>
      );
