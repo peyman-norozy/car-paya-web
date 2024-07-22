@@ -3,6 +3,7 @@ import React, {useState} from 'react';
 import PeriodicServiceTabCard from "@/components/cards/PeriodicServiceTabCard";
 import CustomSlider from "@/components/CustomSlider/CustomSlider";
 import { usePathname } from 'next/navigation';
+
 const CarServicesSlider = (props) => {
     const pathname = usePathname()
     console.log(pathname);
