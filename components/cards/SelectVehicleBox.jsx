@@ -211,7 +211,7 @@ const SelectVehicleBox = (props) => {
 
   const selectCityHandler = (e, cityId) => {
     setCityName(e.target.innerHTML);
-    query.setQuery("provience_city_id", 87);
+    query.setMultiQuery([{ key: "provience_city_id", value: 87 }]);
     setIsSelected(false);
   };
 
