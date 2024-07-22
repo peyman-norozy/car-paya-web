@@ -60,7 +60,7 @@ const VerificationThirdStep = (props) => {
       <div className="pb-[3rem] pt-4">
         <ChangeServiceTime
           on_click={backstopHandler}
-          exact_time={time_id.split("/")[1]}
+          exact_time={time_id?.split("/")[1]}
           chosenTime={chosenTime}
         />
         <div className="mt-[5rem] flex flex-col gap-[1.5rem]">

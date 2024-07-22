@@ -1,14 +1,10 @@
 import React from "react";
-import VerificationSecondStep from "@/components/VerificationSecondStep";
+import BatteriesTimeSelector from "@/components/BatteriesTimeSelector/BatteriesTimeSelector";
 
 const Page = () => {
   return (
     <div className={"mb-10"}>
-      <VerificationSecondStep
-        backUrl={"/batteries"}
-        fetchUrl={"/web/reservation/battery?step=step-2"}
-        accordionState={true}
-      />
+      <BatteriesTimeSelector backUrl={"/batteries"} accordionState={true} />
     </div>
   );
 };

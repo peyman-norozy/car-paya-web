@@ -104,6 +104,7 @@ const VerificationLastStep = () => {
         },
       )
       .then((res) => {
+        console.log(res);
         setData(res.data.data);
       })
       .catch((err) => {
@@ -116,7 +117,7 @@ const VerificationLastStep = () => {
   console.log(data.address_info && data.address_info);
 
   return (
-    <div className={"w-[90%] size1000:w-[80%] m-auto pt-[2rem]"}>
+    <div className={"w-[90%] size1000:w-[80%] m-auto pt-[2rem] mb-[90px]"}>
       <div
         className={
           "flex items-center gap-2 size752:gap-[16px] text-BLUE_600 w-full mb-4"
@@ -206,8 +207,24 @@ const VerificationLastStep = () => {
         <h5 className={"text-BLUE_600"}>جزیات قیمت سرویس</h5>
         <div className={"flex items-center justify-between"}>
           <p>قیمت سرویس</p>
-          <p>{numberWithCommas(data.price)} تومان</p>
+          <p>{numberWithCommas(data["price_package"])} تومان</p>
         </div>
+        {data["swing_type"] === "INCREASE" && (
+          <div className={"flex items-center justify-between"}>
+            <p> افزایش قیمت به دلیل پیک درخواست</p>
+            <p className={"text-red-600"}>
+              {numberWithCommas(data["diff_price"])} تومان
+            </p>
+          </div>
+        )}
+        {data["swing_type"] === "DECREASE" && (
+          <div className={"flex items-center justify-between"}>
+            <p>تخفیف زمانی</p>
+            <p className={"text-green-600"}>
+              {numberWithCommas(data["diff_price"])} تومان
+            </p>
+          </div>
+        )}
         <div className={"flex items-center justify-between"}>
           <p>تخفیف</p>
           <p>{discount ? discount.toLocaleString() + "تومان" : ""} </p>
@@ -219,9 +236,11 @@ const VerificationLastStep = () => {
         }
       >
         <div className={"text-BLUE_600 text-16 size752:text-18"}>
-          <p className={"border-b border-b-BLUE_600"}>جمع قابل پرداخت</p>
+          <p className={"border-b border-b-BLUE_600"}>مبلغ قابل پرداخت</p>
           <p>
-            {price ? price.toLocaleString() : numberWithCommas(data.price)}
+            {price
+              ? price.toLocaleString()
+              : numberWithCommas(data["price_total"])}
             تومان
           </p>
         </div>

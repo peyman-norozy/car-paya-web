@@ -5,13 +5,14 @@ import CheckBox from "@/components/CheckBox";
 import AddressInput from "@/components/AddressInput";
 import { getData } from "@/utils/api-function-utils";
 import { API_PATHS } from "@/configs/routes.config";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import SpinnerPackage from "@/components/SpinnerPackage";
 import MapDirection from "@/components/MapDirection";
 import { postData, putData } from "@/utils/client-api-function-utils";
 
 const AddressModal = (props) => {
   const router = useRouter();
+  const pathName = usePathname();
   const [provincesData, setProvincesData] = useState([]);
   const [citiesData, setCitiesData] = useState([]);
   const [provinces, setProvinces] = useState("");
@@ -79,10 +80,16 @@ const AddressModal = (props) => {
       setLoading(true);
       const post = await postData(API_PATHS.DASHBOARDUSERADDRESS, formData);
       if (post.status === 200) {
-        props.setAddressModalState(false);
-        props.getAddressFetchData();
-        // props.getDataFetch(post.data);
-        // props.setModalIsOpen(false);
+        console.log(props);
+        console.log(pathName);
+        if (pathName === "/panel/productAddress") {
+          props.setAddressModalState(false);
+          props.getAddressFetchData();
+        } else if (pathName === "/vehicle-verification") {
+          props.getDataFetch(post.data);
+          props.setModalIsOpen(false);
+        }
+
         // props.setIsLoading(true);
       } else if (post.response.status === 422) {
         setErrorData(post.response.data.errors);

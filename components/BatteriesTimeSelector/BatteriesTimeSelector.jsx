@@ -10,13 +10,13 @@ import { error } from "@/utils/function-utils";
 import { ToastContainer } from "react-toastify";
 import { getCookie } from "cookies-next";
 
-const VerificationSecondStep = (props) => {
+const BatteriesTimeSelector = (props) => {
   const { setStep } = props;
-  const searchParams = useSearchParams();
-  const params = new URLSearchParams(searchParams.toString());
-  const city_id = searchParams.get("city_id");
-  const selectedItem = searchParams.get("vehicle_tip");
-  const package_id = searchParams.get("package_id");
+  // const searchParams = useSearchParams();
+  // const params = new URLSearchParams(searchParams.toString());
+  // const city_id = searchParams.get("city_id");
+  // const selectedItem = searchParams.get("vehicle_tip");
+  // const package_id = searchParams.get("package_id");
 
   const [loginState, setLoginState] = useState();
   const [optionIsOpen, setOptionIsOpen] = useState(false);
@@ -25,7 +25,7 @@ const VerificationSecondStep = (props) => {
 
   const [data, setData] = useState([]);
   const [isSelected, setIsSelected] = useState(null);
-  const setQuery = useSetQuery();
+  // const setQuery = useSetQuery();
   const router = useRouter();
 
   const continueSecondStepHandler = () => {
@@ -77,15 +77,11 @@ const VerificationSecondStep = (props) => {
   useEffect(() => {
     window.scrollTo(0, 0);
     axios
-      .get(
-        process.env.BASE_API +
-          `${props.fetchUrl ? props.fetchUrl : "/web/expert/reservation?step=step-2"}`,
-        {
-          headers: {
-            Authorization: "Bearer " + getCookie("Authorization"),
-          },
+      .get(process.env.BASE_API + "/web/reservation/battery?step=step-2", {
+        headers: {
+          Authorization: "Bearer " + getCookie("Authorization"),
         },
-      )
+      })
       .then((res) => {
         setLoginState(res.data["check_auth"]);
         console.log(res.data["check_auth"]);
@@ -157,4 +153,4 @@ const VerificationSecondStep = (props) => {
   );
 };
 
-export default VerificationSecondStep;
+export default BatteriesTimeSelector;
