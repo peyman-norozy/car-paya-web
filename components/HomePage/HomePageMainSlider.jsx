@@ -22,14 +22,26 @@ const HomePageMainSlider = () => {
                 modules={[Pagination, Mousewheel, Keyboard, Autoplay]}
                 className="mySwiper"
                 >
-                <SwiperSlide>
+                <SwiperSlide className="relative">
                     <Image src={sliderCar} className="w-full aspect-[1344/574]"/>
+                    <div className="w-1/3 absolute bg-[#5D697A52] backdrop-blur-[16px] h-fit left-8 top-8 flex flex-col z-[2] gap-6 p-4 rounded-lg">
+                    <span className="text-[#FEFEFE] font-bold">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.</span>
+                    <button className="bg-[#F66B34] text-[rgb(254,254,254)] px-4 py-[8px] w-fit rounded-[6px] self-end text-xs">مشاهده بیشتر</button>
+                </div>
                 </SwiperSlide> 
-                <SwiperSlide>
+                <SwiperSlide className="relative">
                     <Image src={sliderCar} className="w-full aspect-[1344/574]"/>
+                    <div className="w-1/3 absolute bg-[#5D697A52] backdrop-blur-[16px] h-fit left-8 top-8 flex flex-col z-[2] gap-6 p-4 rounded-lg">
+                    <span className="text-[#FEFEFE] font-bold">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.</span>
+                    <button className="bg-[#F66B34] text-[rgb(254,254,254)] px-4 py-[8px] w-fit rounded-[6px] self-end text-xs">مشاهده بیشتر</button>
+                </div>
                 </SwiperSlide> 
-                <SwiperSlide>
+                <SwiperSlide className="relative">
                     <Image src={sliderCar} className="w-full aspect-[1344/574]"/>
+                    <div className="w-1/3 absolute bg-[#5D697A52] backdrop-blur-[16px] h-fit left-8 top-8 flex flex-col z-[2] gap-6 p-4 rounded-lg">
+                    <span className="text-[#FEFEFE] font-bold">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.</span>
+                    <button className="bg-[#F66B34] text-[rgb(254,254,254)] px-4 py-[8px] w-fit rounded-[6px] self-end text-xs">مشاهده بیشتر</button>
+                </div>
                 </SwiperSlide> 
             </Swiper>
         </div>

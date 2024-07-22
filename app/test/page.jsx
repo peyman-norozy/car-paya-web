@@ -5,6 +5,7 @@ import bmw from "@/public/assets/images/bmw.png"
 import carachar from "@/public/assets/images/carachar.png"
 import { useEffect, useRef, useState } from "react";
 import HomePageParallaxSlider from "@/components/HomePage/HomePageParallaxSlider";
+import HomePageArticleSlider from "@/components/HomePage/HomePageArticleSlider";
 
 const HomePage = () => {
     const array10 = [1,2,3,4,5,6,7,8,9,10]
@@ -16,13 +17,7 @@ const HomePage = () => {
     },[])
     return ( 
         <div className="flex flex-col gap-9 w-full max-w-[1676px] p-12 m-auto relative">
-            <div className="relative">
                 <HomePageMainSlider/>
-                <div className="w-1/3 absolute bg-[#5D697A52] backdrop-blur-[16px] h-fit left-8 top-8 flex flex-col z-[2] gap-6 p-4 rounded-lg">
-                    <span className="text-[#FEFEFE] font-bold">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.</span>
-                    <button className="bg-[#F66B34] text-[rgb(254,254,254)] px-4 py-[8px] w-fit rounded-[6px] self-end text-xs">مشاهده بیشتر</button>
-                </div>
-            </div>
             <div className="flex gap-6 justify-end">
                 <div className="bg-[#383838A3] h-[570px] rounded-2xl w-[360px] fixed top-[123px] right-[calc(50%-790px)] z-[2] backdrop-blur-[16px] py-4 px-4 flex flex-col gap-4">
                     <span className="text-[#FEFEFE] text-20 font-bold text-center">ثبت وسیله نقلیه</span>
@@ -64,6 +59,8 @@ const HomePage = () => {
                     </div>
                     <button className="text-[#F66B34] flex items-center gap-2 mx-auto" onClick={()=>{setOpenService(!openService)}}><span className="font-medium">مشاهده {openService?"کمتر":"بیشتر"}</span><i className={`cc-arrow-down text-2xl transition-transform duration-700 ${openService?"rotate-180":"rotate-0"}`}/></button>
                     <HomePageParallaxSlider/>
+                    <span className="text-2xl font-bold text-[#383838] text-center">مقالات</span>
+                    <HomePageArticleSlider/>
                 </div>
             </div>
         </div>
