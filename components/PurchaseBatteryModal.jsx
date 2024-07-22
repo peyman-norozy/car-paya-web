@@ -6,7 +6,7 @@ import GreenCheckInput from "./GreenCheckInput";
 import { numberWithCommas } from "@/utils/function-utils";
 import ProfileEditeSelectInput from "@/components/ProfileEditeSelectInput";
 import { useSelector } from "react-redux";
-import { getData } from "@/utils/api-function-utils";
+import { getData, getDataWithFullErrorRes } from "@/utils/api-function-utils";
 import useSetQuery from "@/hook/useSetQuery";
 import { useRouter } from "next/navigation";
 // import Toman from "@/public/assets/icons/Toman.svg";
@@ -95,6 +95,7 @@ const PurchaseBatteryModal = (props) => {
             product_id: batteriesData.id,
             type: "SWING_AMP",
             amp: cityId,
+            city_id: props.searchParams.provience_city_id,
           },
         );
         console.log(selectAmpBatteriesData);
@@ -148,46 +149,51 @@ const PurchaseBatteryModal = (props) => {
           return option;
         }
       });
-      console.log(newbatteriesOption);
       setPurchseOption(newbatteriesOption);
     }
   }, [nobatteriesData, batteriesData]);
-  console.log(batteriesData);
 
   useEffect(() => {
     if (props.batteryIsSelected) {
       console.log(batteriesData);
       setIsSelected(0);
       (async () => {
-        const getBatteriesData = await getData(
+        const getBatteriesData = await getDataWithFullErrorRes(
           "/web/reservation/battery?step=step-1",
           {
             product_id: batteriesData.id,
             type: "NO_BATTERY",
+            city_id: props.searchParams.provience_city_id,
           },
         );
         console.log(getBatteriesData);
+
+        if (getBatteriesData.response?.status === 422) {
+          return;
+        } else if (getBatteriesData.response?.status === 500) {
+          console.log(getBatteriesData.response?.status, "server error");
+          return;
+        } else if (getBatteriesData.response?.status === 404) {
+          console.log(getBatteriesData.response?.status, "route not corect");
+          return;
+        }
+
         const newAmperOptions = getBatteriesData.amp.map((item) => {
           return { title: item.label, id: item.value };
         });
         setAmperSelectData(newAmperOptions);
-        if (getBatteriesData === 500) {
-          console.log(getBatteriesData, "server error");
-        } else if (getBatteriesData === 404) {
-          console.log(getBatteriesData, "route not corect");
-        }
+
         const getSameAmpBattery = await getData(
           "/web/reservation/battery?step=step-1",
           {
             product_id: batteriesData.id,
             type: "SAME_AMP",
             amp: batteriesData.amp,
+            city_id: props.searchParams.provience_city_id,
           },
         );
-        console.log(getSameAmpBattery);
         setNobatteriesData(getBatteriesData);
         setSameAmpBattery(getSameAmpBattery);
-        console.log(getBatteriesData);
       })();
     }
   }, [props.batteryIsSelected]);
@@ -229,6 +235,8 @@ const PurchaseBatteryModal = (props) => {
     // })();
     // }
   }, [isSelected]);
+
+  console.log(props);
 
   return (
     <div className="rounded-10 overflow-hidden w-full shadow-[0_0_5px_0_rgba(0,0,0,0.4)]">
