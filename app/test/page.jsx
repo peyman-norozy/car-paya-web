@@ -2,7 +2,18 @@
 import HomePageMainSlider from "@/components/HomePage/HomePageMainSlider";
 import Image from "next/image";
 import bmw from "@/public/assets/images/bmw.png"
+import carachar from "@/public/assets/images/carachar.png"
+import { useEffect, useRef, useState } from "react";
+import HomePageParallaxSlider from "@/components/HomePage/HomePageParallaxSlider";
+
 const HomePage = () => {
+    const array10 = [1,2,3,4,5,6,7,8,9,10]
+    const [openService,setOpenService] = useState(false)
+    const serviceRef = useRef()
+
+    useEffect(()=>{
+        console.log(serviceRef.current.offsetHeight);
+    },[])
     return ( 
         <div className="flex flex-col gap-9 w-full max-w-[1676px] p-12 m-auto relative">
             <div className="relative">
@@ -30,75 +41,29 @@ const HomePage = () => {
                         </div>
                         <div className="h-[336px] overflow-y-scroll">
                             <div className="grid grid-cols-3 gap-x-8 gap-y-6">
-                                <div className="flex flex-col items-center gap-2">
+                            {array10.map((item,index)=>(
+                                <div className="flex flex-col items-center gap-2" key={index}>
                                     <Image src={bmw} width={64} height={64}/>
                                     <span className="text-white font-bold">بی ام وه</span>
                                 </div>
-                                <div className="flex flex-col items-center gap-2">
-                                    <Image src={bmw} width={64} height={64}/>
-                                    <span className="text-white font-bold">بی ام وه</span>
-                                </div>
-                                <div className="flex flex-col items-center gap-2">
-                                    <Image src={bmw} width={64} height={64}/>
-                                    <span className="text-white font-bold">بی ام وه</span>
-                                </div>
-                                <div className="flex flex-col items-center gap-2">
-                                    <Image src={bmw} width={64} height={64}/>
-                                    <span className="text-white font-bold">بی ام وه</span>
-                                </div>
-                                <div className="flex flex-col items-center gap-2">
-                                    <Image src={bmw} width={64} height={64}/>
-                                    <span className="text-white font-bold">بی ام وه</span>
-                                </div>
-                                <div className="flex flex-col items-center gap-2">
-                                    <Image src={bmw} width={64} height={64}/>
-                                    <span className="text-white font-bold">بی ام وه</span>
-                                </div>
-                                <div className="flex flex-col items-center gap-2">
-                                    <Image src={bmw} width={64} height={64}/>
-                                    <span className="text-white font-bold">بی ام وه</span>
-                                </div>
-                                <div className="flex flex-col items-center gap-2">
-                                    <Image src={bmw} width={64} height={64}/>
-                                    <span className="text-white font-bold">بی ام وه</span>
-                                </div>
-                                <div className="flex flex-col items-center gap-2">
-                                    <Image src={bmw} width={64} height={64}/>
-                                    <span className="text-white font-bold">بی ام وه</span>
-                                </div>
+                            ))}
                             </div>
                         </div>
                     </div>
                 </div>
-                <div className="flex flex-col gap-9 w-[calc(100%-384px)] overflow-y-scroll">
-                    <div className="grid grid-cols-4 gap-6 max-h-[245px]">
-                        <div className="w-full p-4 flex flex-col bg-[#E7E7E7] items-center gap-3 rounded-lg">
-                            <div className="size-10 bg-[#0E0E0E] rounded-md"></div>
-                            <span className="text-[#0E0E0E]">کارشناسی</span>
-                        </div>
-                        <div className="w-full p-4 flex flex-col bg-[#E7E7E7] items-center gap-3 rounded-lg">
-                            <div className="size-10 bg-[#0E0E0E] rounded-md"></div>
-                            <span className="text-[#0E0E0E]">کارشناسی</span>
-                        </div><div className="w-full p-4 flex flex-col bg-[#E7E7E7] items-center gap-3 rounded-lg">
-                            <div className="size-10 bg-[#0E0E0E] rounded-md"></div>
-                            <span className="text-[#0E0E0E]">کارشناسی</span>
-                        </div><div className="w-full p-4 flex flex-col bg-[#E7E7E7] items-center gap-3 rounded-lg">
-                            <div className="size-10 bg-[#0E0E0E] rounded-md"></div>
-                            <span className="text-[#0E0E0E]">کارشناسی</span>
-                        </div><div className="w-full p-4 flex flex-col bg-[#E7E7E7] items-center gap-3 rounded-lg">
-                            <div className="size-10 bg-[#0E0E0E] rounded-md"></div>
-                            <span className="text-[#0E0E0E]">کارشناسی</span>
-                        </div><div className="w-full p-4 flex flex-col bg-[#E7E7E7] items-center gap-3 rounded-lg">
-                            <div className="size-10 bg-[#0E0E0E] rounded-md"></div>
-                            <span className="text-[#0E0E0E]">کارشناسی</span>
-                        </div><div className="w-full p-4 flex flex-col bg-[#E7E7E7] items-center gap-3 rounded-lg">
-                            <div className="size-10 bg-[#0E0E0E] rounded-md"></div>
-                            <span className="text-[#0E0E0E]">کارشناسی</span>
-                        </div><div className="w-full p-4 flex flex-col bg-[#E7E7E7] items-center gap-3 rounded-lg">
-                            <div className="size-10 bg-[#0E0E0E] rounded-md"></div>
-                            <span className="text-[#0E0E0E]">کارشناسی</span>
+                <div className="flex flex-col gap-9 w-[calc(100%-384px)] ">
+                    <div className={`transition-all duration-700 overflow-y-hidden`} style={{height:`${openService?`${serviceRef.current.offsetHeight}px`:"260px"}`}}>
+                        <div className="grid grid-cols-4 gap-6" ref={serviceRef}>
+                            {array10.map((item,index)=>(
+                                <div className="w-full p-4 flex flex-col bg-[#E7E7E7] items-center gap-3 rounded-lg" key={index} >
+                                    <Image className="size-12" src={carachar} height={48} width={48} alt="carachar"/>
+                                    <span className="text-[#0E0E0E]">کارشناسی</span>
+                                </div>
+                            ))}
                         </div>
                     </div>
+                    <button className="text-[#F66B34] flex items-center gap-2 mx-auto" onClick={()=>{setOpenService(!openService)}}><span className="font-medium">مشاهده {openService?"کمتر":"بیشتر"}</span><i className={`cc-arrow-down text-2xl transition-transform duration-700 ${openService?"rotate-180":"rotate-0"}`}/></button>
+                    <HomePageParallaxSlider/>
                 </div>
             </div>
         </div>
