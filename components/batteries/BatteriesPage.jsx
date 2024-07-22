@@ -14,6 +14,7 @@ import useSetQuery from "@/hook/useSetQuery";
 import { getData } from "@/utils/api-function-utils";
 import SubFilterCard from "@/components/cards/SubFilterCard";
 import VerificationSecondStep from "@/components/VerificationSecondStep";
+import { ToastContainer } from "react-toastify";
 
 const BatteriesPage = (props) => {
   const query = useSetQuery();
@@ -131,7 +132,7 @@ const BatteriesPage = (props) => {
         { key: "attribute_value", value: "car" },
       ]);
     }
-  }, []);
+  }, [props.searchParams.attribute_slug, query]);
 
   // useEffect(() => {
   //   setIsLoading(true);
@@ -173,6 +174,9 @@ const BatteriesPage = (props) => {
           <SelectVehicleBox
             tabTitle={tabTitle}
             title="انتخاب وسیله نقلیه"
+            cityProvincesTitle={
+              "برای ثبت کارشناسی استان و شهر خود را انتخاب کنید"
+            }
             setSelectedItem={setSelectedItem}
             selectedItem={selectedItem}
             setStep={setStep}
@@ -262,6 +266,7 @@ const BatteriesPage = (props) => {
                     key={item.id}
                     setBatteryIsSelected={setBatteryIsSelected}
                     data={item}
+                    searchParams={props.searchParams}
                   />
                 ))}
             </ul>
@@ -281,9 +286,11 @@ const BatteriesPage = (props) => {
           <PurchaseBatteryModal
             setBatteryIsSelected={setBatteryIsSelected}
             batteryIsSelected={batteryIsSelected}
+            searchParams={props.searchParams}
           />
         </div>
       </div>
+      <ToastContainer rtl={true} />
     </Fragment>
   );
 };
