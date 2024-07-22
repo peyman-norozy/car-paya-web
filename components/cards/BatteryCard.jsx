@@ -3,12 +3,12 @@ import React from "react";
 import Button from "../Button";
 import star from "@/public/assets/icons/Star-red.svg";
 import toman from "@/public/assets/icons/toman.svg";
-import { numberWithCommas } from "@/utils/function-utils";
+import { error, numberWithCommas } from "@/utils/function-utils";
 import { usePathname, useRouter } from "next/navigation";
 import { useDispatch } from "react-redux";
 import { setBatteriesData } from "@/store/todoSlice";
 
-const BatteryCard = ({ data, setBatteryIsSelected }) => {
+const BatteryCard = ({ data, setBatteryIsSelected, searchParams }) => {
   const router = useRouter();
   const pathName = usePathname();
   const dispatch = useDispatch();
@@ -18,8 +18,12 @@ const BatteryCard = ({ data, setBatteryIsSelected }) => {
   };
 
   const basketClickHandler = () => {
-    setBatteryIsSelected(true);
-    dispatch(setBatteriesData(data));
+    if (searchParams.provience_city_id) {
+      setBatteryIsSelected(true);
+      dispatch(setBatteriesData(data));
+    } else {
+      error("فیلد شهر و استان را انتخاب نشده");
+    }
   };
 
   return (
