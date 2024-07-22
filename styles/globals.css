@@ -454,3 +454,29 @@ li {
    border-radius: 50%;
    background: white;
 }
+/**************************** paralox swiper****************************/
+
+.home_paralox_slider .swiper {
+    width: 100%;
+    height: 100%;
+    background: #000;
+  }
+  
+  .home_paralox_slider .swiper-slide {
+    font-size: 18px;
+    color: #fff;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+  }
+  
+  .home_paralox_slider .parallax-bg {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    -webkit-background-size: cover;
+    background-size: cover;
+    background-position: center;
+  }
+  
