@@ -25,7 +25,6 @@ const ReserveTimeVerification = (props) => {
           "bg-[#FFF0F0] col-span-full rounded-lg py-2 px-3.5 flex items-center justify-between"
         }
       >
-        <p>۸:۰۰ تا ۱۲:۰۰ پیشنهاد ما</p>
         <div className={"flex items-end gap-2"}>
           <p className={"text-18"}>{weekDay}</p>
           <p className={"text-14"}>{persianDateCovertor(data[0])}</p>
@@ -41,9 +40,24 @@ const ReserveTimeVerification = (props) => {
               onClick={() => openOptionHandler(item.id)}
               className={"flex items-center justify-between px-4 py-5"}
             >
-              <p className={"text-[13px]"}>
-                {item.start_time} تا {item.end_time}
-              </p>
+              <div className={"flex items-center gap-4"}>
+                <p className={"text-[13px]"}>
+                  {item.start_time} تا {item.end_time}
+                </p>
+                {item.swing_type === "INCREASE" ? (
+                  <p className={"text-[12px] text-blue-600"}>
+                    <span>{item.diff_price} تومان </span>
+                    <span>افزایش قیمت به دلیل پیک درخواست</span>
+                  </p>
+                ) : item.swing_type === "DECREASE" ? (
+                  <p className={"text-[12px] text-green-600"}>
+                    <span>{item.diff_price} تومان </span>
+                    <span>تخفیف کارچک</span>
+                  </p>
+                ) : (
+                  ""
+                )}
+              </div>
               <i className={"cc-arrow-down"} />
             </div>
             {(props.accordionState === undefined

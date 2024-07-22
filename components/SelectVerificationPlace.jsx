@@ -77,7 +77,7 @@ const SelectVerificationPlace = (props) => {
           "/web/expert/reservation?step=step-5&type=DELEGATE&city_id=" +
           city_id +
           "&reservation_time_slice_id=" +
-          time_id.split("/")[0],
+          time_id?.split("/")[0],
         {
           headers: {
             Authorization: "Bearer " + getCookie("Authorization"),
@@ -97,7 +97,7 @@ const SelectVerificationPlace = (props) => {
           "/web/expert/reservation?step=step-5&type=EXPERT&city_id=" +
           city_id +
           "&reservation_time_slice_id=" +
-          time_id.split("/")[0],
+          time_id?.split("/")[0],
         {
           headers: {
             Authorization: "Bearer " + getCookie("Authorization"),
