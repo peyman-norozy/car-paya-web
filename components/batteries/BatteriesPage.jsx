@@ -132,7 +132,7 @@ const BatteriesPage = (props) => {
         { key: "attribute_value", value: "car" },
       ]);
     }
-  }, [props.searchParams.attribute_slug, query]);
+  }, []);
 
   // useEffect(() => {
   //   setIsLoading(true);
