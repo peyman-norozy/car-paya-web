@@ -7,6 +7,8 @@ import { numberWithCommas } from "@/utils/function-utils";
 import ProfileEditeSelectInput from "@/components/ProfileEditeSelectInput";
 import { useSelector } from "react-redux";
 import { getData } from "@/utils/api-function-utils";
+import useSetQuery from "@/hook/useSetQuery";
+import { useRouter } from "next/navigation";
 // import Toman from "@/public/assets/icons/Toman.svg";
 // import arrowLeft from "@/public/assets/icons/Arrow-Left.svg";
 
@@ -22,6 +24,7 @@ const PurchaseBatteryModal = (props) => {
   const [nobatteriesData, setNobatteriesData] = useState({});
   const [sameAmpBattery, setSameAmpBattery] = useState({});
   const [amperSelectData, setAmperSelectData] = useState([]);
+  const router = useRouter();
   console.log(props);
   const [purchseOptions, setPurchseOption] = useState([
     {
@@ -80,12 +83,11 @@ const PurchaseBatteryModal = (props) => {
   };
 
   const clickSelectTimeHandler = () => {
-    console.log("peyman");
+    router.push("/batteries/timeSelector");
   };
 
   useEffect(() => {
     if (cityId) {
-      console.log("slfjsdlfsj");
       (async () => {
         const selectAmpBatteriesData = await getData(
           "/web/reservation/battery?step=step-1",

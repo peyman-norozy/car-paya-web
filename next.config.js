@@ -14,13 +14,13 @@ const withPWA = require("@ducanh2912/next-pwa").default({
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   env: {
-    BASE_API: "http://127.0.0.1:8000/api/V1",
+    BASE_API: "https://api.carcheckme.ir/api/V1",
   },
   images: {
     remotePatterns: [
       {
-        protocol: "http",
-        hostname: "127.0.0.1",
+        protocol: "https",
+        hostname: "api.carcheckme.ir",
       },
     ],
   },

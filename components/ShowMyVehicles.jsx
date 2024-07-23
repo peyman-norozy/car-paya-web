@@ -5,15 +5,14 @@ import { useSelector } from "react-redux";
 
 const ShowMyVehicles = (props) => {
   const query = useSetQuery();
-  const [vehicleData, setVehicleData] = useState([]);
   const [selectedVehicle, setSelectedVehicle] = useState(false);
+  const [vehicleData, setVehicleData] = useState([]);
   const data = useSelector((item) => item.todo.vehicleData);
   console.log(data);
   const selectItemHandler = (e, id) => {
     if (e.currentTarget.getAttribute("image") !== null) {
       props.setImage(e.currentTarget.getAttribute("image"));
     }
-    console.log(id);
     setSelectedVehicle(id);
 
     // const newUrl =
@@ -59,14 +58,20 @@ const ShowMyVehicles = (props) => {
     }
   };
 
+  console.log(props);
+
   useEffect(() => {
     query.deleteQuery("selectTipState");
   }, []);
 
   useEffect(() => {
-    setVehicleData([...data]);
-  }, [data]);
-  console.log(vehicleData);
+    if (props.filterData?.length > 0) {
+      setVehicleData(props.filterData);
+    } else {
+      setVehicleData([...data]);
+    }
+  }, [props.filterData, data]);
+
   return (
     <div className="relative grid grid-cols-3 gap-x-[0.5rem] gap-y-[0.5rem] rounded-10 border-gray_light_border border-[1px] w-full h-[16rem] p-[1rem] overflow-y-scroll">
       {vehicleData.length > 0 ? (

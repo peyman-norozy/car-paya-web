@@ -1,4 +1,5 @@
 const SelectSearchInputCard = (props) => {
+  console.log(props.item);
   return (
     <li
       onClick={(event) => {
@@ -8,7 +9,11 @@ const SelectSearchInputCard = (props) => {
         props.setNewOptionId(event.target.value);
         props.onclick(event);
       }}
-      value={props.item.id}
+      value={
+        props.item.shamsi && props.item.gregorian
+          ? `${props.item.shamsi}-${props.item.gregorian}`
+          : props.item.id
+      }
       slug={props.item.slug}
       id={props.id}
       imageid={props.imageid}
@@ -17,7 +22,9 @@ const SelectSearchInputCard = (props) => {
         props.selected ? "bg-[#bbb]" : ""
       }`}
     >
-      {props.item.title}
+      {props.item.shamsi && props.item.gregorian
+        ? `${props.item.shamsi}-${props.item.gregorian}`
+        : props.item.title}
     </li>
   );
 };

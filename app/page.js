@@ -28,7 +28,7 @@ const ArticleSliderData = async () => {
 
 export default function Home() {
   return (
-    <div className={"max-w-[1676px] m-auto"}>
+    <div className={"max-w-[1676px] m-auto flex flex-col gap-10 mb-10"}>
       <MainBanner>
         {serviceData.map((item, index) => (
           <MainBannerCard

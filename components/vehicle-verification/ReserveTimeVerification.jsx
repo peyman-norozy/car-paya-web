@@ -2,8 +2,14 @@ import React, { useEffect, useState } from "react";
 import { persianDateCovertor } from "@/utils/function-utils";
 
 const ReserveTimeVerification = (props) => {
-  const { data, setTimeIsSelected, timeIsSelected } = props;
-  const { optionIsOpen, setOptionIsOpen } = props;
+  const {
+    data,
+    setTimeIsSelected,
+    timeIsSelected,
+    optionIsOpen,
+    setOptionIsOpen,
+  } = props;
+
   const weekDay =
     data &&
     new Date(data[0] * 1000).toLocaleDateString("fa-IR", { weekday: "long" });
@@ -19,7 +25,6 @@ const ReserveTimeVerification = (props) => {
           "bg-[#FFF0F0] col-span-full rounded-lg py-2 px-3.5 flex items-center justify-between"
         }
       >
-        <p>۸:۰۰ تا ۱۲:۰۰ پیشنهاد ما</p>
         <div className={"flex items-end gap-2"}>
           <p className={"text-18"}>{weekDay}</p>
           <p className={"text-14"}>{persianDateCovertor(data[0])}</p>
@@ -35,12 +40,29 @@ const ReserveTimeVerification = (props) => {
               onClick={() => openOptionHandler(item.id)}
               className={"flex items-center justify-between px-4 py-5"}
             >
-              <p className={"text-[13px]"}>
-                {item.start_time} تا {item.end_time}
-              </p>
+              <div className={"flex items-center gap-4"}>
+                <p className={"text-[13px]"}>
+                  {item.start_time} تا {item.end_time}
+                </p>
+                {item.swing_type === "INCREASE" ? (
+                  <p className={"text-[12px] text-blue-600"}>
+                    <span>{item.diff_price} تومان </span>
+                    <span>افزایش قیمت به دلیل پیک درخواست</span>
+                  </p>
+                ) : item.swing_type === "DECREASE" ? (
+                  <p className={"text-[12px] text-green-600"}>
+                    <span>{item.diff_price} تومان </span>
+                    <span>تخفیف کارچک</span>
+                  </p>
+                ) : (
+                  ""
+                )}
+              </div>
               <i className={"cc-arrow-down"} />
             </div>
-            {optionIsOpen === item.id && (
+            {(props.accordionState === undefined
+              ? optionIsOpen === item.id
+              : props.accordionState) && (
               <div
                 className={
                   "grid grid-cols-2 place-content-center border-t border-t-[#EBEDF9] w-[85%] m-auto justify-items-center py-3 gap-y-4"
@@ -59,7 +81,7 @@ const ReserveTimeVerification = (props) => {
                       setTimeIsSelected(item.id + "/" + item.start_time + ":00")
                     }
                     className={
-                      "rounded-[50%] border border-[#EBEDF9] w-6 h-6 flex item-center justify-center"
+                      "rounded-[50%] border border-[#EBEDF9] w-6 h-6 flex item-center justify-center cursor-pointer"
                     }
                   >
                     <div
@@ -82,7 +104,7 @@ const ReserveTimeVerification = (props) => {
                       )
                     }
                     className={
-                      "rounded-[50%] border border-[#EBEDF9] w-6 h-6 flex item-center justify-center"
+                      "rounded-[50%] border border-[#EBEDF9] w-6 h-6 flex item-center justify-center cursor-pointer"
                     }
                   >
                     <div
@@ -103,7 +125,7 @@ const ReserveTimeVerification = (props) => {
                       setTimeIsSelected(item.id + "/" + item.start_time + ":30")
                     }
                     className={
-                      "rounded-[50%] border border-[#EBEDF9] w-6 h-6 flex item-center justify-center"
+                      "rounded-[50%] border border-[#EBEDF9] w-6 h-6 flex item-center justify-center cursor-pointer"
                     }
                   >
                     <div
@@ -126,7 +148,7 @@ const ReserveTimeVerification = (props) => {
                       )
                     }
                     className={
-                      "rounded-[50%] border border-[#EBEDF9] w-6 h-6 flex item-center justify-center"
+                      "rounded-[50%] border border-[#EBEDF9] w-6 h-6 flex item-center justify-center cursor-pointer"
                     }
                   >
                     <div
@@ -139,10 +161,12 @@ const ReserveTimeVerification = (props) => {
           </div>
         ))}
       <div className={"flex items-center gap-2"}>
-        <p className={"text-14 text-[#212B5E]"}>
-          در صورت انتخاب بازده زمانی 16:00 - 18:00 افزایش قیمت به دلیل پیک
-          درخواست.
-        </p>
+        {!props.accordionState && (
+          <p className={"text-14 text-[#212B5E]"}>
+            در صورت انتخاب بازده زمانی 16:00 - 18:00 افزایش قیمت به دلیل پیک
+            درخواست.
+          </p>
+        )}
       </div>
     </div>
   );

@@ -147,6 +147,7 @@ const CarDevice = (props) => {
         process.env.BASE_API + "/web" + API_PATHS.YEARS + "/" + value,
       );
       if (response.status === 200) {
+        console.log(response.data.data);
         setNewYear(response.data.data);
         if (props.pageType === "edit") {
           changesEditData.year = <span className="text-[#aaa]">سال ساخت</span>;

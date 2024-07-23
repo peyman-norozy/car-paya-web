@@ -1,3 +1,4 @@
+"use client";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
@@ -25,6 +26,7 @@ const VerificationSecondStep = (props) => {
   const [data, setData] = useState([]);
   const [isSelected, setIsSelected] = useState(null);
   const setQuery = useSetQuery();
+  const router = useRouter();
 
   const continueSecondStepHandler = () => {
     setButtonIsdisabled(true);
@@ -61,21 +63,29 @@ const VerificationSecondStep = (props) => {
   };
 
   const backStepHandler = () => {
-    setQuery.deleteSingleQuery(
-      [{ key: "package_id", value: package_id }],
-      params,
-    );
-    setQuery.updateMultiQuery([{ key: "step", value: "step-1" }], params);
+    if (props.backUrl === "/batteries") {
+      router.push(props.backUrl);
+    } else {
+      setQuery.deleteSingleQuery(
+        [{ key: "package_id", value: package_id }],
+        params,
+      );
+      setQuery.updateMultiQuery([{ key: "step", value: "step-1" }], params);
+    }
   };
 
   useEffect(() => {
     window.scrollTo(0, 0);
     axios
-      .get(process.env.BASE_API + "/web/expert/reservation?step=step-2", {
-        headers: {
-          Authorization: "Bearer " + getCookie("Authorization"),
+      .get(
+        process.env.BASE_API +
+          `${props.fetchUrl ? props.fetchUrl : "/web/expert/reservation?step=step-2"}`,
+        {
+          headers: {
+            Authorization: "Bearer " + getCookie("Authorization"),
+          },
         },
-      })
+      )
       .then((res) => {
         setLoginState(res.data["check_auth"]);
         console.log(res.data["check_auth"]);
@@ -121,6 +131,7 @@ const VerificationSecondStep = (props) => {
               setTimeIsSelected={setTimeIsSelected}
               setOptionIsOpen={setOptionIsOpen}
               optionIsOpen={optionIsOpen}
+              accordionState={props.accordionState}
               key={index}
             />
           ))}
@@ -136,7 +147,7 @@ const VerificationSecondStep = (props) => {
       </div>
       <Image
         src={"/assets/images/reserveTimePic.svg"}
-        alt={""}
+        alt={"reserveTime"}
         width={544}
         height={544}
         className={"hidden size1000:block"}
