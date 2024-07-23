@@ -1,12 +1,14 @@
-"use client";
+'use client'
 import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import Image from "next/image";
-import mechanic from "@/public/assets/images/mechanic.jpg"
-const HomePageArticleSlider = () => {
+import { API_PATHS } from "@/configs/routes.config";
+
+const HomePageArticleSlider = (props) => {
+
     return ( 
-        <div className="">
+      <div>
         <Swiper
           spaceBetween={16}
           breakpoints={{
@@ -16,43 +18,19 @@ const HomePageArticleSlider = () => {
           }}
           className="mySwiper ArticleSlider"
           slidesPerView={"auto"}
+          style={{width: "auto"}}
         >
-            <SwiperSlide style={{width: 'fit-content'}}>
+          {props.data.data.map((item , index)=>(
+            <SwiperSlide style={{width: 'fit-content'}} key={item.id}>
               <div className="size-300 rounded-2xl md:rounded-[32px] overflow-hidden relative">
-                <Image src={mechanic} className="size-[200px] md:size-[300px]"/>
+                <Image src={`${process.env.BASE_API}/web${API_PATHS.FILE}/${item.image_id}`} className="size-[200px] md:size-[300px]" width={300} height={300} alt=""/>
                 <div className="absolute bottom-0 right-0 w-full h-2/5 border-t border-[#5D697A] backdrop-blur-md bg-[#3838387A] flex flex-col items-start gap-1 md:gap-2 py-1 md:py-2 px-2 md:px-4">
-                    <span className="font-bold text-sm md:text-base text-[#FEFEFE]">سرویس دوره ای</span>
-                    <p className="text-[#FEFEFE] text-xs md:text-sm line-clamp-3">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است.</p>
+                    <span className="font-bold text-sm md:text-base text-[#FEFEFE] line-clamp-1">{item.title}</span>
+                    <p className="text-[#FEFEFE] text-xs md:text-sm line-clamp-3">{item.description}</p>
                 </div>
               </div>
             </SwiperSlide>
-            <SwiperSlide style={{width: 'fit-content'}}>
-              <div className="size-300 rounded-2xl md:rounded-[32px] overflow-hidden relative">
-                <Image src={mechanic} className="size-[200px] md:size-[300px]"/>
-                <div className="absolute bottom-0 right-0 w-full h-2/5 border-t border-[#5D697A] backdrop-blur-md bg-[#3838387A] flex flex-col items-start gap-1 md:gap-2 py-1 md:py-2 px-2 md:px-4">
-                    <span className="font-bold text-sm md:text-base text-[#FEFEFE]">سرویس دوره ای</span>
-                    <p className="text-[#FEFEFE] text-xs md:text-sm line-clamp-3">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است.</p>
-                </div>
-              </div>
-            </SwiperSlide>
-            <SwiperSlide style={{width: 'fit-content'}}>
-              <div className="size-300 rounded-2xl md:rounded-[32px] overflow-hidden relative">
-                <Image src={mechanic} className="size-[200px] md:size-[300px]"/>
-                <div className="absolute bottom-0 right-0 w-full h-2/5 border-t border-[#5D697A] backdrop-blur-md bg-[#3838387A] flex flex-col items-start gap-1 md:gap-2 py-1 md:py-2 px-2 md:px-4">
-                    <span className="font-bold text-sm md:text-base text-[#FEFEFE]">سرویس دوره ای</span>
-                    <p className="text-[#FEFEFE] text-xs md:text-sm line-clamp-3">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است.</p>
-                </div>
-              </div>
-            </SwiperSlide>
-            <SwiperSlide style={{width: 'fit-content'}}>
-              <div className="size-300 rounded-2xl md:rounded-[32px] overflow-hidden relative">
-                <Image src={mechanic} className="size-[200px] md:size-[300px]"/>
-                <div className="absolute bottom-0 right-0 w-full h-2/5 border-t border-[#5D697A] backdrop-blur-md bg-[#3838387A] flex flex-col items-start gap-1 md:gap-2 py-1 md:py-2 px-2 md:px-4">
-                    <span className="font-bold text-sm md:text-base text-[#FEFEFE]">سرویس دوره ای</span>
-                    <p className="text-[#FEFEFE] text-xs md:text-sm line-clamp-3">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است.</p>
-                </div>
-              </div>
-            </SwiperSlide>
+          ))}
         </Swiper>
       </div>
      );

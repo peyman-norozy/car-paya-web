@@ -26,7 +26,7 @@ const CustomersComment = () => {
                 slidesPerView={3}
                 loop={true}
                 breakpoints={{
-600 : {spaceBetween : 10}
+                    600 : {spaceBetween : 10}
                 }}
                 coverflowEffect={{
                     rotate: 0,
