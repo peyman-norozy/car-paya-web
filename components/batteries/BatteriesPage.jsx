@@ -134,39 +134,6 @@ const BatteriesPage = (props) => {
     }
   }, []);
 
-  // useEffect(() => {
-  //   setIsLoading(true);
-  //   axios
-  //     .get(process.env.BASE_API + "/web" + "/batteries")
-  //     .then((res) => {
-  //       setData(res.data.data);
-  //       setIsLoading(false);
-  //     })
-  //     .catch((err) => {
-  //       setIsLoading(false);
-  //       console.log(err);
-  //     });
-  // }, []);
-
-  // useEffect(() => {
-  //   console.log(props.searchParams);
-  //   if (
-  //     props.searchParams.selectTipState &&
-  //     props.searchParams.selectTipState.split(",")[0] === "true"
-  //   ) {
-  //     setStep("car-models");
-  //   } else {
-  //     setStep("car-brands");
-  //   }
-  // }, []);
-
-  // useEffect(() => {
-  //   console.log(props.searchParams.selectTipState);
-  //   if (!props.searchParams.selectTipState) {
-  //     query.setQuery("selectTipState", "car-brands");
-  //   }
-  // }, []);
-
   return (
     <Fragment>
       <div className="w-[95%] size671:w-[98%] size1090:w-[95%] m-auto flex flex-col size1056:flex-row gap-[1rem] size1275:gap-[3rem]">
