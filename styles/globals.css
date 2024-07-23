@@ -461,7 +461,16 @@ li {
     height: 100%;
     background: #000;
   }
-  
+  @media (min-width: 1024px) {
+  .home_paralox_slider .mySwiper{
+    height:440px
+  }
+}
+@media (max-width: 1024px) {
+    .home_paralox_slider .mySwiper{
+      height:360px
+    }
+  }
   .home_paralox_slider .swiper-slide {
     font-size: 18px;
     color: #fff;
@@ -471,12 +480,17 @@ li {
   
   .home_paralox_slider .parallax-bg {
     position: absolute;
-    left: 0;
+    right: 0;
     top: 0;
-    width: 100%;
+    width: 110%;
     height: 100%;
     -webkit-background-size: cover;
     background-size: cover;
     background-position: center;
   }
-  
+
+  @media (max-width: 768px) {
+    .ArticleSlider{
+        padding: 16px !important; 
+    }
+  }

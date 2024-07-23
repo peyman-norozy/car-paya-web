@@ -16,10 +16,8 @@ const HomePage = () => {
         console.log(serviceRef.current.offsetHeight);
     },[])
     return ( 
-        <div className="flex flex-col gap-9 w-full max-w-[1676px] p-12 m-auto relative">
-                <HomePageMainSlider/>
-            <div className="flex gap-6 justify-end">
-                <div className="bg-[#383838A3] h-[570px] rounded-2xl w-[360px] fixed top-[123px] right-[calc(50%-790px)] z-[2] backdrop-blur-[16px] py-4 px-4 flex flex-col gap-4">
+        <div className="flex flex-col gap-4 lg:gap-9 w-full max-w-[1676px] md:p-12 m-auto">
+                <div className="bg-[#383838A3] h-[570px] rounded-2xl w-[360px] fixed top-[123px] right-auto z-[2] backdrop-blur-[16px] py-4 px-4 hidden lg:flex flex-col gap-4">
                     <span className="text-[#FEFEFE] text-20 font-bold text-center">ثبت وسیله نقلیه</span>
                     <div className="rounded-lg bg-[#F66B3414] flex justify-between p-1">
                         <button className="bg-[#F66B34] rounded-[4px] w-[100px] h-10 flex justify-center items-center text-[#FEFEFE] font-medium text-14">خودرو</button>
@@ -46,18 +44,21 @@ const HomePage = () => {
                         </div>
                     </div>
                 </div>
-                <div className="flex flex-col gap-9 w-[calc(100%-384px)] ">
-                    <div className={`transition-all duration-700 overflow-y-hidden`} style={{height:`${openService?`${serviceRef.current.offsetHeight}px`:"260px"}`}}>
-                        <div className="grid grid-cols-4 gap-6" ref={serviceRef}>
+                <HomePageMainSlider/>
+                {/* right-[calc(50%-790px)] */}
+            <div className="flex gap-6 justify-end">
+                <div className="flex flex-col gap-4 lg:gap-9 w-full lg:w-[calc(100%-384px)]">
+                    <div className={`transition-all duration-700 overflow-y-hidden mx-4 md:mx-0 h-[180px] sm:h-[260px]`} style={{height:`${openService?`${serviceRef.current.offsetHeight}px`:""}`}}>
+                        <div className="grid grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-6" ref={serviceRef}>
                             {array10.map((item,index)=>(
-                                <div className="w-full p-4 flex flex-col bg-[#E7E7E7] items-center gap-3 rounded-lg" key={index} >
-                                    <Image className="size-12" src={carachar} height={48} width={48} alt="carachar"/>
-                                    <span className="text-[#0E0E0E]">کارشناسی</span>
+                                <div className="w-full p-3 sm:p-4 flex flex-col bg-[#E7E7E7] items-center gap-2 sm:gap-3 rounded-lg" key={index} >
+                                    <Image className="size-8  sm:size-12" src={carachar} height={48} width={48} alt="carachar"/>
+                                    <span className="text-12 sm:text-base text-[#0E0E0E]">کارشناسی</span>
                                 </div>
                             ))}
                         </div>
                     </div>
-                    <button className="text-[#F66B34] flex items-center gap-2 mx-auto" onClick={()=>{setOpenService(!openService)}}><span className="font-medium">مشاهده {openService?"کمتر":"بیشتر"}</span><i className={`cc-arrow-down text-2xl transition-transform duration-700 ${openService?"rotate-180":"rotate-0"}`}/></button>
+                    <button className="text-[#F66B34] flex items-center gap-2 mx-auto" onClick={()=>{setOpenService(!openService)}}><span className="font-medium text-14 sm:text-base">مشاهده {openService?"کمتر":"بیشتر"}</span><i className={`cc-arrow-down text-lg sm:text-2xl transition-transform duration-700 ${openService?"rotate-180":"rotate-0"}`}/></button>
                     <HomePageParallaxSlider/>
                     <span className="text-2xl font-bold text-[#383838] text-center">مقالات</span>
                     <HomePageArticleSlider/>
@@ -66,5 +67,5 @@ const HomePage = () => {
         </div>
     );
 }
- 
+
 export default HomePage;
