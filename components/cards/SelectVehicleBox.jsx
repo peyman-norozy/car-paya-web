@@ -211,7 +211,7 @@ const SelectVehicleBox = (props) => {
 
   const selectCityHandler = (e, cityId) => {
     setCityName(e.target.innerHTML);
-    query.setMultiQuery([{ key: "provience_city_id", value: 87 }]);
+    query.updateQueryParams({ provience_city_id: 87 });
     setIsSelected(false);
   };
 
@@ -247,16 +247,15 @@ const SelectVehicleBox = (props) => {
           >
             استان/شهر <span className={"text-RED_400"}> * </span>
           </label>
-          <ul
+          <div
             // ref={cityRef}
             className={`${isSelected ? cityRef.current.scrollHeight + "px px-[12px] py-2" : "h-0"}  shadow-[0_0_12px_rgba(226,226,226,0.8)] bg-white absolute right-0 top-[40px] w-full overflow-scroll max-h-[10rem]`}
           >
             {city.length > 0 ? (
               city.map((item, index) => (
                 <li
-                  className={"py-[6px] pr-[12px] hover:bg-BLUE_100 rounded-lg"}
-                  onClick={(event) => selectCityHandler(event, item.cityId)}
                   key={index}
+                  onClick={(event) => selectCityHandler(event, item.cityId)}
                 >
                   {item.label}
                 </li>
@@ -266,7 +265,7 @@ const SelectVehicleBox = (props) => {
                 شهر یا استان مورد نظر یافت نشد
               </p>
             )}
-          </ul>
+          </div>
         </div>
         <h1 className="text-text_gray w-full text-center mb-[0.5rem]">
           {props.title}
