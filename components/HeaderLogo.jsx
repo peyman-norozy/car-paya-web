@@ -1,16 +1,16 @@
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-
+import logo from "@/public/assets/images/logoFarsi.png"
 export default function HeaderLogo() {
   const router = useRouter();
   return (
     <div>
       <Image
-        src="/assets/icons/Logo.svg"
+        src={logo}
         alt="site logo"
-        className="w-[75px] h-[65px] cursor-pointer"
-        width={75}
-        height={65}
+        className="w-[120px] h-[40px] cursor-pointer"
+        width={121}
+        height={40}
         onClick={() => router.push("/")}
       />
     </div>

@@ -1,14 +1,10 @@
 'use client'
 import { API_PATHS } from "@/configs/routes.config";
-import bmw from "@/public/assets/images/bmw.png"
-import { success } from "@/utils/function-utils";
 import axios from "axios";
 import Image from "next/image";
-import { useEffect, useMemo, useState } from "react";
-import { ToastContainer } from "react-toastify";
+import { useEffect, useState } from "react";
 
 const CarSelectComponent = () => {
-    const array10 = [1,2,3,4,5,6,7,8,9,10]
     const [vehicleType , setVehicleType] = useState("car")
     const [level , setLevel] = useState(1)
     const [data,setData] = useState([])
@@ -82,8 +78,8 @@ const CarSelectComponent = () => {
                         <i className="cc-search text-xl"/>
                         <input className="outline-none text-14 bg-[#ffffff01]" placeholder="جستجو..."/>
                     </div>
-                    <div className="h-[336px] overflow-y-scroll">
-                        <div className="grid grid-cols-3 gap-x-8 gap-y-8">
+                    <div className="h-[363px] overflow-y-scroll mt-2">
+                        <div className="grid grid-cols-3 gap-x-8 gap-y-[42px]">
                             {data.map((item,index)=>(
                                 <div className="flex flex-col items-center gap-2" key={index} onClick={()=>{optionClickHandler(item.id , item)}}>
                                     <Image src={process.env.BASE_API+"/web"+API_PATHS.FILE+"/"+(item.logo?item.logo:item.image)} width={64} height={48} className="w-16 h-12"/>

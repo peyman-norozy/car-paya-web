@@ -8,7 +8,7 @@ import useClickOutside from "@/hook/useClickOutside";
 import NavigationBar from "@/components/NavigationBar";
 import UserPanelAttribute from "@/components/UserPanelAttribute";
 import CardPay from "@/components/CardPay";
-
+import Image from "next/image";
 const DesktopHeader = (props) => {
     const loginState = useSelector((state) => state.todo.loginState);
     const [newLoginState, setNewLoginState] = useState(false);
@@ -26,38 +26,45 @@ const DesktopHeader = (props) => {
 
     return (
         <header
-            className={`${props.className} h-[74px] flex justify-between items-center fixed top-0 right-0 left-0 w-[100wh] bg-white z-[1599] drop-shadow-[0_3px_10px_rgba(0,0,0,.1)]`}
+            className={`${props.className} flex justify-between items-center fixed top-0 right-0 left-0 w-[100wh] z-[1599] pt-[10px] px-12`}
         >
             <div
-                className={`h-full font-light flex justify-between items-center px-[30px] w-full max-w-[1600px] m-auto bg-white z-[10000]`}>
-                <div className="flex items-center gap-[40px]">
+                className={`font-light flex justify-between items-center w-full max-w-[1676px] m-auto bg-[#383838] z-[10000] h-[88px] rounded-2xl py-6 px-8`}>
+                <div className="flex items-center gap-[32px]">
+                    <i className="cc-menu text-2xl text-[#FEFEFE]"/>
                     <HeaderLogo/>
-                    <NavigationBar class_name={"flex gap-[20px]"} childrenProps={props.childrenProps}/>
+                    {/* <NavigationBar class_name={"flex gap-[20px]"} childrenProps={props.childrenProps}/> */}
                 </div>
-                <div className="flex items-center size868:gap-[90px] gap-[50px]">
-                    <div className="flex items-center gap-[14px]">
-                        <CardPay/>
-                        <BasketLink/>
-                        {loginState ? (
-                            <LoginLink/>
-                        ) : (
-                            <div className="relative">
-              <span
-                  className="bg-gray-300 py-1 px-4 rounded-lg cursor-pointer text-14"
-                  onClick={accountClickHandler}
-                  ref={accontRef}
-              >
-                حساب کاربری
-              </span>
-                                {newLoginState && (
-                                    <div
-                                        className="absolute bottom-[-88px] bg-stone-200 w-full rounded-lg flex flex-col overflow-hidden">
-                                        <UserPanelAttribute/>
-                                    </div>
-                                )}
-                            </div>
-                        )}
+                <div className="bg-[#B0B0B01F] flex items-center gap-2 px-3 py-[6px] text-[#B0B0B0] rounded-lg w-1/3">
+                    <i className="cc-search text-2xl"/>
+                    <input className="w-full bg-[#ffffff01] outline-none" placeholder="جستجو..."/>
+                </div>
+                <div className="flex items-center gap-6">
+                    <i className="cc-wallet text-2xl text-[#FEFEFE]"/>
+                    <div className="bg-[#F66B3429] flex items-center px-4 py-2 gap-2 rounded-[4px]">
+                        <i className="cc-wallet text-2xl text-[#F66B34]"/>
+                        <span className="text-14 font-medium text-[#F66B34]">کیف پول</span>
                     </div>
+                        <div className="bg-[#5D697A] w-px h-10"></div>
+                    {loginState ? (
+                        <LoginLink/>
+                    ) : (
+                        <div className="relative">
+                            <span
+                                className="bg-gray-300 py-1 px-4 rounded-lg cursor-pointer text-14"
+                                onClick={accountClickHandler}
+                                ref={accontRef}
+                            >
+                                حساب کاربری
+                            </span>
+                            {newLoginState && (
+                                <div
+                                    className="absolute bottom-[-88px] bg-stone-200 w-full rounded-lg flex flex-col overflow-hidden">
+                                    <UserPanelAttribute/>
+                                </div>
+                            )}
+                        </div>
+                    )}
                 </div>
             </div>
         </header>
