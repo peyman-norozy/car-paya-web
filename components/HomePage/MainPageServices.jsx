@@ -9,7 +9,7 @@ const MainPageServices = (props) => {
     const [openService,setOpenService] = useState(false)
 
     return ( 
-        <div className={`transition-all duration-700 overflow-y-hidden mx-4 md:mx-0 h-[180px] sm:h-[260px]`} style={{height:`${openService?`${serviceRef.current.offsetHeight}px`:""}`}}>
+        <div className={`transition-all duration-700 overflow-y-hidden mx-4 md:mx-0 h-[270px] sm:h-[260px]`} style={{height:`${openService?`${serviceRef.current.offsetHeight}px`:""}`}}>
                         <div className="grid grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-6" ref={serviceRef}>
                             {array10.map((item,index)=>(
                                 <div className="w-full p-3 sm:p-4 flex flex-col bg-[#E7E7E7] items-center gap-2 sm:gap-3 rounded-lg" key={index} >

@@ -468,7 +468,7 @@ li {
 }
 @media (max-width: 1024px) {
     .home_paralox_slider .mySwiper{
-      height:360px
+      height:300px
     }
   }
   .home_paralox_slider .swiper-slide {
