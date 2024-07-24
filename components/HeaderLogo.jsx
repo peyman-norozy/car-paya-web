@@ -8,9 +8,9 @@ export default function HeaderLogo() {
       <Image
         src={logo}
         alt="site logo"
-        className="w-[120px] h-[40px] cursor-pointer"
-        width={121}
-        height={40}
+        className="h-[40px] w-auto cursor-pointer"
+        width={45}
+        height={36}
         onClick={() => router.push("/")}
       />
     </div>
