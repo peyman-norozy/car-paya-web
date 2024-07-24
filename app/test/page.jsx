@@ -5,6 +5,7 @@ import CarSelectComponent from "@/components/public/CarSelectComponent";
 import MainPageServices from "@/components/HomePage/MainPageServices";
 import { getData } from "@/utils/api-function-utils";
 import { API_PATHS } from "@/configs/routes.config";
+import { ToastContainer } from "react-toastify";
 
 const HomePage = async () => {
     const data = await getData(`/web${API_PATHS.MAGSINDEX}`)
@@ -18,7 +19,7 @@ const HomePage = async () => {
                 <span className="text-2xl font-bold text-[#383838] text-center">مقالات</span>
                 <HomePageArticleSlider data={data}/>
             </div>
-            
+         <ToastContainer rtl={true} />
         </div>
     );
 }
