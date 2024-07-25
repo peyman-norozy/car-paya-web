@@ -1,6 +1,5 @@
 'use client'
 import { API_PATHS } from "@/configs/routes.config";
-import useClickOutside from "@/hook/useClickOutside";
 import axios from "axios";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
@@ -33,7 +32,6 @@ const CarSelectComponent = () => {
             if (res.data.status === "success") {
               setProvienceCity(res.data.data);
               setSearchCity(res.data.data);
-              console.log(res.data.data);
             }
           })
           .catch((err) => console.log(err));
@@ -45,6 +43,9 @@ const CarSelectComponent = () => {
           const object = localStorage.getItem("city")
           if (object) {
             setSelectedCity(JSON.parse(object).label)
+          }
+          else{
+          setSelectedCity("")
           }
       }, []);
 
@@ -84,7 +85,7 @@ const CarSelectComponent = () => {
         setSearchCity(provienceCity.filter((i) => i.label.includes(value)));
     }
 
-    function optionClickHandler(item) {
+    function cityClickHandler(item) {
         setSelectedCity(item.label);
         setOptionState(false)
         localStorage.setItem("city",JSON.stringify(item))
@@ -107,7 +108,7 @@ const CarSelectComponent = () => {
                         {optionState&&<div className="absolute w-[calc(100%-32px)] overflow-y-scroll bg-[#FEFEFE] rounded-b-lg top-[calc(100%-16px)]">
                             <div className="max-h-[200px] flex flex-col" ref={optionRef}>
                                 {searchCity.map((item)=>(
-                                    <span className="cursor-pointer hover:bg-slate-200 py-1 px-2" value={item.id} onClick={(e)=>{optionClickHandler(item)}}>{item.label}</span>
+                                    <span className="cursor-pointer hover:bg-slate-200 py-1 px-2" value={item.id} onClick={(e)=>{cityClickHandler(item)}}>{item.label}</span>
                                 ))}
                             </div>
                         </div>}
