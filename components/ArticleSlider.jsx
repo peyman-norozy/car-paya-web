@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { A11y, Navigation, Pagination, Scrollbar } from "swiper/modules";
@@ -15,9 +15,12 @@ const ArticleSlider = (props) => {
         effect="fade"
         pagination={{ clickable: true }}
       >
-        {props.data.data.map((item, index) => (
-          <SwiperSlide key={item.slug} style={{width:"auto",height:"auto"}}>
-            <ArticleSliderCard item={item}/>
+        {props.data.data?.map((item, index) => (
+          <SwiperSlide
+            key={item.slug}
+            style={{ width: "auto", height: "auto" }}
+          >
+            <ArticleSliderCard item={item} />
           </SwiperSlide>
         ))}
       </Swiper>
