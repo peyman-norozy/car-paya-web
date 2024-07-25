@@ -24,7 +24,7 @@ export const loginUser = createAsyncThunk(
       };
       console.log(getCookie("Authorization"));
       const response = await fetch(
-        process.env.BASE_API + "/user-panel" + API_PATHS.COUPONS,
+        process.env.BASE_API + "/user-panel" + API_PATHS.PROFILE,
         {
           method: "GET",
           cache: "no-store",
