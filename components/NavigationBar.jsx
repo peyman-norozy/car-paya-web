@@ -57,7 +57,7 @@ const NavigationBar = React.forwardRef((props, ref) => {
             item.href && item.href.length > 0 ? (
               <li
                 key={item.id + index}
-                className="cursor-pointer text-gray_nav"
+                className="cursor-pointer text-[#fefefe] font-medium"
               >
                 <Navlink href={item.href} styleState={props.styleState}>
                   {item.title}
@@ -68,7 +68,7 @@ const NavigationBar = React.forwardRef((props, ref) => {
                 {innerWidthNumber >= 1000 ? (
                   <li
                     key={item.id + index}
-                    className="cursor-pointer text-gray_nav"
+                    className="cursor-pointer text-[#fefefe] font-medium"
                     onMouseEnter={categoryPoppupDisplay}
                     onMouseLeave={categoryPoppupHidden}
                   >
