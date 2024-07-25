@@ -1,8 +1,9 @@
 'use client'
 import { API_PATHS } from "@/configs/routes.config";
+import useClickOutside from "@/hook/useClickOutside";
 import axios from "axios";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const CarSelectComponent = () => {
     const [vehicleType , setVehicleType] = useState("car")
@@ -10,6 +11,12 @@ const CarSelectComponent = () => {
     const [data,setData] = useState([])
     const [carSelected , setCarSelected] = useState(false)
     const [selectedCar,setSelectedCar] = useState({})
+    const [provienceCity,setProvienceCity] = useState([])
+    const [searchCity,setSearchCity] = useState([])
+    const [optionState , setOptionState] = useState(false)
+    const [selectedCity , setSelectedCity] = useState({})
+    const optionRef = useRef(null)
+    const inputRef = useRef(null)
     useEffect(()=>{
         getBrandData("car")
         const object = localStorage.getItem("selectedVehicle")
@@ -17,8 +24,29 @@ const CarSelectComponent = () => {
             setSelectedCar(JSON.parse(object))
             setCarSelected(true)
         }
-
     },[carSelected])
+    
+    useEffect(() => {
+        axios
+          .get(process.env.BASE_API + "/web/geo/province-cities")
+          .then((res) => {
+            if (res.data.status === "success") {
+              setProvienceCity(res.data.data);
+              setSearchCity(res.data.data);
+              console.log(res.data.data);
+            }
+          })
+          .catch((err) => console.log(err));
+          document.addEventListener("click" , (e)=>{
+            if(e.target.parentElement!==optionRef.current && e.target!==inputRef.current){
+                setOptionState(false)
+            }
+          })
+          const object = localStorage.getItem("city")
+          if (object) {
+            setSelectedCity(JSON.parse(object).label)
+          }
+      }, []);
 
     function vehicleTypeFetch(model) {
         setVehicleType(model)
@@ -51,15 +79,38 @@ const CarSelectComponent = () => {
         }
         
     }
+    function inputChangeHandler(value) {
+        setSelectedCity(value)
+        setSearchCity(provienceCity.filter((i) => i.label.includes(value)));
+    }
+
+    function optionClickHandler(item) {
+        setSelectedCity(item.label);
+        setOptionState(false)
+        localStorage.setItem("city",JSON.stringify(item))
+    }
 
     return ( 
-        <div className="bg-[#383838A3] h-auto rounded-2xl w-[400px] fixed top-[123px] right-auto z-[2] backdrop-blur-[16px] py-4 px-4 hidden lg:flex flex-col gap-4">
+        <div className="bg-[#383838A3] h-auto rounded-2xl w-[400px] fixed top-[123px] right-auto z-[2] backdrop-blur-[16px] p-4 hidden lg:flex flex-col gap-4">
         {carSelected?
-            <div className="flex flex-col">
+            <div className="flex flex-col gap-6">
                     <Image src={process.env.BASE_API+"/web"+API_PATHS.FILE+"/"+selectedCar.image} width={200} height={150} className="w-[60%] aspect-auto m-auto"/>
                     <div className="flex justify-between items-center">
                         <span className="font-bold text-18 text-[#FEFEFE] border-r-[5px] border-[#c0c0c0] leading-6 pr-2">{selectedCar.title}</span>
                         <button className="text-[#F66B34] text-16 cursor-pointer font-medium" onClick={()=>{setCarSelected(false) , localStorage.removeItem("selectedVehicle")}}>تغییر خودرو</button>
+                    </div>
+                    <div className="flex flex-col gap-3 items-start" onFocusCapture={()=>{setOptionState(true)}}>
+                        <span className="text-[#FEFEFE] font-bold">
+                            انتخاب استان / شهر
+                        </span>
+                        <input className="w-full bg-[#FEFEFE] rounded-lg text-[#0E0E0E] h-10 outline-none px-2" value={selectedCity} onChange={(e)=>{inputChangeHandler(e.target.value)}} ref={inputRef}/>
+                        {optionState&&<div className="absolute w-[calc(100%-32px)] overflow-y-scroll bg-[#FEFEFE] rounded-b-lg top-[calc(100%-16px)]">
+                            <div className="max-h-[200px] flex flex-col" ref={optionRef}>
+                                {searchCity.map((item)=>(
+                                    <span className="cursor-pointer hover:bg-slate-200 py-1 px-2" value={item.id} onClick={(e)=>{optionClickHandler(item)}}>{item.label}</span>
+                                ))}
+                            </div>
+                        </div>}
                     </div>
             </div>
             :
