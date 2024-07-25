@@ -69,6 +69,7 @@ const AddressModal = (props) => {
         props.getDataFetch();
         props.setModalIsOpen(false);
         props.setIsLoading(true);
+        props.timeData();
       } else if (update.status === 422) {
         setErrorData(update.data.errors);
         console.log(update.data.errors);
@@ -87,6 +88,9 @@ const AddressModal = (props) => {
           props.getAddressFetchData();
         } else if (pathName === "/vehicle-verification") {
           props.getDataFetch(post.data);
+          props.setModalIsOpen(false);
+        } else if (pathName === "/batteries/selectLocation") {
+          props.timeData();
           props.setModalIsOpen(false);
         }
 
