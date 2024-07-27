@@ -2,7 +2,7 @@ import React from "react";
 
 const ServicesLayout = (props) => {
   return (
-    <main className={`size1000:mt-[75px]`}>
+    <main className={`lg:mt-[75px]`}>
       <div>
         {/*<p>sldfsdfs</p>*/}
         {props.children}
