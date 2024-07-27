@@ -41,7 +41,7 @@ const BatterySelectVerificationPlace = (props) => {
     "reservation_time_slice_battery_id",
   );
 
-  // const selectedItem = searchParams.get("vehicle_tip");
+  const selectedItem = searchParams.get("vehicle_tip");
   // const package_id = searchParams.get("package_id");
 
   const openModalHandler = () => {
@@ -65,17 +65,21 @@ const BatterySelectVerificationPlace = (props) => {
       selectedPlaceId.label !== undefined &&
       selectedPlaceId.value !== undefined
     ) {
-      setQuery.setMultiQuery([
-        { key: "step", value: "step-5" },
-        { key: "city_id", value: city_id },
-        {
-          key: "vehicle_tip",
-          value: selectedItem,
-        },
-        { key: "package_id", value: package_id },
-        { key: "time_id", value: time_id },
-        { key: selectedPlaceId.label, value: selectedPlaceId.value },
-      ]);
+      setQuery.updateQueryParams({
+        [`${selectedPlaceId.label}`]: selectedPlaceId.value,
+      });
+
+      // setQuery.setMultiQuery([
+      //   { key: "step", value: "step-5" },
+      //   { key: "city_id", value: city_id },
+      //   {
+      //     key: "vehicle_tip",
+      //     value: selectedItem,
+      //   },
+      //   { key: "package_id", value: package_id },
+      //   { key: "time_id", value: time_id },
+      //   { key: selectedPlaceId.label, value: selectedPlaceId.value },
+      // ]);
     } else {
       error("لوکیشن مورد نظر را انتخاب کنید");
     }
