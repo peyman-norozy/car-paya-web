@@ -10,13 +10,18 @@ const Page = () => {
   return (
     <div
       className={
-        "flex relative justify-end max-w-[1676px] mx-auto p-4 mt-[110px]"
+        "flex lg:flex-row flex-col relative max-w-[1772px] mx-auto py-4 size666:px-12 lg:mt-[110px] mt-[20px]"
       }
     >
+      <h1 className={"lg:hidden block text-center text-[20px] font-semibold"}>
+        دیتیلینگ
+      </h1>
       <CarSelectComponent />
-      <section className={"w-[calc(100%-450px)]"}>
-        <CarServicesSlider data={serviceData} />
-        <ul className={"mt-[40px] flex flex-col gap-[24px]"}>
+      <section className={"lg:w-[calc(100%-424px)] w-full mr-auto"}>
+        <div className={"lg:block hidden"}>
+          <CarServicesSlider data={serviceData} />
+        </div>
+        <ul className={"lg:mt-[40px] mt-[20px] flex flex-col gap-[24px]"}>
           {fakeArray.map((item, index) => (
             <DetailingCard key={index} />
           ))}
