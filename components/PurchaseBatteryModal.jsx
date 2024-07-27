@@ -8,12 +8,14 @@ import ProfileEditeSelectInput from "@/components/ProfileEditeSelectInput";
 import { useSelector } from "react-redux";
 import { getData, getDataWithFullErrorRes } from "@/utils/api-function-utils";
 import useSetQuery from "@/hook/useSetQuery";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 // import Toman from "@/public/assets/icons/Toman.svg";
 // import arrowLeft from "@/public/assets/icons/Arrow-Left.svg";
 
 const PurchaseBatteryModal = (props) => {
   const { setBatteryIsSelected } = props;
+  const searchParams = useSearchParams();
+  const allParams = new URLSearchParams(searchParams.toString());
   const [isSelected, setIsSelected] = useState(false);
   const [selectedPrice, setSelectedPrice] = useState(0);
   const [provinces, setProvinces] = useState("");
@@ -83,7 +85,10 @@ const PurchaseBatteryModal = (props) => {
   };
 
   const clickSelectTimeHandler = () => {
-    router.push("/batteries/timeSelector");
+    console.log(allParams.get("provience_city_id"));
+    router.push(
+      `/batteries/timeSelector?privience_city_id=${allParams.get("provience_city_id")}`,
+    );
   };
 
   useEffect(() => {
