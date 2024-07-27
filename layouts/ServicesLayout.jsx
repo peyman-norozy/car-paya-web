@@ -4,7 +4,7 @@ const ServicesLayout = (props) => {
   return (
     <main className={`size1000:mt-[75px]`}>
       <div>
-        <p>sldfsdfs</p>
+        {/*<p>sldfsdfs</p>*/}
         {props.children}
       </div>
     </main>
