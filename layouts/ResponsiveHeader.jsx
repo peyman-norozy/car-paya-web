@@ -24,7 +24,7 @@ const ResponsiveHeader = (props) => {
     <header
       className={`${
         props.className
-      } font-light flex justify-between items-center px-[30px] py-[15px] sticky top-0 right-0 left-0 w-[100wh] bg-white z-[1599] drop-shadow-[0_3px_10px_rgba(0,0,0,.1)] h-[74px] ${
+      } font-light flex justify-between items-center px-[30px] py-[15px] sticky top-0 right-0 left-0 w-[100wh] bg-[#383838] z-[1599] drop-shadow-[0_3px_10px_rgba(0,0,0,.1)] h-[74px] ${
         pathName === "panel" && params["all-panel-tab"] ? "hidden" : ""
       }`}
       onClick={(event) => {
@@ -41,23 +41,16 @@ const ResponsiveHeader = (props) => {
           setNewMenueState(false);
       }}
     >
-      <div className="flex justify-center items-center gap-4">
-        <HeaderLogo />
-      </div>
-      <div className="flex items-center gap-[10px]">
-        <CardPay />
-        <BasketLink />
         <div
           className={`cursor-pointer transition-all flex items-center ${
             newMenueState ? "rotate-0" : "rotate-[-90deg]"
           }`}
           onClick={asideMenuCloseHandler}
         >
-          <i className={"cc-menu text-[34px]"} ref={hambergerRef} />
+          <i className={"cc-menu text-[34px] text-[#FEFEFE]"} ref={hambergerRef} />
         </div>
-        {loginState && <LoginLink />}
-      </div>
-      {
+      <HeaderLogo />
+      <i className="cc-search text-[#fefefe] text-2xl"/>
         <ResponsiveMenu
           newMenueState={newMenueState}
           setNewMenueState={setNewMenueState}
@@ -66,7 +59,6 @@ const ResponsiveHeader = (props) => {
           refCategory={asideCategoryMenuRef}
           childrenProps={props.childrenProps}
         />
-      }
     </header>
   );
 };

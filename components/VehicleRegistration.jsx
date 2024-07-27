@@ -150,7 +150,7 @@ const VehicleRegistration = (props) => {
           setSliderShowState(false);
         } else if (id === "heavyCar_model"){
           res.data.data.filter((item) => {
-            if (item.id === value) {
+            if (item.id === value) { "/car-years"
               return (item.image = image);
             }
           });

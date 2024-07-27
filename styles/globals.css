@@ -454,3 +454,43 @@ li {
    border-radius: 50%;
    background: white;
 }
+/**************************** paralox swiper****************************/
+
+.home_paralox_slider .swiper {
+    width: 100%;
+    height: 100%;
+    background: #000;
+  }
+  @media (min-width: 1024px) {
+  .home_paralox_slider .mySwiper{
+    height:440px
+  }
+}
+@media (max-width: 1024px) {
+    .home_paralox_slider .mySwiper{
+      height:300px
+    }
+  }
+  .home_paralox_slider .swiper-slide {
+    font-size: 18px;
+    color: #fff;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+  }
+  
+  .home_paralox_slider .parallax-bg {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 110%;
+    height: 100%;
+    -webkit-background-size: cover;
+    background-size: cover;
+    background-position: center;
+  }
+
+  @media (max-width: 768px) {
+    .ArticleSlider{
+        padding: 16px !important; 
+    }
+  }

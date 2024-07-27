@@ -88,20 +88,20 @@ function MobileBottomNav(props) {
 
 
   return (
-    <div className="fixed bottom-0 z-[99999999] px-[1rem] pt-[5px] pb-[0.75rem] bg-white flex items-center justify-between w-full h-[70px] shadow-[0_0_5px_0_rgba(0,0,0,0.54)]">
+    <div className="fixed bottom-0 z-[2000] px-[1rem] pt-[5px] pb-[0.75rem] bg-[#383838] flex items-center justify-between w-full h-[70px] shadow-[0_0_5px_0_rgba(0,0,0,0.54)]">
       {
         <div
           ref={selectVehicleRef}
           onTouchStart={touchStartHandler}
           onTouchMove={slideDownvehicleHandler}
-          className={`fixed  right-0 left-0 w-full  bg-[#fff] z-[999999992] shadow-[0_0_10px_0_rgba(0,0,0,0.4)] rounded-t-[40px] transition-all duration-1000  ${
+          className={`fixed  right-0 left-0 w-full bg-[#fff] z-[2001] shadow-[0_0_10px_0_rgba(0,0,0,0.4)] rounded-t-[40px] transition-all duration-1000  ${
             modalIsOpen
               ? "h-[100vh] top-[20%] bottom-0"
               : "h-0 bottom-0 top-[100%]"
           }`}
         >
           <div className="h-[5px] w-[6rem] rounded-[20px] bg-[#333] absolute top-[2.5%] left-[50%] translate-x-[-50%]"></div>
-          <div className="z-[999999992] absolute top-[10%] right-[2%] size378:right-[6%] size411:right-[10%] size460:right-[15%] size516:right-[18%] size560:right-[22%] size617:right-[25%] size720:right-[28%] md:right-[32%]">
+          <div className="z-[2001] absolute top-[10%] right-[2%] size378:right-[6%] size411:right-[10%] size460:right-[15%] size516:right-[18%] size560:right-[22%] size617:right-[25%] size720:right-[28%] md:right-[32%]">
             <VehicleRegistration />
           </div>
         </div>
@@ -109,7 +109,7 @@ function MobileBottomNav(props) {
       {modalIsOpen && (
         <div
           onClick={closeModalHandler}
-          className="fixed top-0 right-0 left-0 bottom-0 bg-black opacity-[0.8] z-[999999991] h-[100vh] w-full"
+          className="fixed top-0 right-0 left-0 bottom-0 bg-black opacity-[0.8] z-[2001] h-[100vh] w-full"
         ></div>
       )}
 
@@ -118,7 +118,7 @@ function MobileBottomNav(props) {
           ref={modalRef}
           onTouchStart={touchStartHandler}
           onTouchMove={slideDownHandler}
-          className={`fixed  right-0 left-0 w-full  bg-[#fff] z-[999999992] shadow-[0_0_10px_0_rgba(0,0,0,0.4)] rounded-t-[40px] transition-all duration-1000  ${
+          className={`fixed  right-0 left-0 w-full  bg-[#fff] z-[2001] shadow-[0_0_10px_0_rgba(0,0,0,0.4)] rounded-t-[40px] transition-all duration-1000  ${
             serviceModalIsOpen
               ? "h-[100vh] top-[20%] bottom-0"
               : "h-0 bottom-0 top-[100%]"
@@ -145,7 +145,7 @@ function MobileBottomNav(props) {
       {serviceModalIsOpen && (
         <div
           onClick={closeModalHandler}
-          className="fixed top-0 right-0 left-0 bottom-0 bg-black opacity-[0.8] z-[999999991] h-[100vh] w-full"
+          className="fixed top-0 right-0 left-0 bottom-0 bg-black opacity-[0.8] z-[2000] h-[100vh] w-full"
         ></div>
       )}
       {mobileNavData.map((item, index) => (
@@ -153,30 +153,13 @@ function MobileBottomNav(props) {
           key={index}
           id={index}
           onClick={(event) => navClickHandler(event, index)}
-          className={`${
-            item.class
-          } absolute flex flex-col justify-center items-center  gap-[0.25rem]  rounded-[50%] transition-all duration-500 ease-out ${
-            isClicked === index
-              ? `bg-red_shop shadow-[0_0_5px_0_rgba(0,0,0,0.54)] top-[-25%] w-[70px] h-[70px] ${
-                  index === 1 &&
-                  "right-[19%] size360:right-[21%] size460:right-[23%]"
-                } ${
-                  index === 2 &&
-                  "bg-white shadow-none top-[-35%] w-[80px] h-[80px]"
-                }  ${
-                  index === 3 &&
-                  "left-[19%] size360:left-[21%] size460:left-[23%]"
-                }`
-                :
-                vehicleImage !== null && index === 2 ? 'bg-white top-[-35%] w-[80px] h-[80px]' 
-              : ""
-          }`}
+          className={`${item.class} ${index === 2 && "bg-[#FCFFFC1F] p-3"} absolute flex flex-col justify-center items-center rounded-full`}
         >
           {vehicleImage !== null && index === 2 ? (
-            <div className="w-[65px] h-[65px]">
+            <div className="w-[40px] h-[36px]">
               <Image
-                width={60}
-                height={60}
+                width={40}
+                height={36}
                 alt=""
                 src={
                   process.env.BASE_API +
@@ -191,16 +174,16 @@ function MobileBottomNav(props) {
           ) : (
             <i
               className={`${item.name} ${
-                isClicked === index ? "text-white" : "text-black"
+                isClicked === index ? "text-[#F66B34]" : "text-[#fefefe]"
               } text-[1.25rem]`}
             />
           )}
           {vehicleName !== null && index === 2 ? (
-            <p className={`text-[12px] text-center line-clamp-1 text-black`}>
+            <p className={`text-[12px] text-center line-clamp-1 text-[#fefefe]`}>
               {vehicleName}
             </p>
           ) : (
-            <p className={`text-[9px] ${isClicked === index && "text-white"}`}>
+            <p className={`text-[9px] ${isClicked === index? "text-[#F66B34]":"text-[#fefefe]"} mt-2`}>
               {item.title}
             </p>
           )}
