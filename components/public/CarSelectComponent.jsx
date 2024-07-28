@@ -110,7 +110,7 @@ const CarSelectComponent = () => {
 
     return ( 
         <div className="absolute h-full pb-24 top-0 right-auto">
-            <div className="bg-[#383838A3] h-[605px] rounded-2xl w-[400px] sticky top-[123px] right-auto z-[2] backdrop-blur-[16px] p-4 hidden lg:flex flex-col gap-4">
+            <div className={`bg-[#383838A3] h-[605px] rounded-2xl w-[400px] sticky ${showHeaderData ? "top-[123px]" : "top-[10px]"} right-auto z-[2] backdrop-blur-[16px] p-4 hidden lg:flex flex-col gap-4`}>
             {carSelected?
                 <div className="flex flex-col gap-6">
                         <Image src={process.env.BASE_API+"/web"+API_PATHS.FILE+"/"+selectedCar.image} width={200} height={150} className="w-[60%] aspect-auto m-auto"/>

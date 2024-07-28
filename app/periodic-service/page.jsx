@@ -6,19 +6,19 @@ import SelectVehicleBoxComponent from "@/components/periodic-service-components/
 import PeriodicServiceIndex from "@/components/PeriodicServiceIndex/PeriodicServiceIndex";
 import CarSelectComponent from "@/components/public/CarSelectComponent";
 
-const CarServicesSliderData = async () => {
-  return <CarServicesSlider data={serviceData}/>;
-};
+// const CarServicesSliderData = async () => {
+//   return <CarServicesSlider data={serviceData}/>;
+// };
 
 
 const PeriodicService = (props) => {
   return (
     <div className="lg:flex items-start gap-8 mt-1 lg:mt-28 max-w-[1772px] m-auto px-4 lg:px-12 py-4 relative">
-      <CarSelectComponent/>
+      {/* <CarSelectComponent/> */}
       <div className={"w-full lg:w-[calc(100%-424px)] flex flex-col gap-8 md:gap-10 mr-auto"}>
-        <Suspense fallback={<div>....Loading</div>}>
+        {/* <Suspense fallback={<div>....Loading</div>}>
           <CarServicesSliderData/>
-        </Suspense>
+        </Suspense> */}
         <PeriodicServiceIndex/>  
       </div>
     </div>
