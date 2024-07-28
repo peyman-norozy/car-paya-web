@@ -173,13 +173,14 @@ const CarSelectComponent = () => {
                         className="max-h-[200px] flex flex-col"
                         ref={optionRef}
                       >
-                        {searchCity.map((item) => (
+                        {searchCity.map((item,index) => (
                           <span
                             className="cursor-pointer hover:bg-slate-200 py-1 px-2"
                             value={item.id}
                             onClick={(e) => {
                               cityClickHandler(item);
                             }}
+                            key={index}
                           >
                             {item.label}
                           </span>

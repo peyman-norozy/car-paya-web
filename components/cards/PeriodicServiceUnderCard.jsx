@@ -28,8 +28,8 @@ const PeriodicServiceUnderCard = () => {
         </div>
         <div className={` overflow-hidden ${openService?"h-[225px]":"h-[65px]"} transition-all duration-700`}>
           <ul className={"grid grid-cols-1 min-[400px]:grid-cols-2 min-[800px]:grid-cols-3 lg:grid-cols-2 min-[1500px]:grid-cols-3 gap-4"}>
-            {servics.map((item)=>(
-              <li className={"flex items-center gap-2 "}>
+            {servics.map((item , index)=>(
+              <li className={"flex items-center gap-2 "} key={index}>
                 <Image
                   src={"/assets/images/star.png"}
                   alt={"icon"}
