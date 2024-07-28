@@ -77,7 +77,7 @@ const SelectService = (props) => {
   ];
 
   return (
-    <div className="w-full border border-[#EAEAEA] flex flex-col">
+    <div className="w-full border border-[#EAEAEA] flex flex-col lg:w-[calc(100%-424px)] mr-auto mt-3">
       <div className="bg-[#EAEAEA] flex flex-col gap-1 items-start px-10 py-5">
         <h1 className="text-16 lg:text-18">خدمات سرويس دوره‌ای</h1>
         <span className="text-12 lg:text-14">

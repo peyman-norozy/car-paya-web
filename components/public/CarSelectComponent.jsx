@@ -4,7 +4,8 @@ import axios from "axios";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
-
+import invoice from "@/public/assets/images/invoice.png";
+import { usePathname } from "next/navigation";
 const CarSelectComponent = () => {
   const [vehicleType, setVehicleType] = useState("car");
   const [level, setLevel] = useState(1);
@@ -15,9 +16,11 @@ const CarSelectComponent = () => {
   const [searchCity, setSearchCity] = useState([]);
   const [optionState, setOptionState] = useState(false);
   const [selectedCity, setSelectedCity] = useState({});
+  const [showInvoice , setShowInvoice] = useState(false)
   const showHeaderData = useSelector((state) => state.todo.showHeader);
   const optionRef = useRef(null);
   const inputRef = useRef(null);
+  const pathName = usePathname();
   useEffect(() => {
     getBrandData("car");
     const object = localStorage.getItem("selectedVehicle");
@@ -50,6 +53,10 @@ const CarSelectComponent = () => {
       setSelectedCity(JSON.parse(object).label);
     } else {
       setSelectedCity("");
+    }
+    console.log(pathName);
+    if(pathName === "/" || pathName === "/periodic-service"){
+      setShowInvoice(true);
     }
   }, []);
 
@@ -90,7 +97,7 @@ const CarSelectComponent = () => {
                 id: item.id,
                 title: item.title,
                 image: item.image,
-              }),
+              })
             );
             setCarSelected(true);
           }
@@ -109,12 +116,12 @@ const CarSelectComponent = () => {
   }
 
   return (
-    <div className="absolute h-full pb-24 top-0 right-auto">
+    <div className="absolute h-full top-0 right-auto">
       <div
         className={`bg-[#383838A3] h-[605px] rounded-2xl w-[400px] sticky ${showHeaderData ? "top-[123px]" : "top-[10px]"} right-auto z-[2] backdrop-blur-[16px] p-4 hidden lg:flex flex-col gap-4`}
       >
         {carSelected ? (
-          <div className="flex flex-col gap-6">
+          <div className="flex flex-col gap-4">
             <Image
               src={
                 process.env.BASE_API +
@@ -123,7 +130,6 @@ const CarSelectComponent = () => {
                 "/" +
                 selectedCar.image
               }
-              alt={"file"}
               width={200}
               height={150}
               className="w-[60%] aspect-auto m-auto"
@@ -142,42 +148,120 @@ const CarSelectComponent = () => {
                 تغییر خودرو
               </button>
             </div>
-            <div
-              className="flex flex-col gap-3 items-start"
-              onFocusCapture={() => {
-                setOptionState(true);
-              }}
-            >
-              <span className="text-[#FEFEFE] font-bold">
-                انتخاب استان / شهر
-              </span>
-              <input
-                className="w-full bg-[#FEFEFE] rounded-lg text-[#0E0E0E] h-10 outline-none px-2"
-                value={selectedCity}
-                onChange={(e) => {
-                  inputChangeHandler(e.target.value);
-                }}
-                ref={inputRef}
-              />
-              {optionState && (
-                <div className="absolute w-[calc(100%-32px)] overflow-y-scroll bg-[#FEFEFE] rounded-b-lg top-[calc(100%-16px)]">
-                  <div className="max-h-[200px] flex flex-col" ref={optionRef}>
-                    {searchCity.map((item) => (
-                      <span
-                        key={item.id}
-                        className="cursor-pointer hover:bg-slate-200 py-1 px-2"
-                        value={item.id}
-                        onClick={(e) => {
-                          cityClickHandler(item);
-                        }}
+            {showInvoice ? (
+              <>
+                <div
+                  className="flex flex-col gap-3 items-start relative"
+                  onFocusCapture={() => {
+                    setOptionState(true);
+                  }}
+                >
+                  <span className="text-[#FEFEFE] font-bold">
+                    انتخاب استان / شهر
+                  </span>
+                  <input
+                    className="w-full bg-[#FEFEFE] rounded-lg text-[#0E0E0E] h-10 outline-none px-2"
+                    value={selectedCity}
+                    onChange={(e) => {
+                      inputChangeHandler(e.target.value);
+                    }}
+                    ref={inputRef}
+                  />
+                  {optionState && (
+                    <div className="absolute w-[calc(100%-32px)] overflow-y-scroll bg-[#FEFEFE] rounded-b-lg top-[76px]">
+                      <div
+                        className="max-h-[200px] flex flex-col"
+                        ref={optionRef}
                       >
-                        {item.label}
-                      </span>
-                    ))}
+                        {searchCity.map((item,index) => (
+                          <span
+                            className="cursor-pointer hover:bg-slate-200 py-1 px-2"
+                            value={item.id}
+                            onClick={(e) => {
+                              cityClickHandler(item);
+                            }}
+                            key={index}
+                          >
+                            {item.label}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </div>
+                <div className="flex flex-col mt-[-10px] items-center">
+                  <Image src={invoice} className="m-auto size-52 opacity-70" />
+                  <span className="text-white">
+                    در حال حاضر سرویسی انتخاب نکرده اید
+                  </span>
+                </div>
+              </>
+            ) : (
+              <div className="flex flex-col gap-4">
+                <div className="flex flex-col gap-3 h-[196px] overflow-y-scroll">
+                  <div className="flex flex-col px-3 py-2 bg-[#888888] rounded-lg">
+                    <div className="flex justify-between">
+                      <span className="font-bold text-[#FEFEFE]">فیلتر هوا کاسپین</span>
+                      <div className="bg-[#FEFEFE] rounded-full size-5 text-[#888888] font-bold pr-[5px]">X</div>
+                    </div>
+                    <div className="flex justify-start gap-2 items-center">
+                      <span className="text-[#B0B0B0] line-through text-12 ">4.000.000 تومان</span>
+                      <span className={"size-1 bg-[#B0B0B0] rounded-full "}></span>
+                      <span className="text-[#FEFEFE] text-14 font-bold">3.000.000 تومان</span>
+                    </div>
+                  </div>
+                  <div className="flex flex-col px-3 py-2 bg-[#888888] rounded-lg">
+                    <div className="flex justify-between">
+                      <span className="font-bold text-[#FEFEFE]">فیلتر هوا کاسپین</span>
+                      <div className="bg-[#FEFEFE] rounded-full size-5 text-[#888888] font-bold pr-[5px]">X</div>
+                    </div>
+                    <div className="flex justify-start gap-2 items-center">
+                      <span className="text-[#B0B0B0] line-through text-12 ">4.000.000 تومان</span>
+                      <span className={"size-1 bg-[#B0B0B0] rounded-full "}></span>
+                      <span className="text-[#FEFEFE] text-14 font-bold">3.000.000 تومان</span>
+                    </div>
+                  </div>
+                  <div className="flex flex-col px-3 py-2 bg-[#888888] rounded-lg">
+                    <div className="flex justify-between">
+                      <span className="font-bold text-[#FEFEFE]">فیلتر هوا کاسپین</span>
+                      <div className="bg-[#FEFEFE] rounded-full size-5 text-[#888888] font-bold pr-[5px]">X</div>
+                    </div>
+                    <div className="flex justify-start gap-2 items-center">
+                      <span className="text-[#B0B0B0] line-through text-12 ">4.000.000 تومان</span>
+                      <span className={"size-1 bg-[#B0B0B0] rounded-full "}></span>
+                      <span className="text-[#FEFEFE] text-14 font-bold">3.000.000 تومان</span>
+                    </div>
+                  </div>
+                  <div className="flex flex-col px-3 py-2 bg-[#888888] rounded-lg">
+                    <div className="flex justify-between">
+                      <span className="font-bold text-[#FEFEFE]">فیلتر هوا کاسپین</span>
+                      <div className="bg-[#FEFEFE] rounded-full size-5 text-[#888888] font-bold pr-[5px]">X</div>
+                    </div>
+                    <div className="flex justify-start gap-2 items-center">
+                      <span className="text-[#B0B0B0] line-through text-12 ">4.000.000 تومان</span>
+                      <span className={"size-1 bg-[#B0B0B0] rounded-full "}></span>
+                      <span className="text-[#FEFEFE] text-14 font-bold">3.000.000 تومان</span>
+                    </div>
                   </div>
                 </div>
-              )}
-            </div>
+                <hr />
+                <div className="flex flex-col gap-2">
+                  <div className="text-[#fefefe] flex justify-between">
+                    <span className="text-14 font-bold">دستمزد</span>
+                    <span className="font-bold text-14">200.000 تومان</span>
+                  </div>
+                  <div className="text-[#fefefe] flex justify-between">
+                    <span className="text-14 font-bold">ایاب ذهاب</span>
+                    <span className="font-bold text-14">450.000 تومان</span>
+                  </div>
+                </div>
+                <hr />
+                <button className="bg-[#F66B34] rounded-md flex justify-between py-2 px-4">
+                  <span className="text-white font-semibold ">تکمیل سفارش</span>
+                  <span className="text-white font-semibold ">6.000.000 تومان</span>
+                </button>
+              </div>
+            )}
           </div>
         ) : (
           <>

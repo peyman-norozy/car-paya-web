@@ -7,7 +7,7 @@ const SelectProduct = (props) => {
   const [value, setValue] = useState("");
   const array = [1, 2, 3, 4];
   return (
-    <div className="w-full border border-[#EAEAEA] flex flex-col pb-5">
+    <div className="w-full border border-[#EAEAEA] flex flex-col pb-5 lg:w-[calc(100%-424px)] mr-auto">
       <div className="bg-[#EAEAEA] items-start px-10 py-5 justify-between flex">
         <h1 className="text-18">تعویض روغن موتور</h1>
         <i className="cc-left text-[30px] pr-10" />
