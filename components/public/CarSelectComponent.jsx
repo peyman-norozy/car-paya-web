@@ -16,6 +16,7 @@ const CarSelectComponent = () => {
   const [searchCity, setSearchCity] = useState([]);
   const [optionState, setOptionState] = useState(false);
   const [selectedCity, setSelectedCity] = useState({});
+  const [showInvoice , setShowInvoice] = useState(false)
   const showHeaderData = useSelector((state) => state.todo.showHeader);
   const optionRef = useRef(null);
   const inputRef = useRef(null);
@@ -54,6 +55,9 @@ const CarSelectComponent = () => {
       setSelectedCity("");
     }
     console.log(pathName);
+    if(pathName === "/" || pathName === "/periodic-service"){
+      setShowInvoice(true);
+    }
   }, []);
 
   function vehicleTypeFetch(model) {
@@ -112,7 +116,7 @@ const CarSelectComponent = () => {
   }
 
   return (
-    <div className="absolute h-full pb-24 top-0 right-auto">
+    <div className="absolute h-full top-0 right-auto">
       <div
         className={`bg-[#383838A3] h-[605px] rounded-2xl w-[400px] sticky ${showHeaderData ? "top-[123px]" : "top-[10px]"} right-auto z-[2] backdrop-blur-[16px] p-4 hidden lg:flex flex-col gap-4`}
       >
@@ -144,7 +148,7 @@ const CarSelectComponent = () => {
                 تغییر خودرو
               </button>
             </div>
-            {pathName !== "/periodic-service/service-selection" ? (
+            {showInvoice ? (
               <>
                 <div
                   className="flex flex-col gap-3 items-start relative"
