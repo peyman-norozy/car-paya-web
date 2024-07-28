@@ -10,7 +10,7 @@ import { ToastContainer } from "react-toastify";
 const HomePage = async () => {
   const data = await getData(`/web${API_PATHS.MAGSINDEX}`);
   return (
-    <div className="flex flex-col gap-4 lg:gap-9 w-full max-w-[1772px] m-auto">
+    <div className="flex flex-col gap-4 lg:gap-9 w-full max-w-[1772px] m-auto mt-32">
       {/*<CarSelectComponent />*/}
       <HomePageMainSlider />
       <div className="flex flex-col gap-4 lg:gap-9 w-full lg:w-[calc(100%-424px)] self-end">
