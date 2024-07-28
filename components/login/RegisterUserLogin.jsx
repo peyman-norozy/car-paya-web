@@ -85,11 +85,11 @@ export default function RegisterUserLogin() {
       console.log(item.value);
       switch (id) {
         case "register_name":
-          fd.set("first_name", item.value);
+          fd.set("name", item.value);
           break;
-        case "register_lastName":
-          fd.set("last_name", item.value);
-          break;
+        // case "register_lastName":
+        //   fd.set("last_name", item.value);
+        //   break;
         case "register_email":
           fd.set("email", item.value);
           break;
@@ -105,7 +105,8 @@ export default function RegisterUserLogin() {
     if (response.status === 200) {
       let now = new Date();
       let time = now.getTime();
-      let expireTime = time + res.data.expires_at;
+      console.log(response);
+      let expireTime = time + response.data.expires_at;
       console.log(expireTime);
       now.setTime(expireTime);
       console.log(now.toUTCString());

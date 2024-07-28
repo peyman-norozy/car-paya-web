@@ -12,9 +12,9 @@ import { getCookie } from "cookies-next";
 
 const BatteriesTimeSelector = (props) => {
   const { setStep } = props;
-  // const searchParams = useSearchParams();
-  // const params = new URLSearchParams(searchParams.toString());
-  // const city_id = searchParams.get("city_id");
+  const searchParams = useSearchParams();
+  const params = new URLSearchParams(searchParams.toString());
+  const city_id = searchParams.get("privience_city_id");
   // const selectedItem = searchParams.get("vehicle_tip");
   // const package_id = searchParams.get("package_id");
 
@@ -25,39 +25,41 @@ const BatteriesTimeSelector = (props) => {
 
   const [data, setData] = useState([]);
   const [isSelected, setIsSelected] = useState(null);
-  // const setQuery = useSetQuery();
+  const setQuery = useSetQuery();
   const router = useRouter();
 
   const continueSecondStepHandler = () => {
     setButtonIsdisabled(true);
+    console.log(timeIsSelected);
+
     if (timeIsSelected === null) {
       setButtonIsdisabled(false);
       error("زمان مورد نظر را انتخاب کنید");
       window.scroll({ top: 0, left: 0, behavior: "smooth" });
     } else {
       setButtonIsdisabled(false);
+      console.log(loginState);
       if (loginState) {
-        setQuery.setMultiQuery([
-          { key: "step", value: "step-4" },
-          { key: "city_id", value: city_id },
-          {
-            key: "vehicle_tip",
-            value: selectedItem,
-          },
-          { key: "package_id", value: package_id },
-          { key: "time_id", value: timeIsSelected },
-        ]);
+        router.push(
+          `/batteries/selectLocation?reservation_time_slice_battery_id=${timeIsSelected}&type=EXPERT&privience_city_id=${city_id}`,
+        );
+        // setQuery.updateQueryParams({
+        //   reservation_time_slice_battery_id: timeIsSelected,
+        //   type: "AGENT",
+        //   // step: "step-5",
+        //   // city_id: city_id,
+        //   // vehicle_id: selectedItem,
+        //   // package_id: package_id,
+        //   // time_id: timeIsSelected,
+        // });
       } else {
-        setQuery.setMultiQuery([
-          { key: "step", value: "step-3" },
-          { key: "city_id", value: city_id },
-          {
-            key: "vehicle_tip",
-            value: selectedItem,
-          },
-          { key: "package_id", value: package_id },
-          { key: "time_id", value: timeIsSelected },
-        ]);
+        setQuery.updateQueryParams({
+          step: "step-5",
+          city_id: city_id,
+          vehicle_tip: selectedItem,
+          package_id: package_id,
+          time_id: timeIsSelected,
+        });
       }
     }
   };
@@ -75,6 +77,9 @@ const BatteriesTimeSelector = (props) => {
   };
 
   useEffect(() => {
+    if (!city_id) {
+      router.push("/batteries");
+    }
     window.scrollTo(0, 0);
     axios
       .get(process.env.BASE_API + "/web/reservation/battery?step=step-2", {
@@ -116,7 +121,7 @@ const BatteriesTimeSelector = (props) => {
               "p-[6px] text-14 size752:text-16 w-full border-b border-BLUE_600"
             }
           >
-            چه زمانی اماده دریافت کارشناس هستید؟
+            چه زمانی آماده دریافت کارشناس هستید؟
           </p>
         </div>
         <div className={"flex flex-col gap-[2rem]"}>
@@ -148,7 +153,7 @@ const BatteriesTimeSelector = (props) => {
         height={544}
         className={"hidden size1000:block"}
       />
-      <ToastContainer />
+      <ToastContainer rtl={true} />
     </div>
   );
 };

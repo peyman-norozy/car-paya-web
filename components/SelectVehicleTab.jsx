@@ -8,10 +8,10 @@ const SelectVehicleTab = (props) => {
   const setQuery = useSetQuery();
   const selectTabHandler = (index, item) => {
     console.log(item.attributeSlug);
-    setQuery.setMultiQuery([
-      { key: "attribute_slug", value: item.attributeSlug },
-      { key: "attribute_value", value: item.slug },
-    ]);
+    setQuery.updateQueryParams({
+      attribute_slug: item.attributeSlug,
+      attribute_value: item.slug,
+    });
     props.setMotorStep("motor-brands");
     props.setHeavyCarStep("heavy-car-brands");
     props.setStep("car-brands");

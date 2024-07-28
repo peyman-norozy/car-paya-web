@@ -11,6 +11,15 @@ export async function getData(apiRoute, params) {
   }
 }
 
+export async function getDataWithFullErrorRes(apiRoute, params) {
+  try {
+    const res = await api.get(apiRoute, { params: params });
+    return res.data;
+  } catch (error) {
+    return error;
+  }
+}
+
 export async function deleteData(apiRoute) {
   try {
     const res = await api.delete(apiRoute);

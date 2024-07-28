@@ -6,12 +6,10 @@ const SubFilterCard = (props) => {
   const setQuery = useSetQuery();
   const clickAmpFilterHandler = () => {
     console.log(props.filterId);
-    setQuery.setMultiQuery([
-      {
-        key: props.filterId === "getAmp" ? "amp" : "brand",
-        value: props.item.value,
-      },
-    ]);
+    setQuery.setQuery(
+      props.filterId === "getAmp" ? "amp" : "brand",
+      props.item.value,
+    );
     props.setFilterModalState(false);
   };
 

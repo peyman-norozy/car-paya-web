@@ -14,6 +14,7 @@ import useSetQuery from "@/hook/useSetQuery";
 import { getData } from "@/utils/api-function-utils";
 import SubFilterCard from "@/components/cards/SubFilterCard";
 import VerificationSecondStep from "@/components/VerificationSecondStep";
+import { ToastContainer } from "react-toastify";
 
 const BatteriesPage = (props) => {
   const query = useSetQuery();
@@ -133,39 +134,6 @@ const BatteriesPage = (props) => {
     }
   }, []);
 
-  // useEffect(() => {
-  //   setIsLoading(true);
-  //   axios
-  //     .get(process.env.BASE_API + "/web" + "/batteries")
-  //     .then((res) => {
-  //       setData(res.data.data);
-  //       setIsLoading(false);
-  //     })
-  //     .catch((err) => {
-  //       setIsLoading(false);
-  //       console.log(err);
-  //     });
-  // }, []);
-
-  // useEffect(() => {
-  //   console.log(props.searchParams);
-  //   if (
-  //     props.searchParams.selectTipState &&
-  //     props.searchParams.selectTipState.split(",")[0] === "true"
-  //   ) {
-  //     setStep("car-models");
-  //   } else {
-  //     setStep("car-brands");
-  //   }
-  // }, []);
-
-  // useEffect(() => {
-  //   console.log(props.searchParams.selectTipState);
-  //   if (!props.searchParams.selectTipState) {
-  //     query.setQuery("selectTipState", "car-brands");
-  //   }
-  // }, []);
-
   return (
     <Fragment>
       <div className="w-[95%] size671:w-[98%] size1090:w-[95%] m-auto flex flex-col size1056:flex-row gap-[1rem] size1275:gap-[3rem]">
@@ -173,6 +141,9 @@ const BatteriesPage = (props) => {
           <SelectVehicleBox
             tabTitle={tabTitle}
             title="انتخاب وسیله نقلیه"
+            cityProvincesTitle={
+              "برای ثبت کارشناسی استان و شهر خود را انتخاب کنید"
+            }
             setSelectedItem={setSelectedItem}
             selectedItem={selectedItem}
             setStep={setStep}
@@ -262,6 +233,7 @@ const BatteriesPage = (props) => {
                     key={item.id}
                     setBatteryIsSelected={setBatteryIsSelected}
                     data={item}
+                    searchParams={props.searchParams}
                   />
                 ))}
             </ul>
@@ -281,9 +253,11 @@ const BatteriesPage = (props) => {
           <PurchaseBatteryModal
             setBatteryIsSelected={setBatteryIsSelected}
             batteryIsSelected={batteryIsSelected}
+            searchParams={props.searchParams}
           />
         </div>
       </div>
+      <ToastContainer rtl={true} />
     </Fragment>
   );
 };
