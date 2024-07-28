@@ -3,6 +3,7 @@ import { API_PATHS } from "@/configs/routes.config";
 import axios from "axios";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
+import { useSelector } from "react-redux";
 
 const CarSelectComponent = () => {
   const [vehicleType, setVehicleType] = useState("car");
@@ -14,6 +15,7 @@ const CarSelectComponent = () => {
   const [searchCity, setSearchCity] = useState([]);
   const [optionState, setOptionState] = useState(false);
   const [selectedCity, setSelectedCity] = useState({});
+  const showHeaderData = useSelector((state) => state.todo.showHeader);
   const optionRef = useRef(null);
   const inputRef = useRef(null);
   useEffect(() => {
@@ -108,7 +110,9 @@ const CarSelectComponent = () => {
 
   return (
     <div className="absolute h-full pb-24 top-0 right-auto">
-      <div className="bg-[#383838A3] h-[605px] rounded-2xl w-[400px] sticky top-[123px] right-auto z-[2] backdrop-blur-[16px] p-4 hidden lg:flex flex-col gap-4">
+      <div
+        className={`bg-[#383838A3] h-[605px] rounded-2xl w-[400px] sticky ${showHeaderData ? "top-[123px]" : "top-[10px]"} right-auto z-[2] backdrop-blur-[16px] p-4 hidden lg:flex flex-col gap-4`}
+      >
         {carSelected ? (
           <div className="flex flex-col gap-6">
             <Image
@@ -119,6 +123,7 @@ const CarSelectComponent = () => {
                 "/" +
                 selectedCar.image
               }
+              alt={"file"}
               width={200}
               height={150}
               className="w-[60%] aspect-auto m-auto"
@@ -159,6 +164,7 @@ const CarSelectComponent = () => {
                   <div className="max-h-[200px] flex flex-col" ref={optionRef}>
                     {searchCity.map((item) => (
                       <span
+                        key={item.id}
                         className="cursor-pointer hover:bg-slate-200 py-1 px-2"
                         value={item.id}
                         onClick={(e) => {
