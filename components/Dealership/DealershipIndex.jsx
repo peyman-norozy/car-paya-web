@@ -13,7 +13,6 @@ const DealershipIndex = () => {
             <Dealership/>
             <Dealership/>
             <Dealership/>
-
         </div>
      );
 }

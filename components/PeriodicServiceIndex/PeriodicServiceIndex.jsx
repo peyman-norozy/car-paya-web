@@ -6,6 +6,7 @@ import TopRepresentatives from "../TopRepresentatives/TopRepresentatives";
 import Image from "next/image";
 import assistance from "@/public/assets/images/assistance.jpg"
 import repair2 from "@/public/assets/images/repair2.jpg"
+import Link from "next/link";
 const PeriodicServiceIndex = () => {
     return ( 
         <div className={"flex flex-col gap-4 lg:gap-10"}>
@@ -19,7 +20,7 @@ const PeriodicServiceIndex = () => {
                   <span className={"text-12 font-medium text-[#FEFEFE] min-[580px]:text-[#47505D] font-outline"}>
                   لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است.
                   </span>
-                <button className="px-4 py-2 rounded-lg bg-[#F66B34] text-white text-14">ثبت درخواست خدمات</button>
+                <Link href={"/periodic-service/dealership"} className="px-4 py-2 rounded-lg bg-[#F66B34] text-white text-14">ثبت درخواست خدمات</Link>
                 </div>
               </div>
               <div className="bg-[#E7E7E7] flex flex-1 gap-4 rounded-2xl min-[580px]:p-3 cursor-pointer relative max-h-[200px] overflow-hidden">

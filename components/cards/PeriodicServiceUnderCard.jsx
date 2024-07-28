@@ -43,12 +43,6 @@ const PeriodicServiceUnderCard = () => {
           </ul>
         </div>
         <button className="text-[#F66B34] flex items-center gap-2 mx-auto" onClick={()=>{setOpenService(!openService)}}><span className="font-medium text-14 sm:text-base">مشاهده {openService?"کمتر":"بیشتر"}</span><i className={`cc-arrow-down text-lg sm:text-2xl transition-transform duration-700 ${openService?"rotate-180":"rotate-0"}`}/></button>
-        {/* <Link
-          href={"/periodic-service/service-selection"}
-          className={"bg-[#E73C33] text-white font-light text-14 self-start px-6 md:px-10 py-1 md:py-2 rounded-5 flex items-center gap-1"}>
-          <i className="cc-login text-xl"/>
-          <span className="text-base md:text-18">انتخاب خدمات</span>
-          </Link> */}
       </div>
     </div>
   );

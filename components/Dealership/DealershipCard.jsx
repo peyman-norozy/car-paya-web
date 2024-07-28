@@ -1,9 +1,10 @@
-import { numberWithCommas } from "@/utils/function-utils";
+'use client'
 import Button from "../Button";
 import Image from "next/image";
 
 const DealershipCard = (props) => {
-    const fakeData = [1,2,3,4,5]
+  const servics = ["تعویض روغن موتور","تعویض فیلتر روغن","تعویض فیلتر هوا","تعویض روغن هیدرولیک","تعویض فیلتر هوای کابین","تعویض فیلتر گیربکس اتومات","تعویض روغن گیربکس اتومات","تعویض روغن گیربکس دستی","تعویض لنت","روغن ترمز","ضد یخ","مکمل و اکتان","باتری","تنظیم باد","اپارات","دیاگ ماشین","چکاپ ماشین"]
+
     return ( 
         <li
       className={
@@ -42,45 +43,21 @@ const DealershipCard = (props) => {
         </div>
         <ul
           className={
-            "grid grid-cols-2 gap-y-[16px] text-[12px] text-[#47505D] mt-[24px]"
+            "grid grid-cols-2 min-[1360px]:grid-cols-3 2xl:grid-cols-4 gap-y-[16px] text-[12px] text-[#47505D] mt-[24px]"
           }
         >
-            <li key={0} className={"flex items-center gap-[8px]"}>
-              <span
-                className={
-                  "inline-block size-4 bg-[#ff0d0d9d] rounded-full"
-                }
-              ></span>
-              <span>لورم ایپسوم متن ساختگی</span>
-            </li>
-          {fakeData.map((item, index) => (
+          {servics.map((item, index) => (
             <li key={index} className={"flex items-center gap-[8px]"}>
               <span
                 className={
                   "inline-block size-4 bg-[#24D34Bb5] rounded-full"
                 }
               ></span>
-              <span>لورم ایپسوم متن ساختگی</span>
+              <span className="line-clamp-1">{item}</span>
             </li>
           ))}
-          <li key={6} className={"flex items-center gap-[8px]"}>
-              <span
-                className={
-                  "inline-block size-4 bg-[#ff0d0d9d] rounded-full"
-                }
-              ></span>
-              <span>لورم ایپسوم متن ساختگی</span>
-            </li>
         </ul>
-        <div className={"mt-[24px] flex justify-between"}>
-          <div className={"flex items-center gap-[8px]"}>
-            <span>{numberWithCommas(4000000)}</span>
-            <span
-              className={"bg-[#B0B0B0] rounded-full w-[10px] h-[10px]"}
-            ></span>
-            <span>{numberWithCommas(2000000)} تومان </span>
-          </div>
-          <div>
+        <div className={"flex justify-end"}>
             <Button
               class_name={
                 "bg-[#F66B34] text-white w-[160px] h-[40px] font-[14px] rounded-[8px]"
@@ -88,7 +65,6 @@ const DealershipCard = (props) => {
             >
               انتخاب خدمات
             </Button>
-          </div>
         </div>
       </div>
     </li>
