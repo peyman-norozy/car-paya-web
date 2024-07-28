@@ -174,7 +174,7 @@ const Footer = (props) => {
           </p>
         </div>
       </div>
-      {innerWidthNumber < 1000 && <MobileBottomNav />}
+      {innerWidthNumber < 1025 && <MobileBottomNav />}
     </footer>
   );
 };

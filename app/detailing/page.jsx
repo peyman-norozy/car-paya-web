@@ -1,22 +1,16 @@
 import React from "react";
-import CarSelectComponent from "@/components/public/CarSelectComponent";
-import CarServicesSlider from "@/components/CarServicesSlider/CarServicesSlider";
-import { serviceData } from "@/staticData/data";
 import DetailingCard from "@/components/cards/DetailingCard/DetailingCard";
 
 let fakeArray = [0, 0, 0, 0, 0, 0, 0];
 
 const Page = () => {
   return (
-    <div
-      className={
-        "flex relative justify-end max-w-[1676px] mx-auto p-4 mt-[110px]"
-      }
-    >
-      <CarSelectComponent />
-      <section className={"w-[calc(100%-450px)]"}>
-        <CarServicesSlider data={serviceData} />
-        <ul className={"mt-[40px] flex flex-col gap-[24px]"}>
+    <div className={"flex flex-col relative py-4 max-w-[1772px] m-auto"}>
+      <h1 className={"lg:hidden block text-center text-[20px] font-semibold"}>
+        دیتیلینگ
+      </h1>
+      <section className={"lg:w-[calc(100%-424px)] w-full mr-auto"}>
+        <ul className={"lg:mt-16 mt-[20px] flex flex-col gap-[24px]"}>
           {fakeArray.map((item, index) => (
             <DetailingCard key={index} />
           ))}

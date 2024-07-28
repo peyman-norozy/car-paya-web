@@ -1,95 +1,112 @@
-'use client'
+"use client";
 import { API_PATHS } from "@/configs/routes.config";
 import axios from "axios";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
+import { useSelector } from "react-redux";
 
 const CarSelectComponent = () => {
-    const [vehicleType , setVehicleType] = useState("car")
-    const [level , setLevel] = useState(1)
-    const [data,setData] = useState([])
-    const [carSelected , setCarSelected] = useState(false)
-    const [selectedCar,setSelectedCar] = useState({})
-    const [provienceCity,setProvienceCity] = useState([])
-    const [searchCity,setSearchCity] = useState([])
-    const [optionState , setOptionState] = useState(false)
-    const [selectedCity , setSelectedCity] = useState({})
-    const optionRef = useRef(null)
-    const inputRef = useRef(null)
-    useEffect(()=>{
-        getBrandData("car")
-        const object = localStorage.getItem("selectedVehicle")
-        if (object) {
-            setSelectedCar(JSON.parse(object))
-            setCarSelected(true)
-        }
-    },[carSelected])
-    
-    useEffect(() => {
-        axios
-          .get(process.env.BASE_API + "/web/geo/province-cities")
-          .then((res) => {
-            if (res.data.status === "success") {
-              setProvienceCity(res.data.data);
-              setSearchCity(res.data.data);
-            }
-          })
-          .catch((err) => console.log(err));
-          document.addEventListener("click" , (e)=>{
-            if(e.target.parentElement!==optionRef.current && e.target!==inputRef.current){
-                setOptionState(false)
-            }
-          })
-          const object = localStorage.getItem("city")
-          if (object) {
-            setSelectedCity(JSON.parse(object).label)
-          }
-          else{
-          setSelectedCity("")
-          }
-      }, []);
-
-    function vehicleTypeFetch(model) {
-        setVehicleType(model)
-        getBrandData(model)
+  const [vehicleType, setVehicleType] = useState("car");
+  const [level, setLevel] = useState(1);
+  const [data, setData] = useState([]);
+  const [carSelected, setCarSelected] = useState(false);
+  const [selectedCar, setSelectedCar] = useState({});
+  const [provienceCity, setProvienceCity] = useState([]);
+  const [searchCity, setSearchCity] = useState([]);
+  const [optionState, setOptionState] = useState(false);
+  const [selectedCity, setSelectedCity] = useState({});
+  const showHeaderData = useSelector((state) => state.todo.showHeader);
+  const optionRef = useRef(null);
+  const inputRef = useRef(null);
+  useEffect(() => {
+    getBrandData("car");
+    const object = localStorage.getItem("selectedVehicle");
+    if (object) {
+      setSelectedCar(JSON.parse(object));
+      setCarSelected(true);
     }
+  }, [carSelected]);
 
-    function getBrandData(model) {
-        axios.get(process.env.BASE_API + "/web/"+model+"-brands").then((res)=>{
-            setData(res.data.data);
+  useEffect(() => {
+    axios
+      .get(process.env.BASE_API + "/web/geo/province-cities")
+      .then((res) => {
+        if (res.data.status === "success") {
+          setProvienceCity(res.data.data);
+          setSearchCity(res.data.data);
+        }
+      })
+      .catch((err) => console.log(err));
+    document.addEventListener("click", (e) => {
+      if (
+        e.target.parentElement !== optionRef.current &&
+        e.target !== inputRef.current
+      ) {
+        setOptionState(false);
+      }
+    });
+    const object = localStorage.getItem("city");
+    if (object) {
+      setSelectedCity(JSON.parse(object).label);
+    } else {
+      setSelectedCity("");
+    }
+  }, []);
+
+  function vehicleTypeFetch(model) {
+    setVehicleType(model);
+    getBrandData(model);
+  }
+
+  function getBrandData(model) {
+    axios
+      .get(process.env.BASE_API + "/web/" + model + "-brands")
+      .then((res) => {
+        setData(res.data.data);
+      });
+    setLevel(2);
+  }
+
+  function optionClickHandler(id, item) {
+    if (level <= 3) {
+      const route = level === 2 ? "-models/" : "-tips/";
+      axios
+        .get(process.env.BASE_API + "/web/" + vehicleType + route + id)
+        .then((res) => {
+          setData(res.data.data);
+        });
+      setLevel(level + 1);
+    } else {
+      axios
+        .post(process.env.BASE_API + "/web" + API_PATHS.ADDCAR, {
+          car_tip_id: id,
         })
-        setLevel(2)
+        .then((res) => {
+          console.log(res.status === 200);
+          if (res.status === 200) {
+            localStorage.setItem(
+              "selectedVehicle",
+              JSON.stringify({
+                id: item.id,
+                title: item.title,
+                image: item.image,
+              }),
+            );
+            setCarSelected(true);
+          }
+        });
     }
+  }
+  function inputChangeHandler(value) {
+    setSelectedCity(value);
+    setSearchCity(provienceCity.filter((i) => i.label.includes(value)));
+  }
 
-    function optionClickHandler(id ,item){
-        if(level<=3){
-            const route = level===2?"-models/":"-tips/"
-            axios.get(process.env.BASE_API + "/web/"+vehicleType+route+id).then((res)=>{
-                setData(res.data.data);
-            })
-            setLevel(level+1)
-        }
-        else{
-            axios.post(process.env.BASE_API + "/web" + API_PATHS.ADDCAR, {"car_tip_id": id}).then((res)=>{
-                console.log(res.status === 200);
-                if(res.status === 200){
-                    localStorage.setItem("selectedVehicle",JSON.stringify({id:item.id,title:item.title,image:item.image}))
-                    setCarSelected(true)
-                }
-            })
-        }
-        
-    }
-    function inputChangeHandler(value) {
-        setSelectedCity(value)
-        setSearchCity(provienceCity.filter((i) => i.label.includes(value)));
-    }
-
-    function cityClickHandler(item) {
-        setSelectedCity(item.label);
-        setOptionState(false)
-        localStorage.setItem("city",JSON.stringify(item))
-    }
+  function cityClickHandler(item) {
+    setSelectedCity(item.label);
+    setOptionState(false);
+    localStorage.setItem("city", JSON.stringify(item));
+  }
 
     return ( 
         <div className="absolute h-full pb-24 top-0 right-auto">
@@ -101,12 +118,12 @@ const CarSelectComponent = () => {
                             <span className="font-bold text-18 text-[#FEFEFE] border-r-[5px] border-[#c0c0c0] leading-6 pr-2">{selectedCar.title}</span>
                             <button className="text-[#F66B34] text-16 cursor-pointer font-medium" onClick={()=>{setCarSelected(false) , localStorage.removeItem("selectedVehicle")}}>تغییر خودرو</button>
                         </div>
-                        <div className="flex flex-col gap-3 items-start" onFocusCapture={()=>{setOptionState(true)}}>
+                        <div className="flex flex-col gap-3 items-start relative" onFocusCapture={()=>{setOptionState(true)}}>
                             <span className="text-[#FEFEFE] font-bold">
                                 انتخاب استان / شهر
                             </span>
                             <input className="w-full bg-[#FEFEFE] rounded-lg text-[#0E0E0E] h-10 outline-none px-2" value={selectedCity} onChange={(e)=>{inputChangeHandler(e.target.value)}} ref={inputRef}/>
-                            {optionState&&<div className="absolute w-[calc(100%-32px)] overflow-y-scroll bg-[#FEFEFE] rounded-b-lg top-[calc(100%-16px)]">
+                            {optionState&&<div className="absolute w-[calc(100%-32px)] overflow-y-scroll bg-[#FEFEFE] rounded-b-lg top-[76px]">
                                 <div className="max-h-[200px] flex flex-col" ref={optionRef}>
                                     {searchCity.map((item)=>(
                                         <span className="cursor-pointer hover:bg-slate-200 py-1 px-2" value={item.id} onClick={(e)=>{cityClickHandler(item)}}>{item.label}</span>
@@ -145,8 +162,8 @@ const CarSelectComponent = () => {
                 </>
             }
             </div>
-        </div>
-    );
-}
- 
+    </div>
+  );
+};
+
 export default CarSelectComponent;

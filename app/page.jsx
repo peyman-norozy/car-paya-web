@@ -8,20 +8,22 @@ import { getData } from "@/utils/api-function-utils";
 import { ToastContainer } from "react-toastify";
 
 const HomePage = async () => {
-    const data = await getData(`/web${API_PATHS.MAGSINDEX}`)
-    return ( 
-        <div className="flex flex-col gap-4 lg:gap-9 w-full max-w-[1772px] md:p-12 m-auto relative">
-            <CarSelectComponent/>
-            <HomePageMainSlider/>
-            <div className="flex flex-col gap-4 lg:gap-9 w-full lg:w-[calc(100%-424px)] self-end">
-                <MainPageServices/>
-                <HomePageParallaxSlider/>
-                <span className="text-2xl font-bold text-[#383838] text-center">مقالات</span>
-                <HomePageArticleSlider data={data}/>
-            </div>
-         <ToastContainer rtl={true} />
-        </div>
-    );
-}
+  const data = await getData(`/web${API_PATHS.MAGSINDEX}`);
+  return (
+    <div className="flex flex-col gap-4 lg:gap-9 w-full max-w-[1772px] m-auto">
+      {/*<CarSelectComponent />*/}
+      <HomePageMainSlider />
+      <div className="flex flex-col gap-4 lg:gap-9 w-full lg:w-[calc(100%-424px)] self-end">
+        <MainPageServices />
+        <HomePageParallaxSlider />
+        <span className="text-2xl font-bold text-[#383838] text-center">
+          مقالات
+        </span>
+        <HomePageArticleSlider data={data} />
+      </div>
+      <ToastContainer rtl={true} />
+    </div>
+  );
+};
 
 export default HomePage;
