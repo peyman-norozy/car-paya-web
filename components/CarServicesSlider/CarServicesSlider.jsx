@@ -16,7 +16,7 @@ const CarServicesSlider = (props) => {
     setIsClicked(index);
   };
 
-  console.log(props.data);
+  // console.log(props.data);
 
   useEffect(() => {
     switch (pathname) {
