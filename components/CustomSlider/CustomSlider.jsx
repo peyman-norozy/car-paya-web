@@ -13,7 +13,7 @@ const CustomSlider = (props) => {
 
     }
     return (
-        <div className={"relative w-full"}>
+        <div className={"hidden lg:inline-block relative w-full"}>
             <button onClick={nextClickHandler} className={"hidden lg:inline-block bg-[#F66B34] rounded-lg absolute left-0 top-[calc(50%-20px)] rotate-[270deg] size-10"}>
                 {/* <Image src={"/assets/icons/angle-left.svg"} alt={"angel icon"} width={24} height={24}/>s */}
                 <i className='cc-arrow-up text-2xl text-white'/>

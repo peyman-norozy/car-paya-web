@@ -3,22 +3,38 @@ import { HowWorksMockUpData } from "@/staticData/data";
 import PeriodicServiceUnderCard from "../cards/PeriodicServiceUnderCard";
 import HowWorks from "../HowWorks";
 import TopRepresentatives from "../TopRepresentatives/TopRepresentatives";
-
+import Image from "next/image";
+import assistance from "@/public/assets/images/assistance.jpg"
+import repair2 from "@/public/assets/images/repair2.jpg"
 const PeriodicServiceIndex = () => {
-    const periodicServiceUnderCardData ={
-        title: "سرویس دوره ای",
-        titleDescription: "(شامل ١٧ بخش مي‌باشد كه كاربر بنا به نیاز خود نسبت به انتخاب خدمات اقدام مي‌نمايد)",
-        options: [
-          "تعویض روغن موتور",
-          "تعویض فیلتر هوا",
-          "تعویض فیلتر روغن",
-          "تعویض فیلتر کابین",
-        ],
-      };
     return ( 
-        <div className={"flex flex-col gap-8 md:gap-20"}>
-          <PeriodicServiceUnderCard key={1} item={periodicServiceUnderCardData} />
-          <div className="bg-[#e0e0e0] p-6 flex-col gap-6 items-center flex rounded-10">
+        <div className={"flex flex-col gap-4 lg:gap-10"}>
+          <div className="flex flex-col gap-4">
+            <PeriodicServiceUnderCard />
+            <div className="flex flex-col min-[1440px]:flex-row gap-4">
+              <div className="bg-[#E7E7E7] flex flex-1 gap-4 rounded-2xl min-[580px]:p-3 cursor-pointer relative max-h-[200px] overflow-hidden">
+                <Image src={repair2} className="w-full min-[580px]:w-48 h-auto rounded-xl aspect-[200/130] absolute min-[580px]:static blur-sm min-[580px]:blur-0 brightness-75 min-[580px]:brightness-100"/>
+                <div className={"flex flex-col gap-3 items-start min-[580px]:p-0 p-3 min-[580px]:w-full z-[2]"}>
+                  <span className="text-center md:text-right w-full text-18 md:text-[20px] font-medium md:font-bold text-white min-[580px]:text-black">خدمات در نمایندگی</span>
+                  <span className={"text-12 font-medium text-[#FEFEFE] min-[580px]:text-[#47505D] font-outline"}>
+                  لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است.
+                  </span>
+                <button className="px-4 py-2 rounded-lg bg-[#F66B34] text-white text-14">ثبت درخواست خدمات</button>
+                </div>
+              </div>
+              <div className="bg-[#E7E7E7] flex flex-1 gap-4 rounded-2xl min-[580px]:p-3 cursor-pointer relative max-h-[200px] overflow-hidden">
+                <Image src={assistance} className="w-full min-[580px]:w-48 h-auto rounded-xl aspect-[200/130] absolute min-[580px]:static blur-sm min-[580px]:blur-0 brightness-75 min-[580px]:brightness-100"/>
+                <div className={"flex flex-col gap-3 items-start min-[580px]:p-0 p-3 min-[580px]:w-full z-[2]"}>
+                  <span className="text-center md:text-right w-full text-18 md:text-[20px] font-medium md:font-bold text-white min-[580px]:text-black">خدمات در محل</span>
+                  <span className={"text-12 font-medium text-[#FEFEFE] min-[580px]:text-[#47505D] "}>
+                  لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است.
+                  </span>
+                <button className="px-4 py-2 rounded-lg bg-[#F66B34] text-white text-14">ثبت درخواست خدمات</button>
+                </div>
+              </div>
+            </div> 
+          </div>
+          <div className="bg-[#E7E7E7] p-6 flex-col gap-6 items-center flex rounded-10">
             <span className="text-[#2C5D83] font-medium md:font-bold text-[22px] md:text-[28px] text-center">مشاوره و ثبت تماس تلفنی</span>
             <div className="flex gap-1 items-center">
               <i className="cc-call text-[20px]"/>
