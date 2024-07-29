@@ -2,10 +2,14 @@
 import Link from "next/link";
 import Button from "../Button";
 import Image from "next/image";
+import useSetQuery from "@/hook/useSetQuery";
 
 const DealershipCard = (props) => {
   const servics = ["تعویض روغن موتور","تعویض فیلتر روغن","تعویض فیلتر هوا","تعویض روغن هیدرولیک","تعویض فیلتر هوای کابین","تعویض فیلتر گیربکس اتومات","تعویض روغن گیربکس اتومات","تعویض روغن گیربکس دستی","تعویض لنت","روغن ترمز","ضد یخ","مکمل و اکتان","باتری","تنظیم باد","اپارات","دیاگ ماشین","چکاپ ماشین"]
-
+  const setQuery = useSetQuery()
+  function buttonClickHandler() {
+    setQuery.updateQueryParams({"agent_id":props.data.id},"/periodic-service/service-selection")
+  }
     return ( 
         <li
       className={
@@ -53,15 +57,16 @@ const DealershipCard = (props) => {
             ))}
           </ul>
           <div className={" justify-end size1142:flex hidden"}>
-            <Link href={"/periodic-service/service-selection"}>
+            {/* <Link href={"/periodic-service/service-selection"}> */}
               <Button
                 class_name={
                   "bg-[#F66B34] text-white w-[160px] h-[40px] font-[14px] rounded-[8px]"
                 }
+                on_click = {buttonClickHandler}
               >
                 انتخاب خدمات
               </Button>
-            </Link>
+            {/* </Link> */}
           </div>
         </div>
       </div>
