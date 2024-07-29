@@ -125,6 +125,11 @@ li {
     scrollbar-width: none;
 }
 
+/********************* hide leaflet logo ***********************/
+
+.leaflet-control-attribution{
+    display: none;
+}
 
 /********************** discount_slider ************************/
 
