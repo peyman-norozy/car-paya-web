@@ -20,7 +20,16 @@ const CarSelectComponent = () => {
   const showHeaderData = useSelector((state) => state.todo.showHeader);
   const optionRef = useRef(null);
   const inputRef = useRef(null);
-  const pathName = usePathname();
+  const pathname = usePathname();
+
+  useEffect(() => {
+    if(pathname === "/" || pathname === "/periodic-service"){
+      setShowInvoice(true);
+    }else{
+      setShowInvoice(false);
+    }
+  }, [pathname]);
+
   useEffect(() => {
     getBrandData("car");
     const object = localStorage.getItem("selectedVehicle");
@@ -53,10 +62,6 @@ const CarSelectComponent = () => {
       setSelectedCity(JSON.parse(object).label);
     } else {
       setSelectedCity("");
-    }
-    console.log(pathName);
-    if(pathName === "/" || pathName === "/periodic-service"){
-      setShowInvoice(true);
     }
   }, []);
 
@@ -189,7 +194,7 @@ const CarSelectComponent = () => {
                     </div>
                   )}
                 </div>
-                <div className="flex flex-col mt-[-10px] items-center">
+                <div className="flex flex-col mt-1 items-center">
                   <Image src={invoice} className="m-auto size-52 opacity-70" />
                   <span className="text-white">
                     در حال حاضر سرویسی انتخاب نکرده اید

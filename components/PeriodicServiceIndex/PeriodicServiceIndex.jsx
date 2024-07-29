@@ -7,7 +7,16 @@ import Image from "next/image";
 import assistance from "@/public/assets/images/assistance.jpg"
 import repair2 from "@/public/assets/images/repair2.jpg"
 import Link from "next/link";
+import { useEffect } from "react";
 const PeriodicServiceIndex = () => {
+  
+  useEffect(()=>{
+    if (localStorage.getItem("selectedVehicle")) {
+      
+    }
+    JSON.parse(localStorage.getItem("selectedVehicle"))
+  },[])
+
     return ( 
         <div className={"flex flex-col gap-4 lg:gap-10"}>
           <div className="flex flex-col gap-4">
