@@ -261,10 +261,12 @@ const CarSelectComponent = () => {
                   </div>
                 </div>
                 <hr />
-                <button className="bg-[#F66B34] rounded-md flex justify-between py-2 px-4">
-                  <span className="text-white font-semibold ">تکمیل سفارش</span>
-                  <span className="text-white font-semibold ">6.000.000 تومان</span>
-                </button>
+                {/* <button className="bg-[#F66B34] rounded-md flex justify-between py-2 px-4"> */}
+                <div className="flex justify-between">
+                  <span className="text-white font-bold text-18">مجموع سفارش</span>
+                  <span className="text-white font-bold text-18">6.000.000 تومان</span>
+                </div>
+                {/* </button> */}
               </div>
             )}
           </div>

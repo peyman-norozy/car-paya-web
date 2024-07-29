@@ -55,7 +55,7 @@ const useSetQuery = () => {
   }, []);
 
   const updateQueryParams = useCallback(
-    (newParams) => {
+    (newParams , newPathname) => {
       const currentParams = new URLSearchParams(searchParams);
 
       // Add new parameters to the current params
@@ -67,7 +67,7 @@ const useSetQuery = () => {
       const queryString = currentParams.toString();
 
       // Push the updated URL with new query parameters
-      router.push(`${pathname}?${queryString}`, { shallow: true });
+      router.push(`${newPathname?newPathname:pathname}?${queryString}`, { shallow: true });
     },
     [pathname, router, searchParams],
   );

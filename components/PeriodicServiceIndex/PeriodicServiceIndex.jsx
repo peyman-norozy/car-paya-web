@@ -8,14 +8,24 @@ import assistance from "@/public/assets/images/assistance.jpg"
 import repair2 from "@/public/assets/images/repair2.jpg"
 import Link from "next/link";
 import { useEffect } from "react";
-const PeriodicServiceIndex = () => {
-  
-  useEffect(()=>{
-    if (localStorage.getItem("selectedVehicle")) {
+import { useRouter } from "next/navigation";
+const PeriodicServiceIndex = (props) => {
+  console.log("ojr;ogbrogoregerngoiregoergnirbergfjk");
+  const router = useRouter()
+  // useEffect(()=>{
+  //   if (localStorage.getItem("selectedVehicle")) {
       
+  //   }
+  //   JSON.parse(localStorage.getItem("selectedVehicle"))
+  // },[])
+
+  function fixedServiceClickHandler() {
+    const selectedVehicle =localStorage.getItem("selectedVehicle")
+    const city =localStorage.getItem("city")
+    if (selectedVehicle&&city) {
+      router.push(`/periodic-service/dealership?type=FIXED&city_id=${JSON.parse(city).cityid}&vehicle_tip_id=${JSON.parse(selectedVehicle).id}`)
     }
-    JSON.parse(localStorage.getItem("selectedVehicle"))
-  },[])
+  }
 
     return ( 
         <div className={"flex flex-col gap-4 lg:gap-10"}>
@@ -29,7 +39,7 @@ const PeriodicServiceIndex = () => {
                   <span className={"text-12 font-medium text-[#FEFEFE] min-[580px]:text-[#47505D] font-outline"}>
                   لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است.
                   </span>
-                <Link href={"/periodic-service/dealership"} className="px-4 py-2 rounded-lg bg-[#F66B34] text-white text-14">ثبت درخواست خدمات</Link>
+                  <button className="px-4 py-2 rounded-lg bg-[#F66B34] text-white text-14" onClick={fixedServiceClickHandler}>ثبت درخواست خدمات</button>
                 </div>
               </div>
               <div className="bg-[#E7E7E7] flex flex-1 gap-4 rounded-2xl min-[580px]:p-3 cursor-pointer relative max-h-[200px] overflow-hidden">
