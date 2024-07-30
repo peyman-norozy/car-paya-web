@@ -10,11 +10,13 @@ import UserPanelAttribute from "@/components/UserPanelAttribute";
 import { setShowHeader } from "@/store/todoSlice";
 import CardPay from "@/components/CardPay";
 import Image from "next/image";
+import CityModal from "@/components/CityModal/CityModal";
 const DesktopHeader = (props) => {
   const [lastScrollY, setLastScrollY] = useState(0);
   const loginState = useSelector((state) => state.todo.loginState);
   const showHeaderData = useSelector((state) => state.todo.showHeader);
   const [newLoginState, setNewLoginState] = useState(false);
+  const [isModalOpen, setModalOpen] = useState(false);
   const router = useRouter();
   const dispatch = useDispatch();
   const accontRef = useRef();
@@ -35,6 +37,10 @@ const DesktopHeader = (props) => {
       }
       setLastScrollY(window.scrollY);
     }
+  };
+
+  const toggleModal = () => {
+    setModalOpen(!isModalOpen);
   };
 
   useEffect(() => {
@@ -72,6 +78,15 @@ const DesktopHeader = (props) => {
           />
         </div>
         <div className="flex items-center gap-6">
+          <div
+            className={
+              "bg-[#d1d5db] py-2 px-2 rounded-5 cursor-pointer flex items-center justify-between gap-2"
+            }
+            onClick={toggleModal}
+          >
+            <span className={"inline-block w-fit text-14"}>تهران</span>
+            <i className={"cc-arrow-down"} />
+          </div>
           <i className="cc-wallet text-2xl text-[#FEFEFE]" />
           <div className="bg-[#F66B3429] flex items-center px-4 py-2 gap-2 rounded-[4px]">
             <i className="cc-wallet text-2xl text-[#F66B34]" />
@@ -98,6 +113,7 @@ const DesktopHeader = (props) => {
           )}
         </div>
       </div>
+      <CityModal isOpen={isModalOpen} onClose={toggleModal} />
     </header>
   );
 };
