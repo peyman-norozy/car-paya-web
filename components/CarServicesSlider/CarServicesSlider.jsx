@@ -7,7 +7,7 @@ import { useSelector } from "react-redux";
 
 const CarServicesSlider = (props) => {
   const pathname = usePathname();
-  console.log(pathname);
+  // console.log(pathname);
   const [isClicked, setIsClicked] = useState(pathname);
   const [carServicesShow, setCarServicesShow] = useState(false);
   const showHeaderData = useSelector((state) => state.todo.showHeader);
