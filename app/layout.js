@@ -41,6 +41,7 @@ export default function RootLayout({ children }) {
             speed={2000}
           />
           <MainLayout>{children}</MainLayout>
+          <div id="modal-root"></div>
         </body>
       </html>
     </Providers>
