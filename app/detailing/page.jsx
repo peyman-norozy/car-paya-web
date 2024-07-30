@@ -1,5 +1,5 @@
 import React from "react";
-import DetailingCard from "@/components/cards/DetailingCard/DetailingCard";
+import ServicesCard from "@/components/cards/ServicesCard/ServicesCard";
 
 let fakeArray = [0, 0, 0, 0, 0, 0, 0];
 
@@ -12,7 +12,7 @@ const Page = () => {
       <section className={"lg:w-[calc(100%-424px)] w-full mr-auto"}>
         <ul className={"lg:mt-16 mt-[20px] flex flex-col gap-[24px]"}>
           {fakeArray.map((item, index) => (
-            <DetailingCard key={index} />
+            <ServicesCard key={index} />
           ))}
         </ul>
       </section>
