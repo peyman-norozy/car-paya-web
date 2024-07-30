@@ -18,9 +18,9 @@ function DisplayPosition(props) {
       lat: lat,
       lon: lon,
     });
-    props.setItarateMapData(fetchData3.data);
+    props.setItarateMapData&&props.setItarateMapData(fetchData3.data);
     console.log(mapLocation);
-    props.setMapPosition(mapLocation);
+    props.setMapPosition&&props.setMapPosition(mapLocation);
   }, [props, map]);
 
   useEffect(() => {

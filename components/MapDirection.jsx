@@ -76,7 +76,7 @@ const MapDirection = (props) => {
           {/*<TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"/>*/}
           {/*<SetViewOnClick animateRef={animateRef} />*/}
           {props.justShowPosition && (
-            <Marker position={[35.771726, 51.557294]}>
+            <Marker position={position}>
               <Popup>{/*<span>This is marker 2!</span>*/}</Popup>
             </Marker>
           )}
