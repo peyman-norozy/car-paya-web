@@ -8,7 +8,7 @@ import DetailingResponsiveButton from "@/components/DetailingResponsiveButton/De
 
 const fakeData = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
-const DetailingCard = () => {
+const ServicesCard = () => {
   const [morDetail, setMorDetail] = useState(false);
 
   const moreClickHandler = () => {
@@ -114,4 +114,4 @@ const DetailingCard = () => {
   );
 };
 
-export default DetailingCard;
+export default ServicesCard;
