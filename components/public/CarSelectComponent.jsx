@@ -6,6 +6,8 @@ import { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import invoice from "@/public/assets/images/invoice.png";
 import { usePathname } from "next/navigation";
+import { getData, postData } from "@/utils/client-api-function-utils";
+import { numberWithCommas } from "@/utils/function-utils";
 const CarSelectComponent = () => {
   const [vehicleType, setVehicleType] = useState("car");
   const [level, setLevel] = useState(1);
@@ -17,11 +19,18 @@ const CarSelectComponent = () => {
   const [optionState, setOptionState] = useState(false);
   const [selectedCity, setSelectedCity] = useState({});
   const [showInvoice , setShowInvoice] = useState(false)
+  const [invoiceData, setInvoiceData] = useState([])
   const showHeaderData = useSelector((state) => state.todo.showHeader);
+  const renderInvoice = useSelector((state) => state.todo.renderInvoice);
   const optionRef = useRef(null);
   const inputRef = useRef(null);
   const pathname = usePathname();
 
+  useEffect(()=>{
+    getInvoiceData()
+  },[renderInvoice])
+
+  
   useEffect(() => {
     if(pathname === "/" || pathname === "/periodic-service"){
       setShowInvoice(true);
@@ -29,7 +38,7 @@ const CarSelectComponent = () => {
       setShowInvoice(false);
     }
   }, [pathname]);
-
+  
   useEffect(() => {
     getBrandData("car");
     const object = localStorage.getItem("selectedVehicle");
@@ -41,14 +50,14 @@ const CarSelectComponent = () => {
 
   useEffect(() => {
     axios
-      .get(process.env.BASE_API + "/web/geo/province-cities")
-      .then((res) => {
-        if (res.data.status === "success") {
-          setProvienceCity(res.data.data);
-          setSearchCity(res.data.data);
-        }
-      })
-      .catch((err) => console.log(err));
+    .get(process.env.BASE_API + "/web/geo/province-cities")
+    .then((res) => {
+      if (res.data.status === "success") {
+        setProvienceCity(res.data.data);
+        setSearchCity(res.data.data);
+      }
+    })
+    .catch((err) => console.log(err));
     document.addEventListener("click", (e) => {
       if (
         e.target.parentElement !== optionRef.current &&
@@ -64,6 +73,17 @@ const CarSelectComponent = () => {
       setSelectedCity("");
     }
   }, []);
+  
+  async function getInvoiceData() {
+    const data = await getData("/web/cart")
+    setInvoiceData(data.data.data)
+    console.log(data.data.data);
+  }
+
+  async function removeClickHandler(id) {
+    const data = await postData("/web/cart/remove",{"product_id": id})
+    setInvoiceData(data.data.data)
+  }
 
   function vehicleTypeFetch(model) {
     setVehicleType(model);
@@ -203,54 +223,23 @@ const CarSelectComponent = () => {
               </>
             ) : (
               <div className="flex flex-col gap-4">
-                <div className="flex flex-col gap-3 h-[196px] overflow-y-scroll">
+                <div className="flex flex-col gap-3 h-[292px] overflow-y-scroll">
+                  {invoiceData.cart_items&&invoiceData.cart_items.map((item)=>(
                   <div className="flex flex-col px-3 py-2 bg-[#888888] rounded-lg">
                     <div className="flex justify-between">
-                      <span className="font-bold text-[#FEFEFE]">فیلتر هوا کاسپین</span>
-                      <div className="bg-[#FEFEFE] rounded-full size-5 text-[#888888] font-bold pr-[5px]">X</div>
+                      <span className="font-bold text-[#FEFEFE]">{item.product.name}</span>
+                      <div className="bg-[#FEFEFE] rounded-full size-5 text-[#888888] font-bold pr-[5px] cursor-pointer" onClick={()=>{removeClickHandler(item.product.id)}}>X</div>
                     </div>
                     <div className="flex justify-start gap-2 items-center">
-                      <span className="text-[#B0B0B0] line-through text-12 ">4.000.000 تومان</span>
+                      <span className="text-[#ececec] line-through text-12 ">{numberWithCommas(item.product.price)} تومان</span>
                       <span className={"size-1 bg-[#B0B0B0] rounded-full "}></span>
-                      <span className="text-[#FEFEFE] text-14 font-bold">3.000.000 تومان</span>
+                      <span className="text-[#FEFEFE] text-14 font-bold">{numberWithCommas(item.product.discounted_price)} تومان</span>
                     </div>
                   </div>
-                  <div className="flex flex-col px-3 py-2 bg-[#888888] rounded-lg">
-                    <div className="flex justify-between">
-                      <span className="font-bold text-[#FEFEFE]">فیلتر هوا کاسپین</span>
-                      <div className="bg-[#FEFEFE] rounded-full size-5 text-[#888888] font-bold pr-[5px]">X</div>
-                    </div>
-                    <div className="flex justify-start gap-2 items-center">
-                      <span className="text-[#B0B0B0] line-through text-12 ">4.000.000 تومان</span>
-                      <span className={"size-1 bg-[#B0B0B0] rounded-full "}></span>
-                      <span className="text-[#FEFEFE] text-14 font-bold">3.000.000 تومان</span>
-                    </div>
-                  </div>
-                  <div className="flex flex-col px-3 py-2 bg-[#888888] rounded-lg">
-                    <div className="flex justify-between">
-                      <span className="font-bold text-[#FEFEFE]">فیلتر هوا کاسپین</span>
-                      <div className="bg-[#FEFEFE] rounded-full size-5 text-[#888888] font-bold pr-[5px]">X</div>
-                    </div>
-                    <div className="flex justify-start gap-2 items-center">
-                      <span className="text-[#B0B0B0] line-through text-12 ">4.000.000 تومان</span>
-                      <span className={"size-1 bg-[#B0B0B0] rounded-full "}></span>
-                      <span className="text-[#FEFEFE] text-14 font-bold">3.000.000 تومان</span>
-                    </div>
-                  </div>
-                  <div className="flex flex-col px-3 py-2 bg-[#888888] rounded-lg">
-                    <div className="flex justify-between">
-                      <span className="font-bold text-[#FEFEFE]">فیلتر هوا کاسپین</span>
-                      <div className="bg-[#FEFEFE] rounded-full size-5 text-[#888888] font-bold pr-[5px]">X</div>
-                    </div>
-                    <div className="flex justify-start gap-2 items-center">
-                      <span className="text-[#B0B0B0] line-through text-12 ">4.000.000 تومان</span>
-                      <span className={"size-1 bg-[#B0B0B0] rounded-full "}></span>
-                      <span className="text-[#FEFEFE] text-14 font-bold">3.000.000 تومان</span>
-                    </div>
-                  </div>
+                  ))}
                 </div>
                 <hr />
-                <div className="flex flex-col gap-2">
+                {/* <div className="flex flex-col gap-2">
                   <div className="text-[#fefefe] flex justify-between">
                     <span className="text-14 font-bold">دستمزد</span>
                     <span className="font-bold text-14">200.000 تومان</span>
@@ -260,11 +249,11 @@ const CarSelectComponent = () => {
                     <span className="font-bold text-14">450.000 تومان</span>
                   </div>
                 </div>
-                <hr />
+                <hr /> */}
                 {/* <button className="bg-[#F66B34] rounded-md flex justify-between py-2 px-4"> */}
                 <div className="flex justify-between">
                   <span className="text-white font-bold text-18">مجموع سفارش</span>
-                  <span className="text-white font-bold text-18">6.000.000 تومان</span>
+                  <span className="text-white font-bold text-18">{numberWithCommas(invoiceData.price_total)} تومان</span>
                 </div>
                 {/* </button> */}
               </div>
