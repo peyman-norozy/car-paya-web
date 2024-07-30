@@ -68,7 +68,7 @@ const BatteriesData = async (props) => {
 const Batteries = (props) => {
   return (
     <Suspense fallback={<div>....Loading</div>}>
-      <BatteriesData filter={props.searchParams} />;
+      <BatteriesData filter={props.searchParams} />
     </Suspense>
   );
 };
