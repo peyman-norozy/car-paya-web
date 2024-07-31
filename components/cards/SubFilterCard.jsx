@@ -4,8 +4,10 @@ import useSetQuery from "@/hook/useSetQuery";
 
 const SubFilterCard = (props) => {
   const setQuery = useSetQuery();
-  const clickAmpFilterHandler = () => {
+  const clickAmpFilterHandler = (event) => {
     console.log(props.filterId);
+    props.setFilter(event.target.innerText);
+
     setQuery.setQuery(
       props.filterId === "getAmp" ? "amp" : "brand",
       props.item.value,

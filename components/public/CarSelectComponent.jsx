@@ -6,6 +6,7 @@ import { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import invoice from "@/public/assets/images/invoice.png";
 import { usePathname } from "next/navigation";
+import useSetQuery from "@/hook/useSetQuery";
 const CarSelectComponent = () => {
   const [vehicleType, setVehicleType] = useState("car");
   const [level, setLevel] = useState(1);
@@ -16,16 +17,17 @@ const CarSelectComponent = () => {
   const [searchCity, setSearchCity] = useState([]);
   const [optionState, setOptionState] = useState(false);
   const [selectedCity, setSelectedCity] = useState({});
-  const [showInvoice , setShowInvoice] = useState(false)
+  const [showInvoice, setShowInvoice] = useState(false);
   const showHeaderData = useSelector((state) => state.todo.showHeader);
   const optionRef = useRef(null);
   const inputRef = useRef(null);
   const pathname = usePathname();
+  const setQuery = useSetQuery();
 
   useEffect(() => {
-    if(pathname === "/" || pathname === "/periodic-service"){
+    if (pathname === "/" || pathname === "/periodic-service") {
       setShowInvoice(true);
-    }else{
+    } else {
       setShowInvoice(false);
     }
   }, [pathname]);
@@ -96,13 +98,14 @@ const CarSelectComponent = () => {
         .then((res) => {
           console.log(res.status === 200);
           if (res.status === 200) {
+            setQuery.updateQueryParams({ selectTipState: `true,${id}` }, "");
             localStorage.setItem(
               "selectedVehicle",
               JSON.stringify({
                 id: item.id,
                 title: item.title,
                 image: item.image,
-              })
+              }),
             );
             setCarSelected(true);
           }
@@ -173,12 +176,12 @@ const CarSelectComponent = () => {
                     ref={inputRef}
                   />
                   {optionState && (
-                    <div className="absolute w-[calc(100%-32px)] overflow-y-scroll bg-[#FEFEFE] rounded-b-lg top-[76px]">
+                    <div className="absolute w-[calc(100%-32px)] overflow-y-scroll bg-[#FEFEFE] rounded-b-lg top-[76px] z-[2]">
                       <div
                         className="max-h-[200px] flex flex-col"
                         ref={optionRef}
                       >
-                        {searchCity.map((item,index) => (
+                        {searchCity.map((item, index) => (
                           <span
                             className="cursor-pointer hover:bg-slate-200 py-1 px-2"
                             value={item.id}
@@ -206,46 +209,86 @@ const CarSelectComponent = () => {
                 <div className="flex flex-col gap-3 h-[196px] overflow-y-scroll">
                   <div className="flex flex-col px-3 py-2 bg-[#888888] rounded-lg">
                     <div className="flex justify-between">
-                      <span className="font-bold text-[#FEFEFE]">فیلتر هوا کاسپین</span>
-                      <div className="bg-[#FEFEFE] rounded-full size-5 text-[#888888] font-bold pr-[5px]">X</div>
+                      <span className="font-bold text-[#FEFEFE]">
+                        فیلتر هوا کاسپین
+                      </span>
+                      <div className="bg-[#FEFEFE] rounded-full size-5 text-[#888888] font-bold pr-[5px]">
+                        X
+                      </div>
                     </div>
                     <div className="flex justify-start gap-2 items-center">
-                      <span className="text-[#B0B0B0] line-through text-12 ">4.000.000 تومان</span>
-                      <span className={"size-1 bg-[#B0B0B0] rounded-full "}></span>
-                      <span className="text-[#FEFEFE] text-14 font-bold">3.000.000 تومان</span>
+                      <span className="text-[#B0B0B0] line-through text-12 ">
+                        4.000.000 تومان
+                      </span>
+                      <span
+                        className={"size-1 bg-[#B0B0B0] rounded-full "}
+                      ></span>
+                      <span className="text-[#FEFEFE] text-14 font-bold">
+                        3.000.000 تومان
+                      </span>
                     </div>
                   </div>
                   <div className="flex flex-col px-3 py-2 bg-[#888888] rounded-lg">
                     <div className="flex justify-between">
-                      <span className="font-bold text-[#FEFEFE]">فیلتر هوا کاسپین</span>
-                      <div className="bg-[#FEFEFE] rounded-full size-5 text-[#888888] font-bold pr-[5px]">X</div>
+                      <span className="font-bold text-[#FEFEFE]">
+                        فیلتر هوا کاسپین
+                      </span>
+                      <div className="bg-[#FEFEFE] rounded-full size-5 text-[#888888] font-bold pr-[5px]">
+                        X
+                      </div>
                     </div>
                     <div className="flex justify-start gap-2 items-center">
-                      <span className="text-[#B0B0B0] line-through text-12 ">4.000.000 تومان</span>
-                      <span className={"size-1 bg-[#B0B0B0] rounded-full "}></span>
-                      <span className="text-[#FEFEFE] text-14 font-bold">3.000.000 تومان</span>
+                      <span className="text-[#B0B0B0] line-through text-12 ">
+                        4.000.000 تومان
+                      </span>
+                      <span
+                        className={"size-1 bg-[#B0B0B0] rounded-full "}
+                      ></span>
+                      <span className="text-[#FEFEFE] text-14 font-bold">
+                        3.000.000 تومان
+                      </span>
                     </div>
                   </div>
                   <div className="flex flex-col px-3 py-2 bg-[#888888] rounded-lg">
                     <div className="flex justify-between">
-                      <span className="font-bold text-[#FEFEFE]">فیلتر هوا کاسپین</span>
-                      <div className="bg-[#FEFEFE] rounded-full size-5 text-[#888888] font-bold pr-[5px]">X</div>
+                      <span className="font-bold text-[#FEFEFE]">
+                        فیلتر هوا کاسپین
+                      </span>
+                      <div className="bg-[#FEFEFE] rounded-full size-5 text-[#888888] font-bold pr-[5px]">
+                        X
+                      </div>
                     </div>
                     <div className="flex justify-start gap-2 items-center">
-                      <span className="text-[#B0B0B0] line-through text-12 ">4.000.000 تومان</span>
-                      <span className={"size-1 bg-[#B0B0B0] rounded-full "}></span>
-                      <span className="text-[#FEFEFE] text-14 font-bold">3.000.000 تومان</span>
+                      <span className="text-[#B0B0B0] line-through text-12 ">
+                        4.000.000 تومان
+                      </span>
+                      <span
+                        className={"size-1 bg-[#B0B0B0] rounded-full "}
+                      ></span>
+                      <span className="text-[#FEFEFE] text-14 font-bold">
+                        3.000.000 تومان
+                      </span>
                     </div>
                   </div>
                   <div className="flex flex-col px-3 py-2 bg-[#888888] rounded-lg">
                     <div className="flex justify-between">
-                      <span className="font-bold text-[#FEFEFE]">فیلتر هوا کاسپین</span>
-                      <div className="bg-[#FEFEFE] rounded-full size-5 text-[#888888] font-bold pr-[5px]">X</div>
+                      <span className="font-bold text-[#FEFEFE]">
+                        فیلتر هوا کاسپین
+                      </span>
+                      <div className="bg-[#FEFEFE] rounded-full size-5 text-[#888888] font-bold pr-[5px]">
+                        X
+                      </div>
                     </div>
                     <div className="flex justify-start gap-2 items-center">
-                      <span className="text-[#B0B0B0] line-through text-12 ">4.000.000 تومان</span>
-                      <span className={"size-1 bg-[#B0B0B0] rounded-full "}></span>
-                      <span className="text-[#FEFEFE] text-14 font-bold">3.000.000 تومان</span>
+                      <span className="text-[#B0B0B0] line-through text-12 ">
+                        4.000.000 تومان
+                      </span>
+                      <span
+                        className={"size-1 bg-[#B0B0B0] rounded-full "}
+                      ></span>
+                      <span className="text-[#FEFEFE] text-14 font-bold">
+                        3.000.000 تومان
+                      </span>
                     </div>
                   </div>
                 </div>
@@ -263,8 +306,12 @@ const CarSelectComponent = () => {
                 <hr />
                 {/* <button className="bg-[#F66B34] rounded-md flex justify-between py-2 px-4"> */}
                 <div className="flex justify-between">
-                  <span className="text-white font-bold text-18">مجموع سفارش</span>
-                  <span className="text-white font-bold text-18">6.000.000 تومان</span>
+                  <span className="text-white font-bold text-18">
+                    مجموع سفارش
+                  </span>
+                  <span className="text-white font-bold text-18">
+                    6.000.000 تومان
+                  </span>
                 </div>
                 {/* </button> */}
               </div>

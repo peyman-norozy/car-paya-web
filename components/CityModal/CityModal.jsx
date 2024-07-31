@@ -1,11 +1,19 @@
 "use client";
-import React, { useEffect } from "react";
+import React, { useCallback, useEffect } from "react";
 import Portal from "@/components/Portal/Portal";
 import Image from "next/image";
+import useSetQuery from "@/hook/useSetQuery";
+import { useDispatch } from "react-redux";
+import { setCityModalState } from "@/store/todoSlice";
 
-const fakeData = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+const fakeData = [
+  { city: "تهران", id: 87 },
+  { city: "آذربایجان شرقی-جلفا", id: 7 },
+];
 
 const CityModal = ({ isOpen, onClose }) => {
+  const setQuery = useSetQuery();
+  const dispatch = useDispatch();
   useEffect(() => {
     if (isOpen) {
       // Disable scrolling by setting overflow hidden on body
@@ -20,6 +28,12 @@ const CityModal = ({ isOpen, onClose }) => {
       document.body.style.overflow = "unset";
     };
   }, [isOpen]);
+
+  const cityClickHandler = (id, city) => {
+    setQuery.updateQueryParams({ selectTipState: `true,${id}` }, "");
+    localStorage.setItem("city", JSON.stringify({ label: city, cityId: id }));
+    dispatch(setCityModalState(false));
+  };
 
   // if (!isOpen) return null;
 
@@ -60,13 +74,16 @@ const CityModal = ({ isOpen, onClose }) => {
             </div>
             <span className={"font-semibold text-16"}>ایران</span>
           </div>
-          <ul className={"flex gap-2 mt-4 flex-wrap"}>
+          <ul className={"flex gap-2 mt-4"}>
             {fakeData.map((item, index) => (
               <li
                 key={index}
-                className={"min-w-[100px] h-[100px] bg-stone-400 flex-1"}
+                className={
+                  "min-w-[100px] h-[100px] bg-stone-400 flex justify-center items-center rounded-5 cursor-pointer p-2"
+                }
+                onClick={() => cityClickHandler(item.id, item.city)}
               >
-                aaa
+                {item.city}
               </li>
             ))}
           </ul>

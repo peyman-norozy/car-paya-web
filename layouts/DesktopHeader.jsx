@@ -7,7 +7,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import useClickOutside from "@/hook/useClickOutside";
 import NavigationBar from "@/components/NavigationBar";
 import UserPanelAttribute from "@/components/UserPanelAttribute";
-import { setShowHeader } from "@/store/todoSlice";
+import { setCityModalState, setShowHeader } from "@/store/todoSlice";
 import CardPay from "@/components/CardPay";
 import Image from "next/image";
 import CityModal from "@/components/CityModal/CityModal";
@@ -16,11 +16,11 @@ const DesktopHeader = (props) => {
   const loginState = useSelector((state) => state.todo.loginState);
   const showHeaderData = useSelector((state) => state.todo.showHeader);
   const [newLoginState, setNewLoginState] = useState(false);
-  const [isModalOpen, setModalOpen] = useState(false);
   const router = useRouter();
   const dispatch = useDispatch();
   const accontRef = useRef();
   const close = useCallback(() => setNewLoginState(false), []);
+  const cityModalState = useSelector((state) => state.todo.cityModalState);
   useClickOutside(accontRef, close);
   const accountClickHandler = () => {
     setNewLoginState((prevState) => !prevState);
@@ -40,7 +40,7 @@ const DesktopHeader = (props) => {
   };
 
   const toggleModal = () => {
-    setModalOpen(!isModalOpen);
+    dispatch(setCityModalState(!cityModalState));
   };
 
   useEffect(() => {
@@ -113,7 +113,7 @@ const DesktopHeader = (props) => {
           )}
         </div>
       </div>
-      <CityModal isOpen={isModalOpen} onClose={toggleModal} />
+      <CityModal isOpen={cityModalState} onClose={toggleModal} />
     </header>
   );
 };

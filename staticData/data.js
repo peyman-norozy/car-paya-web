@@ -227,7 +227,7 @@ export const panelTabData = [
   {
     imgSrc: "/assets/icons/location.svg",
     title: "آدرس های تحویل کالا",
-    alt: "product address file icon",
+    alt: "products address file icon",
     id: "productAddress",
   },
   {

@@ -49,16 +49,6 @@ const PurchaseBatteryModal = (props) => {
     },
   ]);
 
-  // const amperSelectData = [
-  //   { title: "۳۰ آمپر", id: 30 },
-  //   { title: "۴۰ آمپر", id: 40 },
-  //   { title: "۶۰ آمپر", id: 60 },
-  //   { title: "۷۰ آمپر", id: 70 },
-  //   { title: "۸۰ آمپر", id: 80 },
-  //   { title: "۹۰ آمپر", id: 90 },
-  //   { title: "۱۰۰ آمپر", id: 100 },
-  // ];
-
   const selectOptionHandler = (index, totalPrice, productId, id) => {
     setIsSelected(index);
     console.log(totalPrice, productId, id);
@@ -84,10 +74,12 @@ const PurchaseBatteryModal = (props) => {
     setSelectedPrice(event.target.getAttribute("price"));
   };
 
+  console.log(props.searchParams);
+
   const clickSelectTimeHandler = () => {
     console.log(allParams.get("provience_city_id"));
     router.push(
-      `/batteries/timeSelector?privience_city_id=${allParams.get("provience_city_id")}`,
+      `/batteries/products/timeSelector?privience_city_id=${allParams.get("provience_city_id")}`,
     );
   };
 
@@ -100,7 +92,7 @@ const PurchaseBatteryModal = (props) => {
             product_id: batteriesData.id,
             type: "SWING_AMP",
             amp: cityId,
-            city_id: props.searchParams.provience_city_id,
+            city_id: JSON.parse(localStorage.getItem("city"))?.cityId,
           },
         );
         console.log(selectAmpBatteriesData);
@@ -168,7 +160,7 @@ const PurchaseBatteryModal = (props) => {
           {
             product_id: batteriesData.id,
             type: "NO_BATTERY",
-            city_id: props.searchParams.provience_city_id,
+            city_id: JSON.parse(localStorage.getItem("city"))?.cityId,
           },
         );
         console.log(getBatteriesData);
@@ -194,7 +186,7 @@ const PurchaseBatteryModal = (props) => {
             product_id: batteriesData.id,
             type: "SAME_AMP",
             amp: batteriesData.amp,
-            city_id: props.searchParams.provience_city_id,
+            city_id: JSON.parse(localStorage.getItem("city"))?.cityId,
           },
         );
         setNobatteriesData(getBatteriesData);
