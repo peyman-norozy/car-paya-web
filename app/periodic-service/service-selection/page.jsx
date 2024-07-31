@@ -1,6 +1,5 @@
-import Invoice from "@/components/periodic-service-components/Invoice";
 import SelectService from "@/components/serviceSelectionComponents/SelectService";
-import { getData, getDataWithFullErrorRes } from "@/utils/api-function-utils";
+import { getDataWithFullErrorRes } from "@/utils/api-function-utils";
 const serviceSelection = async (props) => {
     const data = await getDataWithFullErrorRes(`/web/service-periodical?step=step-2&type=${props.searchParams.type}&city_id=${props.searchParams.city_id}&vehicle_tip_id=${props.searchParams.vehicle_tip_id}&agent_id=${props.searchParams.agent_id}`);
     return ( 

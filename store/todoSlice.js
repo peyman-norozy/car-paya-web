@@ -11,6 +11,7 @@ const initialState = {
   vehicleData: [],
   batteriesData: {},
   showHeader: true,
+  renderInvoice: true,
   cityModalState: false,
 };
 
@@ -50,6 +51,8 @@ const todoSlice = createSlice({
     },
     setShowHeader(state, action) {
       state.showHeader = action.payload;
+    },renderInvoice(state) {
+      state.renderInvoice = !state.renderInvoice;
     },
     setCityModalState(state, action) {
       state.cityModalState = action.payload;
@@ -69,6 +72,7 @@ export const {
   setVehicleData,
   setBatteriesData,
   setShowHeader,
+  renderInvoice
   setCityModalState,
 } = todoSlice.actions;
 export default todoSlice;

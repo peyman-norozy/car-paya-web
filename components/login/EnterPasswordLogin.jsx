@@ -19,6 +19,11 @@ export default function EnterPasswordLogin(props) {
   const [forgotButtonState, setForgotButtonState] = useState(false);
   const [passwordError, setPasswordError] = useState("");
   const [passwordValue, setPasswordValue] = useState("");
+  const params = {...props.searchParams};
+  const baseUrl = params.backurl;
+  delete params.backurl;
+  const queryString = new URLSearchParams(params).toString();
+  const fullUrl = `${baseUrl}?${queryString}`;
   const router = useRouter();
   const dispatch = useDispatch();
   const phoneData = useSelector((item) => item.todo.loginOtpData);
@@ -67,7 +72,6 @@ export default function EnterPasswordLogin(props) {
               document.cookie = `Authorization=${
                 res.data.token
               };expires=${now.toUTCString()};path=/`;
-              router.push("/");
               dispatch(loginUser()).then((res) => console.log(res));
               (async () => {
                 const getProfileData = await getData(
@@ -79,6 +83,11 @@ export default function EnterPasswordLogin(props) {
                     "profileData",
                     JSON.stringify(getProfileData.data),
                   );
+                  if(props.searchParams){
+                    router.push(fullUrl)
+                  }else{
+                    router.push("/");
+                  }
                 }
               })();
             } else {
