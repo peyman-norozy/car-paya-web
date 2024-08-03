@@ -1,33 +1,33 @@
-'use client'
+"use client";
 import React, { useState } from "react";
 import Button from "@/components/Button";
 import MapDirection from "@/components/MapDirection";
 import DetailingDetailCard from "@/components/cards/DetailingDetailCard/DetailingDetailCard";
 import useSetQuery from "@/hook/useSetQuery";
 
-const NewAddressCard = ({status , item , nextUrl}) => {
-  const setQuery = useSetQuery()
+const NewAddressCard = ({ status, item, nextUrl }) => {
+  const setQuery = useSetQuery();
 
-  const fixedFakeData =[
-        "فیلتر روغن",
-        "فیلتر روغن",
-        "تعویض روغن گیر بکس دستی",
-        "فیلتر روغن",
-        "فیلتر روغن",
-        "فیلتر روغن",
-        "فیلتر روغن",
-        "فیلتر روغن",
-        "فیلتر روغن",
-        "فیلتر روغن",
-        "فیلتر روغن",
-        "فیلتر روغن",
-        "فیلتر روغن",
-        "فیلتر روغن",
-      ]
+  const fixedFakeData = [
+    "فیلتر روغن",
+    "فیلتر روغن",
+    "تعویض روغن گیر بکس دستی",
+    "فیلتر روغن",
+    "فیلتر روغن",
+    "فیلتر روغن",
+    "فیلتر روغن",
+    "فیلتر روغن",
+    "فیلتر روغن",
+    "فیلتر روغن",
+    "فیلتر روغن",
+    "فیلتر روغن",
+    "فیلتر روغن",
+    "فیلتر روغن",
+  ];
 
-      function onclick() {
-          setQuery.updateQueryParams({"agent_id":item.id},nextUrl)
-      }
+  function onclick() {
+    setQuery.updateQueryParams({ agent_id: item.id }, nextUrl);
+  }
 
   return (
     <li className={"bg-[#E7E7E7] p-4 rounded-[16px] flex gap-6"}>
@@ -52,10 +52,10 @@ const NewAddressCard = ({status , item , nextUrl}) => {
             <span className={"font-semibold"}>شهر:</span>
             <span>{item.city_name}</span>
           </div>
-          <div className={"flex gap-[11px]"}>
-            <span className={"font-semibold"}>محله:</span>
-            <span>{item.area_name}</span>
-          </div>
+          {/*<div className={"flex gap-[11px]"}>*/}
+          {/*  <span className={"font-semibold"}>محله:</span>*/}
+          {/*  <span>{item.area_name}</span>*/}
+          {/*</div>*/}
         </section>
         <section className={"flex"}>
           <p className={"leading-7 h-14"}>
@@ -65,7 +65,9 @@ const NewAddressCard = ({status , item , nextUrl}) => {
         </section>
         {status === "fixed" && (
           <ul
-            className={"flex flex-wrap gap-x-2 gap-y-4 mt-4 h-[96px] overflow-y-scroll"}
+            className={
+              "flex flex-wrap gap-x-2 gap-y-4 mt-4 h-[96px] overflow-y-scroll"
+            }
           >
             {fixedFakeData.map((item, index) => (
               <DetailingDetailCard key={index} item={item} />
@@ -73,7 +75,14 @@ const NewAddressCard = ({status , item , nextUrl}) => {
           </ul>
         )}
 
-        <button className={"bg-[#F66B34] w-[132px] h-[40px] text-[#FEFEFE] rounded-[8px] mt-4 "} onClick={()=>{onclick(item.id)}}>
+        <button
+          className={
+            "bg-[#F66B34] w-[132px] h-[40px] text-[#FEFEFE] rounded-[8px] mt-4 "
+          }
+          onClick={() => {
+            onclick(item.id);
+          }}
+        >
           تایید
         </button>
       </div>
