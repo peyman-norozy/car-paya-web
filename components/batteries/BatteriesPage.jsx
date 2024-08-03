@@ -1,28 +1,18 @@
 "use client";
 
-import SelectVehicleBox from "@/components/cards/SelectVehicleBox";
-import React, { Fragment, useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import arrow from "@/public/assets/icons/Arrow-Down.svg";
 import Image from "next/image";
-import BatteryCard from "@/components/cards/BatteryCard";
 import PurchaseBatteryModal from "@/components/PurchaseBatteryModal";
-import axios from "axios";
-import Spinner from "../Spinner";
-import CarServicesSlider from "@/components/CarServicesSlider/CarServicesSlider";
-import { serviceData } from "@/staticData/data";
+
 import useSetQuery from "@/hook/useSetQuery";
-import { getData, getDataWithFullErrorRes } from "@/utils/api-function-utils";
+import { getDataWithFullErrorRes } from "@/utils/api-function-utils";
 import SubFilterCard from "@/components/cards/SubFilterCard";
-import VerificationSecondStep from "@/components/VerificationSecondStep";
 import { ToastContainer } from "react-toastify";
 import BatteriesCard from "@/components/cards/BatteriesCard/BatteriesCard";
-import { router } from "next/client";
 import { useRouter } from "next/navigation";
-import { error } from "@/utils/function-utils";
 import { useDispatch } from "react-redux";
 import { setCityModalState } from "@/store/todoSlice";
-
-let fakeArray = [0, 0, 0, 0, 0, 0, 0];
 
 const BatteriesPage = (props) => {
   const query = useSetQuery();
