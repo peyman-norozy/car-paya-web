@@ -156,13 +156,14 @@ const BatteriesPage = (props) => {
           <div
             ref={filterRef}
             onClick={toggleFilterHandler}
-            className="bg-[#D9D9D9] rounded-[8px] py-[0.5rem] px-[1.5rem] flex items-center gap-[0.5rem] text-text_gray cursor-pointer relative"
+            className="bg-[#F66B34] rounded-[8px] py-[0.5rem] px-[1.5rem] flex items-center gap-[0.5rem] text-white cursor-pointer relative"
           >
-            <Image src={arrow} alt="" width={10} height={10} />
+            <i className={"cc-arrow-down text-[20px]"} />
+            {/*<Image src={arrow} alt={"arrow"} cl width={10} height={10} />*/}
             <p className="text-12">{filter}</p>
             <ul
               ref={heightRef}
-              className={`bg-[#D9D9D9] rounded-[8px] absolute  top-[2.2rem] right-0 left-0 text-12 overflow-hidden transition-all duration-500 z-[2]`}
+              className={`bg-[#F66B34] rounded-[8px] absolute  top-[2.2rem] right-0 left-0 text-12 overflow-hidden transition-all duration-500 z-[2]`}
               style={
                 filterISOpen
                   ? { height: `${heightRef.current.scrollHeight}px` }
@@ -171,7 +172,7 @@ const BatteriesPage = (props) => {
             >
               {filterData.map((item, index) => (
                 <li
-                  className="p-[0.5rem] w-full rounded-[8px] hover:bg-[#9d9d9d] flex items-center justify-between z-[2]"
+                  className="p-[0.5rem] w-full rounded-[8px]  hover:bg-[#ff9a71] flex items-center justify-between z-[2]"
                   key={index}
                   onMouseEnter={filterMouseEnter}
                   onMouseLeave={filterMouseLeave}
@@ -196,7 +197,7 @@ const BatteriesPage = (props) => {
                   top: topDistance === 0 ? "0" : topDistance - 145 + "px",
                 }}
               >
-                <ul className={`bg-[#D9D9D9] h-[250px] overflow-y-scroll`}>
+                <ul className={`bg-[#F66B34] h-[250px] overflow-y-scroll`}>
                   {props.filterData[filterId]?.map((item) => (
                     <SubFilterCard
                       key={item.value}
