@@ -11,11 +11,16 @@ import Spinner from "../Spinner";
 import CarServicesSlider from "@/components/CarServicesSlider/CarServicesSlider";
 import { serviceData } from "@/staticData/data";
 import useSetQuery from "@/hook/useSetQuery";
-import { getData } from "@/utils/api-function-utils";
+import { getData, getDataWithFullErrorRes } from "@/utils/api-function-utils";
 import SubFilterCard from "@/components/cards/SubFilterCard";
 import VerificationSecondStep from "@/components/VerificationSecondStep";
 import { ToastContainer } from "react-toastify";
 import BatteriesCard from "@/components/cards/BatteriesCard/BatteriesCard";
+import { router } from "next/client";
+import { useRouter } from "next/navigation";
+import { error } from "@/utils/function-utils";
+import { useDispatch } from "react-redux";
+import { setCityModalState } from "@/store/todoSlice";
 
 let fakeArray = [0, 0, 0, 0, 0, 0, 0];
 
@@ -34,10 +39,14 @@ const BatteriesPage = (props) => {
   const [filterModalState, setFilterModalState] = useState(false);
   const [timeModalState, setTimeModalState] = useState(false);
   const [filterId, setFilterId] = useState("");
+  const dispatch = useDispatch();
   const filterRef = useRef(null);
   const subFilterRef = useRef();
   const setQuery = useSetQuery();
+  const router = useRouter();
   const heightRef = useRef(null);
+
+  console.log(props);
   if (props.filterData === 500) {
     console.log(props.filterData);
   }
@@ -77,12 +86,6 @@ const BatteriesPage = (props) => {
   ];
 
   console.log(props);
-
-  const selectFilterHandler = (event) => {
-    setFilter(event.target.innerText);
-    console.log(event.currentTarget.getAttribute("order_by"));
-    setQuery.setQuery("order_by", event.currentTarget.getAttribute("order_by"));
-  };
 
   const toggleFilterHandler = () => {
     setFilterIsOpen((prevState) => !prevState);
@@ -137,11 +140,89 @@ const BatteriesPage = (props) => {
     }
   }, []);
 
+  useEffect(() => {
+    if (
+      !JSON.parse(localStorage.getItem("city")) &&
+      !JSON.parse(localStorage.getItem("city"))?.cityId
+    ) {
+      dispatch(setCityModalState(true));
+      router.push("/batteries");
+    }
+  }, [props.searchParams]);
+
+  useEffect(() => {
+    (async () => {
+      const filterFetchData = await getDataWithFullErrorRes("/web/get/filter");
+      console.log(filterFetchData);
+    })();
+  }, []);
+
   return (
     <div className={"flex flex-col relative py-4 max-w-[1772px] m-auto"}>
-      <section className={"lg:w-[calc(100%-424px)] w-full mr-auto"}>
-        <ul className={"lg:mt-16 mt-[20px] flex flex-col gap-[24px]"}>
-          {props.data.data.map((item, index) => (
+      <section
+        className={"lg:w-[calc(100%-424px)] w-full mr-auto lg:mt-16 mt-[20px]"}
+      >
+        <div className="flex items-center justify-between">
+          <div
+            ref={filterRef}
+            onClick={toggleFilterHandler}
+            className="bg-[#D9D9D9] rounded-[8px] py-[0.5rem] px-[1.5rem] flex items-center gap-[0.5rem] text-text_gray cursor-pointer relative"
+          >
+            <Image src={arrow} alt="" width={10} height={10} />
+            <p className="text-12">{filter}</p>
+            <ul
+              ref={heightRef}
+              className={`bg-[#D9D9D9] rounded-[8px] absolute  top-[2.2rem] right-0 left-0 text-12 overflow-hidden transition-all duration-500 z-[2]`}
+              style={
+                filterISOpen
+                  ? { height: `${heightRef.current.scrollHeight}px` }
+                  : { height: 0 }
+              }
+            >
+              {filterData.map((item, index) => (
+                <li
+                  className="p-[0.5rem] w-full rounded-[8px] hover:bg-[#9d9d9d] flex items-center justify-between z-[2]"
+                  key={index}
+                  onMouseEnter={filterMouseEnter}
+                  onMouseLeave={filterMouseLeave}
+                  order_by={item.value}
+                  id={item.value}
+                >
+                  <span>{item.name}</span>
+                  <i className={"cc-left text-[20px]"} />
+                </li>
+              ))}
+            </ul>
+            {filterModalState && (
+              <div
+                className={
+                  "bg-white rounded-[8px] absolute right-[137px] pr-1 text-12 overflow-hidden transition-all duration-1000 w-[137px] z-[2]"
+                }
+                ref={subFilterRef}
+                id={"sub_filter"}
+                onMouseEnter={subFilterMouseEnter}
+                onMouseLeave={subFilterMouseLeave}
+                style={{
+                  top: topDistance === 0 ? "0" : topDistance - 145 + "px",
+                }}
+              >
+                <ul className={`bg-[#D9D9D9] h-[250px] overflow-y-scroll`}>
+                  {props.filterData[filterId]?.map((item) => (
+                    <SubFilterCard
+                      key={item.value}
+                      setFilter={setFilter}
+                      filterId={filterId}
+                      item={item}
+                      setFilterModalState={setFilterModalState}
+                    />
+                  ))}
+                </ul>
+              </div>
+            )}
+          </div>
+        </div>
+        <ul className={"mt-4 flex flex-col gap-[24px]"}>
+          {props.data?.data?.map((item, index) => (
             <BatteriesCard
               key={index}
               item={item}
@@ -270,7 +351,12 @@ const BatteriesPage = (props) => {
       {/*  </div>*/}
       {/*</div>*/}
       <div
-        className={`w-[75%] size900:w-[50%] m-auto fixed transition-all duration-1000 ${batteryIsSelected ? "top-[50%]" : "top-[-50%]"} left-[50%] translate-x-[-50%] translate-y-[-50%] z-[99999]`}
+        className={`${!batteryIsSelected ? "hidden" : "fixed"} inset-0 h-full w-full bg-[#4c4c4caa] z-[20000] transition-all`}
+        onClick={() => setBatteryIsSelected(false)}
+      ></div>
+
+      <div
+        className={`w-[75%] size900:w-[50%] m-auto fixed transition-all duration-1000 ${batteryIsSelected ? "top-[50%]" : "top-[-50%]"} left-[50%] translate-x-[-50%] translate-y-[-50%] z-[20000]`}
       >
         <PurchaseBatteryModal
           setBatteryIsSelected={setBatteryIsSelected}

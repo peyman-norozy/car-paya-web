@@ -6,6 +6,7 @@ import { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import invoice from "@/public/assets/images/invoice.png";
 import { usePathname } from "next/navigation";
+import useSetQuery from "@/hook/useSetQuery";
 import { getData, postData } from "@/utils/client-api-function-utils";
 import { numberWithCommas } from "@/utils/function-utils";
 const CarSelectComponent = () => {
@@ -25,6 +26,7 @@ const CarSelectComponent = () => {
   const optionRef = useRef(null);
   const inputRef = useRef(null);
   const pathname = usePathname();
+  const setQuery = useSetQuery();
 
   useEffect(()=>{
     getInvoiceData()
@@ -32,13 +34,13 @@ const CarSelectComponent = () => {
 
   
   useEffect(() => {
-    if(pathname === "/" || pathname === "/periodic-service"){
+    if (pathname === "/" || pathname === "/periodic-service") {
       setShowInvoice(true);
-    }else{
+    } else {
       setShowInvoice(false);
     }
   }, [pathname]);
-  
+
   useEffect(() => {
     getBrandData("car");
     const object = localStorage.getItem("selectedVehicle");
@@ -50,14 +52,14 @@ const CarSelectComponent = () => {
 
   useEffect(() => {
     axios
-    .get(process.env.BASE_API + "/web/geo/province-cities")
-    .then((res) => {
-      if (res.data.status === "success") {
-        setProvienceCity(res.data.data);
-        setSearchCity(res.data.data);
-      }
-    })
-    .catch((err) => console.log(err));
+      .get(process.env.BASE_API + "/web/geo/province-cities")
+      .then((res) => {
+        if (res.data.status === "success") {
+          setProvienceCity(res.data.data);
+          setSearchCity(res.data.data);
+        }
+      })
+      .catch((err) => console.log(err));
     document.addEventListener("click", (e) => {
       if (
         e.target.parentElement !== optionRef.current &&
@@ -73,7 +75,7 @@ const CarSelectComponent = () => {
       setSelectedCity("");
     }
   }, []);
-  
+
   async function getInvoiceData() {
     const data = await getData("/web/cart")
     setInvoiceData(data.data.data)
@@ -116,6 +118,7 @@ const CarSelectComponent = () => {
         .then((res) => {
           console.log(res.status === 200);
           if (res.status === 200) {
+            setQuery.updateQueryParams({ selectTipState: `true,${id}` }, "");
             localStorage.setItem(
               "selectedVehicle",
               JSON.stringify({
