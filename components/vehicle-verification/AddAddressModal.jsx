@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
+import dynamic from "next/dynamic";
 // import MapDirection from "@/components/Panel/Address/MapDirection/MapDirection";
 import ProfileEditeSelectInput from "@/components/ProfileEditeSelectInput";
 import CheckBox from "@/components/CheckBox";
@@ -7,7 +8,11 @@ import { getData } from "@/utils/api-function-utils";
 import { API_PATHS } from "@/configs/routes.config";
 import { usePathname, useRouter } from "next/navigation";
 import SpinnerPackage from "@/components/SpinnerPackage";
-import MapDirection from "@/components/MapDirection";
+
+const MapDirection = dynamic(() => import("@/components/MapDirection"), {
+  ssr: false,
+});
+// import MapDirection from "@/components/MapDirection";
 import { postData, putData } from "@/utils/client-api-function-utils";
 
 const AddressModal = (props) => {
