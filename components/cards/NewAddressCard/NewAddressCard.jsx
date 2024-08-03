@@ -1,10 +1,10 @@
 "use client";
 import React, { useState } from "react";
-import Button from "@/components/Button";
-import MapDirection from "@/components/MapDirection";
+// import MapDirection from "@/components/MapDirection";
 import DetailingDetailCard from "@/components/cards/DetailingDetailCard/DetailingDetailCard";
 import useSetQuery from "@/hook/useSetQuery";
-
+import dynamic from "next/dynamic";
+const MapDirection = dynamic(() => import("@/components/MapDirection"), { ssr:false })
 const NewAddressCard = ({ status, item, nextUrl }) => {
   const setQuery = useSetQuery();
 
@@ -26,7 +26,7 @@ const NewAddressCard = ({ status, item, nextUrl }) => {
   ];
 
   function onclick() {
-    setQuery.updateQueryParams({ agent_id: item.id }, nextUrl);
+    setQuery.updateQueryParams({ service_location_id: item.id }, nextUrl);
   }
 
   return (
