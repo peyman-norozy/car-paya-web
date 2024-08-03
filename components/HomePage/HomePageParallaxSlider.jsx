@@ -69,12 +69,12 @@ const HomePageParallaxSlider = () => {
             </div>
         </SwiperSlide>
         <SwiperSlide>
-            <div className="w-[300px] p-4 h-full backdrop-blur-lg bg-[#5D697A52] md:rounded-r-[32px]">
-                <div className="text-2xl font-semibold" data-swiper-parallax="-200">
+            <div className="w-[180px] sm:w-[300px] p-4 h-full backdrop-blur-lg bg-[#5D697A52] md:rounded-r-[32px]">
+                <div className="text-base sm:text-2xl font-semibold" data-swiper-parallax="-200">
                     چرا کار چک؟!
                 </div>
-                <div className="mt-6" data-swiper-parallax="-100">
-                    <p className="text-base">
+                <div className="mt-2 sm:mt-6" data-swiper-parallax="-100">
+                    <p className="text-xs sm:text-base">
                     لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با
                     استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله
                     در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد
@@ -84,12 +84,12 @@ const HomePageParallaxSlider = () => {
             </div>
         </SwiperSlide>
         <SwiperSlide>
-            <div className="w-[300px] p-4 h-full backdrop-blur-lg bg-[#5D697A52] md:rounded-r-[32px]">
-                <div className="text-2xl font-semibold" data-swiper-parallax="-200">
+            <div className="w-[180px] sm:w-[300px] p-4 h-full backdrop-blur-lg bg-[#5D697A52] md:rounded-r-[32px]">
+                <div className="text-base sm:text-2xl font-semibold" data-swiper-parallax="-200">
                     چرا کار چک؟!
                 </div>
-                <div className="mt-6" data-swiper-parallax="-100">
-                    <p className="text-base">
+                <div className="mt-2 sm:mt-6" data-swiper-parallax="-100">
+                    <p className="text-xs sm:text-base">
                     لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با
                     استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله
                     در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد

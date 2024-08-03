@@ -50,7 +50,7 @@ export const API_PATHS = {
   MAGS: "/mags",
   MAGCATEGORY: "/mag-categories",
   MAGCOMMENTS: "/mag-comments",
-  GETPRODUCT: "/get-product",
+  GETPRODUCT: "/get-products",
   DASHBOARDUSERADDRESS: "/user-panel/user-address",
   PROFILE: "/profile",
   ADDRESS: "/address",

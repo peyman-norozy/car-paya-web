@@ -22,6 +22,10 @@ const nextConfig = {
         protocol: "https",
         hostname: "api.carcheckme.ir",
       },
+      {
+        protocol: "https",
+        hostname: "picsum.photos",
+      }
     ],
   },
   reactStrictMode: false,

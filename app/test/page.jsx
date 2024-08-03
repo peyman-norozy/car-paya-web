@@ -1,26 +1,59 @@
-import HomePageMainSlider from "@/components/HomePage/HomePageMainSlider";
-import HomePageParallaxSlider from "@/components/HomePage/HomePageParallaxSlider";
-import HomePageArticleSlider from "@/components/HomePage/HomePageArticleSlider";
-import CarSelectComponent from "@/components/public/CarSelectComponent";
-import MainPageServices from "@/components/HomePage/MainPageServices";
+import { Fragment, Suspense } from "react";
+import MainBanner from "@/components/MainBanner";
+import SpecialOffersSlider from "@/components/SpecialOffersSlider";
+import HowWorks from "@/components/HowWorks";
+import ArticleSlider from "@/components/ArticleSlider";
+import MainBannerCard from "@/components/cards/MainBannerCard";
 import { getData } from "@/utils/api-function-utils";
 import { API_PATHS } from "@/configs/routes.config";
+import {
+  HowWorksMockUpData,
+  CarProductsMockUpData,
+  serviceData,
+} from "@/staticData/data";
+import PwaModal from "@/components/PwaModal";
 
-const HomePage = async () => {
-    const data = await getData(`/web${API_PATHS.MAGSINDEX}`)
-    return ( 
-        <div className="flex flex-col gap-4 lg:gap-9 w-full max-w-[1676px] md:p-12 m-auto">
-            <CarSelectComponent/>
-            <HomePageMainSlider/>
-            <div className="flex flex-col gap-4 lg:gap-9 w-full lg:w-[calc(100%-384px)] self-end">
-                <MainPageServices/>
-                <HomePageParallaxSlider/>
-                <span className="text-2xl font-bold text-[#383838] text-center">مقالات</span>
-                <HomePageArticleSlider data={data}/>
-            </div>
-            
-        </div>
-    );
+const SpecialOffersSliderData = async () => {
+  return <SpecialOffersSlider data={CarProductsMockUpData} />;
+};
+
+const HowWorksData = async () => {
+  return <HowWorks data={HowWorksMockUpData} />;
+};
+
+const ArticleSliderData = async () => {
+  const ArticleSliderFetchData = await getData(`/web${API_PATHS.MAGSINDEX}`);
+  return <ArticleSlider data={ArticleSliderFetchData} />;
+};
+
+export default function Home() {
+  return (
+    <div className={"max-w-[1676px] m-auto flex flex-col gap-10 mb-10"}>
+      <MainBanner>
+        {serviceData.map((item, index) => (
+          <MainBannerCard
+            key={item.title + "-" + index}
+            data={item}
+            index={index}
+          />
+        ))}
+      </MainBanner>
+      <div>
+        <Suspense fallback={<div>....Loading</div>}>
+          <SpecialOffersSliderData />
+        </Suspense>
+      </div>
+      <div>
+        <Suspense fallback={<div>....Loading</div>}>
+          <HowWorksData />
+        </Suspense>
+      </div>
+      <div>
+        <Suspense fallback={<div>....Loading</div>}>
+          <ArticleSliderData />
+        </Suspense>
+      </div>
+      <PwaModal />
+    </div>
+  );
 }
-
-export default HomePage;

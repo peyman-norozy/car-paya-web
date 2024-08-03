@@ -1,9 +1,10 @@
-import {Fragment} from "react";
+import { Fragment } from "react";
 import Header from "@/layouts/HeaderLayout";
 import Footer from "@/layouts/FooterLayout";
 import localFont from "next/font/local";
+import ServicesLayout from "@/layouts/ServicesLayout";
 
-const muckUpData=[1,2,3,4]
+const muckUpData = [1, 2, 3, 4];
 
 // const YekanBakhFaNum = localFont({
 //     src: [
@@ -29,17 +30,16 @@ const muckUpData=[1,2,3,4]
 //     ],
 // });
 const MainLayout = (props) => {
-    return (
-        <Fragment>
-            <Header >
-                {
-                    muckUpData.map((item,index)=><li key={index}>ahmad</li>)
-                }
-            </Header>
-            <main className={` size1000:mt-[75px]`}>{props.children}</main>
-            <Footer />
-            
-        </Fragment>
-    );
+  return (
+    <Fragment>
+      <Header>
+        {muckUpData.map((item, index) => (
+          <li key={index}>ahmad</li>
+        ))}
+      </Header>
+      <ServicesLayout>{props.children}</ServicesLayout>
+      <Footer />
+    </Fragment>
+  );
 };
 export default MainLayout;

@@ -1,13 +1,15 @@
 import React, { useCallback, useEffect, useState } from "react";
-// import MapDirection from "@/components/Panel/Address/MapDirection/MapDirection";
+import dynamic from "next/dynamic";
 import ProfileEditeSelectInput from "@/components/ProfileEditeSelectInput";
 import CheckBox from "@/components/CheckBox";
 import AddressInput from "@/components/AddressInput";
 import { getData } from "@/utils/api-function-utils";
 import { API_PATHS } from "@/configs/routes.config";
 import { usePathname, useRouter } from "next/navigation";
-import SpinnerPackage from "@/components/SpinnerPackage";
-import MapDirection from "@/components/MapDirection";
+
+const MapDirection = dynamic(() => import("@/components/MapDirection"), {
+  ssr: false,
+});
 import { postData, putData } from "@/utils/client-api-function-utils";
 
 const AddressModal = (props) => {
@@ -69,6 +71,7 @@ const AddressModal = (props) => {
         props.getDataFetch();
         props.setModalIsOpen(false);
         props.setIsLoading(true);
+        props.timeData();
       } else if (update.status === 422) {
         setErrorData(update.data.errors);
         console.log(update.data.errors);
@@ -87,6 +90,10 @@ const AddressModal = (props) => {
           props.getAddressFetchData();
         } else if (pathName === "/vehicle-verification") {
           props.getDataFetch(post.data);
+          props.setModalIsOpen(false);
+        } else if (pathName === "/batteries/products/newSelectLocation") {
+          console.log(props);
+          props.timeData();
           props.setModalIsOpen(false);
         }
 

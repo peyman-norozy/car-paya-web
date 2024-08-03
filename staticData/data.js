@@ -20,7 +20,7 @@ export const serviceData = [
   {
     title: "باتری",
     icon: "/assets/images/buttry.png",
-    href: "/batteries",
+    href: "/batteries?attribute_slug=type_vehicle&attribute_value=car",
     id: "batteries",
   },
   {
@@ -147,7 +147,8 @@ export const CarProductsMockUpData = [
 export const periodicServiceUnderCardData = [
   {
     title: "سرویس دوره ای",
-    titleDescription: "(شامل ١٧ بخش مي‌باشد كه كاربر بنا به نیاز خود نسبت به انتخاب خدمات اقدام مي‌نمايد)",
+    titleDescription:
+      "(شامل ١٧ بخش مي‌باشد كه كاربر بنا به نیاز خود نسبت به انتخاب خدمات اقدام مي‌نمايد)",
     options: [
       "تعویض روغن موتور",
       "تعویض فیلتر هوا",
@@ -226,7 +227,7 @@ export const panelTabData = [
   {
     imgSrc: "/assets/icons/location.svg",
     title: "آدرس های تحویل کالا",
-    alt: "product address file icon",
+    alt: "products address file icon",
     id: "productAddress",
   },
   {

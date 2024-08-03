@@ -34,9 +34,9 @@ const ProtectedRoute = ({ children }) => {
   if (loginResult.user === null && loginResult.error === null) {
     return <div style={{ width: "100%", height: "600px" }}>... loading</div>;
   }
-  if (loginResult.user.status === "success") {
-    router.push("/panel");
-  }
+  // if (loginResult.user.status === "success") {
+  //   router.push("/panel");
+  // }
 };
 
 export default ProtectedRoute;

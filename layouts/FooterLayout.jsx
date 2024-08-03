@@ -73,7 +73,7 @@ const Footer = (props) => {
                 در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد
                 نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد.
               </p>
-              <span className="self-start text-20 font-bold font-light">
+              <span className="self-start text-20 font-bold">
                 شماره ثبت: ٦٠٣٥٢٨
               </span>
             </div>
@@ -174,7 +174,7 @@ const Footer = (props) => {
           </p>
         </div>
       </div>
-      {innerWidthNumber < 1000 && <MobileBottomNav />}
+      {innerWidthNumber < 1025 && <MobileBottomNav />}
     </footer>
   );
 };
