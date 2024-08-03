@@ -19,8 +19,8 @@ const CarSelectComponent = () => {
   const [searchCity, setSearchCity] = useState([]);
   const [optionState, setOptionState] = useState(false);
   const [selectedCity, setSelectedCity] = useState({});
-  const [showInvoice , setShowInvoice] = useState(false)
-  const [invoiceData, setInvoiceData] = useState([])
+  const [showInvoice, setShowInvoice] = useState(false);
+  const [invoiceData, setInvoiceData] = useState([]);
   const showHeaderData = useSelector((state) => state.todo.showHeader);
   const renderInvoice = useSelector((state) => state.todo.renderInvoice);
   const optionRef = useRef(null);
@@ -28,11 +28,10 @@ const CarSelectComponent = () => {
   const pathname = usePathname();
   const setQuery = useSetQuery();
 
-  useEffect(()=>{
-    getInvoiceData()
-  },[renderInvoice])
+  useEffect(() => {
+    getInvoiceData();
+  }, [renderInvoice]);
 
-  
   useEffect(() => {
     if (pathname === "/" || pathname === "/periodic-service") {
       setShowInvoice(true);
@@ -77,14 +76,14 @@ const CarSelectComponent = () => {
   }, []);
 
   async function getInvoiceData() {
-    const data = await getData("/web/cart")
-    setInvoiceData(data.data.data)
+    const data = await getData("/web/cart");
+    setInvoiceData(data.data.data);
     console.log(data.data.data);
   }
 
   async function removeClickHandler(id) {
-    const data = await postData("/web/cart/remove",{"product_id": id})
-    setInvoiceData(data.data.data)
+    const data = await postData("/web/cart/remove", { product_id: id });
+    setInvoiceData(data.data.data);
   }
 
   function vehicleTypeFetch(model) {
@@ -125,7 +124,7 @@ const CarSelectComponent = () => {
                 id: item.id,
                 title: item.title,
                 image: item.image,
-              })
+              }),
             );
             setCarSelected(true);
           }
@@ -201,7 +200,7 @@ const CarSelectComponent = () => {
                         className="max-h-[200px] flex flex-col"
                         ref={optionRef}
                       >
-                        {searchCity.map((item,index) => (
+                        {searchCity.map((item, index) => (
                           <span
                             className="cursor-pointer hover:bg-slate-200 py-1 px-2"
                             value={item.id}
@@ -227,19 +226,39 @@ const CarSelectComponent = () => {
             ) : (
               <div className="flex flex-col gap-4">
                 <div className="flex flex-col gap-3 h-[292px] overflow-y-scroll">
-                  {invoiceData.cart_items&&invoiceData.cart_items.map((item)=>(
-                  <div className="flex flex-col px-3 py-2 bg-[#888888] rounded-lg">
-                    <div className="flex justify-between">
-                      <span className="font-bold text-[#FEFEFE]">{item.product.name}</span>
-                      <div className="bg-[#FEFEFE] rounded-full size-5 text-[#888888] font-bold pr-[5px] cursor-pointer" onClick={()=>{removeClickHandler(item.product.id)}}>X</div>
-                    </div>
-                    <div className="flex justify-start gap-2 items-center">
-                      <span className="text-[#ececec] line-through text-12 ">{numberWithCommas(item.product.price)} تومان</span>
-                      <span className={"size-1 bg-[#B0B0B0] rounded-full "}></span>
-                      <span className="text-[#FEFEFE] text-14 font-bold">{numberWithCommas(item.product.discounted_price)} تومان</span>
-                    </div>
-                  </div>
-                  ))}
+                  {invoiceData.cart_items &&
+                    invoiceData.cart_items.map((item) => (
+                      <div
+                        className="flex flex-col px-3 py-2 bg-[#888888] rounded-lg"
+                        key={item.product.id}
+                      >
+                        <div className="flex justify-between">
+                          <span className="font-bold text-[#FEFEFE]">
+                            {item.product.name}
+                          </span>
+                          <div
+                            className="bg-[#FEFEFE] rounded-full size-5 text-[#888888] font-bold pr-[5px] cursor-pointer"
+                            onClick={() => {
+                              removeClickHandler(item.product.id);
+                            }}
+                          >
+                            X
+                          </div>
+                        </div>
+                        <div className="flex justify-start gap-2 items-center">
+                          <span className="text-[#ececec] line-through text-12 ">
+                            {numberWithCommas(item.product.price)} تومان
+                          </span>
+                          <span
+                            className={"size-1 bg-[#B0B0B0] rounded-full "}
+                          ></span>
+                          <span className="text-[#FEFEFE] text-14 font-bold">
+                            {numberWithCommas(item.product.discounted_price)}{" "}
+                            تومان
+                          </span>
+                        </div>
+                      </div>
+                    ))}
                 </div>
                 <hr />
                 {/* <div className="flex flex-col gap-2">
@@ -255,8 +274,12 @@ const CarSelectComponent = () => {
                 <hr /> */}
                 {/* <button className="bg-[#F66B34] rounded-md flex justify-between py-2 px-4"> */}
                 <div className="flex justify-between">
-                  <span className="text-white font-bold text-18">مجموع سفارش</span>
-                  <span className="text-white font-bold text-18">{numberWithCommas(invoiceData.price_total)} تومان</span>
+                  <span className="text-white font-bold text-18">
+                    مجموع سفارش
+                  </span>
+                  <span className="text-white font-bold text-18">
+                    {numberWithCommas(invoiceData.price_total)} تومان
+                  </span>
                 </div>
                 {/* </button> */}
               </div>
