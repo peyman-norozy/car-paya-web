@@ -135,7 +135,7 @@ const Page = () => {
             MOVING: (
               <AddressSelection data={movingFakeData} status={"MOVING"} />
             ),
-            FIXED: <AddressSelection data={fixedFakeData} status={"fixed"} />,
+            FIXED: <AddressSelection data={fixedFakeData} status={"FIXED"} />,
           }[selectAddressState]
         }
       </div>

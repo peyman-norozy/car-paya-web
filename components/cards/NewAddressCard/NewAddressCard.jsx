@@ -1,20 +1,10 @@
 "use client";
 import React from "react";
-import dynamic from "next/dynamic";
-const MapDirection = dynamic(() => import("@/components/MapDirection"), {
-  ssr: false,
-});
+import MapDirection from "@/components/MapDirection";
 import DetailingDetailCard from "@/components/cards/DetailingDetailCard/DetailingDetailCard";
 import useSetQuery from "@/hook/useSetQuery";
 
-const NewAddressCard = ({
-  status,
-  item,
-  nextUrl,
-  setPageType,
-  setModalIsOpen,
-  setAddressEditId,
-}) => {
+const NewAddressCard = ({ status, item, nextUrl }) => {
   const setQuery = useSetQuery();
 
   const fixedFakeData = [
@@ -35,7 +25,7 @@ const NewAddressCard = ({
   ];
 
   function onclick() {
-    setQuery.updateQueryParams({ agent_id: item.id }, nextUrl);
+    setQuery.updateQueryParams({ service_location_id: item.id }, nextUrl);
   }
 
   const clickEditHandler = (id) => {
@@ -49,7 +39,7 @@ const NewAddressCard = ({
       <div className={"flex-1"}>
         <section className={"flex justify-between"}>
           <span className={"font-semibold text-18"}>{item.title}</span>
-          {status === "fixed" ? (
+          {status === "FIXED" ? (
             ""
           ) : (
             <div className={"flex items-center gap-[16px]"}>
@@ -81,7 +71,7 @@ const NewAddressCard = ({
             {item.address}
           </p>
         </section>
-        {status === "fixed" && (
+        {status === "FIXED" && (
           <ul
             className={
               "flex flex-wrap gap-x-2 gap-y-4 mt-4 h-[96px] overflow-y-scroll"

@@ -8,7 +8,6 @@ const SelectService = (props) => {
   function buttonClickHandler() {
     setQuery.updateQueryParams({"package_id":1},"/periodic-service/time-selection")
   }
-
   return (
     <div className="w-full flex flex-col lg:w-[calc(100%-424px)] mr-auto mt-3 rounded-2xl overflow-hidden border border-[#383838A3]">
       <div className="bg-[#383838A3] flex flex-col gap-1 items-start px-10 py-5 text-[#FFFFFF] font-medium">
@@ -22,7 +21,7 @@ const SelectService = (props) => {
           <SelectServiceCard data={item} key={index}/>
         ))}
       </div>
-      <button className={"w-[204px] h-10 bg-[#F66B34] rounded-[8px] text-[#FEFEFE]"} onClick={buttonClickHandler}>تایید و مرحله بعد</button>
+      <button className={"w-[204px] h-10 bg-[#F66B34] rounded-[8px] text-[#FEFEFE] mb-6 mr-8"} onClick={buttonClickHandler}>تایید و مرحله بعد</button>
     </div>
   );
 };

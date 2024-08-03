@@ -76,7 +76,6 @@ const Page = (props) => {
           {
             MOVING: (
               <AddressSelection
-                data={movingFakeData}
                 setMyLocationData={setMyLocationData}
                 timeData={timeData}
                 myLocationData={myLocationData}
@@ -86,7 +85,7 @@ const Page = (props) => {
             FIXED: (
               <AddressSelection
                 carCheckLocations={carCheckLocations}
-                status={"fixed"}
+                status={"FIXED"}
                 timeData={timeData}
               />
             ),

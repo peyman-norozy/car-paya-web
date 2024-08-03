@@ -15,6 +15,7 @@ const AddressSelection = (props) => {
     setPageType("create");
   };
 
+  console.log(modalIsOpen);
   return (
     <>
       {props.status === "fixed" ? (
@@ -30,10 +31,10 @@ const AddressSelection = (props) => {
           <span className={"mt-1.5"}>افزودن آدرس جدید</span>
         </Button>
       )}
-      {props.status === "fixed" ? (
+      {props.status === "FIXED" ? (
         <ul className={"mt-7 flex flex-col gap-6"}>
           {props.carCheckLocations.map((item, index) => (
-            <NewAddressCard key={index} status={props.status} item={item} />
+            <NewAddressCard key={index} status={props.status} item={item} nextUrl={"/periodic-service/service-selection"}/>
           ))}
         </ul>
       ) : (
@@ -47,6 +48,7 @@ const AddressSelection = (props) => {
                 setPageType={setPageType}
                 setModalIsOpen={setModalIsOpen}
                 setAddressEditId={setAddressEditId}
+                nextUrl={"/periodic-service/service-selection"}
               />
             ))}
         </ul>
