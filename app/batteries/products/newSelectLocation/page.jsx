@@ -4,7 +4,6 @@ import React, { useCallback, useEffect, useState } from "react";
 import SelectLocationTab from "@/components/SelectLocationTab/SelectLocationTab";
 import AddressSelection from "@/components/AddressSelection/AddressSelection";
 import { useSelector } from "react-redux";
-import useSetQuery from "@/hook/useSetQuery";
 import { getDataWithFullErrorRes } from "@/utils/api-function-utils";
 
 const movingFakeData = [0, 0, 0, 0, 0];
@@ -14,7 +13,6 @@ const Page = (props) => {
   const [carCheckLocations, setCarCheckLocations] = useState([]);
 
   const showHeaderState = useSelector((state) => state.todo.showHeader);
-  const setQuery = useSetQuery();
   console.log(props);
 
   useEffect(() => {
