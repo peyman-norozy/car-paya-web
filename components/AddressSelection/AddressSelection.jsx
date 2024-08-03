@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Button from "@/components/Button";
-// import NewAddressCard from "@/components/cards/NewAddressCard/NewAddressCard";
+import NewAddressCard from "@/components/cards/NewAddressCard/NewAddressCard";
 import AddAddressModal from "@/components/vehicle-verification/AddAddressModal";
 import Spinner from "@/components/Spinner";
 
@@ -32,22 +32,23 @@ const AddressSelection = (props) => {
       )}
       {props.status === "fixed" ? (
         <ul className={"mt-7 flex flex-col gap-6"}>
-          {/*{props.carCheckLocations.map((item, index) => (*/}
-          {/*  <NewAddressCard key={index} status={props.status} item={item} />*/}
-          {/*))}*/}
+          {props.carCheckLocations.map((item, index) => (
+            <NewAddressCard key={index} status={props.status} item={item} />
+          ))}
         </ul>
       ) : (
         <ul className={"mt-7 flex flex-col gap-6"}>
-          {/*{props.myLocationData &&props.myLocationData.map((item, index) => (*/}
-          {/*  <NewAddressCard*/}
-          {/*    key={index}*/}
-          {/*    status={props.status}*/}
-          {/*    item={item}*/}
-          {/*    setPageType={setPageType}*/}
-          {/*    setModalIsOpen={setModalIsOpen}*/}
-          {/*    setAddressEditId={setAddressEditId}*/}
-          {/*  />*/}
-          {/*))}*/}
+          {props.myLocationData &&
+            props.myLocationData.map((item, index) => (
+              <NewAddressCard
+                key={index}
+                status={props.status}
+                item={item}
+                setPageType={setPageType}
+                setModalIsOpen={setModalIsOpen}
+                setAddressEditId={setAddressEditId}
+              />
+            ))}
         </ul>
       )}
 
