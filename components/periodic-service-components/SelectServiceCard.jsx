@@ -1,5 +1,7 @@
 "use client";
+import { API_PATHS } from "@/configs/routes.config";
 import useSetQuery from "@/hook/useSetQuery";
+import Image from "next/image";
 import Link from "next/link";
 
 const SelectServiceCard = (props) => {
@@ -7,7 +9,7 @@ const SelectServiceCard = (props) => {
   function buttonClickHandler() {
     setQuery.updateQueryParams(
       { package_id: props.data.id },
-      "/periodic-service/products-selection",
+      "/periodic-service/product-selection",
     );
   }
   return (
@@ -15,7 +17,11 @@ const SelectServiceCard = (props) => {
       className={`rounded-lg flex flex-col items-center p-6 gap-3 cursor-pointer hover:scale-105 transition-transform duration-300 relative bg-[#E7E7E7] ${props.data.selected ? "border-2 border-lime-500 " : ""}`}
       onClick={buttonClickHandler}
     >
-      <div className="size-[65px] lg:size-[125px] bg-amber-600 rounded-lg"></div>
+      <Image className="size-[65px] lg:size-[125px] bg-amber-600 rounded-lg" src={process.env.BASE_API +
+                "/web" +
+                API_PATHS.FILE +
+                "/" +
+                props.data.image} width={125} height={125}/>
       <span className="text-14 lg:text-18">
         {props.data.selected ? props.data.product : props.data.name}
       </span>
