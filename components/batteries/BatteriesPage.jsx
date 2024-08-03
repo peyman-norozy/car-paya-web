@@ -1,8 +1,6 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
-import arrow from "@/public/assets/icons/Arrow-Down.svg";
-import Image from "next/image";
 import PurchaseBatteryModal from "@/components/PurchaseBatteryModal";
 
 import useSetQuery from "@/hook/useSetQuery";
@@ -32,7 +30,6 @@ const BatteriesPage = (props) => {
   const dispatch = useDispatch();
   const filterRef = useRef(null);
   const subFilterRef = useRef();
-  const setQuery = useSetQuery();
   const router = useRouter();
   const heightRef = useRef(null);
 
