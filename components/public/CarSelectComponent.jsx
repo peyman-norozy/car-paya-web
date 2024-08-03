@@ -143,7 +143,7 @@ const CarSelectComponent = () => {
     localStorage.setItem("city", JSON.stringify(item));
   }
 
-  return (
+  if (pathname !== "/periodic-service/invoice"){return (
     <div className="absolute h-full top-0 right-auto">
       <div
         className={`bg-[#383838A3] h-[605px] rounded-2xl w-[400px] sticky ${showHeaderData ? "top-[123px]" : "top-[10px]"} right-auto z-[2] backdrop-blur-[16px] p-4 hidden lg:flex flex-col gap-4`}
@@ -196,7 +196,7 @@ const CarSelectComponent = () => {
                     ref={inputRef}
                   />
                   {optionState && (
-                    <div className="absolute w-[calc(100%-32px)] overflow-y-scroll bg-[#FEFEFE] rounded-b-lg top-[76px]">
+                    <div className="absolute w-[calc(100%-32px)] overflow-y-scroll bg-[#FEFEFE] rounded-b-lg top-[76px] z-[2]">
                       <div
                         className="max-h-[200px] flex flex-col"
                         ref={optionRef}
@@ -217,7 +217,7 @@ const CarSelectComponent = () => {
                     </div>
                   )}
                 </div>
-                <div className="flex flex-col mt-1 items-center">
+                <div className={`flex flex-col mt-1 items-center ${invoiceData.cart_items&&invoiceData.cart_items.length?"":"hidden"}`}>
                   <Image src={invoice} className="m-auto size-52 opacity-70" />
                   <span className="text-white">
                     در حال حاضر سرویسی انتخاب نکرده اید
@@ -225,40 +225,46 @@ const CarSelectComponent = () => {
                 </div>
               </>
             ) : (
-              <div className="flex flex-col gap-4">
-                <div className="flex flex-col gap-3 h-[292px] overflow-y-scroll">
-                  {invoiceData.cart_items&&invoiceData.cart_items.map((item)=>(
-                  <div className="flex flex-col px-3 py-2 bg-[#888888] rounded-lg">
-                    <div className="flex justify-between">
-                      <span className="font-bold text-[#FEFEFE]">{item.product.name}</span>
-                      <div className="bg-[#FEFEFE] rounded-full size-5 text-[#888888] font-bold pr-[5px] cursor-pointer" onClick={()=>{removeClickHandler(item.product.id)}}>X</div>
+              <div>
+                <div className={`flex flex-col gap-4 ${invoiceData.cart_items&&invoiceData.cart_items.length?"":"hidden"}`}>
+                  <div className="flex flex-col gap-3 h-[292px] overflow-y-scroll">
+                    {invoiceData.cart_items&&invoiceData.cart_items.map((item,index)=>(
+                    <div className="flex flex-col px-3 py-2 bg-[#888888] rounded-lg" key={index}>
+                      <div className="flex justify-between">
+                        <span className="font-bold text-[#FEFEFE]">{item.product.name}</span>
+                        <div className="bg-[#FEFEFE] rounded-full size-5 text-[#888888] font-bold pr-[5px] cursor-pointer" onClick={()=>{removeClickHandler(item.product.id)}}>X</div>
+                      </div>
+                      <div className="flex justify-start gap-2 items-center">
+                        <span className="text-[#ececec] line-through text-12 ">{numberWithCommas(item.product.price)} تومان</span>
+                        <span className={"size-1 bg-[#B0B0B0] rounded-full "}></span>
+                        <span className="text-[#FEFEFE] text-14 font-bold">{numberWithCommas(item.product.discounted_price)} تومان</span>
+                      </div>
                     </div>
-                    <div className="flex justify-start gap-2 items-center">
-                      <span className="text-[#ececec] line-through text-12 ">{numberWithCommas(item.product.price)} تومان</span>
-                      <span className={"size-1 bg-[#B0B0B0] rounded-full "}></span>
-                      <span className="text-[#FEFEFE] text-14 font-bold">{numberWithCommas(item.product.discounted_price)} تومان</span>
+                    ))}
+                  </div>
+                  <hr />
+                  {/* <div className="flex flex-col gap-2">
+                    <div className="text-[#fefefe] flex justify-between">
+                      <span className="text-14 font-bold">دستمزد</span>
+                      <span className="font-bold text-14">200.000 تومان</span>
+                    </div>
+                    <div className="text-[#fefefe] flex justify-between">
+                      <span className="text-14 font-bold">ایاب ذهاب</span>
+                      <span className="font-bold text-14">450.000 تومان</span>
                     </div>
                   </div>
-                  ))}
-                </div>
-                <hr />
-                {/* <div className="flex flex-col gap-2">
-                  <div className="text-[#fefefe] flex justify-between">
-                    <span className="text-14 font-bold">دستمزد</span>
-                    <span className="font-bold text-14">200.000 تومان</span>
-                  </div>
-                  <div className="text-[#fefefe] flex justify-between">
-                    <span className="text-14 font-bold">ایاب ذهاب</span>
-                    <span className="font-bold text-14">450.000 تومان</span>
+                  <hr /> */}
+                  <div className="flex justify-between">
+                    <span className="text-white font-bold text-18">مجموع سفارش</span>
+                    <span className="text-white font-bold text-18">{numberWithCommas(invoiceData.price_total)} تومان</span>
                   </div>
                 </div>
-                <hr /> */}
-                {/* <button className="bg-[#F66B34] rounded-md flex justify-between py-2 px-4"> */}
-                <div className="flex justify-between">
-                  <span className="text-white font-bold text-18">مجموع سفارش</span>
-                  <span className="text-white font-bold text-18">{numberWithCommas(invoiceData.price_total)} تومان</span>
+                <div className={`flex flex-col mt-10 items-center ${invoiceData.cart_items&&invoiceData.cart_items.length?"hidden":""}`}>
+                  <Image src={invoice} className="m-auto size-52 opacity-70" />
+                  <span className="text-white">
+                    در حال حاضر فاکتور شما خالی می باشد
+                  </span>
                 </div>
-                {/* </button> */}
               </div>
             )}
           </div>
@@ -340,7 +346,7 @@ const CarSelectComponent = () => {
         )}
       </div>
     </div>
-  );
+  )};
 };
 
 export default CarSelectComponent;
