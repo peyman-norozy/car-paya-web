@@ -89,7 +89,8 @@ const AddressModal = (props) => {
         } else if (pathName === "/vehicle-verification") {
           props.getDataFetch(post.data);
           props.setModalIsOpen(false);
-        } else if (pathName === "/batteries/selectLocation") {
+        } else if (pathName === "/batteries/products/newSelectLocation") {
+          console.log(props);
           props.timeData();
           props.setModalIsOpen(false);
         }
