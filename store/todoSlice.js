@@ -51,7 +51,8 @@ const todoSlice = createSlice({
     },
     setShowHeader(state, action) {
       state.showHeader = action.payload;
-    },renderInvoice(state) {
+    },
+    renderInvoice(state) {
       state.renderInvoice = !state.renderInvoice;
     },
     setCityModalState(state, action) {
@@ -72,7 +73,7 @@ export const {
   setVehicleData,
   setBatteriesData,
   setShowHeader,
-  renderInvoice
+  renderInvoice,
   setCityModalState,
 } = todoSlice.actions;
 export default todoSlice;
