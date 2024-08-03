@@ -14,7 +14,7 @@ const MainPageServices = (props) => {
         <div className={`transition-all duration-700 overflow-y-hidden mx-4 md:mx-0 h-[270px] sm:h-[260px]`} style={{height:`${openService?`${serviceRef.current.offsetHeight}px`:""}`}}>
             <div className="grid grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-6" ref={serviceRef}>
                 {serviceData.map((item,index)=>(
-                    <Link href={item.href}>
+                    <Link href={item.href} key={index}>
                         <div className="w-full p-3 sm:p-4 flex flex-col bg-[#E7E7E7] items-center gap-2 sm:gap-3 rounded-lg" key={index} >
                             <Image className="size-8  sm:size-12" src={carachar} height={48} width={48} alt="carachar"/>
                             <span className="text-12 sm:text-base text-[#0E0E0E]">{item.title}</span>

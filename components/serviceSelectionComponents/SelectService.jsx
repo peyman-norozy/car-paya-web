@@ -21,7 +21,7 @@ const SelectService = (props) => {
           <SelectServiceCard data={item} key={index}/>
         ))}
       </div>
-      <button className={"w-[204px] h-10 bg-[#F66B34] rounded-[8px] text-[#FEFEFE]"} onClick={buttonClickHandler}>تایید و مرحله بعد</button>
+      <button className={"w-[204px] h-10 bg-[#F66B34] rounded-[8px] text-[#FEFEFE] mb-6 mr-8"} onClick={buttonClickHandler}>تایید و مرحله بعد</button>
     </div>
   );
 };
