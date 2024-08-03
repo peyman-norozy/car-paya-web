@@ -34,7 +34,7 @@ const NewAddressCard = ({status , item , nextUrl}) => {
       <div className={"flex-1"}>
         <section className={"flex justify-between"}>
           <span className={"font-semibold text-18"}>{item.title}</span>
-          {status === "fixed" ? (
+          {status === "FIXED" ? (
             ""
           ) : (
             <div className={"flex items-center gap-[16px]"}>
@@ -63,7 +63,7 @@ const NewAddressCard = ({status , item , nextUrl}) => {
             {item.address}
           </p>
         </section>
-        {status === "fixed" && (
+        {status === "FIXED" && (
           <ul
             className={"flex flex-wrap gap-x-2 gap-y-4 mt-4 h-[96px] overflow-y-scroll"}
           >

@@ -23,7 +23,7 @@ export default function EnterPasswordLogin(props) {
   const baseUrl = params.backurl;
   delete params.backurl;
   const queryString = new URLSearchParams(params).toString();
-  const fullUrl = `${baseUrl}?${queryString}`;
+  const fullUrl = `${baseUrl}&${queryString}`;
   const router = useRouter();
   const dispatch = useDispatch();
   const phoneData = useSelector((item) => item.todo.loginOtpData);

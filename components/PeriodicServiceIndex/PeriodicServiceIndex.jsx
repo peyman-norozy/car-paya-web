@@ -10,7 +10,6 @@ import Link from "next/link";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 const PeriodicServiceIndex = (props) => {
-  console.log("ojr;ogbrogoregerngoiregoergnirbergfjk");
   const router = useRouter()
   // useEffect(()=>{
   //   if (localStorage.getItem("selectedVehicle")) {
@@ -19,11 +18,11 @@ const PeriodicServiceIndex = (props) => {
   //   JSON.parse(localStorage.getItem("selectedVehicle"))
   // },[])
 
-  function fixedServiceClickHandler() {
+  function serviceClickHandler(type) {
     const selectedVehicle =localStorage.getItem("selectedVehicle")
-    const city =localStorage.getItem("city")
+    const city = localStorage.getItem("city")
     if (selectedVehicle&&city) {
-      router.push(`/periodic-service/dealership?type=FIXED&city_id=${JSON.parse(city).cityid}&vehicle_tip_id=${JSON.parse(selectedVehicle).id}`)
+      router.push(`/periodic-service/location-selection?type=${type}&city_id=${JSON.parse(city).cityId}&vehicle_tip_id=${JSON.parse(selectedVehicle).id}`)
     }
   }
 
@@ -39,7 +38,7 @@ const PeriodicServiceIndex = (props) => {
                   <span className={"text-12 font-medium text-[#FEFEFE] min-[580px]:text-[#47505D] font-outline"}>
                   لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است.
                   </span>
-                  <button className="px-4 py-2 rounded-lg bg-[#F66B34] text-white text-14" onClick={fixedServiceClickHandler}>ثبت درخواست خدمات</button>
+                  <button className="px-4 py-2 rounded-lg bg-[#F66B34] text-white text-14" onClick={()=>{serviceClickHandler("FIXED")}}>ثبت درخواست خدمات</button>
                 </div>
               </div>
               <div className="bg-[#E7E7E7] flex flex-1 gap-4 rounded-2xl min-[580px]:p-3 cursor-pointer relative max-h-[200px] overflow-hidden">
@@ -49,7 +48,7 @@ const PeriodicServiceIndex = (props) => {
                   <span className={"text-12 font-medium text-[#FEFEFE] min-[580px]:text-[#47505D] "}>
                   لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است.
                   </span>
-                <button className="px-4 py-2 rounded-lg bg-[#F66B34] text-white text-14">ثبت درخواست خدمات</button>
+                <button className="px-4 py-2 rounded-lg bg-[#F66B34] text-white text-14" onClick={()=>{serviceClickHandler("MOVING")}}>ثبت درخواست خدمات</button>
                 </div>
               </div>
             </div> 
