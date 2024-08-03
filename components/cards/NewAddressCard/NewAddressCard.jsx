@@ -5,7 +5,14 @@ import MapDirection from "@/components/MapDirection";
 import DetailingDetailCard from "@/components/cards/DetailingDetailCard/DetailingDetailCard";
 import useSetQuery from "@/hook/useSetQuery";
 
-const NewAddressCard = ({ status, item, nextUrl }) => {
+const NewAddressCard = ({
+  status,
+  item,
+  nextUrl,
+  setPageType,
+  setModalIsOpen,
+  setAddressEditId,
+}) => {
   const setQuery = useSetQuery();
 
   const fixedFakeData = [
@@ -29,6 +36,12 @@ const NewAddressCard = ({ status, item, nextUrl }) => {
     setQuery.updateQueryParams({ agent_id: item.id }, nextUrl);
   }
 
+  const clickEditHandler = (id) => {
+    setPageType("edite");
+    setModalIsOpen(true);
+    setAddressEditId(id);
+  };
+
   return (
     <li className={"bg-[#E7E7E7] p-4 rounded-[16px] flex gap-6"}>
       <div className={"flex-1"}>
@@ -38,7 +51,10 @@ const NewAddressCard = ({ status, item, nextUrl }) => {
             ""
           ) : (
             <div className={"flex items-center gap-[16px]"}>
-              <i className={"cc-edit text-[20px] cursor-pointer"} />
+              <i
+                className={"cc-edit text-[20px] cursor-pointer"}
+                onClick={() => clickEditHandler(item.id)}
+              />
               <i className={"cc-filter text-[20px] cursor-pointer"} />
             </div>
           )}
