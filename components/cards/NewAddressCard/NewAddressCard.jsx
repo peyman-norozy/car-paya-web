@@ -1,6 +1,9 @@
 "use client";
 import React from "react";
-import MapDirection from "@/components/MapDirection";
+import dynamic from "next/dynamic";
+const MapDirection = dynamic(() => import("@/components/MapDirection"), {
+  ssr: false,
+});
 import DetailingDetailCard from "@/components/cards/DetailingDetailCard/DetailingDetailCard";
 import useSetQuery from "@/hook/useSetQuery";
 
