@@ -2,7 +2,6 @@ import React from "react";
 import Link from "next/link";
 
 const Page = (props) => {
-  console.log(props, "asxswsd");
   return (
     <div
       className={
