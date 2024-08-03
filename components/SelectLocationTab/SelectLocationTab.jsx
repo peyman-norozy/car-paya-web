@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
+import useSetQuery from "@/hook/useSetQuery";
 
 const SelectLocationTab = (props) => {
+  const setQuery = useSetQuery();
   const clickTabHandler = () => {
     props.setSelectAddressState(props.addressTabState);
+    setQuery.updateQueryParams({ type: props.addressTabState });
   };
 
   return (
