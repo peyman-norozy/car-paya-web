@@ -1,18 +1,20 @@
 import React, { useEffect, useState } from "react";
 import Button from "@/components/Button";
-import NewAddressCard from "@/components/cards/NewAddressCard/NewAddressCard";
+// import NewAddressCard from "@/components/cards/NewAddressCard/NewAddressCard";
 import AddAddressModal from "@/components/vehicle-verification/AddAddressModal";
 import Spinner from "@/components/Spinner";
 
 const AddressSelection = (props) => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [pageType, setPageType] = useState("");
+  const [addressEditId, setAddressEditId] = useState("");
 
   const openModalHandler = () => {
     setModalIsOpen(true);
+    setPageType("create");
   };
 
-  console.log(modalIsOpen);
   return (
     <>
       {props.status === "fixed" ? (
@@ -30,15 +32,22 @@ const AddressSelection = (props) => {
       )}
       {props.status === "fixed" ? (
         <ul className={"mt-7 flex flex-col gap-6"}>
-          {props.carCheckLocations.map((item, index) => (
-            <NewAddressCard key={index} status={props.status} item={item} />
-          ))}
+          {/*{props.carCheckLocations.map((item, index) => (*/}
+          {/*  <NewAddressCard key={index} status={props.status} item={item} />*/}
+          {/*))}*/}
         </ul>
       ) : (
         <ul className={"mt-7 flex flex-col gap-6"}>
-          {props.myLocationData.map((item, index) => (
-            <NewAddressCard key={index} status={props.status} item={item} />
-          ))}
+          {/*{props.myLocationData &&props.myLocationData.map((item, index) => (*/}
+          {/*  <NewAddressCard*/}
+          {/*    key={index}*/}
+          {/*    status={props.status}*/}
+          {/*    item={item}*/}
+          {/*    setPageType={setPageType}*/}
+          {/*    setModalIsOpen={setModalIsOpen}*/}
+          {/*    setAddressEditId={setAddressEditId}*/}
+          {/*  />*/}
+          {/*))}*/}
         </ul>
       )}
 
@@ -48,7 +57,8 @@ const AddressSelection = (props) => {
             <div className={"fixed  w-[45%] m-auto inset-0 z-[10000000000]"}>
               <AddAddressModal
                 getDataFetch={props.setMyLocationData}
-                pageType={"create"}
+                pageType={pageType}
+                addressEditId={addressEditId}
                 setModalIsOpen={setModalIsOpen}
                 timeData={props.timeData}
                 setIsLoading={setIsLoading}
