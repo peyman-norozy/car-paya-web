@@ -12,32 +12,29 @@ const AddressSelection = (props) => {
     setModalIsOpen(true);
   };
 
-  console.log(modalIsOpen);
   return (
     <>
-      {props.status === "fixed" ? (
-        <span>محله</span>
-      ) : (
-        <Button
-          class_name={
-            "bg-[#5D697A] text-[#FEFEFE] py-2 px-3 text-[16px] flex item-center gap-2 rounded-[8px]"
+      {props.status === "MOVING"&&
+        <button
+          className={
+            "bg-[#5D697A] text-[#FEFEFE] py-2 px-3 text-[16px] flex item-center gap-2 rounded-[8px] self-start"
           }
-          on_click={openModalHandler}
+          onClick={openModalHandler}
         >
           <span className={"text-[24px]"}>+</span>
           <span className={"mt-1.5"}>افزودن آدرس جدید</span>
-        </Button>
-      )}
-      {props.status === "fixed" ? (
+        </button>
+      }
+      {props.status === "FIXED" ? (
         <ul className={"mt-7 flex flex-col gap-6"}>
           {props.carCheckLocations.map((item, index) => (
-            <NewAddressCard key={index} status={props.status} item={item} />
+            <NewAddressCard key={index} status={props.status} item={item} nextUrl={"/periodic-service/service-selection"}/>
           ))}
         </ul>
       ) : (
         <ul className={"mt-7 flex flex-col gap-6"}>
           {props.myLocationData.map((item, index) => (
-            <NewAddressCard key={index} status={props.status} item={item} />
+            <NewAddressCard key={index} status={props.status} item={item} nextUrl={"/periodic-service/service-selection"}/>
           ))}
         </ul>
       )}
