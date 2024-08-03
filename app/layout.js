@@ -28,8 +28,8 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <Suspense>
       <Providers>
+        <Suspense>
         <html lang="fa" dir="rtl">
           <body className="bg-[#D1D1D1]">
             <NextTopLoader
@@ -42,11 +42,11 @@ export default function RootLayout({ children }) {
               easing="ease"
               speed={2000}
             />
-            <MainLayout>{children}</MainLayout>
+              <MainLayout>{children}</MainLayout>
             <div id="modal-root"></div>
           </body>
         </html>
+        </Suspense>
       </Providers>
-    </Suspense>
   );
 }
