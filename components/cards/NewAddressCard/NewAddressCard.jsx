@@ -1,7 +1,9 @@
 "use client";
-import React, { useState } from "react";
-import Button from "@/components/Button";
-import MapDirection from "@/components/MapDirection";
+import React from "react";
+import dynamic from "next/dynamic";
+const MapDirection = dynamic(() => import("@/components/MapDirection"), {
+  ssr: false,
+});
 import DetailingDetailCard from "@/components/cards/DetailingDetailCard/DetailingDetailCard";
 import useSetQuery from "@/hook/useSetQuery";
 
