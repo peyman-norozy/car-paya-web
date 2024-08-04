@@ -38,7 +38,9 @@ const NewAddressCard = ({ status, item, nextUrl }) => {
   };
 
   return (
-    <li className={"bg-[#E7E7E7] p-4 rounded-[16px] flex gap-6"}>
+    <li
+      className={`bg-[#E7E7E7] p-4 rounded-[16px] flex gap-6 ${status === "FIXED" ? "h-[335px]" : "h-[232px]"}`}
+    >
       <div className={"flex-1"}>
         <section className={"flex justify-between"}>
           <span className={"font-semibold text-18"}>{item.title}</span>
