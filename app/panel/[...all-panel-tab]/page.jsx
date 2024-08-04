@@ -62,7 +62,7 @@ const AllPanelTab = (props) => {
 
   return (
     <>
-      <div className="mt-[50px] mb-[100px] size690:mx-[50px] mx-0">
+      <div className="mt-[50px] mb-[100px]">
         <div className="flex items-center gap-4 mb-[30px] mt-[100px]">
           <Image
             src={"/assets/icons/back.svg"}
@@ -72,7 +72,7 @@ const AllPanelTab = (props) => {
             width={34}
             height={34}
           />
-          {
+          {/* {
             {
               profile: <TitleDescription>اطلاعات شخصی من</TitleDescription>,
               "my-vehicle/my-car": (
@@ -92,10 +92,10 @@ const AllPanelTab = (props) => {
               props.params["all-panel-tab"] &&
                 props.params["all-panel-tab"].join("/")
             ]
-          }
+          } */}
         </div>
         <div className="flex gap-4 size1000:flex-row flex-col">
-          <div className="shadow-[0_0_6px_0_rgba(180,180,180,0.3)] w-[342px] flex-col justify-start h-fit gap-4 items-center pt-2 size1180:flex hidden rounded-[10px] sticky top-[81px]">
+          <div className="bg-[#383838] w-[260px] flex-col justify-start h-fit gap-4 items-center pt-2 size1180:flex hidden rounded-[10px] sticky top-[81px]">
             <UserSpecifications
               style={"flex-col justify-center items-center gap-2"}
             />
