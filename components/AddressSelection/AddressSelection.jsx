@@ -18,7 +18,7 @@ const AddressSelection = (props) => {
   console.log(modalIsOpen);
   return (
     <>
-      {props.status === "fixed" ? (
+      {props.status === "FIXED" ? (
         <span>محله</span>
       ) : (
         <Button
@@ -34,7 +34,12 @@ const AddressSelection = (props) => {
       {props.status === "FIXED" ? (
         <ul className={"mt-7 flex flex-col gap-6"}>
           {props.carCheckLocations.map((item, index) => (
-            <NewAddressCard key={index} status={props.status} item={item} nextUrl={"/periodic-service/service-selection"}/>
+            <NewAddressCard
+              key={index}
+              status={props.status}
+              item={item}
+              nextUrl={"/periodic-service/service-selection"}
+            />
           ))}
         </ul>
       ) : (
