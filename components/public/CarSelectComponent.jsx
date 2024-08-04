@@ -15,16 +15,16 @@ const CarSelectComponent = () => {
   const [data, setData] = useState([]);
   const [carSelected, setCarSelected] = useState(false);
   const [selectedCar, setSelectedCar] = useState({});
-  const [provienceCity, setProvienceCity] = useState([]);
-  const [searchCity, setSearchCity] = useState([]);
-  const [optionState, setOptionState] = useState(false);
-  const [selectedCity, setSelectedCity] = useState({});
+  // const [provienceCity, setProvienceCity] = useState([]);
+  // const [searchCity, setSearchCity] = useState([]);
+  // const [optionState, setOptionState] = useState(false);
+  // const [selectedCity, setSelectedCity] = useState({});
   const [showInvoice, setShowInvoice] = useState(false);
   const [invoiceData, setInvoiceData] = useState([]);
   const showHeaderData = useSelector((state) => state.todo.showHeader);
   const renderInvoice = useSelector((state) => state.todo.renderInvoice);
-  const optionRef = useRef(null);
-  const inputRef = useRef(null);
+  // const optionRef = useRef(null);
+  // const inputRef = useRef(null);
   const pathname = usePathname();
   const setQuery = useSetQuery();
 
@@ -50,31 +50,31 @@ const CarSelectComponent = () => {
     }
   }, [carSelected]);
 
-  useEffect(() => {
-    axios
-      .get(process.env.BASE_API + "/web/geo/province-cities")
-      .then((res) => {
-        if (res.data.status === "success") {
-          setProvienceCity(res.data.data);
-          setSearchCity(res.data.data);
-        }
-      })
-      .catch((err) => console.log(err));
-    document.addEventListener("click", (e) => {
-      if (
-        e.target.parentElement !== optionRef.current &&
-        e.target !== inputRef.current
-      ) {
-        setOptionState(false);
-      }
-    });
-    const object = localStorage.getItem("city");
-    if (object) {
-      setSelectedCity(JSON.parse(object).label);
-    } else {
-      setSelectedCity("");
-    }
-  }, []);
+  // useEffect(() => {
+  //   axios
+  //     .get(process.env.BASE_API + "/web/geo/province-cities")
+  //     .then((res) => {
+  //       if (res.data.status === "success") {
+  //         setProvienceCity(res.data.data);
+  //         setSearchCity(res.data.data);
+  //       }
+  //     })
+  //     .catch((err) => console.log(err));
+  //   document.addEventListener("click", (e) => {
+  //     if (
+  //       e.target.parentElement !== optionRef.current &&
+  //       e.target !== inputRef.current
+  //     ) {
+  //       setOptionState(false);
+  //     }
+  //   });
+  //   const object = localStorage.getItem("city");
+  //   if (object) {
+  //     setSelectedCity(JSON.parse(object).label);
+  //   } else {
+  //     setSelectedCity("");
+  //   }
+  // }, []);
 
   async function getInvoiceData() {
     const data = await getData("/web/cart")
@@ -132,16 +132,16 @@ const CarSelectComponent = () => {
         });
     }
   }
-  function inputChangeHandler(value) {
-    setSelectedCity(value);
-    setSearchCity(provienceCity.filter((i) => i.label.includes(value)));
-  }
+  // function inputChangeHandler(value) {
+  //   setSelectedCity(value);
+  //   setSearchCity(provienceCity.filter((i) => i.label.includes(value)));
+  // }
 
-  function cityClickHandler(item) {
-    setSelectedCity(item.label);
-    setOptionState(false);
-    localStorage.setItem("city", JSON.stringify(item));
-  }
+  // function cityClickHandler(item) {
+  //   setSelectedCity(item.label);
+  //   setOptionState(false);
+  //   localStorage.setItem("city", JSON.stringify(item));
+  // }
 
   if (pathname !== "/periodic-service/invoice"){return (
     <div className="absolute h-full top-0 right-auto">
