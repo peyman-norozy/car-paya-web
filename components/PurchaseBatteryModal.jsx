@@ -79,7 +79,7 @@ const PurchaseBatteryModal = (props) => {
   const clickSelectTimeHandler = () => {
     console.log(allParams.get("provience_city_id"));
     router.push(
-      `/batteries/products/newTimeSelector?privience_city_id=${JSON.parse(localStorage.getItem("city")).cityId}`,
+      `/batteries/products/newTimeSelector?city_id=${JSON.parse(localStorage.getItem("city")).cityId}`,
     );
   };
 
