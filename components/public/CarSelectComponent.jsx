@@ -178,7 +178,7 @@ const CarSelectComponent = () => {
             </div>
             {showInvoice ? (
               <>
-                <div
+                {/* <div
                   className="flex flex-col gap-3 items-start relative"
                   onFocusCapture={() => {
                     setOptionState(true);
@@ -216,8 +216,8 @@ const CarSelectComponent = () => {
                       </div>
                     </div>
                   )}
-                </div>
-                <div className={`flex flex-col mt-1 items-center ${invoiceData.cart_items&&invoiceData.cart_items.length?"":"hidden"}`}>
+                </div> */}
+                <div className={`flex flex-col gap-4 mt-12 items-center ${invoiceData.cart_items&&invoiceData.cart_items.length?"hidden":""}`}>
                   <Image src={invoice} className="m-auto size-52 opacity-70" />
                   <span className="text-white">
                     در حال حاضر سرویسی انتخاب نکرده اید
