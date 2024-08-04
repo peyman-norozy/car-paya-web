@@ -15,7 +15,7 @@ const AddressSelection = (props) => {
     setPageType("create");
   };
 
-  console.log(modalIsOpen);
+  console.log(props.status);
   return (
     <>
       {props.status === "FIXED" ? (
@@ -49,6 +49,7 @@ const AddressSelection = (props) => {
               <NewAddressCard
                 key={index}
                 status={props.status}
+                timeData={props.timeData}
                 item={item}
                 setPageType={setPageType}
                 setModalIsOpen={setModalIsOpen}
