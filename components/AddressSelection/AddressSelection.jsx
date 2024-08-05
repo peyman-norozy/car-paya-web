@@ -33,9 +33,9 @@ const AddressSelection = (props) => {
       )}
       {props.status === "FIXED" ? (
         <ul className={"mt-7 flex flex-col gap-6"}>
-          {props.carCheckLocations.map((item, index) => (
+          {props.carCheckLocations.map((item) => (
             <NewAddressCard
-              key={index}
+              key={item.id}
               status={props.status}
               item={item}
               nextUrl={"/periodic-service/service-selection"}
@@ -45,9 +45,9 @@ const AddressSelection = (props) => {
       ) : (
         <ul className={"mt-7 flex flex-col gap-6"}>
           {props.myLocationData &&
-            props.myLocationData.map((item, index) => (
+            props.myLocationData.map((item) => (
               <NewAddressCard
-                key={index}
+                key={item.id}
                 status={props.status}
                 timeData={props.timeData}
                 item={item}
