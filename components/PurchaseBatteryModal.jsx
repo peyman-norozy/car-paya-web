@@ -258,7 +258,7 @@ const PurchaseBatteryModal = (props) => {
           {purchseOptions.map((item, index) => (
             <div
               key={index}
-              className="flex items-center justify-between gap-[0.75rem] py-[1rem] mb-[0.25rem] border-b-[1px] border-b-[#C0C0C0]"
+              className="flex size746:flex-row flex-col items-center justify-between gap-[0.75rem] py-[1rem] mb-[0.25rem] border-b-[1px] border-b-[#C0C0C0]"
               onClick={selectPriceHandler}
               price={item.price}
             >
@@ -316,11 +316,11 @@ const PurchaseBatteryModal = (props) => {
           ))}
         </div>
 
-        <div className="flex items-center justify-between py-[1.5rem]">
+        <div className="flex size746:flex-row flex-col size746:gap-0 gap-4 items-center justify-between py-[1.5rem]">
           <div className="flex items-center gap-[0.25rem] size1000:gap-[0.5rem]">
-            <p>مبلغ قابل پرداخت: </p>
+            <p className={"size746:text-[16px] text-14"}>مبلغ قابل پرداخت: </p>
             <div className="flex size1000:mr-[1rem]">
-              <p className="mt-[0.5rem]">
+              <p className="size746:text-[16px] text-14">
                 <span> {numberWithCommas(totalPrice.price)} </span>
                 <span>تومان </span>
               </p>

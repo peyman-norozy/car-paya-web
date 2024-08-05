@@ -57,7 +57,7 @@ const NewAddressCard = ({
 
   return (
     <li
-      className={`bg-[#E7E7E7] p-4 rounded-[16px] flex gap-6 ${status === "FIXED" ? "h-[335px]" : "h-[232px]"}`}
+      className={`bg-[#E7E7E7] p-4 rounded-[16px] flex size720:flex-row flex-col-reverse gap-6 ${status === "FIXED" ? "size720:h-[335px] h-fit" : "size1228:h-[232px] lg:h-[270px] size830:h-[232px] size720:h-[270px] h-fit"}`}
     >
       <div className={"flex-1"}>
         <section className={"flex justify-between"}>
@@ -110,9 +110,7 @@ const NewAddressCard = ({
         )}
 
         <button
-          className={
-            "bg-[#F66B34] w-[132px] h-[40px] text-[#FEFEFE] rounded-[8px] mt-4 "
-          }
+          className={`bg-[#F66B34] w-[132px] h-[40px] text-[#FEFEFE] rounded-[8px] ${status === "MOVING" ? "size1228:mt-4 lg:mt-16 size830:mt-4 mt-16" : "mt-4"}`}
           onClick={() => {
             onclick(item.id);
           }}
@@ -120,7 +118,7 @@ const NewAddressCard = ({
           تایید
         </button>
       </div>
-      <div className={"w-[328px] h-full"}>
+      <div className={"size720:w-[328px] w-full h-full"}>
         <MapDirection
           justShowPosition={true}
           status={status}
