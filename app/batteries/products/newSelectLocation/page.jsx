@@ -36,7 +36,6 @@ const Page = (props) => {
   }, [searchParams]);
 
   useEffect(() => {
-    console.log("p0eyman");
     timeData();
   }, [searchParams]);
 
