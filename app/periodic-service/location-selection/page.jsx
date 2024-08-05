@@ -14,16 +14,16 @@ const Dealership = (props) => {
   // },[])
   const [myLocationData, setMyLocationData] = useState([]);
   const [carCheckLocations, setCarCheckLocations] = useState([]);
-
-  const timeData = useCallback(() => {
+  const [filter , setFilter] = useState([])
+  const timeData = useCallback((query) => {
     (async () => {
       const fetchTimeData = await getDataWithFullErrorRes(
-        `/web/service-periodical?step=step-1&type=${props.searchParams.type}&city_id=${props.searchParams.city_id}&vehicle_tip_id=${props.searchParams.vehicle_tip_id}`,
+        `/web/service-periodical?step=step-1&type=${props.searchParams.type}&city_id=${props.searchParams.city_id}&vehicle_tip_id=${props.searchParams.vehicle_tip_id}${query?query:""}`,
       );
       if (props.searchParams.type === "FIXED") {
+        setFilter(fetchTimeData.filter)
         setCarCheckLocations(fetchTimeData.data);
       } else if (props.searchParams.type === "MOVING") {
-        console.log(fetchTimeData);
         setMyLocationData(fetchTimeData.data);
       }
     })();
@@ -56,6 +56,7 @@ const Dealership = (props) => {
             FIXED: (
               <AddressSelection
                 carCheckLocations={carCheckLocations}
+                filter={filter}
                 status={"FIXED"}
                 timeData={timeData}
               />

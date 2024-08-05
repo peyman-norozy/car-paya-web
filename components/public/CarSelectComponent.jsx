@@ -185,7 +185,7 @@ const CarSelectComponent = () => {
                   }}
                 >
                   <span className="text-[#FEFEFE] font-bold">
-                    انتخاب استان / شهر
+                    محله
                   </span>
                   <input
                     className="w-full bg-[#FEFEFE] rounded-lg text-[#0E0E0E] h-10 outline-none px-2"
@@ -217,7 +217,7 @@ const CarSelectComponent = () => {
                     </div>
                   )}
                 </div> */}
-                <div className={`flex flex-col gap-4 mt-12 items-center ${invoiceData.cart_items&&invoiceData.cart_items.length?"hidden":""}`}>
+                <div className={`flex flex-col gap-4 mt-12 items-center`}>
                   <Image src={invoice} className="m-auto size-52 opacity-70" />
                   <span className="text-white">
                     در حال حاضر سرویسی انتخاب نکرده اید

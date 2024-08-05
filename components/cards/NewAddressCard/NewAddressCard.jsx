@@ -87,10 +87,10 @@ const NewAddressCard = ({
             <span className={"font-semibold"}>شهر:</span>
             <span>{item.city_name}</span>
           </div>
-          {/*<div className={"flex gap-[11px]"}>*/}
-          {/*  <span className={"font-semibold"}>محله:</span>*/}
-          {/*  <span>{item.area_name}</span>*/}
-          {/*</div>*/}
+          <div className={"flex gap-[11px]"}>
+           <span className={"font-semibold"}>محله:</span>
+           <span>{item.area_name}</span>
+          </div>
         </section>
         <section className={"flex"}>
           <p className={"leading-7 h-14"}>
