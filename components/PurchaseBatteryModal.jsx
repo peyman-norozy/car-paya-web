@@ -96,14 +96,14 @@ const PurchaseBatteryModal = (props) => {
           },
         );
         console.log(selectAmpBatteriesData);
-        const newPurchseOption = purchseOptions.map((option) => {
-          if (option.id === "selectAmper") {
-            return (option.price =
-              selectAmpBatteriesData.calculation.difference_same_amp);
-          } else {
-            return option;
-          }
-        });
+        // const newPurchseOption = purchseOptions.map((option) => {
+        //   if (option.id === "selectAmper") {
+        //     return (option.price =
+        //       selectAmpBatteriesData.calculation.difference_same_amp);
+        //   } else {
+        //     return option;
+        //   }
+        // });
         setTotalPrice({
           price: selectAmpBatteriesData.calculation.payment_price,
           productId: batteriesData.id,
@@ -178,7 +178,12 @@ const PurchaseBatteryModal = (props) => {
         const newAmperOptions = getBatteriesData.amp.map((item) => {
           return { title: item.label, id: item.value };
         });
-        setAmperSelectData(newAmperOptions);
+        const filterAmperOptions = newAmperOptions.filter((item) => {
+          if (batteriesData.amp !== Number(item.id)) {
+            return item;
+          }
+        });
+        setAmperSelectData(filterAmperOptions);
 
         const getSameAmpBattery = await getData(
           "/web/reservation/battery?step=step-1",
