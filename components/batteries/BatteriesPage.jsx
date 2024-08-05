@@ -11,9 +11,11 @@ import BatteriesCard from "@/components/cards/BatteriesCard/BatteriesCard";
 import { useRouter } from "next/navigation";
 import { useDispatch } from "react-redux";
 import { setCarSelectToastHandler, setCityModalState } from "@/store/todoSlice";
+import BatteryAssistantModal from "@/components/modal/BatteryAssistantModal";
 
 const BatteriesPage = (props) => {
   const query = useSetQuery();
+  console.log(props.data);
   const [isClicked, setIsClicked] = useState(1);
   const [filterISOpen, setFilterIsOpen] = useState(false);
   const [batteryIsSelected, setBatteryIsSelected] = useState(false);
@@ -26,6 +28,7 @@ const BatteriesPage = (props) => {
   const [topDistance, setTopDistance] = useState(0);
   const [filterModalState, setFilterModalState] = useState(false);
   const [timeModalState, setTimeModalState] = useState(false);
+  const [assistantModalState, setAssistantModalState] = useState(false);
   const [filterId, setFilterId] = useState("");
   const dispatch = useDispatch();
   const filterRef = useRef(null);
@@ -152,6 +155,10 @@ const BatteriesPage = (props) => {
     })();
   }, []);
 
+  const toggleModal = () => {
+    setAssistantModalState((prev) => !prev);
+  };
+
   return (
     <div className={"flex flex-col relative py-4 max-w-[1772px] m-auto"}>
       <section
@@ -161,14 +168,14 @@ const BatteriesPage = (props) => {
           <div
             ref={filterRef}
             onClick={toggleFilterHandler}
-            className="bg-[#F66B34] rounded-[8px] py-[0.5rem] px-[1.5rem] flex items-center gap-[0.5rem] text-white cursor-pointer relative"
+            className="bg-[#5D697A] rounded-[8px] py-[0.5rem] px-[1.5rem] flex items-center gap-[0.5rem] text-white cursor-pointer relative font-semibold"
           >
             <i className={"cc-arrow-down text-[20px]"} />
             {/*<Image src={arrow} alt={"arrow"} cl width={10} height={10} />*/}
             <p className="text-12">{filter}</p>
             <ul
               ref={heightRef}
-              className={`bg-[#F66B34] rounded-[8px] absolute  top-[2.2rem] right-0 left-0 text-12 overflow-hidden transition-all duration-500 z-[2]`}
+              className={`bg-[#5D697A] rounded-[8px] absolute  top-[2.2rem] right-0 left-0 text-12 overflow-hidden transition-all duration-500 z-[2]`}
               style={
                 filterISOpen
                   ? { height: `${heightRef.current.scrollHeight}px` }
@@ -177,7 +184,7 @@ const BatteriesPage = (props) => {
             >
               {filterData.map((item, index) => (
                 <li
-                  className="p-[0.5rem] w-full rounded-[8px]  hover:bg-[#ff9a71] flex items-center justify-between z-[2]"
+                  className="p-[0.5rem] w-full rounded-[8px]  hover:bg-[#a7a7a7] flex items-center justify-between z-[2]"
                   key={index}
                   onMouseEnter={filterMouseEnter}
                   onMouseLeave={filterMouseLeave}
@@ -192,7 +199,7 @@ const BatteriesPage = (props) => {
             {filterModalState && (
               <div
                 className={
-                  "bg-white rounded-[8px] absolute right-[137px] pr-1 text-12 overflow-hidden transition-all duration-1000 w-[137px] z-[2]"
+                  "bg-[#5D697A] rounded-[8px] absolute right-[137px] pr-1 text-12 overflow-hidden transition-all duration-1000 w-[137px] z-[2]"
                 }
                 ref={subFilterRef}
                 id={"sub_filter"}
@@ -202,7 +209,7 @@ const BatteriesPage = (props) => {
                   top: topDistance === 0 ? "0" : topDistance - 145 + "px",
                 }}
               >
-                <ul className={`bg-[#F66B34] h-[250px] overflow-y-scroll`}>
+                <ul className={`bg-[#5D697A] h-[250px] overflow-y-scroll`}>
                   {props.filterData[filterId]?.map((item) => (
                     <SubFilterCard
                       key={item.value}
@@ -218,8 +225,9 @@ const BatteriesPage = (props) => {
           </div>
           <button
             className={
-              "bg-[#F66B34] text-12 text-white w-[90px] h-[36px] rounded-[8px]"
+              "bg-[#5D697A] text-12 text-white w-[146px] h-[36px] rounded-[8px] font-semibold animate-bounce "
             }
+            onClick={() => toggleModal()}
           >
             دستیار باتری
           </button>
@@ -367,6 +375,10 @@ const BatteriesPage = (props) => {
           searchParams={props.searchParams}
         />
       </div>
+      <BatteryAssistantModal
+        isOpen={assistantModalState}
+        onClose={toggleModal}
+      />
       <ToastContainer rtl={true} />
     </div>
   );
