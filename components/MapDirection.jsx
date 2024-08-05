@@ -32,7 +32,7 @@ const MapDirection = (props) => {
   const displayMap = useMemo(
     () => (
       <div
-        className={`${props.justShowPosition && props.status === "fixed" ? "h-[300px]" : "h-[200px]"} w-full relative`}
+        className={`${props.justShowPosition && props.status === "FIXED" ? "h-[300px]" : "h-[200px]"} w-full relative`}
       >
         <div
           className={"absolute m-auto right-0 left-0 top-1 z-[999] w-fit h-fit"}

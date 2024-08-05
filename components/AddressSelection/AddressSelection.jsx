@@ -15,10 +15,10 @@ const AddressSelection = (props) => {
     setPageType("create");
   };
 
-  console.log(modalIsOpen);
+  console.log(props.status);
   return (
     <>
-      {props.status === "fixed" ? (
+      {props.status === "FIXED" ? (
         <span>محله</span>
       ) : (
         <Button
@@ -33,17 +33,23 @@ const AddressSelection = (props) => {
       )}
       {props.status === "FIXED" ? (
         <ul className={"mt-7 flex flex-col gap-6"}>
-          {props.carCheckLocations.map((item, index) => (
-            <NewAddressCard key={index} status={props.status} item={item} nextUrl={"/periodic-service/service-selection"}/>
+          {props.carCheckLocations.map((item) => (
+            <NewAddressCard
+              key={item.id}
+              status={props.status}
+              item={item}
+              nextUrl={"/periodic-service/service-selection"}
+            />
           ))}
         </ul>
       ) : (
         <ul className={"mt-7 flex flex-col gap-6"}>
           {props.myLocationData &&
-            props.myLocationData.map((item, index) => (
+            props.myLocationData.map((item) => (
               <NewAddressCard
-                key={index}
+                key={item.id}
                 status={props.status}
+                timeData={props.timeData}
                 item={item}
                 setPageType={setPageType}
                 setModalIsOpen={setModalIsOpen}

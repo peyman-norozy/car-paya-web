@@ -62,7 +62,7 @@ const AddressModal = (props) => {
 
     if (props.pageType === "edite") {
       formData.set("X-HTTP-Method-Override", "PUT");
-      setLoading(true);
+      props.setIsLoading(true);
       const update = await putData(
         API_PATHS.DASHBOARDUSERADDRESS + "/" + props.addressEditId,
         formData,
@@ -70,7 +70,7 @@ const AddressModal = (props) => {
       if (update.status === 200) {
         props.getDataFetch();
         props.setModalIsOpen(false);
-        props.setIsLoading(true);
+        props.setIsLoading(false);
         props.timeData();
       } else if (update.status === 422) {
         setErrorData(update.data.errors);
