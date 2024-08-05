@@ -188,6 +188,9 @@ module.exports = {
         size1362: "1362px",
         // => @media (min-width: 1362px) { ... }
 
+        size1400: "1400px",
+        // => @media (min-width: 1400px) { ... }
+
         size1415: "1415px",
         // => @media (min-width: 1415px) { ... }
 

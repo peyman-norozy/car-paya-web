@@ -46,7 +46,7 @@ const Page = (props) => {
       <div
         className={`sticky ${showHeaderState ? "top-[98px]" : "top-0"}  bg-[#d1d1d1] z-[2000] py-4 transition-all`}
       >
-        <div className={"flex justify-center gap-6 "}>
+        <div className={"flex size540:flex-row flex-col justify-center gap-6"}>
           <SelectLocationTab
             headerText={"در محل شما"}
             description={
