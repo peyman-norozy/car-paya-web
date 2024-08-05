@@ -10,7 +10,7 @@ import { ToastContainer } from "react-toastify";
 import BatteriesCard from "@/components/cards/BatteriesCard/BatteriesCard";
 import { useRouter } from "next/navigation";
 import { useDispatch } from "react-redux";
-import { setCityModalState } from "@/store/todoSlice";
+import { setCarSelectToastHandler, setCityModalState } from "@/store/todoSlice";
 
 const BatteriesPage = (props) => {
   const query = useSetQuery();
@@ -128,6 +128,7 @@ const BatteriesPage = (props) => {
   }, []);
 
   useEffect(() => {
+    console.log(JSON.parse(localStorage.getItem("selectedVehicle"))?.id);
     if (
       !JSON.parse(localStorage.getItem("city")) &&
       !JSON.parse(localStorage.getItem("city"))?.cityId
@@ -135,7 +136,14 @@ const BatteriesPage = (props) => {
       dispatch(setCityModalState(true));
       router.push("/batteries");
     }
-  }, [props.searchParams]);
+    if (
+      !JSON.parse(localStorage.getItem("selectedVehicle")) &&
+      !JSON.parse(localStorage.getItem("selectedVehicle"))?.id
+    ) {
+      dispatch(setCarSelectToastHandler(true));
+      router.push("/batteries");
+    }
+  }, [dispatch, router, props.searchParams]);
 
   useEffect(() => {
     (async () => {
@@ -208,6 +216,13 @@ const BatteriesPage = (props) => {
               </div>
             )}
           </div>
+          <button
+            className={
+              "bg-[#F66B34] text-12 text-white w-[90px] h-[36px] rounded-[8px]"
+            }
+          >
+            دستیار باتری
+          </button>
         </div>
         <ul className={"mt-4 flex flex-col gap-[24px]"}>
           {props.data?.data?.map((item, index) => (
