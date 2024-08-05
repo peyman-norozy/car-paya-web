@@ -44,7 +44,7 @@ const Page = (props) => {
   return (
     <div className={"min-h-screen lg:mt-[124px] lg:mr-[420px] mb-[71px]"}>
       <div
-        className={`sticky ${showHeaderState ? "top-[98px]" : "top-0"}  bg-[#d1d1d1] z-[2000] py-4 transition-all`}
+        className={`sticky ${showHeaderState ? "size720:top-[98px] top-[74px]" : "top-0"}  bg-[#d1d1d1] z-[2000] py-4 transition-all`}
       >
         <div className={"flex size540:flex-row flex-col justify-center gap-6"}>
           <SelectLocationTab
