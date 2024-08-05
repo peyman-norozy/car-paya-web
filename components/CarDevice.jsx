@@ -600,10 +600,10 @@ const CarDevice = (props) => {
   return (
     <PrivateRoute>
       <form
-        className="flex-1 px-[40px] py-[32px] rounded-[10px] shadow-[0_0_6px_0_rgba(180,180,180,0.3)] flex flex-col gap-[35px]"
+        className="flex-1 px-[40px] py-[32px] rounded-[10px] bg-[#383838A3] flex flex-col gap-[35px]"
         onSubmit={myCarSubmitHandler}
       >
-        <h1 className={"text-[#354597]"}>خودرو من</h1>
+        <h1 className={"text-[#FEFEFE]"}>خودرو 206</h1>
         <div className={"grid size800:grid-cols-2 grid-cols-1 gap-[32px]"}>
           <section className="flex justify-center items-center rounded-[10px] flex-[1]">
             <Image
@@ -642,7 +642,7 @@ const CarDevice = (props) => {
               id={"brandOption"}
               newReset={newReset}
               className={"h-[48px]"}
-              labelCalssName={"bg-[#000000] linear-gradient-180"}
+              labelCalssName={""}
               disabledSelectOption={true}
               lable={"انتخاب برند"}
             />
@@ -669,7 +669,7 @@ const CarDevice = (props) => {
               id={"modelOption"}
               newReset={newReset}
               className={"h-[48px]"}
-              labelCalssName={"bg-[#000000] linear-gradient-180"}
+              labelCalssName={""}
               disabledSelectOption={true}
               lable={"انتخاب مدل"}
             />
@@ -695,7 +695,7 @@ const CarDevice = (props) => {
               id={"tipOption"}
               newReset={newReset}
               className={"h-[48px]"}
-              labelCalssName={"bg-[#000000] linear-gradient-180"}
+              labelCalssName={""}
               disabledSelectOption={true}
               lable={"انتخاب تیپ"}
             />
@@ -711,11 +711,11 @@ const CarDevice = (props) => {
           </section>
         </div>
         <div className="grid size800:grid-cols-2 grid-cols-1 gap-[32px]">
-          <div className={"relative"}>
+          <div className={"flex flex-col gap-4"}>
             <label
               htmlFor={"carName"}
               className={
-                "bg-white px-2 font-light text-[12px] text-[#454545] absolute top-[-11px] right-[10px]"
+                "px-2 text-16 font-bold text-[#FEFEFE]"
               }
             >
               نام وسیله

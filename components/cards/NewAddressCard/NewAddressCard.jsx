@@ -9,7 +9,8 @@ import useSetQuery from "@/hook/useSetQuery";
 
 const NewAddressCard = ({ status, item, nextUrl }) => {
   const setQuery = useSetQuery();
-
+  console.log(item);
+  
   const fixedFakeData = [
     "فیلتر روغن",
     "فیلتر روغن",
