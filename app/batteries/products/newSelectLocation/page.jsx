@@ -39,8 +39,6 @@ const Page = (props) => {
     timeData();
   }, [searchParams]);
 
-  console.log(carCheckLocations, "cdcdcflkjr");
-
   return (
     <div className={"min-h-screen lg:mt-[124px] lg:mr-[420px] mb-[71px]"}>
       <div
