@@ -1,13 +1,23 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import dynamic from "next/dynamic";
 const MapDirection = dynamic(() => import("@/components/MapDirection"), {
   ssr: false,
 });
 import DetailingDetailCard from "@/components/cards/DetailingDetailCard/DetailingDetailCard";
 import useSetQuery from "@/hook/useSetQuery";
+import AddressDeleteModal from "@/components/modal/AddressDeleteModal";
 
-const NewAddressCard = ({ status, item, nextUrl }) => {
+const NewAddressCard = ({
+  status,
+  item,
+  nextUrl,
+  setPageType,
+  setModalIsOpen,
+  setAddressEditId,
+  timeData,
+}) => {
+  const [isOpenDeleteModal, setModalIsOpenDeleteModal] = useState(false);
   const setQuery = useSetQuery();
 
   const fixedFakeData = [
@@ -37,8 +47,18 @@ const NewAddressCard = ({ status, item, nextUrl }) => {
     setAddressEditId(id);
   };
 
+  const openDeleteModal = (id) => {
+    setModalIsOpenDeleteModal(true);
+  };
+
+  const ToggleDeleteModal = () => {
+    setModalIsOpenDeleteModal((prev) => !prev);
+  };
+
   return (
-    <li className={"bg-[#E7E7E7] p-4 rounded-[16px] flex gap-6"}>
+    <li
+      className={`bg-[#E7E7E7] p-4 rounded-[16px] flex gap-6 ${status === "FIXED" ? "h-[335px]" : "h-[232px]"}`}
+    >
       <div className={"flex-1"}>
         <section className={"flex justify-between"}>
           <span className={"font-semibold text-18"}>{item.title}</span>
@@ -50,7 +70,10 @@ const NewAddressCard = ({ status, item, nextUrl }) => {
                 className={"cc-edit text-[20px] cursor-pointer"}
                 onClick={() => clickEditHandler(item.id)}
               />
-              <i className={"cc-filter text-[20px] cursor-pointer"} />
+              <i
+                className={"cc-filter text-[20px] cursor-pointer"}
+                onClick={() => openDeleteModal(item.id)}
+              />
             </div>
           )}
         </section>
@@ -104,6 +127,13 @@ const NewAddressCard = ({ status, item, nextUrl }) => {
           editData={item.map}
         />
       </div>
+      <AddressDeleteModal
+        isOpen={isOpenDeleteModal}
+        onClose={ToggleDeleteModal}
+        timeData={timeData}
+        title={item.title}
+        id={item.id}
+      />
     </li>
   );
 };
