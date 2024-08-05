@@ -12,12 +12,13 @@ const Page = (props) => {
   const [myLocationData, setMyLocationData] = useState([]);
   const [carCheckLocations, setCarCheckLocations] = useState([]);
   const searchParams = useSearchParams();
+  console.log(searchParams.toString(), "jfjfjfjfjfjf");
 
   const showHeaderState = useSelector((state) => state.todo.showHeader);
 
   useEffect(() => {
-    setSelectAddressState(props.searchParams.type);
-  }, [props.searchParams.type]);
+    setSelectAddressState(searchParams.get("type"));
+  }, [searchParams]);
 
   const timeData = useCallback(() => {
     (async () => {
@@ -25,22 +26,21 @@ const Page = (props) => {
         process.env.BASE_API +
           `/web/reservation/battery?step=step-3&${searchParams.toString()}`,
       );
-      if (props.searchParams.type === "FIXED") {
+      if (searchParams.get("type") === "FIXED") {
         setCarCheckLocations(fetchTimeData.data);
-      } else if (props.searchParams.type === "MOVING") {
+      } else if (searchParams.get("type") === "MOVING") {
         console.log(fetchTimeData);
         setMyLocationData(fetchTimeData.data);
       }
     })();
-  }, [
-    props.searchParams.type,
-    props.searchParams.city_id,
-    props.searchParams.time_id,
-  ]);
+  }, [searchParams]);
 
   useEffect(() => {
+    console.log("p0eyman");
     timeData();
-  }, [props.searchParams.type]);
+  }, [searchParams]);
+
+  console.log(carCheckLocations, "cdcdcflkjr");
 
   return (
     <div className={"min-h-screen lg:mt-[124px] lg:mr-[420px] mb-[71px]"}>
