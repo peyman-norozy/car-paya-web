@@ -367,7 +367,7 @@ const BatteriesPage = (props) => {
       ></div>
 
       <div
-        className={`w-[75%] size900:w-[50%] m-auto fixed transition-all duration-1000 ${batteryIsSelected ? "top-[50%]" : "top-[-50%]"} left-[50%] translate-x-[-50%] translate-y-[-50%] z-[20000]`}
+        className={`w-[75%] size900:w-[50%] m-auto fixed transition-all duration-1000 ${batteryIsSelected ? "top-[50%]" : "top-[-60%]"} left-[50%] translate-x-[-50%] translate-y-[-50%] z-[20000]`}
       >
         <PurchaseBatteryModal
           setBatteryIsSelected={setBatteryIsSelected}

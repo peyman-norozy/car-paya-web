@@ -175,7 +175,7 @@ const AddressSelection = (props) => {
       {modalIsOpen && props.status === "MOVING" && (
         <div>
           <div>
-            <div className={"fixed  w-[45%] m-auto inset-0 z-[10000000000]"}>
+            <div className={"fixed w-[45%] m-auto inset-0 z-[10000000000]"}>
               <AddAddressModal
                 getDataFetch={props.setMyLocationData}
                 pageType={pageType}

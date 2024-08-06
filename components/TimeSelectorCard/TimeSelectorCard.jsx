@@ -71,7 +71,7 @@ const TimeSelectorCard = (props) => {
         {props.data.hour.map((item) => (
           <li
             key={item.id}
-            className={`${item.status === "ACTIVE" ? (props.selectedTime === item.id ? "bg-[#F66B34] text-[#FEFEFE] cursor-pointer" : "bg-[#FEFEFE] text-[#0E0E0E] cursor-pointer") : "bg-[#B0B0B0] text-[#5D697A] cursor-none"} flex gap-1 py-2 px-4 rounded-[8px] select-none`}
+            className={`${item.status === "ACTIVE" ? (props.selectedTime === item.id ? "bg-[#F66B34] text-[#FEFEFE] cursor-pointer" : "bg-[#FEFEFE] text-[#0E0E0E] cursor-pointer") : "bg-[#B0B0B0] text-[#5D697A] cursor-none"} flex gap-1 py-2 px-4 rounded-[8px] select-none min-w-[125px]`}
             onClick={() => {
               props.setSelectedTime(item.id);
             }}
