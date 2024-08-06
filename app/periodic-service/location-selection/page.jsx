@@ -1,33 +1,36 @@
 "use client";
 import AddressSelection from "@/components/AddressSelection/AddressSelection";
 import { getDataWithFullErrorRes } from "@/utils/api-function-utils";
+import { useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 
 const Dealership = (props) => {
   const [myLocationData, setMyLocationData] = useState([]);
   const [carCheckLocations, setCarCheckLocations] = useState([]);
   const [filter , setFilter] = useState([])
+  const searchParams = useSearchParams()
   const timeData = useCallback((query) => {
     (async () => {
       const fetchTimeData = await getDataWithFullErrorRes(
-        `/web/service-periodical?step=step-1&type=${props.searchParams.type}&city_id=${props.searchParams.city_id}&vehicle_tip_id=${props.searchParams.vehicle_tip_id}${query?query:""}`,
+        `/web/service-periodical?step=step-1&${searchParams.toString()}${query?query:""}`,
       );
-      if (props.searchParams.type === "FIXED") {
+      
+      if (searchParams.get("type") === "FIXED") {
         setFilter(fetchTimeData.filter)
         setCarCheckLocations(fetchTimeData.data);
-      } else if (props.searchParams.type === "MOVING") {
+      } else if (searchParams.get("type") === "MOVING") {
         setMyLocationData(fetchTimeData.data);
       }
     })();
   }, [
-    props.searchParams.type,
-    props.searchParams.city_id,
-    props.searchParams.time_id,
+    searchParams.get("type"),
+    searchParams.get("city_id"),
+    searchParams.get("time_id")
   ]);
 
   useEffect(() => {
     timeData();
-  }, [props.searchParams.type]);
+  }, [searchParams.get("type")]);
   return (
     <div className="lg:flex items-start gap-8 mt-1 lg:mt-[108px] max-w-[1772px] m-auto py-4 relative">
       <div
@@ -53,7 +56,7 @@ const Dealership = (props) => {
                 timeData={timeData}
               />
             ),
-          }[props.searchParams.type]
+          }[searchParams.get("type")]
         }
       </div>
     </div>

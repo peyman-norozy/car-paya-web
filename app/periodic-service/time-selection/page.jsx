@@ -3,13 +3,15 @@ import React, { useEffect, useState } from "react";
 import TimeSelectorCard from "@/components/TimeSelectorCard/TimeSelectorCard";
 import {getDataWithFullErrorRes } from "@/utils/api-function-utils";
 import useSetQuery from "@/hook/useSetQuery";
+import { useSearchParams } from "next/navigation";
 const Page = (props) => {
   const [selectedTime , setSelectedTime] = useState()
   const [data,setData] = useState([])
   const setQuery = useSetQuery()
+  const searchParams = useSearchParams()
   useEffect(()=>{
     async function getTimeData() {
-      const data = await getDataWithFullErrorRes(`/web/service-periodical?step=step-4&type=${props.searchParams.type}&city_id=${props.searchParams.city_id}&vehicle_tip_id=${props.searchParams.vehicle_tip_id}&service_location_id=${props.searchParams.service_location_id}&package_id=1`);
+      const data = await getDataWithFullErrorRes(`/web/service-periodical?step=step-4&${searchParams.toString()}`);
       setData(Object.keys(data["time-reserve"]).map((key)=>{
         return {
           day:key,
