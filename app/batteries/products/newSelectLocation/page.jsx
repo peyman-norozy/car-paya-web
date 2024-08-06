@@ -11,8 +11,8 @@ const Page = (props) => {
   const [selectAddressState, setSelectAddressState] = useState("MOVING"); //FIXED
   const [myLocationData, setMyLocationData] = useState([]);
   const [carCheckLocations, setCarCheckLocations] = useState([]);
+  const [filter , setFilter] = useState([])
   const searchParams = useSearchParams();
-  console.log(searchParams.toString(), "jfjfjfjfjfjf");
 
   const showHeaderState = useSelector((state) => state.todo.showHeader);
 
@@ -20,16 +20,16 @@ const Page = (props) => {
     setSelectAddressState(searchParams.get("type"));
   }, [searchParams]);
 
-  const timeData = useCallback(() => {
+  const timeData = useCallback((query) => {
     (async () => {
       const fetchTimeData = await getDataWithFullErrorRes(
         process.env.BASE_API +
-          `/web/reservation/battery?step=step-3&${searchParams.toString()}`,
+          `/web/reservation/battery?step=step-3&${searchParams.toString()}${query?query:""}`,
       );
       if (searchParams.get("type") === "FIXED") {
         setCarCheckLocations(fetchTimeData.data);
+        setFilter(fetchTimeData.filter)
       } else if (searchParams.get("type") === "MOVING") {
-        console.log(fetchTimeData);
         setMyLocationData(fetchTimeData.data);
       }
     })();
@@ -65,7 +65,7 @@ const Page = (props) => {
           />
         </div>
       </div>
-      <div className={"mt-7"}>
+      <div className={"mt-7 flex flex-col gap-5"}>
         {
           {
             MOVING: (
@@ -81,6 +81,7 @@ const Page = (props) => {
                 carCheckLocations={carCheckLocations}
                 status={"FIXED"}
                 timeData={timeData}
+                filter={filter}
               />
             ),
           }[selectAddressState]
