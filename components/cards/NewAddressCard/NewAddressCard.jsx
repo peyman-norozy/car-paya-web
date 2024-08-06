@@ -19,24 +19,6 @@ const NewAddressCard = ({
 }) => {
   const [isOpenDeleteModal, setModalIsOpenDeleteModal] = useState(false);
   const setQuery = useSetQuery();
-  console.log(item);
-  
-  const fixedFakeData = [
-    "فیلتر روغن",
-    "فیلتر روغن",
-    "تعویض روغن گیر بکس دستی",
-    "فیلتر روغن",
-    "فیلتر روغن",
-    "فیلتر روغن",
-    "فیلتر روغن",
-    "فیلتر روغن",
-    "فیلتر روغن",
-    "فیلتر روغن",
-    "فیلتر روغن",
-    "فیلتر روغن",
-    "فیلتر روغن",
-    "فیلتر روغن",
-  ];
 
   function onclick() {
     setQuery.updateQueryParams({ service_location_id: item.id }, nextUrl);
@@ -104,7 +86,7 @@ const NewAddressCard = ({
               "flex flex-wrap gap-x-2 gap-y-4 mt-4 h-[96px] overflow-y-scroll"
             }
           >
-            {fixedFakeData.map((item, index) => (
+            {item.services.map((item, index) => (
               <DetailingDetailCard key={index} item={item} />
             ))}
           </ul>

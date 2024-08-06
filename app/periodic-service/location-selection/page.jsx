@@ -4,14 +4,6 @@ import { getDataWithFullErrorRes } from "@/utils/api-function-utils";
 import { useCallback, useEffect, useState } from "react";
 
 const Dealership = (props) => {
-  // const [data , setData] = useState()
-  // useEffect(()=>{
-  //   const fetchData = async () => {
-  //     const a = await getData(`/web/service-periodical?step=step-1&type=${props.searchParams.type}&city_id=${props.searchParams.city_id}&vehicle_tip_id=${props.searchParams.vehicle_tip_id}`)
-  //     setData(a)
-  //   }
-  //   fetchData();
-  // },[])
   const [myLocationData, setMyLocationData] = useState([]);
   const [carCheckLocations, setCarCheckLocations] = useState([]);
   const [filter , setFilter] = useState([])

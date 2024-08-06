@@ -79,7 +79,6 @@ const CarSelectComponent = () => {
   async function getInvoiceData() {
     const data = await getData("/web/cart")
     setInvoiceData(data.data.data)
-    console.log(data.data.data);
   }
 
   async function removeClickHandler(id) {
