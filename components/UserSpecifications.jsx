@@ -4,7 +4,7 @@ import Image from "next/image";
 const UserSpecifications = (props) => {
   const profileData = JSON.parse(localStorage.getItem("profileData"));
   return (
-    <div className={`flex self-start px-[26px] pt-[24px] ${props.style}`}>
+    <div className={`flex self-center px-[26px] pt-[24px] ${props.style}`}>
       <div className="flex items-center w-full gap-2">
         {/*<Image*/}
         {/*  src="/assets/icons/profile.svg"*/}

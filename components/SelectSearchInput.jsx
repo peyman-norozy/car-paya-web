@@ -65,6 +65,8 @@ const SelectSearchInput = (props) => {
   }, [props.editId, props.editTitle, props.pageType]);
 
   return (
+    <div className="flex flex-col gap-4">
+      <span className={`inline-block px-2 text-[#FEFEFE] top-[-9px] right-[10px] font-bold ${props.labelCalssName}`}>{props.lable}</span>
     <div
       className={`border border-[#d1d1d1] rounded-5 ${props.className} w-full cursor-text relative ${props.disabledSelectOption&&"bg-[#F6F6F6]"}`}
       ref={inputRef}
@@ -114,7 +116,7 @@ const SelectSearchInput = (props) => {
             })}
         </ul>
       </div>
-      <span className={`inline-block bg-white px-2 font-light text-[12px] text-[#454545] absolute top-[-9px] right-[10px] ${props.labelCalssName}`}>{props.lable}</span>
+    </div>
     </div>
   );
 };

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Button from "@/components/Button";
 import NewAddressCard from "@/components/cards/NewAddressCard/NewAddressCard";
 import AddAddressModal from "@/components/vehicle-verification/AddAddressModal";
@@ -9,21 +9,133 @@ const AddressSelection = (props) => {
   const [isLoading, setIsLoading] = useState(false);
   const [pageType, setPageType] = useState("");
   const [addressEditId, setAddressEditId] = useState("");
+  const [searchCity, setSearchCity] = useState([]);
+  const [optionState, setOptionState] = useState(false);
+  const [servicesState, setServicesState] = useState(false);
+  const [servicesData, setServicesData] = useState([]);
+  const [srviceQuery , setServiceQuery] = useState([])
+  
+  const optionRef = useRef(null);
+  const inputRef = useRef(null);
+  const serviceButtenRef = useRef(null)
+  const serviceDropDownRef = useRef(null)
+
+  useEffect(() => {
+    document.addEventListener("click", (e) => {
+      if (
+        e.target !== optionRef.current &&
+        e.target.parentElement !== optionRef.current &&
+        e.target !== inputRef.current
+      ) {
+        setOptionState(false);
+      }
+      if (
+        e.target !== serviceButtenRef.current &&
+        e.target.parentElement.parentElement !== serviceDropDownRef.current &&
+        e.target !== serviceDropDownRef.current
+      ) {
+        setServicesState(false);
+      }
+    });
+    if (props.filter&&props.filter.area) {
+      setSearchCity(props.filter.area);
+      setServicesData(props.filter.service);
+    }
+  }, [props.filter]);
 
   const openModalHandler = () => {
     setModalIsOpen(true);
     setPageType("create");
   };
 
-  console.log(props.status);
+  function inputChangeHandler(value) {
+    setSearchCity(props.filter.area.filter((i) => i.label.includes(value)));
+  }
+
+  function checkboxChangeHandler(value , checked) {
+    if (checked) {
+      setServiceQuery([value , ...srviceQuery])
+    }else{
+      setServiceQuery(srviceQuery.filter((item)=>{
+        return item !== value
+      }))
+    }
+  }
+
+  function searchClickHandler() {
+    props.timeData(`&services=${srviceQuery.join(",")}`);
+  }
+
   return (
     <>
       {props.status === "FIXED" ? (
-        <span>محله</span>
+        <div className=" flex items-center justify-between">
+          <div className="relative">
+            <span
+              className="text-[#FEFEFE] font-bold cursor-pointer bg-[#5D697A] w-40 flex items-center justify-center rounded-lg py-2"
+              onClick={() => {
+                setOptionState(true);
+              }}
+              ref={inputRef}
+            >
+              انتخاب محله
+            </span>
+            {optionState && (
+              <div className="absolute overflow-y-scroll rounded-lg top-[42px] z-[2] bg-[#5D697A] w-40 overflow-hidden">
+                <div
+                  className="max-h-[200px] flex flex-col p-2 gap-1"
+                  ref={optionRef}
+                >
+                  <input
+                    className="w-full bg-[#FEFEFE] rounded-lg text-[#0E0E0E] h-8 outline-none mb-1 px-2"
+                    onChange={(e) => {
+                      inputChangeHandler(e.target.value);
+                    }}
+                  />
+                  {searchCity.map((item, index) => (
+                    <span
+                      className="cursor-pointer hover:bg-[#6e7c91] py-1 px-2 text-[#FEFEFE] text-14"
+                      value={item.id}
+                      onClick={(e) => {
+                        props.timeData("&area_id=" + item.id);
+                      }}
+                      key={index}
+                    >
+                      {item.label}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+          <div className="relative">
+            <span
+              className="text-[#FEFEFE] font-bold cursor-pointer bg-[#5D697A] w-40 flex items-center justify-center rounded-lg py-2"
+              onClick={() => {
+                setServicesState(true);
+              }}
+              ref={serviceButtenRef}
+            >
+              انتخاب سرویس ها
+            </span>
+            
+              <div className={`absolute overflow-y-scroll overflow-x-hidden rounded-lg top-[42px] left-0 bg-[#5D697A] flex flex-wrap gap-6 z-[1010] max-h-[294px] ${servicesState?`w-[240px] sm:w-[calc(100vw*2/5)]  p-4`:`w-0`} transition-all duration-500`} ref={serviceDropDownRef}>
+                  {servicesData.map((item) => (
+                  <div className="checkbox-wrapper-42 flex items-center gap-1 min-w-[210px]">
+                    <input id={item.value} type="checkbox" onChange={(e) => {checkboxChangeHandler(item.value , e.target.checked)}}/>
+                    <label className="cbx" for={item.value}></label>
+                    <label className="lbl line-clamp-1 select-none" for={item.value}>{item.label}</label>
+                  </div>
+                  ))}
+                  <button className={"bg-[#F66B34] px-8 py-2 text-[#FEFEFE] rounded-[8px] text-14"} onClick={searchClickHandler}>جستجو</button>
+              </div>
+            
+          </div>
+        </div>
       ) : (
         <Button
           class_name={
-            "bg-[#5D697A] text-[#FEFEFE] py-2 px-3 text-[16px] flex item-center gap-2 rounded-[8px]"
+            "bg-[#5D697A] text-[#FEFEFE] py-2 px-3 text-[16px] flex item-center gap-2 rounded-[8px] self-start"
           }
           on_click={openModalHandler}
         >
@@ -32,7 +144,7 @@ const AddressSelection = (props) => {
         </Button>
       )}
       {props.status === "FIXED" ? (
-        <ul className={"mt-7 flex flex-col gap-6"}>
+        <ul className={" flex flex-col gap-6"}>
           {props.carCheckLocations.map((item) => (
             <NewAddressCard
               key={item.id}
@@ -43,7 +155,7 @@ const AddressSelection = (props) => {
           ))}
         </ul>
       ) : (
-        <ul className={"mt-7 flex flex-col gap-6"}>
+        <ul className={"flex flex-col gap-6"}>
           {props.myLocationData &&
             props.myLocationData.map((item) => (
               <NewAddressCard

@@ -37,14 +37,13 @@ const UserPanel = () => {
   }
 
   return (
-    <>
       <div className="mt-[50px] mb-[100px] mx-[50px]">
-        <div className="mb-[30px] mt-[100px]">
+        {/* <div className="mb-[30px] mt-[100px]">
           <TitleDescription>داشبورد</TitleDescription>
-        </div>
+        </div> */}
         {innerWidthNumber > 1000 ? (
           <div className="flex gap-4 items-start">
-            <div className="shadow-[0_0_6px_0_rgba(180,180,180,0.3)] w-[342px] flex flex-col justify-center gap-4 items-center pt-2 rounded-[10px] sticky top-[81px]">
+            <div className="bg-[#383838] w-[260px] flex flex-col justify-center gap-4 items-center pt-2 rounded-[10px] sticky top-[81px]">
               <UserSpecifications
                 style={"flex-col justify-center items-center gap-2"}
               />
@@ -84,7 +83,6 @@ const UserPanel = () => {
           <LogoutModal setLogoutModalState={setLogoutModalState} />
         )}
       </div>
-    </>
   );
 };
 

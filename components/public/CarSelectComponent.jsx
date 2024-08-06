@@ -15,16 +15,16 @@ const CarSelectComponent = () => {
   const [data, setData] = useState([]);
   const [carSelected, setCarSelected] = useState(false);
   const [selectedCar, setSelectedCar] = useState({});
-  const [provienceCity, setProvienceCity] = useState([]);
-  const [searchCity, setSearchCity] = useState([]);
-  const [optionState, setOptionState] = useState(false);
-  const [selectedCity, setSelectedCity] = useState({});
+  // const [provienceCity, setProvienceCity] = useState([]);
+  // const [searchCity, setSearchCity] = useState([]);
+  // const [optionState, setOptionState] = useState(false);
+  // const [selectedCity, setSelectedCity] = useState({});
   const [showInvoice, setShowInvoice] = useState(false);
   const [invoiceData, setInvoiceData] = useState([]);
   const showHeaderData = useSelector((state) => state.todo.showHeader);
   const renderInvoice = useSelector((state) => state.todo.renderInvoice);
-  const optionRef = useRef(null);
-  const inputRef = useRef(null);
+  // const optionRef = useRef(null);
+  // const inputRef = useRef(null);
   const pathname = usePathname();
   const setQuery = useSetQuery();
 
@@ -48,38 +48,37 @@ const CarSelectComponent = () => {
       setSelectedCar(JSON.parse(object));
       setCarSelected(true);
     }
-  }, [carSelected]);
-
-  useEffect(() => {
-    axios
-      .get(process.env.BASE_API + "/web/geo/province-cities")
-      .then((res) => {
-        if (res.data.status === "success") {
-          setProvienceCity(res.data.data);
-          setSearchCity(res.data.data);
-        }
-      })
-      .catch((err) => console.log(err));
-    document.addEventListener("click", (e) => {
-      if (
-        e.target.parentElement !== optionRef.current &&
-        e.target !== inputRef.current
-      ) {
-        setOptionState(false);
-      }
-    });
-    const object = localStorage.getItem("city");
-    if (object) {
-      setSelectedCity(JSON.parse(object).label);
-    } else {
-      setSelectedCity("");
-    }
   }, []);
+
+  // useEffect(() => {
+  //   axios
+  //     .get(process.env.BASE_API + "/web/geo/province-cities")
+  //     .then((res) => {
+  //       if (res.data.status === "success") {
+  //         setProvienceCity(res.data.data);
+  //         setSearchCity(res.data.data);
+  //       }
+  //     })
+  //     .catch((err) => console.log(err));
+  //   document.addEventListener("click", (e) => {
+  //     if (
+  //       e.target.parentElement !== optionRef.current &&
+  //       e.target !== inputRef.current
+  //     ) {
+  //       setOptionState(false);
+  //     }
+  //   });
+  //   const object = localStorage.getItem("city");
+  //   if (object) {
+  //     setSelectedCity(JSON.parse(object).label);
+  //   } else {
+  //     setSelectedCity("");
+  //   }
+  // }, []);
 
   async function getInvoiceData() {
     const data = await getData("/web/cart")
     setInvoiceData(data.data.data)
-    console.log(data.data.data);
   }
 
   async function removeClickHandler(id) {
@@ -132,18 +131,18 @@ const CarSelectComponent = () => {
         });
     }
   }
-  function inputChangeHandler(value) {
-    setSelectedCity(value);
-    setSearchCity(provienceCity.filter((i) => i.label.includes(value)));
-  }
+  // function inputChangeHandler(value) {
+  //   setSelectedCity(value);
+  //   setSearchCity(provienceCity.filter((i) => i.label.includes(value)));
+  // }
 
-  function cityClickHandler(item) {
-    setSelectedCity(item.label);
-    setOptionState(false);
-    localStorage.setItem("city", JSON.stringify(item));
-  }
+  // function cityClickHandler(item) {
+  //   setSelectedCity(item.label);
+  //   setOptionState(false);
+  //   localStorage.setItem("city", JSON.stringify(item));
+  // }
 
-  if (pathname !== "/periodic-service/invoice"){return (
+  if (pathname !== "/periodic-service/invoice"&&pathname.search("/panel")){return (
     <div className="absolute h-full top-0 right-auto">
       <div
         className={`bg-[#383838A3] h-[605px] rounded-2xl w-[400px] sticky ${showHeaderData ? "top-[123px]" : "top-[10px]"} right-auto z-[2] backdrop-blur-[16px] p-4 hidden lg:flex flex-col gap-4`}
@@ -178,14 +177,14 @@ const CarSelectComponent = () => {
             </div>
             {showInvoice ? (
               <>
-                <div
+                {/* <div
                   className="flex flex-col gap-3 items-start relative"
                   onFocusCapture={() => {
                     setOptionState(true);
                   }}
                 >
                   <span className="text-[#FEFEFE] font-bold">
-                    انتخاب استان / شهر
+                    محله
                   </span>
                   <input
                     className="w-full bg-[#FEFEFE] rounded-lg text-[#0E0E0E] h-10 outline-none px-2"
@@ -216,8 +215,8 @@ const CarSelectComponent = () => {
                       </div>
                     </div>
                   )}
-                </div>
-                <div className={`flex flex-col mt-1 items-center ${invoiceData.cart_items&&invoiceData.cart_items.length?"":"hidden"}`}>
+                </div> */}
+                <div className={`flex flex-col gap-4 mt-12 items-center`}>
                   <Image src={invoice} className="m-auto size-52 opacity-70" />
                   <span className="text-white">
                     در حال حاضر سرویسی انتخاب نکرده اید

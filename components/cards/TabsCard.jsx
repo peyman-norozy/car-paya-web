@@ -52,26 +52,26 @@ const TabsCard = (props) => {
   };
 
   return (
-    <li className={`flex flex-col font-light text-14 cursor-pointer`}>
+    <li className={`flex flex-col font-light text-14 cursor-pointer text-[#FEFEFE]`}>
       <div
-        className={`flex items-center gap-4 hover:bg-[#EFF2FF] rounded-10 mx-2 py-4 px-6 ${
+        className={`flex items-center gap-4 hover:bg-[#eff2ff4f] font-medium rounded-10 mx-2 py-4 px-6 ${
           newRouter === props.item.id &&
           newRouter !== "my-vehicle" &&
           newRouter !== "logout"
-            ? "bg-[#EFF2FF]"
-            : ""
+            ? "bg-[#F66B3429] text-[#F66B34]"
+            : "text-[#FEFEFE]"
         }`}
         tab_id={props.item.id}
         onClick={tabClickHandler}
       >
-        <Image
+        {/* <Image
           src={props.item.imgSrc}
           alt={props.item.alt}
           width={20}
           height={20}
-        />
-        <span>{props.item.title}</span>
-        {(props.item.id === "my-vehicle" ||
+        /> */}
+        <span className="line-clamp-1">{props.item.title}</span>
+        {/* {(props.item.id === "my-vehicle" ||
           props.item.id === "destination") && (
           <div className={`flex-1 flex justify-end`}>
             <Image
@@ -84,7 +84,7 @@ const TabsCard = (props) => {
               height={22}
             />
           </div>
-        )}
+        )} */}
       </div>
 
       {(props.item.id === "my-vehicle" || props.item.id === "destination") && (

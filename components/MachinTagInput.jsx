@@ -148,7 +148,7 @@ const MachinTagInput = (props) => {
                     height={40}
                 />
             </div>
-            <span className="inline-block bg-white px-2 font-light text-[12px] text-[#454545] absolute top-[-11px] right-[10px]">پلاک</span>
+            <span className="inline-block bg-white px-2 font-light text-[12px] text-[#FEFEFE]">پلاک</span>
         </div>
     );
 };
