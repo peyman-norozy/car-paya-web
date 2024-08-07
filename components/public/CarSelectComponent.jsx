@@ -9,6 +9,7 @@ import { usePathname } from "next/navigation";
 import useSetQuery from "@/hook/useSetQuery";
 import { getData, postData } from "@/utils/client-api-function-utils";
 import { numberWithCommas } from "@/utils/function-utils";
+
 const CarSelectComponent = () => {
   const [vehicleType, setVehicleType] = useState("car");
   const [level, setLevel] = useState(1);
@@ -23,6 +24,7 @@ const CarSelectComponent = () => {
   const [invoiceData, setInvoiceData] = useState([]);
   const showHeaderData = useSelector((state) => state.todo.showHeader);
   const renderInvoice = useSelector((state) => state.todo.renderInvoice);
+
   // const optionRef = useRef(null);
   // const inputRef = useRef(null);
   const pathname = usePathname();
@@ -48,7 +50,7 @@ const CarSelectComponent = () => {
       setSelectedCar(JSON.parse(object));
       setCarSelected(true);
     }
-  }, []);
+  }, [carSelected]);
 
   // useEffect(() => {
   //   axios
