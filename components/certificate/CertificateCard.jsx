@@ -9,7 +9,7 @@ const CertificateCard = ({data}) => {
     const pathName = usePathname();
 
     const clickRecordsHandler = () => {
-        // router.push(pathName + "/" + data.id + "/" + data.tipId + "/history");
+        router.push(pathName + "/" + data.id + "/" + data.tipId + "/history");
       };
       const editClickHandler = () => {
         router.push(pathName + INTERNAL_PATHS.EDIT + "?product=" + data.id);

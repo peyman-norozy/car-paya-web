@@ -24,16 +24,22 @@ export const serviceData = [
     id: "batteries",
   },
   {
-    title: "لوازم یدکی",
-    icon: "/assets/images/laazemyadaki.png",
-    href: "/products",
-    id: "products",
+    title: "شناسنامه و سوابق",
+    icon: "/assets/images/shnasname.png",
+    href: "/panel/my-vehicle/my-car",
+    id: "myVehicleMyCar",
   },
   {
     title: "بیمه",
     icon: "/assets/images/oilavazemyadaki.png",
     href: "#",
     id: "insurance",
+  },
+  {
+    title: "لوازم یدکی",
+    icon: "/assets/images/laazemyadaki.png",
+    href: "/products",
+    id: "products",
   },
   {
     title: "خرید خودرو",
@@ -46,12 +52,6 @@ export const serviceData = [
     icon: "/assets/images/keysell.png",
     href: "#",
     id: "#",
-  },
-  {
-    title: "شناسنامه و سوابق",
-    icon: "/assets/images/shnasname.png",
-    href: "/panel/my-vehicle/my-car",
-    id: "myVehicleMyCar",
   },
 ];
 export const HowWorksMockUpData = [

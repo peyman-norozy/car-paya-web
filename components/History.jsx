@@ -48,53 +48,159 @@ const History = (props) => {
 
   return (
     <PrivateRoute>
-      <div className="flex flex-col gap-[34px] size1000:flex-1 w-full rounded-[10px] px-[43px] py-6 shadow-[0_0_6px_0_rgba(180,180,180,0.3)]">
-        <div className={"flex items-center justify-between gap-2"}>
-          <div className={"flex items-center gap-2"}>
+      <div className="flex flex-col gap-[34px] size1000:flex-1 w-full rounded-[10px] px-[43px] py-6 bg-[#6f6f6f]">
+      <div className={"flex items-center gap-2"}>
             <i
               onClick={closeHistoryHandler}
               className={
-                "cc-arrow-right text-[30px] text-[#354597] cursor-pointer"
+                "cc-arrow-right text-[30px] text-[#FEFEFE] cursor-pointer"
               }
             />
-            <span className={"text-[#354597]"}>سوابق</span>
+            <span className={"text-[#FEFEFE] font-bold text-20"}>اطلاعات عمومی خودرو</span>
           </div>
-          <div>
-            <Button
-              type="button"
-              class_name="flex items-center justify-center gap-2 border border-[#354597] text-white rounded-5 w-[134px] h-[48px]"
-              on_click={addRecordHandler}
-            >
-              <i className="cc-add text-12 text-[#354597] border-2 border-[#354597] p-1 rounded-full" />
-              <span className={"text-[#354597] text-14"}>افزودن سابقه</span>
-            </Button>
-          </div>
-        </div>
-        <div className="flex flex-col">
-          <div className="mt-4 flex flex-col gap-4">
-            <ul className="size800:flex hidden justify-between px-[16px] py-2 size1190:text-16 text-14 text-stone-800 rounded-10 bg-[#ECEEF8]">
-              <li className="font-bold flex-1 text-center">#</li>
-              <li className="font-bold flex-1 text-center">تاریخ</li>
-              <li className="font-bold flex-1 text-center">
-                کیلومتر فعلی خودرو
-              </li>
-              <li className="font-bold flex-1 text-center">عملیات</li>
-            </ul>
-            <div
-              className={
-                "h-[calc(100vh-250px)] overflow-y-auto flex flex-col gap-4"
-              }
-            >
-              {newVehicleHistoryData.map((item, index) => (
-                <RecordModalCreatedCard
-                  key={item.id}
-                  item={item}
-                  index={index}
-                />
-              ))}
+        <div className="flex flex-col gap-4">
+          <span className="text-[#FEFEFE] font-bold text-18">بیمه بدنه</span>
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 size1470:grid-cols-6 gap-3">
+            <div className="flex flex-col gap-2 w-full">
+              <span className="text-[#FEFEFE] text-14 font-medium">تاریخ شروع</span>
+              <select className="bg-[#FEFEFE] rounded-lg h-9 text-14 px-2">
+                <option className="text-14">انتخاب</option>
+              </select>
+            </div>
+            <div className="flex flex-col gap-2 w-full">
+              <span className="text-[#FEFEFE] text-14 font-medium">تاریخ پایان</span>
+              <select className="bg-[#FEFEFE] rounded-lg h-9 text-14 px-2">
+                <option className="text-14">انتخاب</option>
+              </select>
+            </div>
+            <div className="flex flex-col gap-2 w-full">
+              <span className="text-[#FEFEFE] text-14 font-medium">شرکت بیمه</span>
+              <select className="bg-[#FEFEFE] rounded-lg h-9 text-14 px-2">
+                <option className="text-14">انتخاب</option>
+              </select>
+            </div>
+            <div className="flex flex-col gap-2 w-full">
+              <span className="text-[#FEFEFE] text-14 font-medium">استان</span>
+              <select className="bg-[#FEFEFE] rounded-lg h-9 text-14 px-2">
+                <option className="text-14">انتخاب</option>
+              </select>
+            </div>
+            <div className="flex flex-col gap-2 w-full">
+              <span className="text-[#FEFEFE] text-14 font-medium">شهر</span>
+              <select className="bg-[#FEFEFE] rounded-lg h-9 text-14 px-2">
+                <option className="text-14">انتخاب</option>
+              </select>
+            </div>
+            <div className="flex flex-col gap-2 w-full">
+              <span className="text-[#FEFEFE] text-14 font-medium">یادآوری معاینه فنی</span>
+              <select className="bg-[#FEFEFE] rounded-lg h-9 text-14 px-2">
+                <option className="text-14">انتخاب</option>
+              </select>
             </div>
           </div>
         </div>
+        <div className="flex flex-col gap-4">
+          <span className="text-[#FEFEFE] font-bold text-18">بیمه شخص ثالث</span>
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 size1470:grid-cols-6 gap-3">
+            <div className="flex flex-col gap-2 w-full">
+              <span className="text-[#FEFEFE] text-14 font-medium">تاریخ شروع</span>
+              <select className="bg-[#FEFEFE] rounded-lg h-9 text-14 px-2">
+                <option className="text-14">انتخاب</option>
+              </select>
+            </div>
+            <div className="flex flex-col gap-2 w-full">
+              <span className="text-[#FEFEFE] text-14 font-medium">تاریخ پایان</span>
+              <select className="bg-[#FEFEFE] rounded-lg h-9 text-14 px-2">
+                <option className="text-14">انتخاب</option>
+              </select>
+            </div>
+            <div className="flex flex-col gap-2 w-full">
+              <span className="text-[#FEFEFE] text-14 font-medium">شرکت بیمه</span>
+              <select className="bg-[#FEFEFE] rounded-lg h-9 text-14 px-2">
+                <option className="text-14">انتخاب</option>
+              </select>
+            </div>
+            <div className="flex flex-col gap-2 w-full">
+              <span className="text-[#FEFEFE] text-14 font-medium">استان</span>
+              <select className="bg-[#FEFEFE] rounded-lg h-9 text-14 px-2">
+                <option className="text-14">انتخاب</option>
+              </select>
+            </div>
+            <div className="flex flex-col gap-2 w-full">
+              <span className="text-[#FEFEFE] text-14 font-medium">شهر</span>
+              <select className="bg-[#FEFEFE] rounded-lg h-9 text-14 px-2">
+                <option className="text-14">انتخاب</option>
+              </select>
+            </div>
+            <div className="flex flex-col gap-2 w-full">
+              <span className="text-[#FEFEFE] text-14 font-medium">یادآوری معاینه فنی</span>
+              <select className="bg-[#FEFEFE] rounded-lg h-9 text-14 px-2">
+                <option className="text-14">انتخاب</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div className="flex flex-col gap-4">
+          <span className="text-[#FEFEFE] font-bold text-18">معاینه فنی</span>
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 size1470:grid-cols-6 gap-3">
+            <div className="flex flex-col gap-2 w-full">
+              <span className="text-[#FEFEFE] text-14 font-medium">تاریخ شروع</span>
+              <select className="bg-[#FEFEFE] rounded-lg h-9 text-14 px-2">
+                <option className="text-14">انتخاب</option>
+              </select>
+            </div>
+            <div className="flex flex-col gap-2 w-full">
+              <span className="text-[#FEFEFE] text-14 font-medium">تاریخ پایان</span>
+              <select className="bg-[#FEFEFE] rounded-lg h-9 text-14 px-2">
+                <option className="text-14">انتخاب</option>
+              </select>
+            </div>
+            <div className="flex flex-col gap-2 w-full">
+              <span className="text-[#FEFEFE] text-14 font-medium">یادآوری معاینه فنی</span>
+              <select className="bg-[#FEFEFE] rounded-lg h-9 text-14 px-2">
+                <option className="text-14">انتخاب</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div className="w-full max-w-[180px] text-[#FEFEFE] bg-[#F66B34] text-14 font-medium flex items-center justify-center h-10 rounded-lg">ثبت</div>
+        <hr/>
+        <div className={"flex items-center justify-between gap-2"}>
+          <span className={"text-[#FEFEFE] font-bold text-20"}>اطلاعات اقلام مصرفی</span>
+          <div>
+            <Button
+              type="button"
+              class_name="flex items-center justify-center gap-2 border border-[#FEFEFE] text-white rounded-5 w-[134px] h-[48px]"
+              on_click={addRecordHandler}
+            >
+              <i className="cc-add text-12 text-[#FEFEFE] border-2 border-[#FEFEFE] p-1 rounded-full" />
+              <span className={"text-[#FEFEFE] text-14"}>افزودن سابقه</span>
+            </Button>
+          </div>
+        </div>
+        <div className="mt-4 flex flex-col bg-[#B0B0B0] rounded-2xl overflow-hidden gap-px">
+          <ul className="size800:flex hidden justify-between size1190:text-16 text-14 text-[#FEFEFE] rounded-10 gap-px h-[72px]">
+            <li className="font-bold flex-1 text-14 bg-[#47505D] flex items-center justify-center">عنوان</li>
+            <li className="font-bold flex-1 text-14 bg-[#47505D] flex items-center justify-center">کیلومتر تعویض فعلی</li>
+            <li className="font-bold flex-1 text-14 bg-[#47505D] flex items-center justify-center">تاریخ تعویض فعلی</li>
+            <li className="font-bold flex-1 text-14 bg-[#47505D] flex items-center justify-center">کیلومتر تعویض بعدی</li>
+            <li className="font-bold flex-1 text-14 bg-[#47505D] flex items-center justify-center">تاریخ تعویض بعدی</li>
+            <li className="font-bold flex-1 text-14 bg-[#47505D] flex items-center justify-center">یاد آوری</li>
+            <li className="font-bold flex-1 text-14 bg-[#47505D] flex items-center justify-center">کیلومتر مصرفی استاندارد</li>
+          </ul>
+          <div className={"overflow-y-auto flex flex-col gap-px"}>
+            {/* {newVehicleHistoryData.map((item, index) => ( */}
+            {[1,2,3,4,5,6,7,8,9].map((item , index)=>(
+              <RecordModalCreatedCard
+                key={item}
+                item={item}
+                index={index}
+              />
+            ))}
+            {/* ))} */}
+          </div>
+        </div>
+
       </div>
     </PrivateRoute>
   );

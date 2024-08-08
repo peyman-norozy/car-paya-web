@@ -603,7 +603,7 @@ const CarDevice = (props) => {
         className="flex-1 px-[40px] py-[32px] rounded-[10px] bg-[#383838A3] flex flex-col gap-[35px]"
         onSubmit={myCarSubmitHandler}
       >
-        <h1 className={"text-[#FEFEFE]"}>خودرو 206</h1>
+        <h1 className={"text-[#FEFEFE]"}>خودرو</h1>
         <div className={"grid size800:grid-cols-2 grid-cols-1 gap-[32px]"}>
           <section className="flex justify-center items-center rounded-[10px] flex-[1]">
             <Image
@@ -702,7 +702,7 @@ const CarDevice = (props) => {
             <Button
               type={"button"}
               class_name={
-                "bg-[#354597] text-[#FEFEFE] self-end px-[24.5px] py-[6.5px] text-[14px] rounded-5"
+                "bg-[#F66B34] text-[#FEFEFE] self-end px-[24.5px] py-[6.5px] text-[14px] rounded-5"
               }
               on_click={openModalHandler}
             >
@@ -748,29 +748,31 @@ const CarDevice = (props) => {
             "grid size800:grid-cols-3 size582:grid-cols-2 grid-cols-1 gap-[32px]"
           }
         >
-          <MachinTagInput
-            setNewPlaque_0={setNewPlaque_0}
-            setNewPlaque_1={setNewPlaque_1}
-            setNewPlaque_2={setNewPlaque_2}
-            setNewPlaque_3={setNewPlaque_3}
-            newPlaque_0={newPlaque_0}
-            newPlaque_1={newPlaque_1}
-            newPlaque_2={newPlaque_2}
-            newPlaque_3={newPlaque_3}
-            pageType={props.pageType}
-            editPlaqueData={newEditData.plaque}
-          />
-          <div className="relative">
+          <div className="flex flex-col gap-4">
+          <label className={"font-bold text-[#FEFEFE]"}>پلاک</label>
+            <MachinTagInput
+              setNewPlaque_0={setNewPlaque_0}
+              setNewPlaque_1={setNewPlaque_1}
+              setNewPlaque_2={setNewPlaque_2}
+              setNewPlaque_3={setNewPlaque_3}
+              newPlaque_0={newPlaque_0}
+              newPlaque_1={newPlaque_1}
+              newPlaque_2={newPlaque_2}
+              newPlaque_3={newPlaque_3}
+              pageType={props.pageType}
+              editPlaqueData={newEditData.plaque}
+            />
+          </div>
+          <div className="flex flex-col gap-4">
             {/*<span className="absolute text-12 text-[#aaa] top-4 right-2">*/}
             {/*   کیلومتر فعلی خودرو*/}
             {/*</span>*/}
             <label
               htmlFor={"kilometerStart"}
               className={
-                "bg-white px-2 font-light text-[12px] text-[#454545] absolute top-[-11px] right-[10px]"
+                "font-bold text-[#FEFEFE]"
               }
             >
-              {" "}
               کیلومتر فعلی خودرو
             </label>
             {newStartKilometerState && (
@@ -787,17 +789,16 @@ const CarDevice = (props) => {
               on_change={InputChangeHandler}
             />
           </div>
-          <div className="relative">
+          <div className="flex flex-col gap-4">
             {/*<span className="absolute text-12 text-[#aaa] top-4 right-2">*/}
             {/*   کیلومتر مصرفی ماهانه*/}
             {/*</span>*/}
             <label
               htmlFor={"kilometerEnd"}
               className={
-                "bg-white px-2 font-light text-[12px] text-[#454545] absolute top-[-11px] right-[10px]"
+                "font-bold text-[16px] text-[#FEFEFE]"
               }
             >
-              {" "}
               کیلومتر مصرفی ماهانه
             </label>
             {newEndKilometerState && (
@@ -878,7 +879,7 @@ const CarDevice = (props) => {
             type={"submit"}
             disabled_btn={buttonDisabledState}
             class_name={
-              "bg-[#354597] text-white text-16 w-[120px] h-[40px] rounded-10 hover:bg-blue-800"
+              "bg-[#F66B34] text-white text-16 w-[120px] h-[40px] rounded-10 hover:bg-[#F66B34cc]"
             }
           >
             {buttonDisabledState ? "در حال ثبت ..." : "ثبت"}
