@@ -9,23 +9,23 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import useSetQuery from "@/hook/useSetQuery";
 import { getData, postData } from "@/utils/client-api-function-utils";
 import { numberWithCommas } from "@/utils/function-utils";
-
 const CarSelectComponent = () => {
   const [vehicleType, setVehicleType] = useState("car");
   const [level, setLevel] = useState(1);
   const [data, setData] = useState([]);
   const [carSelected, setCarSelected] = useState(false);
   const [selectedCar, setSelectedCar] = useState({});
-  const [provienceCity, setProvienceCity] = useState([]);
-  const [searchCity, setSearchCity] = useState([]);
-  const [optionState, setOptionState] = useState(false);
-  const [selectedCity, setSelectedCity] = useState({});
+  // const [provienceCity, setProvienceCity] = useState([]);
+  // const [searchCity, setSearchCity] = useState([]);
+  // const [optionState, setOptionState] = useState(false);
+  // const [selectedCity, setSelectedCity] = useState({});
   const [showInvoice, setShowInvoice] = useState(false);
   const [invoiceData, setInvoiceData] = useState([]);
   const showHeaderData = useSelector((state) => state.todo.showHeader);
   const renderInvoice = useSelector((state) => state.todo.renderInvoice);
-  const optionRef = useRef(null);
-  const inputRef = useRef(null);
+
+  // const optionRef = useRef(null);
+  // const inputRef = useRef(null);
   const pathname = usePathname();
   const router = useRouter();
   const setQuery = useSetQuery();
@@ -34,10 +34,11 @@ const CarSelectComponent = () => {
 
   const attributeValue = searchParams.get("attribute_value");
 
-  useEffect(() => {
-    getInvoiceData();
-  }, [renderInvoice]);
+  useEffect(()=>{
+    getInvoiceData()
+  },[renderInvoice])
 
+  
   useEffect(() => {
     if (pathname === "/" || pathname === "/periodic-service") {
       setShowInvoice(true);
@@ -55,36 +56,35 @@ const CarSelectComponent = () => {
     }
   }, [carSelected]);
 
-  useEffect(() => {
-    axios
-      .get(process.env.BASE_API + "/web/geo/province-cities")
-      .then((res) => {
-        if (res.data.status === "success") {
-          setProvienceCity(res.data.data);
-          setSearchCity(res.data.data);
-        }
-      })
-      .catch((err) => console.log(err));
-    document.addEventListener("click", (e) => {
-      if (
-        e.target.parentElement !== optionRef.current &&
-        e.target !== inputRef.current
-      ) {
-        setOptionState(false);
-      }
-    });
-    const object = localStorage.getItem("city");
-    if (object) {
-      setSelectedCity(JSON.parse(object).label);
-    } else {
-      setSelectedCity("");
-    }
-  }, []);
+  // useEffect(() => {
+  //   axios
+  //     .get(process.env.BASE_API + "/web/geo/province-cities")
+  //     .then((res) => {
+  //       if (res.data.status === "success") {
+  //         setProvienceCity(res.data.data);
+  //         setSearchCity(res.data.data);
+  //       }
+  //     })
+  //     .catch((err) => console.log(err));
+  //   document.addEventListener("click", (e) => {
+  //     if (
+  //       e.target.parentElement !== optionRef.current &&
+  //       e.target !== inputRef.current
+  //     ) {
+  //       setOptionState(false);
+  //     }
+  //   });
+  //   const object = localStorage.getItem("city");
+  //   if (object) {
+  //     setSelectedCity(JSON.parse(object).label);
+  //   } else {
+  //     setSelectedCity("");
+  //   }
+  // }, []);
 
   async function getInvoiceData() {
-    const data = await getData("/web/cart");
-    setInvoiceData(data.data.data);
-    console.log(data.data.data);
+    const data = await getData("/web/cart")
+    setInvoiceData(data.data.data)
   }
 
   async function removeClickHandler(id) {
@@ -144,166 +144,127 @@ const CarSelectComponent = () => {
         });
     }
   }
-  function inputChangeHandler(value) {
-    setSelectedCity(value);
-    setSearchCity(provienceCity.filter((i) => i.label.includes(value)));
-  }
+  // function inputChangeHandler(value) {
+  //   setSelectedCity(value);
+  //   setSearchCity(provienceCity.filter((i) => i.label.includes(value)));
+  // }
 
-  function cityClickHandler(item) {
-    setSelectedCity(item.label);
-    setOptionState(false);
-    localStorage.setItem("city", JSON.stringify(item));
-  }
+  // function cityClickHandler(item) {
+  //   setSelectedCity(item.label);
+  //   setOptionState(false);
+  //   localStorage.setItem("city", JSON.stringify(item));
+  // }
 
-  useEffect(() => {
-    console.log(attributeValue);
-    if (attributeValue) {
-      setVehicleType(attributeValue);
-    } else {
-      setVehicleType("car");
-    }
-  }, [attributeValue]);
+    useEffect(() => {
+        console.log(attributeValue);
+        if (attributeValue) {
+            setVehicleType(attributeValue);
+        } else {
+            setVehicleType("car");
+        }
+    }, [attributeValue]);
 
-  if (pathname !== "/periodic-service/invoice") {
-    return (
-      <div className="absolute h-full top-0 right-auto">
-        <div
-          className={`bg-[#383838A3] h-[605px] rounded-2xl w-[400px] sticky ${showHeaderData ? "top-[123px]" : "top-[10px]"} right-auto z-[2] backdrop-blur-[16px] p-4 hidden lg:flex flex-col gap-4`}
-        >
-          {carSelected ? (
-            <div className="flex flex-col gap-4">
-              <Image
-                src={
-                  process.env.BASE_API +
-                  "/web" +
-                  API_PATHS.FILE +
-                  "/" +
-                  selectedCar.image
-                }
-                width={200}
-                height={150}
-                className="w-[60%] aspect-auto m-auto"
-              />
-              <div className="flex justify-between items-center">
-                <span className="font-bold text-18 text-[#FEFEFE] border-r-[5px] border-[#c0c0c0] leading-6 pr-2">
-                  {selectedCar.title}
-                </span>
-                <button
-                  className="text-[#F66B34] text-16 cursor-pointer font-medium"
-                  onClick={() => {
-                    setCarSelected(false),
-                      localStorage.removeItem("selectedVehicle");
-                    params.delete("selectTipState");
-                    console.log(params.toString());
-                    router.push(pathname + "?" + params.toString());
-                    // setQuery.updateQueryParams(params.toString(), "");
-
-                    // setQuery.deleteSingleQuery(
-                    //   [{ selectTipState: tipId }],
-                    //   params,
-                    // );
+  if (pathname !== "/periodic-service/invoice"&&pathname.search("/panel")){return (
+    <div className="absolute h-full top-0 right-auto pb-10">
+      <div
+        className={`bg-[#383838A3] h-[605px] rounded-2xl w-[400px] sticky ${showHeaderData ? "top-[123px]" : "top-[10px]"} right-auto z-[2] backdrop-blur-[16px] p-4 hidden lg:flex flex-col gap-4`}
+      >
+        {carSelected ? (
+          <div className="flex flex-col gap-4">
+            <Image
+              src={
+                process.env.BASE_API +
+                "/web" +
+                API_PATHS.FILE +
+                "/" +
+                selectedCar.image
+              }
+              width={200}
+              height={150}
+              className="w-[60%] aspect-auto m-auto"
+            />
+            <div className="flex justify-between items-center">
+              <span className="font-bold text-18 text-[#FEFEFE] border-r-[5px] border-[#c0c0c0] leading-6 pr-2">
+                {selectedCar.title}
+              </span>
+              <button
+                className="text-[#F66B34] text-16 cursor-pointer font-medium"
+                onClick={() => {
+                  setCarSelected(false),
+                    localStorage.removeItem("selectedVehicle");
+                }}
+              >
+                تغییر خودرو
+              </button>
+            </div>
+            {showInvoice ? (
+              <>
+                {/* <div
+                  className="flex flex-col gap-3 items-start relative"
+                  onFocusCapture={() => {
+                    setOptionState(true);
                   }}
                 >
-                  تغییر خودرو
-                </button>
-              </div>
-              {showInvoice ? (
-                <>
-                  <div
-                    className="flex flex-col gap-3 items-start relative"
-                    onFocusCapture={() => {
-                      setOptionState(true);
+                  <span className="text-[#FEFEFE] font-bold">
+                    محله
+                  </span>
+                  <input
+                    className="w-full bg-[#FEFEFE] rounded-lg text-[#0E0E0E] h-10 outline-none px-2"
+                    value={selectedCity}
+                    onChange={(e) => {
+                      inputChangeHandler(e.target.value);
                     }}
-                  >
-                    <span className="text-[#FEFEFE] font-bold">
-                      انتخاب استان / شهر
-                    </span>
-                    <input
-                      className="w-full bg-[#FEFEFE] rounded-lg text-[#0E0E0E] h-10 outline-none px-2"
-                      value={selectedCity}
-                      onChange={(e) => {
-                        inputChangeHandler(e.target.value);
-                      }}
-                      ref={inputRef}
-                    />
-                    {optionState && (
-                      <div className="absolute w-[calc(100%-32px)] overflow-y-scroll bg-[#FEFEFE] rounded-b-lg top-[76px] z-[2]">
-                        <div
-                          className="max-h-[200px] flex flex-col"
-                          ref={optionRef}
-                        >
-                          {searchCity.map((item, index) => (
-                            <span
-                              className="cursor-pointer hover:bg-slate-200 py-1 px-2"
-                              value={item.id}
-                              onClick={(e) => {
-                                cityClickHandler(item);
-                              }}
-                              key={index}
-                            >
-                              {item.label}
-                            </span>
-                          ))}
-                        </div>
-                      </div>
-                    )}
-                  </div>
-                  <div
-                    className={`flex flex-col mt-1 items-center ${invoiceData.cart_items && invoiceData.cart_items.length ? "" : "hidden"}`}
-                  >
-                    <Image
-                      src={invoice}
-                      className="m-auto size-52 opacity-70"
-                    />
-                    <span className="text-white">
-                      در حال حاضر سرویسی انتخاب نکرده اید
-                    </span>
-                  </div>
-                </>
-              ) : (
-                <div>
-                  <div
-                    className={`flex flex-col gap-4 ${invoiceData.cart_items && invoiceData.cart_items.length ? "" : "hidden"}`}
-                  >
-                    <div className="flex flex-col gap-3 h-[292px] overflow-y-scroll">
-                      {invoiceData.cart_items &&
-                        invoiceData.cart_items.map((item, index) => (
-                          <div
-                            className="flex flex-col px-3 py-2 bg-[#888888] rounded-lg"
+                    ref={inputRef}
+                  />
+                  {optionState && (
+                    <div className="absolute w-[calc(100%-32px)] overflow-y-scroll bg-[#FEFEFE] rounded-b-lg top-[76px] z-[2]">
+                      <div
+                        className="max-h-[200px] flex flex-col"
+                        ref={optionRef}
+                      >
+                        {searchCity.map((item,index) => (
+                          <span
+                            className="cursor-pointer hover:bg-slate-200 py-1 px-2"
+                            value={item.id}
+                            onClick={(e) => {
+                              cityClickHandler(item);
+                            }}
                             key={index}
                           >
-                            <div className="flex justify-between">
-                              <span className="font-bold text-[#FEFEFE]">
-                                {item.product.name}
-                              </span>
-                              <div
-                                className="bg-[#FEFEFE] rounded-full size-5 text-[#888888] font-bold pr-[5px] cursor-pointer"
-                                onClick={() => {
-                                  removeClickHandler(item.product.id);
-                                }}
-                              >
-                                X
-                              </div>
-                            </div>
-                            <div className="flex justify-start gap-2 items-center">
-                              <span className="text-[#ececec] line-through text-12 ">
-                                {numberWithCommas(item.product.price)} تومان
-                              </span>
-                              <span
-                                className={"size-1 bg-[#B0B0B0] rounded-full "}
-                              ></span>
-                              <span className="text-[#FEFEFE] text-14 font-bold">
-                                {numberWithCommas(
-                                  item.product.discounted_price,
-                                )}{" "}
-                                تومان
-                              </span>
-                            </div>
-                          </div>
+                            {item.label}
+                          </span>
                         ))}
+                      </div>
                     </div>
-                    <hr />
-                    {/* <div className="flex flex-col gap-2">
+                  )}
+                </div> */}
+                <div className={`flex flex-col gap-4 mt-12 items-center`}>
+                  <Image src={invoice} className="m-auto size-52 opacity-70" />
+                  <span className="text-white">
+                    در حال حاضر سرویسی انتخاب نکرده اید
+                  </span>
+                </div>
+              </>
+            ) : (
+              <div>
+                <div className={`flex flex-col gap-4 ${invoiceData.cart_items&&invoiceData.cart_items.length?"":"hidden"}`}>
+                  <div className="flex flex-col gap-3 h-[292px] overflow-y-scroll">
+                    {invoiceData.cart_items&&invoiceData.cart_items.map((item,index)=>(
+                    <div className="flex flex-col px-3 py-2 bg-[#888888] rounded-lg" key={index}>
+                      <div className="flex justify-between">
+                        <span className="font-bold text-[#FEFEFE]">{item.product.name}</span>
+                        <div className="bg-[#FEFEFE] rounded-full size-5 text-[#888888] font-bold pr-[5px] cursor-pointer" onClick={()=>{removeClickHandler(item.product.id)}}>X</div>
+                      </div>
+                      <div className="flex justify-start gap-2 items-center">
+                        <span className="text-[#ececec] line-through text-12 ">{numberWithCommas(item.product.price)} تومان</span>
+                        <span className={"size-1 bg-[#B0B0B0] rounded-full "}></span>
+                        <span className="text-[#FEFEFE] text-14 font-bold">{numberWithCommas(item.product.discounted_price)} تومان</span>
+                      </div>
+                    </div>
+                    ))}
+                  </div>
+                  <hr />
+                  {/* <div className="flex flex-col gap-2">
                     <div className="text-[#fefefe] flex justify-between">
                       <span className="text-14 font-bold">دستمزد</span>
                       <span className="font-bold text-14">200.000 تومان</span>

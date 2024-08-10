@@ -3,6 +3,8 @@ import useSetQuery from "@/hook/useSetQuery";
 import SelectServiceCard from "../periodic-service-components/SelectServiceCard";
 
 const SelectService = (props) => {
+  console.log(props.data);
+  
   const setQuery = useSetQuery()
 
   function buttonClickHandler() {
@@ -17,7 +19,7 @@ const SelectService = (props) => {
         </span>
       </div>
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 sm:gap-2 lg:gap-4 p-2 sm:p-4 lg:p-8">
-        {props.data.data.map((item, index) => (
+        {props.data.map((item, index) => (
           <SelectServiceCard data={item} key={index}/>
         ))}
       </div>

@@ -9,7 +9,8 @@ import ResponsiveMyCarTableCard from "@/components/cards/ResponsiveMyCarTableCar
 import { getData } from "@/utils/client-api-function-utils";
 import SelectCarModal from "@/components/modal/SelectCarModal";
 import PrivateRoute from "@/routes/private-route";
-
+import Image from "next/image";
+import CertificateCard from "./certificate/CertificateCard";
 const CreateMyCar = () => {
   const [newMyCareData, setNewMyCareData] = useState([]);
   const [newTotal, setNewTotal] = useState(0);
@@ -33,6 +34,8 @@ const CreateMyCar = () => {
           `?per_page=${perPage}&page=${page}`,
       );
       if (response.status === 200) {
+        console.log(response);
+        
         setNewMyCareData(response.data.data);
         setNewTotal(response.data.meta.total);
         setNewSkeletonState(false);
@@ -60,23 +63,21 @@ const CreateMyCar = () => {
 
   return (
     <PrivateRoute>
-      <div className="flex flex-col size1000:flex-1 w-full rounded-[10px] px-[43px] py-6 shadow-[0_0_6px_0_rgba(180,180,180,0.3)]">
-        <div className={"flex items-center justify-between"}>
-          <span className={"text-BLUE_600"}>خودرو من</span>
-          <div>
+      <div className="flex flex-col size1000:flex-1 w-full rounded-[10px] px-[43px] py-6 gap-6">
+        <div className={"flex items-center justify-start"}>
+          {/* <span className={"text-BLUE_600"}>خودرو من</span> */}
             <button
               type={"button"}
-              className="flex items-center justify-center gap-2 border border-BLUE_600 text-BLUE_600 h-[48px] rounded-5 w-[134px]"
+              className="flex items-center justify-center gap-2 bg-[#F66B34] text-[#FEFEFE] h-[48px] rounded-lg px-4"
               onClick={openCarModalHandler}
             >
-              <span className="text-20 border border-BLUE_600 w-[20px] h-[20px] rounded-full flex items-center justify-center">
+              <span className="text-20 size-5 rounded-full flex items-center justify-center">
                 +
               </span>
-              <span>افزودن</span>
+              <span className="text-16 font-medium">افزودن وسیله نقلیه جدید</span>
             </button>
-          </div>
         </div>
-        <div className="mt-6 flex flex-col gap-4">
+        {/* <div className="mt-6 flex flex-col gap-4">
           <ul className="size800:flex hidden justify-between px-4 py-2 size1190:text-16 text-14 text-BLUE-500 rounded-10 bg-gray_light">
             <li className="font-bold flex-1 text-center text-BLUE-500">#</li>
             <li className="font-bold flex-1 text-center text-BLUE_500">عکس</li>
@@ -117,6 +118,12 @@ const CreateMyCar = () => {
           ) : (
             <CreateMyCarSkeleton />
           )}
+
+        </div> */}
+        <div className="grid grid-cols-2 gap-6">
+          {newMyCareData.map((item,index)=>(
+            <CertificateCard data={item} key={index}/>
+          ))}
         </div>
         <Pagination newTotal={newTotal} perPage={perPage} />
         {

@@ -76,17 +76,18 @@ const DesktopHeader = (props) => {
             className="w-full bg-[#ffffff01] outline-none"
             placeholder="جستجو..."
           />
-        </div>
-        <div className="flex items-center gap-6">
+          <div className="h-8 w-[2px] bg-[#B0B0B0]"></div>
           <div
             className={
-              "bg-[#d1d5db] py-2 px-2 rounded-5 cursor-pointer flex items-center justify-between gap-2"
+              "py-2 px-2 rounded-5 cursor-pointer flex items-center justify-between gap-2"
             }
             onClick={toggleModal}
           >
-            <span className={"inline-block w-fit text-14"}>تهران</span>
+            <span className={"inline-block w-fit text-16 font-semibold"}>تهران</span>
             <i className={"cc-arrow-down"} />
           </div>
+        </div>
+        <div className="flex items-center gap-6">
           <i className="cc-wallet text-2xl text-[#FEFEFE]" />
           <div className="bg-[#F66B3429] flex items-center px-4 py-2 gap-2 rounded-[4px]">
             <i className="cc-wallet text-2xl text-[#F66B34]" />

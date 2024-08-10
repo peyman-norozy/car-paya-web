@@ -1,13 +1,16 @@
 "use client";
 
+import { API_PATHS } from "@/configs/routes.config";
 import { renderInvoice } from "@/store/todoSlice";
 import { postData } from "@/utils/client-api-function-utils";
 import { numberWithCommas } from "@/utils/function-utils";
+import Image from "next/image";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 
 const SelectProduct = (props) => {
+  
   const [value, setValue] = useState("");
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -34,11 +37,12 @@ const SelectProduct = (props) => {
         {props.data.map((item, index) => (
           <label
             key={index}
-            className="bg-[#E7E7E7] hover:scale-[102%] transition-transform duration-300 rounded-lg flex flex-col sm:flex-row justify-between p-5 gap-y-4 items-start sm:items-center cursor-pointer"
+            className="bg-[#E7E7E7] hover:scale-[102%] transition-transform duration-300 rounded-lg flex flex-col sm:flex-row justify-between p-4 gap-y-4 items-start sm:items-center cursor-pointer"
             for={item.id}
           >
+            {console.log(item)}
             <div className="gap-2 xl:gap-4 flex items-center">
-              <div className="size-[55px] bg-red-500"></div>
+              <Image src={process.env.BASE_API +"/web" +API_PATHS.FILE +"/" + item.image_id} width={60} height={60} className="size-[80px] rounded-md"/>
               <span className="text-14 xl:text-18">{item.name}</span>
             </div>
             <div className="gap-4 flex items-center">

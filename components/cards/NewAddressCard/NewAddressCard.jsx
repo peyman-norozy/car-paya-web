@@ -20,23 +20,6 @@ const NewAddressCard = ({
   const [isOpenDeleteModal, setModalIsOpenDeleteModal] = useState(false);
   const setQuery = useSetQuery();
 
-  const fixedFakeData = [
-    "فیلتر روغن",
-    "فیلتر روغن",
-    "تعویض روغن گیر بکس دستی",
-    "فیلتر روغن",
-    "فیلتر روغن",
-    "فیلتر روغن",
-    "فیلتر روغن",
-    "فیلتر روغن",
-    "فیلتر روغن",
-    "فیلتر روغن",
-    "فیلتر روغن",
-    "فیلتر روغن",
-    "فیلتر روغن",
-    "فیلتر روغن",
-  ];
-
   function onclick() {
     setQuery.updateQueryParams({ service_location_id: item.id }, nextUrl);
   }
@@ -86,10 +69,10 @@ const NewAddressCard = ({
             <span className={"font-semibold"}>شهر:</span>
             <span>{item.city_name}</span>
           </div>
-          {/*<div className={"flex gap-[11px]"}>*/}
-          {/*  <span className={"font-semibold"}>محله:</span>*/}
-          {/*  <span>{item.area_name}</span>*/}
-          {/*</div>*/}
+          <div className={"flex gap-[11px]"}>
+           <span className={"font-semibold"}>محله:</span>
+           <span>{item.area_name}</span>
+          </div>
         </section>
         <section className={"flex"}>
           <p className={"leading-7 h-14"}>
@@ -103,7 +86,7 @@ const NewAddressCard = ({
               "flex flex-wrap gap-x-2 gap-y-4 mt-4 h-[96px] overflow-y-scroll"
             }
           >
-            {fixedFakeData.map((item, index) => (
+            {item.services.map((item, index) => (
               <DetailingDetailCard key={index} item={item} />
             ))}
           </ul>

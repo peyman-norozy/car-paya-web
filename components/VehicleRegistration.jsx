@@ -173,18 +173,18 @@ const VehicleRegistration = (props) => {
     <Fragment>
       <div
         className={`${props.modalPosition?"absolute inset-0 m-auto h-fit":"absolute top-[10px]"} ${
-          props.style ? props.style : "size525:w-[393px] w-[320px]"
-        } z-50 bg-white font-light px-4 py-4 rounded-lg`}
+          props.style ? props.style : "size525:w-[400px] w-[320px]"
+        } z-50 bg-[#646464] font-light px-4 py-4 rounded-2xl`}
       >
         <div className="flex flex-col items-center">
-          <span className="text-16">ثبت وسیله نقلیه</span>
+          <span className="text-20 text-[#FEFEFE] font-bold">ثبت وسیله نقلیه</span>
           <ul className="flex justify-center gap-2 text-12 mt-4">
             {tabData.map((item) => (
               <li
                 key={item.id}
                 id={item.id}
-                className={`border px-3 py-1 rounded-[5px] cursor-pointer flex gap-2 ${
-                  item.id === newTabId ? "bg-red-500 text-white" : ""
+                className={`px-3 py-1 rounded-[5px] cursor-pointer flex gap-2 text-14 font-medium ${
+                  item.id === newTabId ? "bg-[#F66B34] text-[#FEFEFE]" : ""
                 }`}
                 onClick={clickTabHandler}
               >
