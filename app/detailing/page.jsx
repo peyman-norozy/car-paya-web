@@ -1,14 +1,14 @@
 import React from "react";
 import Link from "next/link";
+import DetailingPage from "@/components/DetailingPage";
 
-const Page = () => {
+const Page = (props) => {
+  console.log(props.searchParams, "jfjfjffjfj");
+
   return (
-    <Link
-      href={"/detailing/services"}
-      className={"inline-block mt-[200px] mr-[400px] bg-red-600"}
-    >
-      دیتیلینگ
-    </Link>
+    <>
+      <DetailingPage searchParams={props.searchParams} />
+    </>
   );
 };
 
