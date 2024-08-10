@@ -9,6 +9,39 @@ import { usePathname, useRouter } from "next/navigation";
 import PrivateRoute from "@/routes/private-route";
 
 const History = (props) => {
+  const tabName = [{
+    label:"عنوان",
+    slug: "title"
+  },{
+    label:"کیلومتر تعویض فعلی",
+    slug: "ًCRK"
+  },{
+    label:"تاریخ تعویض فعلی",
+    slug: "CRD"
+  },{
+    label:"کیلومتر تعویض بعدی",
+    slug: "NRK"
+  },{
+    label:"تاریخ تعویض بعدی",
+    slug: "NRD"
+  },{
+    label:"یاد آوری",
+    slug: "remember"
+  },{
+    label:"کیلومتر مصرفی استاندارد",
+    slug: "SM"
+  },
+]
+
+const data = {
+  title:"روغن موتور",
+  crk:"120000 Km",
+  crd:"1402/5/10",
+  nrk:"120000 Km",
+  nrd:"1402/5/10",
+  remember:"یادآوری",
+  sm:"120000 Km"
+}
   const newRoute = useRef(null);
   const router = useRouter();
   const pathName = usePathname();
@@ -48,7 +81,7 @@ const History = (props) => {
 
   return (
     <PrivateRoute>
-      <div className="flex flex-col gap-[34px] size1000:flex-1 w-full rounded-[10px] px-[43px] py-6 bg-[#6f6f6f]">
+      <div className="flex flex-col gap-[34px] size1000:flex-1 w-full rounded-[10px] px-4 lg:px-10 py-6 bg-[#6f6f6f]">
       <div className={"flex items-center gap-2"}>
             <i
               onClick={closeHistoryHandler}
@@ -178,22 +211,18 @@ const History = (props) => {
             </Button>
           </div>
         </div>
-        <div className="mt-4 flex flex-col bg-[#B0B0B0] rounded-2xl overflow-hidden gap-px">
-          <ul className="size800:flex hidden justify-between size1190:text-16 text-14 text-[#FEFEFE] rounded-10 gap-px h-[72px]">
-            <li className="font-bold flex-1 text-14 bg-[#47505D] flex items-center justify-center">عنوان</li>
-            <li className="font-bold flex-1 text-14 bg-[#47505D] flex items-center justify-center">کیلومتر تعویض فعلی</li>
-            <li className="font-bold flex-1 text-14 bg-[#47505D] flex items-center justify-center">تاریخ تعویض فعلی</li>
-            <li className="font-bold flex-1 text-14 bg-[#47505D] flex items-center justify-center">کیلومتر تعویض بعدی</li>
-            <li className="font-bold flex-1 text-14 bg-[#47505D] flex items-center justify-center">تاریخ تعویض بعدی</li>
-            <li className="font-bold flex-1 text-14 bg-[#47505D] flex items-center justify-center">یاد آوری</li>
-            <li className="font-bold flex-1 text-14 bg-[#47505D] flex items-center justify-center">کیلومتر مصرفی استاندارد</li>
+        <div className="mt-4 flex flex-col lg:bg-[#B0B0B0] rounded-2xl overflow-hidden gap-px">
+          <ul className="lg:flex hidden justify-between size1190:text-16 text-14 text-[#FEFEFE] rounded-10 gap-px h-[72px]">
+            {tabName.map((item)=>(
+            <li className="font-bold flex-1 text-14 bg-[#47505D] flex items-center justify-center text-center p-2">{item.label}</li>
+            ))}
           </ul>
-          <div className={"overflow-y-auto flex flex-col gap-px"}>
+          <div className={"overflow-y-auto flex flex-col gap-6 lg:gap-px"}>
             {/* {newVehicleHistoryData.map((item, index) => ( */}
             {[1,2,3,4,5,6,7,8,9].map((item , index)=>(
               <RecordModalCreatedCard
                 key={item}
-                item={item}
+                item={data}
                 index={index}
               />
             ))}
