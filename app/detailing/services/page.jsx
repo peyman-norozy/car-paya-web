@@ -14,8 +14,7 @@ const Page = (props) => {
         vehicle_tip_id: props.searchParams.city_id,
       },
     );
-    console.log(fetchData, "jfjfjfjfjd");
-    return <ServicesPage data={fetchData} />;
+    return <ServicesPage {...fetchData} />;
   };
 
   return <ServicesPageData />;
