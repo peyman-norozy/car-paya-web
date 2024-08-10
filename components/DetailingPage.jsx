@@ -15,6 +15,7 @@ const DetailingPage = (props) => {
       error("لطفا شهر خود را انتخاب کنید");
     }
   }, [props.searchParams, toastieDisplay]);
+
   return (
     <div>
       <Link
