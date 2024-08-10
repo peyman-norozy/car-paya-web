@@ -1,23 +1,24 @@
 import React from "react";
-import ServicesCard from "@/components/cards/ServicesCard/ServicesCard";
+import { getData, getDataWithFullErrorRes } from "@/utils/api-function-utils";
+import ServicesPage from "@/components/ServicesPage";
 
-let fakeArray = [0, 0, 0, 0, 0, 0, 0];
+const Page = (props) => {
+  console.log(props, "jjjjjjrrrrrrrrrr");
 
-const Page = () => {
-  return (
-    <div className={"flex flex-col relative py-4 max-w-[1772px] m-auto"}>
-      <h1 className={"lg:hidden block text-center text-[20px] font-semibold"}>
-        دیتیلینگ
-      </h1>
-      <section className={"lg:w-[calc(100%-424px)] w-full mr-auto"}>
-        <ul className={"lg:mt-16 mt-[20px] flex flex-col gap-[24px]"}>
-          {fakeArray.map((item, index) => (
-            <ServicesCard key={index} />
-          ))}
-        </ul>
-      </section>
-    </div>
-  );
+  const ServicesPageData = async () => {
+    const fetchData = await getDataWithFullErrorRes(
+      "/web/detailing?step=step-1",
+      {
+        city_id: props.searchParams.city_id,
+        type: props.searchParams.type,
+        vehicle_tip_id: props.searchParams.city_id,
+      },
+    );
+    console.log(fetchData, "jfjfjfjfjd");
+    return <ServicesPage data={fetchData} />;
+  };
+
+  return <ServicesPageData />;
 };
 
 export default Page;
