@@ -30,7 +30,7 @@ const CityModal = ({ isOpen, onClose }) => {
   }, [isOpen]);
 
   const cityClickHandler = (id, city) => {
-    setQuery.updateQueryParams({ selectTipState: `true,${id}` }, "");
+    setQuery.updateQueryParams({ city_id: id }, "");
     localStorage.setItem("city", JSON.stringify({ label: city, cityId: id }));
     dispatch(setCityModalState(false));
   };
