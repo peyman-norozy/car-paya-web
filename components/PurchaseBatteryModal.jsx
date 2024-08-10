@@ -74,8 +74,6 @@ const PurchaseBatteryModal = (props) => {
     setSelectedPrice(event.target.getAttribute("price"));
   };
 
-  console.log(props.searchParams);
-
   const clickSelectTimeHandler = () => {
     console.log(allParams.get("provience_city_id"));
     router.push(
