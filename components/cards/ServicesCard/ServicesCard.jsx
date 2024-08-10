@@ -23,7 +23,7 @@ const ServicesCard = () => {
       <div className={"flex gap-[16px]"}>
         <div
           className={
-            "size666:w-[240px] w-[140px] size666:h-[240px] h-[144px] bg-[#eee] rounded-[8px] relative"
+            "size666:w-[240px] w-[140px] size666:h-[240px] h-[144px] bg-[#eee] rounded-[8px] relative overflow-hidden"
           }
         >
           <Image
