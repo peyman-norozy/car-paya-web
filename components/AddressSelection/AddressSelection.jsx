@@ -80,10 +80,9 @@ const AddressSelection = (props) => {
             >
               انتخاب محله
             </span>
-            {optionState && (
-              <div className="absolute overflow-y-scroll rounded-lg top-[42px] z-[2] bg-[#5D697A] w-40 overflow-hidden">
+              <div className={`absolute overflow-y-scroll rounded-lg top-[42px] z-[2] bg-[#5D697A] ${optionState?"w-40":"w-0"} overflow-hidden transition-all`}>
                 <div
-                  className="max-h-[200px] flex flex-col p-2 gap-1"
+                  className="max-h-[200px] flex flex-col p-2 gap-1 w-40"
                   ref={optionRef}
                 >
                   <input
@@ -92,12 +91,22 @@ const AddressSelection = (props) => {
                       inputChangeHandler(e.target.value);
                     }}
                   />
+                  <span
+                      className="cursor-pointer hover:bg-[#6e7c91] py-1 px-2 text-[#FEFEFE] text-14"
+                      onClick={(e) => {
+                        props.timeData();
+                        setOptionState(false)
+                      }}
+                    >
+                      همه محله ها
+                    </span>
                   {searchCity.map((item, index) => (
                     <span
                       className="cursor-pointer hover:bg-[#6e7c91] py-1 px-2 text-[#FEFEFE] text-14"
                       value={item.id}
                       onClick={(e) => {
                         props.timeData("&area_id=" + item.id);
+                        setOptionState(false)
                       }}
                       key={index}
                     >
@@ -106,7 +115,6 @@ const AddressSelection = (props) => {
                   ))}
                 </div>
               </div>
-            )}
           </div>
           <div className="relative">
             <span
@@ -118,8 +126,8 @@ const AddressSelection = (props) => {
             >
               انتخاب سرویس ها
             </span>
-            
-              <div className={`absolute overflow-y-scroll overflow-x-hidden rounded-lg top-[42px] left-0 bg-[#5D697A] flex flex-wrap gap-6 z-[1010] max-h-[294px] ${servicesState?`w-[240px] sm:w-[calc(100vw*2/5)]  p-4`:`w-0`} transition-all duration-500`} ref={serviceDropDownRef}>
+            <div className={`absolute rounded-lg top-[42px] left-0 bg-[#5D697A] z-[1010] ${servicesState?`w-[240px] sm:w-[calc(100vw*2/5)] p-4`:`w-0`} transition-all duration-500 flex flex-col gap-4 overflow-hidden`}>
+              <div className={`flex flex-wrap gap-6 overflow-y-scroll overflow-x-hidden max-h-[200px]`} ref={serviceDropDownRef}>
                   {servicesData.map((item) => (
                   <div className="checkbox-wrapper-42 flex items-center gap-1 min-w-[210px]">
                     <input id={item.value} type="checkbox" onChange={(e) => {checkboxChangeHandler(item.value , e.target.checked)}}/>
@@ -127,9 +135,9 @@ const AddressSelection = (props) => {
                     <label className="lbl line-clamp-1 select-none" for={item.value}>{item.label}</label>
                   </div>
                   ))}
-                  <button className={"bg-[#F66B34] px-8 py-2 text-[#FEFEFE] rounded-[8px] text-14"} onClick={searchClickHandler}>جستجو</button>
               </div>
-            
+              <button className={"bg-[#F66B34] px-8 py-2 text-[#FEFEFE] rounded-[8px] text-14 w-fit"} onClick={searchClickHandler}>جستجو</button>
+            </div>
           </div>
         </div>
       ) : (
