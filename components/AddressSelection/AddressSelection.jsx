@@ -3,6 +3,7 @@ import Button from "@/components/Button";
 import NewAddressCard from "@/components/cards/NewAddressCard/NewAddressCard";
 import AddAddressModal from "@/components/vehicle-verification/AddAddressModal";
 import Spinner from "@/components/Spinner";
+import { usePathname } from "next/navigation";
 
 const AddressSelection = (props) => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -19,6 +20,7 @@ const AddressSelection = (props) => {
   const inputRef = useRef(null);
   const serviceButtenRef = useRef(null);
   const serviceDropDownRef = useRef(null);
+  const pathName = usePathname();
 
   useEffect(() => {
     document.addEventListener("click", (e) => {
@@ -174,7 +176,13 @@ const AddressSelection = (props) => {
               key={item.id}
               status={props.status}
               item={item}
-              nextUrl={"/periodic-service/service-selection"}
+              nextUrl={
+                pathName.startsWith("/detailing")
+                  ? "/detailing/selected-services"
+                  : pathName.startsWith("/periodic-service")
+                    ? "/periodic-service/service-selection"
+                    : ""
+              }
             />
           ))}
         </ul>
@@ -190,7 +198,13 @@ const AddressSelection = (props) => {
                 setPageType={setPageType}
                 setModalIsOpen={setModalIsOpen}
                 setAddressEditId={setAddressEditId}
-                nextUrl={"/periodic-service/service-selection"}
+                nextUrl={
+                  pathName.startsWith("/detailing")
+                    ? "/detailing/selected-services"
+                    : pathName.startsWith("/periodic-service")
+                      ? "/periodic-service/service-selection"
+                      : ""
+                }
               />
             ))}
         </ul>
