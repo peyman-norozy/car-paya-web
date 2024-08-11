@@ -9,7 +9,7 @@ import TitleDescription from "@/components/TitleDescription";
 import React, { Fragment, useEffect, useState } from "react";
 import LogoutModal from "@/components/modal/LogoutModal";
 import { getWindowInnerWidth } from "@/store/todoSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import UserSpecifications from "@/components/UserSpecifications";
 import UserTabsCard from "@/components/cards/UserTabsCard";
 import Image from "next/image";
@@ -33,6 +33,8 @@ const AllPanelTab = (props) => {
   const dispatch = useDispatch();
   const pathName = usePathname();
   const query = useSearchParams();
+  const showHeaderState = useSelector((state) => state.todo.showHeader);
+  
   const allUrl = query.get("status")
     ? pathName + "?" + "status=" + query.get("status")
     : pathName;
@@ -62,7 +64,7 @@ const AllPanelTab = (props) => {
 
   return (
     <>
-      <div className="mt-[50px] mb-[100px]">
+      <div className="mt-[50px] mb-[24px]">
         <div className="flex items-center gap-4 mb-[30px] mt-[100px]">
           <Image
             src={"/assets/icons/back.svg"}
@@ -95,7 +97,7 @@ const AllPanelTab = (props) => {
           } */}
         </div>
         <div className="flex gap-4 size1000:flex-row flex-col">
-          <div className="bg-[#383838] w-[260px] flex-col justify-start h-fit gap-4 items-center pt-2 size1180:flex hidden rounded-[10px] sticky top-[81px]">
+          <div className={`bg-[#383838] w-[260px] flex-col justify-start ${showHeaderState?"top-32 h-[calc(100vh-156px)]":"top-6 h-[calc(100vh-52px)]"} gap-4 items-center pt-2 size1180:flex hidden rounded-[10px] sticky transition-all duration-100`}>
             <UserSpecifications
               style={"flex-col justify-center items-center gap-2"}
             />
