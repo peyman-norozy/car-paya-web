@@ -8,14 +8,15 @@ import { getDataWithFullErrorRes } from "@/utils/api-function-utils";
 import SubFilterCard from "@/components/cards/SubFilterCard";
 import { ToastContainer } from "react-toastify";
 import BatteriesCard from "@/components/cards/BatteriesCard/BatteriesCard";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useDispatch } from "react-redux";
 import { setCarSelectToastHandler, setCityModalState } from "@/store/todoSlice";
-import BatteryAssistantModal from "@/components/modal/BatteryAssistantModal";
+import Link from "next/link";
 
 const BatteriesPage = (props) => {
   const query = useSetQuery();
   console.log(props.data);
+  console.log(props);
   const [isClicked, setIsClicked] = useState(1);
   const [filterISOpen, setFilterIsOpen] = useState(false);
   const [batteryIsSelected, setBatteryIsSelected] = useState(false);
@@ -28,18 +29,18 @@ const BatteriesPage = (props) => {
   const [topDistance, setTopDistance] = useState(0);
   const [filterModalState, setFilterModalState] = useState(false);
   const [timeModalState, setTimeModalState] = useState(false);
-  const [assistantModalState, setAssistantModalState] = useState(false);
   const [filterId, setFilterId] = useState("");
   const dispatch = useDispatch();
   const filterRef = useRef(null);
   const subFilterRef = useRef();
   const router = useRouter();
   const heightRef = useRef(null);
+  const searchParams = useSearchParams();
 
   console.log(props);
-  if (props.filterData === 500) {
-    console.log(props.filterData);
-  }
+  // if (props.filterData === 500) {
+  //   console.log(props.filterData);
+  // }
   console.log(props);
   const data = selectFilterData.length > 0 ? selectFilterData : props.data.data;
   const tabTitle = [
@@ -122,7 +123,7 @@ const BatteriesPage = (props) => {
   }, []);
 
   useEffect(() => {
-    if (props.searchParams.attribute_slug === undefined) {
+    if (searchParams.get("attribute_slug") === undefined) {
       query.setMultiQuery([
         { key: "attribute_slug", value: "type_vehicle" },
         { key: "attribute_value", value: "car" },
@@ -131,7 +132,7 @@ const BatteriesPage = (props) => {
   }, []);
 
   useEffect(() => {
-    console.log(JSON.parse(localStorage.getItem("selectedVehicle"))?.id);
+    // console.log(JSON.parse(localStorage.getItem("selectedVehicle"))?.id);
     if (
       !JSON.parse(localStorage.getItem("city")) &&
       !JSON.parse(localStorage.getItem("city"))?.cityId
@@ -139,25 +140,14 @@ const BatteriesPage = (props) => {
       dispatch(setCityModalState(true));
       router.push("/batteries");
     }
-    if (
-      !JSON.parse(localStorage.getItem("selectedVehicle")) &&
-      !JSON.parse(localStorage.getItem("selectedVehicle"))?.id
-    ) {
-      dispatch(setCarSelectToastHandler(true));
-      router.push("/batteries");
-    }
-  }, [dispatch, router, props.searchParams]);
-
-  useEffect(() => {
-    (async () => {
-      const filterFetchData = await getDataWithFullErrorRes("/web/get/filter");
-      console.log(filterFetchData);
-    })();
-  }, []);
-
-  const toggleModal = () => {
-    setAssistantModalState((prev) => !prev);
-  };
+    // if (
+    //   !JSON.parse(localStorage.getItem("selectedVehicle")) &&
+    //   !JSON.parse(localStorage.getItem("selectedVehicle"))?.id
+    // ) {
+    //   dispatch(setCarSelectToastHandler(true));
+    //   router.push("/batteries");
+    // }
+  }, [dispatch, router, searchParams]);
 
   return (
     <div className={"flex flex-col relative py-4 max-w-[1772px] m-auto"}>
@@ -210,7 +200,7 @@ const BatteriesPage = (props) => {
                 }}
               >
                 <ul className={`bg-[#5D697A] h-[250px] overflow-y-scroll`}>
-                  {props.filterData[filterId]?.map((item) => (
+                  {props.data.filter[filterId]?.map((item) => (
                     <SubFilterCard
                       key={item.value}
                       setFilter={setFilter}
@@ -223,21 +213,20 @@ const BatteriesPage = (props) => {
               </div>
             )}
           </div>
-          <button
+          <Link
+            href={`/batteries/battery-assistant?selectTipState=${searchParams.get("selectTipState")}`}
             className={
-              "bg-[#5D697A] text-12 text-white w-[146px] h-[36px] rounded-[8px] font-semibold animate-bounce "
+              "bg-[#5D697A] text-12 text-white w-[146px] h-[36px] rounded-[8px] font-semibold animate-bounce flex justify-center items-center"
             }
-            onClick={() => toggleModal()}
           >
             دستیار باتری
-          </button>
+          </Link>
         </div>
         <ul className={"mt-4 flex flex-col gap-[24px]"}>
           {props.data?.data?.map((item, index) => (
             <BatteriesCard
               key={index}
               item={item}
-              searchParams={props.searchParams}
               setBatteryIsSelected={setBatteryIsSelected}
             />
           ))}
@@ -372,13 +361,8 @@ const BatteriesPage = (props) => {
         <PurchaseBatteryModal
           setBatteryIsSelected={setBatteryIsSelected}
           batteryIsSelected={batteryIsSelected}
-          searchParams={props.searchParams}
         />
       </div>
-      <BatteryAssistantModal
-        isOpen={assistantModalState}
-        onClose={toggleModal}
-      />
       <ToastContainer rtl={true} />
     </div>
   );

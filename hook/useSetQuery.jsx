@@ -19,18 +19,19 @@ const useSetQuery = () => {
     router.push(pathname + query);
   }, []);
 
-  const setMultiQuery = useCallback((data) => {
+  const setMultiQuery = useCallback((data, newPathname) => {
     // const params = new URLSearchParams(searchParams.toString());
     data.map((item) => {
       allParams.set(item.key, item.value);
     });
     const search = allParams.toString();
     const query = search ? `?${search}` : "";
-    router.push(pathname + query);
+    router.push(newPathname ? newPathname : pathname + query);
   }, []);
 
   const deleteQuery = useCallback((data) => {
     const params = new URLSearchParams(searchParams.toString());
+    console.log(params);
     params.delete(data);
     const search = params.toString();
     const query = search ? `?${search}` : "";
@@ -55,7 +56,7 @@ const useSetQuery = () => {
   }, []);
 
   const updateQueryParams = useCallback(
-    (newParams , newPathname) => {
+    (newParams, newPathname) => {
       const currentParams = new URLSearchParams(searchParams);
 
       // Add new parameters to the current params
@@ -67,7 +68,9 @@ const useSetQuery = () => {
       const queryString = currentParams.toString();
 
       // Push the updated URL with new query parameters
-      router.push(`${newPathname?newPathname:pathname}?${queryString}`, { shallow: true });
+      router.push(`${newPathname ? newPathname : pathname}?${queryString}`, {
+        shallow: true,
+      });
     },
     [pathname, router, searchParams],
   );

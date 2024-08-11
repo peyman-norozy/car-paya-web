@@ -70,8 +70,8 @@ const NewAddressCard = ({
             <span>{item.city_name}</span>
           </div>
           <div className={"flex gap-[11px]"}>
-           <span className={"font-semibold"}>محله:</span>
-           <span>{item.area_name}</span>
+            <span className={"font-semibold"}>محله:</span>
+            <span>{item.area_name}</span>
           </div>
         </section>
         <section className={"flex"}>
@@ -86,8 +86,8 @@ const NewAddressCard = ({
               "flex flex-wrap gap-x-2 gap-y-4 mt-4 h-[96px] overflow-y-scroll"
             }
           >
-            {item.services.map((item, index) => (
-              <DetailingDetailCard key={index} item={item} />
+            {item.services.map((item) => (
+              <DetailingDetailCard key={item.key} {...item} />
             ))}
           </ul>
         )}

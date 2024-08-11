@@ -3,6 +3,7 @@ import Button from "@/components/Button";
 import NewAddressCard from "@/components/cards/NewAddressCard/NewAddressCard";
 import AddAddressModal from "@/components/vehicle-verification/AddAddressModal";
 import Spinner from "@/components/Spinner";
+import { usePathname } from "next/navigation";
 
 const AddressSelection = (props) => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -13,12 +14,13 @@ const AddressSelection = (props) => {
   const [optionState, setOptionState] = useState(false);
   const [servicesState, setServicesState] = useState(false);
   const [servicesData, setServicesData] = useState([]);
-  const [srviceQuery , setServiceQuery] = useState([])
-  
+  const [srviceQuery, setServiceQuery] = useState([]);
+
   const optionRef = useRef(null);
   const inputRef = useRef(null);
-  const serviceButtenRef = useRef(null)
-  const serviceDropDownRef = useRef(null)
+  const serviceButtenRef = useRef(null);
+  const serviceDropDownRef = useRef(null);
+  const pathName = usePathname();
 
   useEffect(() => {
     document.addEventListener("click", (e) => {
@@ -37,7 +39,7 @@ const AddressSelection = (props) => {
         setServicesState(false);
       }
     });
-    if (props.filter&&props.filter.area) {
+    if (props.filter && props.filter.area) {
       setSearchCity(props.filter.area);
       setServicesData(props.filter.service);
     }
@@ -52,18 +54,20 @@ const AddressSelection = (props) => {
     setSearchCity(props.filter.area.filter((i) => i.label.includes(value)));
   }
 
-  function checkboxChangeHandler(value , checked) {
+  function checkboxChangeHandler(value, checked) {
     if (checked) {
-      setServiceQuery([value , ...srviceQuery])
-    }else{
-      setServiceQuery(srviceQuery.filter((item)=>{
-        return item !== value
-      }))
+      setServiceQuery([value, ...srviceQuery]);
+    } else {
+      setServiceQuery(
+        srviceQuery.filter((item) => {
+          return item !== value;
+        }),
+      );
     }
   }
 
   function searchClickHandler() {
-    props.timeData(`&services=${srviceQuery.join(",")}`);
+    props.timeData({services:srviceQuery.join(",")});
   }
 
   return (
@@ -105,7 +109,7 @@ const AddressSelection = (props) => {
                       className="cursor-pointer hover:bg-[#6e7c91] py-1 px-2 text-[#FEFEFE] text-14"
                       value={item.id}
                       onClick={(e) => {
-                        props.timeData("&area_id=" + item.id);
+                        props.timeData({area_id: item.id});
                         setOptionState(false)
                       }}
                       key={index}
@@ -130,9 +134,20 @@ const AddressSelection = (props) => {
               <div className={`flex flex-wrap gap-6 overflow-y-scroll overflow-x-hidden max-h-[200px]`} ref={serviceDropDownRef}>
                   {servicesData.map((item) => (
                   <div className="checkbox-wrapper-42 flex items-center gap-1 min-w-[210px]">
-                    <input id={item.value} type="checkbox" onChange={(e) => {checkboxChangeHandler(item.value , e.target.checked)}}/>
+                    <input
+                      id={item.value}
+                      type="checkbox"
+                      onChange={(e) => {
+                        checkboxChangeHandler(item.value, e.target.checked);
+                      }}
+                    />
                     <label className="cbx" for={item.value}></label>
-                    <label className="lbl line-clamp-1 select-none" for={item.value}>{item.label}</label>
+                    <label
+                      className="lbl line-clamp-1 select-none"
+                      for={item.value}
+                    >
+                      {item.label}
+                    </label>
                   </div>
                   ))}
               </div>
@@ -153,19 +168,25 @@ const AddressSelection = (props) => {
       )}
       {props.status === "FIXED" ? (
         <ul className={" flex flex-col gap-6"}>
-          {props.carCheckLocations.map((item) => (
+          {props.carCheckLocations?.map((item) => (
             <NewAddressCard
               key={item.id}
               status={props.status}
               item={item}
-              nextUrl={"/periodic-service/service-selection"}
+              nextUrl={
+                pathName.startsWith("/detailing")
+                  ? "/detailing/selected-services"
+                  : pathName.startsWith("/periodic-service")
+                    ? "/periodic-service/service-selection"
+                    : ""
+              }
             />
           ))}
         </ul>
       ) : (
         <ul className={"flex flex-col gap-6"}>
           {props.myLocationData &&
-            props.myLocationData.map((item) => (
+            props.myLocationData?.map((item) => (
               <NewAddressCard
                 key={item.id}
                 status={props.status}
@@ -174,7 +195,13 @@ const AddressSelection = (props) => {
                 setPageType={setPageType}
                 setModalIsOpen={setModalIsOpen}
                 setAddressEditId={setAddressEditId}
-                nextUrl={"/periodic-service/service-selection"}
+                nextUrl={
+                  pathName.startsWith("/detailing")
+                    ? "/detailing/selected-services"
+                    : pathName.startsWith("/periodic-service")
+                      ? "/periodic-service/service-selection"
+                      : ""
+                }
               />
             ))}
         </ul>

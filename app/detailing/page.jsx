@@ -1,21 +1,27 @@
 import React from "react";
-import ServicesCard from "@/components/cards/ServicesCard/ServicesCard";
+// import Link from "next/link";
+// import DetailingPage from "@/components/DetailingPage";
+//
+// const Page = (props) => {
+//   console.log(props.searchParams, "jfjfjffjfj");
+//
+//   return (
+//     <>
+//       <DetailingPage searchParams={props.searchParams} />
+//     </>
+//   );
+// };
+//
+// export default Page;
 
-let fakeArray = [0, 0, 0, 0, 0, 0, 0];
+import PeriodicServiceIndex from "@/components/PeriodicServiceIndex/PeriodicServiceIndex";
 
-const Page = () => {
+const Page = (props) => {
   return (
-    <div className={"flex flex-col relative py-4 max-w-[1772px] m-auto"}>
-      <h1 className={"lg:hidden block text-center text-[20px] font-semibold"}>
-        دیتیلینگ
-      </h1>
-      <section className={"lg:w-[calc(100%-424px)] w-full mr-auto"}>
-        <ul className={"lg:mt-16 mt-[20px] flex flex-col gap-[24px]"}>
-          {fakeArray.map((item, index) => (
-            <ServicesCard key={index} />
-          ))}
-        </ul>
-      </section>
+    <div className="lg:flex items-start gap-8 mt-1 lg:mt-10 max-w-[1772px] m-auto  py-4 relative">
+      <div className={"w-full lg:w-[calc(100%-424px)] mr-auto"}>
+        <PeriodicServiceIndex searchParams={props.searchParams} />
+      </div>
     </div>
   );
 };
