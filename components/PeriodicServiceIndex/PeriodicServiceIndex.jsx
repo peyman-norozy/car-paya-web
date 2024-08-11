@@ -6,12 +6,11 @@ import TopRepresentatives from "../TopRepresentatives/TopRepresentatives";
 import Image from "next/image";
 import assistance from "@/public/assets/images/assistance.jpg";
 import repair2 from "@/public/assets/images/repair2.jpg";
-import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { error } from "@/utils/function-utils";
 import { ToastContainer } from "react-toastify";
-const PeriodicServiceIndex = (props) => {
+const PeriodicServiceIndex = () => {
   const pathName = usePathname();
   const [toastieDisplay, setToastieDisplay] = useState(false);
   const [isClient, setIsClient] = useState(false);
@@ -31,21 +30,8 @@ const PeriodicServiceIndex = (props) => {
       const city = JSON.parse(localStorage.getItem("city"));
       setSelectedVehicleId(selectedVehicle?.id);
       setCityId(city?.cityId);
-      if (pathName.startsWith("/detailing") && selectedVehicleId && cityId) {
-        router.push(
-          `/detailing/selectLocation?${searchParams.toString()}&type=${servicesState}`,
-        );
-      } else if (
-        pathName.startsWith("/periodic-service") &&
-        selectedVehicleId &&
-        cityId
-      ) {
-        router.push(
-          `/periodic-service/location-selection?${searchParams.toString()}&type=${servicesState}`,
-        );
-      }
     }
-  }, [toastieDisplay, router, searchParams, pathName]);
+  }, [toastieDisplay, searchParams, pathName]);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -61,6 +47,23 @@ const PeriodicServiceIndex = (props) => {
       }
     }
   }, [toastieDisplay]);
+
+  const selectServiceClickHandler = (status) => {
+    setToastieDisplay((prev) => !prev);
+    if (pathName.startsWith("/detailing") && selectedVehicleId && cityId) {
+      router.push(
+        `/detailing/selectLocation?${searchParams.toString()}&type=${status}`,
+      );
+    } else if (
+      pathName.startsWith("/periodic-service") &&
+      selectedVehicleId &&
+      cityId
+    ) {
+      router.push(
+        `/periodic-service/location-selection?${searchParams.toString()}&type=${status}`,
+      );
+    }
+  };
 
   if (!isClient) {
     return null;
@@ -96,10 +99,7 @@ const PeriodicServiceIndex = (props) => {
               </span>
               <button
                 className="px-4 py-2 rounded-lg bg-[#F66B34] text-white text-14"
-                onClick={() => {
-                  setToastieDisplay((prev) => !prev);
-                  setServicesState("FIXED");
-                }}
+                onClick={() => selectServiceClickHandler("FIXED")}
               >
                 ثبت درخواست خدمات
               </button>
@@ -130,10 +130,7 @@ const PeriodicServiceIndex = (props) => {
               </span>
               <button
                 className="px-4 py-2 rounded-lg bg-[#F66B34] text-white text-14"
-                onClick={() => {
-                  setToastieDisplay((prev) => !prev);
-                  setServicesState("MOVING");
-                }}
+                onClick={() => selectServiceClickHandler("MOVING")}
               >
                 ثبت درخواست خدمات
               </button>
