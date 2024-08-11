@@ -8,7 +8,7 @@ const Dealership = (props) => {
   const [carCheckLocations, setCarCheckLocations] = useState([]);
   const [filter, setFilter] = useState([]);
 
-  const timeData = useCallback(() => {
+  const timeData = useCallback((query) => {
     (async () => {
       const fetchTimeData = await getDataWithFullErrorRes(
         "/web/detailing?step=step-1",
@@ -17,6 +17,7 @@ const Dealership = (props) => {
           type: props.searchParams.type,
           vehicle_tip_id: JSON.parse(localStorage.getItem("selectedVehicle"))
             ?.id,
+            ...query
         },
       );
       if (props.searchParams.type === "FIXED") {

@@ -8,7 +8,7 @@ export const serviceData = [
   {
     title: "دیتیلینگ",
     icon: "/assets/images/polisher.png",
-    href: "#",
+    href: "/detailing",
     id: "detailing",
   },
   {

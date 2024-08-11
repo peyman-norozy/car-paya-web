@@ -19,6 +19,7 @@ const Dealership = (props) => {
             type: searchParams.get("type"),
             vehicle_tip_id: JSON.parse(localStorage.getItem("selectedVehicle"))
               ?.id,
+              ...query
           },
         );
 
