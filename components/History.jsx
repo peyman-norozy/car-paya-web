@@ -196,20 +196,31 @@ const data = {
             </div>
           </div>
         </div>
+        <div className="flex flex-col gap-4">
+          <span className="text-[#FEFEFE] font-bold text-18">کارکرد خودرو</span>
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 size1470:grid-cols-6 gap-3">
+            <div className="flex flex-col gap-2 w-full">
+              <span className="text-[#FEFEFE] text-14 font-medium">آخرین وضعیت کیلومتر خودرو</span>
+              <input className="bg-[#FEFEFE] rounded-lg h-9 text-14 px-2"/>
+            </div>
+            <div className="flex flex-col gap-2 w-full">
+              <span className="text-[#FEFEFE] text-14 font-medium">کیلومتر مصرفی ماهیانه</span>
+              <input className="bg-[#FEFEFE] rounded-lg h-9 text-14 px-2"/>
+            </div>
+          </div>
+        </div>
         <div className="w-full max-w-[180px] text-[#FEFEFE] bg-[#F66B34] text-14 font-medium flex items-center justify-center h-10 rounded-lg">ثبت</div>
         <hr/>
         <div className={"flex items-center justify-between gap-2"}>
           <span className={"text-[#FEFEFE] font-bold text-20"}>اطلاعات اقلام مصرفی</span>
-          <div>
-            <Button
+            {/* <Button
               type="button"
               class_name="flex items-center justify-center gap-2 border border-[#FEFEFE] text-white rounded-5 w-[134px] h-[48px]"
               on_click={addRecordHandler}
             >
               <i className="cc-add text-12 text-[#FEFEFE] border-2 border-[#FEFEFE] p-1 rounded-full" />
               <span className={"text-[#FEFEFE] text-14"}>افزودن سابقه</span>
-            </Button>
-          </div>
+            </Button> */}
         </div>
         <div className="mt-4 flex flex-col lg:bg-[#B0B0B0] rounded-2xl overflow-hidden gap-px">
           <ul className="lg:flex hidden justify-between size1190:text-16 text-14 text-[#FEFEFE] rounded-10 gap-px h-[72px]">
