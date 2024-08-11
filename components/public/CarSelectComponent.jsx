@@ -22,6 +22,7 @@ const CarSelectComponent = () => {
   // const [selectedCity, setSelectedCity] = useState({});
   const [showInvoice, setShowInvoice] = useState(false);
   const [invoiceData, setInvoiceData] = useState([]);
+  const [backurl, setBackurl] = useState([]);
   const showHeaderData = useSelector((state) => state.todo.showHeader);
   const renderInvoice = useSelector((state) => state.todo.renderInvoice);
 
@@ -100,17 +101,23 @@ const CarSelectComponent = () => {
         setData(res.data.data);
       });
     setLevel(2);
+    setBackurl([model])
   }
 
-  function optionClickHandler(id, item) {
-    if (level <= 3) {
-      const route = level === 2 ? "-models/" : "-tips/";
+  function optionClickHandler(id, item , state) {
+    console.log(id,item,state);
+    const level2 = state?state:level;
+    if ((level2) <= 3) {
+      let array = [...backurl];
+      array[level2-1] = id;
+      setBackurl(array)
+      const route = level2 === 2 ? "-models/" : "-tips/";
       axios
         .get(process.env.BASE_API + "/web/" + vehicleType + route + id)
         .then((res) => {
           setData(res.data.data);
         });
-      setLevel(level + 1);
+      setLevel(level2 + 1);
     } else {
       axios
         .post(process.env.BASE_API + "/web" + API_PATHS.ADDCAR, {
@@ -143,6 +150,15 @@ const CarSelectComponent = () => {
   //   setOptionState(false);
   //   localStorage.setItem("city", JSON.stringify(item));
   // }
+
+  function backClickHandler() {
+    if (level === 4) {
+      setLevel(2)
+      optionClickHandler(backurl[1] , {} , 2)
+    }else if (level === 3){
+      getBrandData(backurl[0])
+    }
+  }
 
   if (pathname !== "/periodic-service/invoice"&&pathname.search("/panel")){return (
     <div className="absolute h-full top-0 right-auto pb-10">
@@ -309,9 +325,10 @@ const CarSelectComponent = () => {
               <div className="flex gap-2 py-1 px-4 text-[#B0B0B0] bg-[#B0B0B01F] rounded-lg">
                 <i className="cc-search text-xl" />
                 <input
-                  className="outline-none text-14 bg-[#ffffff01]"
+                  className="outline-none text-14 bg-[#ffffff01] w-full"
                   placeholder="جستجو..."
                 />
+                <i className={`cc-arrow-right text-xl rotate-180 text-[#F66B34] ${level>2?"":"hidden"}`} onClick={backClickHandler}/>
               </div>
               <div className="h-[363px] overflow-y-scroll mt-2">
                 <div className="grid grid-cols-3 gap-x-8 gap-y-[42px]">
