@@ -15,10 +15,10 @@ const Dealership = (props) => {
         const fetchTimeData = await getDataWithFullErrorRes(
           `/web/service-periodical?step=step-1`,
           {
-            city_id: JSON.parse(localStorage.getItem("city")).cityId,
+            city_id: JSON.parse(localStorage.getItem("city"))?.cityId,
             type: searchParams.get("type"),
             vehicle_tip_id: JSON.parse(localStorage.getItem("selectedVehicle"))
-              .id,
+              ?.id,
           },
         );
 
