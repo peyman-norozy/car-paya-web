@@ -13,12 +13,12 @@ const AddressSelection = (props) => {
   const [optionState, setOptionState] = useState(false);
   const [servicesState, setServicesState] = useState(false);
   const [servicesData, setServicesData] = useState([]);
-  const [srviceQuery , setServiceQuery] = useState([])
-  
+  const [srviceQuery, setServiceQuery] = useState([]);
+
   const optionRef = useRef(null);
   const inputRef = useRef(null);
-  const serviceButtenRef = useRef(null)
-  const serviceDropDownRef = useRef(null)
+  const serviceButtenRef = useRef(null);
+  const serviceDropDownRef = useRef(null);
 
   useEffect(() => {
     document.addEventListener("click", (e) => {
@@ -37,7 +37,7 @@ const AddressSelection = (props) => {
         setServicesState(false);
       }
     });
-    if (props.filter&&props.filter.area) {
+    if (props.filter && props.filter.area) {
       setSearchCity(props.filter.area);
       setServicesData(props.filter.service);
     }
@@ -52,13 +52,15 @@ const AddressSelection = (props) => {
     setSearchCity(props.filter.area.filter((i) => i.label.includes(value)));
   }
 
-  function checkboxChangeHandler(value , checked) {
+  function checkboxChangeHandler(value, checked) {
     if (checked) {
-      setServiceQuery([value , ...srviceQuery])
-    }else{
-      setServiceQuery(srviceQuery.filter((item)=>{
-        return item !== value
-      }))
+      setServiceQuery([value, ...srviceQuery]);
+    } else {
+      setServiceQuery(
+        srviceQuery.filter((item) => {
+          return item !== value;
+        }),
+      );
     }
   }
 
@@ -118,18 +120,40 @@ const AddressSelection = (props) => {
             >
               انتخاب سرویس ها
             </span>
-            
-              <div className={`absolute overflow-y-scroll overflow-x-hidden rounded-lg top-[42px] left-0 bg-[#5D697A] flex flex-wrap gap-6 z-[1010] max-h-[294px] ${servicesState?`w-[240px] sm:w-[calc(100vw*2/5)]  p-4`:`w-0`} transition-all duration-500`} ref={serviceDropDownRef}>
-                  {servicesData.map((item) => (
+
+            <div
+              className={`absolute overflow-y-scroll overflow-x-hidden rounded-lg top-[42px] left-0 bg-[#5D697A] flex flex-wrap gap-6 z-[1010] max-h-[294px] ${servicesState ? `w-[240px] sm:w-[calc(100vw*2/5)]  p-4` : `w-0`} transition-all duration-500`}
+              ref={serviceDropDownRef}
+            >
+              {servicesData.map((item) => {
+                return (
                   <div className="checkbox-wrapper-42 flex items-center gap-1 min-w-[210px]">
-                    <input id={item.value} type="checkbox" onChange={(e) => {checkboxChangeHandler(item.value , e.target.checked)}}/>
+                    <input
+                      id={item.value}
+                      type="checkbox"
+                      onChange={(e) => {
+                        checkboxChangeHandler(item.value, e.target.checked);
+                      }}
+                    />
                     <label className="cbx" for={item.value}></label>
-                    <label className="lbl line-clamp-1 select-none" for={item.value}>{item.label}</label>
+                    <label
+                      className="lbl line-clamp-1 select-none"
+                      for={item.value}
+                    >
+                      {item.label}
+                    </label>
                   </div>
-                  ))}
-                  <button className={"bg-[#F66B34] px-8 py-2 text-[#FEFEFE] rounded-[8px] text-14"} onClick={searchClickHandler}>جستجو</button>
-              </div>
-            
+                );
+              })}
+              <button
+                className={
+                  "bg-[#F66B34] px-8 py-2 text-[#FEFEFE] rounded-[8px] text-14"
+                }
+                onClick={searchClickHandler}
+              >
+                جستجو
+              </button>
+            </div>
           </div>
         </div>
       ) : (
@@ -145,7 +169,7 @@ const AddressSelection = (props) => {
       )}
       {props.status === "FIXED" ? (
         <ul className={" flex flex-col gap-6"}>
-          {props.carCheckLocations.map((item) => (
+          {props.carCheckLocations?.map((item) => (
             <NewAddressCard
               key={item.id}
               status={props.status}
@@ -157,7 +181,7 @@ const AddressSelection = (props) => {
       ) : (
         <ul className={"flex flex-col gap-6"}>
           {props.myLocationData &&
-            props.myLocationData.map((item) => (
+            props.myLocationData?.map((item) => (
               <NewAddressCard
                 key={item.id}
                 status={props.status}
