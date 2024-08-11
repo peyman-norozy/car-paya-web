@@ -206,12 +206,12 @@ export const panelTabData = [
     imgSrc: "/assets/icons/Group.svg",
     title: "شناسنامه و سوابق وسیله نقلیه",
     alt: "my car icon",
-    id: "my-vehicle",
-    children: [
-      { title: "خودرو", id: "my-vehicle/my-car" },
-      { title: "موتور سیکلت", id: "my-vehicle/my-motorcycle" },
-      { title: "وسیله سنگین", id: "my-vehicle/my-heavy-car" },
-    ],
+    id: "my-vehicle/my-car",
+    // children: [
+    //   { title: "خودرو", id: "my-vehicle/my-car" },
+    //   { title: "موتور سیکلت", id: "my-vehicle/my-motorcycle" },
+    //   { title: "وسیله سنگین", id: "my-vehicle/my-heavy-car" },
+    // ],
   },
   {
     imgSrc: "/assets/icons/Vehicle.svg",
