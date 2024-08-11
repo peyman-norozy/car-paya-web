@@ -13,9 +13,10 @@ const Dealership = (props) => {
       const fetchTimeData = await getDataWithFullErrorRes(
         "/web/detailing?step=step-1",
         {
-          city_id: props.searchParams.city_id,
+          city_id: JSON.parse(localStorage.getItem("city"))?.cityId,
           type: props.searchParams.type,
-          vehicle_tip_id: props.searchParams.city_id,
+          vehicle_tip_id: JSON.parse(localStorage.getItem("selectedVehicle"))
+            ?.id,
         },
       );
       if (props.searchParams.type === "FIXED") {
