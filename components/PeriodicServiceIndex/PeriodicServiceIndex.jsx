@@ -13,15 +13,30 @@ import { error } from "@/utils/function-utils";
 const PeriodicServiceIndex = (props) => {
   const pathName = usePathname();
   const [toastieDisplay, setToastieDisplay] = useState(false);
+  const [isClient, setIsClient] = useState(false);
+  const [selectedVehicleId, setSelectedVehicleId] = useState(null);
+  const [cityId, setCityId] = useState(null);
 
   useEffect(() => {
-    if (!props.searchParams.selectTipState) {
-      error("لطفا خودرو خود را انتخاب کنید");
-      console.log("peyman");
-    } else if (!props.searchParams.city_id) {
-      error("لطفا شهر خود را انتخاب کنید");
+    setIsClient(true);
+    if (typeof window !== "undefined") {
+      const selectedVehicle = JSON.parse(
+        localStorage.getItem("selectedVehicle"),
+      );
+      const city = JSON.parse(localStorage.getItem("city"));
+      setSelectedVehicleId(selectedVehicle?.id);
+      setCityId(city?.cityId);
+      if (!selectedVehicle) {
+        error("لطفا خودرو خود را انتخاب کنید");
+      } else if (!city) {
+        error("لطفا شهر خود را انتخاب کنید");
+      }
     }
   }, [props.searchParams, toastieDisplay]);
+
+  if (!isClient) {
+    return null;
+  }
 
   return (
     <div className={"flex flex-col gap-4 lg:gap-10"}>
@@ -54,12 +69,10 @@ const PeriodicServiceIndex = (props) => {
               <Link
                 href={{
                   pathname: pathName.startsWith("/detailing")
-                    ? props.searchParams.selectTipState &&
-                      props.searchParams.city_id
+                    ? selectedVehicleId && cityId
                       ? "/detailing/selectLocation"
                       : "/detailing"
-                    : props.searchParams.selectTipState &&
-                        props.searchParams.city_id
+                    : selectedVehicleId && cityId
                       ? `/periodic-service/location-selection`
                       : "/periodic-service",
                   query: { ...props.searchParams, type: "FIXED" },
@@ -97,12 +110,10 @@ const PeriodicServiceIndex = (props) => {
               <Link
                 href={{
                   pathname: pathName.startsWith("/detailing")
-                    ? props.searchParams.selectTipState &&
-                      props.searchParams.city_id
+                    ? selectedVehicleId && cityId
                       ? "/detailing/selectLocation"
                       : "/detailing"
-                    : props.searchParams.selectTipState &&
-                        props.searchParams.city_id
+                    : selectedVehicleId && cityId
                       ? `/periodic-service/location-selection`
                       : "/periodic-service",
                   query: { ...props.searchParams, type: "MOVING" },
