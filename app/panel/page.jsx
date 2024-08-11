@@ -16,7 +16,7 @@ const PrivateRoute = dynamic(() => import("@/routes/private-route"), {
 const UserPanel = () => {
   const [logoutModalState, setLogoutModalState] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-
+  const showHeaderState = useSelector((state) => state.todo.showHeader);
   const innerWidthNumber = useSelector(
     (number) => number.todo.windowInnerWidth,
   );
@@ -37,13 +37,13 @@ const UserPanel = () => {
   }
 
   return (
-      <div className="mt-[50px] mb-[100px] mx-[50px]">
+      <div className="mt-[50px] mb-[24px]">
         {/* <div className="mb-[30px] mt-[100px]">
           <TitleDescription>داشبورد</TitleDescription>
         </div> */}
         {innerWidthNumber > 1000 ? (
           <div className="flex gap-4 items-start">
-            <div className="bg-[#383838] w-[260px] flex flex-col justify-center gap-4 items-center pt-2 rounded-[10px] sticky top-[81px]">
+            <div className={`bg-[#383838] w-[260px] flex-col justify-start ${showHeaderState?"top-32 h-[calc(100vh-156px)]":"top-6 h-[calc(100vh-52px)]"} gap-4 items-center pt-2 size1180:flex hidden rounded-[10px] sticky transition-all duration-100 overflow-y-scroll`}>
               <UserSpecifications
                 style={"flex-col justify-center items-center gap-2"}
               />

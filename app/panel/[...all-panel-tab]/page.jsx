@@ -97,7 +97,7 @@ const AllPanelTab = (props) => {
           } */}
         </div>
         <div className="flex gap-4 size1000:flex-row flex-col">
-          <div className={`bg-[#383838] w-[260px] flex-col justify-start ${showHeaderState?"top-32 h-[calc(100vh-156px)]":"top-6 h-[calc(100vh-52px)]"} gap-4 items-center pt-2 size1180:flex hidden rounded-[10px] sticky transition-all duration-100`}>
+          <div className={`bg-[#383838] w-[260px] flex-col justify-start ${showHeaderState?"top-32 h-[calc(100vh-156px)]":"top-6 h-[calc(100vh-52px)]"} gap-4 items-center pt-2 size1180:flex hidden rounded-[10px] sticky transition-all duration-100 overflow-y-scroll`}>
             <UserSpecifications
               style={"flex-col justify-center items-center gap-2"}
             />
@@ -137,18 +137,18 @@ const AllPanelTab = (props) => {
                 return <CarDevice pageType={"create"} />;
               case "/panel/my-vehicle/my-car/edit":
                 return <CarDevice pageType={"edit"} />;
-              case "/panel/my-vehicle/my-motorcycle":
-                return <CreateMyMotor />;
-              case "/panel/my-vehicle/my-motorcycle/create":
-                return <MotorDevice pageType={"create"} />;
-              case "/panel/my-vehicle/my-motorcycle/edit":
-                return <MotorDevice pageType={"edit"} />;
-              case "/panel/my-vehicle/my-heavy-car":
-                return <CreateMyHeavyCar />;
-              case "/panel/my-vehicle/my-heavy-car/create":
-                return <HeavyCarDevice pageType={"create"} />;
-              case "/panel/my-vehicle/my-heavy-car/edit":
-                return <HeavyCarDevice pageType={"edit"} />;
+              // case "/panel/my-vehicle/my-motorcycle":
+              //   return <CreateMyMotor />;
+              // case "/panel/my-vehicle/my-motorcycle/create":
+              //   return <MotorDevice pageType={"create"} />;
+              // case "/panel/my-vehicle/my-motorcycle/edit":
+              //   return <MotorDevice pageType={"edit"} />;
+              // case "/panel/my-vehicle/my-heavy-car":
+              //   return <CreateMyHeavyCar />;
+              // case "/panel/my-vehicle/my-heavy-car/create":
+              //   return <HeavyCarDevice pageType={"create"} />;
+              // case "/panel/my-vehicle/my-heavy-car/edit":
+              //   return <HeavyCarDevice pageType={"edit"} />;
               case "/panel/productAddress":
                 return <ProductAddress />;
               case "/panel/history-orders/buys":
