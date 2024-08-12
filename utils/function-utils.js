@@ -51,6 +51,15 @@ function numberWithCommas(x) {
   return x;
 }
 
+function numberWithSlash(x) {
+  if (x) {
+    x = x.toString();
+    const pattern = /(-?\d+)(\d{3})/;
+    while (pattern.test(x)) x = x.replace(pattern, "$1/$2");
+  }
+  return x;
+}
+
 function timestampToPersianDate(timeStamp) {
   const date = new Date(timeStamp);
   const weekDay = date.toLocaleDateString("fa-IR", { weekday: "long" });
@@ -84,4 +93,5 @@ export {
   timestampToPersianDate,
   timeStampToTime,
   persianDateCovertor,
+  numberWithSlash,
 };
