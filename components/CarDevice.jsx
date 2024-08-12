@@ -96,14 +96,14 @@ const CarDevice = (props) => {
         setNewModel(response.data.data);
         setNewImage("");
         if (props.pageType === "edit") {
-          changesEditData.car_model_title = (
+          changesEditData.vehicle_model_title = (
             <span className="text-[#aaa]">انتخاب مدل</span>
           );
-          changesEditData.car_model_id = "";
+          changesEditData.vehicle_model_id = "";
           changesEditData.car_tip_title = (
             <span className="text-[#aaa]">انتخاب تیپ</span>
           );
-          changesEditData.car_tip_id = "";
+          changesEditData.vehicle_tip_id = "";
           changesEditData.year = <span className="text-[#aaa]">سال ساخت</span>;
           changesEditData.yearId = "";
           // setNewEditData(changesEditData);
@@ -130,7 +130,7 @@ const CarDevice = (props) => {
           changesEditData.car_tip_title = (
             <span className="text-[#aaa]">انتخاب تیپ</span>
           );
-          changesEditData.car_tip_id = "";
+          changesEditData.vehicle_tip_id = "";
           changesEditData.year = <span className="text-[#aaa]">سال ساخت</span>;
           changesEditData.yearId = "";
         }
@@ -263,16 +263,16 @@ const CarDevice = (props) => {
     event.preventDefault();
     if (props.pageType === "edit" && Object.keys(newEditData).length > 0) {
       editFormData.set(
-        "car_brand_id",
-        newBrandOptionId ? newBrandOptionId : newEditData.car_brand_id,
+        "vehicle_brand_id",
+        newBrandOptionId ? newBrandOptionId : newEditData.vehicle_brand_id,
       );
       editFormData.set(
-        "car_model_id",
-        newModelOptionId ? newModelOptionId : newEditData.car_model_id,
+        "vehicle_model_id",
+        newModelOptionId ? newModelOptionId : newEditData.vehicle_model_id,
       );
       editFormData.set(
-        "car_tip_id",
-        newTipOptionId ? newTipOptionId : newEditData.car_tip_id,
+        "vehicle_tip_id",
+        newTipOptionId ? newTipOptionId : newEditData.vehicle_tip_id,
       );
       editFormData.set(
         "year",
@@ -341,9 +341,7 @@ const CarDevice = (props) => {
       editFormData.set("_method", "PUT");
       const response = await putData(
         process.env.BASE_API +
-          "/user-panel" +
-          API_PATHS.CARS +
-          "/" +
+          "/user-panel/vehicles/" +
           searchParams.get("product"),
         editFormData,
         '"Content-Type": "application/json"',
@@ -385,7 +383,7 @@ const CarDevice = (props) => {
       );
       setButtonDisabledState(true);
       const response = await postData(
-        process.env.BASE_API + "/user-panel" + API_PATHS.CARS,
+        process.env.BASE_API + "/user-panel/vehicles",
         fd,
         '"Content-Type": "application/json"',
       );
@@ -447,17 +445,17 @@ const CarDevice = (props) => {
           "/web" +
           API_PATHS.MODELS +
           "/" +
-          newEditData.car_brand_id,
+          newEditData.vehicle_brand_id,
         process.env.BASE_API +
           "/web" +
           API_PATHS.TIPS +
           "/" +
-          newEditData.car_model_id,
+          newEditData.vehicle_model_id,
         process.env.BASE_API +
           "/web" +
           API_PATHS.YEARS +
           "/" +
-          newEditData.car_tip_id,
+          newEditData.vehicle_tip_id,
       ];
       axios
         .all(endpoints.map((endpoint) => axios.get(endpoint)))
@@ -486,8 +484,7 @@ const CarDevice = (props) => {
         .get(
           process.env.BASE_API +
             API_PATHS.USERPANEL +
-            API_PATHS.CARS +
-            "/" +
+            "/vehicles/" +
             searchParams.get("product") +
             "/edit",
           {
@@ -497,9 +494,13 @@ const CarDevice = (props) => {
           },
         )
         .then((res) => {
+          console.log(res.data.data);
           res.data.data.yearId = res.data.data.year;
           setNewEditData(res.data.data);
-        });
+        }).catch((err)=>{
+          console.log(err);
+          
+        })
     }
   }, [props.pageType, searchParams]);
 
@@ -531,68 +532,68 @@ const CarDevice = (props) => {
 
   useEffect(() => {
     if (props.pageType === "edit" && Object.keys(newEditData).length > 0) {
-      setNewMyCarValue(newEditData.title);
-      setNewStartKilometerValue(numberWithCommas(newEditData.kilometers_now));
+      setNewMyCarValue(newEditData.info.title);
+      setNewStartKilometerValue(numberWithCommas(newEditData.info.kilometers_now));
       setNewStartKilometerState(true);
-      setNewEndKilometerValue(numberWithCommas(newEditData.kilometers_use));
+      setNewEndKilometerValue(numberWithCommas(newEditData.info.kilometers_use));
       setNewEndKilometerState(true);
       setNewThirdPartyInsuranceStartAt(
-        newEditData.information
-          ? newEditData.information.third_party_insurance_start_at
+        newEditData.insurance_info
+          ? newEditData.insurance_info.third_party_insurance_start_at
           : "",
       );
       setNewThirdPartyInsuranceEndAt(
-        newEditData.information
-          ? newEditData.information.third_party_insurance_end_at
+        newEditData.insurance_info
+          ? newEditData.insurance_info.third_party_insurance_end_at
           : "",
       );
       setNewThirdPartyInsuranceCompany(
-        newEditData.information
-          ? newEditData.information.third_party_insurance_company
+        newEditData.insurance_info
+          ? newEditData.insurance_info.third_party_insurance_company
           : "",
       );
       setNewThirdPartyInsuranceRemember(
-        newEditData.information
-          ? newEditData.information.third_party_insurance_remember
+        newEditData.insurance_info
+          ? newEditData.insurance_info.third_party_insurance_remember
           : "",
       );
       setNewBodyInsuranceStartAt(
-        newEditData.information
-          ? newEditData.information.body_insurance_start_at
+        newEditData.insurance_info
+          ? newEditData.insurance_info.body_insurance_start_at
           : "",
       );
       setNewBodyInsuranceEndAt(
-        newEditData.information
-          ? newEditData.information.body_insurance_end_at
+        newEditData.insurance_info
+          ? newEditData.insurance_info.body_insurance_end_at
           : "",
       );
       setNewBodyInsuranceCompany(
-        newEditData.information
-          ? newEditData.information.body_insurance_company
+        newEditData.insurance_info
+          ? newEditData.insurance_info.body_insurance_company
           : "",
       );
       setNewBodyInsuranceRemember(
-        newEditData.information
-          ? newEditData.information.body_insurance_remember
+        newEditData.insurance_info
+          ? newEditData.insurance_info.body_insurance_remember
           : "",
       );
       setNewTechnicalDiagnosisStartAt(
-        newEditData.information
-          ? newEditData.information.technical_diagnosis_start_at
+        newEditData.insurance_info
+          ? newEditData.insurance_info.technical_diagnosis_start_at
           : "",
       );
       setNewTechnicalDiagnosisEndAt(
-        newEditData.information
-          ? newEditData.information.technical_diagnosis_end_at
+        newEditData.insurance_info
+          ? newEditData.insurance_info.technical_diagnosis_end_at
           : "",
       );
       setNewTechnicalDiagnosisRemember(
-        newEditData.information
-          ? newEditData.information.technical_diagnosis_remember
+        newEditData.insurance_info
+          ? newEditData.insurance_info.technical_diagnosis_remember
           : "",
       );
       setNewFinePrice(
-        newEditData.information ? newEditData.information.fine_price : "",
+        newEditData.info ? newEditData.info.fine_price : "",
       );
     }
   }, [newEditData]);
@@ -603,7 +604,7 @@ const CarDevice = (props) => {
         className="flex-1 px-[40px] py-[32px] rounded-[10px] bg-[#383838A3] flex flex-col gap-[35px]"
         onSubmit={myCarSubmitHandler}
       >
-        <h1 className={"text-[#FEFEFE]"}>خودرو 206</h1>
+        <h1 className={"text-[#FEFEFE]"}>خودرو</h1>
         <div className={"grid size800:grid-cols-2 grid-cols-1 gap-[32px]"}>
           <section className="flex justify-center items-center rounded-[10px] flex-[1]">
             <Image
@@ -629,7 +630,7 @@ const CarDevice = (props) => {
               editId={
                 Object.keys(selectVehicleData).length > 0
                   ? selectVehicleData.carBrand && selectVehicleData.carBrand.id
-                  : newEditData.car_brand_id
+                  : newEditData.vehicle_brand_id
               }
               editTitle={
                 Object.keys(selectVehicleData).length > 0
@@ -656,13 +657,13 @@ const CarDevice = (props) => {
               editId={
                 Object.keys(selectVehicleData).length > 0
                   ? selectVehicleData.carModel && selectVehicleData.carModel.id
-                  : newEditData.car_model_id
+                  : newEditData.vehicle_model_id
               }
               editTitle={
                 Object.keys(selectVehicleData).length > 0
                   ? selectVehicleData.carModel &&
                     selectVehicleData.carModel.title
-                  : newEditData.car_model_title
+                  : newEditData.vehicle_model_title
               }
               placeholder={<span className="text-[#aaa]">انتخاب مدل</span>}
               onclick={selectSearchOptionHandler}
@@ -683,7 +684,7 @@ const CarDevice = (props) => {
               editId={
                 Object.keys(selectVehicleData).length > 0
                   ? selectVehicleData.carTip && selectVehicleData.carTip.id
-                  : newEditData.car_tip_id
+                  : newEditData.vehicle_tip_id
               }
               editTitle={
                 Object.keys(selectVehicleData).length > 0
@@ -702,7 +703,7 @@ const CarDevice = (props) => {
             <Button
               type={"button"}
               class_name={
-                "bg-[#354597] text-[#FEFEFE] self-end px-[24.5px] py-[6.5px] text-[14px] rounded-5"
+                "bg-[#F66B34] text-[#FEFEFE] self-end px-[24.5px] py-[6.5px] text-[14px] rounded-5"
               }
               on_click={openModalHandler}
             >
@@ -748,34 +749,36 @@ const CarDevice = (props) => {
             "grid size800:grid-cols-3 size582:grid-cols-2 grid-cols-1 gap-[32px]"
           }
         >
-          <MachinTagInput
-            setNewPlaque_0={setNewPlaque_0}
-            setNewPlaque_1={setNewPlaque_1}
-            setNewPlaque_2={setNewPlaque_2}
-            setNewPlaque_3={setNewPlaque_3}
-            newPlaque_0={newPlaque_0}
-            newPlaque_1={newPlaque_1}
-            newPlaque_2={newPlaque_2}
-            newPlaque_3={newPlaque_3}
-            pageType={props.pageType}
-            editPlaqueData={newEditData.plaque}
-          />
-          <div className="relative">
+          <div className="flex flex-col gap-4">
+          <label className={"font-bold text-[#FEFEFE]"}>پلاک</label>
+            <MachinTagInput
+              setNewPlaque_0={setNewPlaque_0}
+              setNewPlaque_1={setNewPlaque_1}
+              setNewPlaque_2={setNewPlaque_2}
+              setNewPlaque_3={setNewPlaque_3}
+              newPlaque_0={newPlaque_0}
+              newPlaque_1={newPlaque_1}
+              newPlaque_2={newPlaque_2}
+              newPlaque_3={newPlaque_3}
+              pageType={props.pageType}
+              editPlaqueData={newEditData.info&&newEditData.info.plaque}
+            />
+          </div>
+          <div className="flex flex-col gap-4">
             {/*<span className="absolute text-12 text-[#aaa] top-4 right-2">*/}
             {/*   کیلومتر فعلی خودرو*/}
             {/*</span>*/}
             <label
               htmlFor={"kilometerStart"}
               className={
-                "bg-white px-2 font-light text-[12px] text-[#454545] absolute top-[-11px] right-[10px]"
+                "font-bold text-[#FEFEFE]"
               }
             >
-              {" "}
               کیلومتر فعلی خودرو
             </label>
-            {newStartKilometerState && (
+            {/* {newStartKilometerState && (
               <span className="absolute left-2 top-4 text-12">کیلومتر</span>
-            )}
+            )} */}
             <Input
               type="text"
               value={newStartKilometerValue}
@@ -787,22 +790,21 @@ const CarDevice = (props) => {
               on_change={InputChangeHandler}
             />
           </div>
-          <div className="relative">
+          <div className="flex flex-col gap-4">
             {/*<span className="absolute text-12 text-[#aaa] top-4 right-2">*/}
             {/*   کیلومتر مصرفی ماهانه*/}
             {/*</span>*/}
             <label
               htmlFor={"kilometerEnd"}
               className={
-                "bg-white px-2 font-light text-[12px] text-[#454545] absolute top-[-11px] right-[10px]"
+                "font-bold text-[16px] text-[#FEFEFE]"
               }
             >
-              {" "}
               کیلومتر مصرفی ماهانه
             </label>
-            {newEndKilometerState && (
+            {/* {newEndKilometerState && (
               <span className="absolute left-2 top-4 text-12">کیلومتر</span>
-            )}
+            )} */}
             <Input
               type="text"
               value={newEndKilometerValue}
@@ -878,7 +880,7 @@ const CarDevice = (props) => {
             type={"submit"}
             disabled_btn={buttonDisabledState}
             class_name={
-              "bg-[#354597] text-white text-16 w-[120px] h-[40px] rounded-10 hover:bg-blue-800"
+              "bg-[#F66B34] text-white text-16 w-[120px] h-[40px] rounded-10 hover:bg-[#F66B34cc]"
             }
           >
             {buttonDisabledState ? "در حال ثبت ..." : "ثبت"}

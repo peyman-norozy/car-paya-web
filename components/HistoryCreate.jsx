@@ -129,17 +129,17 @@ const HistoryCreate = (props) => {
 
   return (
     <PrivateRoute>
-      <div className="flex flex-col size1000:flex-1 w-full rounded-[10px] px-[43px] py-6 shadow-[0_0_6px_0_rgba(180,180,180,0.3)]">
+      <div className="flex flex-col size1000:flex-1 w-full rounded-[10px] px-[43px] py-6 bg-[#6f6f6f]">
         <div className={"flex items-center gap-2 mb-[34px]"}>
           <i
             onClick={backAddHistory}
             className={
-              "cc-arrow-right text-[30px] text-[#354597] cursor-pointer"
+              "cc-arrow-right text-[30px] text-[#fefefe] cursor-pointer"
             }
           />
-          <span className={"text-[#354597]"}>افزودن سابقه</span>
+          <span className={"text-[#fefefe]"}>افزودن سابقه</span>
         </div>
-        <div className="flex gap-4 px-[60px] mt-[20px]">
+        <div className="flex gap-4">
           <div className="flex-1">
             <DatePickerSelection
               placeholder={"تاریخ"}
@@ -157,12 +157,12 @@ const HistoryCreate = (props) => {
             />
           </div>
 
-          <div className="relative flex-1">
-            <span className="absolute text-12 text-[#aaa] top-[-10px] bg-white px-2 right-2">
+          <div className="flex flex-col flex-1 gap-4">
+            <span className="text-16 font-bold text-[#fefefe]">
               کیلومتر فعلی خودرو
             </span>
             {newStartKilometerState && (
-              <span className="absolute left-2 top-3 text-12">کیلومتر</span>
+              <span className="text-16 font-bold text-[#fefefe]">کیلومتر</span>
             )}
             <Input
               type="text"
@@ -171,19 +171,19 @@ const HistoryCreate = (props) => {
               name={"kilometerStart"}
               className={`border border-[#B0B0B0] outline-none ${
                 newStartKilometerState ? "pl-[50px]" : "pl-2"
-              } text-14 h-full placeholder:text-12 placeholder:text-right text-left w-full rounded-5`}
+              } text-14 placeholder:text-12 placeholder:text-right text-left w-full rounded-5 h-12`}
               on_change={InputChangeHandler}
             />
           </div>
         </div>
-        <div className="mt-6 flex flex-col px-[60px]">
-          <ul className="size800:flex hidden justify-between py-2 size1190:text-16 text-14 text-stone-800 rounded-10 bg-[#ECEEF8]">
-            <li className="font-bold flex-1 text-center">#</li>
-            <li className="font-bold flex-1 text-center">عنوان</li>
-            <li className="font-bold flex-1 text-center">وضعیت</li>
-            <li className="flex-1"></li>
-          </ul>
-          <div className="flex flex-col gap-4 overflow-y-auto py-4">
+        <div className="mt-6 flex flex-col">
+          <div className="flex flex-col overflow-hidden rounded-2xl gap-px">
+            <ul className="size800:flex hidden justify-between text-14 text-[#FEFEFE] h-[72px] gap-px">
+              <li className="font-bold flex-1 flex justify-center items-center bg-[#47505D]">#</li>
+              <li className="font-bold flex-1 flex justify-center items-center bg-[#47505D]">عنوان</li>
+              <li className="font-bold flex-1 flex justify-center items-center bg-[#47505D]">وضعیت</li>
+              <li className="font-bold flex-1 flex justify-center items-center bg-[#47505D]"></li>
+            </ul>
             {exapleArray.map((item, index) => (
               <RecordModalCard
                 key={item.id}

@@ -25,30 +25,31 @@ const CreateMyCar = () => {
   const page = searchParams.get("page");
 
   useEffect(() => {
-    (async () => {
-      setNewSkeletonState(true);
-      const response = await getData(
-        process.env.BASE_API +
-          API_PATHS.USERPANEL +
-          API_PATHS.CARS +
-          `?per_page=${perPage}&page=${page}`,
-      );
-      if (response.status === 200) {
-        console.log(response);
-        
-        setNewMyCareData(response.data.data);
-        setNewTotal(response.data.meta.total);
-        setNewSkeletonState(false);
-      } else if (response.response.status === 422) {
-        console.log(response);
-      } else if (response.response.status === 404) {
-        console.log(response);
-        notFound();
-      }
-      setNewSkeletonState(false);
-    })();
+    fetchData()
   }, [searchParams, perPage, page]);
 
+  const fetchData = async () => {
+    setNewSkeletonState(true);
+    const response = await getData(
+      process.env.BASE_API +
+        API_PATHS.USERPANEL +
+        "/vehicles"
+    );
+    if (response.status === 200) {
+      console.log(response);
+      
+      setNewMyCareData(response.data.data);
+      // setNewTotal(response.data.meta.total);
+      setNewSkeletonState(false);
+    } else if (response.response.status === 422) {
+      console.log(response);
+    } else if (response.response.status === 404) {
+      console.log(response);
+      notFound();
+    }
+    setNewSkeletonState(false);
+  };
+  
   console.log(newSkeletonState);
   const closeCarModalHandler = (event) => {
     console.log(event.target.getAttribute("id"));
@@ -122,7 +123,7 @@ const CreateMyCar = () => {
         </div> */}
         <div className="grid grid-cols-2 gap-6">
           {newMyCareData.map((item,index)=>(
-            <CertificateCard data={item} key={index}/>
+            <CertificateCard data={item} key={index} fetchData={fetchData}/>
           ))}
         </div>
         <Pagination newTotal={newTotal} perPage={perPage} />

@@ -49,7 +49,7 @@ const TimeSelectorCard = (props) => {
       >
         <div className={"flex flex-col text-[#FEFEFE] w-[78px] items-center"}>
           <span className={"text-[16px] font-bold"}>
-            {moment(Number(props.data.day) * 1000).format("l")}
+            {moment(Number(props.data.day) * 1000).format("L")}
           </span>
           <span className={"text-[12px] text-center"}>
             {moment(Number(props.data.day) * 1000).format("dddd")}

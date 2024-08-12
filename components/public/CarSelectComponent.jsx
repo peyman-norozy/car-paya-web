@@ -5,11 +5,10 @@ import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import invoice from "@/public/assets/images/invoice.png";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import useSetQuery from "@/hook/useSetQuery";
 import { getData, postData } from "@/utils/client-api-function-utils";
 import { numberWithCommas } from "@/utils/function-utils";
-
 const CarSelectComponent = () => {
   const [vehicleType, setVehicleType] = useState("car");
   const [level, setLevel] = useState(1);
@@ -22,13 +21,19 @@ const CarSelectComponent = () => {
   // const [selectedCity, setSelectedCity] = useState({});
   const [showInvoice, setShowInvoice] = useState(false);
   const [invoiceData, setInvoiceData] = useState([]);
+  const [backurl, setBackurl] = useState([]);
   const showHeaderData = useSelector((state) => state.todo.showHeader);
   const renderInvoice = useSelector((state) => state.todo.renderInvoice);
 
   // const optionRef = useRef(null);
   // const inputRef = useRef(null);
   const pathname = usePathname();
+  const router = useRouter();
   const setQuery = useSetQuery();
+  const searchParams = useSearchParams();
+  const params = new URLSearchParams(searchParams.toString());
+
+  const attributeValue = searchParams.get("attribute_value");
 
   useEffect(()=>{
     getInvoiceData()
@@ -84,13 +89,20 @@ const CarSelectComponent = () => {
   }
 
   async function removeClickHandler(id) {
-    const data = await postData("/web/cart/remove",{"product_id": id})
-    setInvoiceData(data.data.data)
+    const data = await postData("/web/cart/remove", { product_id: id });
+    setInvoiceData(data.data.data);
   }
 
   function vehicleTypeFetch(model) {
     setVehicleType(model);
     getBrandData(model);
+    setQuery.updateQueryParams(
+      {
+        attribute_slug: "type_vehicle",
+        attribute_value: model,
+      },
+      "",
+    );
   }
 
   function getBrandData(model) {
@@ -100,17 +112,23 @@ const CarSelectComponent = () => {
         setData(res.data.data);
       });
     setLevel(2);
+    setBackurl([model])
   }
 
-  function optionClickHandler(id, item) {
-    if (level <= 3) {
-      const route = level === 2 ? "-models/" : "-tips/";
+  function optionClickHandler(id, item , state) {
+    console.log(id,item,state);
+    const level2 = state?state:level;
+    if ((level2) <= 3) {
+      let array = [...backurl];
+      array[level2-1] = id;
+      setBackurl(array)
+      const route = level2 === 2 ? "-models/" : "-tips/";
       axios
         .get(process.env.BASE_API + "/web/" + vehicleType + route + id)
         .then((res) => {
           setData(res.data.data);
         });
-      setLevel(level + 1);
+      setLevel(level2 + 1);
     } else {
       axios
         .post(process.env.BASE_API + "/web" + API_PATHS.ADDCAR, {
@@ -126,7 +144,7 @@ const CarSelectComponent = () => {
                 id: item.id,
                 title: item.title,
                 image: item.image,
-              })
+              }),
             );
             setCarSelected(true);
           }
@@ -144,8 +162,25 @@ const CarSelectComponent = () => {
   //   localStorage.setItem("city", JSON.stringify(item));
   // }
 
+  function backClickHandler() {
+    if (level === 4) {
+      setLevel(2)
+      optionClickHandler(backurl[1] , {} , 2)
+    }else if (level === 3){
+      getBrandData(backurl[0])
+    }
+  }
+    useEffect(() => {
+        console.log(attributeValue);
+        if (attributeValue) {
+            setVehicleType(attributeValue);
+        } else {
+            setVehicleType("car");
+        }
+    }, [attributeValue]);
+
   if (pathname !== "/periodic-service/invoice"&&pathname.search("/panel")){return (
-    <div className="absolute h-full top-0 right-auto">
+    <div className="absolute h-full top-0 right-auto pb-10">
       <div
         className={`bg-[#383838A3] h-[605px] rounded-2xl w-[400px] sticky ${showHeaderData ? "top-[123px]" : "top-[10px]"} right-auto z-[2] backdrop-blur-[16px] p-4 hidden lg:flex flex-col gap-4`}
       >
@@ -255,99 +290,110 @@ const CarSelectComponent = () => {
                     </div>
                   </div>
                   <hr /> */}
-                  <div className="flex justify-between">
-                    <span className="text-white font-bold text-18">مجموع سفارش</span>
-                    <span className="text-white font-bold text-18">{numberWithCommas(invoiceData.price_total)} تومان</span>
-                  </div>
-                </div>
-                <div className={`flex flex-col mt-10 items-center ${invoiceData.cart_items&&invoiceData.cart_items.length?"hidden":""}`}>
-                  <Image src={invoice} className="m-auto size-52 opacity-70" />
-                  <span className="text-white">
-                    در حال حاضر فاکتور شما خالی می باشد
-                  </span>
-                </div>
-              </div>
-            )}
-          </div>
-        ) : (
-          <>
-            <span className="text-[#FEFEFE] text-20 font-bold text-center">
-              ثبت وسیله نقلیه
-            </span>
-            <div className="rounded-lg bg-[#F66B3414] flex justify-between p-1">
-              <button
-                className={`${vehicleType === "car" ? "bg-[#F66B34] text-[#FEFEFE]" : "text-[#F66B34]"} rounded-[4px] w-[100px] h-10 flex justify-center items-center font-medium text-14`}
-                onClick={() => {
-                  vehicleTypeFetch("car");
-                }}
-              >
-                خودرو
-              </button>
-              <div className="my-2 w-[1px] bg-[#F66B34]"></div>
-              <button
-                className={`${vehicleType === "motor" ? "bg-[#F66B34] text-[#FEFEFE]" : "text-[#F66B34]"} rounded-[4px] w-[100px] h-10 flex justify-center items-center  font-medium text-14`}
-                onClick={() => {
-                  vehicleTypeFetch("motor");
-                }}
-              >
-                موتورسیکلت
-              </button>
-              <div className="my-2 w-[1px] bg-[#F66B34]"></div>
-              <button
-                className={`${vehicleType === "heavy-car" ? "bg-[#F66B34] text-[#FEFEFE]" : "text-[#F66B34]"} rounded-[4px] w-[100px] h-10 flex justify-center items-center text-[#F66B34] font-medium text-14`}
-                onClick={() => {
-                  vehicleTypeFetch("heavy-car");
-                }}
-              >
-                وسیله سنگین
-              </button>
-            </div>
-            <div className="flex flex-col gap-4">
-              <span className="text-center font-bold text-[#FEFEFE]">
-                انتخاب برند
-              </span>
-              <div className="flex gap-2 py-1 px-4 text-[#B0B0B0] bg-[#B0B0B01F] rounded-lg">
-                <i className="cc-search text-xl" />
-                <input
-                  className="outline-none text-14 bg-[#ffffff01]"
-                  placeholder="جستجو..."
-                />
-              </div>
-              <div className="h-[363px] overflow-y-scroll mt-2">
-                <div className="grid grid-cols-3 gap-x-8 gap-y-[42px]">
-                  {data.map((item, index) => (
-                    <div
-                      className="flex flex-col items-center gap-2"
-                      key={index}
-                      onClick={() => {
-                        optionClickHandler(item.id, item);
-                      }}
-                    >
-                      <Image
-                        src={
-                          process.env.BASE_API +
-                          "/web" +
-                          API_PATHS.FILE +
-                          "/" +
-                          (item.logo ? item.logo : item.image)
-                        }
-                        width={64}
-                        height={48}
-                        className="w-16 h-12"
-                      />
-                      <span className="text-white font-bold line-clamp-1 text-center">
-                        {item.title}
+                    <div className="flex justify-between">
+                      <span className="text-white font-bold text-18">
+                        مجموع سفارش
+                      </span>
+                      <span className="text-white font-bold text-18">
+                        {numberWithCommas(invoiceData.price_total)} تومان
                       </span>
                     </div>
-                  ))}
+                  </div>
+                  <div
+                    className={`flex flex-col mt-10 items-center ${invoiceData.cart_items && invoiceData.cart_items.length ? "hidden" : ""}`}
+                  >
+                    <Image
+                      src={invoice}
+                      className="m-auto size-52 opacity-70"
+                    />
+                    <span className="text-white">
+                      در حال حاضر فاکتور شما خالی می باشد
+                    </span>
+                  </div>
+                </div>
+              )}
+            </div>
+          ) : (
+            <>
+              <span className="text-[#FEFEFE] text-20 font-bold text-center">
+                ثبت وسیله نقلیه
+              </span>
+              <div className="rounded-lg bg-[#F66B3414] flex justify-between p-1">
+                <button
+                  className={`${vehicleType === "car" ? "bg-[#F66B34] text-[#FEFEFE]" : "text-[#F66B34]"} rounded-[4px] w-[100px] h-10 flex justify-center items-center font-medium text-14`}
+                  onClick={() => {
+                    vehicleTypeFetch("car");
+                  }}
+                >
+                  خودرو
+                </button>
+                <div className="my-2 w-[1px] bg-[#F66B34]"></div>
+                <button
+                  className={`${vehicleType === "motor" ? "bg-[#F66B34] text-[#FEFEFE]" : "text-[#F66B34]"} rounded-[4px] w-[100px] h-10 flex justify-center items-center  font-medium text-14`}
+                  onClick={() => {
+                    vehicleTypeFetch("motor");
+                  }}
+                >
+                  موتورسیکلت
+                </button>
+                <div className="my-2 w-[1px] bg-[#F66B34]"></div>
+                <button
+                  className={`${vehicleType === "heavy-car" ? "bg-[#F66B34] text-[#FEFEFE]" : "text-[#F66B34]"} rounded-[4px] w-[100px] h-10 flex justify-center items-center text-[#F66B34] font-medium text-14`}
+                  onClick={() => {
+                    vehicleTypeFetch("heavy-car");
+                  }}
+                >
+                  وسیله سنگین
+                </button>
+              </div>
+              <div className="flex flex-col gap-4">
+                <span className="text-center font-bold text-[#FEFEFE]">
+                  انتخاب برند
+                </span>
+                <div className="flex gap-2 py-1 px-4 text-[#B0B0B0] bg-[#B0B0B01F] rounded-lg">
+                  <i className="cc-search text-xl" />
+                  <input
+                    className="outline-none text-14 bg-[#ffffff01] w-full"
+                    placeholder="جستجو..."
+                  />
+                <i className={`cc-arrow-right text-xl rotate-180 text-[#F66B34] ${level>2?"":"hidden"}`} onClick={backClickHandler}/>
+                </div>
+                <div className="h-[363px] overflow-y-scroll mt-2">
+                  <div className="grid grid-cols-3 gap-x-8 gap-y-[42px]">
+                    {data.map((item, index) => (
+                      <div
+                        className="flex flex-col items-center gap-2"
+                        key={index}
+                        onClick={() => {
+                          optionClickHandler(item.id, item);
+                        }}
+                      >
+                        <Image
+                          src={
+                            process.env.BASE_API +
+                            "/web" +
+                            API_PATHS.FILE +
+                            "/" +
+                            (item.logo ? item.logo : item.image)
+                          }
+                          width={64}
+                          height={48}
+                          className="w-16 h-12"
+                        />
+                        <span className="text-white font-bold line-clamp-1 text-center">
+                          {item.title}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
-            </div>
-          </>
-        )}
+            </>
+          )}
+        </div>
       </div>
-    </div>
-  )};
+    );
+  }
 };
 
 export default CarSelectComponent;

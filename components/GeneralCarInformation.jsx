@@ -152,11 +152,11 @@ const GeneralCarInformation = (props) => {
             </div>
             <div className={`grid ${props.id === "technicalDiagnosis"?"size582:grid-cols-2 grid-cols-1":"size800:grid-cols-3 size582:grid-cols-2 grid-cols-1"} gap-[32px]`}>
                 {props.violationState && (
-                    <div className="relative col-span-2">
+                    <div className="relative col-span-2 flex flex-col gap-4">
                         {newTomanState && (
-                            <span className="absolute left-2 top-3 text-12">تومان</span>
+                            <span className="absolute left-2 bottom-3 text-12">تومان</span>
                         )}
-                        <label htmlFor={props.id} className={"bg-white px-2 font-light text-[12px] text-[#454545] absolute top-[-11px] right-[10px]"}>{props.title}</label>
+                        <label htmlFor={props.id} className={"font-bold text-[16px] text-[#FEFEFE]"}>{props.title}</label>
                         <Input
                             type="text"
                             value={newfinePriceValue}

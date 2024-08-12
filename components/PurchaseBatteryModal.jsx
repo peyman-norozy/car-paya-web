@@ -74,8 +74,6 @@ const PurchaseBatteryModal = (props) => {
     setSelectedPrice(event.target.getAttribute("price"));
   };
 
-  console.log(props.searchParams);
-
   const clickSelectTimeHandler = () => {
     console.log(allParams.get("provience_city_id"));
     router.push(
@@ -96,14 +94,14 @@ const PurchaseBatteryModal = (props) => {
           },
         );
         console.log(selectAmpBatteriesData);
-        // const newPurchseOption = purchseOptions.map((option) => {
-        //   if (option.id === "selectAmper") {
-        //     return (option.price =
-        //       selectAmpBatteriesData.calculation.difference_same_amp);
-        //   } else {
-        //     return option;
-        //   }
-        // });
+        purchseOptions.map((option) => {
+          if (option.id === "selectAmper") {
+            return (option.price =
+              selectAmpBatteriesData.calculation.difference_same_amp);
+          } else {
+            return option;
+          }
+        });
         setTotalPrice({
           price: selectAmpBatteriesData.calculation.payment_price,
           productId: batteriesData.id,

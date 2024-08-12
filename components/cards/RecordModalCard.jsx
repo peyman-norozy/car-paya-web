@@ -88,10 +88,10 @@ const RecordModalCard = (props) => {
   };
 
   return (
-    <div className="flex justify-between items-center text-14 text-stone-800 rounded-10 py-4 odd:bg-[#FCE9E8] even:bg-[#F7F8FC]">
-      <span className="flex-1 flex justify-center">{props.index}</span>
-      <span className="flex-1 flex justify-center">{props.item.title}</span>
-      <div className="flex-1 flex justify-center">
+    <div className="flex justify-between items-center text-14 text-[#FEFEFE] gap-px">
+      <span className="flex-1 flex justify-center items-center h-14 bg-[#444444]">{props.index}</span>
+      <span className="flex-1 flex justify-center items-center h-14 bg-[#444444]">{props.item.title}</span>
+      <div className="flex-1 flex justify-center items-center h-14 bg-[#444444]">
         <ToggleButton
           onClick={() => toggleChangeHandler(props.item.id)}
           newEnableToggle={newEnableToggle}
@@ -102,7 +102,7 @@ const RecordModalCard = (props) => {
         />
       </div>
       {newSelectOptionState ? (
-        <div className="flex flex-1">
+        <div className="flex flex-1 bg-[#444444]">
           <SelectSearchInput
             data={newProductOption}
             // pageType={props.pageType}
@@ -116,7 +116,7 @@ const RecordModalCard = (props) => {
           />
         </div>
       ) : (
-        <span className="flex-1 flex justify-center"></span>
+        <span className="flex-1 flex justify-center bg-[#444444]"></span>
       )}
     </div>
   );

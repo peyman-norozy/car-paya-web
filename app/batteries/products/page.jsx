@@ -30,38 +30,21 @@ export const metadata = {
 };
 
 const BatteriesData = async (props) => {
-  const filterFetchData = await getData("/web/get/filter");
-  const fetchState = props.filter.selectTipState?.split(",");
-  if (fetchState && fetchState.length > 0 && fetchState[0] === "true") {
-    const getFilterBatteries = await getData(
-      `/web/attach/car/battery/${fetchState[1]}`,
-    );
-    return (
-      <BatteriesPage
-        data={getFilterBatteries}
-        searchParams={props.filter}
-        filterData={filterFetchData}
-      />
-    );
-  } else {
-    const fetchData = await getData(
-      "/web/batteries",
-      // + "?order_by=" + props.filter,
-      {
-        amp: props.filter.amp,
-        brand: props.filter.brand,
-        attribute_slug: props.filter.attribute_slug,
-        attribute_value: props.filter.attribute_value,
-      },
-    );
-    return (
-      <BatteriesPage
-        data={fetchData}
-        searchParams={props.filter}
-        filterData={filterFetchData}
-      />
-    );
-  }
+  const fetchState = props.filter.selectTipState?.split(",")[1];
+  console.log(props, "aaaaaaaa");
+
+  const fetchData = await getData(
+    "/web/batteries",
+    // + "?order_by=" + props.filter,
+    {
+      amp: props.filter.amp,
+      brand: props.filter.brand,
+      tip_id: fetchState,
+      attribute_slug: props.filter.attribute_slug,
+      attribute_value: props.filter.attribute_value,
+    },
+  );
+  return <BatteriesPage data={fetchData} searchParams={props.filter} />;
 };
 
 const Batteries = (props) => {

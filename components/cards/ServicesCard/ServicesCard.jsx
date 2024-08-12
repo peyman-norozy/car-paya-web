@@ -6,9 +6,9 @@ import Button from "@/components/Button";
 import DetailingDetailCard from "@/components/cards/DetailingDetailCard/DetailingDetailCard";
 import DetailingResponsiveButton from "@/components/DetailingResponsiveButton/DetailingResponsiveButton";
 
-const fakeData = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-
-const ServicesCard = () => {
+const ServicesCard = (props) => {
+  console.log(props);
+  const { title, services } = props;
   const [morDetail, setMorDetail] = useState(false);
 
   const moreClickHandler = () => {
@@ -23,7 +23,7 @@ const ServicesCard = () => {
       <div className={"flex gap-[16px]"}>
         <div
           className={
-            "size666:w-[240px] w-[140px] size666:h-[240px] h-[144px] bg-[#eee] rounded-[8px] relative"
+            "size666:w-[240px] w-[140px] size666:h-[240px] h-[144px] bg-[#eee] rounded-[8px] relative overflow-hidden"
           }
         >
           <Image
@@ -43,7 +43,7 @@ const ServicesCard = () => {
         <div className={"flex-1"}>
           <div className={"flex flex-col justify-end gap-[8px]"}>
             <h1 className={" font-semibold size690:text-[20px] text-[14px]"}>
-              پولیش و صافکاری
+              {title}
             </h1>
             <p
               className={
@@ -62,9 +62,9 @@ const ServicesCard = () => {
           <ul
             className={`size1142:grid hidden grid-cols-2 gap-y-[16px] text-[12px] text-[#47505D] mt-[24px]`}
           >
-            {fakeData.map((item, index) =>
+            {services.map((item, index) =>
               index <= 4 && !morDetail ? (
-                <DetailingDetailCard key={index} />
+                <DetailingDetailCard key={item.key} {...item} />
               ) : index === 5 && !morDetail ? (
                 <li>
                   <Button
@@ -77,7 +77,7 @@ const ServicesCard = () => {
                   </Button>
                 </li>
               ) : (
-                morDetail && <DetailingDetailCard key={index} />
+                morDetail && <DetailingDetailCard key={item.key} {...item} />
               ),
             )}
           </ul>

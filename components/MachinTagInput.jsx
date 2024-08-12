@@ -83,13 +83,13 @@ const MachinTagInput = (props) => {
     }, [props.newPlaque_1, carTagData.options]);
 
     return (
-        <div className="flex border-2 border-[#d1d1d1] rounded-5 h-[48px] relative">
-            <div className="flex flex-col gap-1 w-full border-l-2 border-[#d1d1d1] items-center justify-center">
-                <Image src={"/assets/icons/iran.svg"} alt={"iran icon"} width={30} height={24} className={"mt-2"}/>
+        <div className="flex rounded-5 h-[48px] relative bg-[#FEFEFE]">
+            <div className="flex flex-col w-full items-center justify-center">
+                <Image src={"/assets/icons/iran.svg"} alt={"iran icon"} width={30} height={20} className="mt-1"/>
                 <Input
                     type="text"
                     value={props.newPlaque_3 !== "null" ? props.newPlaque_3 : ""}
-                    className="text-center text-12 outline-none border border-[#aaa] w-[90%] h-[90%] rounded-5 mb-1"
+                    className="text-center text-12 outline-none w-[90%] h-[90%] rounded-5 mb-1 border"
                     on_change={selectJustNumberHandler}
                     id={"plaque_3"}
                     name={"plaque_3"}
@@ -102,7 +102,7 @@ const MachinTagInput = (props) => {
                     type="text"
                     value={props.newPlaque_2 !== "null" ? props.newPlaque_2 : ""}
                     plaqueid="Plaque"
-                    className="text-center text-12 outline-none border border-[#aaa] w-[90%] h-[90%] rounded-5"
+                    className="text-center text-12 outline-none border w-[90%] h-[90%] rounded-5"
                     on_change={selectJustNumberHandler}
                     id={"plaque_2"}
                     name={"plaque_2"}
@@ -110,7 +110,7 @@ const MachinTagInput = (props) => {
                     maxlength="3"
                 />
             </div>
-            <div className="w-[220px] flex justify-center items-center">
+            <div className="w-[220px] mt-1">
                 <SelectSearchInput
                     data={carTagData.options}
                     newPlaque_1={props.newPlaque_1 !== "null" ? props.newPlaque_1 : ""}
@@ -123,7 +123,7 @@ const MachinTagInput = (props) => {
                     placeholderStyle={"placeholder:text-10 pr-[4px]"}
                     chevronStyle={"top-[9px]"}
                     chevronDisabled={true}
-                    className={"border border-[#aaa] w-[100%] h-[90%] rounded-5"}
+                    className={"border w-[100%] h-[90%] rounded-5"}
                 />
             </div>
             <div className="flex w-full justify-center items-center">
@@ -131,7 +131,7 @@ const MachinTagInput = (props) => {
                     type="text"
                     value={props.newPlaque_0 !== "null" ? props.newPlaque_0 : ""}
                     plaqueid="Plaque"
-                    className="text-center text-12 outline-none border border-[#aaa] w-[90%] h-[90%] rounded-5"
+                    className="text-center text-12 outline-none border w-[90%] h-[90%] rounded-5"
                     on_change={selectJustNumberHandler}
                     id={"plaque_0"}
                     name={"plaque_0"}
@@ -139,16 +139,16 @@ const MachinTagInput = (props) => {
                     maxlength="2"
                 />
             </div>
-            <div className="rounded-l-[5px] overflow-hidden w-[240px] h-[44px]">
+            <div className="overflow-hidden w-[230px] h-[48px] rounded-l-5">
                 <Image
                     src="/assets/icons/plaqueFrame.svg"
                     alt={"machine tag"}
                     className={"w-full h-full"}
                     width={240}
-                    height={40}
+                    height={48}
                 />
             </div>
-            <span className="inline-block bg-white px-2 font-light text-[12px] text-[#FEFEFE]">پلاک</span>
+            {/* <span className="inline-block bg-white px-2 font-light text-[12px] text-[#FEFEFE]">پلاک</span> */}
         </div>
     );
 };
