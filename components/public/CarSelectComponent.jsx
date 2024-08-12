@@ -350,13 +350,13 @@ const CarSelectComponent = () => {
                 <span className="text-center font-bold text-[#FEFEFE]">
                   انتخاب برند
                 </span>
-                <div className="flex gap-2 py-1 px-4 text-[#B0B0B0] bg-[#B0B0B01F] rounded-lg">
+                <div className="flex gap-2 py-1 pr-4 pl-1 text-[#B0B0B0] bg-[#B0B0B01F] rounded-lg">
                   <i className="cc-search text-xl" />
                   <input
                     className="outline-none text-14 bg-[#ffffff01] w-full"
                     placeholder="جستجو..."
                   />
-                <i className={`cc-arrow-right text-xl rotate-180 text-[#F66B34] ${level>2?"":"hidden"}`} onClick={backClickHandler}/>
+                <i className={`cc-arrow-right text-2xl rotate-180 text-[#ffffff] bg-[#ffffff38] px-2 rounded-md h-7 leading-7 ${level>2?"":"hidden"}`} onClick={backClickHandler}/>
                 </div>
                 <div className="h-[363px] overflow-y-scroll mt-2">
                   <div className="grid grid-cols-3 gap-x-8 gap-y-[42px]">
