@@ -7,7 +7,7 @@ export async function getData(apiRoute, params) {
     const res = await api.get(apiRoute, { params: params });
     return res.data;
   } catch (error) {
-    return error.response.status;
+    return error.response?.status;
   }
 }
 

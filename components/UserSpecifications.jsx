@@ -18,7 +18,7 @@ const UserSpecifications = (props) => {
               "bg-[#6878CA] w-[88px] h-[88px] text-white rounded-full flex justify-center items-center"
             }
           >
-            ش
+            {profileData?.name.slice(0,1)}
           </span>
           {/*<div className={"absolute top-0 bottom-0"}>*/}
           {/*    <Image*/}
@@ -29,7 +29,7 @@ const UserSpecifications = (props) => {
           {/*    />*/}
           {/*</div>*/}
         </div>
-        <div className={"flex flex-col"}>
+        <div className={"flex flex-col text-[#FEFEFE]"}>
           <span>{profileData?.name}</span>
           <span>{profileData?.mobile}</span>
         </div>

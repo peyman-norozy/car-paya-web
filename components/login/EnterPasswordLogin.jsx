@@ -121,17 +121,17 @@ export default function EnterPasswordLogin(props) {
 
   return (
     <div className="max-w-md m-auto my-[80px] w-[600px]">
-      <div className="border-t-4 border-red-500 overflow-hidden rounded shadow-lg">
+      <div className="overflow-hidden rounded-2xl bg-[#383838A3]">
         <div className="h-full w-full flex flex-col size974:justify-center size974:items-end items-center text-center gap-8 px-4 my-8">
           <div className="flex flex-col gap-2 w-full">
-            <p className="size460:text-[14px] text-[10px] font-bold">
-              اگر ثبت نام کرده اید، رمز عبور خود را وارد کنید.
+            <p className="size460:text-[16px] text-[12px] font-bold text-[#FEFEFE]">
+             رمز عبور خود را وارد کنید.
             </p>
           </div>
           <div className="flex flex-col size460:items-center items-stretch gap-2 relative mx-0 w-full">
             <Label
               htmlFor="setPassword"
-              styling="text-right text-[14px] w-full"
+              styling="text-right text-[14px] w-full text-[#FEFEFE]"
               text="رمز عبور:"
             />
             <Input
@@ -160,7 +160,7 @@ export default function EnterPasswordLogin(props) {
                 on_click={forgotPasswordHandler}
               >
                 <div className={"relative"}>
-                  <span>فراموشی رمز عبور</span>
+                  <span className="text-[#F66B34] font-medium">فراموشی رمز عبور</span>
                   {forgotButtonState && (
                     <div
                       className={
@@ -184,7 +184,7 @@ export default function EnterPasswordLogin(props) {
               type={"button"}
               disabled_btn={sliderShowState || forgotButtonState}
               class_name={
-                "w-[220px] h-[40px] bg-red-600 text-white rounded-5 size460:text-[14px] text-[12px]"
+                "w-[220px] h-[40px] bg-[#F66B34] text-white rounded-5 size460:text-[14px] text-[12px]"
               }
               on_click={setPasswordClickHandler}
             >

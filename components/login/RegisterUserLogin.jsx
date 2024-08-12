@@ -143,19 +143,19 @@ export default function RegisterUserLogin() {
   };
 
   return (
-    <form className="max-w-md m-auto my-[80px]  " onSubmit={formSubmitHandler}>
-      <div className="border-t-4 border-red-500 overflow-hidden rounded shadow-lg">
-        <h1 className="font-bold m-4">مشخصات خود را وارد کنید:</h1>
+    <form className="max-w-[660px] m-auto my-[80px] bg-[#383838ad] rounded-2xl" onSubmit={formSubmitHandler}>
+      <div className="overflow-hidden rounded-lg w-full max-w-96 m-auto">
+        <h1 className="font-bold m-4 text-[#fefefe]">مشخصات خود را وارد کنید:</h1>
         <div className="flex flex-col gap-2 m-3">
           <Label
             text="نام:"
             htmlFor="register_name"
-            styling="text-right text-[14px] w-full"
+            styling="text-right text-[#FEFEFE] w-full font-medium"
           />
           <Input
             id="register_name"
             type="text"
-            className="border border-red-500 outline-red-600 rounded w-full p-3"
+            className="bg-[#FEFEFE] rounded-lg w-full p-3 outline-none"
           />
         </div>
         <p className={"text-12 text-red-500 pr-4"}>
@@ -165,12 +165,12 @@ export default function RegisterUserLogin() {
           <Label
             text="نام خانوادگی:"
             htmlFor="register_lastName"
-            styling="text-right text-[14px] w-full"
+            styling="text-right text-[#FEFEFE] w-full font-medium"
           />
           <Input
             id="register_lastName"
             type="text"
-            className="border border-red-500 outline-red-600 rounded w-full p-3"
+            className="bg-[#FEFEFE] rounded-lg w-full p-3 outline-none"
           />
         </div>
         <p className={"text-12 text-red-500 pr-4"}>
@@ -180,12 +180,12 @@ export default function RegisterUserLogin() {
           <Label
             text="ایمیل:"
             htmlFor="register_email"
-            styling="text-right text-[14px] w-full"
+            styling="text-right text-[#FEFEFE] w-full font-medium"
           />
           <Input
             id="register_email"
             type="text"
-            className="border border-red-500 outline-red-600 rounded w-full p-3"
+            className="bg-[#FEFEFE] rounded-lg w-full p-3 outline-none"
           />
         </div>
         <p className={"text-12 text-red-500 pr-4"}>
@@ -195,12 +195,12 @@ export default function RegisterUserLogin() {
           <Label
             text="رمز عبور:"
             htmlFor="register_password"
-            styling="text-right text-[14px] w-full"
+            styling="text-right text-[#FEFEFE] w-full font-medium"
           />
           <Input
             id="register_password"
             type={passwordEyesState.passwordState ? "text" : "password"}
-            className="border border-red-500 outline-red-600 rounded w-full p-3"
+            className="bg-[#FEFEFE] rounded-lg w-full p-3 outline-none"
             icon={
               <Image
                 className="w-[20px] h-[20px] absolute top-[46px] left-[8px] cursor-pointer"
@@ -224,10 +224,10 @@ export default function RegisterUserLogin() {
           <Label
             text="جنسیت:"
             htmlFor="gender"
-            styling="text-right text-[14px] w-full"
+            styling="text-right text-[#FEFEFE] w-full font-medium"
           />
           <select
-            className="border border-red-500 rounded w-full p-3"
+            className="rounded-lg w-full p-3 outline-none"
             onChange={genderChooseHandler}
           >
             <option selected={true} value="chosen">
@@ -246,7 +246,7 @@ export default function RegisterUserLogin() {
           <Button
             type={"submit"}
             disabled_btn={sliderShowState}
-            class_name={"w-[220px] h-[40px] bg-red-600 text-white rounded-5"}
+            class_name={"w-full h-[40px] bg-[#F66B34] text-white rounded-5"}
             // on_click={clickTelNumberBtn}
           >
             <div className={"relative"}>

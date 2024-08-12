@@ -9,6 +9,8 @@ import { ToastContainer } from "react-toastify";
 import Spinner from "@/components/Spinner";
 import { loginUser } from "@/store/loginCheckerSlice";
 import { getData } from "@/utils/api-function-utils";
+import otpImage from "@/public/assets/images/otp.png"
+import Image from "next/image";
 
 export default function OtpUsersLogin(props) {
   const [otp, setOtp] = useState("");
@@ -95,11 +97,12 @@ export default function OtpUsersLogin(props) {
   };
 
   return (
-    <div className="max-w-md m-auto my-[80px] w-[600px]">
-      <div className="border-t-4 border-red-500 overflow-hidden rounded shadow-lg">
-        <div className="h-full w-full flex flex-col justify-center items-center text-center gap-8 my-6">
-          <div className="flex flex-col gap-2">
-            <h2 className="size460:text-[18px] text-[12px] font-bold">
+    <div className="max-w-[660px] m-auto my-[80px] w-full">
+      <div className="bg-[#383838ad] overflow-hidden rounded-2xl p-4 flex flex-col items-center gap-6">
+      <Image src={otpImage} className="w-[360px] aspect-auto" width={360} height={244}/>
+        <div className="h-full w-full flex flex-col justify-center items-center text-center gap-2">
+          <div className="flex flex-col gap-2 items-start">
+            <h2 className="size460:text-[18px] text-[12px] font-bold text-[#FEFEFE]">
               کد ارسال شده را وارد کنید:
             </h2>
           </div>
@@ -116,6 +119,7 @@ export default function OtpUsersLogin(props) {
                 numInputs={4}
                 renderSeparator={false}
                 renderInput={(props) => <input {...props} />}
+                
                 containerStyle={{
                   width: "250px",
                   height: "50px",
@@ -124,7 +128,7 @@ export default function OtpUsersLogin(props) {
                   gap: "10px",
                 }}
                 inputStyle={
-                  "flex-1 h-full border border-red-600 rounded-5 outline-none"
+                  "flex-1 h-full bg-[#00000000] outline-none border-b border-[#fefefe] text-[#FEFEFE] text-xl font-medium"
                 }
               />
             </div>
@@ -136,7 +140,7 @@ export default function OtpUsersLogin(props) {
               disabled_btn={sliderShowState}
               on_click={sendOtpClickHandler}
               class_name={
-                "size460:w-[220px] w-[110px] h-[40px] bg-red-600 text-white rounded-5 size460:text-[14px] text-[12px] size460:ml-[20px] ml-0"
+                "w-full h-[40px] bg-[#F66B34] text-white rounded-5 size460:text-[14px] text-[12px] size460:ml-[20px] ml-0"
               }
             >
               <div className={"relative"}>
