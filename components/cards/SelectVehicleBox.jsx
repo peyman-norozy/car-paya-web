@@ -1,5 +1,5 @@
-'use client'
-import React, { useEffect, useState } from "react";
+"use client";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import SelectVehicleTab from "../SelectVehicleTab";
 import SearchInput from "../SearchInput";
 import car from "@/public/assets/images/hoeny-Hyundai-car.png";
@@ -10,18 +10,35 @@ import Image from "next/image";
 import Spinner from "../Spinner";
 import { useDispatch } from "react-redux";
 import { setVehicleData } from "@/store/todoSlice";
+import { usePathname } from "next/navigation";
+import useClickOutside from "@/hook/useClickOutside";
+import useSetQuery from "@/hook/useSetQuery";
 
 const SelectVehicleBox = (props) => {
-  const [isClicked, setIsClicked] = useState(0);
+  const pathName = usePathname();
   const [carBrands, setCarBrands] = useState([]);
   const [motorBrands, setMotorBrands] = useState([]);
+  const [heavyCarBrands, setHeavyCarBrands] = useState([]);
   const [carModel, setCarModel] = useState([]);
   const [motorModel, setMotorModel] = useState([]);
+  const [heavyCarModel, setHeavyCarModel] = useState([]);
+  const [filterData, setFilterData] = useState([]);
+  const [vehicleData, setVehicleData] = useState([]);
+  const [provienceCity, setProvienceCity] = useState([]);
+  const [city, setCity] = useState([]);
+  const [cityName, setCityName] = useState("");
+  const [isSelected, setIsSelected] = useState(false);
+
   // const [step, setStep] = useState("car-brands");
   const [motorStep, setMotorStep] = useState("motor-brands");
+  const [heavyCarStep, setHeavyCarStep] = useState("heavy-car-brands");
   const [isLoading, setIsLoading] = useState(false);
   const [image, setImage] = useState("");
   const dispatch = useDispatch();
+  const cityRef = useRef();
+  const close = useCallback(() => setIsSelected(false), []);
+  useClickOutside(cityRef, close);
+  const query = useSetQuery();
 
   const myVehicleData = [];
 
@@ -100,23 +117,156 @@ const SelectVehicleBox = (props) => {
         })
         .catch((err) => console.log(err));
     }
-  }, [props.step, motorStep, isClicked]);
+    if (heavyCarStep === "heavy-car-brands") {
+      axios
+        .get(process.env.BASE_API + "/web" + "/heavy-car-brands")
+        .then((res) => {
+          setHeavyCarBrands(res.data.data);
+          setIsLoading(false);
+        })
+        .catch((err) => console.log(err));
+    } else if (heavyCarStep === "heavy-car-models") {
+      axios
+        .get(
+          process.env.BASE_API +
+            "/web" +
+            "/heavy-car-models/" +
+            props.selectedItem,
+        )
+        .then((res) => {
+          setHeavyCarBrands(res.data.data);
+          setHeavyCarModel(props.selectedItem);
+          setIsLoading(false);
+        })
+        .catch((err) => console.log(err));
+    } else if (heavyCarStep === "heavy-car-tips") {
+      axios
+        .get(
+          process.env.BASE_API +
+            "/web" +
+            "/heavy-car-tips/" +
+            props.selectedItem,
+        )
+        .then((res) => {
+          setHeavyCarBrands(res.data.data);
+          setIsLoading(false);
+        })
+        .catch((err) => console.log(err));
+    }
+  }, [props.step, motorStep]);
 
   useEffect(() => {
-    dispatch(
-      setVehicleData(
-        isClicked === 0
-          ? carBrands
-          : isClicked === 1
-            ? motorBrands
+    axios
+      .get(process.env.BASE_API + "/web/geo/province-cities")
+      .then((res) => {
+        if (res.data.status === "success") {
+          setProvienceCity(res.data.data);
+          setCity(res.data.data);
+        }
+      })
+      .catch((err) => console.log(err));
+  }, []);
+
+  useEffect(() => {
+    setVehicleData(
+      props.searchParams["attribute_value"] === "car"
+        ? carBrands
+        : props.searchParams["attribute_value"] === "motor"
+          ? motorBrands
+          : props.searchParams["attribute_value"] === "heavy_car"
+            ? heavyCarBrands
             : myVehicleData,
-      ),
     );
-  }, [carBrands, dispatch, isClicked, motorBrands, myVehicleData]);
+  }, [
+    carBrands,
+    dispatch,
+    motorBrands,
+    heavyCarBrands,
+    // myVehicleData,
+    props.searchParams,
+  ]);
+
+  console.log(filterData);
+  console.log(pathName);
+
+  useEffect(() => {
+    console.log(vehicleData);
+    setFilterData(vehicleData);
+  }, [vehicleData]);
+
+  const cityChangeHandler = (e) => {
+    setCityName(e.target.value);
+    setCity(provienceCity.filter((i) => i.label.includes(e.target.value)));
+
+    if (e.target.value.length >= 1) {
+      setIsSelected(true);
+    } else {
+      setIsSelected(false);
+    }
+  };
+
+  const focusInputHandler = () => {
+    setIsSelected(true);
+  };
+
+  const selectCityHandler = (e, cityId) => {
+    setCityName(e.target.innerHTML);
+    query.updateQueryParams({ provience_city_id: 87 });
+    setIsSelected(false);
+  };
 
   return (
     <div className="shadow-[0_0_6px_0_rgba(177,177,177,1)] rounded-10">
       <div className="w-[95%] m-auto py-[1rem]">
+        {props.cityProvincesTitle && (
+          <p className={"text-14 font-medium mb-5"}>
+            {props.cityProvincesTitle}
+          </p>
+        )}
+        <div
+          className={
+            "rounded-lg flex items-center border border-[#B0B0B0] p-[10px] text-[#3D3D3D] h-[2.5rem] mb-[1rem] relative"
+          }
+        >
+          <input
+            ref={cityRef}
+            value={cityName}
+            id={"city"}
+            type={"text"}
+            className={"w-full h-full outline-none text-[#3D3D3D]"}
+            autoComplete={"off"}
+            onChange={cityChangeHandler}
+            onFocus={focusInputHandler}
+          />
+          <i className={"cc-arrow-down"} />
+          <label
+            htmlFor={"city"}
+            className={
+              "text-[#454545] text-14 absolute top-[-30%] bg-white right-[5%] px-1"
+            }
+          >
+            استان/شهر <span className={"text-RED_400"}> * </span>
+          </label>
+          <div
+            // ref={cityRef}
+            className={`${isSelected ? cityRef.current.scrollHeight + "px px-[12px] py-2" : "h-0"}  shadow-[0_0_12px_rgba(226,226,226,0.8)] bg-white absolute right-0 top-[40px] w-full overflow-scroll max-h-[10rem]`}
+          >
+            {city.length > 0 ? (
+              city.map((item, index) => (
+                <li
+                  key={index}
+                  onClick={(event) => selectCityHandler(event, item.cityId)}
+                >
+                  {item.label}
+                </li>
+              ))
+            ) : (
+              <p className={"py-[6px] pr-[12px] text-12 rounded-lg"}>
+                شهر یا استان مورد نظر یافت نشد
+              </p>
+            )}
+          </div>
+        </div>
         <h1 className="text-text_gray w-full text-center mb-[0.5rem]">
           {props.title}
         </h1>
@@ -124,9 +274,9 @@ const SelectVehicleBox = (props) => {
           <SelectVehicleTab
             className="flex items-center justify-center gap-[0.5rem]"
             tabTitle={props.tabTitle}
-            setIsClicked={setIsClicked}
-            isClicked={isClicked}
+            searchParams={props.searchParams}
             setMotorStep={setMotorStep}
+            setHeavyCarStep={setHeavyCarStep}
             setStep={props.setStep}
           />
         </div>
@@ -148,7 +298,11 @@ const SelectVehicleBox = (props) => {
           </h1>
         </div>
         <div className="mb-[1.5rem]">
-          <SearchInput placeholder="جستجو برند، مدل، تیپ" />
+          <SearchInput
+            placeholder="جستجو برند، مدل، تیپ"
+            setFilterData={setFilterData}
+            vehicleData={vehicleData}
+          />
         </div>
         {isLoading ? (
           <div className={"flex justify-center items-center h-[100px]"}>
@@ -158,12 +312,15 @@ const SelectVehicleBox = (props) => {
           <ShowMyVehicles
             setSelectedItem={props.setSelectedItem}
             selectedItem={props.selectedItem}
+            filterData={filterData}
             setStep={props.setStep}
             step={props.step}
             setImage={setImage}
             image={image}
             motorStep={motorStep}
             setMotorStep={setMotorStep}
+            setHeavyCarStep={setHeavyCarStep}
+            heavyCarStep={heavyCarStep}
           />
         )}
       </div>

@@ -150,7 +150,7 @@ const MainHeavyCarTip = (props) => {
     <Fragment>
       <div className="flex flex-col gap-4 mt-4 w-full">
         <div className="flex justify-end">
-          <span className="flex-1 text-center">انتخاب تیپ</span>
+          <span className="flex-1 text-center font-medium text-[#FEFEFE]">انتخاب تیپ</span>
           <Image
             src={"/assets/icons/Arrow-Left 1.svg"}
             alt={"icon"}
@@ -165,12 +165,12 @@ const MainHeavyCarTip = (props) => {
             type={"text"}
             placeholder={"جستجو تیپ"}
             className={
-              "border placeholder:text-12 text-14 outline-none pr-1 py-1 rounded-sm w-full"
+              "placeholder:text-12 text-14 outline-none w-full py-1 px-4 text-[#B0B0B0] bg-[#b0b0b044] rounded-lg"
             }
           />
         </div>
 
-        <div className="border max-h-[180px] w-full overflow-y-scroll grid grid-cols-3 gap-4 py-4">
+        <div className="max-h-[290px] w-full overflow-y-scroll grid grid-cols-3 gap-4 py-4">
           {props.mainHeavyCarTipsData.map((item, index) => (
             <div
               key={index}
@@ -196,7 +196,7 @@ const MainHeavyCarTip = (props) => {
                   className={"rounded-10 w-[50px] h-[50px]"}
                 />
               </div>
-              <span className="text-12">{item.title}</span>
+              <span className="text-16 font-medium text-[#fefefe] line-clamp-1 text-center">{item.title}</span>
             </div>
           ))}
         </div>

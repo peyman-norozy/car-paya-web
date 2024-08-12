@@ -17,20 +17,31 @@ import useSetQuery from "@/hook/useSetQuery";
 import { useSelector } from "react-redux";
 import VerificationLogin from "@/components/vehicle-verification/VerificationLogin";
 import VerificationLastStep from "@/components/vehicle-verification/VerificationLastStep";
+import { useRouter } from "next/navigation";
 
 const VehicleVerificationPage = (props) => {
   const { params } = props;
+  const router = useRouter();
+  console.log(params);
+  console.log(router);
   const [step, setStep] = useState(1);
   const loginState = useSelector((state) => state.todo.verificationLogin);
 
   const closeVerificationModal = () => {
     setModalIsOpen(false);
   };
+
+  useEffect(() => {
+    if (!params["city_id"] && !params["vehicle_id"]) {
+      router.replace("/vehicle-verification");
+      // router.reload();
+      setStep(undefined);
+    }
+  }, [router, params]);
+
   return (
     <div>
-      {params.step === undefined && (
-        <VerificationFirstStep setStep={setStep} step={step} />
-      )}
+      {!params.step && <VerificationFirstStep setStep={setStep} step={step} />}
       {params.step === "step-1" && <PackageStep />}
       {params.step === "step-2" && <VerificationSecondStep setStep={setStep} />}
       {params.step === "step-3" && <VerificationLogin />}

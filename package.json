@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev --port 3001",
     "build": "next build",
-    "start": "next start --port 3000",
+    "start": "next start",
     "lint": "next lint"
   },
   "dependencies": {
@@ -31,13 +31,14 @@
     "react-spinners": "^0.13.8",
     "react-stars": "^2.2.5",
     "react-toastify": "^10.0.5",
+    "react-use-draggable-scroll": "^0.4.7",
     "reactjs-popup": "^2.0.6",
     "sharp": "^0.33.3",
     "swiper": "^11.1.0"
   },
   "devDependencies": {
     "autoprefixer": "^10.0.1",
-    "eslint": "^8",
+    "eslint": "9.8.0",
     "eslint-config-next": "14.1.4",
     "postcss": "^8",
     "prettier": "3.2.5",

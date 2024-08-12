@@ -10,7 +10,7 @@ const ResponsiveMenu = React.forwardRef((props, ref) => {
       }`}
     >
       <div
-        className={`fixed top-[74px] right-0 flex flex-col justify-between w-[240px] h-[calc(100vh-74px)] bg-white transition-all ${
+        className={`fixed top-[74px] right-0 flex flex-col justify-between w-[240px] h-[calc(100vh-74px)] bg-[#383838] transition-all ${
           props.newMenueState ? "translate-x-[250px]" : "translate-x-0"
         }`}
         ref={ref}

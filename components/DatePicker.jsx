@@ -24,11 +24,11 @@ const DatePickerSelection = (props) => {
   };
 
   return (
-    <div style={{ direction: "rtl" }} className={"relative"}>
+    <div style={{ direction: "rtl" }} className={"flex flex-col gap-4"}>
       <label
         htmlFor={props.id}
         className={
-          "bg-white px-2 font-light text-[12px] text-[#454545] absolute top-[-11px] right-[10px]"
+          "font-bold text-[16px] text-[#FEFEFE]"
         }
       >
         {props.placeholder}

@@ -65,12 +65,14 @@ const SelectSearchInput = (props) => {
   }, [props.editId, props.editTitle, props.pageType]);
 
   return (
+    <div className={`flex flex-col ${props.lable?"gap-4":""} h-full`}>
+      <span className={`inline-block px-2 text-[#FEFEFE] top-[-9px] right-[10px] font-bold ${props.labelCalssName}`}>{props.lable}</span>
     <div
-      className={`border border-[#d1d1d1] rounded-5 ${props.className} w-full cursor-text relative ${props.disabledSelectOption&&"bg-[#F6F6F6]"}`}
+      className={`border rounded-5 ${props.className} bg-[#FEFEFE] w-full cursor-text relative ${props.disabledSelectOption&&"bg-[#F6F6F6]"}`}
       ref={inputRef}
     >
-      <div className="z-20 h-full flex items-center" onClick={setHeightHandler}>
-        <span className="text-12 inline-block mr-2 mt-1 text-[#B0B0B0]">
+      <div className="z-20 h-full w-full flex items-center justify-center" onClick={setHeightHandler}>
+        <span className="text-12 inline-block text-[#B0B0B0]">
           {props.newPlaque_1 ? props.newPlaque_1 : newOption}
         </span>
         {!props.disabledSelectOption&&!props.chevronDisabled&&
@@ -114,7 +116,7 @@ const SelectSearchInput = (props) => {
             })}
         </ul>
       </div>
-      <span className={`inline-block bg-white px-2 font-light text-[12px] text-[#454545] absolute top-[-9px] right-[10px] ${props.labelCalssName}`}>{props.lable}</span>
+    </div>
     </div>
   );
 };

@@ -1,17 +1,20 @@
 import React, { useCallback, useEffect, useState } from "react";
-// import MapDirection from "@/components/Panel/Address/MapDirection/MapDirection";
+import dynamic from "next/dynamic";
 import ProfileEditeSelectInput from "@/components/ProfileEditeSelectInput";
 import CheckBox from "@/components/CheckBox";
 import AddressInput from "@/components/AddressInput";
 import { getData } from "@/utils/api-function-utils";
 import { API_PATHS } from "@/configs/routes.config";
-import { useRouter } from "next/navigation";
-import SpinnerPackage from "@/components/SpinnerPackage";
-import MapDirection from "@/components/MapDirection";
+import { usePathname, useRouter } from "next/navigation";
+
+const MapDirection = dynamic(() => import("@/components/MapDirection"), {
+  ssr: false,
+});
 import { postData, putData } from "@/utils/client-api-function-utils";
 
 const AddressModal = (props) => {
   const router = useRouter();
+  const pathName = usePathname();
   const [provincesData, setProvincesData] = useState([]);
   const [citiesData, setCitiesData] = useState([]);
   const [provinces, setProvinces] = useState("");
@@ -59,7 +62,7 @@ const AddressModal = (props) => {
 
     if (props.pageType === "edite") {
       formData.set("X-HTTP-Method-Override", "PUT");
-      setLoading(true);
+      props.setIsLoading(true);
       const update = await putData(
         API_PATHS.DASHBOARDUSERADDRESS + "/" + props.addressEditId,
         formData,
@@ -67,7 +70,8 @@ const AddressModal = (props) => {
       if (update.status === 200) {
         props.getDataFetch();
         props.setModalIsOpen(false);
-        props.setIsLoading(true);
+        props.setIsLoading(false);
+        props.timeData();
       } else if (update.status === 422) {
         setErrorData(update.data.errors);
         console.log(update.data.errors);
@@ -79,10 +83,23 @@ const AddressModal = (props) => {
       setLoading(true);
       const post = await postData(API_PATHS.DASHBOARDUSERADDRESS, formData);
       if (post.status === 200) {
-        props.setAddressModalState(false);
-        props.getAddressFetchData();
-        // props.getDataFetch(post.data);
-        // props.setModalIsOpen(false);
+        console.log(props);
+        console.log(pathName);
+        if (pathName === "/panel/productAddress") {
+          props.setAddressModalState(false);
+          props.getAddressFetchData();
+        } else if (pathName === "/vehicle-verification") {
+          props.getDataFetch(post.data);
+          props.setModalIsOpen(false);
+        } else if (pathName === "/batteries/products/newSelectLocation") {
+          console.log(props);
+          props.timeData();
+          props.setModalIsOpen(false);
+        } else if (pathName === "/detailing/selectLocation") {
+          props.timeData();
+          props.setModalIsOpen(false);
+        }
+
         // props.setIsLoading(true);
       } else if (post.response.status === 422) {
         setErrorData(post.response.data.errors);

@@ -9,7 +9,7 @@ import TitleDescription from "@/components/TitleDescription";
 import React, { Fragment, useEffect, useState } from "react";
 import LogoutModal from "@/components/modal/LogoutModal";
 import { getWindowInnerWidth } from "@/store/todoSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import UserSpecifications from "@/components/UserSpecifications";
 import UserTabsCard from "@/components/cards/UserTabsCard";
 import Image from "next/image";
@@ -33,6 +33,8 @@ const AllPanelTab = (props) => {
   const dispatch = useDispatch();
   const pathName = usePathname();
   const query = useSearchParams();
+  const showHeaderState = useSelector((state) => state.todo.showHeader);
+  
   const allUrl = query.get("status")
     ? pathName + "?" + "status=" + query.get("status")
     : pathName;
@@ -62,7 +64,7 @@ const AllPanelTab = (props) => {
 
   return (
     <>
-      <div className="mt-[50px] mb-[100px] size690:mx-[50px] mx-0">
+      <div className="mt-[50px] mb-[24px]">
         <div className="flex items-center gap-4 mb-[30px] mt-[100px]">
           <Image
             src={"/assets/icons/back.svg"}
@@ -72,7 +74,7 @@ const AllPanelTab = (props) => {
             width={34}
             height={34}
           />
-          {
+          {/* {
             {
               profile: <TitleDescription>اطلاعات شخصی من</TitleDescription>,
               "my-vehicle/my-car": (
@@ -92,10 +94,10 @@ const AllPanelTab = (props) => {
               props.params["all-panel-tab"] &&
                 props.params["all-panel-tab"].join("/")
             ]
-          }
+          } */}
         </div>
         <div className="flex gap-4 size1000:flex-row flex-col">
-          <div className="shadow-[0_0_6px_0_rgba(180,180,180,0.3)] w-[342px] flex-col justify-start h-fit gap-4 items-center pt-2 size1180:flex hidden rounded-[10px] sticky top-[81px]">
+          <div className={`bg-[#383838] w-[260px] flex-col justify-start ${showHeaderState?"top-32 h-[calc(100vh-156px)]":"top-6 h-[calc(100vh-52px)]"} gap-4 items-center pt-2 size1180:flex hidden rounded-[10px] sticky transition-all duration-100 overflow-y-scroll`}>
             <UserSpecifications
               style={"flex-col justify-center items-center gap-2"}
             />
@@ -135,18 +137,18 @@ const AllPanelTab = (props) => {
                 return <CarDevice pageType={"create"} />;
               case "/panel/my-vehicle/my-car/edit":
                 return <CarDevice pageType={"edit"} />;
-              case "/panel/my-vehicle/my-motorcycle":
-                return <CreateMyMotor />;
-              case "/panel/my-vehicle/my-motorcycle/create":
-                return <MotorDevice pageType={"create"} />;
-              case "/panel/my-vehicle/my-motorcycle/edit":
-                return <MotorDevice pageType={"edit"} />;
-              case "/panel/my-vehicle/my-heavy-car":
-                return <CreateMyHeavyCar />;
-              case "/panel/my-vehicle/my-heavy-car/create":
-                return <HeavyCarDevice pageType={"create"} />;
-              case "/panel/my-vehicle/my-heavy-car/edit":
-                return <HeavyCarDevice pageType={"edit"} />;
+              // case "/panel/my-vehicle/my-motorcycle":
+              //   return <CreateMyMotor />;
+              // case "/panel/my-vehicle/my-motorcycle/create":
+              //   return <MotorDevice pageType={"create"} />;
+              // case "/panel/my-vehicle/my-motorcycle/edit":
+              //   return <MotorDevice pageType={"edit"} />;
+              // case "/panel/my-vehicle/my-heavy-car":
+              //   return <CreateMyHeavyCar />;
+              // case "/panel/my-vehicle/my-heavy-car/create":
+              //   return <HeavyCarDevice pageType={"create"} />;
+              // case "/panel/my-vehicle/my-heavy-car/edit":
+              //   return <HeavyCarDevice pageType={"edit"} />;
               case "/panel/productAddress":
                 return <ProductAddress />;
               case "/panel/history-orders/buys":

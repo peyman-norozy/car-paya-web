@@ -4,10 +4,11 @@ import "react-toastify/dist/ReactToastify.css";
 import Providers from "@/store/provider";
 import MainLayout from "@/layouts/MainLayout";
 import NextTopLoader from "nextjs-toploader";
+import { Suspense } from "react";
 
 export const metadata = {
   manifest: "/manifest.json", // we are accessing our manifest file here
-  title: "car check",
+  title: "۶۱۳۰۰۲۲۲",
   // ... other options
 };
 
@@ -29,7 +30,7 @@ export default function RootLayout({ children }) {
   return (
     <Providers>
       <html lang="fa" dir="rtl">
-        <body>
+        <body className="bg-[#D1D1D1]">
           <NextTopLoader
             color={"#000000"}
             height={4}
@@ -40,7 +41,10 @@ export default function RootLayout({ children }) {
             easing="ease"
             speed={2000}
           />
-          <MainLayout>{children}</MainLayout>
+          <Suspense>
+            <MainLayout>{children}</MainLayout>
+          </Suspense>
+          <div id="modal-root"></div>
         </body>
       </html>
     </Providers>

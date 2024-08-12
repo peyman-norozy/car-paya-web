@@ -9,7 +9,7 @@ import EnterPasswordLogin from "@/components/login/EnterPasswordLogin";
 const ProtectedRoute = dynamic(() => import("@/routes/protected-route"), {
   ssr: false,
 });
-export default function Login() {
+export default function Login(props) {
   const [loginState, setLoginState] = useState("phone_number");
 
   return (
@@ -30,7 +30,7 @@ export default function Login() {
             case "user_passwordNumber":
               return (
                 <div className="flex items-center justify-end w-full">
-                  {<EnterPasswordLogin setLoginState={setLoginState} />}
+                  {<EnterPasswordLogin setLoginState={setLoginState} searchParams={props.searchParams}/>}
                 </div>
               );
             default:

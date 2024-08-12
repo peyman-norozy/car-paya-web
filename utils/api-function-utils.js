@@ -7,7 +7,26 @@ export async function getData(apiRoute, params) {
     const res = await api.get(apiRoute, { params: params });
     return res.data;
   } catch (error) {
-    return error.response.status;
+    return error.response?.status;
+  }
+}
+
+export async function getDataWithFullErrorRes(apiRoute, params) {
+  try {
+    const res = await api.get(apiRoute, { params: params });
+    return res.data;
+  } catch (error) {
+    return error;
+  }
+}
+
+export async function getCurrentData(apiRoute, params) {
+  try {
+    const res = await api.get(apiRoute, { params: params });
+    return { data: res.data, success: true };
+  } catch (error) {
+    console.error(`Error fetching data from ${apiRoute}:`, error);
+    return { error: error.response || error.message, success: false };
   }
 }
 

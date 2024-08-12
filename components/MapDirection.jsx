@@ -3,6 +3,8 @@ import { useMemo, useState } from "react";
 import Image from "next/image";
 import DisplayPosition from "@/components/DisplayPosition";
 import "leaflet/dist/leaflet.css";
+import "leaflet-defaulticon-compatibility";
+import "leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.css";
 import { getData } from "@/utils/api-function-utils";
 import { API_PATHS } from "@/configs/routes.config";
 import { useRouter } from "next/navigation";
@@ -29,29 +31,36 @@ const MapDirection = (props) => {
 
   const displayMap = useMemo(
     () => (
-      <div className={"h-[200px] w-full relative"}>
+      <div
+        className={`${props.justShowPosition && props.status === "FIXED" ? "h-[300px]" : "h-[200px]"} w-full relative`}
+      >
         <div
           className={"absolute m-auto right-0 left-0 top-1 z-[999] w-fit h-fit"}
         >
-          <input
-            type={"text"}
-            className={
-              "border bg-white outline-0 w-[300px] h-[36px] text-[14px] rounded-lg pr-1"
-            }
-            placeholder={"جستوجو..."}
-            onChange={mapSearchHandler}
-          />
+          {!props.justShowPosition && (
+            <input
+              type={"text"}
+              className={
+                "border bg-white outline-0 w-[300px] h-[36px] text-[14px] rounded-lg pr-1"
+              }
+              placeholder={"جستوجو..."}
+              onChange={mapSearchHandler}
+            />
+          )}
         </div>
-        <Image
-          src={"/assets/icons/pin.png"}
-          alt={"pin icon"}
-          width={12}
-          height={22}
-          className="absolute top-[calc(50%-22px)] left-[calc(50%-12px)] translate-x-1/2 translate-y-1/2 z-[999]"
-        />
+        {!props.justShowPosition && (
+          <Image
+            src={"/assets/icons/pin.png"}
+            alt={"pin icon"}
+            width={12}
+            height={22}
+            className="absolute top-[calc(50%-22px)] left-[calc(50%-12px)] translate-x-1/2 translate-y-1/2 z-[999]"
+          />
+        )}
         <MapContainer
           center={position}
           zoom={13}
+          className={`${props.justShowPosition ? "w-full h-full" : ""}`}
           scrollWheelZoom={true}
           ref={setMap}
         >
@@ -66,10 +75,15 @@ const MapDirection = (props) => {
           {/*/>*/}
           {/*<TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"/>*/}
           {/*<SetViewOnClick animateRef={animateRef} />*/}
+          {props.justShowPosition && (
+            <Marker position={position}>
+              <Popup>{/*<span>This is marker 2!</span>*/}</Popup>
+            </Marker>
+          )}
         </MapContainer>
       </div>
     ),
-    [],
+    [props.status],
   );
 
   return (

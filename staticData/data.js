@@ -8,7 +8,7 @@ export const serviceData = [
   {
     title: "دیتیلینگ",
     icon: "/assets/images/polisher.png",
-    href: "#",
+    href: "/detailing",
     id: "detailing",
   },
   {
@@ -20,20 +20,26 @@ export const serviceData = [
   {
     title: "باتری",
     icon: "/assets/images/buttry.png",
-    href: "/batteries",
+    href: "/batteries?attribute_slug=type_vehicle&attribute_value=car",
     id: "batteries",
   },
   {
-    title: "لوازم یدکی",
-    icon: "/assets/images/laazemyadaki.png",
-    href: "/products",
-    id: "products",
+    title: "شناسنامه و سوابق",
+    icon: "/assets/images/shnasname.png",
+    href: "/panel/my-vehicle/my-car",
+    id: "myVehicleMyCar",
   },
   {
     title: "بیمه",
     icon: "/assets/images/oilavazemyadaki.png",
     href: "#",
     id: "insurance",
+  },
+  {
+    title: "لوازم یدکی",
+    icon: "/assets/images/laazemyadaki.png",
+    href: "/products",
+    id: "products",
   },
   {
     title: "خرید خودرو",
@@ -46,12 +52,6 @@ export const serviceData = [
     icon: "/assets/images/keysell.png",
     href: "#",
     id: "#",
-  },
-  {
-    title: "شناسنامه و سوابق",
-    icon: "/assets/images/shnasname.png",
-    href: "/panel/my-vehicle/my-car",
-    id: "myVehicleMyCar",
   },
 ];
 export const HowWorksMockUpData = [
@@ -147,7 +147,8 @@ export const CarProductsMockUpData = [
 export const periodicServiceUnderCardData = [
   {
     title: "سرویس دوره ای",
-    titleDescription: "(شامل ١٧ بخش مي‌باشد كه كاربر بنا به نیاز خود نسبت به انتخاب خدمات اقدام مي‌نمايد)",
+    titleDescription:
+      "(شامل ١٧ بخش مي‌باشد كه كاربر بنا به نیاز خود نسبت به انتخاب خدمات اقدام مي‌نمايد)",
     options: [
       "تعویض روغن موتور",
       "تعویض فیلتر هوا",
@@ -205,12 +206,12 @@ export const panelTabData = [
     imgSrc: "/assets/icons/Group.svg",
     title: "شناسنامه و سوابق وسیله نقلیه",
     alt: "my car icon",
-    id: "my-vehicle",
-    children: [
-      { title: "خودرو", id: "my-vehicle/my-car" },
-      { title: "موتور سیکلت", id: "my-vehicle/my-motorcycle" },
-      { title: "وسیله سنگین", id: "my-vehicle/my-heavy-car" },
-    ],
+    id: "my-vehicle/my-car",
+    // children: [
+    //   { title: "خودرو", id: "my-vehicle/my-car" },
+    //   { title: "موتور سیکلت", id: "my-vehicle/my-motorcycle" },
+    //   { title: "وسیله سنگین", id: "my-vehicle/my-heavy-car" },
+    // ],
   },
   {
     imgSrc: "/assets/icons/Vehicle.svg",
@@ -226,7 +227,7 @@ export const panelTabData = [
   {
     imgSrc: "/assets/icons/location.svg",
     title: "آدرس های تحویل کالا",
-    alt: "product address file icon",
+    alt: "products address file icon",
     id: "productAddress",
   },
   {
