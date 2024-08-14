@@ -711,7 +711,11 @@ const CarDevice = (props) => {
             </Button>
           </section>
         </div>
-        <div className="grid size800:grid-cols-2 grid-cols-1 gap-[32px]">
+        <div
+          className={
+            "grid size800:grid-cols-3 size582:grid-cols-2 grid-cols-1 gap-[32px]"
+          }
+        >
           <div className={"flex flex-col gap-4"}>
             <label
               htmlFor={"carName"}
@@ -725,7 +729,7 @@ const CarDevice = (props) => {
               type="text"
               value={newMyCarValue !== "null" ? newMyCarValue : ""}
               placeholder="مثال: خودروی من"
-              className="border border-[#d1d1d1] outline-none pr-2 text-14 h-[48px] placeholder:text-12 placeholder:text-right w-full rounded-5"
+              className="border border-[#d1d1d1] font-medium outline-none pr-2 text-14 h-[48px] placeholder:text-12 placeholder:text-right w-full rounded-5"
               id={"carName"}
               name={"carName"}
               on_change={InputChangeHandler}
@@ -743,12 +747,6 @@ const CarDevice = (props) => {
             className={"h-[48px]"}
             lable={"سال ساخت"}
           />
-        </div>
-        <div
-          className={
-            "grid size800:grid-cols-3 size582:grid-cols-2 grid-cols-1 gap-[32px]"
-          }
-        >
           <div className="flex flex-col gap-4">
           <label className={"font-bold text-[#FEFEFE]"}>پلاک</label>
             <MachinTagInput
@@ -764,10 +762,7 @@ const CarDevice = (props) => {
               editPlaqueData={newEditData.info&&newEditData.info.plaque}
             />
           </div>
-          <div className="flex flex-col gap-4">
-            {/*<span className="absolute text-12 text-[#aaa] top-4 right-2">*/}
-            {/*   کیلومتر فعلی خودرو*/}
-            {/*</span>*/}
+          {/* <div className="flex flex-col gap-4">
             <label
               htmlFor={"kilometerStart"}
               className={
@@ -776,9 +771,6 @@ const CarDevice = (props) => {
             >
               کیلومتر فعلی خودرو
             </label>
-            {/* {newStartKilometerState && (
-              <span className="absolute left-2 top-4 text-12">کیلومتر</span>
-            )} */}
             <Input
               type="text"
               value={newStartKilometerValue}
@@ -789,11 +781,8 @@ const CarDevice = (props) => {
               } text-14 h-[48px] placeholder:text-12 placeholder:text-right text-left w-full rounded-5`}
               on_change={InputChangeHandler}
             />
-          </div>
-          <div className="flex flex-col gap-4">
-            {/*<span className="absolute text-12 text-[#aaa] top-4 right-2">*/}
-            {/*   کیلومتر مصرفی ماهانه*/}
-            {/*</span>*/}
+          </div> */}
+          {/* <div className="flex flex-col gap-4">
             <label
               htmlFor={"kilometerEnd"}
               className={
@@ -802,9 +791,6 @@ const CarDevice = (props) => {
             >
               کیلومتر مصرفی ماهانه
             </label>
-            {/* {newEndKilometerState && (
-              <span className="absolute left-2 top-4 text-12">کیلومتر</span>
-            )} */}
             <Input
               type="text"
               value={newEndKilometerValue}
@@ -815,9 +801,9 @@ const CarDevice = (props) => {
               } text-14 h-[48px] placeholder:text-12 placeholder:text-right text-left w-full rounded-5`}
               on_change={InputChangeHandler}
             />
-          </div>
+          </div> */}
         </div>
-        <GeneralCarInformation
+        {/* <GeneralCarInformation
           title={"بیمه ثالث"}
           id={"thirdPartyInsurance"}
           pageType={props.pageType}
@@ -874,7 +860,7 @@ const CarDevice = (props) => {
           violationState={true}
           allSelectInputState={false}
           setNewFinePrice={setNewFinePrice}
-        />
+        /> */}
         <div className="text-left mt-6">
           <Button
             type={"submit"}

@@ -83,7 +83,7 @@ export default function EnterPasswordLogin(props) {
                     "profileData",
                     JSON.stringify(getProfileData.data),
                   );
-                  if(props.searchParams){
+                  if(props.searchParams.backurl){
                     router.push(fullUrl)
                   }else{
                     router.push("/");

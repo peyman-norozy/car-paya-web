@@ -4,13 +4,11 @@ import PeriodicServiceUnderCard from "../cards/PeriodicServiceUnderCard";
 import HowWorks from "../HowWorks";
 import TopRepresentatives from "../TopRepresentatives/TopRepresentatives";
 import Image from "next/image";
-import assistance from "@/public/assets/images/assistance.jpg";
-import repair2 from "@/public/assets/images/repair2.jpg";
 import React, { useEffect, useState } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { error } from "@/utils/function-utils";
 import { ToastContainer } from "react-toastify";
-const PeriodicServiceIndex = () => {
+const PeriodicServiceIndex = (props) => {
   const pathName = usePathname();
   const [toastieDisplay, setToastieDisplay] = useState(false);
   const [isClient, setIsClient] = useState(false);
@@ -72,13 +70,20 @@ const PeriodicServiceIndex = () => {
   return (
     <div className={"flex flex-col gap-4 lg:gap-10"}>
       <div className="flex flex-col gap-4">
-        <PeriodicServiceUnderCard />
+        <PeriodicServiceUnderCard
+          title={props.title}
+          servics={props.servics}
+          description={props.description}
+          icon={props.icon}
+        />
         <div className="flex flex-col min-[1440px]:flex-row gap-4">
           <div className="bg-[#E7E7E7] flex flex-1 gap-4 rounded-2xl min-[580px]:p-3 cursor-pointer relative max-h-[200px] overflow-hidden">
             <Image
-              src={repair2}
+              src={props.ImageAddress1}
               alt={"repair2"}
               className="w-full min-[580px]:w-48 h-auto rounded-xl aspect-[200/130] absolute min-[580px]:static blur-sm min-[580px]:blur-0 brightness-75 min-[580px]:brightness-100"
+              width={200}
+              height={200}
             />
             <div
               className={
@@ -107,9 +112,11 @@ const PeriodicServiceIndex = () => {
           </div>
           <div className="bg-[#E7E7E7] flex flex-1 gap-4 rounded-2xl min-[580px]:p-3 cursor-pointer relative max-h-[200px] overflow-hidden">
             <Image
-              src={assistance}
+              src={props.ImageAddress2}
               alt={"assistance"}
               className="w-full min-[580px]:w-48 h-auto rounded-xl aspect-[200/130] absolute min-[580px]:static blur-sm min-[580px]:blur-0 brightness-75 min-[580px]:brightness-100"
+              width={200}
+              height={200}
             />
             <div
               className={
