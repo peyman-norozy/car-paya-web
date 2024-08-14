@@ -9,7 +9,8 @@ import { error, forceOnlyNumberInput } from "@/utils/function-utils";
 import { getLoginOtpData } from "@/store/todoSlice";
 import Spinner from "@/components/Spinner";
 import { postData } from "@/utils/client-api-function-utils";
-
+import Image from "next/image";
+import loginImage from "@/public/assets/images/login.png"
 export default function PhoneNumberLogin(props) {
   const [telPhoneValueNumber, setTelPhoneValueNumber] = useState("");
   const [sliderShowState, setSliderShowState] = useState(false);
@@ -72,36 +73,30 @@ export default function PhoneNumberLogin(props) {
   };
 
   return (
-    <div className="max-w-md m-auto my-[80px]">
-      <div className="border-t-4 border-red-500 overflow-hidden rounded shadow-lg">
-        <h3 className="text-xl text-center mt-8 mb-8">خوش آمدید!</h3>
-        <div className="px-4 mb-4">
-          <div className="text-center">
-            <h1 className="font-bold">شماره موبایل خود را وارد کنید:</h1>
-            <h2 className="text-14 mt-2">
-              اگر ثبت نام کرده اید، با شماره خود وارد شوید.
-            </h2>
-          </div>
+    <div className="max-w-[660px] m-auto my-[80px] mt-40">
+      <div className="bg-[#383838ad] overflow-hidden rounded-2xl p-6 flex flex-col items-center gap-8">
+        <span className="text-2xl font-medium text-center text-[#FEFEFE]">ورود به کارچک</span>
+        <Image src={loginImage} className="w-[360px] aspect-auto" width={360} height={244}/>
+        <div className="flex flex-col items-start gap-2 w-full max-w-[360px]">
+          <h1 className="font-bold text-[#FEFEFE]">شماره موبایل:</h1>
           <Input
             type={"tel"}
             placeholder={"09129273836"}
             className={
-              "border border-red-500 outline-red-600 rounded w-full p-3 mt-8"
+              "bg-[#FEFEFE] rounded-lg w-full p-3 text-right"
             }
             maxlength="11"
             on_change={telPhoneNumberChangeHandler}
             onKeyDown={clickTelNumberBtn}
           />
-        </div>
         <p className={"text-12 text-red-500 mb-[10px] mr-[20px]"}>
           {phoneNumberError}
         </p>
-        <div className="px-4 mb-6 text-center">
-          <Button
+        <Button
             type={"button"}
             disabled_btn={sliderShowState}
             class_name={
-              "w-[220px] h-[40px] bg-red-600 text-white rounded-5 cursor-pointer"
+              "w-[360px] h-[40px] bg-[#F66B34] text-white rounded-5 cursor-pointer"
             }
             on_click={clickTelNumberBtn}
           >

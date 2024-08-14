@@ -95,6 +95,9 @@ const AddressModal = (props) => {
           console.log(props);
           props.timeData();
           props.setModalIsOpen(false);
+        } else if (pathName === "/detailing/selectLocation") {
+          props.timeData();
+          props.setModalIsOpen(false);
         }
 
         // props.setIsLoading(true);
