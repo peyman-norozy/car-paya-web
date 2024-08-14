@@ -13,6 +13,7 @@ const CarSelectComponent = () => {
   const [vehicleType, setVehicleType] = useState("car");
   const [level, setLevel] = useState(1);
   const [data, setData] = useState([]);
+  const [searchedData, setSearchedData] = useState([]);
   const [carSelected, setCarSelected] = useState(false);
   const [selectedCar, setSelectedCar] = useState({});
   // const [provienceCity, setProvienceCity] = useState([]);
@@ -82,6 +83,11 @@ const CarSelectComponent = () => {
   //     setSelectedCity("");
   //   }
   // }, []);
+  function searchChangeHandler(value){
+    setSearchedData(data.filter((item)=>{
+      return item.title.includes(value);
+    }))
+  }
 
   async function getInvoiceData() {
     const data = await getData("/web/cart")
@@ -110,6 +116,7 @@ const CarSelectComponent = () => {
       .get(process.env.BASE_API + "/web/" + model + "-brands")
       .then((res) => {
         setData(res.data.data);
+        setSearchedData(res.data.data);
       });
     setLevel(2);
     setBackurl([model])
@@ -127,6 +134,7 @@ const CarSelectComponent = () => {
         .get(process.env.BASE_API + "/web/" + vehicleType + route + id)
         .then((res) => {
           setData(res.data.data);
+          setSearchedData(res.data.data);
         });
       setLevel(level2 + 1);
     } else {
@@ -353,17 +361,18 @@ const CarSelectComponent = () => {
                 <span className="text-center font-bold text-[#FEFEFE]">
                   انتخاب برند
                 </span>
-                <div className="flex gap-2 py-1 pr-4 pl-1 text-[#B0B0B0] bg-[#B0B0B01F] rounded-lg">
+                <div className="flex gap-2 py-1 pr-4 pl-1 text-[#dddddd] bg-[#B0B0B01F] rounded-lg">
                   <i className="cc-search text-xl" />
                   <input
-                    className="outline-none text-14 bg-[#ffffff01] w-full"
+                    className="outline-none text-14 font-medium bg-[#ffffff01] w-full text-[#dddddd] placeholder:text-[#dddddd]"
                     placeholder="جستجو..."
+                    onChange={(e)=>{searchChangeHandler(e.target.value)}}
                   />
-                <i className={`cc-arrow-right text-2xl rotate-180 text-[#ffffff] bg-[#ffffff38] px-2 rounded-md h-7 leading-7 ${level>2?"":"hidden"}`} onClick={backClickHandler}/>
+                <i className={`cc-arrow-right text-2xl rotate-180 text-[#ffffff] bg-[#ffffff38] px-2 rounded-md h-7 leading-7 ${level>2?"":"hidden"} cursor-pointer hover:bg-[#ffffff20] transition-all duration-200`} onClick={backClickHandler}/>
                 </div>
                 <div className="h-[363px] overflow-y-scroll mt-2 overflow-x-hidden">
                   <div className="grid grid-cols-3 gap-x-8 gap-y-[42px]">
-                    {data.map((item, index) => (
+                    {searchedData.map((item, index) => (
                       <div
                         className="flex flex-col items-center gap-2 cursor-pointer hover:scale-110 transition-all duration-300"
                         key={index}
