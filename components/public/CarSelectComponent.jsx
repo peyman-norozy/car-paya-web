@@ -205,8 +205,12 @@ const CarSelectComponent = () => {
               <button
                 className="text-[#F66B34] text-16 cursor-pointer font-medium"
                 onClick={() => {
-                  setCarSelected(false),
+                  setCarSelected(false);
                     localStorage.removeItem("selectedVehicle");
+                    setQuery.deleteQuery(
+                        "selectTipState",
+                        searchParams.get("selectTipState"),
+                    );
                 }}
               >
                 تغییر خودرو

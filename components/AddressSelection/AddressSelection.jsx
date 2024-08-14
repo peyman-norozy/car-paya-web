@@ -67,9 +67,9 @@ const AddressSelection = (props) => {
   }
 
   function searchClickHandler() {
-    props.timeData({services:srviceQuery.join(",")});
+    props.timeData({ services: srviceQuery.join(",") });
   }
-
+  console.log(servicesData);
   return (
     <>
       {props.status === "FIXED" ? (
@@ -84,41 +84,43 @@ const AddressSelection = (props) => {
             >
               انتخاب محله
             </span>
-              <div className={`absolute overflow-y-scroll rounded-lg top-[42px] z-[2] bg-[#5D697A] ${optionState?"w-40":"w-0"} overflow-hidden transition-all`}>
-                <div
-                  className="max-h-[200px] flex flex-col p-2 gap-1 w-40"
-                  ref={optionRef}
+            <div
+              className={`absolute overflow-y-scroll rounded-lg top-[42px] z-[2] bg-[#5D697A] ${optionState ? "w-40" : "w-0"} overflow-hidden transition-all`}
+            >
+              <div
+                className="max-h-[200px] flex flex-col p-2 gap-1 w-40"
+                ref={optionRef}
+              >
+                <input
+                  className="w-full bg-[#FEFEFE] rounded-lg text-[#0E0E0E] h-8 outline-none mb-1 px-2"
+                  onChange={(e) => {
+                    inputChangeHandler(e.target.value);
+                  }}
+                />
+                <span
+                  className="cursor-pointer hover:bg-[#6e7c91] py-1 px-2 text-[#FEFEFE] text-14"
+                  onClick={(e) => {
+                    props.timeData();
+                    setOptionState(false);
+                  }}
                 >
-                  <input
-                    className="w-full bg-[#FEFEFE] rounded-lg text-[#0E0E0E] h-8 outline-none mb-1 px-2"
-                    onChange={(e) => {
-                      inputChangeHandler(e.target.value);
-                    }}
-                  />
+                  همه محله ها
+                </span>
+                {searchCity.map((item, index) => (
                   <span
-                      className="cursor-pointer hover:bg-[#6e7c91] py-1 px-2 text-[#FEFEFE] text-14"
-                      onClick={(e) => {
-                        props.timeData();
-                        setOptionState(false)
-                      }}
-                    >
-                      همه محله ها
-                    </span>
-                  {searchCity.map((item, index) => (
-                    <span
-                      className="cursor-pointer hover:bg-[#6e7c91] py-1 px-2 text-[#FEFEFE] text-14"
-                      value={item.id}
-                      onClick={(e) => {
-                        props.timeData({area_id: item.id});
-                        setOptionState(false)
-                      }}
-                      key={index}
-                    >
-                      {item.label}
-                    </span>
-                  ))}
-                </div>
+                    className="cursor-pointer hover:bg-[#6e7c91] py-1 px-2 text-[#FEFEFE] text-14"
+                    value={item.id}
+                    onClick={(e) => {
+                      props.timeData({ area_id: item.id });
+                      setOptionState(false);
+                    }}
+                    key={index}
+                  >
+                    {item.label}
+                  </span>
+                ))}
               </div>
+            </div>
           </div>
           <div className="relative">
             <span
@@ -130,10 +132,18 @@ const AddressSelection = (props) => {
             >
               انتخاب سرویس ها
             </span>
-            <div className={`absolute rounded-lg top-[42px] left-0 bg-[#5D697A] z-[1010] ${servicesState?`w-[240px] sm:w-[calc(100vw*2/5)] p-4`:`w-0`} transition-all duration-500 flex flex-col gap-4 overflow-hidden`}>
-              <div className={`flex flex-wrap gap-6 overflow-y-scroll overflow-x-hidden max-h-[200px]`} ref={serviceDropDownRef}>
-                  {servicesData.map((item) => (
-                  <div className="checkbox-wrapper-42 flex items-center gap-1 min-w-[210px]">
+            <div
+              className={`absolute rounded-lg top-[42px] left-0 bg-[#5D697A] z-[1010] ${servicesState ? `w-[240px] sm:w-[calc(100vw*2/5)] p-4` : `w-0`} transition-all duration-500 flex flex-col gap-4 overflow-hidden`}
+            >
+              <div
+                className={`flex flex-wrap gap-6 overflow-y-scroll overflow-x-hidden max-h-[200px]`}
+                ref={serviceDropDownRef}
+              >
+                {servicesData.map((item, index) => (
+                  <div
+                    key={index}
+                    className="checkbox-wrapper-42 flex items-center gap-1 min-w-[210px]"
+                  >
                     <input
                       id={item.value}
                       type="checkbox"
@@ -149,9 +159,16 @@ const AddressSelection = (props) => {
                       {item.label}
                     </label>
                   </div>
-                  ))}
+                ))}
               </div>
-              <button className={"bg-[#F66B34] px-8 py-2 text-[#FEFEFE] rounded-[8px] text-14 w-fit"} onClick={searchClickHandler}>جستجو</button>
+              <button
+                className={
+                  "bg-[#F66B34] px-8 py-2 text-[#FEFEFE] rounded-[8px] text-14 w-fit"
+                }
+                onClick={searchClickHandler}
+              >
+                جستجو
+              </button>
             </div>
           </div>
         </div>

@@ -2,41 +2,42 @@
 import AddressSelection from "@/components/AddressSelection/AddressSelection";
 import { getDataWithFullErrorRes } from "@/utils/api-function-utils";
 import { useCallback, useEffect, useState } from "react";
+import { useSearchParams } from "next/navigation";
 
-const Dealership = (props) => {
+const Dealership = () => {
   const [myLocationData, setMyLocationData] = useState([]);
   const [carCheckLocations, setCarCheckLocations] = useState([]);
   const [filter, setFilter] = useState([]);
+  const searchParams = useSearchParams();
 
-  const timeData = useCallback((query) => {
-    (async () => {
-      const fetchTimeData = await getDataWithFullErrorRes(
-        "/web/detailing?step=step-1",
-        {
-          city_id: JSON.parse(localStorage.getItem("city"))?.cityId,
-          type: props.searchParams.type,
-          vehicle_tip_id: JSON.parse(localStorage.getItem("selectedVehicle"))
-            ?.id,
-            ...query
-        },
-      );
-      if (props.searchParams.type === "FIXED") {
-        setFilter(fetchTimeData.filter);
-        setCarCheckLocations(fetchTimeData.data);
-      } else if (props.searchParams.type === "MOVING") {
-        console.log(fetchTimeData);
-        setMyLocationData(fetchTimeData.data);
-      }
-    })();
-  }, [
-    props.searchParams.type,
-    props.searchParams.city_id,
-    props.searchParams.time_id,
-  ]);
+  const timeData = useCallback(
+    (query) => {
+      (async () => {
+        const fetchTimeData = await getDataWithFullErrorRes(
+          "/web/detailing?step=step-1",
+          {
+            city_id: JSON.parse(localStorage.getItem("city"))?.cityId,
+            type: searchParams.get("type"),
+            vehicle_tip_id: JSON.parse(localStorage.getItem("selectedVehicle"))
+              ?.id,
+            ...query,
+          },
+        );
+        if (searchParams.get("type") === "FIXED") {
+          setFilter(fetchTimeData.filter);
+          setCarCheckLocations(fetchTimeData.data);
+        } else if (searchParams.get("type") === "MOVING") {
+          console.log(fetchTimeData);
+          setMyLocationData(fetchTimeData.data);
+        }
+      })();
+    },
+    [searchParams],
+  );
 
   useEffect(() => {
     timeData();
-  }, [props.searchParams.type]);
+  }, [timeData]);
 
   console.log(carCheckLocations);
   return (
@@ -64,7 +65,7 @@ const Dealership = (props) => {
                 timeData={timeData}
               />
             ),
-          }[props.searchParams.type]
+          }[searchParams.get("type")]
         }
       </div>
     </div>
