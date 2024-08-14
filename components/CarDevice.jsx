@@ -711,7 +711,11 @@ const CarDevice = (props) => {
             </Button>
           </section>
         </div>
-        <div className="grid size800:grid-cols-2 grid-cols-1 gap-[32px]">
+        <div
+          className={
+            "grid size800:grid-cols-3 size582:grid-cols-2 grid-cols-1 gap-[32px]"
+          }
+        >
           <div className={"flex flex-col gap-4"}>
             <label
               htmlFor={"carName"}
@@ -725,7 +729,7 @@ const CarDevice = (props) => {
               type="text"
               value={newMyCarValue !== "null" ? newMyCarValue : ""}
               placeholder="مثال: خودروی من"
-              className="border border-[#d1d1d1] outline-none pr-2 text-14 h-[48px] placeholder:text-12 placeholder:text-right w-full rounded-5"
+              className="border border-[#d1d1d1] font-medium outline-none pr-2 text-14 h-[48px] placeholder:text-12 placeholder:text-right w-full rounded-5"
               id={"carName"}
               name={"carName"}
               on_change={InputChangeHandler}
@@ -743,12 +747,6 @@ const CarDevice = (props) => {
             className={"h-[48px]"}
             lable={"سال ساخت"}
           />
-        </div>
-        <div
-          className={
-            "grid size800:grid-cols-3 size582:grid-cols-2 grid-cols-1 gap-[32px]"
-          }
-        >
           <div className="flex flex-col gap-4">
           <label className={"font-bold text-[#FEFEFE]"}>پلاک</label>
             <MachinTagInput
@@ -805,7 +803,7 @@ const CarDevice = (props) => {
             />
           </div> */}
         </div>
-        <GeneralCarInformation
+        {/* <GeneralCarInformation
           title={"بیمه ثالث"}
           id={"thirdPartyInsurance"}
           pageType={props.pageType}
@@ -862,7 +860,7 @@ const CarDevice = (props) => {
           violationState={true}
           allSelectInputState={false}
           setNewFinePrice={setNewFinePrice}
-        />
+        /> */}
         <div className="text-left mt-6">
           <Button
             type={"submit"}
