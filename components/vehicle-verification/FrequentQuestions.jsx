@@ -12,10 +12,10 @@ const FrequentQuestions = () => {
         {title: 'لغو درخواست کارشناسی چه زمانی امکان‌پذیر است؟ آیا در صورت لغو، هزینه آن بازگردانده می‌شود؟'},
     ]
     return (
-        <div className={'flex flex-col items-center w-[95%] size882:w-full m-auto mt-[44px] size690:mt-[4rem]'}>
+        <div className={'flex flex-col items-center w-full m-auto'}>
             <h3 className={'text-20 mb-[1.8rem]'}>سوالات متداول</h3>
-            <ul className={'w-full '}>
-                {data.map((item, index) => <li key={index} className={'mb-[1rem] w-full even:bg-[#F2F2F266] odd:bg-[#E0E0E066] rounded-lg'}><FrequentQuestionCard title={item.title}/></li>)}
+            <ul className={'w-full flex flex-col gap-6'}>
+                {data.map((item, index) => <FrequentQuestionCard key={index} title={item.title}/>)}
             </ul>
         </div>
     );

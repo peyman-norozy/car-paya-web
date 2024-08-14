@@ -38,7 +38,10 @@ const Footer = (props) => {
             <li className="text-14">درباره ما</li>
           </ul>
           <div className="flex gap-6">
-            <Image
+          <a referrerpolicy='origin' target='_blank' href='https://trustseal.enamad.ir/?id=516939&Code=2tAiW764fGvFlV9b5qFrVhBbe6rQHow2'>
+          <img referrerpolicy='origin' src='https://trustseal.enamad.ir/logo.aspx?id=516939&Code=2tAiW764fGvFlV9b5qFrVhBbe6rQHow2' alt='' style={{cursor:'pointer'}} code='2tAiW764fGvFlV9b5qFrVhBbe6rQHow2'/>
+          </a>
+            {/* <Image
               src="/assets/icons/Enemad.svg"
               alt="enamd"
               width={60}
@@ -51,14 +54,7 @@ const Footer = (props) => {
               width={60}
               height={60}
               className="m-0"
-            />
-            <Image
-              src="/assets/icons/Enemad.svg"
-              alt="enamd"
-              width={60}
-              height={60}
-              className="m-0"
-            />    
+            />     */}
           </div>
         </div>
       </div>
