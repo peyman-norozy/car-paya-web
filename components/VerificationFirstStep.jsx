@@ -32,7 +32,7 @@ const VerificationFirstStep = (props) => {
   ];
 
   const PackageStepHandler = () => {
-    setQuery.setMultiQuery([{key: 'city_id', value: localStorage.getItem("city").cityId}, {key: 'vehicle_tip', value: localStorage.getItem("selectedVehicle").id}])
+    setQuery.setMultiQuery([{key: 'city_id', value: JSON.parse(localStorage.getItem("city")).cityId}, {key: 'vehicle_tip', value: JSON.parse(localStorage.getItem("selectedVehicle")).id},{ key: "step", value: "step-1" }])
     setStep(2);
     // setModalIsOpen(true);
     // router.push(
