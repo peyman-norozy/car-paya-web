@@ -764,10 +764,7 @@ const CarDevice = (props) => {
               editPlaqueData={newEditData.info&&newEditData.info.plaque}
             />
           </div>
-          <div className="flex flex-col gap-4">
-            {/*<span className="absolute text-12 text-[#aaa] top-4 right-2">*/}
-            {/*   کیلومتر فعلی خودرو*/}
-            {/*</span>*/}
+          {/* <div className="flex flex-col gap-4">
             <label
               htmlFor={"kilometerStart"}
               className={
@@ -776,9 +773,6 @@ const CarDevice = (props) => {
             >
               کیلومتر فعلی خودرو
             </label>
-            {/* {newStartKilometerState && (
-              <span className="absolute left-2 top-4 text-12">کیلومتر</span>
-            )} */}
             <Input
               type="text"
               value={newStartKilometerValue}
@@ -789,11 +783,8 @@ const CarDevice = (props) => {
               } text-14 h-[48px] placeholder:text-12 placeholder:text-right text-left w-full rounded-5`}
               on_change={InputChangeHandler}
             />
-          </div>
-          <div className="flex flex-col gap-4">
-            {/*<span className="absolute text-12 text-[#aaa] top-4 right-2">*/}
-            {/*   کیلومتر مصرفی ماهانه*/}
-            {/*</span>*/}
+          </div> */}
+          {/* <div className="flex flex-col gap-4">
             <label
               htmlFor={"kilometerEnd"}
               className={
@@ -802,9 +793,6 @@ const CarDevice = (props) => {
             >
               کیلومتر مصرفی ماهانه
             </label>
-            {/* {newEndKilometerState && (
-              <span className="absolute left-2 top-4 text-12">کیلومتر</span>
-            )} */}
             <Input
               type="text"
               value={newEndKilometerValue}
@@ -815,7 +803,7 @@ const CarDevice = (props) => {
               } text-14 h-[48px] placeholder:text-12 placeholder:text-right text-left w-full rounded-5`}
               on_change={InputChangeHandler}
             />
-          </div>
+          </div> */}
         </div>
         <GeneralCarInformation
           title={"بیمه ثالث"}

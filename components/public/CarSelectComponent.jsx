@@ -362,11 +362,11 @@ const CarSelectComponent = () => {
                   />
                 <i className={`cc-arrow-right text-2xl rotate-180 text-[#ffffff] bg-[#ffffff38] px-2 rounded-md h-7 leading-7 ${level>2?"":"hidden"}`} onClick={backClickHandler}/>
                 </div>
-                <div className="h-[363px] overflow-y-scroll mt-2">
+                <div className="h-[363px] overflow-y-scroll mt-2 overflow-x-hidden">
                   <div className="grid grid-cols-3 gap-x-8 gap-y-[42px]">
                     {data.map((item, index) => (
                       <div
-                        className="flex flex-col items-center gap-2"
+                        className="flex flex-col items-center gap-2 cursor-pointer hover:scale-110 transition-all duration-300"
                         key={index}
                         onClick={() => {
                           optionClickHandler(item.id, item);
