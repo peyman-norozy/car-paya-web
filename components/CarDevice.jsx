@@ -260,6 +260,7 @@ const CarDevice = (props) => {
   // }, [newEditData]);
 
   const myCarSubmitHandler = async (event) => {
+    
     event.preventDefault();
     if (props.pageType === "edit" && Object.keys(newEditData).length > 0) {
       editFormData.set(
@@ -282,62 +283,62 @@ const CarDevice = (props) => {
       editFormData.set("plaque[1]", newPlaque_1);
       editFormData.set("plaque[2]", newPlaque_2);
       editFormData.set("plaque[3]", newPlaque_3);
-      editFormData.set(
-        "kilometers_now",
-        newStartKilometerValue
-          ? newStartKilometerValue.split(",").join("")
-          : "",
-      );
-      editFormData.set(
-        "kilometers_use",
-        newEndKilometerValue ? newEndKilometerValue.split(",").join("") : "",
-      );
       editFormData.set("title", newMyCarValue);
-      editFormData.set(
-        "information[third_party_insurance_start_at]",
-        newThirdPartyInsuranceStartAt,
-      );
-      editFormData.set(
-        "information[third_party_insurance_end_at]",
-        newThirdPartyInsuranceEndAt,
-      );
-      editFormData.set(
-        "information[body_insurance_start_at]",
-        newBodyInsuranceStartAt,
-      );
-      editFormData.set(
-        "information[body_insurance_end_at]",
-        newBodyInsuranceEndAt,
-      );
-      editFormData.set(
-        "information[technical_diagnosis_start_at]",
-        newTechnicalDiagnosisStartAt,
-      );
-      editFormData.set(
-        "information[technical_diagnosis_end_at]",
-        newTechnicalDiagnosisEndAt,
-      );
-      editFormData.set(
-        "information[technical_diagnosis_remember]",
-        String(newTechnicalDiagnosisRemember),
-      );
-      editFormData.set(
-        "information[third_party_insurance_remember]",
-        String(newThirdPartyInsuranceRemember),
-      );
-      editFormData.set(
-        "information[body_insurance_remember]",
-        String(newBodyInsuranceRemember),
-      );
-      editFormData.set(
-        "information[body_insurance_company]",
-        newBodyInsuranceCompany,
-      );
-      editFormData.set(
-        "information[third_party_insurance_company]",
-        newThirdPartyInsuranceCompany,
-      );
-      editFormData.set("information[fine_price]", newFinePrice);
+      // editFormData.set(
+      //   "kilometers_now",
+      //   newStartKilometerValue
+      //     ? newStartKilometerValue.split(",").join("")
+      //     : "",
+      // );
+      // editFormData.set(
+      //   "kilometers_use",
+      //   newEndKilometerValue ? newEndKilometerValue.split(",").join("") : "",
+      // );
+      // editFormData.set(
+      //   "information[third_party_insurance_start_at]",
+      //   newThirdPartyInsuranceStartAt,
+      // );
+      // editFormData.set(
+      //   "information[third_party_insurance_end_at]",
+      //   newThirdPartyInsuranceEndAt,
+      // );
+      // editFormData.set(
+      //   "information[body_insurance_start_at]",
+      //   newBodyInsuranceStartAt,
+      // );
+      // editFormData.set(
+      //   "information[body_insurance_end_at]",
+      //   newBodyInsuranceEndAt,
+      // );
+      // editFormData.set(
+      //   "information[technical_diagnosis_start_at]",
+      //   newTechnicalDiagnosisStartAt,
+      // );
+      // editFormData.set(
+      //   "information[technical_diagnosis_end_at]",
+      //   newTechnicalDiagnosisEndAt,
+      // );
+      // editFormData.set(
+      //   "information[technical_diagnosis_remember]",
+      //   String(newTechnicalDiagnosisRemember),
+      // );
+      // editFormData.set(
+      //   "information[third_party_insurance_remember]",
+      //   String(newThirdPartyInsuranceRemember),
+      // );
+      // editFormData.set(
+      //   "information[body_insurance_remember]",
+      //   String(newBodyInsuranceRemember),
+      // );
+      // editFormData.set(
+      //   "information[body_insurance_company]",
+      //   newBodyInsuranceCompany,
+      // );
+      // editFormData.set(
+      //   "information[third_party_insurance_company]",
+      //   newThirdPartyInsuranceCompany,
+      // );
+      // editFormData.set("information[fine_price]", newFinePrice);
       editFormData.set("_method", "PUT");
       const response = await putData(
         process.env.BASE_API +
@@ -365,21 +366,21 @@ const CarDevice = (props) => {
         newPlaque_1,
         event.target.plaque_2.value,
         event.target.plaque_3.value,
-        event.target.kilometerStart.value.split(",").join(""),
-        event.target.kilometerEnd.value.split(",").join(""),
         event.target.carName.value,
-        newBodyInsuranceStartAt,
-        newBodyInsuranceEndAt,
-        newBodyInsuranceCompany,
-        newBodyInsuranceRemember,
-        newThirdPartyInsuranceStartAt,
-        newThirdPartyInsuranceEndAt,
-        newThirdPartyInsuranceCompany,
-        newThirdPartyInsuranceRemember,
-        newTechnicalDiagnosisStartAt,
-        newTechnicalDiagnosisEndAt,
-        newTechnicalDiagnosisRemember,
-        event.target.finePrice.value.split(",").join(""),
+        // event.target.kilometerStart.value.split(",").join(""),
+        // event.target.kilometerEnd.value.split(",").join(""),
+        // newBodyInsuranceStartAt,
+        // newBodyInsuranceEndAt,
+        // newBodyInsuranceCompany,
+        // newBodyInsuranceRemember,
+        // newThirdPartyInsuranceStartAt,
+        // newThirdPartyInsuranceEndAt,
+        // newThirdPartyInsuranceCompany,
+        // newThirdPartyInsuranceRemember,
+        // newTechnicalDiagnosisStartAt,
+        // newTechnicalDiagnosisEndAt,
+        // newTechnicalDiagnosisRemember,
+        // event.target.finePrice.value.split(",").join(""),
       );
       setButtonDisabledState(true);
       const response = await postData(
