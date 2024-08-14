@@ -171,7 +171,6 @@ const CarSelectComponent = () => {
     }
   }
     useEffect(() => {
-        console.log(attributeValue);
         if (attributeValue) {
             setVehicleType(attributeValue);
         } else {
@@ -179,7 +178,7 @@ const CarSelectComponent = () => {
         }
     }, [attributeValue]);
 
-  if (pathname.search("/invoice")&&pathname.search("/panel")&&pathname !== "/login"){return (
+  if (!pathname.includes("/invoice")&&!pathname.includes("/panel")&&pathname !== "/login"){return (
     <div className="absolute h-full top-0 right-auto pb-10">
       <div
         className={`bg-[#383838A3] h-[605px] rounded-2xl w-[400px] sticky ${showHeaderData ? "top-[123px]" : "top-[10px]"} right-auto z-[2] backdrop-blur-[16px] p-4 hidden lg:flex flex-col gap-4`}
