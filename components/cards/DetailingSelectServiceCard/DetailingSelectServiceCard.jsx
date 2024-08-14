@@ -2,7 +2,7 @@
 import { API_PATHS } from "@/configs/routes.config";
 import useSetQuery from "@/hook/useSetQuery";
 import Image from "next/image";
-import Link from "next/link";
+import { numberWithCommas } from "@/utils/function-utils";
 
 const SelectServiceCard = (props) => {
   const setQuery = useSetQuery();
@@ -32,6 +32,18 @@ const SelectServiceCard = (props) => {
       <span className="text-14 lg:text-18">
         {props.data.selected ? props.data.product : props.data.name}
       </span>
+      {props.data?.discount_sallary && (
+        <div className={"flex items-center gap-1 line-through"}>
+          <span>{numberWithCommas(props.data?.discount_sallary)}</span>
+          <span className={"text-[12px] font-semibold"}>تومان</span>
+        </div>
+      )}
+      {props.data?.salary && (
+        <div className={"flex items-center gap-1"}>
+          <span>{numberWithCommas(props.data?.salary)}</span>
+          <span className={"text-[12px] font-semibold"}>تومان</span>
+        </div>
+      )}
       {props.data.selected && (
         <i className="cc-twitter text-[18px] lg:text-[24px] xl:text-[32px] p-2 bg-[#00000020] rounded-lg absolute top-2 left-2 text-red-600" />
       )}
