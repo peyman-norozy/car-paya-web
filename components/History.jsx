@@ -106,44 +106,35 @@ const History = (props) => {
               <span className="text-[#FEFEFE] text-14 font-medium">
                 تاریخ شروع
               </span>
-              <select className="bg-[#FEFEFE] rounded-lg h-9 text-14 px-2">
-                <option className="text-14">انتخاب</option>
-              </select>
+              <input className="bg-[#FEFEFE] rounded-lg h-9 text-14 px-2 outline-none" value="1402/08/22"/>
             </div>
             <div className="flex flex-col gap-2 w-full">
               <span className="text-[#FEFEFE] text-14 font-medium">
                 تاریخ پایان
               </span>
-              <select className="bg-[#FEFEFE] rounded-lg h-9 text-14 px-2">
-                <option className="text-14">انتخاب</option>
-              </select>
+              <input className="bg-[#FEFEFE] rounded-lg h-9 text-14 px-2 outline-none" value="1403/08/22"/>
             </div>
             <div className="flex flex-col gap-2 w-full">
               <span className="text-[#FEFEFE] text-14 font-medium">
                 شرکت بیمه
               </span>
-              <select className="bg-[#FEFEFE] rounded-lg h-9 text-14 px-2">
-                <option className="text-14">انتخاب</option>
-              </select>
+              <input className="bg-[#FEFEFE] rounded-lg h-9 text-14 px-2 outline-none" value="رازی"/>
             </div>
             <div className="flex flex-col gap-2 w-full">
               <span className="text-[#FEFEFE] text-14 font-medium">استان</span>
-              <select className="bg-[#FEFEFE] rounded-lg h-9 text-14 px-2">
-                <option className="text-14">انتخاب</option>
-              </select>
+              <input className="bg-[#FEFEFE] rounded-lg h-9 text-14 px-2 outline-none" value="تهران"/>
             </div>
             <div className="flex flex-col gap-2 w-full">
               <span className="text-[#FEFEFE] text-14 font-medium">شهر</span>
-              <select className="bg-[#FEFEFE] rounded-lg h-9 text-14 px-2">
-                <option className="text-14">انتخاب</option>
-              </select>
+              <input className="bg-[#FEFEFE] rounded-lg h-9 text-14 px-2 outline-none" value="تهران"/>
             </div>
             <div className="flex flex-col gap-2 w-full">
               <span className="text-[#FEFEFE] text-14 font-medium">
                 یادآوری معاینه فنی
               </span>
               <select className="bg-[#FEFEFE] rounded-lg h-9 text-14 px-2">
-                <option className="text-14">انتخاب</option>
+                <option className="text-14">فعال</option>
+                <option className="text-14">غیرفعال</option>
               </select>
             </div>
           </div>
@@ -157,44 +148,35 @@ const History = (props) => {
               <span className="text-[#FEFEFE] text-14 font-medium">
                 تاریخ شروع
               </span>
-              <select className="bg-[#FEFEFE] rounded-lg h-9 text-14 px-2">
-                <option className="text-14">انتخاب</option>
-              </select>
+              <input className="bg-[#FEFEFE] rounded-lg h-9 text-14 px-2 outline-none" value="1402/07/15"/>
             </div>
             <div className="flex flex-col gap-2 w-full">
               <span className="text-[#FEFEFE] text-14 font-medium">
                 تاریخ پایان
               </span>
-              <select className="bg-[#FEFEFE] rounded-lg h-9 text-14 px-2">
-                <option className="text-14">انتخاب</option>
-              </select>
+              <input className="bg-[#FEFEFE] rounded-lg h-9 text-14 px-2 outline-none" value="1403/07/15"/>
             </div>
             <div className="flex flex-col gap-2 w-full">
               <span className="text-[#FEFEFE] text-14 font-medium">
                 شرکت بیمه
               </span>
-              <select className="bg-[#FEFEFE] rounded-lg h-9 text-14 px-2">
-                <option className="text-14">انتخاب</option>
-              </select>
+              <input className="bg-[#FEFEFE] rounded-lg h-9 text-14 px-2 outline-none" value="رازی"/>
             </div>
             <div className="flex flex-col gap-2 w-full">
               <span className="text-[#FEFEFE] text-14 font-medium">استان</span>
-              <select className="bg-[#FEFEFE] rounded-lg h-9 text-14 px-2">
-                <option className="text-14">انتخاب</option>
-              </select>
+              <input className="bg-[#FEFEFE] rounded-lg h-9 text-14 px-2 outline-none" value="تهران"/>
             </div>
             <div className="flex flex-col gap-2 w-full">
               <span className="text-[#FEFEFE] text-14 font-medium">شهر</span>
-              <select className="bg-[#FEFEFE] rounded-lg h-9 text-14 px-2">
-                <option className="text-14">انتخاب</option>
-              </select>
+              <input className="bg-[#FEFEFE] rounded-lg h-9 text-14 px-2 outline-none" value="تهران"/>
             </div>
             <div className="flex flex-col gap-2 w-full">
               <span className="text-[#FEFEFE] text-14 font-medium">
                 یادآوری معاینه فنی
               </span>
               <select className="bg-[#FEFEFE] rounded-lg h-9 text-14 px-2">
-                <option className="text-14">انتخاب</option>
+                <option className="text-14">فعال</option>
+                <option className="text-14">غیرفعال</option>
               </select>
             </div>
           </div>
@@ -206,29 +188,26 @@ const History = (props) => {
               <span className="text-[#FEFEFE] text-14 font-medium">
                 تاریخ شروع
               </span>
-              <select className="bg-[#FEFEFE] rounded-lg h-9 text-14 px-2">
-                <option className="text-14">انتخاب</option>
-              </select>
+              <input className="bg-[#FEFEFE] rounded-lg h-9 text-14 px-2 outline-none" value="1400/04/10"/>
             </div>
             <div className="flex flex-col gap-2 w-full">
               <span className="text-[#FEFEFE] text-14 font-medium">
                 تاریخ پایان
               </span>
-              <select className="bg-[#FEFEFE] rounded-lg h-9 text-14 px-2">
-                <option className="text-14">انتخاب</option>
-              </select>
+              <input className="bg-[#FEFEFE] rounded-lg h-9 text-14 px-2 outline-none" value="1404/04/10"/>
             </div>
             <div className="flex flex-col gap-2 w-full">
               <span className="text-[#FEFEFE] text-14 font-medium">
                 یادآوری معاینه فنی
               </span>
               <select className="bg-[#FEFEFE] rounded-lg h-9 text-14 px-2">
-                <option className="text-14">انتخاب</option>
+                <option className="text-14">فعال</option>
+                <option className="text-14">غیرفعال</option>
               </select>
             </div>
           </div>
         </div>
-        <div className="w-full max-w-[180px] text-[#FEFEFE] bg-[#F66B34] text-14 font-medium flex items-center justify-center h-10 rounded-lg">ثبت</div>
+        {/* <div className="w-full max-w-[180px] text-[#FEFEFE] bg-[#F66B34] text-14 font-medium flex items-center justify-center h-10 rounded-lg">ثبت</div> */}
         <hr/>
         <div className={"flex items-center justify-between gap-2"}>
           <span className={"text-[#FEFEFE] font-bold text-20"}>
