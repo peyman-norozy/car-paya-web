@@ -19,9 +19,10 @@ const serviceSelection = async (props) => {
       return <div className="mt-[140px] mr-[420px] min-h-[calc(100vh-300px)]">you have error</div>;
     }
   }
+
   return (
     <div className="flex gap-10 max-w-[1676px] w-full px-2 sm:px-4 m-auto mb-10 mt-5 lg:mt-28 min-h-screen">
-      <SelectService data={data} />
+      <SelectService data={data.data} />
     </div>
   );
 };
