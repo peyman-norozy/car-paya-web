@@ -31,15 +31,15 @@ const MainCarTip = (props) => {
   };
 
   const clickTipHandler = async (id, event, item) => {
-    localStorage.setItem(
-      "vehicleImage",
-      event.currentTarget.getAttribute("image"),
-    );
-    localStorage.setItem(
-      "vehicleName",
-      event.currentTarget.getAttribute("name"),
-    );
-    localStorage.setItem("vehicleId", id);
+    // localStorage.setItem(
+    //   "vehicleImage",
+    //   event.currentTarget.getAttribute("image"),
+    // );
+    // localStorage.setItem(
+    //   "vehicleName",
+    //   event.currentTarget.getAttribute("name"),
+    // );
+    // localStorage.setItem("vehicleId", id);
     const response = await getData(
       process.env.BASE_API + "/web" + API_PATHS.YEARS + "/" + id,
     );

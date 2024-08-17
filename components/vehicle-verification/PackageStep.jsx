@@ -59,7 +59,7 @@ const PackageStep = () => {
   return (
     <div
       className={
-        "flex items-start  justify-between pt-[28px] w-[95%] size1136:w-[85%] m-auto "
+        "flex items-start justify-between pt-[28px] w-full lg:w-[calc(100%-424px)] mr-auto"
       }
     >
       <div className={"w-full size1000:w-[50%] flex flex-col"}>

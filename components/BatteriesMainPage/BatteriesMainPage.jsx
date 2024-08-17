@@ -12,13 +12,15 @@ import BatteryAdvice from "@/components/‌BatteryAdvice/‌BatteryAdvice";
 
 const BatteriesMainPage = () => {
   const [client, setClient] = useState(false);
-  let TipId = "";
+  const [tipId, setTipId] = useState("");
 
   useEffect(() => {
     setClient(true);
-    TipId = JSON.parse(localStorage.getItem("selectedVehicle"))?.id
-      ? `&selectTipState=${JSON.parse(localStorage.getItem("selectedVehicle")).id}`
-      : "";
+    setTipId(
+      JSON.parse(localStorage.getItem("selectedVehicle"))?.id
+        ? `&selectTipState=true${JSON.parse(localStorage.getItem("selectedVehicle")).id.toString()}`
+        : "",
+    );
   }, []);
 
   if (!client) {
@@ -44,7 +46,11 @@ const BatteriesMainPage = () => {
             استفاده قرار گیرد.
           </p>
           <Link
-            href={`batteries/products?attribute_slug=type_vehicle&attribute_value=car${TipId}`}
+            href={`batteries/products?attribute_slug=type_vehicle&attribute_value=car${
+              JSON.parse(localStorage.getItem("selectedVehicle"))?.id
+                ? `&selectTipState=true,${JSON.parse(localStorage.getItem("selectedVehicle")).id.toString()}`
+                : ""
+            }`}
             className="bg-[#F66B34] rounded-md py-2 px-4 text-[#FEFEFE] w-fit text-14 mt-2 font-medium"
           >
             ثبت درخواست

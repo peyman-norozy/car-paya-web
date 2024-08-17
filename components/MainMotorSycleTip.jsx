@@ -135,7 +135,7 @@ const MainMotorSycleTip = (props) => {
         if(props.setModalState){
             props.setModalState(false)
         }
-        router.push("/panel/my-vehicle/my-motorcycle/create")
+        router.push("/panel/my-vehicle/my-car/create")
     }
 
 

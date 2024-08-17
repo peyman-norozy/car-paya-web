@@ -12,7 +12,7 @@ const PeriodicServiceIndex = (props) => {
   const pathName = usePathname();
   const [toastieDisplay, setToastieDisplay] = useState(false);
   const [isClient, setIsClient] = useState(false);
-  const [selectedVehicleId, setSelectedVehicleId] = useState(null);
+  // const [selectedVehicleId, setSelectedVehicleId] = useState(null);
   const [servicesState, setServicesState] = useState("");
   const [cityId, setCityId] = useState(null);
   const searchParams = useSearchParams();
@@ -22,11 +22,11 @@ const PeriodicServiceIndex = (props) => {
   useEffect(() => {
     setIsClient(true);
     if (typeof window !== "undefined") {
-      const selectedVehicle = JSON.parse(
-        localStorage.getItem("selectedVehicle"),
-      );
+      // const selectedVehicle = JSON.parse(
+      //   localStorage.getItem("selectedVehicle"),
+      // );
       const city = JSON.parse(localStorage.getItem("city"));
-      setSelectedVehicleId(selectedVehicle?.id);
+      // setSelectedVehicleId(selectedVehicle?.id);
       setCityId(city?.cityId);
     }
   }, [toastieDisplay, searchParams, pathName]);
@@ -48,17 +48,29 @@ const PeriodicServiceIndex = (props) => {
 
   const selectServiceClickHandler = (status) => {
     setToastieDisplay((prev) => !prev);
-    if (pathName.startsWith("/detailing") && selectedVehicleId && cityId) {
-      router.push(
-        `/detailing/selectLocation?type=${status}${searchParams.get("selectTipState") ? "" : `&selectTipState=true,${selectedVehicleId}`}&city_id=${cityId}`,
-      );
-    } else if (
-      pathName.startsWith("/periodic-service") &&
-      selectedVehicleId &&
+    if (
+      pathName.startsWith("/detailing") &&
+      searchParams.get("selectTipState") &&
       cityId
     ) {
       router.push(
-        `/periodic-service/location-selection?type=${status}&selectTipState=true,${selectedVehicleId}&city_id=${cityId}`,
+        `/detailing/selectLocation?type=${status}${
+          searchParams.get("selectTipState")
+            ? `&selectTipState=${searchParams.get("selectTipState")}`
+            : ""
+        }&city_id=${JSON.parse(localStorage.getItem("city"))?.cityId}`,
+      );
+    } else if (
+      pathName.startsWith("/periodic-service") &&
+      searchParams.get("selectTipState") &&
+      cityId
+    ) {
+      router.push(
+        `/periodic-service/location-selection?type=${status}&${
+          searchParams.get("selectTipState")
+            ? `&selectTipState=${searchParams.get("selectTipState")}`
+            : ""
+        }&city_id=${cityId}`,
       );
     }
   };

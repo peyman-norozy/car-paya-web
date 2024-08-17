@@ -5,7 +5,7 @@ import { API_PATHS, INTERNAL_PATHS } from "@/configs/routes.config";
 import { usePathname , useRouter } from "next/navigation";
 import { deleteData } from "@/utils/api-function-utils";
 
-const CertificateCard = ({data , fetchData}) => {
+const CertificateCard = ({data,setDeleteModalState,setDeleteModalId}) => {
     const router = useRouter()
     const pathName = usePathname();
     
@@ -14,10 +14,6 @@ const CertificateCard = ({data , fetchData}) => {
       };
       const editClickHandler = () => {
         router.push(pathName + INTERNAL_PATHS.EDIT + "?product=" + data.id);
-      };
-      const deleteClickHandler = async () => {
-        await deleteData(`${process.env.BASE_API}/user-panel/vehicles/${data.id}`);
-        await fetchData();
       };
     return ( 
         <div className="bg-[#383838A3] flex flex-col gap-5 rounded-2xl p-4">
@@ -70,7 +66,7 @@ const CertificateCard = ({data , fetchData}) => {
               </button>
               <button
                 className="flex items-center justify-center gap-2 border border-[#F66B34] text-[#F66B34] h-10 rounded-lg py-2 text-14 font-medium w-full min-w-[160px]"
-                onClick={deleteClickHandler}
+                onClick={()=>{setDeleteModalState(true);setDeleteModalId(data.id)}}
               >
                 حذف
               </button>

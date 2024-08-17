@@ -11,15 +11,18 @@ import SelectCarModal from "@/components/modal/SelectCarModal";
 import PrivateRoute from "@/routes/private-route";
 import Image from "next/image";
 import CertificateCard from "./certificate/CertificateCard";
+import { deleteData } from "@/utils/api-function-utils";
 const CreateMyCar = () => {
   const [newMyCareData, setNewMyCareData] = useState([]);
-  const [newTotal, setNewTotal] = useState(0);
+  const [deleteModalState, setDeleteModalState] = useState(false);
+  const [deleteModalId, setDeleteModalId] = useState(false);
+  // const [newTotal, setNewTotal] = useState(0);
   const searchParams = useSearchParams();
   const [newSkeletonState, setNewSkeletonState] = useState(false);
   const [modalState, setModalState] = useState(false);
-  const innerWidth = useSelector(
-    (widthData) => widthData.todo.windowInnerWidth,
-  );
+  // const innerWidth = useSelector(
+  //   (widthData) => widthData.todo.windowInnerWidth,
+  // );
 
   let perPage = 4;
   const page = searchParams.get("page");
@@ -60,6 +63,11 @@ const CreateMyCar = () => {
 
   const openCarModalHandler = () => {
     setModalState(true);
+  };
+
+  const deleteClickHandler = async () => {
+    await deleteData(`${process.env.BASE_API}/user-panel/vehicles/${deleteModalId}`);
+    await fetchData();
   };
 
   return (
@@ -123,10 +131,10 @@ const CreateMyCar = () => {
         </div> */}
         <div className="grid grid-cols-2 gap-6">
           {newMyCareData.map((item,index)=>(
-            <CertificateCard data={item} key={index} fetchData={fetchData}/>
+            <CertificateCard data={item} key={index} fetchData={fetchData} setDeleteModalState={setDeleteModalState} setDeleteModalId={setDeleteModalId}/>
           ))}
         </div>
-        <Pagination newTotal={newTotal} perPage={perPage} />
+        {/* <Pagination newTotal={newTotal} perPage={perPage} /> */}
         {
           <div
             className={`fixed top-0 right-0 w-full h-full bg-[#00000050] transition-all duration-1000 z-[9999] ${modalState ? "translate-y-[0%]" : "translate-y-[100%]"}`}
@@ -137,6 +145,19 @@ const CreateMyCar = () => {
           </div>
         }
       </div>
+      {deleteModalState&&<><div
+        className={`fixed inset-0 h-full w-full bg-[#4c4c4caa] z-[20000] transition-all`}
+        onClick={() => setDeleteModalState(false)}
+      ></div>
+      <div
+        className={`bg-[#eee] fixed inset-0 m-auto w-fit h-fit transition-all duration-500 z-[200000] overflow-hidden rounded-2xl flex flex-col items-start p-4 gap-4`}
+      >
+        <span className="text-18">آیا از حذف این مورد اطمینان دارید؟</span>
+        <div className="flex justify-end w-full gap-2">
+          <button className="flex items-center justify-center gap-2 bg-[#F66B34] text-[#FEFEFE] rounded-lg py-2 px-4 text-14 font-medium" onClick={()=>{deleteClickHandler();setDeleteModalState(false)}}>تائید</button>
+          <button className="flex items-center justify-center gap-2 border border-[#F66B34] text-[#F66B34] rounded-lg py-2 px-4 text-14 font-medium" onClick={()=>setDeleteModalState(false)}>لغو</button>
+        </div>
+      </div></>}
     </PrivateRoute>
   );
 };

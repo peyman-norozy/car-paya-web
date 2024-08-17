@@ -40,7 +40,6 @@ const SelectProduct = (props) => {
             className="bg-[#E7E7E7] hover:scale-[102%] transition-transform duration-300 rounded-lg flex flex-col sm:flex-row justify-between p-4 gap-y-4 items-start sm:items-center cursor-pointer"
             for={item.id}
           >
-            {console.log(item)}
             <div className="gap-2 xl:gap-4 flex items-center">
               <Image src={process.env.BASE_API +"/web" +API_PATHS.FILE +"/" + item.image_id} width={60} height={60} className="size-[80px] rounded-md"/>
               <span className="text-14 xl:text-18">{item.name}</span>
