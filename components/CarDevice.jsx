@@ -260,7 +260,6 @@ const CarDevice = (props) => {
   // }, [newEditData]);
 
   const myCarSubmitHandler = async (event) => {
-    
     event.preventDefault();
     if (props.pageType === "edit" && Object.keys(newEditData).length > 0) {
       editFormData.set(
@@ -284,6 +283,7 @@ const CarDevice = (props) => {
       editFormData.set("plaque[2]", newPlaque_2);
       editFormData.set("plaque[3]", newPlaque_3);
       editFormData.set("title", newMyCarValue);
+      editFormData.set("kind", "force_store");
       // editFormData.set(
       //   "kilometers_now",
       //   newStartKilometerValue
@@ -367,6 +367,7 @@ const CarDevice = (props) => {
         event.target.plaque_2.value,
         event.target.plaque_3.value,
         event.target.carName.value,
+        "force_store",
         // event.target.kilometerStart.value.split(",").join(""),
         // event.target.kilometerEnd.value.split(",").join(""),
         // newBodyInsuranceStartAt,
@@ -498,10 +499,10 @@ const CarDevice = (props) => {
           console.log(res.data.data);
           res.data.data.yearId = res.data.data.year;
           setNewEditData(res.data.data);
-        }).catch((err)=>{
-          console.log(err);
-          
         })
+        .catch((err) => {
+          console.log(err);
+        });
     }
   }, [props.pageType, searchParams]);
 
@@ -534,9 +535,13 @@ const CarDevice = (props) => {
   useEffect(() => {
     if (props.pageType === "edit" && Object.keys(newEditData).length > 0) {
       setNewMyCarValue(newEditData.info.title);
-      setNewStartKilometerValue(numberWithCommas(newEditData.info.kilometers_now));
+      setNewStartKilometerValue(
+        numberWithCommas(newEditData.info.kilometers_now),
+      );
       setNewStartKilometerState(true);
-      setNewEndKilometerValue(numberWithCommas(newEditData.info.kilometers_use));
+      setNewEndKilometerValue(
+        numberWithCommas(newEditData.info.kilometers_use),
+      );
       setNewEndKilometerState(true);
       setNewThirdPartyInsuranceStartAt(
         newEditData.insurance_info
@@ -593,9 +598,7 @@ const CarDevice = (props) => {
           ? newEditData.insurance_info.technical_diagnosis_remember
           : "",
       );
-      setNewFinePrice(
-        newEditData.info ? newEditData.info.fine_price : "",
-      );
+      setNewFinePrice(newEditData.info ? newEditData.info.fine_price : "");
     }
   }, [newEditData]);
 
@@ -720,9 +723,7 @@ const CarDevice = (props) => {
           <div className={"flex flex-col gap-4"}>
             <label
               htmlFor={"carName"}
-              className={
-                "px-2 text-16 font-bold text-[#FEFEFE]"
-              }
+              className={"px-2 text-16 font-bold text-[#FEFEFE]"}
             >
               نام وسیله
             </label>
@@ -749,7 +750,7 @@ const CarDevice = (props) => {
             lable={"سال ساخت"}
           />
           <div className="flex flex-col gap-4">
-          <label className={"font-bold text-[#FEFEFE]"}>پلاک</label>
+            <label className={"font-bold text-[#FEFEFE]"}>پلاک</label>
             <MachinTagInput
               setNewPlaque_0={setNewPlaque_0}
               setNewPlaque_1={setNewPlaque_1}
@@ -760,7 +761,7 @@ const CarDevice = (props) => {
               newPlaque_2={newPlaque_2}
               newPlaque_3={newPlaque_3}
               pageType={props.pageType}
-              editPlaqueData={newEditData.info&&newEditData.info.plaque}
+              editPlaqueData={newEditData.info && newEditData.info.plaque}
             />
           </div>
           {/* <div className="flex flex-col gap-4">
