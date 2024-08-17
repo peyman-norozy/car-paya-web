@@ -48,23 +48,23 @@ const VehicleRegistration = (props) => {
     { title: "موتورسیکلت", id: "motorSycle" },{ title: "وسیله سنگین", id: "heavy-car" }])
   const dispatch = useDispatch()
 
-  useEffect(() => {
-    if(props.modalName ==="motorModal"){
-      setTabData([{ title: "موتورسیکلت", id: "motorSycle" }])
-      setNewTabId("motorSycle")
-    }
-    if(props.modalName === "carModal"){
-      setTabData([{ title: "خودرو", id: "car" }])
-      setNewTabId("car")
-    }
-    if(props.modalName === "heavyCarModal"){
-      setTabData([{ title: "وسیله سنگین", id: "heavy-car" }])
-      setNewTabId("heavy-car")
-    }
-    if(hasCookie("Authorization")&&props.page === "homePage"){
-      setTabData(prev=>[...prev,{ title: "خودرو من", id: "myVehicle" }])
-    }
-  }, [props.modalName,props.page]);
+  // useEffect(() => {
+  //   if(props.modalName ==="motorModal"){
+  //     setTabData([{ title: "موتورسیکلت", id: "motorSycle" }])
+  //     setNewTabId("motorSycle")
+  //   }
+  //   if(props.modalName === "carModal"){
+  //     setTabData([{ title: "خودرو", id: "car" }])
+  //     setNewTabId("car")
+  //   }
+  //   if(props.modalName === "heavyCarModal"){
+  //     setTabData([{ title: "وسیله سنگین", id: "heavy-car" }])
+  //     setNewTabId("heavy-car")
+  //   }
+  //   if(hasCookie("Authorization")&&props.page === "homePage"){
+  //     setTabData(prev=>[...prev,{ title: "خودرو من", id: "myVehicle" }])
+  //   }
+  // }, [props.modalName,props.page]);
 
   const clickTabHandler = (event) => {
     setNewTabId(event.currentTarget.id);
@@ -178,13 +178,13 @@ const VehicleRegistration = (props) => {
       >
         <div className="flex flex-col items-center">
           <span className="text-20 text-[#FEFEFE] font-bold">ثبت وسیله نقلیه</span>
-          <ul className="flex justify-center gap-2 text-12 mt-4">
+          <ul className="flex justify-center gap-2 text-12 mt-4 bg-[#F66B3414] p-2">
             {tabData.map((item) => (
               <li
                 key={item.id}
                 id={item.id}
                 className={`px-3 py-1 rounded-[5px] cursor-pointer flex gap-2 text-14 font-medium ${
-                  item.id === newTabId ? "bg-[#F66B34] text-[#FEFEFE]" : ""
+                  item.id === newTabId ? "bg-[#F66B34] text-[#FEFEFE]" : "text-[#F66B34]"
                 }`}
                 onClick={clickTabHandler}
               >

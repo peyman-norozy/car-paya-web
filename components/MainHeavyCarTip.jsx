@@ -143,7 +143,7 @@ const MainHeavyCarTip = (props) => {
     if (props.setModalState) {
       props.setModalState(false);
     }
-    router.push("/panel/my-vehicle/my-heavy-car/create");
+    router.push("/panel/my-vehicle/my-car/create");
   };
 
   return (
