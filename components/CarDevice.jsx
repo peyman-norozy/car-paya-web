@@ -260,6 +260,7 @@ const CarDevice = (props) => {
   // }, [newEditData]);
 
   const myCarSubmitHandler = async (event) => {
+    
     event.preventDefault();
     if (props.pageType === "edit" && Object.keys(newEditData).length > 0) {
       editFormData.set(
@@ -282,62 +283,62 @@ const CarDevice = (props) => {
       editFormData.set("plaque[1]", newPlaque_1);
       editFormData.set("plaque[2]", newPlaque_2);
       editFormData.set("plaque[3]", newPlaque_3);
-      editFormData.set(
-        "kilometers_now",
-        newStartKilometerValue
-          ? newStartKilometerValue.split(",").join("")
-          : "",
-      );
-      editFormData.set(
-        "kilometers_use",
-        newEndKilometerValue ? newEndKilometerValue.split(",").join("") : "",
-      );
       editFormData.set("title", newMyCarValue);
-      editFormData.set(
-        "information[third_party_insurance_start_at]",
-        newThirdPartyInsuranceStartAt,
-      );
-      editFormData.set(
-        "information[third_party_insurance_end_at]",
-        newThirdPartyInsuranceEndAt,
-      );
-      editFormData.set(
-        "information[body_insurance_start_at]",
-        newBodyInsuranceStartAt,
-      );
-      editFormData.set(
-        "information[body_insurance_end_at]",
-        newBodyInsuranceEndAt,
-      );
-      editFormData.set(
-        "information[technical_diagnosis_start_at]",
-        newTechnicalDiagnosisStartAt,
-      );
-      editFormData.set(
-        "information[technical_diagnosis_end_at]",
-        newTechnicalDiagnosisEndAt,
-      );
-      editFormData.set(
-        "information[technical_diagnosis_remember]",
-        String(newTechnicalDiagnosisRemember),
-      );
-      editFormData.set(
-        "information[third_party_insurance_remember]",
-        String(newThirdPartyInsuranceRemember),
-      );
-      editFormData.set(
-        "information[body_insurance_remember]",
-        String(newBodyInsuranceRemember),
-      );
-      editFormData.set(
-        "information[body_insurance_company]",
-        newBodyInsuranceCompany,
-      );
-      editFormData.set(
-        "information[third_party_insurance_company]",
-        newThirdPartyInsuranceCompany,
-      );
-      editFormData.set("information[fine_price]", newFinePrice);
+      // editFormData.set(
+      //   "kilometers_now",
+      //   newStartKilometerValue
+      //     ? newStartKilometerValue.split(",").join("")
+      //     : "",
+      // );
+      // editFormData.set(
+      //   "kilometers_use",
+      //   newEndKilometerValue ? newEndKilometerValue.split(",").join("") : "",
+      // );
+      // editFormData.set(
+      //   "information[third_party_insurance_start_at]",
+      //   newThirdPartyInsuranceStartAt,
+      // );
+      // editFormData.set(
+      //   "information[third_party_insurance_end_at]",
+      //   newThirdPartyInsuranceEndAt,
+      // );
+      // editFormData.set(
+      //   "information[body_insurance_start_at]",
+      //   newBodyInsuranceStartAt,
+      // );
+      // editFormData.set(
+      //   "information[body_insurance_end_at]",
+      //   newBodyInsuranceEndAt,
+      // );
+      // editFormData.set(
+      //   "information[technical_diagnosis_start_at]",
+      //   newTechnicalDiagnosisStartAt,
+      // );
+      // editFormData.set(
+      //   "information[technical_diagnosis_end_at]",
+      //   newTechnicalDiagnosisEndAt,
+      // );
+      // editFormData.set(
+      //   "information[technical_diagnosis_remember]",
+      //   String(newTechnicalDiagnosisRemember),
+      // );
+      // editFormData.set(
+      //   "information[third_party_insurance_remember]",
+      //   String(newThirdPartyInsuranceRemember),
+      // );
+      // editFormData.set(
+      //   "information[body_insurance_remember]",
+      //   String(newBodyInsuranceRemember),
+      // );
+      // editFormData.set(
+      //   "information[body_insurance_company]",
+      //   newBodyInsuranceCompany,
+      // );
+      // editFormData.set(
+      //   "information[third_party_insurance_company]",
+      //   newThirdPartyInsuranceCompany,
+      // );
+      // editFormData.set("information[fine_price]", newFinePrice);
       editFormData.set("_method", "PUT");
       const response = await putData(
         process.env.BASE_API +
@@ -365,21 +366,21 @@ const CarDevice = (props) => {
         newPlaque_1,
         event.target.plaque_2.value,
         event.target.plaque_3.value,
-        event.target.kilometerStart.value.split(",").join(""),
-        event.target.kilometerEnd.value.split(",").join(""),
         event.target.carName.value,
-        newBodyInsuranceStartAt,
-        newBodyInsuranceEndAt,
-        newBodyInsuranceCompany,
-        newBodyInsuranceRemember,
-        newThirdPartyInsuranceStartAt,
-        newThirdPartyInsuranceEndAt,
-        newThirdPartyInsuranceCompany,
-        newThirdPartyInsuranceRemember,
-        newTechnicalDiagnosisStartAt,
-        newTechnicalDiagnosisEndAt,
-        newTechnicalDiagnosisRemember,
-        event.target.finePrice.value.split(",").join(""),
+        // event.target.kilometerStart.value.split(",").join(""),
+        // event.target.kilometerEnd.value.split(",").join(""),
+        // newBodyInsuranceStartAt,
+        // newBodyInsuranceEndAt,
+        // newBodyInsuranceCompany,
+        // newBodyInsuranceRemember,
+        // newThirdPartyInsuranceStartAt,
+        // newThirdPartyInsuranceEndAt,
+        // newThirdPartyInsuranceCompany,
+        // newThirdPartyInsuranceRemember,
+        // newTechnicalDiagnosisStartAt,
+        // newTechnicalDiagnosisEndAt,
+        // newTechnicalDiagnosisRemember,
+        // event.target.finePrice.value.split(",").join(""),
       );
       setButtonDisabledState(true);
       const response = await postData(
@@ -711,7 +712,11 @@ const CarDevice = (props) => {
             </Button>
           </section>
         </div>
-        <div className="grid size800:grid-cols-2 grid-cols-1 gap-[32px]">
+        <div
+          className={
+            "grid size800:grid-cols-3 size582:grid-cols-2 grid-cols-1 gap-[32px]"
+          }
+        >
           <div className={"flex flex-col gap-4"}>
             <label
               htmlFor={"carName"}
@@ -725,7 +730,7 @@ const CarDevice = (props) => {
               type="text"
               value={newMyCarValue !== "null" ? newMyCarValue : ""}
               placeholder="مثال: خودروی من"
-              className="border border-[#d1d1d1] outline-none pr-2 text-14 h-[48px] placeholder:text-12 placeholder:text-right w-full rounded-5"
+              className="border border-[#d1d1d1] font-medium outline-none pr-2 text-14 h-[48px] placeholder:text-12 placeholder:text-right w-full rounded-5"
               id={"carName"}
               name={"carName"}
               on_change={InputChangeHandler}
@@ -743,12 +748,6 @@ const CarDevice = (props) => {
             className={"h-[48px]"}
             lable={"سال ساخت"}
           />
-        </div>
-        <div
-          className={
-            "grid size800:grid-cols-3 size582:grid-cols-2 grid-cols-1 gap-[32px]"
-          }
-        >
           <div className="flex flex-col gap-4">
           <label className={"font-bold text-[#FEFEFE]"}>پلاک</label>
             <MachinTagInput
@@ -805,7 +804,7 @@ const CarDevice = (props) => {
             />
           </div> */}
         </div>
-        <GeneralCarInformation
+        {/* <GeneralCarInformation
           title={"بیمه ثالث"}
           id={"thirdPartyInsurance"}
           pageType={props.pageType}
@@ -862,7 +861,7 @@ const CarDevice = (props) => {
           violationState={true}
           allSelectInputState={false}
           setNewFinePrice={setNewFinePrice}
-        />
+        /> */}
         <div className="text-left mt-6">
           <Button
             type={"submit"}

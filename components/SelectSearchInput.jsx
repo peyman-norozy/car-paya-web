@@ -72,7 +72,7 @@ const SelectSearchInput = (props) => {
       ref={inputRef}
     >
       <div className="z-20 h-full w-full flex items-center justify-center" onClick={setHeightHandler}>
-        <span className="text-12 inline-block text-[#B0B0B0]">
+        <span className={`text-12 inline-block font-medium ${props.disabledSelectOption&&"text-[#696969]"}`}>
           {props.newPlaque_1 ? props.newPlaque_1 : newOption}
         </span>
         {!props.disabledSelectOption&&!props.chevronDisabled&&
