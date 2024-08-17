@@ -5,6 +5,7 @@ import { deleteCookie, getCookie } from "cookies-next";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import { API_PATHS } from "@/configs/routes.config";
+import nProgress from "nprogress";
 
 const LogoutModal = (props) => {
   const exitModalRef = useRef();
@@ -26,6 +27,7 @@ const LogoutModal = (props) => {
       .then(() => {
         deleteCookie("Authorization");
         // dispatch(setLoginState(true));
+        nProgress.start();
         router.push("/");
       });
   };

@@ -8,6 +8,7 @@ import React, { useEffect, useState } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { error } from "@/utils/function-utils";
 import { ToastContainer } from "react-toastify";
+import nProgress from "nprogress";
 const PeriodicServiceIndex = (props) => {
   const pathName = usePathname();
   const [toastieDisplay, setToastieDisplay] = useState(false);
@@ -53,6 +54,7 @@ const PeriodicServiceIndex = (props) => {
       searchParams.get("selectTipState") &&
       cityId
     ) {
+      nProgress.start();
       router.push(
         `/detailing/selectLocation?type=${status}${
           searchParams.get("selectTipState")
@@ -65,6 +67,7 @@ const PeriodicServiceIndex = (props) => {
       searchParams.get("selectTipState") &&
       cityId
     ) {
+      nProgress.start();
       router.push(
         `/periodic-service/location-selection?type=${status}&${
           searchParams.get("selectTipState")

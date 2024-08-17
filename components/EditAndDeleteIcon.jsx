@@ -6,16 +6,19 @@ import React, { useRef } from "react";
 import { useDispatch } from "react-redux";
 import { setTipId } from "@/store/todoSlice";
 import Button from "@/components/Button";
+import nProgress from "nprogress";
 
 const EditAndDeleteIcon = (props) => {
   const router = useRouter();
   const pathName = usePathname();
   const ref = useRef();
   const editClickHandler = (event) => {
+    nProgress.start();
     router.push(pathName + INTERNAL_PATHS.EDIT + "?product=" + event.target.id);
   };
 
   const clickRecordsHandler = () => {
+    nProgress.start();
     router.push(pathName + "/" + props.id + "/" + props.tipId + "/history");
   };
 

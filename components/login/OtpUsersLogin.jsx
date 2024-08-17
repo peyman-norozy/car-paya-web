@@ -9,8 +9,9 @@ import { ToastContainer } from "react-toastify";
 import Spinner from "@/components/Spinner";
 import { loginUser } from "@/store/loginCheckerSlice";
 import { getData } from "@/utils/api-function-utils";
-import otpImage from "@/public/assets/images/otp.png"
+import otpImage from "@/public/assets/images/otp.png";
 import Image from "next/image";
+import nProgress from "nprogress";
 
 export default function OtpUsersLogin(props) {
   const [otp, setOtp] = useState("");
@@ -44,6 +45,7 @@ export default function OtpUsersLogin(props) {
             }
           })
           .then(() => {
+            nProgress.start();
             router.push("/");
             dispatch(loginUser()).then((res) => console.log(res));
             (async () => {
@@ -99,7 +101,12 @@ export default function OtpUsersLogin(props) {
   return (
     <div className="max-w-[660px] m-auto my-[80px] w-full">
       <div className="bg-[#383838ad] overflow-hidden rounded-2xl p-4 flex flex-col items-center gap-6">
-      <Image src={otpImage} className="w-[360px] aspect-auto" width={360} height={244}/>
+        <Image
+          src={otpImage}
+          className="w-[360px] aspect-auto"
+          width={360}
+          height={244}
+        />
         <div className="h-full w-full flex flex-col justify-center items-center text-center gap-2">
           <div className="flex flex-col gap-2 items-start">
             <h2 className="size460:text-[18px] text-[12px] font-bold text-[#FEFEFE]">
@@ -119,7 +126,6 @@ export default function OtpUsersLogin(props) {
                 numInputs={4}
                 renderSeparator={false}
                 renderInput={(props) => <input {...props} />}
-                
                 containerStyle={{
                   width: "250px",
                   height: "50px",

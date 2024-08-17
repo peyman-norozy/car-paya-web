@@ -7,6 +7,7 @@ import { API_PATHS } from "@/configs/routes.config";
 import { error } from "@/utils/function-utils";
 import { usePathname, useRouter } from "next/navigation";
 import PrivateRoute from "@/routes/private-route";
+import nProgress from "nprogress";
 
 const History = (props) => {
   const tabName = [
@@ -55,10 +56,12 @@ const History = (props) => {
   const vehicleId = props.params[2];
   const [newVehicleHistoryData, setNewVehicleHistoryData] = useState([]);
   const closeHistoryHandler = () => {
+    nProgress.start();
     router.push("/" + pathName.split("/").splice(1, 3).join("/"));
   };
 
   const addRecordHandler = () => {
+    nProgress.start();
     router.push(pathName + "/create");
   };
 
@@ -106,27 +109,42 @@ const History = (props) => {
               <span className="text-[#FEFEFE] text-14 font-medium">
                 تاریخ شروع
               </span>
-              <input className="bg-[#FEFEFE] rounded-lg h-9 text-14 px-2 outline-none" value="1402/08/22"/>
+              <input
+                className="bg-[#FEFEFE] rounded-lg h-9 text-14 px-2 outline-none"
+                value="1402/08/22"
+              />
             </div>
             <div className="flex flex-col gap-2 w-full">
               <span className="text-[#FEFEFE] text-14 font-medium">
                 تاریخ پایان
               </span>
-              <input className="bg-[#FEFEFE] rounded-lg h-9 text-14 px-2 outline-none" value="1403/08/22"/>
+              <input
+                className="bg-[#FEFEFE] rounded-lg h-9 text-14 px-2 outline-none"
+                value="1403/08/22"
+              />
             </div>
             <div className="flex flex-col gap-2 w-full">
               <span className="text-[#FEFEFE] text-14 font-medium">
                 شرکت بیمه
               </span>
-              <input className="bg-[#FEFEFE] rounded-lg h-9 text-14 px-2 outline-none" value="رازی"/>
+              <input
+                className="bg-[#FEFEFE] rounded-lg h-9 text-14 px-2 outline-none"
+                value="رازی"
+              />
             </div>
             <div className="flex flex-col gap-2 w-full">
               <span className="text-[#FEFEFE] text-14 font-medium">استان</span>
-              <input className="bg-[#FEFEFE] rounded-lg h-9 text-14 px-2 outline-none" value="تهران"/>
+              <input
+                className="bg-[#FEFEFE] rounded-lg h-9 text-14 px-2 outline-none"
+                value="تهران"
+              />
             </div>
             <div className="flex flex-col gap-2 w-full">
               <span className="text-[#FEFEFE] text-14 font-medium">شهر</span>
-              <input className="bg-[#FEFEFE] rounded-lg h-9 text-14 px-2 outline-none" value="تهران"/>
+              <input
+                className="bg-[#FEFEFE] rounded-lg h-9 text-14 px-2 outline-none"
+                value="تهران"
+              />
             </div>
             <div className="flex flex-col gap-2 w-full">
               <span className="text-[#FEFEFE] text-14 font-medium">
@@ -148,27 +166,42 @@ const History = (props) => {
               <span className="text-[#FEFEFE] text-14 font-medium">
                 تاریخ شروع
               </span>
-              <input className="bg-[#FEFEFE] rounded-lg h-9 text-14 px-2 outline-none" value="1402/07/15"/>
+              <input
+                className="bg-[#FEFEFE] rounded-lg h-9 text-14 px-2 outline-none"
+                value="1402/07/15"
+              />
             </div>
             <div className="flex flex-col gap-2 w-full">
               <span className="text-[#FEFEFE] text-14 font-medium">
                 تاریخ پایان
               </span>
-              <input className="bg-[#FEFEFE] rounded-lg h-9 text-14 px-2 outline-none" value="1403/07/15"/>
+              <input
+                className="bg-[#FEFEFE] rounded-lg h-9 text-14 px-2 outline-none"
+                value="1403/07/15"
+              />
             </div>
             <div className="flex flex-col gap-2 w-full">
               <span className="text-[#FEFEFE] text-14 font-medium">
                 شرکت بیمه
               </span>
-              <input className="bg-[#FEFEFE] rounded-lg h-9 text-14 px-2 outline-none" value="رازی"/>
+              <input
+                className="bg-[#FEFEFE] rounded-lg h-9 text-14 px-2 outline-none"
+                value="رازی"
+              />
             </div>
             <div className="flex flex-col gap-2 w-full">
               <span className="text-[#FEFEFE] text-14 font-medium">استان</span>
-              <input className="bg-[#FEFEFE] rounded-lg h-9 text-14 px-2 outline-none" value="تهران"/>
+              <input
+                className="bg-[#FEFEFE] rounded-lg h-9 text-14 px-2 outline-none"
+                value="تهران"
+              />
             </div>
             <div className="flex flex-col gap-2 w-full">
               <span className="text-[#FEFEFE] text-14 font-medium">شهر</span>
-              <input className="bg-[#FEFEFE] rounded-lg h-9 text-14 px-2 outline-none" value="تهران"/>
+              <input
+                className="bg-[#FEFEFE] rounded-lg h-9 text-14 px-2 outline-none"
+                value="تهران"
+              />
             </div>
             <div className="flex flex-col gap-2 w-full">
               <span className="text-[#FEFEFE] text-14 font-medium">
@@ -188,13 +221,19 @@ const History = (props) => {
               <span className="text-[#FEFEFE] text-14 font-medium">
                 تاریخ شروع
               </span>
-              <input className="bg-[#FEFEFE] rounded-lg h-9 text-14 px-2 outline-none" value="1400/04/10"/>
+              <input
+                className="bg-[#FEFEFE] rounded-lg h-9 text-14 px-2 outline-none"
+                value="1400/04/10"
+              />
             </div>
             <div className="flex flex-col gap-2 w-full">
               <span className="text-[#FEFEFE] text-14 font-medium">
                 تاریخ پایان
               </span>
-              <input className="bg-[#FEFEFE] rounded-lg h-9 text-14 px-2 outline-none" value="1404/04/10"/>
+              <input
+                className="bg-[#FEFEFE] rounded-lg h-9 text-14 px-2 outline-none"
+                value="1404/04/10"
+              />
             </div>
             <div className="flex flex-col gap-2 w-full">
               <span className="text-[#FEFEFE] text-14 font-medium">
@@ -208,7 +247,7 @@ const History = (props) => {
           </div>
         </div>
         {/* <div className="w-full max-w-[180px] text-[#FEFEFE] bg-[#F66B34] text-14 font-medium flex items-center justify-center h-10 rounded-lg">ثبت</div> */}
-        <hr/>
+        <hr />
         <div className={"flex items-center justify-between gap-2"}>
           <span className={"text-[#FEFEFE] font-bold text-20"}>
             اطلاعات اقلام مصرفی
@@ -223,15 +262,25 @@ const History = (props) => {
             </Button> */}
         </div>
         <div className="flex flex-wrap gap-4">
-            <div className="flex flex-col gap-2 w-full max-w-[300px]">
-              <span className="text-[#FEFEFE] text-14 font-medium">آخرین وضعیت کیلومتر خودرو</span>
-              <input className="bg-[#7e7e7e] rounded-lg h-10 text-14 px-2 text-[#b0b0b0]" value={"15,000"}/>
-            </div>
-            <div className="flex flex-col gap-2 w-full max-w-[300px]">
-              <span className="text-[#FEFEFE] text-14 font-medium">کیلومتر مصرفی ماهیانه</span>
-              <input className="bg-[#7e7e7e] rounded-lg h-10 text-14 px-2 text-[#b0b0b0]" value={"1,500"}/>
-            </div>
+          <div className="flex flex-col gap-2 w-full max-w-[300px]">
+            <span className="text-[#FEFEFE] text-14 font-medium">
+              آخرین وضعیت کیلومتر خودرو
+            </span>
+            <input
+              className="bg-[#7e7e7e] rounded-lg h-10 text-14 px-2 text-[#b0b0b0]"
+              value={"15,000"}
+            />
           </div>
+          <div className="flex flex-col gap-2 w-full max-w-[300px]">
+            <span className="text-[#FEFEFE] text-14 font-medium">
+              کیلومتر مصرفی ماهیانه
+            </span>
+            <input
+              className="bg-[#7e7e7e] rounded-lg h-10 text-14 px-2 text-[#b0b0b0]"
+              value={"1,500"}
+            />
+          </div>
+        </div>
         <div className="mt-4 flex flex-col lg:bg-[#B0B0B0] rounded-2xl overflow-hidden gap-px">
           <ul className="lg:flex hidden justify-between size1190:text-16 text-14 text-[#FEFEFE] rounded-10 gap-px h-[72px]">
             {tabName.map((item, index) => (

@@ -12,6 +12,7 @@ import Spinner from "@/components/Spinner";
 import { setLoginState } from "@/store/todoSlice";
 import { loginUser } from "@/store/loginCheckerSlice";
 import { getData } from "@/utils/api-function-utils";
+import nProgress from "nprogress";
 
 export default function EnterPasswordLogin(props) {
   const [passwordEyesState, setPasswordEyesState] = useState(false);
@@ -19,7 +20,7 @@ export default function EnterPasswordLogin(props) {
   const [forgotButtonState, setForgotButtonState] = useState(false);
   const [passwordError, setPasswordError] = useState("");
   const [passwordValue, setPasswordValue] = useState("");
-  const params = {...props.searchParams};
+  const params = { ...props.searchParams };
   const baseUrl = params.backurl;
   delete params.backurl;
   const queryString = new URLSearchParams(params).toString();
@@ -83,9 +84,11 @@ export default function EnterPasswordLogin(props) {
                     "profileData",
                     JSON.stringify(getProfileData.data),
                   );
-                  if(props.searchParams.backurl){
-                    router.push(fullUrl)
-                  }else{
+                  if (props.searchParams.backurl) {
+                    nProgress.start();
+                    router.push(fullUrl);
+                  } else {
+                    nProgress.start();
                     router.push("/");
                   }
                 }
@@ -125,7 +128,7 @@ export default function EnterPasswordLogin(props) {
         <div className="h-full w-full flex flex-col size974:justify-center size974:items-end items-center text-center gap-8 px-4 my-8">
           <div className="flex flex-col gap-2 w-full">
             <p className="size460:text-[16px] text-[12px] font-bold text-[#FEFEFE]">
-             رمز عبور خود را وارد کنید.
+              رمز عبور خود را وارد کنید.
             </p>
           </div>
           <div className="flex flex-col size460:items-center items-stretch gap-2 relative mx-0 w-full">
@@ -160,7 +163,9 @@ export default function EnterPasswordLogin(props) {
                 on_click={forgotPasswordHandler}
               >
                 <div className={"relative"}>
-                  <span className="text-[#F66B34] font-medium">فراموشی رمز عبور</span>
+                  <span className="text-[#F66B34] font-medium">
+                    فراموشی رمز عبور
+                  </span>
                   {forgotButtonState && (
                     <div
                       className={

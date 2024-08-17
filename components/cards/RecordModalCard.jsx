@@ -6,6 +6,7 @@ import { API_PATHS } from "@/configs/routes.config";
 import { notFound } from "next/navigation";
 import { error } from "@/utils/function-utils";
 import { router } from "next/client";
+import nProgress from "nprogress";
 
 // const newData = [
 //   { id: 1, title: "پیمان", slug: "peyman" },
@@ -42,6 +43,7 @@ const RecordModalCard = (props) => {
           console.log(productOptionData);
           notFound();
         } else if (productOptionData.response.status === 401) {
+          nProgress.start();
           await router.push("/login");
         } else if (productOptionData.response.status === 422) {
           for (let key in productOptionData.response.data.errors) {
@@ -89,8 +91,12 @@ const RecordModalCard = (props) => {
 
   return (
     <div className="flex justify-between items-center text-14 text-[#FEFEFE] gap-px">
-      <span className="flex-1 flex justify-center items-center h-14 bg-[#444444]">{props.index}</span>
-      <span className="flex-1 flex justify-center items-center h-14 bg-[#444444]">{props.item.title}</span>
+      <span className="flex-1 flex justify-center items-center h-14 bg-[#444444]">
+        {props.index}
+      </span>
+      <span className="flex-1 flex justify-center items-center h-14 bg-[#444444]">
+        {props.item.title}
+      </span>
       <div className="flex-1 flex justify-center items-center h-14 bg-[#444444]">
         <ToggleButton
           onClick={() => toggleChangeHandler(props.item.id)}
