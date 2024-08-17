@@ -50,7 +50,7 @@ const PeriodicServiceIndex = (props) => {
     setToastieDisplay((prev) => !prev);
     if (pathName.startsWith("/detailing") && selectedVehicleId && cityId) {
       router.push(
-        `/detailing/selectLocation?${searchParams.toString()}&type=${status}${searchParams.get("selectTipState") ? "" : `&selectTipState=true,${selectedVehicleId}`}&city_id=${cityId}`,
+        `/detailing/selectLocation?type=${status}${searchParams.get("selectTipState") ? "" : `&selectTipState=true,${selectedVehicleId}`}&city_id=${cityId}`,
       );
     } else if (
       pathName.startsWith("/periodic-service") &&
@@ -58,7 +58,7 @@ const PeriodicServiceIndex = (props) => {
       cityId
     ) {
       router.push(
-        `/periodic-service/location-selection?${searchParams.toString()}&type=${status}&selectTipState=true,${selectedVehicleId}&city_id=${cityId}`,
+        `/periodic-service/location-selection?type=${status}&selectTipState=true,${selectedVehicleId}&city_id=${cityId}`,
       );
     }
   };
