@@ -3,10 +3,12 @@ import Button from "@/components/Button";
 import Image from "next/image";
 import { API_PATHS } from "@/configs/routes.config";
 import { useRouter } from "next/navigation";
+import nProgress from "nprogress";
 
 const ArticleSliderCard = (props) => {
   const router = useRouter();
   const clickMagsHandler = (slug) => {
+    nProgress.start();
     router.push(`/mags/${slug}`);
   };
 

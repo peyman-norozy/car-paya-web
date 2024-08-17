@@ -12,6 +12,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useDispatch } from "react-redux";
 import { setCarSelectToastHandler, setCityModalState } from "@/store/todoSlice";
 import Link from "next/link";
+import nProgress from "nprogress";
 
 const BatteriesPage = (props) => {
   const query = useSetQuery();
@@ -138,6 +139,7 @@ const BatteriesPage = (props) => {
       !JSON.parse(localStorage.getItem("city"))?.cityId
     ) {
       dispatch(setCityModalState(true));
+      nProgress.start();
       router.push("/batteries");
     }
     // if (

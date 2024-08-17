@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import logo from "@/public/assets/images/logoFarsi.png"
+import logo from "@/public/assets/images/logoFarsi.png";
+import nProgress from "nprogress";
 export default function HeaderLogo() {
   const router = useRouter();
   return (
@@ -11,7 +12,10 @@ export default function HeaderLogo() {
         className="h-[40px] w-auto cursor-pointer"
         width={45}
         height={36}
-        onClick={() => router.push("/")}
+        onClick={() => {
+          nProgress.start();
+          router.push("/");
+        }}
       />
     </div>
   );

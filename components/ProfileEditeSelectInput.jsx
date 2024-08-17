@@ -9,6 +9,7 @@ import useClickOutside from "@/hook/useClickOutside";
 import { getData } from "@/utils/api-function-utils";
 import { API_PATHS } from "@/configs/routes.config";
 import { useRouter } from "next/navigation";
+import nProgress from "nprogress";
 
 const ProfileEditeSelectInput = (props) => {
   const [optiontitle, setOptiontitle] = useState("");
@@ -46,6 +47,7 @@ const ProfileEditeSelectInput = (props) => {
       } else if (getCity.status === 404) {
         console.log(getCity);
       } else if (getCity.status === 401) {
+        nProgress.start();
         router.push("login");
       } else if (getCity.status === 422) {
         console.log(getCity.data.error);

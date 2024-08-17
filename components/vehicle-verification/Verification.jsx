@@ -3,6 +3,7 @@ import { useRouter, usePathname } from "next/navigation";
 import Current from "@/components/Current";
 import Delivered from "@/components/Delivered";
 import Refuse from "@/components/Refuse";
+import nProgress from "nprogress";
 
 const ordersTab = [
   { title: "در حال ارسال", query: "CURRENT", id: "CURRENT" },
@@ -28,6 +29,7 @@ const Verification = (props) => {
   const clickTabHandler = (query) => {
     setNewPage(1);
     setDashboardOrderData([]);
+    nProgress.start();
     router.push(`${pathName}?status=${query}`);
   };
 

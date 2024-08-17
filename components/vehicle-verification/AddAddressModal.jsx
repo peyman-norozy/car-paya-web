@@ -11,6 +11,7 @@ const MapDirection = dynamic(() => import("@/components/MapDirection"), {
   ssr: false,
 });
 import { postData, putData } from "@/utils/client-api-function-utils";
+import nProgress from "nprogress";
 
 const AddressModal = (props) => {
   const router = useRouter();
@@ -119,6 +120,7 @@ const AddressModal = (props) => {
       } else if (getCity.status === 404) {
         console.log(getCity);
       } else if (getCity.status === 401) {
+        nProgress.start();
         router.push("login");
       } else if (getCity.status === 422) {
         console.log(getCity.data.error);
@@ -135,6 +137,7 @@ const AddressModal = (props) => {
       } else if (getProvinces.status === 404) {
         console.log(getProvinces);
       } else if (getProvinces.status === 401) {
+        nProgress.start();
         router.push("login");
       } else if (getProvinces.status === 422) {
         console.log(getProvinces.data.error);
@@ -163,6 +166,7 @@ const AddressModal = (props) => {
         } else if (getEditData.status === 404) {
           console.log(getEditData);
         } else if (getEditData.status === 401) {
+          nProgress.start();
           router.push("login");
         } else if (getEditData.status === 422) {
           console.log(getEditData.data.error);

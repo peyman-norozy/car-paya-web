@@ -8,6 +8,7 @@ import React, { useEffect, useState } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { error } from "@/utils/function-utils";
 import { ToastContainer } from "react-toastify";
+import nProgress from "nprogress";
 const PeriodicServiceIndex = (props) => {
   const pathName = usePathname();
   const [toastieDisplay, setToastieDisplay] = useState(false);
@@ -50,25 +51,31 @@ const PeriodicServiceIndex = (props) => {
     setToastieDisplay((prev) => !prev);
     if (
       pathName.startsWith("/detailing") &&
-      searchParams.get("selectTipState") &&
+      JSON.parse(localStorage.getItem("selectedVehicle"))?.id &&
       cityId
     ) {
+      nProgress.start();
       router.push(
         `/detailing/selectLocation?type=${status}${
-          searchParams.get("selectTipState")
-            ? `&selectTipState=${searchParams.get("selectTipState")}`
+          JSON.parse(localStorage.getItem("selectedVehicle"))?.id
+            ? `&selectTipState=${JSON.parse(
+                localStorage.getItem("selectedVehicle"),
+              )}`
             : ""
         }&city_id=${JSON.parse(localStorage.getItem("city"))?.cityId}`,
       );
     } else if (
       pathName.startsWith("/periodic-service") &&
-      searchParams.get("selectTipState") &&
+      JSON.parse(localStorage.getItem("selectedVehicle"))?.id &&
       cityId
     ) {
+      nProgress.start();
       router.push(
         `/periodic-service/location-selection?type=${status}&${
-          searchParams.get("selectTipState")
-            ? `&selectTipState=${searchParams.get("selectTipState")}`
+          JSON.parse(localStorage.getItem("selectedVehicle"))?.id
+            ? `&selectTipState=${
+                JSON.parse(localStorage.getItem("selectedVehicle"))?.id
+              }`
             : ""
         }&city_id=${cityId}`,
       );

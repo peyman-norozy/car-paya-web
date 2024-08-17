@@ -9,6 +9,7 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import useSetQuery from "@/hook/useSetQuery";
 import { getData, postData } from "@/utils/client-api-function-utils";
 import { numberWithCommas } from "@/utils/function-utils";
+import nProgress from "nprogress";
 const CarSelectComponent = () => {
   const [vehicleType, setVehicleType] = useState("car");
   const [level, setLevel] = useState(1);
@@ -221,15 +222,18 @@ const CarSelectComponent = () => {
                     setCarSelected(false);
                     localStorage.removeItem("selectedVehicle");
                     if (pathname.startsWith("/batteries")) {
+                      nProgress.start();
                       router.push(
                         `/batteries/products?attribute_slug=type_vehicle&attribute_value=${attributeValue ? attributeValue : "car"}`,
                       );
                     } else if (pathname.startsWith("/detailing")) {
+                      nProgress.start();
                       router.push(
                         `/detailing?attribute_slug=type_vehicle&attribute_value=${attributeValue ? attributeValue : "car"}`,
                       );
                     } else if (pathname.startsWith("/periodic-service")) {
                       console.log(attributeValue);
+                      nProgress.start();
                       router.push(
                         `/periodic-service?attribute_slug=type_vehicle&attribute_value=${attributeValue ? attributeValue : "car"}`,
                       );

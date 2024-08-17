@@ -10,6 +10,7 @@ import { setBatteriesData } from "@/store/todoSlice";
 import star from "@/public/assets/icons/Star-red.svg";
 import BatterisDetailCard from "@/components/cards/BatterisDetailCard/BatterisDetailCard";
 import { useDispatch } from "react-redux";
+import nProgress from "nprogress";
 
 const BatteriesCard = (props) => {
   const [morDetail, setMorDetail] = useState(false);
@@ -22,6 +23,7 @@ const BatteriesCard = (props) => {
   };
 
   const batteryShowHandler = () => {
+    nProgress.start();
     router.push(pathName + "/" + props.item.id);
   };
 

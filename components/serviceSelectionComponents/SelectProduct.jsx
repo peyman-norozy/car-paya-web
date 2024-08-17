@@ -8,22 +8,27 @@ import Image from "next/image";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
+import nProgress from "nprogress";
 
 const SelectProduct = (props) => {
-  
   const [value, setValue] = useState("");
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const router = useRouter()
+  const router = useRouter();
   const dispatch = useDispatch();
 
   async function buttonClickHandler() {
-    const response = await postData(process.env.BASE_API+`/web/cart/add`,{"product_id": value},'"Content-Type": "application/json"');
-    if (response.status === 200 || response.status === 201){
-      dispatch(renderInvoice())
-      router.back()
-    }else if(response.status === 401){
-      router.push("/login?backurl="+pathname+"&"+searchParams.toString())
+    const response = await postData(
+      process.env.BASE_API + `/web/cart/add`,
+      { product_id: value },
+      '"Content-Type": "application/json"',
+    );
+    if (response.status === 200 || response.status === 201) {
+      dispatch(renderInvoice());
+      router.back();
+    } else if (response.status === 401) {
+      nProgress.start();
+      router.push("/login?backurl=" + pathname + "&" + searchParams.toString());
     }
   }
 
@@ -41,7 +46,18 @@ const SelectProduct = (props) => {
             for={item.id}
           >
             <div className="gap-2 xl:gap-4 flex items-center">
-              <Image src={process.env.BASE_API +"/web" +API_PATHS.FILE +"/" + item.image_id} width={60} height={60} className="size-[80px] rounded-md"/>
+              <Image
+                src={
+                  process.env.BASE_API +
+                  "/web" +
+                  API_PATHS.FILE +
+                  "/" +
+                  item.image_id
+                }
+                width={60}
+                height={60}
+                className="size-[80px] rounded-md"
+              />
               <span className="text-14 xl:text-18">{item.name}</span>
             </div>
             <div className="gap-4 flex items-center">
@@ -49,7 +65,9 @@ const SelectProduct = (props) => {
               <span className="text-14 xl:text-18 line-through">
                 {numberWithCommas(item.price)} تومان
               </span>
-              <span className="text-14 xl:text-18">{numberWithCommas(item.discounted_price)} تومان</span>
+              <span className="text-14 xl:text-18">
+                {numberWithCommas(item.discounted_price)} تومان
+              </span>
               <input
                 type="radio"
                 id={item.id}
@@ -73,15 +91,15 @@ const SelectProduct = (props) => {
               : ""
           }
         > */}
-          <button
-            className={`${value !== "" ? "bg-[#F66B34] cursor-pointer" : "bg-gray-400 cursor-not-allowed"} rounded-lg py-2 lg:py-3 px-4 lg:px-6`}
-            disabled={value !== "" ?false:true}
-            onClick={buttonClickHandler}
-          >
-            <span className="text-white font-bold text-14 lg:text-16">
-              افزودن به سبد خرید
-            </span>
-          </button>
+        <button
+          className={`${value !== "" ? "bg-[#F66B34] cursor-pointer" : "bg-gray-400 cursor-not-allowed"} rounded-lg py-2 lg:py-3 px-4 lg:px-6`}
+          disabled={value !== "" ? false : true}
+          onClick={buttonClickHandler}
+        >
+          <span className="text-white font-bold text-14 lg:text-16">
+            افزودن به سبد خرید
+          </span>
+        </button>
         {/* </Link> */}
       </div>
     </div>

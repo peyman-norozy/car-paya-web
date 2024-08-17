@@ -8,6 +8,7 @@ import "leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility
 import { getData } from "@/utils/api-function-utils";
 import { API_PATHS } from "@/configs/routes.config";
 import { useRouter } from "next/navigation";
+import nProgress from "nprogress";
 
 ("23.234234,54.6456456");
 const MapDirection = (props) => {
@@ -25,6 +26,7 @@ const MapDirection = (props) => {
     } else if (addressData.status === 404) {
       console.log(addressData);
     } else if (addressData.status === 401) {
+      nProgress.start();
       router.push("login");
     }
   };

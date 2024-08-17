@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import UserTabsCardChildren from "@/components/cards/UserTabsCardChildren";
 import { useParams, usePathname, useRouter } from "next/navigation";
+import nProgress from "nprogress";
 
 const TabsCard = (props) => {
   const [newRouter, setNewRouter] = useState("");
@@ -45,14 +46,18 @@ const TabsCard = (props) => {
     if (id === "logout") {
       props.setLogoutModalState(true);
     } else if (id === "panel") {
+      nProgress.start();
       router.push("/" + id, undefined, { scroll: false });
     } else if (id !== "my-vehicle" || id !== "destination") {
+      nProgress.start();
       router.push("/panel" + "/" + id, undefined, { scroll: false });
     }
   };
 
   return (
-    <li className={`flex flex-col font-light text-14 cursor-pointer text-[#FEFEFE]`}>
+    <li
+      className={`flex flex-col font-light text-14 cursor-pointer text-[#FEFEFE]`}
+    >
       <div
         className={`flex items-center gap-4 hover:bg-[#eff2ff4f] font-medium rounded-10 mx-2 py-4 px-6 ${
           newRouter === props.item.id &&
