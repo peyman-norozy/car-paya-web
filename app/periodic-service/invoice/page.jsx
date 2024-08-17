@@ -1,5 +1,4 @@
 'use client'
-import { API_PATHS } from "@/configs/routes.config";
 import Image from "next/image";
 
 const InvoicePage = () => {
@@ -8,7 +7,7 @@ const InvoicePage = () => {
             <div className="w-[400px] flex flex-col gap-px">
                 <div className="h-12 flex items-center justify-center bg-[#47505D] font-bold">مشخصات</div>
                 <div className="flex flex-col gap-4 p-6 bg-[#707070] h-[calc(100%-49px)]">
-                    <Image src={process.env.BASE_API +"/web" +API_PATHS.FILE +"/" + JSON.parse(localStorage.getItem("selectedVehicle")).image} width={270} height={190}/>
+                    <Image src={"/assets/images/car6.png"} width={270} height={190}/>
                     <div className="font-normal">
                         <span className="font-semibold ml-1">نوع وسیله نقلیه:</span>
                         <span className="font-normal">خودرو</span>
