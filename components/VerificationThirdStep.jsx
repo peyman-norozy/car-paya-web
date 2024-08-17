@@ -39,7 +39,7 @@ const VerificationThirdStep = (props) => {
     setQuery.updateMultiQuery([{ key: "step", value: "step-2" }], params);
   };
   return (
-    <div className="pt-[2rem] mb-[7rem] size966:w-[95%] size1090:w-[85%] m-auto overflow-hidden ]">
+    <div className="pt-[2rem] mb-[7rem] lg:w-[calc(100%-424px)] mr-auto overflow-hidden ]">
       <div
         className={
           "flex items-center gap-2 size752:gap-[16px] text-BLUE_600 w-full"

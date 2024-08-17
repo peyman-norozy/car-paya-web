@@ -102,7 +102,7 @@ const VerificationSecondStep = (props) => {
   return (
     <div
       className={
-        "flex items-start justify-between pt-[28px] w-[95%] size1190:w-[90%] m-auto"
+        "flex items-start justify-between pt-[28px] lg:w-[calc(100%-424px)] mr-auto"
       }
     >
       <div className={"w-full lg:w-[50%] flex flex-col"}>
