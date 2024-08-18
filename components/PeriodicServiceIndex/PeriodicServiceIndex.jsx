@@ -58,9 +58,9 @@ const PeriodicServiceIndex = (props) => {
       router.push(
         `/detailing/selectLocation?type=${status}${
           JSON.parse(localStorage.getItem("selectedVehicle"))?.id
-            ? `&selectTipState=${JSON.parse(
-                localStorage.getItem("selectedVehicle"),
-              )}`
+            ? `&selectTipState=true,${
+                JSON.parse(localStorage.getItem("selectedVehicle"))?.id
+              }`
             : ""
         }&city_id=${JSON.parse(localStorage.getItem("city"))?.cityId}`,
       );
@@ -73,7 +73,7 @@ const PeriodicServiceIndex = (props) => {
       router.push(
         `/periodic-service/location-selection?type=${status}&${
           JSON.parse(localStorage.getItem("selectedVehicle"))?.id
-            ? `&selectTipState=${
+            ? `&selectTipState=true,${
                 JSON.parse(localStorage.getItem("selectedVehicle"))?.id
               }`
             : ""
