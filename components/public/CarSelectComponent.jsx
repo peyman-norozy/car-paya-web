@@ -256,7 +256,7 @@ const CarSelectComponent = () => {
                   className="text-[#F66B34] text-16 cursor-pointer font-medium"
                   onClick={changeVehicleClickHandler}
                 >
-                  تغییر خودرو
+                  تغییر وسیله نقلیه
                 </button>
               </div>
               {showInvoice ? (

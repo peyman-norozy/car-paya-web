@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import SelectSearchInput from "@/components/SelectSearchInput";
 import MachinTagInput from "@/components/MachinTagInput";
 import Image from "next/image";
@@ -64,6 +64,58 @@ const CarDevice = (props) => {
   const [newFinePrice, setNewFinePrice] = useState("");
   const [newEditData, setNewEditData] = useState({});
   const [buttonDisabledState, setButtonDisabledState] = useState(false);
+
+
+
+  const colorData = [
+    {
+      title: "قرمز",
+      value: "red"
+    },{
+      title: "سبز",
+      value: "green"
+    },{
+      title: "آبی",
+      value: "blue"
+    },{
+      title: "زرد",
+      value: "yellow"
+    },{
+      title: "مشکی",
+      value: "black"
+    },{
+      title: "سفید",
+      value: "white"
+    },{
+      title: "نوک مدادی",
+      value: "stone"
+    },{
+      title: "خاکستری",
+      value: "gray"
+    },
+  ]
+  const [optionState, setOptionState] = useState(false);
+  const [serchedColor , setSearchedColor] = useState(colorData)
+  const [selectedColor , setSelectedColor] = useState({})
+  const optionRef = useRef(null);
+  const inputRef = useRef(null);
+  function inputChangeHandler(value) {
+    setSearchedColor(colorData.filter((i) => i.title.includes(value)));
+  }
+  useEffect(() => {
+    document.addEventListener("click", (e) => {
+      if (
+        e.target !== optionRef.current &&
+        e.target.parentElement !== optionRef.current &&
+        e.target !== inputRef.current
+      ) {
+        setOptionState(false);
+      }
+    });
+  }, []);
+
+
+
   const selectVehicleData = useSelector(
     (vehicleData) => vehicleData.todo.selectVehicle,
   );
@@ -283,6 +335,7 @@ const CarDevice = (props) => {
       editFormData.set("plaque[2]", newPlaque_2);
       editFormData.set("plaque[3]", newPlaque_3);
       editFormData.set("title", newMyCarValue);
+      editFormData.set("color", selectedColor.value);
       editFormData.set("kind", "force_store");
       // editFormData.set(
       //   "kilometers_now",
@@ -362,6 +415,7 @@ const CarDevice = (props) => {
         newModelOptionId,
         newTipOptionId,
         newYearOptionId,
+        selectedColor.value,
         event.target.plaque_0.value,
         newPlaque_1,
         event.target.plaque_2.value,
@@ -496,9 +550,14 @@ const CarDevice = (props) => {
           },
         )
         .then((res) => {
-          console.log(res.data.data);
           res.data.data.yearId = res.data.data.year;
-          setNewEditData(res.data.data);
+          setNewEditData(res.data.data);  
+          colorData.map((item)=>{
+            if(item.value === res.data.data.info.color){
+              setSelectedColor(item)
+            }
+          })
+          
         })
         .catch((err) => {
           console.log(err);
@@ -711,7 +770,7 @@ const CarDevice = (props) => {
               }
               on_click={openModalHandler}
             >
-              تغییر خودرو
+              تغییر وسیله نقلیه
             </Button>
           </section>
         </div>
@@ -749,6 +808,62 @@ const CarDevice = (props) => {
             className={"h-[48px]"}
             lable={"سال ساخت"}
           />
+          <div className="flex flex-col gap-4">
+            <label
+              className={"px-2 text-16 font-bold text-[#FEFEFE]"}
+            >
+              رنگ خودرو
+            </label>
+            <div className="relative">
+              <span
+                className=" font-medium text-12 cursor-pointer bg-[#FEFEFE] w-full flex items-center justify-center rounded-lg py-2 h-12"
+                onClick={() => {
+                  setOptionState(true);
+                }}
+                ref={inputRef}
+              >
+                {selectedColor.title}
+              </span>
+              <div
+                className={`absolute overflow-y-scroll rounded-lg top-[42px] z-[2] bg-[#FEFEFE] w-full ${optionState ? "h-[380%]" : "h-0"} overflow-hidden transition-all`}
+              >
+                <div
+                  className="max-h-[200px] flex flex-col p-2 gap-1 w-full"
+                  ref={optionRef}
+                >
+                  <input
+                    className="w-full bg-[#FEFEFE] rounded-lg text-[#0E0E0E] h-8 border outline-none mb-1 px-2"
+                    onChange={(e) => {
+                      inputChangeHandler(e.target.value);
+                    }}
+                  />
+                  {/* <span
+                    className="cursor-pointer hover:bg-[#6e7c91] py-1 px-2 text-[#FEFEFE] text-14"
+                    onClick={(e) => {
+                      props.timeData();
+                      setOptionState(false);
+                    }}
+                  >
+                    همه محله ها
+                  </span> */}
+                  {serchedColor.map((item, index) => (
+                    <span
+                      className="cursor-pointer hover:bg-[#6e7c91] py-1 px-2 text-[#0E0E0E] text-14"
+                      value={item.value}
+                      onClick={(e) => {
+                        // props.timeData({ area_id: item.id });
+                        setSelectedColor(item)
+                        setOptionState(false);
+                      }}
+                      key={index}
+                    >
+                      {item.title}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
           <div className="flex flex-col gap-4">
             <label className={"font-bold text-[#FEFEFE]"}>پلاک</label>
             <MachinTagInput
@@ -888,6 +1003,7 @@ const CarDevice = (props) => {
             />
           </div>
         }
+        
       </form>
     </PrivateRoute>
   );

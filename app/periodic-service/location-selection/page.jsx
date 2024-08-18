@@ -43,7 +43,6 @@ const Dealership = (props) => {
     timeData();
   }, [searchParams.get("type")]);
 
-  console.log(carCheckLocations);
   return (
     <div className="lg:flex items-start gap-8 mt-1 lg:mt-[108px] max-w-[1772px] m-auto py-4 relative min-h-[calc(100vh-100px)]">
       <div

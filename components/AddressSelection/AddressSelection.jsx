@@ -69,7 +69,6 @@ const AddressSelection = (props) => {
   function searchClickHandler() {
     props.timeData({ services: srviceQuery.join(",") });
   }
-  console.log(servicesData);
   return (
     <>
       {props.status === "FIXED" ? (
