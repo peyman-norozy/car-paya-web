@@ -358,7 +358,7 @@ const CarSelectComponent = (props) => {
           ) : (
             <>
               <span className="text-[#FEFEFE] text-20 font-bold text-center">
-                ثبت وسیله نقلیه
+                {pathname === "/" ? "ثبت وسیله نقلیه" : "انتخاب وسیله نقلیه"}
               </span>
               <div className="rounded-lg bg-[#F66B3414] flex flex-wrap justify-between gap-1 p-1">
                 <button
