@@ -44,7 +44,7 @@ const Page = (props) => {
   }, [searchParams]);
 
   return (
-    <div className={"min-h-screen lg:mt-[124px] lg:mr-[420px] mb-[71px]"}>
+    <div className={"min-h-screen lg:mt-[124px] lg:mr-[420px] px-3 mb-[71px]"}>
       <div
         className={`sticky ${showHeaderState ? "size720:top-[98px] top-[74px]" : "top-0"}  bg-[#d1d1d1] z-[2000] py-4 transition-all`}
       >

@@ -44,7 +44,9 @@ const NewAddressCard = ({
     >
       <div className={"flex-1"}>
         <section className={"flex justify-between"}>
-          <span className={"font-semibold text-18"}>{item.title}</span>
+          <span className={"font-semibold lg:text-18 text-14"}>
+            {item.title}
+          </span>
           {status === "FIXED" ? (
             ""
           ) : (
@@ -60,22 +62,22 @@ const NewAddressCard = ({
             </div>
           )}
         </section>
-        <section className={"flex gap-6 mb-4 mt-3"}>
-          <div className={"flex gap-[11px]"}>
+        <section className={"flex lg:gap-6 gap-2 mb-4 mt-3"}>
+          <div className={"flex lg:gap-[11px] gap-1 lg:text-16 text-12"}>
             <span className={"font-semibold"}>استان:</span>
             <span>{item.province_name}</span>
           </div>
-          <div className={"flex gap-[11px]"}>
+          <div className={"flex lg:gap-[11px] gap-1 lg:text-16 text-12"}>
             <span className={"font-semibold"}>شهر:</span>
             <span>{item.city_name}</span>
           </div>
-          <div className={"flex gap-[11px]"}>
+          <div className={"flex lg:gap-[11px] gap-1 lg:text-16 text-12"}>
             <span className={"font-semibold"}>محله:</span>
             <span>{item.area_name}</span>
           </div>
         </section>
         <section className={"flex"}>
-          <p className={"leading-7 h-14"}>
+          <p className={"leading-7 h-14 lg:text-16 text-12"}>
             <span className={"font-semibold"}> آدرس دقیق: </span>
             {item.address}
           </p>

@@ -35,8 +35,10 @@ const Page = (props) => {
   }
 
   return (
-    <div className={"lg:mt-[124px] mt-16 min-h-screen lg:mr-[420px] mb-6"}>
-      <h1 className={"text-center text-[24px]"}>انتخاب زمان دریافت خدمات</h1>
+    <div className={"lg:mt-[124px] mt-6 min-h-screen lg:mr-[420px] px-3 mb-6"}>
+      <h1 className={"text-center lg:text-[24px] text-18"}>
+        انتخاب زمان دریافت خدمات
+      </h1>
       <ul className={"flex flex-col gap-4 mt-9"}>
         {data.map((item, index) => (
           <TimeSelectorCard
@@ -50,7 +52,7 @@ const Page = (props) => {
       <button
         type={"button"}
         className={
-          "w-[204px] h-10 bg-[#F66B34] rounded-[8px] text-[#FEFEFE] mt-6"
+          "lg:w-[204px] w-[130px] h-10 bg-[#F66B34] rounded-[8px] text-[#FEFEFE] mt-6 lg:text-14 text-12"
         }
         onClick={onclick}
       >

@@ -43,10 +43,10 @@ const BatteriesCard = (props) => {
         "bg-[#E7E7E7] size666:rounded-[16px] rounded-none shadow-lg p-[16px] "
       }
     >
-      <div className={"flex gap-[16px]"}>
+      <div className={"flex lg:flex-row flex-col gap-[16px]"}>
         <div
           className={
-            "size666:w-[240px] w-[140px] size666:h-[240px] h-[144px] bg-[#eee] rounded-[8px] relative"
+            "w-[240px] h-[240px] bg-[#eee] rounded-[8px] relative self-center overflow-hidden"
           }
         >
           <Image
@@ -97,7 +97,7 @@ const BatteriesCard = (props) => {
                   className="mb-[0.35rem] self-center mt-[0.25rem]"
                 />
                 <p className={"lg:text-[16px] text-14"}>قیمت </p>
-                <div className="flex lg:flex-row flex-col items-center lg:gap-[0.75rem] gap-0">
+                <div className="flex flex-row items-center gap-[0.75rem]">
                   <span className="flex items-center gap-[0.25rem] line-through text-center lg:text-[16px] text-14">
                     {numberWithCommas(props.item.price)}
                     <Image

@@ -25,7 +25,7 @@ const InvoicePage = () => {
               "/web" +
               API_PATHS.FILE +
               "/" +
-              JSON.parse(localStorage.getItem("selectedVehicle")).image
+              JSON.parse(localStorage.getItem("selectedVehicle"))?.image
             }
             width={270}
             height={190}

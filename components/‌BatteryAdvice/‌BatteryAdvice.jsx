@@ -3,18 +3,23 @@ import Image from "next/image";
 
 const BatteryAdvice = () => {
   return (
-    <div className="flex gap-4 flex-row items-center justify-between mt-10">
+    <div className="flex gap-4 lg:flex-row flex-col items-center justify-between mt-10">
       <div
         className={
           "flex flex-col justify-center items-center size690:items-start gap-3 w-full size690:w-[50%] lg:w-[28%]"
         }
       >
-        <h3 className={"text-[18px] font-bold"}>
+        <h3 className={"lg:text-[18px] text-[16px] font-bold"}>
           خرید با ارسال فوری و
           <span className={"text-[#F66B34]"}> نصب رایگان</span>
         </h3>
-        <p className={"text-[#303030] text-14 size800:text-16 font-medium"}>
-          تیم <span className={"text-[#F66B34] text-18"}>کارچک </span>
+        <p
+          className={
+            "text-[#303030] text-14 size800:text-16 font-medium leading-8"
+          }
+        >
+          تیم{" "}
+          <span className={"text-[#F66B34] lg:text-18 text-14"}>کارچک </span>
           بهترین مجموعه کارشناسی خودرو حضوری در خدمت مشتریان بوده کارشناسان کادر
           ما آموزش دیده و با تجربه آماده ارائه خدمات رسانی به شما هستند .
         </p>
