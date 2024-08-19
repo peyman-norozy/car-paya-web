@@ -11,7 +11,7 @@ const Page = (props) => {
     async function getTimeData() {
       try {
         const data = await getDataWithFullErrorRes(
-          "/web/reservation/battery?step=step-2",
+          "/web/reservation/battery?step=step-3",
         );
         setData(
           Object.keys(data["time-reserve"]).map((key) => ({
@@ -30,7 +30,7 @@ const Page = (props) => {
   function onclick() {
     setQuery.updateQueryParams(
       { time_id: selectedTime, type: "MOVING" },
-      "/batteries/products/newSelectLocation",
+      "/batteries/invoice",
     );
   }
 
