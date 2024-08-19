@@ -9,7 +9,10 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import useSetQuery from "@/hook/useSetQuery";
 import { getData, postData } from "@/utils/client-api-function-utils";
 import { numberWithCommas } from "@/utils/function-utils";
-import { getCurrentData, getDataWithFullErrorRes } from "@/utils/api-function-utils";
+import {
+  getCurrentData,
+  getDataWithFullErrorRes,
+} from "@/utils/api-function-utils";
 import nProgress from "nprogress";
 const CarSelectComponent = (props) => {
   const [vehicleType, setVehicleType] = useState("car");
@@ -61,15 +64,16 @@ const CarSelectComponent = (props) => {
     }
   }, [carSelected]);
 
-  useEffect(()=>{
-    (async ()=>{
-      const data = await getDataWithFullErrorRes(process.env.BASE_API + "/web/vehicles")
-      if(data.status&&data.status === "success"){
+  useEffect(() => {
+    (async () => {
+      const data = await getDataWithFullErrorRes(
+        process.env.BASE_API + "/web/vehicles",
+      );
+      if (data.status && data.status === "success") {
         setMyVehicleData(data.data);
       }
-    })
-    ()
-  },[])
+    })();
+  }, []);
 
   // useEffect(() => {
   //   axios
@@ -116,11 +120,11 @@ const CarSelectComponent = (props) => {
 
   function vehicleTypeFetch(model) {
     setVehicleType(model);
-    if(model === "my-car"){
+    if (model === "my-car") {
       setData(myVehicleData);
       setSearchedData(myVehicleData);
-      setLevel(4)
-    }else{
+      setLevel(4);
+    } else {
       getBrandData(model);
     }
     setQuery.updateQueryParams(
@@ -146,6 +150,21 @@ const CarSelectComponent = (props) => {
 
   function optionClickHandler(id, item, state) {
     console.log(id, item, state);
+    if (localStorage?.getItem("carFullName")) {
+      if (item?.title) {
+        localStorage.setItem(
+          "carFullName",
+          localStorage.getItem("carFullName") + item.title,
+        );
+      } else {
+        localStorage.setItem(
+          "carFullName",
+          localStorage.getItem("carFullName") + item.slug,
+        );
+      }
+    } else {
+      localStorage.setItem("carFullName", item.title);
+    }
     const level2 = state ? state : level;
     if (level2 <= 3) {
       let array = [...backurl];
@@ -199,6 +218,7 @@ const CarSelectComponent = (props) => {
 
   function changeVehicleClickHandler() {
     setCarSelected(false);
+    localStorage.removeItem("carFullName");
     localStorage.removeItem("selectedVehicle");
     if (pathname.startsWith("/batteries/battery-assistant")) {
       setQuery.updateQueryParams({ selectTipState: null }, "");
@@ -246,7 +266,7 @@ const CarSelectComponent = (props) => {
     return (
       <div className="absolute h-full top-0 right-auto pb-10">
         <div
-          className={`bg-[#383838A3] h-[605px] rounded-2xl w-[400px] sticky ${showHeaderData ? "top-[123px]" : "top-[10px]"} right-auto z-[2] backdrop-blur-[16px] p-4 ${props.isMobile?"flex lg:hidden":"hidden lg:flex"} flex-col gap-4`}
+          className={`bg-[#383838A3] h-[605px] rounded-2xl w-[400px] sticky ${showHeaderData ? "top-[123px]" : "top-[10px]"} right-auto z-[2] backdrop-blur-[16px] p-4 ${props.isMobile ? "flex lg:hidden" : "hidden lg:flex"} flex-col gap-4`}
         >
           {carSelected ? (
             <div className="flex flex-col gap-4">
@@ -264,7 +284,8 @@ const CarSelectComponent = (props) => {
               />
               <div className="flex justify-between items-center">
                 <span className="font-bold text-18 text-[#FEFEFE] border-r-[5px] border-[#c0c0c0] leading-6 pr-2">
-                  {selectedCar.title}
+                  {/*{selectedCar.title}*/}
+                  {localStorage.getItem("carFullName")}
                 </span>
                 <button
                   className="text-[#F66B34] text-16 cursor-pointer font-medium"
@@ -383,14 +404,18 @@ const CarSelectComponent = (props) => {
                 >
                   وسیله سنگین
                 </button>
-              {myVehicleData.length?<button
+                {myVehicleData.length ? (
+                  <button
                     className={`${vehicleType === "my-car" ? "bg-[#F66B34] text-[#FEFEFE]" : "text-[#F66B34]"} rounded-[4px] w-[100px] h-10 flex justify-center items-center text-[#F66B34] font-medium text-14 m-auto`}
                     onClick={() => {
                       vehicleTypeFetch("my-car");
                     }}
                   >
                     وسیله من
-                </button>:""}
+                  </button>
+                ) : (
+                  ""
+                )}
               </div>
               <div className="flex flex-col gap-4">
                 <span className="text-center font-bold text-[#FEFEFE]">
@@ -406,11 +431,13 @@ const CarSelectComponent = (props) => {
                     }}
                   />
                   <i
-                    className={`cc-arrow-right text-2xl rotate-180 text-[#ffffff] bg-[#ffffff38] px-2 rounded-md h-7 leading-7 ${(level > 2 || !myVehicleData.length) ? "" : "hidden"} cursor-pointer hover:bg-[#ffffff20] transition-all duration-200`}
+                    className={`cc-arrow-right text-2xl rotate-180 text-[#ffffff] bg-[#ffffff38] px-2 rounded-md h-7 leading-7 ${level > 2 || !myVehicleData.length ? "" : "hidden"} cursor-pointer hover:bg-[#ffffff20] transition-all duration-200`}
                     onClick={backClickHandler}
                   />
                 </div>
-                <div className={`${myVehicleData.length?"h-[320px]":"h-[363px]"} overflow-y-scroll mt-2 overflow-x-hidden`}>
+                <div
+                  className={`${myVehicleData.length ? "h-[320px]" : "h-[363px]"} overflow-y-scroll mt-2 overflow-x-hidden`}
+                >
                   <div className="grid grid-cols-3 gap-x-8 gap-y-[42px]">
                     {searchedData.map((item, index) => (
                       <div
