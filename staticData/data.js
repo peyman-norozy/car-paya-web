@@ -24,7 +24,7 @@ export const serviceData = [
     id: "batteries",
   },
   {
-    title: "شناسنامه و سوابق",
+    title: "شناسنامه خودرو",
     icon: "/assets/images/shnasname.png",
     href: "/panel/my-vehicle/my-car",
     id: "myVehicleMyCar",
