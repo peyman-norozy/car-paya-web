@@ -14,7 +14,7 @@ const FrequentQuestions = () => {
     return (
         <div className={'flex flex-col items-center w-full m-auto'}>
             <h3 className={'text-20 mb-[1.8rem]'}>سوالات متداول</h3>
-            <ul className={'w-full flex flex-col gap-6'}>
+            <ul className={'w-full flex flex-col gap-px sm:gap-6'}>
                 {data.map((item, index) => <FrequentQuestionCard key={index} title={item.title}/>)}
             </ul>
         </div>

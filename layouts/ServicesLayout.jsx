@@ -6,7 +6,7 @@ import { serviceData } from "@/staticData/data";
 const ServicesLayout = (props) => {
   return (
     <main
-      className={`lg:mt-[64px] relative max-w-[1772px] size666:px-[48px] m-auto`}
+      className={`lg:mt-[64px] relative max-w-[1772px] sm:px-[48px] m-auto`}
     >
       <CarSelectComponent />
       <CarServicesSlider data={serviceData} />
