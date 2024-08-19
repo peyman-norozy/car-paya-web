@@ -14,9 +14,9 @@ const serviceSelection = async (props) => {
         </div>
       );
     }else if(data.error.status === 400){
-      return <div className="mt-[140px] mr-[420px] min-h-[calc(100vh-300px)]">پکیج یافت نشد</div>;
+      return <div className="mt-[140px] w-full text-center min-h-[calc(100vh-300px)]">پکیج یافت نشد</div>;
     }else {
-      return <div className="mt-[140px] mr-[420px] min-h-[calc(100vh-300px)]">you have error</div>;
+      return <div className="mt-[140px] w-full text-center min-h-[calc(100vh-300px)]">you have error {data.error.status}</div>;
     }
   }
 

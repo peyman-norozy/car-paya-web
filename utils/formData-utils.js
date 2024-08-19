@@ -3,12 +3,14 @@ function carFormData(
   newModelOptionId,
   newTipOptionId,
   newYearOptionId,
+  newColorOptionId,
   plaque_0,
   newPlaque_1,
   plaque_2,
   plaque_3,
   carName,
   forceStore,
+  color,
   // kilometerStart,
   // kilometerEnd,
   // newBodyInsuranceStartAt,
@@ -29,6 +31,7 @@ function carFormData(
   fd.append("vehicle_model_id", newModelOptionId);
   fd.append("vehicle_tip_id", newTipOptionId);
   fd.append("year", newYearOptionId);
+  fd.append("color", newColorOptionId);
   fd.append("plaque[0]", plaque_0);
   fd.append("plaque[1]", newPlaque_1);
   fd.append("plaque[2]", plaque_2);

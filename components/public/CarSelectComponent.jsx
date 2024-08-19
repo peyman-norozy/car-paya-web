@@ -9,14 +9,17 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import useSetQuery from "@/hook/useSetQuery";
 import { getData, postData } from "@/utils/client-api-function-utils";
 import { numberWithCommas } from "@/utils/function-utils";
+import { getCurrentData, getDataWithFullErrorRes } from "@/utils/api-function-utils";
 import nProgress from "nprogress";
-const CarSelectComponent = () => {
+const CarSelectComponent = (props) => {
   const [vehicleType, setVehicleType] = useState("car");
+  const [carSelectedType, setCarSelectedType] = useState("انتخاب برند");
   const [level, setLevel] = useState(1);
   const [data, setData] = useState([]);
   const [searchedData, setSearchedData] = useState([]);
   const [carSelected, setCarSelected] = useState(false);
   const [selectedCar, setSelectedCar] = useState({});
+  const [myVehicleData, setMyVehicleData] = useState([]);
   // const [provienceCity, setProvienceCity] = useState([]);
   // const [searchCity, setSearchCity] = useState([]);
   // const [optionState, setOptionState] = useState(false);
@@ -57,6 +60,16 @@ const CarSelectComponent = () => {
       setCarSelected(true);
     }
   }, [carSelected]);
+
+  useEffect(()=>{
+    (async ()=>{
+      const data = await getDataWithFullErrorRes(process.env.BASE_API + "/web/vehicles")
+      if(data.status&&data.status === "success"){
+        setMyVehicleData(data.data);
+      }
+    })
+    ()
+  },[])
 
   // useEffect(() => {
   //   axios
@@ -103,7 +116,13 @@ const CarSelectComponent = () => {
 
   function vehicleTypeFetch(model) {
     setVehicleType(model);
-    getBrandData(model);
+    if(model === "my-car"){
+      setData(myVehicleData);
+      setSearchedData(myVehicleData);
+      setLevel(4)
+    }else{
+      getBrandData(model);
+    }
     setQuery.updateQueryParams(
       {
         attribute_slug: "type_vehicle",
@@ -119,6 +138,7 @@ const CarSelectComponent = () => {
       .then((res) => {
         setData(res.data.data);
         setSearchedData(res.data.data);
+        setCarSelectedType("انتخاب برند");
       });
     setLevel(2);
     setBackurl([model]);
@@ -136,6 +156,11 @@ const CarSelectComponent = () => {
         .get(process.env.BASE_API + "/web/" + vehicleType + route + id)
         .then((res) => {
           setData(res.data.data);
+          if (level2 === 2) {
+            setCarSelectedType("انتخاب مدل");
+          } else {
+            setCarSelectedType("انتخاب تیپ");
+          }
           setSearchedData(res.data.data);
         });
       setLevel(level2 + 1);
@@ -172,6 +197,31 @@ const CarSelectComponent = () => {
   //   localStorage.setItem("city", JSON.stringify(item));
   // }
 
+  function changeVehicleClickHandler() {
+    setCarSelected(false);
+    localStorage.removeItem("selectedVehicle");
+    if (pathname.startsWith("/batteries/battery-assistant")) {
+      setQuery.updateQueryParams({ selectTipState: null }, "");
+      return null;
+    } else if (pathname.startsWith("/batteries")) {
+      nProgress.start();
+      router.push(
+        `/batteries/products?attribute_slug=type_vehicle&attribute_value=${attributeValue ? attributeValue : "car"}`,
+      );
+    } else if (pathname.startsWith("/detailing")) {
+      nProgress.start();
+      router.push(
+        `/detailing?attribute_slug=type_vehicle&attribute_value=${attributeValue ? attributeValue : "car"}`,
+      );
+    } else if (pathname.startsWith("/periodic-service")) {
+      console.log(attributeValue);
+      nProgress.start();
+      router.push(
+        `/periodic-service?attribute_slug=type_vehicle&attribute_value=${attributeValue ? attributeValue : "car"}`,
+      );
+    }
+  }
+
   function backClickHandler() {
     if (level === 4) {
       setLevel(2);
@@ -196,7 +246,7 @@ const CarSelectComponent = () => {
     return (
       <div className="absolute h-full top-0 right-auto pb-10">
         <div
-          className={`bg-[#383838A3] h-[605px] rounded-2xl w-[400px] sticky ${showHeaderData ? "top-[123px]" : "top-[10px]"} right-auto z-[2] backdrop-blur-[16px] p-4 hidden lg:flex flex-col gap-4`}
+          className={`bg-[#383838A3] h-[605px] rounded-2xl w-[400px] sticky ${showHeaderData ? "top-[123px]" : "top-[10px]"} right-auto z-[2] backdrop-blur-[16px] p-4 ${props.isMobile?"flex lg:hidden":"hidden lg:flex"} flex-col gap-4`}
         >
           {carSelected ? (
             <div className="flex flex-col gap-4">
@@ -218,72 +268,13 @@ const CarSelectComponent = () => {
                 </span>
                 <button
                   className="text-[#F66B34] text-16 cursor-pointer font-medium"
-                  onClick={() => {
-                    setCarSelected(false);
-                    localStorage.removeItem("selectedVehicle");
-                    if (pathname.startsWith("/batteries")) {
-                      nProgress.start();
-                      router.push(
-                        `/batteries/products?attribute_slug=type_vehicle&attribute_value=${attributeValue ? attributeValue : "car"}`,
-                      );
-                    } else if (pathname.startsWith("/detailing")) {
-                      nProgress.start();
-                      router.push(
-                        `/detailing?attribute_slug=type_vehicle&attribute_value=${attributeValue ? attributeValue : "car"}`,
-                      );
-                    } else if (pathname.startsWith("/periodic-service")) {
-                      console.log(attributeValue);
-                      nProgress.start();
-                      router.push(
-                        `/periodic-service?attribute_slug=type_vehicle&attribute_value=${attributeValue ? attributeValue : "car"}`,
-                      );
-                    }
-                  }}
+                  onClick={changeVehicleClickHandler}
                 >
-                  تغییر خودرو
+                  تغییر وسیله نقلیه
                 </button>
               </div>
               {showInvoice ? (
                 <>
-                  {/* <div
-                  className="flex flex-col gap-3 items-start relative"
-                  onFocusCapture={() => {
-                    setOptionState(true);
-                  }}
-                >
-                  <span className="text-[#FEFEFE] font-bold">
-                    محله
-                  </span>
-                  <input
-                    className="w-full bg-[#FEFEFE] rounded-lg text-[#0E0E0E] h-10 outline-none px-2"
-                    value={selectedCity}
-                    onChange={(e) => {
-                      inputChangeHandler(e.target.value);
-                    }}
-                    ref={inputRef}
-                  />
-                  {optionState && (
-                    <div className="absolute w-[calc(100%-32px)] overflow-y-scroll bg-[#FEFEFE] rounded-b-lg top-[76px] z-[2]">
-                      <div
-                        className="max-h-[200px] flex flex-col"
-                        ref={optionRef}
-                      >
-                        {searchCity.map((item,index) => (
-                          <span
-                            className="cursor-pointer hover:bg-slate-200 py-1 px-2"
-                            value={item.id}
-                            onClick={(e) => {
-                              cityClickHandler(item);
-                            }}
-                            key={index}
-                          >
-                            {item.label}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-                </div> */}
                   <div className={`flex flex-col gap-4 mt-12 items-center`}>
                     <Image
                       src={invoice}
@@ -337,17 +328,6 @@ const CarSelectComponent = () => {
                         ))}
                     </div>
                     <hr />
-                    {/* <div className="flex flex-col gap-2">
-                    <div className="text-[#fefefe] flex justify-between">
-                      <span className="text-14 font-bold">دستمزد</span>
-                      <span className="font-bold text-14">200.000 تومان</span>
-                    </div>
-                    <div className="text-[#fefefe] flex justify-between">
-                      <span className="text-14 font-bold">ایاب ذهاب</span>
-                      <span className="font-bold text-14">450.000 تومان</span>
-                    </div>
-                  </div>
-                  <hr /> */}
                     <div className="flex justify-between">
                       <span className="text-white font-bold text-18">
                         مجموع سفارش
@@ -376,7 +356,7 @@ const CarSelectComponent = () => {
               <span className="text-[#FEFEFE] text-20 font-bold text-center">
                 ثبت وسیله نقلیه
               </span>
-              <div className="rounded-lg bg-[#F66B3414] flex justify-between p-1">
+              <div className="rounded-lg bg-[#F66B3414] flex flex-wrap justify-between gap-1 p-1">
                 <button
                   className={`${vehicleType === "car" ? "bg-[#F66B34] text-[#FEFEFE]" : "text-[#F66B34]"} rounded-[4px] w-[100px] h-10 flex justify-center items-center font-medium text-14`}
                   onClick={() => {
@@ -403,10 +383,18 @@ const CarSelectComponent = () => {
                 >
                   وسیله سنگین
                 </button>
+              {myVehicleData.length?<button
+                    className={`${vehicleType === "my-car" ? "bg-[#F66B34] text-[#FEFEFE]" : "text-[#F66B34]"} rounded-[4px] w-[100px] h-10 flex justify-center items-center text-[#F66B34] font-medium text-14 m-auto`}
+                    onClick={() => {
+                      vehicleTypeFetch("my-car");
+                    }}
+                  >
+                    وسیله من
+                </button>:""}
               </div>
               <div className="flex flex-col gap-4">
                 <span className="text-center font-bold text-[#FEFEFE]">
-                  انتخاب برند
+                  {carSelectedType}
                 </span>
                 <div className="flex gap-2 py-1 pr-4 pl-1 text-[#dddddd] bg-[#B0B0B01F] rounded-lg">
                   <i className="cc-search text-xl" />
@@ -418,11 +406,11 @@ const CarSelectComponent = () => {
                     }}
                   />
                   <i
-                    className={`cc-arrow-right text-2xl rotate-180 text-[#ffffff] bg-[#ffffff38] px-2 rounded-md h-7 leading-7 ${level > 2 ? "" : "hidden"} cursor-pointer hover:bg-[#ffffff20] transition-all duration-200`}
+                    className={`cc-arrow-right text-2xl rotate-180 text-[#ffffff] bg-[#ffffff38] px-2 rounded-md h-7 leading-7 ${(level > 2 || !myVehicleData.length) ? "" : "hidden"} cursor-pointer hover:bg-[#ffffff20] transition-all duration-200`}
                     onClick={backClickHandler}
                   />
                 </div>
-                <div className="h-[363px] overflow-y-scroll mt-2 overflow-x-hidden">
+                <div className={`${myVehicleData.length?"h-[320px]":"h-[363px]"} overflow-y-scroll mt-2 overflow-x-hidden`}>
                   <div className="grid grid-cols-3 gap-x-8 gap-y-[42px]">
                     {searchedData.map((item, index) => (
                       <div
