@@ -11,12 +11,11 @@ const ProductSelection = async (props) => {
             </div>
           );
         }else if(data.error.status === 400){
-          return <div className="mt-[140px] mr-[420px] min-h-[calc(100vh-300px)]">پکیج یافت نشد</div>;
+          return <div className="mt-[140px] w-full text-center min-h-[calc(100vh-300px)]">پکیج یافت نشد</div>;
         }else {
-          return <div className="mt-[140px] mr-[420px] min-h-[calc(100vh-300px)]">you have error {data.error.status}</div>;
+          return <div className="mt-[140px] w-full text-center min-h-[calc(100vh-300px)]">you have error {data.error.status}</div>;
         }
       }
-
     return ( 
         <div className="flex gap-4 xl:gap-10 max-w-[1676px] w-full m-auto mb-10 mt-5 lg:mt-28 px-4">
             <SelectProduct data={data.data.data}/>

@@ -10,7 +10,7 @@ import useSetQuery from "@/hook/useSetQuery";
 import { getData, postData } from "@/utils/client-api-function-utils";
 import { numberWithCommas } from "@/utils/function-utils";
 import { getCurrentData, getDataWithFullErrorRes } from "@/utils/api-function-utils";
-const CarSelectComponent = () => {
+const CarSelectComponent = (props) => {
   const [vehicleType, setVehicleType] = useState("car");
   const [level, setLevel] = useState(1);
   const [data, setData] = useState([]);
@@ -232,7 +232,7 @@ const CarSelectComponent = () => {
     return (
       <div className="absolute h-full top-0 right-auto pb-10">
         <div
-          className={`bg-[#383838A3] h-[605px] rounded-2xl w-[400px] sticky ${showHeaderData ? "top-[123px]" : "top-[10px]"} right-auto z-[2] backdrop-blur-[16px] p-4 hidden lg:flex flex-col gap-4`}
+          className={`bg-[#383838A3] h-[605px] rounded-2xl w-[400px] sticky ${showHeaderData ? "top-[123px]" : "top-[10px]"} right-auto z-[2] backdrop-blur-[16px] p-4 ${props.isMobile?"flex lg:hidden":"hidden lg:flex"} flex-col gap-4`}
         >
           {carSelected ? (
             <div className="flex flex-col gap-4">
