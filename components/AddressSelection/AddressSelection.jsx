@@ -138,7 +138,7 @@ const AddressSelection = (props) => {
                 className={`flex flex-wrap gap-6 overflow-y-scroll overflow-x-hidden max-h-[200px]`}
                 ref={serviceDropDownRef}
               >
-                {servicesData.map((item, index) => (
+                {servicesData?.map((item, index) => (
                   <div
                     key={index}
                     className="checkbox-wrapper-42 flex items-center gap-1 min-w-[210px]"
@@ -174,11 +174,11 @@ const AddressSelection = (props) => {
       ) : (
         <Button
           class_name={
-            "bg-[#5D697A] text-[#FEFEFE] py-2 px-3 text-[16px] flex item-center gap-2 rounded-[8px] self-start"
+            "bg-[#5D697A] text-[#FEFEFE] py-2 px-3 lg:text-[16px] text-14 flex item-center gap-2 rounded-[8px] self-start"
           }
           on_click={openModalHandler}
         >
-          <span className={"text-[24px]"}>+</span>
+          <span className={"lg:text-[24px] text-20"}>+</span>
           <span className={"mt-1.5"}>افزودن آدرس جدید</span>
         </Button>
       )}
@@ -194,7 +194,9 @@ const AddressSelection = (props) => {
                   ? "/detailing/selected-services"
                   : pathName.startsWith("/periodic-service")
                     ? "/periodic-service/service-selection"
-                    : ""
+                    : pathName.startsWith("/batteries")
+                      ? "/batteries/products/newTimeSelector"
+                      : ""
               }
             />
           ))}
@@ -216,7 +218,9 @@ const AddressSelection = (props) => {
                     ? "/detailing/selected-services"
                     : pathName.startsWith("/periodic-service")
                       ? "/periodic-service/service-selection"
-                      : ""
+                      : pathName.startsWith("/batteries")
+                        ? "/batteries/products/newTimeSelector"
+                        : ""
                 }
               />
             ))}

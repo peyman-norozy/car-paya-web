@@ -6,6 +6,7 @@ import { setBatteriesData } from "@/store/todoSlice";
 import { useDispatch } from "react-redux";
 import PurchaseBatteryModal from "@/components/PurchaseBatteryModal";
 import { ToastContainer } from "react-toastify";
+import Link from "next/link";
 
 const BatteriesAssisantPage = (props) => {
   const [batteryIsSelected, setBatteryIsSelected] = useState(false);
@@ -40,7 +41,16 @@ const BatteriesAssisantPage = (props) => {
 
   return (
     <div className="flex flex-col relative py-4 max-w-[1772px] m-auto">
-      <section className="lg:w-[calc(100%-424px)] w-full mr-auto lg:mt-16 mt-[20px]">
+      <section className="lg:w-[calc(100%-424px)] w-full mr-auto lg:mt-16 mt-[20px] flex flex-col">
+        <Link
+          href="/batteries/products?attribute_slug=type_vehicle&attribute_value=car"
+          className={
+            "self-end w-[108px] h-[30px] flex justify-center items-center gap-1 rounded-[8px] bg-white text-[#F66B34] mb-10 text-[14px] font-semibold"
+          }
+        >
+          <span>بازگشت</span>
+          <i className={"cc-undo text-[20px]"} />
+        </Link>
         <table className="table-auto border-collapse w-full rounded-[20px] overflow-hidden">
           <thead>
             <tr className={"h-[60px] text-[12px]"}>

@@ -6,15 +6,16 @@ import Image from "next/image";
 import { API_PATHS } from "@/configs/routes.config";
 import {serviceData} from "@/staticData/data";
 import CarSelectComponent from "@/components/public/CarSelectComponent";
+import nProgress from "nprogress";
 
 function MobileBottomNav(props) {
   const router = useRouter();
-  const pathname = usePathname()
+  const pathname = usePathname();
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [serviceModalIsOpen, setServiceModalIsOpen] = useState(false);
   const [selectedTab, setSelectedTab] = useState(pathname);
-  const [vehicleImage,setVehicleImage] = useState(null)
-  const [vehicleName,setVehicleName] = useState(null)
+  const [vehicleImage, setVehicleImage] = useState(null);
+  const [vehicleName, setVehicleName] = useState(null);
   const modalRef = useRef(null);
   const selectVehicleRef = useRef(null);
   const startY = useRef(null);
@@ -34,8 +35,10 @@ function MobileBottomNav(props) {
   const [isClicked, setIsClicked] = useState();
   const navClickHandler = (event, index) => {
     if (index === 0) {
+      nProgress.start();
       router.push("/");
     } else if (index === 4) {
+      nProgress.start();
       router.push("/login");
     } else if (index === 1) {
       setServiceModalIsOpen((prevState) => !prevState);
@@ -82,11 +85,9 @@ function MobileBottomNav(props) {
   };
 
   useEffect(() => {
-    setVehicleImage(localStorage.getItem("vehicleImage"))
-    setVehicleName(localStorage.getItem("vehicleName"))
-    
-  } , [modalIsOpen])
-
+    setVehicleImage(localStorage.getItem("vehicleImage"));
+    setVehicleName(localStorage.getItem("vehicleName"));
+  }, [modalIsOpen]);
 
   return (
     <div className="fixed bottom-0 right-0 z-[2000] px-[1rem] pt-[5px] pb-[0.75rem] bg-[#383838] flex items-center justify-between w-full h-[70px] shadow-[0_0_5px_0_rgba(0,0,0,0.54)] overflow-hidden">
@@ -181,11 +182,15 @@ function MobileBottomNav(props) {
             />
           )}
           {vehicleName !== null && index === 2 ? (
-            <p className={`text-[12px] text-center line-clamp-1 text-[#fefefe]`}>
+            <p
+              className={`text-[12px] text-center line-clamp-1 text-[#fefefe]`}
+            >
               {vehicleName}
             </p>
           ) : (
-            <p className={`text-[9px] ${isClicked === index? "text-[#F66B34]":"text-[#fefefe]"} mt-2`}>
+            <p
+              className={`text-[9px] ${isClicked === index ? "text-[#F66B34]" : "text-[#fefefe]"} mt-2`}
+            >
               {item.title}
             </p>
           )}

@@ -7,6 +7,7 @@ import { error, numberWithCommas } from "@/utils/function-utils";
 import { usePathname, useRouter } from "next/navigation";
 import { useDispatch } from "react-redux";
 import { setBatteriesData } from "@/store/todoSlice";
+import nProgress from "nprogress";
 
 const BatteryCard = ({ data, setBatteryIsSelected, searchParams }) => {
   const router = useRouter();
@@ -14,6 +15,7 @@ const BatteryCard = ({ data, setBatteryIsSelected, searchParams }) => {
   const dispatch = useDispatch();
 
   const batteryShowHandler = () => {
+    nProgress.start();
     router.push(pathName + "/" + data.id);
   };
 

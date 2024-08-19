@@ -5,6 +5,7 @@ import { deleteCookie, getCookie } from "cookies-next";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "@/store/loginCheckerSlice";
 import { setLoginState } from "@/store/todoSlice";
+import nProgress from "nprogress";
 
 const PrivateRoute = ({ children }) => {
   const loginResult = useSelector((item) => item.loginChecker);
@@ -21,6 +22,7 @@ const PrivateRoute = ({ children }) => {
 
   if (!getCookie("Authorization")) {
     dispatch(setLoginState(true));
+    nProgress.start();
     router.push("/login");
     deleteCookie("Authorization");
     return;
@@ -33,6 +35,7 @@ const PrivateRoute = ({ children }) => {
   if (loginResult.error) {
     dispatch(setLoginState(true));
     deleteCookie("Authorization");
+    nProgress.start();
     router.push("/login");
   }
   if (loginResult.user && loginResult.user.status === "success") {

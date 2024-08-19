@@ -48,7 +48,7 @@ const TimeSelectorCard = (props) => {
         onClick={clickAccordionHandler}
       >
         <div className={"flex flex-col text-[#FEFEFE] w-[78px] items-center"}>
-          <span className={"text-[16px] font-bold"}>
+          <span className={"lg:text-[16px] text-14 font-bold"}>
             {moment(Number(props.data.day) * 1000).format("L")}
           </span>
           <span className={"text-[12px] text-center"}>
@@ -57,7 +57,7 @@ const TimeSelectorCard = (props) => {
         </div>
         <div className={" lg:hidden flex justify-center items-center"}>
           <i
-            className={`cc-arrow-up text-white text-[24px] transition-all duration-500 ${accordionHeight ? "" : "rotate-[-180deg]"}`}
+            className={`cc-arrow-up text-white lg:text-[24px] text-18 transition-all duration-500 ${accordionHeight ? "" : "rotate-[-180deg]"}`}
           />
         </div>
       </div>
@@ -71,12 +71,12 @@ const TimeSelectorCard = (props) => {
         {props.data.hour.map((item) => (
           <li
             key={item.id}
-            className={`${item.status === "ACTIVE" ? (props.selectedTime === item.id ? "bg-[#F66B34] text-[#FEFEFE] cursor-pointer" : "bg-[#FEFEFE] text-[#0E0E0E] cursor-pointer") : "bg-[#B0B0B0] text-[#5D697A] cursor-none"} flex gap-1 py-2 px-4 rounded-[8px] select-none min-w-[125px]`}
+            className={`${item.status === "ACTIVE" ? (props.selectedTime === item.id ? "bg-[#F66B34] text-[#FEFEFE] cursor-pointer" : "bg-[#FEFEFE] text-[#0E0E0E] cursor-pointer") : "bg-[#B0B0B0] text-[#5D697A] cursor-none"} flex gap-1 py-2 px-4 rounded-[8px] select-none lg:min-w-[125px] min-w-[100px]`}
             onClick={() => {
               props.setSelectedTime(item.id);
             }}
           >
-            <span className="flex items-center">
+            <span className="flex items-center lg:text-14 text-12">
               {item.start_time}:00 - {item.end_time}:00
             </span>
           </li>

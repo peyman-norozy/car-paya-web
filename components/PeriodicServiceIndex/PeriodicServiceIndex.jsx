@@ -8,10 +8,12 @@ import React, { useEffect, useState } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { error } from "@/utils/function-utils";
 import { ToastContainer } from "react-toastify";
+import nProgress from "nprogress";
 const PeriodicServiceIndex = (props) => {
   const pathName = usePathname();
   const [toastieDisplay, setToastieDisplay] = useState(false);
   const [isClient, setIsClient] = useState(false);
+  const [preventFirstRender, setPreventFirstRender] = useState(false);
   // const [selectedVehicleId, setSelectedVehicleId] = useState(null);
   const [servicesState, setServicesState] = useState("");
   const [cityId, setCityId] = useState(null);
@@ -37,38 +39,46 @@ const PeriodicServiceIndex = (props) => {
         localStorage.getItem("selectedVehicle"),
       );
       const city = JSON.parse(localStorage.getItem("city"));
-
-      if (!selectedVehicle) {
-        error("لطفا خودرو خود را انتخاب کنید");
-      } else if (!city) {
-        error("لطفا شهر خود را انتخاب کنید");
+      if (preventFirstRender) {
+        if (!selectedVehicle) {
+          error("لطفا خودرو خود را انتخاب کنید");
+        } else if (!city) {
+          error("لطفا شهر خود را انتخاب کنید");
+        }
       }
     }
-  }, [toastieDisplay]);
+  }, [preventFirstRender, toastieDisplay]);
 
   const selectServiceClickHandler = (status) => {
     setToastieDisplay((prev) => !prev);
+    setPreventFirstRender(true);
     if (
       pathName.startsWith("/detailing") &&
-      searchParams.get("selectTipState") &&
+      JSON.parse(localStorage.getItem("selectedVehicle"))?.id &&
       cityId
     ) {
+      nProgress.start();
       router.push(
         `/detailing/selectLocation?type=${status}${
-          searchParams.get("selectTipState")
-            ? `&selectTipState=${searchParams.get("selectTipState")}`
+          JSON.parse(localStorage.getItem("selectedVehicle"))?.id
+            ? `&selectTipState=true,${
+                JSON.parse(localStorage.getItem("selectedVehicle"))?.id
+              }`
             : ""
         }&city_id=${JSON.parse(localStorage.getItem("city"))?.cityId}`,
       );
     } else if (
       pathName.startsWith("/periodic-service") &&
-      searchParams.get("selectTipState") &&
+      JSON.parse(localStorage.getItem("selectedVehicle"))?.id &&
       cityId
     ) {
+      nProgress.start();
       router.push(
         `/periodic-service/location-selection?type=${status}&${
-          searchParams.get("selectTipState")
-            ? `&selectTipState=${searchParams.get("selectTipState")}`
+          JSON.parse(localStorage.getItem("selectedVehicle"))?.id
+            ? `&selectTipState=true,${
+                JSON.parse(localStorage.getItem("selectedVehicle"))?.id
+              }`
             : ""
         }&city_id=${cityId}`,
       );
@@ -78,6 +88,8 @@ const PeriodicServiceIndex = (props) => {
   if (!isClient) {
     return null;
   }
+
+  console.log(toastieDisplay);
 
   return (
     <div className={"flex flex-col gap-4 lg:gap-10"}>
@@ -169,7 +181,7 @@ const PeriodicServiceIndex = (props) => {
       </div>
       <HowWorks data={HowWorksMockUpData} removeImage={true} />
       <TopRepresentatives />
-      <ToastContainer rtl={true} />
+      {preventFirstRender && <ToastContainer rtl={true} />}
     </div>
   );
 };

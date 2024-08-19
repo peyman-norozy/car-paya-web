@@ -18,6 +18,7 @@ import { getData, postData, putData } from "@/utils/client-api-function-utils";
 import { useSelector } from "react-redux";
 import SelectCarModal from "@/components/modal/SelectCarModal";
 import PrivateRoute from "@/routes/private-route";
+import nProgress from "nprogress";
 
 const CarDevice = (props) => {
   const router = useRouter();
@@ -446,6 +447,7 @@ const CarDevice = (props) => {
       if (response.status === 200 || response.status === 201) {
         setButtonDisabledState(false);
         // success(res.data.data["msg"]);
+        nProgress.start();
         router.push("/panel/my-vehicle/my-car");
         // event.target.reset();
         // setNewReset(true);

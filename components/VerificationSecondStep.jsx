@@ -9,6 +9,7 @@ import { useDispatch } from "react-redux";
 import { error } from "@/utils/function-utils";
 import { ToastContainer } from "react-toastify";
 import { getCookie } from "cookies-next";
+import nProgress from "nprogress";
 
 const VerificationSecondStep = (props) => {
   const { setStep } = props;
@@ -64,6 +65,7 @@ const VerificationSecondStep = (props) => {
 
   const backStepHandler = () => {
     if (props.backUrl === "/batteries") {
+      nProgress.start();
       router.push(props.backUrl);
     } else {
       setQuery.deleteSingleQuery(

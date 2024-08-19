@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import { API_PATHS } from "@/configs/routes.config";
 import { useDispatch } from "react-redux";
 import { setLoginState } from "@/store/todoSlice";
+import nProgress from "nprogress";
 
 const UserPanelAttribute = (props) => {
   const pathname = usePathname();
@@ -29,6 +30,7 @@ const UserPanelAttribute = (props) => {
         deleteCookie("Authorization");
         localStorage.removeItem("profileData");
         dispatch(setLoginState(true));
+        nProgress.start();
         router.push("/");
       });
   };

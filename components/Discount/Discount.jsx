@@ -4,6 +4,7 @@ import { getData } from "@/utils/api-function-utils";
 import { API_PATHS } from "@/configs/routes.config";
 import { useRouter } from "next/navigation";
 import PrivateRoute from "@/routes/private-route";
+import nProgress from "nprogress";
 
 const Discount = () => {
   const [discountData, setDiscountData] = useState([]);
@@ -17,6 +18,7 @@ const Discount = () => {
       } else if (getCoupons.status === 404) {
         console.log(getCoupons);
       } else if (getCoupons.status === 401) {
+        nProgress.start();
         router.push("login");
       } else if (getCoupons.status === 422) {
         console.log(getCoupons.data.error);

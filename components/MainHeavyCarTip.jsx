@@ -12,6 +12,7 @@ import { error, forceOnlyNumberInput, success } from "@/utils/function-utils";
 import { useDispatch } from "react-redux";
 import { getData } from "@/utils/client-api-function-utils";
 import { setCarYear, setSelectCarTip } from "@/store/todoSlice";
+import nProgress from "nprogress";
 const MainHeavyCarTip = (props) => {
   const [newTipId, setNewTipId] = useState(null);
   const [setPhoneNumberState, setSetPhoneNumberState] = useState(false);
@@ -125,6 +126,7 @@ const MainHeavyCarTip = (props) => {
         setNewOtpState(false);
         props.setMainHeavyCarTipDisplay(false);
         props.setMainHeavyCarBrandModalDisplay(true);
+        nProgress.start();
         router.push("/");
       })
       .catch((e) => console.log(e));
@@ -143,6 +145,7 @@ const MainHeavyCarTip = (props) => {
     if (props.setModalState) {
       props.setModalState(false);
     }
+    nProgress.start();
     router.push("/panel/my-vehicle/my-car/create");
   };
 
@@ -150,7 +153,9 @@ const MainHeavyCarTip = (props) => {
     <Fragment>
       <div className="flex flex-col gap-4 mt-4 w-full">
         <div className="flex justify-end">
-          <span className="flex-1 text-center font-medium text-[#FEFEFE]">انتخاب تیپ</span>
+          <span className="flex-1 text-center font-medium text-[#FEFEFE]">
+            انتخاب تیپ
+          </span>
           <Image
             src={"/assets/icons/Arrow-Left 1.svg"}
             alt={"icon"}
@@ -196,7 +201,9 @@ const MainHeavyCarTip = (props) => {
                   className={"rounded-10 w-[50px] h-[50px]"}
                 />
               </div>
-              <span className="text-16 font-medium text-[#fefefe] line-clamp-1 text-center">{item.title}</span>
+              <span className="text-16 font-medium text-[#fefefe] line-clamp-1 text-center">
+                {item.title}
+              </span>
             </div>
           ))}
         </div>

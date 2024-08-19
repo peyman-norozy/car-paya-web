@@ -9,6 +9,7 @@ import { useSelector } from "react-redux";
 import { getData, getDataWithFullErrorRes } from "@/utils/api-function-utils";
 import useSetQuery from "@/hook/useSetQuery";
 import { useRouter, useSearchParams } from "next/navigation";
+import nProgress from "nprogress";
 // import Toman from "@/public/assets/icons/Toman.svg";
 // import arrowLeft from "@/public/assets/icons/Arrow-Left.svg";
 
@@ -76,8 +77,9 @@ const PurchaseBatteryModal = (props) => {
 
   const clickSelectTimeHandler = () => {
     console.log(allParams.get("provience_city_id"));
+    nProgress.start();
     router.push(
-      `/batteries/products/newTimeSelector?city_id=${JSON.parse(localStorage.getItem("city")).cityId}`,
+      `/batteries/products/newSelectLocation?city_id=${JSON.parse(localStorage.getItem("city")).cityId}&type=MOVING&vehicle_tip_id=${JSON.parse(localStorage.getItem("selectedVehicle"))?.id}`,
     );
   };
 

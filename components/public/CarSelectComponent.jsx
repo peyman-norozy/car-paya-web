@@ -10,8 +10,10 @@ import useSetQuery from "@/hook/useSetQuery";
 import { getData, postData } from "@/utils/client-api-function-utils";
 import { numberWithCommas } from "@/utils/function-utils";
 import { getCurrentData, getDataWithFullErrorRes } from "@/utils/api-function-utils";
+import nProgress from "nprogress";
 const CarSelectComponent = (props) => {
   const [vehicleType, setVehicleType] = useState("car");
+  const [carSelectedType, setCarSelectedType] = useState("انتخاب برند");
   const [level, setLevel] = useState(1);
   const [data, setData] = useState([]);
   const [searchedData, setSearchedData] = useState([]);
@@ -136,6 +138,7 @@ const CarSelectComponent = (props) => {
       .then((res) => {
         setData(res.data.data);
         setSearchedData(res.data.data);
+        setCarSelectedType("انتخاب برند");
       });
     setLevel(2);
     setBackurl([model]);
@@ -153,6 +156,11 @@ const CarSelectComponent = (props) => {
         .get(process.env.BASE_API + "/web/" + vehicleType + route + id)
         .then((res) => {
           setData(res.data.data);
+          if (level2 === 2) {
+            setCarSelectedType("انتخاب مدل");
+          } else {
+            setCarSelectedType("انتخاب تیپ");
+          }
           setSearchedData(res.data.data);
         });
       setLevel(level2 + 1);
@@ -192,16 +200,22 @@ const CarSelectComponent = (props) => {
   function changeVehicleClickHandler() {
     setCarSelected(false);
     localStorage.removeItem("selectedVehicle");
-    if (pathname.startsWith("/batteries")) {
+    if (pathname.startsWith("/batteries/battery-assistant")) {
+      setQuery.updateQueryParams({ selectTipState: null }, "");
+      return null;
+    } else if (pathname.startsWith("/batteries")) {
+      nProgress.start();
       router.push(
         `/batteries/products?attribute_slug=type_vehicle&attribute_value=${attributeValue ? attributeValue : "car"}`,
       );
     } else if (pathname.startsWith("/detailing")) {
+      nProgress.start();
       router.push(
         `/detailing?attribute_slug=type_vehicle&attribute_value=${attributeValue ? attributeValue : "car"}`,
       );
     } else if (pathname.startsWith("/periodic-service")) {
       console.log(attributeValue);
+      nProgress.start();
       router.push(
         `/periodic-service?attribute_slug=type_vehicle&attribute_value=${attributeValue ? attributeValue : "car"}`,
       );
@@ -261,45 +275,6 @@ const CarSelectComponent = (props) => {
               </div>
               {showInvoice ? (
                 <>
-                  {/* <div
-                  className="flex flex-col gap-3 items-start relative"
-                  onFocusCapture={() => {
-                    setOptionState(true);
-                  }}
-                >
-                  <span className="text-[#FEFEFE] font-bold">
-                    محله
-                  </span>
-                  <input
-                    className="w-full bg-[#FEFEFE] rounded-lg text-[#0E0E0E] h-10 outline-none px-2"
-                    value={selectedCity}
-                    onChange={(e) => {
-                      inputChangeHandler(e.target.value);
-                    }}
-                    ref={inputRef}
-                  />
-                  {optionState && (
-                    <div className="absolute w-[calc(100%-32px)] overflow-y-scroll bg-[#FEFEFE] rounded-b-lg top-[76px] z-[2]">
-                      <div
-                        className="max-h-[200px] flex flex-col"
-                        ref={optionRef}
-                      >
-                        {searchCity.map((item,index) => (
-                          <span
-                            className="cursor-pointer hover:bg-slate-200 py-1 px-2"
-                            value={item.id}
-                            onClick={(e) => {
-                              cityClickHandler(item);
-                            }}
-                            key={index}
-                          >
-                            {item.label}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-                </div> */}
                   <div className={`flex flex-col gap-4 mt-12 items-center`}>
                     <Image
                       src={invoice}
@@ -353,17 +328,6 @@ const CarSelectComponent = (props) => {
                         ))}
                     </div>
                     <hr />
-                    {/* <div className="flex flex-col gap-2">
-                    <div className="text-[#fefefe] flex justify-between">
-                      <span className="text-14 font-bold">دستمزد</span>
-                      <span className="font-bold text-14">200.000 تومان</span>
-                    </div>
-                    <div className="text-[#fefefe] flex justify-between">
-                      <span className="text-14 font-bold">ایاب ذهاب</span>
-                      <span className="font-bold text-14">450.000 تومان</span>
-                    </div>
-                  </div>
-                  <hr /> */}
                     <div className="flex justify-between">
                       <span className="text-white font-bold text-18">
                         مجموع سفارش
@@ -430,7 +394,7 @@ const CarSelectComponent = (props) => {
               </div>
               <div className="flex flex-col gap-4">
                 <span className="text-center font-bold text-[#FEFEFE]">
-                  انتخاب برند
+                  {carSelectedType}
                 </span>
                 <div className="flex gap-2 py-1 pr-4 pl-1 text-[#dddddd] bg-[#B0B0B01F] rounded-lg">
                   <i className="cc-search text-xl" />
