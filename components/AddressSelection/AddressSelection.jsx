@@ -69,7 +69,6 @@ const AddressSelection = (props) => {
   function searchClickHandler() {
     props.timeData({ services: srviceQuery.join(",") });
   }
-  console.log(servicesData);
   return (
     <>
       {props.status === "FIXED" ? (
@@ -139,7 +138,7 @@ const AddressSelection = (props) => {
                 className={`flex flex-wrap gap-6 overflow-y-scroll overflow-x-hidden max-h-[200px]`}
                 ref={serviceDropDownRef}
               >
-                {servicesData.map((item, index) => (
+                {servicesData?.map((item, index) => (
                   <div
                     key={index}
                     className="checkbox-wrapper-42 flex items-center gap-1 min-w-[210px]"
@@ -195,7 +194,9 @@ const AddressSelection = (props) => {
                   ? "/detailing/selected-services"
                   : pathName.startsWith("/periodic-service")
                     ? "/periodic-service/service-selection"
-                    : ""
+                    : pathName.startsWith("/batteries")
+                      ? "/batteries/products/newTimeSelector"
+                      : ""
               }
             />
           ))}
@@ -217,7 +218,9 @@ const AddressSelection = (props) => {
                     ? "/detailing/selected-services"
                     : pathName.startsWith("/periodic-service")
                       ? "/periodic-service/service-selection"
-                      : ""
+                      : pathName.startsWith("/batteries")
+                        ? "/batteries/products/newTimeSelector"
+                        : ""
                 }
               />
             ))}
