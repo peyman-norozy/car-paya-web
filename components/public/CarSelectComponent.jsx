@@ -150,21 +150,6 @@ const CarSelectComponent = (props) => {
 
   function optionClickHandler(id, item, state) {
     console.log(id, item, state);
-    if (localStorage?.getItem("carFullName")) {
-      if (item?.title) {
-        localStorage.setItem(
-          "carFullName",
-          localStorage.getItem("carFullName") + item.title,
-        );
-      } else {
-        localStorage.setItem(
-          "carFullName",
-          localStorage.getItem("carFullName") + item.slug,
-        );
-      }
-    } else {
-      localStorage.setItem("carFullName", item.title);
-    }
     const level2 = state ? state : level;
     if (level2 <= 3) {
       let array = [...backurl];
@@ -218,7 +203,6 @@ const CarSelectComponent = (props) => {
 
   function changeVehicleClickHandler() {
     setCarSelected(false);
-    localStorage.removeItem("carFullName");
     localStorage.removeItem("selectedVehicle");
     if (pathname.startsWith("/batteries/battery-assistant")) {
       setQuery.updateQueryParams({ selectTipState: null }, "");
@@ -284,8 +268,7 @@ const CarSelectComponent = (props) => {
               />
               <div className="flex justify-between items-center">
                 <span className="font-bold text-18 text-[#FEFEFE] border-r-[5px] border-[#c0c0c0] leading-6 pr-2">
-                  {/*{selectedCar.title}*/}
-                  {localStorage.getItem("carFullName")}
+                  {selectedCar.title}
                 </span>
                 <button
                   className="text-[#F66B34] text-16 cursor-pointer font-medium"
