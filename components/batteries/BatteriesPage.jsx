@@ -14,67 +14,19 @@ import nProgress from "nprogress";
 
 const BatteriesPage = (props) => {
   const query = useSetQuery();
-  const [filterISOpen, setFilterIsOpen] = useState(false);
   const [batteryIsSelected, setBatteryIsSelected] = useState(false);
-  const [filter, setFilter] = useState("فیلتر بر اساس");
-  const [topDistance, setTopDistance] = useState(0);
   const [filterModalState, setFilterModalState] = useState(false);
   const [filterId, setFilterId] = useState("");
   const dispatch = useDispatch();
   const filterRef = useRef(null);
-  const subFilterRef = useRef();
   const router = useRouter();
-  const heightRef = useRef(null);
+  const filterTitleRef = useRef(null);
   const searchParams = useSearchParams();
 
   const filterData = [
     { name: "آمپر", value: "getAmp" },
     { name: "برند", value: "brand" },
   ];
-
-  const toggleFilterHandler = () => {
-    setFilterIsOpen((prevState) => !prevState);
-  };
-
-  const closeFilterHandler = (event) => {
-    console.log(event.target.offsetParent);
-    console.log(filterRef.current);
-    if (event.target.offsetParent !== filterRef.current) {
-      setFilterIsOpen(false);
-    }
-  };
-
-  const filterMouseEnter = (event) => {
-    const rect = event.target.getBoundingClientRect();
-    setFilterModalState(true);
-    setTopDistance(rect.top);
-    console.log(event.target.id);
-    setFilterId(event.target.id);
-  };
-
-  const filterMouseLeave = (event) => {
-    console.log(event.relatedTarget.id);
-    console.log(subFilterRef.current);
-
-    if (event.relatedTarget.id !== "sub_filter") {
-      setFilterModalState(false);
-    } else {
-      setFilterModalState(true);
-    }
-  };
-
-  const subFilterMouseEnter = () => {
-    console.log(subFilterRef.current);
-  };
-
-  const subFilterMouseLeave = () => {
-    setFilterModalState(false);
-  };
-
-  useEffect(() => {
-    window.addEventListener("click", closeFilterHandler);
-    return () => window.removeEventListener("click", closeFilterHandler);
-  }, []);
 
   useEffect(() => {
     if (searchParams.get("attribute_slug") === undefined) {
@@ -96,68 +48,58 @@ const BatteriesPage = (props) => {
     }
   }, [dispatch, router, searchParams]);
 
+  const filterClickHandler = (event, id) => {
+    setFilterModalState(true);
+    setFilterId(id);
+  };
+
+  const closeFilterHandler = (event) => {
+    if (!event.target.offsetParent?.classList.contains("filterModal")) {
+      setFilterModalState(false);
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener("click", closeFilterHandler);
+    return () => window.removeEventListener("click", closeFilterHandler);
+  }, []);
+
   return (
     <div className={"flex flex-col relative py-4 max-w-[1772px] m-auto"}>
       <section
         className={"lg:w-[calc(100%-424px)] w-full mr-auto lg:mt-16 mt-[20px]"}
       >
         <div className="flex items-center justify-between">
-          <div
-            ref={filterRef}
-            onClick={toggleFilterHandler}
-            className="bg-[#5D697A] rounded-[8px] py-[0.5rem] px-[1.5rem] flex items-center gap-[0.5rem] text-white cursor-pointer relative font-semibold"
-          >
-            <i className={"cc-arrow-down text-[20px]"} />
-            <p className="text-12">{filter}</p>
-            <ul
-              ref={heightRef}
-              className={`bg-[#5D697A] rounded-[8px] absolute  top-[2.2rem] right-0 left-0 text-12 overflow-hidden transition-all duration-500 z-[2]`}
-              style={
-                filterISOpen
-                  ? { height: `${heightRef.current.scrollHeight}px` }
-                  : { height: 0 }
-              }
-            >
+          <div className={"flex items-center gap-4 relative filterModal"}>
+            <div className={"flex items-center gap-4"}>
               {filterData.map((item, index) => (
-                <li
-                  className="p-[0.5rem] w-full rounded-[8px]  hover:bg-[#a7a7a7] flex items-center justify-between z-[2]"
+                <div
+                  ref={filterTitleRef}
+                  className="bg-[#5D697A] rounded-[8px] py-[0.5rem] px-[1.5rem] flex items-center gap-[0.5rem] text-white cursor-pointer relative font-semibold filterModal"
                   key={index}
-                  onMouseEnter={filterMouseEnter}
-                  onMouseLeave={filterMouseLeave}
+                  onClick={(event) => filterClickHandler(event, item.value)}
                   order_by={item.value}
                   id={item.value}
                 >
-                  <span>{item.name}</span>
-                  <i className={"cc-left text-[20px]"} />
-                </li>
+                  <i className={"cc-arrow-down text-[20px]"} />
+                  <p className="text-14">{item.name}</p>
+                </div>
+              ))}
+            </div>
+            <ul
+              ref={filterRef}
+              className={`bg-[#5D697A] overflow-y-scroll  absolute top-10 rounded-[8px] z-[100] text-12 text-white p-2 transition-all duration-500 ${filterModalState ? "h-[250px]" : "h-0 p-0"} ${filterId ? "block" : "hidden"} ${filterId === "brand" ? "mr-[117px]" : ""}`}
+            >
+              {props.data.filter[filterId]?.map((item, index) => (
+                <SubFilterCard
+                  key={item.value}
+                  filterId={filterId}
+                  item={item}
+                  index={index}
+                  setFilterModalState={setFilterModalState}
+                />
               ))}
             </ul>
-            {filterModalState && (
-              <div
-                className={
-                  "bg-[#5D697A] rounded-[8px] absolute right-[137px] pr-1 text-12 overflow-hidden transition-all duration-1000 w-[137px] z-[2]"
-                }
-                ref={subFilterRef}
-                id={"sub_filter"}
-                onMouseEnter={subFilterMouseEnter}
-                onMouseLeave={subFilterMouseLeave}
-                style={{
-                  top: topDistance === 0 ? "0" : topDistance - 145 + "px",
-                }}
-              >
-                <ul className={`bg-[#5D697A] h-[250px] overflow-y-scroll`}>
-                  {props.data.filter[filterId]?.map((item) => (
-                    <SubFilterCard
-                      key={item.value}
-                      setFilter={setFilter}
-                      filterId={filterId}
-                      item={item}
-                      setFilterModalState={setFilterModalState}
-                    />
-                  ))}
-                </ul>
-              </div>
-            )}
           </div>
           <Link
             href={`/batteries/battery-assistant?selectTipState=${searchParams.get("selectTipState")}`}
