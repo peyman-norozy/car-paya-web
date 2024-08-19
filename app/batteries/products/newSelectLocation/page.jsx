@@ -11,7 +11,7 @@ const Page = (props) => {
   const [selectAddressState, setSelectAddressState] = useState("MOVING"); //FIXED
   const [myLocationData, setMyLocationData] = useState([]);
   const [carCheckLocations, setCarCheckLocations] = useState([]);
-  const [filter , setFilter] = useState([])
+  const [filter, setFilter] = useState([]);
   const searchParams = useSearchParams();
 
   const showHeaderState = useSelector((state) => state.todo.showHeader);
@@ -20,20 +20,24 @@ const Page = (props) => {
     setSelectAddressState(searchParams.get("type"));
   }, [searchParams]);
 
-  const timeData = useCallback((query) => {
-    (async () => {
-      const fetchTimeData = await getDataWithFullErrorRes(
-        process.env.BASE_API +
-          `/web/reservation/battery?step=step-3&${searchParams.toString()}${query?query:""}`,
-      );
-      if (searchParams.get("type") === "FIXED") {
-        setCarCheckLocations(fetchTimeData.data);
-        setFilter(fetchTimeData.filter)
-      } else if (searchParams.get("type") === "MOVING") {
-        setMyLocationData(fetchTimeData.data);
-      }
-    })();
-  }, [searchParams]);
+  const timeData = useCallback(
+    (query) => {
+      (async () => {
+        const fetchTimeData = await getDataWithFullErrorRes(
+          process.env.BASE_API +
+            `/web/reservation/battery?step=step-2&${searchParams.toString()}`,
+          query ? query : "",
+        );
+        if (searchParams.get("type") === "FIXED") {
+          setCarCheckLocations(fetchTimeData.data);
+          setFilter(fetchTimeData.filter);
+        } else if (searchParams.get("type") === "MOVING") {
+          setMyLocationData(fetchTimeData.data);
+        }
+      })();
+    },
+    [searchParams],
+  );
 
   useEffect(() => {
     timeData();
