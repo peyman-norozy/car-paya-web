@@ -40,10 +40,10 @@ const AllPanelTab = (props) => {
     ? pathName + "?" + "status=" + query.get("status")
     : pathName;
 
-  const backClickHandler = () => {
-    nProgress.start();
-    router.push("/panel");
-  };
+  // const backClickHandler = () => {
+  //   nProgress.start();
+  //   router.push("/panel");
+  // };
 
   useEffect(() => {
     if (props.params["all-panel-tab"] === "logout") {
@@ -67,8 +67,8 @@ const AllPanelTab = (props) => {
 
   return (
     <>
-      <div className="mt-[50px] mb-[24px]">
-        <div className="flex items-center gap-4 mb-[30px] mt-[100px]">
+      <div className="mt-4 lg:mt-[120px] mb-[24px]">
+        {/* <div className="flex items-center gap-4 mb-[30px] lg:mt-[100px]">
           <Image
             src={"/assets/icons/back.svg"}
             className={"size1000:hidden block cursor-pointer"}
@@ -77,7 +77,7 @@ const AllPanelTab = (props) => {
             width={34}
             height={34}
           />
-          {/* {
+          {
             {
               profile: <TitleDescription>اطلاعات شخصی من</TitleDescription>,
               "my-vehicle/my-car": (
@@ -97,9 +97,9 @@ const AllPanelTab = (props) => {
               props.params["all-panel-tab"] &&
                 props.params["all-panel-tab"].join("/")
             ]
-          } */}
-        </div>
-        <div className="flex gap-4 size1000:flex-row flex-col">
+          }
+        </div> */}
+        <div className="flex gap-4 size1000:flex-row flex-col mx-4 sm:mx-0">
           <div
             className={`bg-[#383838] w-[260px] flex-col justify-start ${showHeaderState ? "top-32 h-[calc(100vh-156px)]" : "top-6 h-[calc(100vh-52px)]"} gap-4 items-center pt-2 size1180:flex hidden rounded-[10px] sticky transition-all duration-100 overflow-y-scroll`}
           >

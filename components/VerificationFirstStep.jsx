@@ -140,12 +140,13 @@ const VerificationFirstStep = (props) => {
                 </div>
               </div>
       </div> */}
-        <div className="bg-[#383838A3] rounded-3xl flex gap-6 p-6 flex-row-reverse items-center">
+        <div className="bg-[#383838A3] sm:rounded-3xl flex gap-6 p-6 flex-col size1400:flex-row items-center">
+          <Image className="scale-x-[-1] w-[259px] h-[187px]" src={expert} width={259} height={187}/>
           <div className="flex flex-col gap-2 items-start">
             <h1 className="text-xl font-bold text-[#F66B34]">
               کارشناسی وسیله نقلیه
             </h1>
-            <p className="text-base text-[#FEFEFE] font-medium">
+            <p className="text-sm lg:text-base text-[#FEFEFE] font-medium">
               لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با
               استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله
               در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد
@@ -153,19 +154,14 @@ const VerificationFirstStep = (props) => {
               کتابهای زیادی در شصت و سه درصد گذشته، حال و آینده شناخت فراوان
               جامعه و متخصصان را می طلبد تا با نرم افزارها شناخت بیشتری را برای
               طراحان رایانه ای علی الخصوص طراحان خلاقی و فرهنگ پیشرو در زبان
-              فارسی ایجاد کرد. در این صورت می توان امید داشت که تمام و دشواری
-              موجود در ارائه راهکارها و شرایط سخت تایپ به پایان رسد وزمان مورد
-              نیاز شامل حروفچینی دستاوردهای اصلی و جوابگوی سوالات پیوسته اهل
-              دنیای موجود طراحی اساسا مورد استفاده قرار گیرد.
             </p>
             <button className="bg-[#F66B34] rounded-md py-2 px-4 text-[#FEFEFE] w-fit text-14 mt-2 font-medium" onClick={PackageStepHandler}>درخواست کارشناسی</button>
           </div>
-            <Image className="scale-x-[-1] w-[296px] h-[214]" src={expert} width={296} height={214}/>
         </div>
-        <h2 className="text-2xl font-bold font-[#0E0E0E] text-center mb-[-32px]">سرویس های کارشناسی کار چک</h2>
-        <table className="w-full rounded-3xl overflow-hidden bg-[#E7E7E7]">
+        <h2 className="text-18 lg:text-2xl font-bold font-[#0E0E0E] text-center mb-[-32px]">سرویس های کارشناسی کار چک</h2>
+        <table className="mx-4 sm:mx-0 rounded-3xl overflow-hidden bg-[#E7E7E7]">
           <thead>
-            <tr className="bg-[#B0B0B0] flex px-10 py-4 font-bold">
+            <tr className="bg-[#B0B0B0] flex px-4 lg:px-10 py-4 font-bold">
               <th className="flex-[3_3_0%] text-start">پکیج ها</th>
               <th className="flex-1 text-center">بدنه</th>
               <th className="flex-1 text-center">فنی</th>
@@ -174,8 +170,8 @@ const VerificationFirstStep = (props) => {
             </tr>
           </thead>
           <tbody>
-            <tr className="flex px-10 py-5 font-bold text-20">
-            <td className="flex-[3_3_0%] text-start">کارشناسی تخصصی</td>
+            <tr className="flex px-4 lg:px-10 py-5 font-bold text-16 lg:text-20">
+            <td className="flex-[3_3_0%] text-start line-clamp-1 leading-7">کارشناسی تخصصی</td>
               <td className="flex-1 text-center"><i className="cc-tick size-8 bg-[#99E0A9] text-xl text-[#24D34B] rounded-full p-1"/></td>
               <td className="flex-1 text-center"><i className="cc-tick size-8 bg-[#99E0A9] text-xl text-[#24D34B] rounded-full p-1"/></td>
               <td className="flex-1 text-center"><i className="cc-tick size-8 bg-[#99E0A9] text-xl text-[#24D34B] rounded-full p-1"/></td>
@@ -183,8 +179,8 @@ const VerificationFirstStep = (props) => {
             </tr>
           </tbody>
           <tbody>
-            <tr className="flex px-10 py-5 font-bold text-20">
-              <td className="flex-[3_3_0%] text-start">کارشناسی فنی و بدنه</td>
+            <tr className="flex px-4 lg:px-10 py-5 font-bold text-16 lg:text-20">
+              <td className="flex-[3_3_0%] text-start line-clamp-1 leading-7">کارشناسی فنی و بدنه</td>
               <td className="flex-1 text-center"><i className="cc-tick size-8 bg-[#99E0A9] text-xl text-[#24D34B] rounded-full p-1"/></td>
               <td className="flex-1 text-center"><i className="cc-tick size-8 bg-[#99E0A9] text-xl text-[#24D34B] rounded-full p-1"/></td>
               <td className="flex-1 text-center"><i className="cc-tick size-8 bg-[#99E0A9] text-xl text-[#24D34B] rounded-full p-1"/></td>
@@ -192,8 +188,8 @@ const VerificationFirstStep = (props) => {
             </tr>
           </tbody>
           <tbody>
-            <tr className="flex px-10 py-5 font-bold text-20">
-              <td className="flex-[3_3_0%] text-start">کارشناسی بدنه</td>
+            <tr className="flex px-4 lg:px-10 py-5 font-bold text-16 lg:text-20">
+              <td className="flex-[3_3_0%] text-start line-clamp-1 leading-7">کارشناسی بدنه</td>
               <td className="flex-1 text-center"><i className="cc-tick size-8 bg-[#99E0A9] text-xl text-[#24D34B] rounded-full p-1"/></td>
               <td className="flex-1 text-center rotate-45"><i className="cc-add size-8 bg-[#e79595] text-xl text-[#E61919] rounded-full p-1"/></td>
               <td className="flex-1 text-center rotate-45"><i className="cc-add size-8 bg-[#e79595] text-xl text-[#E61919] rounded-full p-1"/></td>

@@ -410,7 +410,7 @@ const CarDevice = (props) => {
           error(response.response.data.errors[key][0]);
         }
       }
-    } else {
+    } else {     
       const fd = carFormData(
         newBrandOptionId,
         newModelOptionId,
@@ -423,6 +423,7 @@ const CarDevice = (props) => {
         event.target.plaque_3.value,
         event.target.carName.value,
         "force_store",
+        searchParams.get("type"),
         // event.target.kilometerStart.value.split(",").join(""),
         // event.target.kilometerEnd.value.split(",").join(""),
         // newBodyInsuranceStartAt,
@@ -666,7 +667,7 @@ const CarDevice = (props) => {
   return (
     <PrivateRoute>
       <form
-        className="flex-1 px-[40px] py-[32px] rounded-[10px] bg-[#383838A3] flex flex-col gap-[35px]"
+        className="flex-1 px-4 sm:px-[40px] py-[32px] rounded-[10px] bg-[#383838A3] flex flex-col gap-[35px]"
         onSubmit={myCarSubmitHandler}
       >
         <h1 className={"text-[#FEFEFE]"}>خودرو</h1>
@@ -679,7 +680,7 @@ const CarDevice = (props) => {
                   : "/assets/icons/photo.svg"
               }
               alt={"car image"}
-              className={"w-[476px] h-[295px]"}
+              className={"w-full h-auto max-w-[476px]"}
               width={476}
               height={295}
             />

@@ -147,7 +147,7 @@ const MainMotorSycleTip = (props) => {
       props.setModalState(false);
     }
     nProgress.start();
-    router.push("/panel/my-vehicle/my-car/create");
+    router.push("/panel/my-vehicle/my-car/create?type=MOTOR_SYCLE");
   };
 
   return (

@@ -146,7 +146,7 @@ const MainHeavyCarTip = (props) => {
       props.setModalState(false);
     }
     nProgress.start();
-    router.push("/panel/my-vehicle/my-car/create");
+    router.push("/panel/my-vehicle/my-car/create?type=HEAVY_CAR");
   };
 
   return (

@@ -39,10 +39,10 @@ const VerificationThirdStep = (props) => {
     setQuery.updateMultiQuery([{ key: "step", value: "step-2" }], params);
   };
   return (
-    <div className="pt-[2rem] mb-[7rem] lg:w-[calc(100%-424px)] mr-auto overflow-hidden ]">
+    <div className="pt-[2rem] mb-[7rem] lg:w-[calc(100%-424px)] mr-auto overflow-hidden">
       <div
         className={
-          "flex items-center gap-2 size752:gap-[16px] text-BLUE_600 w-full"
+          "flex items-center gap-2 size752:gap-[16px] text-[#0e0e0e] w-full"
         }
       >
         <i
@@ -51,7 +51,7 @@ const VerificationThirdStep = (props) => {
         />
         <p
           className={
-            "p-[6px] text-14 size752:text-16 w-full border-b border-BLUE_600"
+            "p-[6px] text-14 size752:text-16 w-full border-b border-[#0e0e0e]"
           }
         >
           چه مکانی اماده دریافت کارشناس هستید؟
