@@ -88,7 +88,7 @@ const BatteriesPage = (props) => {
             </div>
             <ul
               ref={filterRef}
-              className={`bg-[#5D697A] overflow-y-scroll  absolute top-10 rounded-[8px] z-[100] text-12 text-white p-2 transition-all duration-500 ${filterModalState ? "h-[250px]" : "h-0 p-0"} ${filterId ? "block" : "hidden"} ${filterId === "brand" ? "mr-[117px]" : ""}`}
+              className={`bg-[#5D697A] overflow-y-scroll  absolute top-10 rounded-[8px] z-[100] text-12 text-white transition-all duration-500 ${filterModalState ? "h-[250px] p-2" : "h-0 p-0"} ${filterId ? "block" : "hidden"} ${filterId === "brand" ? "mr-[117px]" : ""}`}
             >
               {props.data.filter[filterId]?.map((item, index) => (
                 <SubFilterCard
