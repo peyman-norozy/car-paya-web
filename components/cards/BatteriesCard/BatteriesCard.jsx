@@ -29,11 +29,16 @@ const BatteriesCard = (props) => {
 
   const basketClickHandler = () => {
     const CityId = JSON.parse(localStorage.getItem("city"))?.cityId;
-    if (CityId) {
+    const selectedVehicleId = JSON.parse(
+      localStorage.getItem("selectedVehicle"),
+    )?.id;
+    if (CityId && selectedVehicleId) {
       props.setBatteryIsSelected(true);
       dispatch(setBatteriesData(props.item));
-    } else {
+    } else if (!CityId) {
       error("فیلد شهر و استان را انتخاب نشده");
+    } else if (!selectedVehicleId) {
+      error("لطفا خودرو خود را انتخاب کنید");
     }
   };
 
