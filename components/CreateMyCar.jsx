@@ -12,6 +12,7 @@ import PrivateRoute from "@/routes/private-route";
 import Image from "next/image";
 import CertificateCard from "./certificate/CertificateCard";
 import { deleteData } from "@/utils/api-function-utils";
+import nProgress from "nprogress";
 const CreateMyCar = () => {
   const [newMyCareData, setNewMyCareData] = useState([]);
   const [deleteModalState, setDeleteModalState] = useState(false);

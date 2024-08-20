@@ -1,3 +1,4 @@
+'use client'
 import React, { useEffect, useRef, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import VehicleRegistration from "@/components/VehicleRegistration";
@@ -16,23 +17,27 @@ function MobileBottomNav(props) {
   const [selectedTab, setSelectedTab] = useState(pathname);
   const [vehicleImage, setVehicleImage] = useState(null);
   const [vehicleName, setVehicleName] = useState(null);
+  const [selectedCarData , setSelectedCarData] = useState(null)
+  const [isClicked, setIsClicked] = useState();
   const modalRef = useRef(null);
   const selectVehicleRef = useRef(null);
   const startY = useRef(null);
-
   const mobileNavData = [
     { name: "icon-Vector-4", title: "صفحه نخست", class: "right-[5%]" },
     { name: "icon-Vector-1", title: "خدمات", class: "right-[26.5%]" },
     {
       name: "icon-Vector-5",
       title: "انتخاب خودرو",
-      class: "right-[50%] translate-x-[50%]",
+      class: "right-[50%] translate-x-[50%] bottom-2 h-20 w-22",
     },
-    { name: "icon-Vector-2", title: "جستجو", class: "left-[26.5%]" },
+    { name: "cc-document-align-right", title: "سفارش ها", class: "left-[26.5%]" },
     { name: "icon-Vector-3", title: "حساب کاربری", class: "left-[5%]" },
   ];
 
-  const [isClicked, setIsClicked] = useState();
+  useEffect(()=>{
+    setSelectedCarData(JSON.parse(localStorage.getItem("selectedVehicle")))
+  },[])
+
   const navClickHandler = (event, index) => {
     if (index === 0) {
       nProgress.start();
@@ -90,13 +95,13 @@ function MobileBottomNav(props) {
   }, [modalIsOpen]);
 
   return (
-    <div className="fixed bottom-0 right-0 z-[2000] px-[1rem] pt-[5px] pb-[0.75rem] bg-[#383838] flex items-center justify-between w-full h-[70px] shadow-[0_0_5px_0_rgba(0,0,0,0.54)] overflow-hidden">
+    <div className="fixed bottom-0 right-0 z-[2000] px-[1rem] pt-[5px] pb-[0.75rem] bg-[#383838] flex items-center justify-between w-full h-[70px] shadow-[0_0_5px_0_rgba(0,0,0,0.54)]">
       {
         <div
           ref={selectVehicleRef}
           onTouchStart={touchStartHandler}
           onTouchMove={slideDownvehicleHandler}
-          className={`fixed  right-0 left-0 w-full bg-[#fff] z-[2002] shadow-[0_0_10px_0_rgba(0,0,0,0.4)] rounded-t-2xl transition-all duration-1000  ${
+          className={`fixed right-0 left-0 w-full bg-[#fff] z-[2002] shadow-[0_0_10px_0_rgba(0,0,0,0.4)] rounded-t-2xl transition-all duration-1000  ${
             modalIsOpen
               ? "h-[100vh] top-[calc(100vh-670px)] bottom-0"
               : "h-0 bottom-0 top-[100%]"
@@ -156,20 +161,20 @@ function MobileBottomNav(props) {
           key={index}
           id={index}
           onClick={(event) => navClickHandler(event, index)}
-          className={`${item.class} ${index === 2 && "bg-[#FCFFFC1F] p-3"} absolute flex flex-col justify-center items-center rounded-full`}
+          className={`${item.class} ${index === 2 && "bg-[#383838] p-3"} absolute flex flex-col justify-center items-center rounded-full`}
         >
-          {vehicleImage !== null && index === 2 ? (
-            <div className="w-[40px] h-[36px]">
+          {selectedCarData && index === 2 ? (
+            <div className="w-[60px] h-[54px]">
               <Image
-                width={40}
-                height={36}
+                width={60}
+                height={54}
                 alt=""
                 src={
                   process.env.BASE_API +
                   "/web" +
                   API_PATHS.FILE +
                   "/" +
-                  vehicleImage
+                  selectedCarData.image
                 }
                 className="rounded-[50%] w-full h-full"
               />
@@ -181,11 +186,11 @@ function MobileBottomNav(props) {
               } text-[1.25rem]`}
             />
           )}
-          {vehicleName !== null && index === 2 ? (
+          {selectedCarData && index === 2 ? (
             <p
               className={`text-[12px] text-center line-clamp-1 text-[#fefefe]`}
             >
-              {vehicleName}
+              {selectedCarData.title}
             </p>
           ) : (
             <p
