@@ -44,7 +44,7 @@ const Dealership = (props) => {
   }, [searchParams.get("type")]);
 
   return (
-    <div className="lg:flex items-start gap-8 mt-1 lg:mt-[108px] max-w-[1772px] m-auto py-4 relative min-h-[calc(100vh-100px)]">
+    <div className="lg:flex items-start gap-8 mt-1 lg:mt-[108px] max-w-[1772px] m-auto py-4 relative min-h-[calc(100vh-100px)] mx-4 sm:mx-0">
       <div
         className={
           "w-full lg:w-[calc(100%-424px)] md:gap-10 mr-auto flex flex-col gap-6"
