@@ -127,9 +127,15 @@ const CarSelectComponent = (props) => {
     }
   }
 
-  async function removeClickHandler(id) {
-    const data = await postData("/web/cart/remove", { product_id: id });
-    setInvoiceData(data.data.data);
+  async function removeClickHandler(item) {
+    console.log(item);
+    const data = await postData("/web/cart/remove", {
+      cartable_id: item.item.id,
+      cartable_type: pathname.split("/")[1].toUpperCase().split("-").join("_"),
+      vehicle_tip_id: item.id,
+    });
+    console.log(data);
+    // setInvoiceData(data.data.data);
   }
 
   function vehicleTypeFetch(model) {
@@ -200,7 +206,7 @@ const CarSelectComponent = (props) => {
               }),
             );
             setCarSelected(true);
-            dispatch(renderSetCar())
+            dispatch(renderSetCar());
           }
         });
     }
@@ -318,7 +324,7 @@ const CarSelectComponent = (props) => {
                               <div
                                 className="bg-[#FEFEFE] rounded-full size-5 text-[#888888] font-bold pr-[5px] cursor-pointer"
                                 onClick={() => {
-                                  removeClickHandler(item.item.item.id);
+                                  removeClickHandler(item.item);
                                 }}
                               >
                                 X
