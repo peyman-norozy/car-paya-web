@@ -9,7 +9,7 @@ import nProgress from "nprogress";
 const CertificateCard = ({ data, setDeleteModalState, setDeleteModalId }) => {
   const router = useRouter();
   const pathName = usePathname();
-
+  
   const clickRecordsHandler = () => {
     nProgress.start();
     router.push(pathName + "/" + data.id + "/" + data.tipId + "/history");
@@ -20,35 +20,37 @@ const CertificateCard = ({ data, setDeleteModalState, setDeleteModalId }) => {
   };
   return (
     <div className="bg-[#383838A3] flex flex-col gap-5 rounded-2xl p-4">
-      <div className="text-[#FEFEFE] flex gap-1 items-center">
-        <span className="font-bold">{data.car_model_title}</span>
-      </div>
-      <div className="flex flex-row gap-5 items-center">
-        <div className="grid grid-cols-2 gap-4">
-          <div className="bg-[#383838] flex flex-col gap-1 rounded-lg w-full min-w-32 h-16 p-2">
-            <span className="font-bold text-[#FEFEFE]">برند</span>
-            <span className="text-14 text-[#FEFEFE]">
-              {data.car_brand_title}
-            </span>
+      <div className="flex flex-col-reverse size1570:flex-row gap-4 items-end">
+        <div className="flex flex-col items-start gap-4 w-full ">
+          <div className="text-[#FEFEFE] flex gap-1 items-center border-r-4 pr-2 ">
+            <span className="font-bold">{data.car_model_title}</span>
           </div>
-          <div className="bg-[#383838] flex flex-col gap-1 rounded-lg w-full min-w-32 h-16 p-2">
-            <span className="font-bold text-[#FEFEFE]">تیپ</span>
-            <span className="text-14 text-[#FEFEFE]">{data.car_tip_title}</span>
-          </div>
-          <div className="bg-[#383838] flex flex-col gap-1 rounded-lg w-full min-w-32 h-16 p-2">
-            <span className="font-bold text-[#FEFEFE]">سال ساخت</span>
-            <span className="text-14 text-[#FEFEFE]">{data.year}</span>
-          </div>
-          <div className="bg-[#383838] flex flex-col gap-1 rounded-lg w-full min-w-32 h-16 p-2">
-            <span className="font-bold text-[#FEFEFE]">رنگ</span>
-            <span className="text-14 text-[#FEFEFE]">آبی روشن</span>
+          <div className="grid grid-cols-2 gap-4 w-full">
+            <div className="bg-[#383838] flex flex-col gap-1 rounded-lg w-full min-w-32 h-16 p-2">
+              <span className="font-bold text-[#FEFEFE]">برند</span>
+              <span className="text-14 text-[#FEFEFE]">
+                {data.car_brand_title}
+              </span>
+            </div>
+            <div className="bg-[#383838] flex flex-col gap-1 rounded-lg w-full min-w-32 h-16 p-2">
+              <span className="font-bold text-[#FEFEFE]">تیپ</span>
+              <span className="text-14 text-[#FEFEFE]">{data.car_tip_title}</span>
+            </div>
+            <div className="bg-[#383838] flex flex-col gap-1 rounded-lg w-full min-w-32 h-16 p-2">
+              <span className="font-bold text-[#FEFEFE]">سال ساخت</span>
+              <span className="text-14 text-[#FEFEFE]">{data.year}</span>
+            </div>
+            <div className="bg-[#383838] flex flex-col gap-1 rounded-lg w-full min-w-32 h-16 p-2">
+              <span className="font-bold text-[#FEFEFE]">رنگ</span>
+              <span className="text-14 text-[#FEFEFE]">{data.info.color}</span>
+            </div>
           </div>
         </div>
         <Image
           src={
             process.env.BASE_API + "/web" + API_PATHS.FILE + "/" + data.image_id
           }
-          className="w-full h-auto max-w-[200px] m-auto"
+          className="w-full h-auto max-w-[200px] mx-auto"
           width={200}
           height={150}
         />
@@ -72,19 +74,19 @@ const CertificateCard = ({ data, setDeleteModalState, setDeleteModalId }) => {
       </div>
       <div className="flex gap-4">
         <button
-          className="flex items-center justify-center gap-2 bg-[#F66B34] text-[#FEFEFE] h-10 rounded-lg py-2 text-14 font-medium w-full min-w-[160px]"
+          className="flex items-center justify-center gap-2 bg-[#F66B34] text-[#FEFEFE] h-10 rounded-lg py-2 text-12 size882:text-14 font-medium w-full"
           onClick={editClickHandler}
         >
-          ویرایش اطلاعات
+          ویرایش
         </button>
         <button
-          className="flex items-center justify-center gap-2 bg-[#F66B3429] text-[#F66B34] h-10 rounded-lg py-2 text-14 font-medium w-full min-w-[160px]"
+          className="flex items-center justify-center gap-2 bg-[#F66B3429] text-[#F66B34] h-10 rounded-lg py-2 text-12 size882:text-14 font-medium w-full"
           onClick={clickRecordsHandler}
         >
           سوابق
         </button>
         <button
-          className="flex items-center justify-center gap-2 border border-[#F66B34] text-[#F66B34] h-10 rounded-lg py-2 text-14 font-medium w-full min-w-[160px]"
+          className="flex items-center justify-center gap-2 border border-[#F66B34] text-[#F66B34] h-10 rounded-lg py-2 text-12 size882:text-14 font-medium w-full"
           onClick={() => {
             setDeleteModalState(true);
             setDeleteModalId(data.id);
