@@ -12,6 +12,7 @@ import PrivateRoute from "@/routes/private-route";
 import Image from "next/image";
 import CertificateCard from "./certificate/CertificateCard";
 import { deleteData } from "@/utils/api-function-utils";
+import nProgress from "nprogress";
 const CreateMyCar = () => {
   const [newMyCareData, setNewMyCareData] = useState([]);
   const [deleteModalState, setDeleteModalState] = useState(false);
@@ -70,11 +71,24 @@ const CreateMyCar = () => {
     await fetchData();
   };
 
+  const backClickHandler = () => {
+    nProgress.start();
+    router.push("/panel");
+  };
+
   return (
     <PrivateRoute>
-      <div className="flex flex-col size1000:flex-1 w-full rounded-[10px] px-[43px] py-6 gap-6">
-        <div className={"flex items-center justify-start"}>
+      <div className="flex flex-col size1000:flex-1 w-full rounded-[10px] lg:px-[43px] gap-6">
+        <div className={"flex items-center justify-between"}>
           {/* <span className={"text-BLUE_600"}>خودرو من</span> */}
+          <Image
+            src={"/assets/icons/back.svg"}
+            className={"size1000:hidden block cursor-pointer"}
+            onClick={backClickHandler}
+            alt="back icon"
+            width={34}
+            height={34}
+          />
             <button
               type={"button"}
               className="flex items-center justify-center gap-2 bg-[#F66B34] text-[#FEFEFE] h-[48px] rounded-lg px-4"
@@ -129,7 +143,7 @@ const CreateMyCar = () => {
           )}
 
         </div> */}
-        <div className="grid grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 size830:grid-cols-2 gap-6">
           {newMyCareData.map((item,index)=>(
             <CertificateCard data={item} key={index} fetchData={fetchData} setDeleteModalState={setDeleteModalState} setDeleteModalId={setDeleteModalId}/>
           ))}

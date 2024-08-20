@@ -3,7 +3,7 @@ import { API_PATHS } from "@/configs/routes.config";
 import axios from "axios";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import invoice from "@/public/assets/images/invoice.png";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import useSetQuery from "@/hook/useSetQuery";
@@ -14,6 +14,7 @@ import {
   getDataWithFullErrorRes,
 } from "@/utils/api-function-utils";
 import nProgress from "nprogress";
+import { renderSetCar } from "@/store/todoSlice";
 const CarSelectComponent = (props) => {
   const [vehicleType, setVehicleType] = useState("car");
   const [carSelectedType, setCarSelectedType] = useState("انتخاب برند");
@@ -39,6 +40,7 @@ const CarSelectComponent = (props) => {
   const router = useRouter();
   const setQuery = useSetQuery();
   const searchParams = useSearchParams();
+  const dispatch = useDispatch();
   const params = new URLSearchParams(searchParams.toString());
 
   const attributeValue = searchParams.get("attribute_value");
@@ -139,13 +141,13 @@ const CarSelectComponent = (props) => {
     } else {
       getBrandData(model);
     }
-    setQuery.updateQueryParams(
-      {
-        attribute_slug: "type_vehicle",
-        attribute_value: model,
-      },
-      "",
-    );
+    // setQuery.updateQueryParams(
+    //   {
+    //     attribute_slug: "type_vehicle",
+    //     attribute_value: model,
+    //   },
+    //   "",
+    // );
   }
 
   function getBrandData(model) {
@@ -198,6 +200,7 @@ const CarSelectComponent = (props) => {
               }),
             );
             setCarSelected(true);
+            dispatch(renderSetCar())
           }
         });
     }
@@ -216,26 +219,26 @@ const CarSelectComponent = (props) => {
   function changeVehicleClickHandler() {
     setCarSelected(false);
     localStorage.removeItem("selectedVehicle");
-    if (pathname.startsWith("/batteries/battery-assistant")) {
-      setQuery.updateQueryParams({ selectTipState: null }, "");
-      return null;
-    } else if (pathname.startsWith("/batteries")) {
-      nProgress.start();
-      router.push(
-        `/batteries/products?attribute_slug=type_vehicle&attribute_value=${attributeValue ? attributeValue : "car"}`,
-      );
-    } else if (pathname.startsWith("/detailing")) {
-      nProgress.start();
-      router.push(
-        `/detailing?attribute_slug=type_vehicle&attribute_value=${attributeValue ? attributeValue : "car"}`,
-      );
-    } else if (pathname.startsWith("/periodic-service")) {
-      console.log(attributeValue);
-      nProgress.start();
-      router.push(
-        `/periodic-service?attribute_slug=type_vehicle&attribute_value=${attributeValue ? attributeValue : "car"}`,
-      );
-    }
+    // if (pathname.startsWith("/batteries/battery-assistant")) {
+    //   setQuery.updateQueryParams({ selectTipState: null }, "");
+    //   return null;
+    // } else if (pathname.startsWith("/batteries")) {
+    //   nProgress.start();
+    //   router.push(
+    //     `/batteries/products?attribute_slug=type_vehicle&attribute_value=${attributeValue ? attributeValue : "car"}`,
+    //   );
+    // } else if (pathname.startsWith("/detailing")) {
+    //   nProgress.start();
+    //   router.push(
+    //     `/detailing?attribute_slug=type_vehicle&attribute_value=${attributeValue ? attributeValue : "car"}`,
+    //   );
+    // } else if (pathname.startsWith("/periodic-service")) {
+    //   console.log(attributeValue);
+    //   nProgress.start();
+    //   router.push(
+    //     `/periodic-service?attribute_slug=type_vehicle&attribute_value=${attributeValue ? attributeValue : "car"}`,
+    //   );
+    // }
   }
 
   function backClickHandler() {
@@ -246,13 +249,6 @@ const CarSelectComponent = (props) => {
       getBrandData(backurl[0]);
     }
   }
-  useEffect(() => {
-    if (attributeValue) {
-      setVehicleType(attributeValue);
-    } else {
-      setVehicleType("car");
-    }
-  }, [attributeValue]);
 
   console.log(invoiceData);
 

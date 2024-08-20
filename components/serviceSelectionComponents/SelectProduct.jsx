@@ -34,9 +34,8 @@ const SelectProduct = (props) => {
 
   return (
     <div className="w-full border border-[#383838A3] flex flex-col pb-5 lg:w-[calc(100%-424px)] mr-auto rounded-2xl overflow-hidden">
-      <div className="bg-[#383838A3] items-start px-10 py-5 justify-between flex text-[#FFFFFF]">
+      <div className="bg-[#383838A3] items-start px-10 py-5 justify-start flex text-[#FFFFFF]">
         <h1 className="text-18 font-medium">تعویض روغن موتور</h1>
-        <i className="cc-left text-[30px] pr-10" />
       </div>
       <div className="flex flex-col gap-4 p-4 xl:p-8">
         {props.data.map((item, index) => (

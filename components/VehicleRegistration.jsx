@@ -17,6 +17,7 @@ import {hasCookie} from "cookies-next";
 import MainHeavyCarBrand from "@/components/MainHeavyCarBrand";
 import MainHeavyCarModel from "@/components/MainHeavyCarModel";
 import MainHeavyCarTip from "@/components/MainHeavyCarTip";
+import useSetQuery from "@/hook/useSetQuery";
 
 // const tabData = [
 //   { title: "خودرو", id: "car" },
@@ -44,10 +45,10 @@ const VehicleRegistration = (props) => {
   const [mainHeavyCarModelData, setMainHeavyCarModelData] = useState([]);
   const [mainHeavyCarTipsData, setMainHeavyCarTipsData] = useState([]);
   const [newTabId, setNewTabId] = useState("car");
-  const [tabData,setTabData] = useState([ { title: "خودرو", id: "car" },
+  const [tabData] = useState([ { title: "خودرو", id: "car" },
     { title: "موتورسیکلت", id: "motorSycle" },{ title: "وسیله سنگین", id: "heavy-car" }])
   const dispatch = useDispatch()
-
+  const setQuery = useSetQuery();
   // useEffect(() => {
   //   if(props.modalName ==="motorModal"){
   //     setTabData([{ title: "موتورسیکلت", id: "motorSycle" }])
@@ -178,7 +179,7 @@ const VehicleRegistration = (props) => {
       >
         <div className="flex flex-col items-center">
           <span className="text-20 text-[#FEFEFE] font-bold">ثبت وسیله نقلیه</span>
-          <ul className="flex justify-center gap-2 text-12 mt-4 bg-[#F66B3414] p-2">
+          <ul className="flex justify-around gap-2 text-12 mt-4 bg-[#F66B3414] p-2 w-full">
             {tabData.map((item) => (
               <li
                 key={item.id}
@@ -188,7 +189,6 @@ const VehicleRegistration = (props) => {
                 }`}
                 onClick={clickTabHandler}
               >
-                {item.id === newTabId ? <span>s</span> : ""}
                 <span>{item.title}</span>
               </li>
             ))}

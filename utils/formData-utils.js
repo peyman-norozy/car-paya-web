@@ -10,7 +10,7 @@ function carFormData(
   plaque_3,
   carName,
   forceStore,
-  color,
+  type,
   // kilometerStart,
   // kilometerEnd,
   // newBodyInsuranceStartAt,
@@ -38,6 +38,7 @@ function carFormData(
   fd.append("plaque[3]", plaque_3);
   fd.append("title", carName);
   fd.append("kind", forceStore);
+  fd.append("type", type);
   // fd.append("kilometers_now", kilometerStart);
   // fd.append("kilometers_use", kilometerEnd);
   // fd.append("information[body_insurance_start_at]", newBodyInsuranceStartAt);

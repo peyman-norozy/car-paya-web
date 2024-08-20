@@ -8,7 +8,7 @@ import { getCookie } from "cookies-next";
 import axios from "axios";
 import { error, forceOnlyNumberInput, success } from "@/utils/function-utils";
 import OTPInput from "react-otp-input";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useDispatch } from "react-redux";
 import { setCarYear, setSelectCarTip } from "@/store/todoSlice";
 import { getData } from "@/utils/client-api-function-utils";
@@ -22,7 +22,7 @@ const MainCarTip = (props) => {
   const [setLoginToken, setSetLoginToken] = useState("");
   const [newPhoneNumber, setNewPhoneNumber] = useState("");
   const [carData, setCarData] = useState({});
-
+  const searchParams = useSearchParams()
   const router = useRouter();
   const dispatch = useDispatch();
 
@@ -150,9 +150,8 @@ const MainCarTip = (props) => {
       props.setModalState(false);
     }
     nProgress.start();
-    router.push("/panel/my-vehicle/my-car/create");
+    router.push("/panel/my-vehicle/my-car/create?type=CAR");
   };
-  console.log(props.mainCarTipsData);
 
   return (
     <Fragment>
