@@ -59,13 +59,13 @@ const PackageStep = () => {
   return (
     <div
       className={
-        "flex items-start justify-between pt-[28px] w-full lg:w-[calc(100%-424px)] mr-auto"
+        "flex items-start justify-between pt-[28px] w-full lg:w-[calc(100%-424px)] mr-auto mb-4"
       }
     >
-      <div className={"w-full size1000:w-[50%] flex flex-col"}>
+      <div className={"w-full size1570:w-[50%] flex flex-col mx-4 sm:mx-0"}>
         <div
           className={
-            "flex items-center gap-2 size752:gap-[16px] text-BLUE_600 w-full mb-4"
+            "flex items-center gap-2 size752:gap-[16px] text-[#0E0E0E] w-full mb-4"
           }
         >
           <i
@@ -74,7 +74,7 @@ const PackageStep = () => {
           />
           <p
             className={
-              "p-[6px] text-14 size752:text-16 w-full border-b border-BLUE_600"
+              "p-[6px] text-14 size752:text-16 w-full border-b border-[#0E0E0E]"
             }
           >
             سرویس مد نظر خود را انتخاب کنید
@@ -102,7 +102,7 @@ const PackageStep = () => {
         <button
           onClick={nextStepHandler}
           className={
-            "bg-BLUE_700 self-end flex items-center gap-2 mt-1 size690:mt-3 w-fit text-12 size690:text-[16px] p-[8px] text-white rounded-[4px]"
+            "bg-[#F66B34] self-end flex items-center gap-2 mt-1 size690:mt-3 w-fit text-12 size690:text-[16px] p-[8px] text-white rounded-[4px]"
           }
         >
           <p>تایید و ادامه</p>
@@ -114,7 +114,7 @@ const PackageStep = () => {
         alt={""}
         width={544}
         height={544}
-        className={"hidden size1000:block"}
+        className={"hidden size1570:block"}
       />
     </div>
   );
