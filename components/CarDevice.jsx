@@ -410,7 +410,7 @@ const CarDevice = (props) => {
           error(response.response.data.errors[key][0]);
         }
       }
-    } else {
+    } else {     
       const fd = carFormData(
         newBrandOptionId,
         newModelOptionId,
@@ -423,6 +423,7 @@ const CarDevice = (props) => {
         event.target.plaque_3.value,
         event.target.carName.value,
         "force_store",
+        searchParams.get("type"),
         // event.target.kilometerStart.value.split(",").join(""),
         // event.target.kilometerEnd.value.split(",").join(""),
         // newBodyInsuranceStartAt,
