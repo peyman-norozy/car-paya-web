@@ -69,7 +69,7 @@ const CarSelectComponent = (props) => {
   useEffect(() => {
     (async () => {
       const data = await getDataWithFullErrorRes(
-        process.env.BASE_API + "/web/vehicles",
+        process.env.BASE_API + "/web/my-vehicles",
       );
       if (data.status && data.status === "success") {
         setMyVehicleData(data.data);
@@ -225,26 +225,25 @@ const CarSelectComponent = (props) => {
   function changeVehicleClickHandler() {
     setCarSelected(false);
     localStorage.removeItem("selectedVehicle");
-    // if (pathname.startsWith("/batteries/battery-assistant")) {
-    //   setQuery.updateQueryParams({ selectTipState: null }, "");
-    //   return null;
-    // } else if (pathname.startsWith("/batteries")) {
-    //   nProgress.start();
-    //   router.push(
-    //     `/batteries/products?attribute_slug=type_vehicle&attribute_value=${attributeValue ? attributeValue : "car"}`,
-    //   );
-    // } else if (pathname.startsWith("/detailing")) {
-    //   nProgress.start();
-    //   router.push(
-    //     `/detailing?attribute_slug=type_vehicle&attribute_value=${attributeValue ? attributeValue : "car"}`,
-    //   );
-    // } else if (pathname.startsWith("/periodic-service")) {
-    //   console.log(attributeValue);
-    //   nProgress.start();
-    //   router.push(
-    //     `/periodic-service?attribute_slug=type_vehicle&attribute_value=${attributeValue ? attributeValue : "car"}`,
-    //   );
-    // }
+    if (pathname.startsWith("/batteries/battery-assistant")) {
+      setQuery.updateQueryParams({ selectTipState: null }, "");
+      return null;
+    } else if (pathname.startsWith("/batteries")) {
+      nProgress.start();
+      router.push(
+        `/batteries/products?attribute_slug=type_vehicle&attribute_value=${attributeValue ? attributeValue : "car"}`,
+      );
+    } else if (pathname.startsWith("/detailing")) {
+      nProgress.start();
+      router.push(
+        `/detailing?attribute_slug=type_vehicle&attribute_value=${attributeValue ? attributeValue : "car"}`,
+      );
+    } else if (pathname.startsWith("/periodic-service")) {
+      nProgress.start();
+      router.push(
+        `/periodic-service?attribute_slug=type_vehicle&attribute_value=${attributeValue ? attributeValue : "car"}`,
+      );
+    }
   }
 
   function backClickHandler() {
@@ -404,14 +403,18 @@ const CarSelectComponent = (props) => {
                   وسیله سنگین
                 </button>
                 {myVehicleData.length ? (
+                <div className="flex items-center m-auto gap-4">
+                  <div className="my-2 w-[1px] h-6 bg-[#F66B34]"></div>
                   <button
-                    className={`${vehicleType === "my-car" ? "bg-[#F66B34] text-[#FEFEFE]" : "text-[#F66B34]"} rounded-[4px] w-[100px] h-10 flex justify-center items-center text-[#F66B34] font-medium text-14 m-auto`}
-                    onClick={() => {
-                      vehicleTypeFetch("my-car");
-                    }}
-                  >
-                    وسیله من
-                  </button>
+                      className={`${vehicleType === "my-car" ? "bg-[#F66B34] text-[#FEFEFE]" : "text-[#F66B34]"} rounded-[4px] w-[100px] h-10 flex justify-center items-center text-[#F66B34] font-medium text-14`}
+                      onClick={() => {
+                        vehicleTypeFetch("my-car");
+                      }}
+                    >
+                      وسیله من
+                    </button>
+                  <div className="my-2 w-[1px] h-6 bg-[#F66B34]"></div>
+                </div>
                 ) : (
                   ""
                 )}

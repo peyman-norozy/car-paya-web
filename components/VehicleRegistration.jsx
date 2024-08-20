@@ -184,7 +184,7 @@ const VehicleRegistration = (props) => {
               <li
                 key={item.id}
                 id={item.id}
-                className={`px-3 py-1 rounded-[5px] cursor-pointer flex gap-2 text-14 font-medium ${
+                className={`px-3 py-1 rounded-[5px] cursor-pointer flex gap-2 text-12 size525:text-14 font-medium ${
                   item.id === newTabId ? "bg-[#F66B34] text-[#FEFEFE]" : "text-[#F66B34]"
                 }`}
                 onClick={clickTabHandler}

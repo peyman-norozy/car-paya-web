@@ -766,7 +766,7 @@ const CarDevice = (props) => {
               disabledSelectOption={true}
               lable={"انتخاب تیپ"}
             />
-            <Button
+            {/* <Button
               type={"button"}
               class_name={
                 "bg-[#F66B34] text-[#FEFEFE] self-end px-[24.5px] py-[6.5px] text-[14px] rounded-5"
@@ -774,7 +774,7 @@ const CarDevice = (props) => {
               on_click={openModalHandler}
             >
               تغییر وسیله نقلیه
-            </Button>
+            </Button> */}
           </section>
         </div>
         <div
