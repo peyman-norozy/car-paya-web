@@ -1,17 +1,18 @@
 import React, { useEffect, useState } from "react";
-// import cross from "@/public/assets/icons/cross.svg";
-import Image from "next/image";
 import Button from "./Button";
 import GreenCheckInput from "./GreenCheckInput";
-import { numberWithCommas } from "@/utils/function-utils";
+import { error, numberWithCommas } from "@/utils/function-utils";
 import ProfileEditeSelectInput from "@/components/ProfileEditeSelectInput";
 import { useSelector } from "react-redux";
-import { getData, getDataWithFullErrorRes } from "@/utils/api-function-utils";
+import {
+  getCurrentData,
+  getData,
+  getDataWithFullErrorRes,
+} from "@/utils/api-function-utils";
 import useSetQuery from "@/hook/useSetQuery";
-import { useRouter, useSearchParams } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import nProgress from "nprogress";
-// import Toman from "@/public/assets/icons/Toman.svg";
-// import arrowLeft from "@/public/assets/icons/Arrow-Left.svg";
+import { postData } from "@/utils/client-api-function-utils";
 
 const PurchaseBatteryModal = (props) => {
   const { setBatteryIsSelected } = props;
@@ -28,6 +29,7 @@ const PurchaseBatteryModal = (props) => {
   const [sameAmpBattery, setSameAmpBattery] = useState({});
   const [amperSelectData, setAmperSelectData] = useState([]);
   const router = useRouter();
+  const pathName = usePathname();
   console.log(props);
   const [purchseOptions, setPurchseOption] = useState([
     {
@@ -75,12 +77,26 @@ const PurchaseBatteryModal = (props) => {
     setSelectedPrice(event.target.getAttribute("price"));
   };
 
-  const clickSelectTimeHandler = () => {
+  const clickSelectTimeHandler = async () => {
+    console.log(batteriesData.id);
     console.log(allParams.get("provience_city_id"));
-    nProgress.start();
-    router.push(
-      `/batteries/products/newSelectLocation?city_id=${JSON.parse(localStorage.getItem("city")).cityId}&type=MOVING&vehicle_tip_id=${JSON.parse(localStorage.getItem("selectedVehicle"))?.id}`,
-    );
+    const cartData = await postData("/web/cart/add", {
+      cartable_id: batteriesData.id,
+      cartable_type: pathName.split("/")[1].toUpperCase().split("-").join("_"),
+      vehicle_tip_id: JSON.parse(localStorage.getItem("selectedVehicle"))?.id,
+      step: "step-1",
+    });
+    console.log(cartData);
+    if (cartData.status === 200 || cartData.status === 201) {
+      console.log(cartData.data);
+      nProgress.start();
+      router.push(
+        `/batteries/products/newSelectLocation?city_id=${JSON.parse(localStorage.getItem("city")).cityId}&type=MOVING&vehicle_tip_id=${JSON.parse(localStorage.getItem("selectedVehicle"))?.id}`,
+      );
+    } else if (cartData.response.status === 422) {
+      console.log(cartData.response.data);
+      error(cartData.response.data.message);
+    }
   };
 
   useEffect(() => {
