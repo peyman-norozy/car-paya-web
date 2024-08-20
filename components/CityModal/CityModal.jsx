@@ -15,6 +15,10 @@ const CityModal = ({ isOpen, onClose }) => {
   const setQuery = useSetQuery();
   const dispatch = useDispatch();
   useEffect(() => {
+    localStorage.setItem(
+      "city",
+      JSON.stringify({ label: "تهران", cityId: 87 }),
+    );
     if (isOpen) {
       // Disable scrolling by setting overflow hidden on body
       document.body.style.overflow = "hidden";
