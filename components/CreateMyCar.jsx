@@ -97,7 +97,7 @@ const CreateMyCar = () => {
               <span className="text-20 size-5 rounded-full flex items-center justify-center">
                 +
               </span>
-              <span className="text-16 font-medium">افزودن وسیله نقلیه جدید</span>
+              <span className="text-14 lg:text-16 font-medium">افزودن وسیله نقلیه جدید</span>
             </button>
         </div>
         {/* <div className="mt-6 flex flex-col gap-4">

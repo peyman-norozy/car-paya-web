@@ -13,9 +13,7 @@ const Footer = (props) => {
 
   return (
     <footer
-      className={`${props.className} ${
-        pathName === "panel" && params["all-panel-tab"] ? "hidden" : ""
-      } bg-[#071C2C] absolute right-0 left-0 p-6 rounded-t-2xl flex flex-col lg:flex-row gap-10 text-[#FEFEFE] justify-around`}
+      className={`${props.className} bg-[#071C2C] absolute right-0 left-0 p-6 rounded-t-2xl flex flex-col lg:flex-row gap-10 text-[#FEFEFE] justify-around`}
     >
       <div className="flex flex-col w-full gap-8 max-w-[620px] m-auto lg:m-0">
         <div className="flex gap-4 sm:flex-row flex-col">
