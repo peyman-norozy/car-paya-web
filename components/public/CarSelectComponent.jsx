@@ -116,11 +116,10 @@ const CarSelectComponent = (props) => {
       vehicle_tip_id: JSON.parse(localStorage.getItem("selectedVehicle"))?.id,
     });
     console.log(data);
-    if (data.data.status === "success") {
+    if (data.data?.status === "success") {
       let totalPrice = 0;
       for (let item of data.data.data) {
-        console.log(item.item.item.discounted_price);
-        totalPrice = totalPrice + item.item.item.discounted_price;
+        totalPrice = totalPrice + item.item.item?.discounted_price;
       }
       console.log(totalPrice);
       setInvoiceData({ data: data.data.data, totalPrice: totalPrice });
@@ -129,13 +128,47 @@ const CarSelectComponent = (props) => {
 
   async function removeClickHandler(item) {
     console.log(item);
+    const carTableType = pathname
+      .split("/")[1]
+      .toUpperCase()
+      .split("-")
+      .join("_");
     const data = await postData("/web/cart/remove", {
       cartable_id: item.item.id,
-      cartable_type: pathname.split("/")[1].toUpperCase().split("-").join("_"),
-      vehicle_tip_id: item.id,
+      cartable_type: carTableType,
+      vehicle_tip_id: JSON.parse(localStorage.getItem("selectedVehicle"))?.id,
     });
     console.log(data);
-    // setInvoiceData(data.data.data);
+    if (data.status === 200) {
+      let totalPrice = 0;
+      let newData = [];
+      if (data.data.data.cart_items.length === 0) {
+        setInvoiceData({
+          data: [],
+          totalPrice: 0,
+        });
+      }
+
+      for (let item of data.data.data.cart_items) {
+        if (item.type === carTableType) {
+          console.log(item.item.item.discounted_price);
+          totalPrice = totalPrice + item.item.item.discounted_price;
+          newData.push(item);
+        } else if (item.type === carTableType) {
+          setInvoiceData({
+            data: [],
+            totalPrice: 0,
+          });
+        } else if (item.type === carTableType) {
+          newData.push(item);
+        }
+      }
+      setInvoiceData({
+        data: newData,
+        totalPrice: totalPrice,
+      });
+      // setInvoiceData(data.data.data.cart_item);
+    }
   }
 
   function vehicleTypeFetch(model) {
@@ -318,7 +351,7 @@ const CarSelectComponent = (props) => {
                           >
                             <div className="flex justify-between">
                               <span className="font-bold text-[#FEFEFE]">
-                                {item.item.item.name}
+                                {item.item.item?.name}
                               </span>
                               <div
                                 className="bg-[#FEFEFE] rounded-full size-5 text-[#888888] font-bold pr-[5px] cursor-pointer"
@@ -331,14 +364,14 @@ const CarSelectComponent = (props) => {
                             </div>
                             <div className="flex justify-start gap-2 items-center">
                               <span className="text-[#ececec] line-through text-12 ">
-                                {numberWithCommas(item.item.item.price)} تومان
+                                {numberWithCommas(item.item.item?.price)} تومان
                               </span>
                               <span
                                 className={"size-1 bg-[#B0B0B0] rounded-full "}
                               ></span>
                               <span className="text-[#FEFEFE] text-14 font-bold">
                                 {numberWithCommas(
-                                  item.item.item.discounted_price,
+                                  item.item.item?.discounted_price,
                                 )}{" "}
                                 تومان
                               </span>
@@ -403,9 +436,9 @@ const CarSelectComponent = (props) => {
                   وسیله سنگین
                 </button>
                 {myVehicleData.length ? (
-                <div className="flex items-center m-auto gap-4">
-                  <div className="my-2 w-[1px] h-6 bg-[#F66B34]"></div>
-                  <button
+                  <div className="flex items-center m-auto gap-4">
+                    <div className="my-2 w-[1px] h-6 bg-[#F66B34]"></div>
+                    <button
                       className={`${vehicleType === "my-car" ? "bg-[#F66B34] text-[#FEFEFE]" : "text-[#F66B34]"} rounded-[4px] w-[100px] h-10 flex justify-center items-center text-[#F66B34] font-medium text-14`}
                       onClick={() => {
                         vehicleTypeFetch("my-car");
@@ -413,8 +446,8 @@ const CarSelectComponent = (props) => {
                     >
                       وسیله من
                     </button>
-                  <div className="my-2 w-[1px] h-6 bg-[#F66B34]"></div>
-                </div>
+                    <div className="my-2 w-[1px] h-6 bg-[#F66B34]"></div>
+                  </div>
                 ) : (
                   ""
                 )}
