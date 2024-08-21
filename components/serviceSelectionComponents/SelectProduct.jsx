@@ -3,12 +3,14 @@
 import { API_PATHS } from "@/configs/routes.config";
 import { renderInvoice } from "@/store/todoSlice";
 import { postData } from "@/utils/client-api-function-utils";
-import { numberWithCommas } from "@/utils/function-utils";
+import { error, numberWithCommas } from "@/utils/function-utils";
 import Image from "next/image";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import nProgress from "nprogress";
+import useSetQuery from "@/hook/useSetQuery";
+import { ToastContainer } from "react-toastify";
 
 const SelectProduct = (props) => {
   const [value, setValue] = useState("");
@@ -16,20 +18,41 @@ const SelectProduct = (props) => {
   const searchParams = useSearchParams();
   const router = useRouter();
   const dispatch = useDispatch();
+  const setQuery = useSetQuery();
 
   async function buttonClickHandler() {
-    const response = await postData(
-      process.env.BASE_API + `/web/cart/add`,
-      { product_id: value },
-      '"Content-Type": "application/json"',
-    );
-    if (response.status === 200 || response.status === 201) {
-      dispatch(renderInvoice());
-      router.back();
-    } else if (response.status === 401) {
+    const cartData = await postData("/web/cart/add", {
+      cartable_id: value,
+      cartable_type: pathname.split("/")[1].toUpperCase().split("-").join("_"),
+      vehicle_tip_id: JSON.parse(localStorage.getItem("selectedVehicle"))?.id,
+      step: "step-3",
+    });
+
+    if (cartData.status === 200 || cartData.status === 201) {
+      console.log(cartData.data);
+      setQuery.updateQueryParams(
+        { package_id: props.data.id },
+        "/periodic-service/service-selection",
+      );
+    } else if (cartData.response.status === 422) {
+      console.log(cartData.response.data);
+      error(cartData.response.data.message);
+    } else if (cartData.response.status === 401) {
       nProgress.start();
       router.push("/login?backurl=" + pathname + "&" + searchParams.toString());
     }
+    // const response = await postData(
+    //   process.env.BASE_API + `/web/cart/add`,
+    //   { product_id: value },
+    //   '"Content-Type": "application/json"',
+    // );
+    // if (response.status === 200 || response.status === 201) {
+    //   dispatch(renderInvoice());
+    //   router.back();
+    // } else if (response.status === 401) {
+    //   nProgress.start();
+    //   router.push("/login?backurl=" + pathname + "&" + searchParams.toString());
+    // }
   }
 
   return (
@@ -101,6 +124,7 @@ const SelectProduct = (props) => {
         </button>
         {/* </Link> */}
       </div>
+      <ToastContainer rtl={true} />
     </div>
   );
 };
