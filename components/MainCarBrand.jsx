@@ -10,13 +10,14 @@ import Spinner from "@/components/Spinner";
 const MainCarBrand = (props) => {
     const [mainBrandData, setMainBrandData] = useState([]);
     const [sliderShowState, setSliderShowState] = useState(false)
-
+    const [searchedMainBrandData , setSearchedMainBrandData] = useState([])
     useEffect(() => {
         setSliderShowState(true)
         axios
             .get(process.env.BASE_API + "/web" + API_PATHS.BRANDS)
             .then((res) => {
                 setMainBrandData(res.data.data);
+                setSearchedMainBrandData(res.data.data)
                 setSliderShowState(false)
             })
             .catch((e) => {
@@ -28,6 +29,12 @@ const MainCarBrand = (props) => {
             });
     }, []);
 
+    function searchChangeHandler(e) {
+        setSearchedMainBrandData(mainBrandData.filter((item)=>{
+            return item.title.includes(e.target.value);
+        }))
+    }
+
     return (
         <Fragment>
             {
@@ -38,16 +45,17 @@ const MainCarBrand = (props) => {
                     :
                     <div className="flex flex-col items-center gap-4 mt-4 w-full">
                         <span className="text-16 font-medium text-[#FEFEFE]">انتخاب برند</span>
-                        <Input
+                        <input
                             type={"text"}
                             placeholder={"جستجو برند"}
                             className={
                                 "placeholder:text-12 text-14 outline-none w-full py-1 px-4 text-[#B0B0B0] bg-[#b0b0b044] rounded-lg"
                             }
+                            onChange={searchChangeHandler}
                         />
                         <div className="max-h-[290px] w-full overflow-y-scroll grid grid-cols-3 gap-4 py-4">
                             {
-                                mainBrandData.map((item, index) => (
+                                searchedMainBrandData.map((item, index) => (
                                     <div key={index} className="flex flex-col items-center gap-2">
                                         <div
                                             className="w-[50px] h-[50px] cursor-pointer"
