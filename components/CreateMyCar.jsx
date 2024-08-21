@@ -84,33 +84,34 @@ const CreateMyCar = () => {
   return (
     <PrivateRoute>
       <div className="flex flex-col size1000:flex-1 w-full rounded-[10px] lg:px-[43px] gap-6">
-        <div className={"flex items-center justify-between"}>
-          {/* <span className={"text-BLUE_600"}>خودرو من</span> */}
-          <Image
-            src={"/assets/icons/back.svg"}
-            className={"size1000:hidden block cursor-pointer"}
-            onClick={backClickHandler}
-            alt="back icon"
-            width={34}
-            height={34}
-          />
-            <button
-              type={"button"}
-              className="flex items-center justify-center gap-2 bg-[#F66B34] text-[#FEFEFE] h-[48px] rounded-lg px-4"
-              onClick={openCarModalHandler}
-            >
-              <span className="text-20 size-5 rounded-full flex items-center justify-center">
-                +
-              </span>
-              <span className="text-14 lg:text-16 font-medium">افزودن وسیله نقلیه جدید</span>
-            </button>
+        <div className="flex flex-col size411:flex-row items-start size411:items-center justify-between gap-4">
+          <div className={"flex items-center justify-start gap-4"}>
+            <Image
+              src={"/assets/icons/back.svg"}
+              className={"size1000:hidden block cursor-pointer"}
+              onClick={backClickHandler}
+              alt="back icon"
+              width={34}
+              height={34}
+            />
+              <button
+                type={"button"}
+                className="flex items-center justify-center gap-2 bg-[#F66B34] text-[#FEFEFE] h-[48px] rounded-lg px-4"
+                onClick={openCarModalHandler}
+              >
+                <span className="text-20 size-5 rounded-full flex items-center justify-center">
+                  +
+                </span>
+                <span className="text-14 lg:text-16 font-medium">افزودن وسیله نقلیه</span>
+              </button>
+          </div>
+          <select className="bg-[#5d697a] w-32 sm:w-40 text-[#FEFEFE] p-2 rounded-lg text-12 sm:text-16" onChange={filterChangeHandler}>
+            <option value="ALL">همه وسایل نقلیه</option>
+            <option value="CAR">ماشین</option>
+            <option value="MOTOR">موتور</option>
+            <option value="HEAVY_CAR">ماشین سنگین</option>
+          </select>
         </div>
-        <select className="bg-[#5d697a] w-40 text-[#FEFEFE] p-2 rounded-lg" onChange={filterChangeHandler}>
-          <option value="ALL">همه وسایل نقلیه</option>
-          <option value="CAR">ماشین</option>
-          <option value="MOTOR">موتور</option>
-          <option value="HEAVY_CAR">ماشین سنگین</option>
-        </select>
         {/* <div className="mt-6 flex flex-col gap-4">
           <ul className="size800:flex hidden justify-between px-4 py-2 size1190:text-16 text-14 text-BLUE-500 rounded-10 bg-gray_light">
             <li className="font-bold flex-1 text-center text-BLUE-500">#</li>
