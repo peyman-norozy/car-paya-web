@@ -2,20 +2,50 @@
 import { API_PATHS } from "@/configs/routes.config";
 import useSetQuery from "@/hook/useSetQuery";
 import Image from "next/image";
-import { numberWithCommas } from "@/utils/function-utils";
+import { error, numberWithCommas } from "@/utils/function-utils";
+import { postData } from "@/utils/client-api-function-utils";
+import { usePathname } from "next/navigation";
+import { ToastContainer } from "react-toastify";
+import { useEffect } from "react";
 
 const SelectServiceCard = (props) => {
   const setQuery = useSetQuery();
-  function buttonClickHandler() {
-    setQuery.updateQueryParams(
-      { package_id: props.data.id },
-      "/detailing/timeSelector",
-    );
+  const pathName = usePathname();
+
+  const selectProductHandler = () => {
+    props.setProductId(props.data.id);
+  };
+
+  console.log(props.productId);
+
+  async function buttonClickHandler(productId) {
+    const cartData = await postData("/web/cart/add", {
+      cartable_id: productId,
+      cartable_type: pathName.split("/")[1].toUpperCase().split("-").join("_"),
+      vehicle_tip_id: JSON.parse(localStorage.getItem("selectedVehicle"))?.id,
+      step: "step-2",
+    });
+    console.log(cartData);
+    if (cartData.status === 200 || cartData.status === 201) {
+      console.log(cartData.data);
+      setQuery.updateQueryParams(
+        { package_id: props.data.id },
+        "/detailing/timeSelector",
+      );
+    } else if (cartData.response.status === 422) {
+      console.log(cartData.response.data);
+      error(cartData.response.data.message);
+    }
   }
+
+  useEffect(() => {
+    props.sendToParent(buttonClickHandler);
+  }, []);
+
   return (
     <div
-      className={`rounded-lg flex flex-col items-center p-6 gap-3 cursor-pointer hover:scale-105 transition-transform duration-300 relative bg-[#E7E7E7] ${props.data.selected ? "border-2 border-lime-500 " : ""}`}
-      onClick={buttonClickHandler}
+      className={`rounded-lg flex flex-col items-center p-6 gap-3 cursor-pointer hover:scale-105 transition-transform duration-300 relative bg-[#E7E7E7] ${props.data.id === props.productId ? "border-2 border-lime-500 " : ""}`}
+      onClick={selectProductHandler}
     >
       <Image
         className="size-[65px] lg:size-[125px] bg-amber-600 rounded-lg"
