@@ -14,12 +14,12 @@ import CertificateCard from "./certificate/CertificateCard";
 import { deleteData } from "@/utils/api-function-utils";
 import nProgress from "nprogress";
 const CreateMyCar = () => {
-  const [newMyCareData, setNewMyCareData] = useState([]);
+  const [myCareData, setMyCareData] = useState([]);
+  const [searchedMyCareData, setSearchedMyCareData] = useState([]);
   const [deleteModalState, setDeleteModalState] = useState(false);
   const [deleteModalId, setDeleteModalId] = useState(false);
   // const [newTotal, setNewTotal] = useState(0);
   const searchParams = useSearchParams();
-  const [newSkeletonState, setNewSkeletonState] = useState(false);
   const [modalState, setModalState] = useState(false);
   const router = useRouter()
   // const innerWidth = useSelector(
@@ -34,30 +34,24 @@ const CreateMyCar = () => {
   }, [searchParams, perPage, page]);
 
   const fetchData = async () => {
-    setNewSkeletonState(true);
     const response = await getData(
       process.env.BASE_API +
         API_PATHS.USERPANEL +
         "/vehicles"
     );
     if (response.status === 200) {
-      console.log(response);
-      
-      setNewMyCareData(response.data.data);
+      setMyCareData(response.data.data);
+      setSearchedMyCareData(response.data.data);
       // setNewTotal(response.data.meta.total);
-      setNewSkeletonState(false);
     } else if (response.response.status === 422) {
       console.log(response);
     } else if (response.response.status === 404) {
       console.log(response);
       notFound();
     }
-    setNewSkeletonState(false);
   };
   
-  console.log(newSkeletonState);
   const closeCarModalHandler = (event) => {
-    console.log(event.target.getAttribute("id"));
     if (event.target.id === "ChoseCar") {
       setModalState(false);
     }
@@ -76,6 +70,16 @@ const CreateMyCar = () => {
     nProgress.start();
     router.push("/panel");
   };
+
+  function filterChangeHandler(e) {
+    if (e.target.value === "ALL") {
+      setSearchedMyCareData(myCareData)
+    }else{
+      setSearchedMyCareData(myCareData.filter((item)=>{
+        return item.type === e.target.value;
+      }))
+    }
+  }
 
   return (
     <PrivateRoute>
@@ -101,6 +105,12 @@ const CreateMyCar = () => {
               <span className="text-14 lg:text-16 font-medium">افزودن وسیله نقلیه جدید</span>
             </button>
         </div>
+        <select className="bg-[#5d697a] w-40 text-[#FEFEFE] p-2 rounded-lg" onChange={filterChangeHandler}>
+          <option value="ALL">همه وسایل نقلیه</option>
+          <option value="CAR">ماشین</option>
+          <option value="MOTOR">موتور</option>
+          <option value="HEAVY_CAR">ماشین سنگین</option>
+        </select>
         {/* <div className="mt-6 flex flex-col gap-4">
           <ul className="size800:flex hidden justify-between px-4 py-2 size1190:text-16 text-14 text-BLUE-500 rounded-10 bg-gray_light">
             <li className="font-bold flex-1 text-center text-BLUE-500">#</li>
@@ -117,8 +127,8 @@ const CreateMyCar = () => {
           </ul>
           {!newSkeletonState ? (
             innerWidth > 800 ? (
-              newMyCareData.length > 0 &&
-              newMyCareData.map((item, index) => (
+              myCareData.length > 0 &&
+              myCareData.map((item, index) => (
                 <MyCarTableCard
                   key={item.id}
                   data={item}
@@ -128,8 +138,8 @@ const CreateMyCar = () => {
                 />
               ))
             ) : (
-              newMyCareData.length > 0 &&
-              newMyCareData.map((item, index) => (
+              myCareData.length > 0 &&
+              myCareData.map((item, index) => (
                 <ResponsiveMyCarTableCard
                   key={item.id}
                   data={item}
@@ -145,7 +155,7 @@ const CreateMyCar = () => {
 
         </div> */}
         <div className="grid grid-cols-1 size830:grid-cols-2 gap-6">
-          {newMyCareData.map((item,index)=>(
+          {searchedMyCareData.map((item,index)=>(
             <CertificateCard data={item} key={index} fetchData={fetchData} setDeleteModalState={setDeleteModalState} setDeleteModalId={setDeleteModalId}/>
           ))}
         </div>
