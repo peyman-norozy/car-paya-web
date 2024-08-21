@@ -42,7 +42,7 @@ const CertificateCard = ({ data, setDeleteModalState, setDeleteModalId }) => {
             </div>
             <div className="bg-[#383838] flex flex-col gap-1 rounded-lg w-full min-w-32 h-16 p-2">
               <span className="font-bold text-[#FEFEFE]">رنگ</span>
-              <span className="text-14 text-[#FEFEFE]">{data.info.color}</span>
+              <span className="text-14 text-[#FEFEFE]">{data.info.color.title}</span>
             </div>
           </div>
         </div>

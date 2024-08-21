@@ -315,90 +315,102 @@ const CarDevice = (props) => {
   const myCarSubmitHandler = async (event) => {
     event.preventDefault();
     if (props.pageType === "edit" && Object.keys(newEditData).length > 0) {
-      editFormData.set(
-        "vehicle_brand_id",
-        newBrandOptionId ? newBrandOptionId : newEditData.vehicle_brand_id,
-      );
-      editFormData.set(
-        "vehicle_model_id",
-        newModelOptionId ? newModelOptionId : newEditData.vehicle_model_id,
-      );
-      editFormData.set(
-        "vehicle_tip_id",
-        newTipOptionId ? newTipOptionId : newEditData.vehicle_tip_id,
-      );
-      editFormData.set(
-        "year",
-        newYearOptionId ? newYearOptionId : newEditData.yearId,
-      );
-      editFormData.set("plaque[0]", newPlaque_0);
-      editFormData.set("plaque[1]", newPlaque_1);
-      editFormData.set("plaque[2]", newPlaque_2);
-      editFormData.set("plaque[3]", newPlaque_3);
-      editFormData.set("title", newMyCarValue);
-      editFormData.set("color", selectedColor.value);
-      editFormData.set("kind", "force_store");
+      const fd = {
+        "vehicle_brand_id": newBrandOptionId ? newBrandOptionId : newEditData.vehicle_brand_id,
+        "vehicle_model_id": newModelOptionId ? newModelOptionId : newEditData.vehicle_model_id,
+        "vehicle_tip_id": newTipOptionId ? newTipOptionId : newEditData.vehicle_tip_id,
+        "year": newYearOptionId ? newYearOptionId : newEditData.yearId,
+        "color": selectedColor,
+        "plaque": [newPlaque_0,newPlaque_1,newPlaque_2,newPlaque_3],
+        "title": newMyCarValue,
+        "kind": "force_store",
+        "type": newEditData.type,
+        "_method": "PUT"
+      }
       // editFormData.set(
-      //   "kilometers_now",
-      //   newStartKilometerValue
-      //     ? newStartKilometerValue.split(",").join("")
-      //     : "",
+      //   "vehicle_brand_id",
+      //   newBrandOptionId ? newBrandOptionId : newEditData.vehicle_brand_id,
       // );
       // editFormData.set(
-      //   "kilometers_use",
-      //   newEndKilometerValue ? newEndKilometerValue.split(",").join("") : "",
+      //   "vehicle_model_id",
+      //   newModelOptionId ? newModelOptionId : newEditData.vehicle_model_id,
       // );
       // editFormData.set(
-      //   "information[third_party_insurance_start_at]",
-      //   newThirdPartyInsuranceStartAt,
+      //   "vehicle_tip_id",
+      //   newTipOptionId ? newTipOptionId : newEditData.vehicle_tip_id,
       // );
       // editFormData.set(
-      //   "information[third_party_insurance_end_at]",
-      //   newThirdPartyInsuranceEndAt,
+      //   "year",
+      //   newYearOptionId ? newYearOptionId : newEditData.yearId,
       // );
-      // editFormData.set(
-      //   "information[body_insurance_start_at]",
-      //   newBodyInsuranceStartAt,
-      // );
-      // editFormData.set(
-      //   "information[body_insurance_end_at]",
-      //   newBodyInsuranceEndAt,
-      // );
-      // editFormData.set(
-      //   "information[technical_diagnosis_start_at]",
-      //   newTechnicalDiagnosisStartAt,
-      // );
-      // editFormData.set(
-      //   "information[technical_diagnosis_end_at]",
-      //   newTechnicalDiagnosisEndAt,
-      // );
-      // editFormData.set(
-      //   "information[technical_diagnosis_remember]",
-      //   String(newTechnicalDiagnosisRemember),
-      // );
-      // editFormData.set(
-      //   "information[third_party_insurance_remember]",
-      //   String(newThirdPartyInsuranceRemember),
-      // );
-      // editFormData.set(
-      //   "information[body_insurance_remember]",
-      //   String(newBodyInsuranceRemember),
-      // );
-      // editFormData.set(
-      //   "information[body_insurance_company]",
-      //   newBodyInsuranceCompany,
-      // );
-      // editFormData.set(
-      //   "information[third_party_insurance_company]",
-      //   newThirdPartyInsuranceCompany,
-      // );
-      // editFormData.set("information[fine_price]", newFinePrice);
-      editFormData.set("_method", "PUT");
+      // editFormData.set("plaque[0]", newPlaque_0);
+      // editFormData.set("plaque[1]", newPlaque_1);
+      // editFormData.set("plaque[2]", newPlaque_2);
+      // editFormData.set("plaque[3]", newPlaque_3);
+      // editFormData.set("title", newMyCarValue);
+      // editFormData.set("color", selectedColor);
+      // editFormData.set("kind", "force_store");
+      // // editFormData.set(
+      // //   "kilometers_now",
+      // //   newStartKilometerValue
+      // //     ? newStartKilometerValue.split(",").join("")
+      // //     : "",
+      // // );
+      // // editFormData.set(
+      // //   "kilometers_use",
+      // //   newEndKilometerValue ? newEndKilometerValue.split(",").join("") : "",
+      // // );
+      // // editFormData.set(
+      // //   "information[third_party_insurance_start_at]",
+      // //   newThirdPartyInsuranceStartAt,
+      // // );
+      // // editFormData.set(
+      // //   "information[third_party_insurance_end_at]",
+      // //   newThirdPartyInsuranceEndAt,
+      // // );
+      // // editFormData.set(
+      // //   "information[body_insurance_start_at]",
+      // //   newBodyInsuranceStartAt,
+      // // );
+      // // editFormData.set(
+      // //   "information[body_insurance_end_at]",
+      // //   newBodyInsuranceEndAt,
+      // // );
+      // // editFormData.set(
+      // //   "information[technical_diagnosis_start_at]",
+      // //   newTechnicalDiagnosisStartAt,
+      // // );
+      // // editFormData.set(
+      // //   "information[technical_diagnosis_end_at]",
+      // //   newTechnicalDiagnosisEndAt,
+      // // );
+      // // editFormData.set(
+      // //   "information[technical_diagnosis_remember]",
+      // //   String(newTechnicalDiagnosisRemember),
+      // // );
+      // // editFormData.set(
+      // //   "information[third_party_insurance_remember]",
+      // //   String(newThirdPartyInsuranceRemember),
+      // // );
+      // // editFormData.set(
+      // //   "information[body_insurance_remember]",
+      // //   String(newBodyInsuranceRemember),
+      // // );
+      // // editFormData.set(
+      // //   "information[body_insurance_company]",
+      // //   newBodyInsuranceCompany,
+      // // );
+      // // editFormData.set(
+      // //   "information[third_party_insurance_company]",
+      // //   newThirdPartyInsuranceCompany,
+      // // );
+      // // editFormData.set("information[fine_price]", newFinePrice);
+      // editFormData.set("_method", "PUT");
       const response = await putData(
         process.env.BASE_API +
           "/user-panel/vehicles/" +
           searchParams.get("product"),
-        editFormData,
+          fd,
         '"Content-Type": "application/json"',
       );
       if (response.status === 200) {
@@ -410,35 +422,46 @@ const CarDevice = (props) => {
           error(response.response.data.errors[key][0]);
         }
       }
-    } else {     
-      const fd = carFormData(
-        newBrandOptionId,
-        newModelOptionId,
-        newTipOptionId,
-        newYearOptionId,
-        selectedColor.value,
-        event.target.plaque_0.value,
-        newPlaque_1,
-        event.target.plaque_2.value,
-        event.target.plaque_3.value,
-        event.target.carName.value,
-        "force_store",
-        searchParams.get("type"),
-        // event.target.kilometerStart.value.split(",").join(""),
-        // event.target.kilometerEnd.value.split(",").join(""),
-        // newBodyInsuranceStartAt,
-        // newBodyInsuranceEndAt,
-        // newBodyInsuranceCompany,
-        // newBodyInsuranceRemember,
-        // newThirdPartyInsuranceStartAt,
-        // newThirdPartyInsuranceEndAt,
-        // newThirdPartyInsuranceCompany,
-        // newThirdPartyInsuranceRemember,
-        // newTechnicalDiagnosisStartAt,
-        // newTechnicalDiagnosisEndAt,
-        // newTechnicalDiagnosisRemember,
-        // event.target.finePrice.value.split(",").join(""),
-      );
+    } else {
+    const fd = {
+      "vehicle_brand_id": newBrandOptionId,
+      "vehicle_model_id": newModelOptionId,
+      "vehicle_tip_id": newTipOptionId,
+      "year": newYearOptionId,
+      "color": selectedColor,
+      "plaque": [event.target.plaque_0.value,newPlaque_1,event.target.plaque_2.value,event.target.plaque_3.value],
+      "title": event.target.carName.value,
+      "kind": "force_store",
+      "type": searchParams.get("type")
+    }
+      // const fd = carFormData(
+      //   newBrandOptionId,
+      //   newModelOptionId,
+      //   newTipOptionId,
+      //   newYearOptionId,
+      //   selectedColor,
+      //   event.target.plaque_0.value,
+      //   newPlaque_1,
+      //   event.target.plaque_2.value,
+      //   event.target.plaque_3.value,
+      //   event.target.carName.value,
+      //   "force_store",
+      //   searchParams.get("type"),
+      //   // event.target.kilometerStart.value.split(",").join(""),
+      //   // event.target.kilometerEnd.value.split(",").join(""),
+      //   // newBodyInsuranceStartAt,
+      //   // newBodyInsuranceEndAt,
+      //   // newBodyInsuranceCompany,
+      //   // newBodyInsuranceRemember,
+      //   // newThirdPartyInsuranceStartAt,
+      //   // newThirdPartyInsuranceEndAt,
+      //   // newThirdPartyInsuranceCompany,
+      //   // newThirdPartyInsuranceRemember,
+      //   // newTechnicalDiagnosisStartAt,
+      //   // newTechnicalDiagnosisEndAt,
+      //   // newTechnicalDiagnosisRemember,
+      //   // event.target.finePrice.value.split(",").join(""),
+      // );
       setButtonDisabledState(true);
       const response = await postData(
         process.env.BASE_API + "/user-panel/vehicles",
@@ -556,7 +579,7 @@ const CarDevice = (props) => {
           res.data.data.yearId = res.data.data.year;
           setNewEditData(res.data.data);  
           colorData.map((item)=>{
-            if(item.value === res.data.data.info.color){
+            if(item.value === res.data.data.info.color.value){
               setSelectedColor(item)
             }
           })
