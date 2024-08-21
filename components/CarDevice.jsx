@@ -19,7 +19,7 @@ import { useSelector } from "react-redux";
 import SelectCarModal from "@/components/modal/SelectCarModal";
 import PrivateRoute from "@/routes/private-route";
 import nProgress from "nprogress";
-
+import machinTag from "@/public/assets/images/machinTag.svg"
 const CarDevice = (props) => {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -43,6 +43,8 @@ const CarDevice = (props) => {
   const [newPlaque_1, setNewPlaque_1] = useState("");
   const [newPlaque_2, setNewPlaque_2] = useState("");
   const [newPlaque_3, setNewPlaque_3] = useState("");
+  const [motorPlaque_0, setMotorPlaque_0] = useState("");
+  const [motorPlaque_1, setMotorPlaque_1] = useState("");
   const [newThirdPartyInsuranceStartAt, setNewThirdPartyInsuranceStartAt] =
     useState("");
   const [newThirdPartyInsuranceEndAt, setNewThirdPartyInsuranceEndAt] =
@@ -321,7 +323,7 @@ const CarDevice = (props) => {
         "vehicle_tip_id": newTipOptionId ? newTipOptionId : newEditData.vehicle_tip_id,
         "year": newYearOptionId ? newYearOptionId : newEditData.yearId,
         "color": selectedColor,
-        "plaque": [newPlaque_0,newPlaque_1,newPlaque_2,newPlaque_3],
+        "plaque": newEditData.type === "MOTOR"?[motorPlaque_0,motorPlaque_1]:[newPlaque_0,newPlaque_1,newPlaque_2,newPlaque_3],
         "title": newMyCarValue,
         "kind": "force_store",
         "type": newEditData.type,
@@ -429,7 +431,7 @@ const CarDevice = (props) => {
       "vehicle_tip_id": newTipOptionId,
       "year": newYearOptionId,
       "color": selectedColor,
-      "plaque": [event.target.plaque_0.value,newPlaque_1,event.target.plaque_2.value,event.target.plaque_3.value],
+      "plaque": searchParams.get("type") === "MOTOR"?[motorPlaque_0,motorPlaque_1]:[event.target.plaque_0.value,newPlaque_1,event.target.plaque_2.value,event.target.plaque_3.value],
       "title": event.target.carName.value,
       "kind": "force_store",
       "type": searchParams.get("type")
@@ -684,6 +686,8 @@ const CarDevice = (props) => {
           : "",
       );
       setNewFinePrice(newEditData.info ? newEditData.info.fine_price : "");
+      setMotorPlaque_0(newEditData.info ? newEditData.info.plaque[0] : "");
+      setMotorPlaque_1(newEditData.info ? newEditData.info.plaque[1] : "");
     }
   }, [newEditData]);
 
@@ -892,6 +896,15 @@ const CarDevice = (props) => {
           </div>
           <div className="flex flex-col gap-4">
             <label className={"font-bold text-[#FEFEFE]"}>پلاک</label>
+            {(searchParams.get("type") === "MOTOR" || newEditData.type === "MOTOR")?
+            <div className="bg-[#FEFEFE] text-[#0E0E0E] flex-col w-32 rounded-md overflow-hidden">
+              <div className="flex">
+                <input className="w-full tracking-[16px] text-center h-10 pl-2" type="number" maxLength={3} placeholder="000" onChange={(e)=>{e.target.value.length <4 ?setMotorPlaque_0(e.target.value):""}} value={motorPlaque_0} dir="ltr"/>
+                <Image className="" src={machinTag} width={20} height={40}/>
+              </div>
+              <input className="w-full tracking-[12px] h-10 text-center pl-2" type="number" maxLength={5} placeholder="00000" onChange={(e)=>{e.target.value.length <6 ?setMotorPlaque_1(e.target.value):""}} value={motorPlaque_1} dir="ltr"/>
+            </div>
+            :
             <MachinTagInput
               setNewPlaque_0={setNewPlaque_0}
               setNewPlaque_1={setNewPlaque_1}
@@ -903,7 +916,7 @@ const CarDevice = (props) => {
               newPlaque_3={newPlaque_3}
               pageType={props.pageType}
               editPlaqueData={newEditData.info && newEditData.info.plaque}
-            />
+            />}
           </div>
           {/* <div className="flex flex-col gap-4">
             <label
