@@ -4,6 +4,8 @@ import Image from "next/image";
 import { API_PATHS, INTERNAL_PATHS } from "@/configs/routes.config";
 import { usePathname, useRouter } from "next/navigation";
 import { deleteData } from "@/utils/api-function-utils";
+import machinTag from "@/public/assets/images/machinTag.svg"
+
 import nProgress from "nprogress";
 
 const CertificateCard = ({ data, setDeleteModalState, setDeleteModalId }) => {
@@ -42,7 +44,7 @@ const CertificateCard = ({ data, setDeleteModalState, setDeleteModalId }) => {
             </div>
             <div className="bg-[#383838] flex flex-col gap-1 rounded-lg w-full min-w-32 h-16 p-2">
               <span className="font-bold text-[#FEFEFE]">رنگ</span>
-              <span className="text-14 text-[#FEFEFE]">{data.info.color}</span>
+              <span className="text-14 text-[#FEFEFE]">{data.info.color.title}</span>
             </div>
           </div>
         </div>
@@ -55,7 +57,15 @@ const CertificateCard = ({ data, setDeleteModalState, setDeleteModalId }) => {
           height={150}
         />
       </div>
-      <div className="bg-white flex items-center justify-between border border-black font-bold text-14 text-black max-w-[272px] rounded-lg overflow-hidden">
+      {data.type==="MOTOR"?
+      <div className="bg-[#FEFEFE] text-[#0E0E0E] flex-col w-28 rounded-md overflow-hidden border border-black">
+      <div className="flex">
+        <span className="w-full tracking-[16px] flex justify-center items-center pl-2 font-bold">{data.info.plaque[0]}</span>
+        <Image className="" src={machinTag} width={15} height={30}/>
+      </div>
+      <span className="w-full tracking-[12px] flex justify-center items-center pl-2 font-bold">{data.info.plaque[1]}</span>
+    </div>
+      :<div className="bg-white flex items-center justify-between border border-black font-bold text-14 text-black max-w-[272px] rounded-lg overflow-hidden my-2">
         <div className="w-full p-2 text-14 font-bold flex justify-around">
           <span>{data.info.plaque[3]}</span>
           <span className="h-5 w-px bg-[#000000]"></span>
@@ -71,7 +81,7 @@ const CertificateCard = ({ data, setDeleteModalState, setDeleteModalId }) => {
             height={20}
           />
         </div>
-      </div>
+      </div>}
       <div className="flex gap-4">
         <button
           className="flex items-center justify-center gap-2 bg-[#F66B34] text-[#FEFEFE] h-10 rounded-lg py-2 text-12 size882:text-14 font-medium w-full"

@@ -258,6 +258,7 @@ const CarSelectComponent = (props) => {
   function changeVehicleClickHandler() {
     setCarSelected(false);
     localStorage.removeItem("selectedVehicle");
+    setVehicleType("car")
     if (pathname.startsWith("/batteries/battery-assistant")) {
       setQuery.updateQueryParams({ selectTipState: null }, "");
       return null;
