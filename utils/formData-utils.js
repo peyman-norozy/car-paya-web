@@ -9,7 +9,6 @@ function carFormData(
   plaque_2,
   plaque_3,
   carName,
-  forceStore,
   type,
   // kilometerStart,
   // kilometerEnd,

@@ -66,38 +66,43 @@ const CarDevice = (props) => {
   const [newEditData, setNewEditData] = useState({});
   const [buttonDisabledState, setButtonDisabledState] = useState(false);
 
-
-
   const colorData = [
     {
       title: "قرمز",
-      value: "red"
-    },{
-      title: "سبز",
-      value: "green"
-    },{
-      title: "آبی",
-      value: "blue"
-    },{
-      title: "زرد",
-      value: "yellow"
-    },{
-      title: "مشکی",
-      value: "black"
-    },{
-      title: "سفید",
-      value: "white"
-    },{
-      title: "نوک مدادی",
-      value: "stone"
-    },{
-      title: "خاکستری",
-      value: "gray"
+      value: "red",
     },
-  ]
+    {
+      title: "سبز",
+      value: "green",
+    },
+    {
+      title: "آبی",
+      value: "blue",
+    },
+    {
+      title: "زرد",
+      value: "yellow",
+    },
+    {
+      title: "مشکی",
+      value: "black",
+    },
+    {
+      title: "سفید",
+      value: "white",
+    },
+    {
+      title: "نوک مدادی",
+      value: "stone",
+    },
+    {
+      title: "خاکستری",
+      value: "gray",
+    },
+  ];
   const [optionState, setOptionState] = useState(false);
-  const [serchedColor , setSearchedColor] = useState(colorData)
-  const [selectedColor , setSelectedColor] = useState({})
+  const [serchedColor, setSearchedColor] = useState(colorData);
+  const [selectedColor, setSelectedColor] = useState({});
   const optionRef = useRef(null);
   const inputRef = useRef(null);
   function inputChangeHandler(value) {
@@ -114,8 +119,6 @@ const CarDevice = (props) => {
       }
     });
   }, []);
-
-
 
   const selectVehicleData = useSelector(
     (vehicleData) => vehicleData.todo.selectVehicle,
@@ -337,7 +340,6 @@ const CarDevice = (props) => {
       editFormData.set("plaque[3]", newPlaque_3);
       editFormData.set("title", newMyCarValue);
       editFormData.set("color", selectedColor.value);
-      editFormData.set("kind", "force_store");
       // editFormData.set(
       //   "kilometers_now",
       //   newStartKilometerValue
@@ -410,7 +412,7 @@ const CarDevice = (props) => {
           error(response.response.data.errors[key][0]);
         }
       }
-    } else {     
+    } else {
       const fd = carFormData(
         newBrandOptionId,
         newModelOptionId,
@@ -422,7 +424,6 @@ const CarDevice = (props) => {
         event.target.plaque_2.value,
         event.target.plaque_3.value,
         event.target.carName.value,
-        "force_store",
         searchParams.get("type"),
         // event.target.kilometerStart.value.split(",").join(""),
         // event.target.kilometerEnd.value.split(",").join(""),
@@ -554,13 +555,12 @@ const CarDevice = (props) => {
         )
         .then((res) => {
           res.data.data.yearId = res.data.data.year;
-          setNewEditData(res.data.data);  
-          colorData.map((item)=>{
-            if(item.value === res.data.data.info.color){
-              setSelectedColor(item)
+          setNewEditData(res.data.data);
+          colorData.map((item) => {
+            if (item.value === res.data.data.info.color) {
+              setSelectedColor(item);
             }
-          })
-          
+          });
         })
         .catch((err) => {
           console.log(err);
@@ -812,9 +812,7 @@ const CarDevice = (props) => {
             lable={"سال ساخت"}
           />
           <div className="flex flex-col gap-4">
-            <label
-              className={"px-2 text-16 font-bold text-[#FEFEFE]"}
-            >
+            <label className={"px-2 text-16 font-bold text-[#FEFEFE]"}>
               رنگ خودرو
             </label>
             <div className="relative">
@@ -855,7 +853,7 @@ const CarDevice = (props) => {
                       value={item.value}
                       onClick={(e) => {
                         // props.timeData({ area_id: item.id });
-                        setSelectedColor(item)
+                        setSelectedColor(item);
                         setOptionState(false);
                       }}
                       key={index}
@@ -1006,7 +1004,6 @@ const CarDevice = (props) => {
             />
           </div>
         }
-        
       </form>
     </PrivateRoute>
   );
