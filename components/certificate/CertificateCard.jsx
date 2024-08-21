@@ -58,7 +58,7 @@ const CertificateCard = ({ data, setDeleteModalState, setDeleteModalId }) => {
         />
       </div>
       {data.type==="MOTOR"?
-      <div className="bg-[#FEFEFE] text-[#0E0E0E] flex-col w-28 rounded-md overflow-hidden">
+      <div className="bg-[#FEFEFE] text-[#0E0E0E] flex-col w-28 rounded-md overflow-hidden border border-black">
       <div className="flex">
         <span className="w-full tracking-[16px] flex justify-center items-center pl-2 font-bold">{data.info.plaque[0]}</span>
         <Image className="" src={machinTag} width={15} height={30}/>
