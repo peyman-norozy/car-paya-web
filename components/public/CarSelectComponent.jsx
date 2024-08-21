@@ -3,17 +3,18 @@ import { API_PATHS } from "@/configs/routes.config";
 import axios from "axios";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import invoice from "@/public/assets/images/invoice.png";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import useSetQuery from "@/hook/useSetQuery";
-import { getData, postData } from "@/utils/client-api-function-utils";
+import { postData } from "@/utils/client-api-function-utils";
 import { numberWithCommas } from "@/utils/function-utils";
 import {
   getCurrentData,
   getDataWithFullErrorRes,
 } from "@/utils/api-function-utils";
 import nProgress from "nprogress";
+import { renderSetCar } from "@/store/todoSlice";
 const CarSelectComponent = (props) => {
   const [vehicleType, setVehicleType] = useState("car");
   const [carSelectedType, setCarSelectedType] = useState("انتخاب برند");
@@ -28,7 +29,7 @@ const CarSelectComponent = (props) => {
   // const [optionState, setOptionState] = useState(false);
   // const [selectedCity, setSelectedCity] = useState({});
   const [showInvoice, setShowInvoice] = useState(false);
-  const [invoiceData, setInvoiceData] = useState([]);
+  const [invoiceData, setInvoiceData] = useState({ data: [], totalPrice: 0 });
   const [backurl, setBackurl] = useState([]);
   const showHeaderData = useSelector((state) => state.todo.showHeader);
   const renderInvoice = useSelector((state) => state.todo.renderInvoice);
@@ -39,13 +40,14 @@ const CarSelectComponent = (props) => {
   const router = useRouter();
   const setQuery = useSetQuery();
   const searchParams = useSearchParams();
+  const dispatch = useDispatch();
   const params = new URLSearchParams(searchParams.toString());
 
   const attributeValue = searchParams.get("attribute_value");
 
   useEffect(() => {
     getInvoiceData();
-  }, [renderInvoice]);
+  }, [renderInvoice, pathname]);
 
   useEffect(() => {
     if (pathname === "/" || pathname === "/periodic-service") {
@@ -67,7 +69,7 @@ const CarSelectComponent = (props) => {
   useEffect(() => {
     (async () => {
       const data = await getDataWithFullErrorRes(
-        process.env.BASE_API + "/web/vehicles",
+        process.env.BASE_API + "/web/my-vehicles",
       );
       if (data.status && data.status === "success") {
         setMyVehicleData(data.data);
@@ -109,8 +111,20 @@ const CarSelectComponent = (props) => {
   }
 
   async function getInvoiceData() {
-    const data = await getData("/web/cart");
-    setInvoiceData(data.data.data);
+    const data = await getCurrentData("/web/segmentation/cart", {
+      cartable_type: pathname.split("/")[1].toUpperCase().split("-").join("_"),
+      vehicle_tip_id: JSON.parse(localStorage.getItem("selectedVehicle"))?.id,
+    });
+    console.log(data);
+    if (data.data.status === "success") {
+      let totalPrice = 0;
+      for (let item of data.data.data) {
+        console.log(item.item.item.discounted_price);
+        totalPrice = totalPrice + item.item.item.discounted_price;
+      }
+      console.log(totalPrice);
+      setInvoiceData({ data: data.data.data, totalPrice: totalPrice });
+    }
   }
 
   async function removeClickHandler(id) {
@@ -127,13 +141,13 @@ const CarSelectComponent = (props) => {
     } else {
       getBrandData(model);
     }
-    setQuery.updateQueryParams(
-      {
-        attribute_slug: "type_vehicle",
-        attribute_value: model,
-      },
-      "",
-    );
+    // setQuery.updateQueryParams(
+    //   {
+    //     attribute_slug: "type_vehicle",
+    //     attribute_value: model,
+    //   },
+    //   "",
+    // );
   }
 
   function getBrandData(model) {
@@ -186,6 +200,7 @@ const CarSelectComponent = (props) => {
               }),
             );
             setCarSelected(true);
+            dispatch(renderSetCar())
           }
         });
     }
@@ -218,7 +233,6 @@ const CarSelectComponent = (props) => {
         `/detailing?attribute_slug=type_vehicle&attribute_value=${attributeValue ? attributeValue : "car"}`,
       );
     } else if (pathname.startsWith("/periodic-service")) {
-      console.log(attributeValue);
       nProgress.start();
       router.push(
         `/periodic-service?attribute_slug=type_vehicle&attribute_value=${attributeValue ? attributeValue : "car"}`,
@@ -234,13 +248,8 @@ const CarSelectComponent = (props) => {
       getBrandData(backurl[0]);
     }
   }
-  useEffect(() => {
-    if (attributeValue) {
-      setVehicleType(attributeValue);
-    } else {
-      setVehicleType("car");
-    }
-  }, [attributeValue]);
+
+  console.log(invoiceData);
 
   if (
     !pathname.includes("/invoice") &&
@@ -292,23 +301,23 @@ const CarSelectComponent = (props) => {
               ) : (
                 <div>
                   <div
-                    className={`flex flex-col gap-4 ${invoiceData.cart_items && invoiceData.cart_items.length ? "" : "hidden"}`}
+                    className={`flex flex-col gap-4 ${invoiceData.data && invoiceData.data.length ? "" : "hidden"}`}
                   >
                     <div className="flex flex-col gap-3 h-[292px] overflow-y-scroll">
-                      {invoiceData.cart_items &&
-                        invoiceData.cart_items.map((item, index) => (
+                      {invoiceData.data &&
+                        invoiceData.data.map((item, index) => (
                           <div
                             className="flex flex-col px-3 py-2 bg-[#888888] rounded-lg"
                             key={index}
                           >
                             <div className="flex justify-between">
                               <span className="font-bold text-[#FEFEFE]">
-                                {item.product.name}
+                                {item.item.item.name}
                               </span>
                               <div
                                 className="bg-[#FEFEFE] rounded-full size-5 text-[#888888] font-bold pr-[5px] cursor-pointer"
                                 onClick={() => {
-                                  removeClickHandler(item.product.id);
+                                  removeClickHandler(item.item.item.id);
                                 }}
                               >
                                 X
@@ -316,14 +325,14 @@ const CarSelectComponent = (props) => {
                             </div>
                             <div className="flex justify-start gap-2 items-center">
                               <span className="text-[#ececec] line-through text-12 ">
-                                {numberWithCommas(item.product.price)} تومان
+                                {numberWithCommas(item.item.item.price)} تومان
                               </span>
                               <span
                                 className={"size-1 bg-[#B0B0B0] rounded-full "}
                               ></span>
                               <span className="text-[#FEFEFE] text-14 font-bold">
                                 {numberWithCommas(
-                                  item.product.discounted_price,
+                                  item.item.item.discounted_price,
                                 )}{" "}
                                 تومان
                               </span>
@@ -337,12 +346,12 @@ const CarSelectComponent = (props) => {
                         مجموع سفارش
                       </span>
                       <span className="text-white font-bold text-18">
-                        {numberWithCommas(invoiceData.price_total)} تومان
+                        {numberWithCommas(invoiceData.totalPrice)} تومان
                       </span>
                     </div>
                   </div>
                   <div
-                    className={`flex flex-col mt-10 items-center ${invoiceData.cart_items && invoiceData.cart_items.length ? "hidden" : ""}`}
+                    className={`flex flex-col mt-10 items-center ${invoiceData.data && invoiceData.data.length ? "hidden" : ""}`}
                   >
                     <Image
                       src={invoice}
@@ -388,14 +397,18 @@ const CarSelectComponent = (props) => {
                   وسیله سنگین
                 </button>
                 {myVehicleData.length ? (
+                <div className="flex items-center m-auto gap-4">
+                  <div className="my-2 w-[1px] h-6 bg-[#F66B34]"></div>
                   <button
-                    className={`${vehicleType === "my-car" ? "bg-[#F66B34] text-[#FEFEFE]" : "text-[#F66B34]"} rounded-[4px] w-[100px] h-10 flex justify-center items-center text-[#F66B34] font-medium text-14 m-auto`}
-                    onClick={() => {
-                      vehicleTypeFetch("my-car");
-                    }}
-                  >
-                    وسیله من
-                  </button>
+                      className={`${vehicleType === "my-car" ? "bg-[#F66B34] text-[#FEFEFE]" : "text-[#F66B34]"} rounded-[4px] w-[100px] h-10 flex justify-center items-center text-[#F66B34] font-medium text-14`}
+                      onClick={() => {
+                        vehicleTypeFetch("my-car");
+                      }}
+                    >
+                      وسیله من
+                    </button>
+                  <div className="my-2 w-[1px] h-6 bg-[#F66B34]"></div>
+                </div>
                 ) : (
                   ""
                 )}

@@ -2,7 +2,7 @@ import MyCarTableCard from "@/components/cards/MyCarTableCard";
 import { useEffect, useState } from "react";
 import { API_PATHS } from "@/configs/routes.config";
 import Pagination from "@/components/Pagination";
-import { notFound, useSearchParams } from "next/navigation";
+import { notFound, useRouter, useSearchParams } from "next/navigation";
 import CreateMyCarSkeleton from "@/components/CreateMyCarSkeleton";
 import { useSelector } from "react-redux";
 import ResponsiveMyCarTableCard from "@/components/cards/ResponsiveMyCarTableCard";
@@ -21,6 +21,7 @@ const CreateMyCar = () => {
   const searchParams = useSearchParams();
   const [newSkeletonState, setNewSkeletonState] = useState(false);
   const [modalState, setModalState] = useState(false);
+  const router = useRouter()
   // const innerWidth = useSelector(
   //   (widthData) => widthData.todo.windowInnerWidth,
   // );
@@ -97,7 +98,7 @@ const CreateMyCar = () => {
               <span className="text-20 size-5 rounded-full flex items-center justify-center">
                 +
               </span>
-              <span className="text-16 font-medium">افزودن وسیله نقلیه جدید</span>
+              <span className="text-14 lg:text-16 font-medium">افزودن وسیله نقلیه جدید</span>
             </button>
         </div>
         {/* <div className="mt-6 flex flex-col gap-4">

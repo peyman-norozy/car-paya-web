@@ -84,7 +84,7 @@ const AddressSelection = (props) => {
               انتخاب محله
             </span>
             <div
-              className={`absolute overflow-y-scroll rounded-lg top-[42px] z-[2] bg-[#5D697A] ${optionState ? "w-40" : "w-0"} overflow-hidden transition-all`}
+              className={`absolute overflow-y-scroll rounded-lg top-[42px] z-[2] bg-[#5D697A] ${optionState ? "w-40" : "w-0"} overflow-hidden transition-all z-[1000000]`}
             >
               <div
                 className="max-h-[200px] flex flex-col p-2 gap-1 w-40"
@@ -122,15 +122,17 @@ const AddressSelection = (props) => {
             </div>
           </div>
           <div className="relative">
-            <span
-              className="text-[#FEFEFE] font-bold cursor-pointer bg-[#5D697A] w-40 flex items-center justify-center rounded-lg py-2"
-              onClick={() => {
-                setServicesState(true);
-              }}
-              ref={serviceButtenRef}
-            >
-              انتخاب سرویس ها
-            </span>
+            {pathName !== "/batteries/products/newSelectLocation" && (
+              <span
+                className="text-[#FEFEFE] font-bold cursor-pointer bg-[#5D697A] w-40 flex items-center justify-center rounded-lg py-2"
+                onClick={() => {
+                  setServicesState(true);
+                }}
+                ref={serviceButtenRef}
+              >
+                انتخاب سرویس ها
+              </span>
+            )}
             <div
               className={`absolute rounded-lg top-[42px] left-0 bg-[#5D697A] z-[1010] ${servicesState ? `w-[240px] sm:w-[calc(100vw*2/5)] p-4` : `w-0`} transition-all duration-500 flex flex-col gap-4 overflow-hidden`}
             >

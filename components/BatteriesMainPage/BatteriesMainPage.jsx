@@ -7,21 +7,44 @@ import Image from "next/image";
 import { batteryPurchaseProcessData } from "@/staticData/data";
 import BatteryPurchaseProcess from "@/components/cards/BatteryPurchaseProcess";
 import BatteryFaq from "@/components/BatteryFaq/BatteryFaq";
-// import BatteryAdvice from "@/components/BatteryAdvice/BatteryAdvice";
 import BatteryAdvice from "@/components/‌BatteryAdvice/‌BatteryAdvice";
+import { error } from "@/utils/function-utils";
+import { usePathname, useSearchParams } from "next/navigation";
 
 const BatteriesMainPage = () => {
   const [client, setClient] = useState(false);
-  const [tipId, setTipId] = useState("");
+  const [cityId, setCityId] = useState(null);
+
+  const [toastieDisplay, setToastieDisplay] = useState(false);
+
+  const [preventFirstRender, setPreventFirstRender] = useState(false);
+  const pathName = usePathname();
+
+  const searchParams = useSearchParams();
 
   useEffect(() => {
     setClient(true);
-    setTipId(
-      JSON.parse(localStorage.getItem("selectedVehicle"))?.id
-        ? `&selectTipState=true${JSON.parse(localStorage.getItem("selectedVehicle")).id.toString()}`
-        : "",
-    );
-  }, []);
+    if (typeof window !== "undefined") {
+      const city = JSON.parse(localStorage.getItem("city"));
+      setCityId(city?.cityId);
+    }
+  }, [toastieDisplay, searchParams, pathName]);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const selectedVehicle = JSON.parse(
+        localStorage.getItem("selectedVehicle"),
+      );
+      const city = JSON.parse(localStorage.getItem("city"));
+      if (preventFirstRender) {
+        if (!selectedVehicle) {
+          error("لطفا خودرو خود را انتخاب کنید");
+        } else if (!city) {
+          error("لطفا شهر خود را انتخاب کنید");
+        }
+      }
+    }
+  }, [preventFirstRender, toastieDisplay]);
 
   if (!client) {
     return null;
@@ -39,11 +62,21 @@ const BatteriesMainPage = () => {
             کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد.
           </p>
           <Link
-            href={`batteries/products?attribute_slug=type_vehicle&attribute_value=car${
-              JSON.parse(localStorage.getItem("selectedVehicle"))?.id
-                ? `&selectTipState=true,${JSON.parse(localStorage.getItem("selectedVehicle")).id.toString()}`
+            href={
+              pathName.startsWith("/batteries") &&
+              JSON.parse(localStorage.getItem("selectedVehicle"))?.id &&
+              cityId
+                ? `batteries/products?attribute_slug=type_vehicle&attribute_value=car${
+                    JSON.parse(localStorage.getItem("selectedVehicle"))?.id
+                      ? `&selectTipState=true,${JSON.parse(localStorage.getItem("selectedVehicle")).id.toString()}`
+                      : ""
+                  }`
                 : ""
-            }`}
+            }
+            onClick={() => {
+              setToastieDisplay((prev) => !prev);
+              setPreventFirstRender(true);
+            }}
             className="bg-[#F66B34] rounded-md py-2 px-4 text-[#FEFEFE] w-fit mt-2 font-medium lg:text-14 text-12"
           >
             ثبت درخواست
@@ -67,7 +100,7 @@ const BatteriesMainPage = () => {
       </ul>
       <BatteryAdvice />
       <BatteryFaq />
-      <ToastContainer rtl={true} />
+      {preventFirstRender && <ToastContainer rtl={true} />}
     </>
   );
 };
