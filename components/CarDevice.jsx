@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import SelectSearchInput from "@/components/SelectSearchInput";
 import MachinTagInput from "@/components/MachinTagInput";
 import Image from "next/image";
@@ -18,7 +18,8 @@ import { getData, postData, putData } from "@/utils/client-api-function-utils";
 import { useSelector } from "react-redux";
 import SelectCarModal from "@/components/modal/SelectCarModal";
 import PrivateRoute from "@/routes/private-route";
-
+import nProgress from "nprogress";
+import machinTag from "@/public/assets/images/machinTag.svg"
 const CarDevice = (props) => {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -42,6 +43,8 @@ const CarDevice = (props) => {
   const [newPlaque_1, setNewPlaque_1] = useState("");
   const [newPlaque_2, setNewPlaque_2] = useState("");
   const [newPlaque_3, setNewPlaque_3] = useState("");
+  const [motorPlaque_0, setMotorPlaque_0] = useState("");
+  const [motorPlaque_1, setMotorPlaque_1] = useState("");
   const [newThirdPartyInsuranceStartAt, setNewThirdPartyInsuranceStartAt] =
     useState("");
   const [newThirdPartyInsuranceEndAt, setNewThirdPartyInsuranceEndAt] =
@@ -64,6 +67,58 @@ const CarDevice = (props) => {
   const [newFinePrice, setNewFinePrice] = useState("");
   const [newEditData, setNewEditData] = useState({});
   const [buttonDisabledState, setButtonDisabledState] = useState(false);
+
+
+
+  const colorData = [
+    {
+      title: "قرمز",
+      value: "red"
+    },{
+      title: "سبز",
+      value: "green"
+    },{
+      title: "آبی",
+      value: "blue"
+    },{
+      title: "زرد",
+      value: "yellow"
+    },{
+      title: "مشکی",
+      value: "black"
+    },{
+      title: "سفید",
+      value: "white"
+    },{
+      title: "نوک مدادی",
+      value: "stone"
+    },{
+      title: "خاکستری",
+      value: "gray"
+    },
+  ]
+  const [optionState, setOptionState] = useState(false);
+  const [serchedColor , setSearchedColor] = useState(colorData)
+  const [selectedColor , setSelectedColor] = useState({})
+  const optionRef = useRef(null);
+  const inputRef = useRef(null);
+  function inputChangeHandler(value) {
+    setSearchedColor(colorData.filter((i) => i.title.includes(value)));
+  }
+  useEffect(() => {
+    document.addEventListener("click", (e) => {
+      if (
+        e.target !== optionRef.current &&
+        e.target.parentElement !== optionRef.current &&
+        e.target !== inputRef.current
+      ) {
+        setOptionState(false);
+      }
+    });
+  }, []);
+
+
+
   const selectVehicleData = useSelector(
     (vehicleData) => vehicleData.todo.selectVehicle,
   );
@@ -262,88 +317,102 @@ const CarDevice = (props) => {
   const myCarSubmitHandler = async (event) => {
     event.preventDefault();
     if (props.pageType === "edit" && Object.keys(newEditData).length > 0) {
-      editFormData.set(
-        "vehicle_brand_id",
-        newBrandOptionId ? newBrandOptionId : newEditData.vehicle_brand_id,
-      );
-      editFormData.set(
-        "vehicle_model_id",
-        newModelOptionId ? newModelOptionId : newEditData.vehicle_model_id,
-      );
-      editFormData.set(
-        "vehicle_tip_id",
-        newTipOptionId ? newTipOptionId : newEditData.vehicle_tip_id,
-      );
-      editFormData.set(
-        "year",
-        newYearOptionId ? newYearOptionId : newEditData.yearId,
-      );
-      editFormData.set("plaque[0]", newPlaque_0);
-      editFormData.set("plaque[1]", newPlaque_1);
-      editFormData.set("plaque[2]", newPlaque_2);
-      editFormData.set("plaque[3]", newPlaque_3);
-      editFormData.set(
-        "kilometers_now",
-        newStartKilometerValue
-          ? newStartKilometerValue.split(",").join("")
-          : "",
-      );
-      editFormData.set(
-        "kilometers_use",
-        newEndKilometerValue ? newEndKilometerValue.split(",").join("") : "",
-      );
-      editFormData.set("title", newMyCarValue);
-      editFormData.set(
-        "information[third_party_insurance_start_at]",
-        newThirdPartyInsuranceStartAt,
-      );
-      editFormData.set(
-        "information[third_party_insurance_end_at]",
-        newThirdPartyInsuranceEndAt,
-      );
-      editFormData.set(
-        "information[body_insurance_start_at]",
-        newBodyInsuranceStartAt,
-      );
-      editFormData.set(
-        "information[body_insurance_end_at]",
-        newBodyInsuranceEndAt,
-      );
-      editFormData.set(
-        "information[technical_diagnosis_start_at]",
-        newTechnicalDiagnosisStartAt,
-      );
-      editFormData.set(
-        "information[technical_diagnosis_end_at]",
-        newTechnicalDiagnosisEndAt,
-      );
-      editFormData.set(
-        "information[technical_diagnosis_remember]",
-        String(newTechnicalDiagnosisRemember),
-      );
-      editFormData.set(
-        "information[third_party_insurance_remember]",
-        String(newThirdPartyInsuranceRemember),
-      );
-      editFormData.set(
-        "information[body_insurance_remember]",
-        String(newBodyInsuranceRemember),
-      );
-      editFormData.set(
-        "information[body_insurance_company]",
-        newBodyInsuranceCompany,
-      );
-      editFormData.set(
-        "information[third_party_insurance_company]",
-        newThirdPartyInsuranceCompany,
-      );
-      editFormData.set("information[fine_price]", newFinePrice);
-      editFormData.set("_method", "PUT");
+      const fd = {
+        "vehicle_brand_id": newBrandOptionId ? newBrandOptionId : newEditData.vehicle_brand_id,
+        "vehicle_model_id": newModelOptionId ? newModelOptionId : newEditData.vehicle_model_id,
+        "vehicle_tip_id": newTipOptionId ? newTipOptionId : newEditData.vehicle_tip_id,
+        "year": newYearOptionId ? newYearOptionId : newEditData.yearId,
+        "color": selectedColor,
+        "plaque": newEditData.type === "MOTOR"?[motorPlaque_0,motorPlaque_1]:[newPlaque_0,newPlaque_1,newPlaque_2,newPlaque_3],
+        "title": newMyCarValue,
+        "kind": "force_store",
+        "type": newEditData.type,
+        "_method": "PUT"
+      }
+      // editFormData.set(
+      //   "vehicle_brand_id",
+      //   newBrandOptionId ? newBrandOptionId : newEditData.vehicle_brand_id,
+      // );
+      // editFormData.set(
+      //   "vehicle_model_id",
+      //   newModelOptionId ? newModelOptionId : newEditData.vehicle_model_id,
+      // );
+      // editFormData.set(
+      //   "vehicle_tip_id",
+      //   newTipOptionId ? newTipOptionId : newEditData.vehicle_tip_id,
+      // );
+      // editFormData.set(
+      //   "year",
+      //   newYearOptionId ? newYearOptionId : newEditData.yearId,
+      // );
+      // editFormData.set("plaque[0]", newPlaque_0);
+      // editFormData.set("plaque[1]", newPlaque_1);
+      // editFormData.set("plaque[2]", newPlaque_2);
+      // editFormData.set("plaque[3]", newPlaque_3);
+      // editFormData.set("title", newMyCarValue);
+      // editFormData.set("color", selectedColor);
+      // editFormData.set("kind", "force_store");
+      // // editFormData.set(
+      // //   "kilometers_now",
+      // //   newStartKilometerValue
+      // //     ? newStartKilometerValue.split(",").join("")
+      // //     : "",
+      // // );
+      // // editFormData.set(
+      // //   "kilometers_use",
+      // //   newEndKilometerValue ? newEndKilometerValue.split(",").join("") : "",
+      // // );
+      // // editFormData.set(
+      // //   "information[third_party_insurance_start_at]",
+      // //   newThirdPartyInsuranceStartAt,
+      // // );
+      // // editFormData.set(
+      // //   "information[third_party_insurance_end_at]",
+      // //   newThirdPartyInsuranceEndAt,
+      // // );
+      // // editFormData.set(
+      // //   "information[body_insurance_start_at]",
+      // //   newBodyInsuranceStartAt,
+      // // );
+      // // editFormData.set(
+      // //   "information[body_insurance_end_at]",
+      // //   newBodyInsuranceEndAt,
+      // // );
+      // // editFormData.set(
+      // //   "information[technical_diagnosis_start_at]",
+      // //   newTechnicalDiagnosisStartAt,
+      // // );
+      // // editFormData.set(
+      // //   "information[technical_diagnosis_end_at]",
+      // //   newTechnicalDiagnosisEndAt,
+      // // );
+      // // editFormData.set(
+      // //   "information[technical_diagnosis_remember]",
+      // //   String(newTechnicalDiagnosisRemember),
+      // // );
+      // // editFormData.set(
+      // //   "information[third_party_insurance_remember]",
+      // //   String(newThirdPartyInsuranceRemember),
+      // // );
+      // // editFormData.set(
+      // //   "information[body_insurance_remember]",
+      // //   String(newBodyInsuranceRemember),
+      // // );
+      // // editFormData.set(
+      // //   "information[body_insurance_company]",
+      // //   newBodyInsuranceCompany,
+      // // );
+      // // editFormData.set(
+      // //   "information[third_party_insurance_company]",
+      // //   newThirdPartyInsuranceCompany,
+      // // );
+      // // editFormData.set("information[fine_price]", newFinePrice);
+      // editFormData.set("_method", "PUT");
       const response = await putData(
         process.env.BASE_API +
           "/user-panel/vehicles/" +
           searchParams.get("product"),
-        editFormData,
+          fd,
         '"Content-Type": "application/json"',
       );
       if (response.status === 200) {
@@ -356,31 +425,45 @@ const CarDevice = (props) => {
         }
       }
     } else {
-      const fd = carFormData(
-        newBrandOptionId,
-        newModelOptionId,
-        newTipOptionId,
-        newYearOptionId,
-        event.target.plaque_0.value,
-        newPlaque_1,
-        event.target.plaque_2.value,
-        event.target.plaque_3.value,
-        event.target.kilometerStart.value.split(",").join(""),
-        event.target.kilometerEnd.value.split(",").join(""),
-        event.target.carName.value,
-        newBodyInsuranceStartAt,
-        newBodyInsuranceEndAt,
-        newBodyInsuranceCompany,
-        newBodyInsuranceRemember,
-        newThirdPartyInsuranceStartAt,
-        newThirdPartyInsuranceEndAt,
-        newThirdPartyInsuranceCompany,
-        newThirdPartyInsuranceRemember,
-        newTechnicalDiagnosisStartAt,
-        newTechnicalDiagnosisEndAt,
-        newTechnicalDiagnosisRemember,
-        event.target.finePrice.value.split(",").join(""),
-      );
+    const fd = {
+      "vehicle_brand_id": newBrandOptionId,
+      "vehicle_model_id": newModelOptionId,
+      "vehicle_tip_id": newTipOptionId,
+      "year": newYearOptionId,
+      "color": selectedColor,
+      "plaque": searchParams.get("type") === "MOTOR"?[motorPlaque_0,motorPlaque_1]:[event.target.plaque_0.value,newPlaque_1,event.target.plaque_2.value,event.target.plaque_3.value],
+      "title": event.target.carName.value,
+      "kind": "force_store",
+      "type": searchParams.get("type")
+    }
+      // const fd = carFormData(
+      //   newBrandOptionId,
+      //   newModelOptionId,
+      //   newTipOptionId,
+      //   newYearOptionId,
+      //   selectedColor,
+      //   event.target.plaque_0.value,
+      //   newPlaque_1,
+      //   event.target.plaque_2.value,
+      //   event.target.plaque_3.value,
+      //   event.target.carName.value,
+      //   "force_store",
+      //   searchParams.get("type"),
+      //   // event.target.kilometerStart.value.split(",").join(""),
+      //   // event.target.kilometerEnd.value.split(",").join(""),
+      //   // newBodyInsuranceStartAt,
+      //   // newBodyInsuranceEndAt,
+      //   // newBodyInsuranceCompany,
+      //   // newBodyInsuranceRemember,
+      //   // newThirdPartyInsuranceStartAt,
+      //   // newThirdPartyInsuranceEndAt,
+      //   // newThirdPartyInsuranceCompany,
+      //   // newThirdPartyInsuranceRemember,
+      //   // newTechnicalDiagnosisStartAt,
+      //   // newTechnicalDiagnosisEndAt,
+      //   // newTechnicalDiagnosisRemember,
+      //   // event.target.finePrice.value.split(",").join(""),
+      // );
       setButtonDisabledState(true);
       const response = await postData(
         process.env.BASE_API + "/user-panel/vehicles",
@@ -390,6 +473,7 @@ const CarDevice = (props) => {
       if (response.status === 200 || response.status === 201) {
         setButtonDisabledState(false);
         // success(res.data.data["msg"]);
+        nProgress.start();
         router.push("/panel/my-vehicle/my-car");
         // event.target.reset();
         // setNewReset(true);
@@ -494,13 +578,18 @@ const CarDevice = (props) => {
           },
         )
         .then((res) => {
-          console.log(res.data.data);
           res.data.data.yearId = res.data.data.year;
-          setNewEditData(res.data.data);
-        }).catch((err)=>{
-          console.log(err);
+          setNewEditData(res.data.data);  
+          colorData.map((item)=>{
+            if(item.value === res.data.data.info.color.value){
+              setSelectedColor(item)
+            }
+          })
           
         })
+        .catch((err) => {
+          console.log(err);
+        });
     }
   }, [props.pageType, searchParams]);
 
@@ -533,9 +622,13 @@ const CarDevice = (props) => {
   useEffect(() => {
     if (props.pageType === "edit" && Object.keys(newEditData).length > 0) {
       setNewMyCarValue(newEditData.info.title);
-      setNewStartKilometerValue(numberWithCommas(newEditData.info.kilometers_now));
+      setNewStartKilometerValue(
+        numberWithCommas(newEditData.info.kilometers_now),
+      );
       setNewStartKilometerState(true);
-      setNewEndKilometerValue(numberWithCommas(newEditData.info.kilometers_use));
+      setNewEndKilometerValue(
+        numberWithCommas(newEditData.info.kilometers_use),
+      );
       setNewEndKilometerState(true);
       setNewThirdPartyInsuranceStartAt(
         newEditData.insurance_info
@@ -592,16 +685,16 @@ const CarDevice = (props) => {
           ? newEditData.insurance_info.technical_diagnosis_remember
           : "",
       );
-      setNewFinePrice(
-        newEditData.info ? newEditData.info.fine_price : "",
-      );
+      setNewFinePrice(newEditData.info ? newEditData.info.fine_price : "");
+      setMotorPlaque_0(newEditData.info ? newEditData.info.plaque[0] : "");
+      setMotorPlaque_1(newEditData.info ? newEditData.info.plaque[1] : "");
     }
   }, [newEditData]);
 
   return (
     <PrivateRoute>
       <form
-        className="flex-1 px-[40px] py-[32px] rounded-[10px] bg-[#383838A3] flex flex-col gap-[35px]"
+        className="flex-1 px-4 sm:px-[40px] py-[32px] rounded-[10px] bg-[#383838A3] flex flex-col gap-[35px]"
         onSubmit={myCarSubmitHandler}
       >
         <h1 className={"text-[#FEFEFE]"}>خودرو</h1>
@@ -614,7 +707,7 @@ const CarDevice = (props) => {
                   : "/assets/icons/photo.svg"
               }
               alt={"car image"}
-              className={"w-[476px] h-[295px]"}
+              className={"w-full h-auto max-w-[476px]"}
               width={476}
               height={295}
             />
@@ -700,24 +793,26 @@ const CarDevice = (props) => {
               disabledSelectOption={true}
               lable={"انتخاب تیپ"}
             />
-            <Button
+            {/* <Button
               type={"button"}
               class_name={
                 "bg-[#F66B34] text-[#FEFEFE] self-end px-[24.5px] py-[6.5px] text-[14px] rounded-5"
               }
               on_click={openModalHandler}
             >
-              تغییر خودرو
-            </Button>
+              تغییر وسیله نقلیه
+            </Button> */}
           </section>
         </div>
-        <div className="grid size800:grid-cols-2 grid-cols-1 gap-[32px]">
+        <div
+          className={
+            "grid size800:grid-cols-3 size582:grid-cols-2 grid-cols-1 gap-[32px]"
+          }
+        >
           <div className={"flex flex-col gap-4"}>
             <label
               htmlFor={"carName"}
-              className={
-                "px-2 text-16 font-bold text-[#FEFEFE]"
-              }
+              className={"px-2 text-16 font-bold text-[#FEFEFE]"}
             >
               نام وسیله
             </label>
@@ -725,7 +820,7 @@ const CarDevice = (props) => {
               type="text"
               value={newMyCarValue !== "null" ? newMyCarValue : ""}
               placeholder="مثال: خودروی من"
-              className="border border-[#d1d1d1] outline-none pr-2 text-14 h-[48px] placeholder:text-12 placeholder:text-right w-full rounded-5"
+              className="border border-[#d1d1d1] font-medium outline-none pr-2 text-14 h-[48px] placeholder:text-12 placeholder:text-right w-full rounded-5"
               id={"carName"}
               name={"carName"}
               on_change={InputChangeHandler}
@@ -743,14 +838,73 @@ const CarDevice = (props) => {
             className={"h-[48px]"}
             lable={"سال ساخت"}
           />
-        </div>
-        <div
-          className={
-            "grid size800:grid-cols-3 size582:grid-cols-2 grid-cols-1 gap-[32px]"
-          }
-        >
           <div className="flex flex-col gap-4">
-          <label className={"font-bold text-[#FEFEFE]"}>پلاک</label>
+            <label
+              className={"px-2 text-16 font-bold text-[#FEFEFE]"}
+            >
+              رنگ خودرو
+            </label>
+            <div className="relative">
+              <span
+                className=" font-medium text-12 cursor-pointer bg-[#FEFEFE] w-full flex items-center justify-center rounded-lg py-2 h-12"
+                onClick={() => {
+                  setOptionState(true);
+                }}
+                ref={inputRef}
+              >
+                {selectedColor.title}
+              </span>
+              <div
+                className={`absolute overflow-y-scroll rounded-lg top-[42px] z-[2] bg-[#FEFEFE] w-full ${optionState ? "h-[380%]" : "h-0"} overflow-hidden transition-all`}
+              >
+                <div
+                  className="max-h-[200px] flex flex-col p-2 gap-1 w-full"
+                  ref={optionRef}
+                >
+                  <input
+                    className="w-full bg-[#FEFEFE] rounded-lg text-[#0E0E0E] h-8 border outline-none mb-1 px-2"
+                    onChange={(e) => {
+                      inputChangeHandler(e.target.value);
+                    }}
+                  />
+                  {/* <span
+                    className="cursor-pointer hover:bg-[#6e7c91] py-1 px-2 text-[#FEFEFE] text-14"
+                    onClick={(e) => {
+                      props.timeData();
+                      setOptionState(false);
+                    }}
+                  >
+                    همه محله ها
+                  </span> */}
+                  {serchedColor.map((item, index) => (
+                    <span
+                      className="cursor-pointer hover:bg-[#6e7c91] py-1 px-2 text-[#0E0E0E] text-14"
+                      value={item.value}
+                      onClick={(e) => {
+                        // props.timeData({ area_id: item.id });
+                        setSelectedColor(item)
+                        setOptionState(false);
+                      }}
+                      key={index}
+                    >
+                      {item.title}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="flex flex-col gap-4">
+            <label className={"font-bold text-[#FEFEFE]"}>پلاک</label>
+            {(searchParams.get("type") === "MOTOR" || newEditData.type === "MOTOR")?
+            <div className="bg-[#FEFEFE] text-[#0E0E0E] flex-col w-32 rounded-md overflow-hidden">
+              <div className="flex">
+                <input className="w-full tracking-[16px] text-center h-10 pl-2" type="number" maxLength={3} placeholder="000" onChange={(e)=>{e.target.value.length <4 ?setMotorPlaque_0(e.target.value):""}} value={motorPlaque_0} dir="ltr"/>
+                <Image className="" src={machinTag} width={20} height={40}/>
+              </div>
+              <input className="w-full tracking-[12px] h-10 text-center pl-2" type="number" maxLength={5} placeholder="00000" onChange={(e)=>{e.target.value.length <6 ?setMotorPlaque_1(e.target.value):""}} value={motorPlaque_1} dir="ltr"/>
+            </div>
+            :
             <MachinTagInput
               setNewPlaque_0={setNewPlaque_0}
               setNewPlaque_1={setNewPlaque_1}
@@ -761,13 +915,10 @@ const CarDevice = (props) => {
               newPlaque_2={newPlaque_2}
               newPlaque_3={newPlaque_3}
               pageType={props.pageType}
-              editPlaqueData={newEditData.info&&newEditData.info.plaque}
-            />
+              editPlaqueData={newEditData.info && newEditData.info.plaque}
+            />}
           </div>
-          <div className="flex flex-col gap-4">
-            {/*<span className="absolute text-12 text-[#aaa] top-4 right-2">*/}
-            {/*   کیلومتر فعلی خودرو*/}
-            {/*</span>*/}
+          {/* <div className="flex flex-col gap-4">
             <label
               htmlFor={"kilometerStart"}
               className={
@@ -776,9 +927,6 @@ const CarDevice = (props) => {
             >
               کیلومتر فعلی خودرو
             </label>
-            {/* {newStartKilometerState && (
-              <span className="absolute left-2 top-4 text-12">کیلومتر</span>
-            )} */}
             <Input
               type="text"
               value={newStartKilometerValue}
@@ -789,11 +937,8 @@ const CarDevice = (props) => {
               } text-14 h-[48px] placeholder:text-12 placeholder:text-right text-left w-full rounded-5`}
               on_change={InputChangeHandler}
             />
-          </div>
-          <div className="flex flex-col gap-4">
-            {/*<span className="absolute text-12 text-[#aaa] top-4 right-2">*/}
-            {/*   کیلومتر مصرفی ماهانه*/}
-            {/*</span>*/}
+          </div> */}
+          {/* <div className="flex flex-col gap-4">
             <label
               htmlFor={"kilometerEnd"}
               className={
@@ -802,9 +947,6 @@ const CarDevice = (props) => {
             >
               کیلومتر مصرفی ماهانه
             </label>
-            {/* {newEndKilometerState && (
-              <span className="absolute left-2 top-4 text-12">کیلومتر</span>
-            )} */}
             <Input
               type="text"
               value={newEndKilometerValue}
@@ -815,9 +957,9 @@ const CarDevice = (props) => {
               } text-14 h-[48px] placeholder:text-12 placeholder:text-right text-left w-full rounded-5`}
               on_change={InputChangeHandler}
             />
-          </div>
+          </div> */}
         </div>
-        <GeneralCarInformation
+        {/* <GeneralCarInformation
           title={"بیمه ثالث"}
           id={"thirdPartyInsurance"}
           pageType={props.pageType}
@@ -874,7 +1016,7 @@ const CarDevice = (props) => {
           violationState={true}
           allSelectInputState={false}
           setNewFinePrice={setNewFinePrice}
-        />
+        /> */}
         <div className="text-left mt-6">
           <Button
             type={"submit"}
@@ -900,6 +1042,7 @@ const CarDevice = (props) => {
             />
           </div>
         }
+        
       </form>
     </PrivateRoute>
   );

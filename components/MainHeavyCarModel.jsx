@@ -23,17 +23,18 @@ const MainHeavyCarModel = (props) => {
                 />
             </div>
             <div>
-                <Input
+                <input
                     type={"text"}
                     placeholder={"جستجو مدل"}
                     className={
                         "placeholder:text-12 text-14 outline-none w-full py-1 px-4 text-[#B0B0B0] bg-[#b0b0b044] rounded-lg"
                     }
+                    onChange={props.heavycarModelSearchHandler}
                 />
             </div>
 
             <div className="max-h-[290px] w-full overflow-y-scroll grid grid-cols-3 gap-4 py-4">
-                {props.mainHeavyCarModelData.map((item, index) => (
+                {props.searchedMainHeavyCarModelData.map((item, index) => (
                     <div key={index} className="flex flex-col items-center gap-2">
                         <div
                             className="w-[50px] h-[50px] cursor-pointer"

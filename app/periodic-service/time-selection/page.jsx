@@ -11,7 +11,7 @@ const Page = (props) => {
   const searchParams = useSearchParams()
   useEffect(()=>{
     async function getTimeData() {
-      const data = await getDataWithFullErrorRes(`/web/service-periodical?step=step-4&${searchParams.toString()}`);
+      const data = await getDataWithFullErrorRes(`/web/service-periodical?step=step-4&type=${props.searchParams.type}&city_id=${props.searchParams.city_id}&vehicle_tip_id=${props.searchParams.selectTipState.split(",")[1]}&service_location_id=${props.searchParams.service_location_id}&package_id=${props.searchParams.package_id}`);
       setData(Object.keys(data["time-reserve"]).map((key)=>{
         return {
           day:key,

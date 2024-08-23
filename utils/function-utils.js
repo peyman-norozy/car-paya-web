@@ -3,7 +3,8 @@ import moment from "jalali-moment";
 
 function error(errorNotification) {
   toast.error(errorNotification, {
-    position: "bottom-right",
+    position: "top-center",
+    className: "rounded-[8px] mx-[10px] top-[10px]",
     autoClose: 5000,
     hideProgressBar: false,
     closeOnClick: true,

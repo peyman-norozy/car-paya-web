@@ -117,7 +117,7 @@ const VerificationLastStep = () => {
   console.log(data.address_info && data.address_info);
 
   return (
-    <div className={"w-[90%] size1000:w-[80%] m-auto pt-[2rem] mb-[90px]"}>
+    <div className={"lg:w-[calc(100%-424px)] mr-auto pt-[2rem] mb-[90px]"}>
       <div
         className={
           "flex items-center gap-2 size752:gap-[16px] text-BLUE_600 w-full mb-4"

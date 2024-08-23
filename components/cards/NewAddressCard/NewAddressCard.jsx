@@ -40,11 +40,13 @@ const NewAddressCard = ({
 
   return (
     <li
-      className={`bg-[#E7E7E7] p-4 rounded-[16px] flex size720:flex-row flex-col-reverse gap-6 ${status === "FIXED" ? "size720:h-[335px] h-fit" : "size1228:h-[232px] lg:h-[270px] size830:h-[232px] size720:h-[270px] h-fit"}`}
+      className={`bg-[#E7E7E7] p-4 rounded-[16px] flex xl:flex-row flex-col-reverse gap-6 ${status === "FIXED" ? "xl:h-[335px] h-fit" : "size1228:h-[232px] lg:h-[270px] size830:h-[232px] xl:h-[270px] h-fit"}`}
     >
       <div className={"flex-1"}>
         <section className={"flex justify-between"}>
-          <span className={"font-semibold text-18"}>{item.title}</span>
+          <span className={"font-semibold lg:text-18 text-14"}>
+            {item.title}
+          </span>
           {status === "FIXED" ? (
             ""
           ) : (
@@ -60,22 +62,22 @@ const NewAddressCard = ({
             </div>
           )}
         </section>
-        <section className={"flex gap-6 mb-4 mt-3"}>
-          <div className={"flex gap-[11px]"}>
+        <section className={"flex lg:gap-6 gap-2 mb-4 mt-3"}>
+          <div className={"flex lg:gap-[11px] gap-1 lg:text-16 text-12"}>
             <span className={"font-semibold"}>استان:</span>
             <span>{item.province_name}</span>
           </div>
-          <div className={"flex gap-[11px]"}>
+          <div className={"flex lg:gap-[11px] gap-1 lg:text-16 text-12"}>
             <span className={"font-semibold"}>شهر:</span>
             <span>{item.city_name}</span>
           </div>
-          <div className={"flex gap-[11px]"}>
+          <div className={"flex lg:gap-[11px] gap-1 lg:text-16 text-12"}>
             <span className={"font-semibold"}>محله:</span>
             <span>{item.area_name}</span>
           </div>
         </section>
         <section className={"flex"}>
-          <p className={"leading-7 h-14"}>
+          <p className={"leading-7 h-14 lg:text-16 text-12"}>
             <span className={"font-semibold"}> آدرس دقیق: </span>
             {item.address}
           </p>
@@ -101,7 +103,7 @@ const NewAddressCard = ({
           تایید
         </button>
       </div>
-      <div className={"size720:w-[328px] w-full h-full"}>
+      <div className={"xl:w-[328px] w-full h-full"}>
         <MapDirection
           justShowPosition={true}
           status={status}

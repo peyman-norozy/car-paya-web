@@ -9,6 +9,7 @@ import { postData } from "@/utils/client-api-function-utils";
 import { API_PATHS } from "@/configs/routes.config";
 import { notFound, usePathname, useRouter } from "next/navigation";
 import PrivateRoute from "@/routes/private-route";
+import nProgress from "nprogress";
 
 const exapleArray = [
   { title: "روغن موتور", id: 0 },
@@ -110,6 +111,7 @@ const HistoryCreate = (props) => {
       formData,
     );
     if (fetchData.status === 200 || fetchData.status === 201) {
+      nProgress.start();
       router.push("/" + pathName.split("/").splice(1, 6).join("/"));
     } else if (fetchData.response.status === 404) {
       console.log(fetchData);
@@ -124,6 +126,7 @@ const HistoryCreate = (props) => {
   };
 
   const backAddHistory = () => {
+    nProgress.start();
     router.push("/" + pathName.split("/").splice(1, 6).join("/"));
   };
 
@@ -179,9 +182,15 @@ const HistoryCreate = (props) => {
         <div className="mt-6 flex flex-col">
           <div className="flex flex-col overflow-hidden rounded-2xl gap-px">
             <ul className="size800:flex hidden justify-between text-14 text-[#FEFEFE] h-[72px] gap-px">
-              <li className="font-bold flex-1 flex justify-center items-center bg-[#47505D]">#</li>
-              <li className="font-bold flex-1 flex justify-center items-center bg-[#47505D]">عنوان</li>
-              <li className="font-bold flex-1 flex justify-center items-center bg-[#47505D]">وضعیت</li>
+              <li className="font-bold flex-1 flex justify-center items-center bg-[#47505D]">
+                #
+              </li>
+              <li className="font-bold flex-1 flex justify-center items-center bg-[#47505D]">
+                عنوان
+              </li>
+              <li className="font-bold flex-1 flex justify-center items-center bg-[#47505D]">
+                وضعیت
+              </li>
               <li className="font-bold flex-1 flex justify-center items-center bg-[#47505D]"></li>
             </ul>
             {exapleArray.map((item, index) => (

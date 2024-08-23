@@ -33,7 +33,7 @@ const AddressSelection = (props) => {
       }
       if (
         e.target !== serviceButtenRef.current &&
-        e.target.parentElement.parentElement !== serviceDropDownRef.current &&
+        e.target.parentElement?.parentElement !== serviceDropDownRef.current &&
         e.target !== serviceDropDownRef.current
       ) {
         setServicesState(false);
@@ -67,9 +67,8 @@ const AddressSelection = (props) => {
   }
 
   function searchClickHandler() {
-    props.timeData({services:srviceQuery.join(",")});
+    props.timeData({ services: srviceQuery.join(",") });
   }
-
   return (
     <>
       {props.status === "FIXED" ? (
@@ -84,56 +83,68 @@ const AddressSelection = (props) => {
             >
               انتخاب محله
             </span>
-              <div className={`absolute overflow-y-scroll rounded-lg top-[42px] z-[2] bg-[#5D697A] ${optionState?"w-40":"w-0"} overflow-hidden transition-all`}>
-                <div
-                  className="max-h-[200px] flex flex-col p-2 gap-1 w-40"
-                  ref={optionRef}
+            <div
+              className={`absolute overflow-y-scroll rounded-lg top-[42px] z-[2] bg-[#5D697A] ${optionState ? "w-40" : "w-0"} overflow-hidden transition-all z-[1000000]`}
+            >
+              <div
+                className="max-h-[200px] flex flex-col p-2 gap-1 w-40"
+                ref={optionRef}
+              >
+                <input
+                  className="w-full bg-[#FEFEFE] rounded-lg text-[#0E0E0E] h-8 outline-none mb-1 px-2"
+                  onChange={(e) => {
+                    inputChangeHandler(e.target.value);
+                  }}
+                />
+                <span
+                  className="cursor-pointer hover:bg-[#6e7c91] py-1 px-2 text-[#FEFEFE] text-14"
+                  onClick={(e) => {
+                    props.timeData();
+                    setOptionState(false);
+                  }}
                 >
-                  <input
-                    className="w-full bg-[#FEFEFE] rounded-lg text-[#0E0E0E] h-8 outline-none mb-1 px-2"
-                    onChange={(e) => {
-                      inputChangeHandler(e.target.value);
-                    }}
-                  />
+                  همه محله ها
+                </span>
+                {searchCity.map((item, index) => (
                   <span
-                      className="cursor-pointer hover:bg-[#6e7c91] py-1 px-2 text-[#FEFEFE] text-14"
-                      onClick={(e) => {
-                        props.timeData();
-                        setOptionState(false)
-                      }}
-                    >
-                      همه محله ها
-                    </span>
-                  {searchCity.map((item, index) => (
-                    <span
-                      className="cursor-pointer hover:bg-[#6e7c91] py-1 px-2 text-[#FEFEFE] text-14"
-                      value={item.id}
-                      onClick={(e) => {
-                        props.timeData({area_id: item.id});
-                        setOptionState(false)
-                      }}
-                      key={index}
-                    >
-                      {item.label}
-                    </span>
-                  ))}
-                </div>
+                    className="cursor-pointer hover:bg-[#6e7c91] py-1 px-2 text-[#FEFEFE] text-14"
+                    value={item.id}
+                    onClick={(e) => {
+                      props.timeData({ area_id: item.id });
+                      setOptionState(false);
+                    }}
+                    key={index}
+                  >
+                    {item.label}
+                  </span>
+                ))}
               </div>
+            </div>
           </div>
           <div className="relative">
-            <span
-              className="text-[#FEFEFE] font-bold cursor-pointer bg-[#5D697A] w-40 flex items-center justify-center rounded-lg py-2"
-              onClick={() => {
-                setServicesState(true);
-              }}
-              ref={serviceButtenRef}
+            {pathName !== "/batteries/products/newSelectLocation" && (
+              <span
+                className="text-[#FEFEFE] font-bold cursor-pointer bg-[#5D697A] w-40 flex items-center justify-center rounded-lg py-2"
+                onClick={() => {
+                  setServicesState(true);
+                }}
+                ref={serviceButtenRef}
+              >
+                انتخاب سرویس ها
+              </span>
+            )}
+            <div
+              className={`absolute rounded-lg top-[42px] left-0 bg-[#5D697A] z-[1010] ${servicesState ? `w-[240px] sm:w-[calc(100vw*2/5)] p-4` : `w-0`} transition-all duration-500 flex flex-col gap-4 overflow-hidden`}
             >
-              انتخاب سرویس ها
-            </span>
-            <div className={`absolute rounded-lg top-[42px] left-0 bg-[#5D697A] z-[1010] ${servicesState?`w-[240px] sm:w-[calc(100vw*2/5)] p-4`:`w-0`} transition-all duration-500 flex flex-col gap-4 overflow-hidden`}>
-              <div className={`flex flex-wrap gap-6 overflow-y-scroll overflow-x-hidden max-h-[200px]`} ref={serviceDropDownRef}>
-                  {servicesData.map((item) => (
-                  <div className="checkbox-wrapper-42 flex items-center gap-1 min-w-[210px]">
+              <div
+                className={`flex flex-wrap gap-6 overflow-y-scroll overflow-x-hidden max-h-[200px]`}
+                ref={serviceDropDownRef}
+              >
+                {servicesData?.map((item, index) => (
+                  <div
+                    key={index}
+                    className="checkbox-wrapper-42 flex items-center gap-1 min-w-[210px]"
+                  >
                     <input
                       id={item.value}
                       type="checkbox"
@@ -149,25 +160,32 @@ const AddressSelection = (props) => {
                       {item.label}
                     </label>
                   </div>
-                  ))}
+                ))}
               </div>
-              <button className={"bg-[#F66B34] px-8 py-2 text-[#FEFEFE] rounded-[8px] text-14 w-fit"} onClick={searchClickHandler}>جستجو</button>
+              <button
+                className={
+                  "bg-[#F66B34] px-8 py-2 text-[#FEFEFE] rounded-[8px] text-14 w-fit"
+                }
+                onClick={searchClickHandler}
+              >
+                جستجو
+              </button>
             </div>
           </div>
         </div>
       ) : (
         <Button
           class_name={
-            "bg-[#5D697A] text-[#FEFEFE] py-2 px-3 text-[16px] flex item-center gap-2 rounded-[8px] self-start"
+            "bg-[#5D697A] text-[#FEFEFE] py-2 px-3 lg:text-[16px] text-14 flex item-center gap-2 rounded-[8px] self-start"
           }
           on_click={openModalHandler}
         >
-          <span className={"text-[24px]"}>+</span>
+          <span className={"lg:text-[24px] text-20"}>+</span>
           <span className={"mt-1.5"}>افزودن آدرس جدید</span>
         </Button>
       )}
       {props.status === "FIXED" ? (
-        <ul className={" flex flex-col gap-6"}>
+        <ul className={" grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-6"}>
           {props.carCheckLocations?.map((item) => (
             <NewAddressCard
               key={item.id}
@@ -178,7 +196,9 @@ const AddressSelection = (props) => {
                   ? "/detailing/selected-services"
                   : pathName.startsWith("/periodic-service")
                     ? "/periodic-service/service-selection"
-                    : ""
+                    : pathName.startsWith("/batteries")
+                      ? "/batteries/products/newTimeSelector"
+                      : ""
               }
             />
           ))}
@@ -200,7 +220,9 @@ const AddressSelection = (props) => {
                     ? "/detailing/selected-services"
                     : pathName.startsWith("/periodic-service")
                       ? "/periodic-service/service-selection"
-                      : ""
+                      : pathName.startsWith("/batteries")
+                        ? "/batteries/products/newTimeSelector"
+                        : ""
                 }
               />
             ))}

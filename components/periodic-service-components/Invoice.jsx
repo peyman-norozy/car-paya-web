@@ -56,7 +56,7 @@ const Invoice = () => {
                     <Image src={car} width={200} height={150} className="w-[60%] aspect-auto m-auto"/>
                     <div className="flex justify-between items-center">
                         <span className="text-[#303030] text-18 border-r-[5px] border-[#303030] leading-6 pr-1">فورد موستانگ</span>
-                        <Link className="text-red-500 text-16 cursor-pointer" href={"/periodic-service"}>تغییر خودرو</Link>
+                        <Link className="text-red-500 text-16 cursor-pointer" href={"/periodic-service"}>تغییر وسیله نقلیه</Link>
                     </div>
                     <div className="flex flex-col [&>*:first-child]:rounded-t-md [&>*:last-child]:rounded-b-md [&>*:not(:last-child)]:border-b-0 ">
                         <div className="flex justify-between border px-2 py-1">

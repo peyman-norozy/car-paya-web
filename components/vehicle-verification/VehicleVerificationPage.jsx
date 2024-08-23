@@ -22,8 +22,6 @@ import { useRouter } from "next/navigation";
 const VehicleVerificationPage = (props) => {
   const { params } = props;
   const router = useRouter();
-  console.log(params);
-  console.log(router);
   const [step, setStep] = useState(1);
   const loginState = useSelector((state) => state.todo.verificationLogin);
 

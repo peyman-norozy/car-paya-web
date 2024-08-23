@@ -24,7 +24,7 @@ export const serviceData = [
     id: "batteries",
   },
   {
-    title: "شناسنامه و سوابق",
+    title: "شناسنامه خودرو",
     icon: "/assets/images/shnasname.png",
     href: "/panel/my-vehicle/my-car",
     id: "myVehicleMyCar",
@@ -237,6 +237,35 @@ export const panelTabData = [
     id: "discount",
   },
 ];
+export const batteryPurchaseProcessData = [
+  { icon: "/assets/icons/headphone.svg", title: "مشاوره رایگان" },
+  { icon: "/assets/icons/headphone.svg", title: "ثبت سفارش" },
+  { icon: "/assets/icons/headphone.svg", title: "پرداخت آنلاین" },
+  { icon: "/assets/icons/headphone.svg", title: "ارسال فوری" },
+  { icon: "/assets/icons/headphone.svg", title: "تعویض باتری" },
+];
+export const batteryFaqData = [
+  {
+    title: "لورم ایپسوم متن ساختگی",
+    description:
+      "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد.",
+  },
+  {
+    title: "لورم ایپسوم متن ساختگی",
+    description:
+      "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد.",
+  },
+  {
+    title: "لورم ایپسوم متن ساختگی",
+    description:
+      "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد.",
+  },
+  {
+    title: "لورم ایپسوم متن ساختگی",
+    description:
+      "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد.",
+  },
+];
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
@@ -245,4 +274,6 @@ export default {
   periodicServiceUnderCardData,
   workData,
   panelTabData,
+  batteryPurchaseProcessData,
+  batteryFaqData,
 };

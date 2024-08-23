@@ -1,6 +1,7 @@
 "use client";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useCallback } from "react";
+import nProgress from "nprogress";
 
 const useSetQuery = () => {
   const router = useRouter();
@@ -16,6 +17,7 @@ const useSetQuery = () => {
     const query = search ? `?${search}` : "";
     console.log(pathname);
     console.log(query);
+    nProgress.start();
     router.push(pathname + query);
   }, []);
 
@@ -26,6 +28,7 @@ const useSetQuery = () => {
     });
     const search = allParams.toString();
     const query = search ? `?${search}` : "";
+    nProgress.start();
     router.push(newPathname ? newPathname : pathname + query);
   }, []);
 
@@ -35,6 +38,7 @@ const useSetQuery = () => {
     params.delete(data);
     const search = params.toString();
     const query = search ? `?${search}` : "";
+    nProgress.start();
     router.push(pathname + query);
   }, []);
   const deleteSingleQuery = useCallback((data, params, options) => {
@@ -43,6 +47,7 @@ const useSetQuery = () => {
     });
     const search = params.toString();
     const query = search ? `?${search}` : "";
+    nProgress.start();
     router.push(pathname + query, options);
   }, []);
 
@@ -52,6 +57,7 @@ const useSetQuery = () => {
     });
     const search = params.toString();
     const query = search ? `?${search}` : "";
+    nProgress.start();
     router.push(pathname + query, options);
   }, []);
 
@@ -68,6 +74,7 @@ const useSetQuery = () => {
       const queryString = currentParams.toString();
 
       // Push the updated URL with new query parameters
+      nProgress.start();
       router.push(`${newPathname ? newPathname : pathname}?${queryString}`, {
         shallow: true,
       });

@@ -14,6 +14,7 @@ const initialState = {
   renderInvoice: true,
   cityModalState: false,
   carSelectToastState: false,
+  renderSetCarState: false,
 };
 
 const todoSlice = createSlice({
@@ -62,6 +63,9 @@ const todoSlice = createSlice({
     setCarSelectToastHandler(state, action) {
       state.carSelectToastState = action.payload;
     },
+    renderSetCar(state) {
+      state.renderSetCarState = !state.renderSetCarState;
+    },
   },
 });
 
@@ -80,5 +84,6 @@ export const {
   renderInvoice,
   setCityModalState,
   setCarSelectToastHandler,
+  renderSetCar
 } = todoSlice.actions;
 export default todoSlice;

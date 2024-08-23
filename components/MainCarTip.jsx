@@ -8,10 +8,11 @@ import { getCookie } from "cookies-next";
 import axios from "axios";
 import { error, forceOnlyNumberInput, success } from "@/utils/function-utils";
 import OTPInput from "react-otp-input";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useDispatch } from "react-redux";
 import { setCarYear, setSelectCarTip } from "@/store/todoSlice";
 import { getData } from "@/utils/client-api-function-utils";
+import nProgress from "nprogress";
 
 const MainCarTip = (props) => {
   const [newTipId, setNewTipId] = useState(null);
@@ -21,7 +22,7 @@ const MainCarTip = (props) => {
   const [setLoginToken, setSetLoginToken] = useState("");
   const [newPhoneNumber, setNewPhoneNumber] = useState("");
   const [carData, setCarData] = useState({});
-
+  const searchParams = useSearchParams()
   const router = useRouter();
   const dispatch = useDispatch();
 
@@ -31,15 +32,15 @@ const MainCarTip = (props) => {
   };
 
   const clickTipHandler = async (id, event, item) => {
-    localStorage.setItem(
-      "vehicleImage",
-      event.currentTarget.getAttribute("image"),
-    );
-    localStorage.setItem(
-      "vehicleName",
-      event.currentTarget.getAttribute("name"),
-    );
-    localStorage.setItem("vehicleId", id);
+    // localStorage.setItem(
+    //   "vehicleImage",
+    //   event.currentTarget.getAttribute("image"),
+    // );
+    // localStorage.setItem(
+    //   "vehicleName",
+    //   event.currentTarget.getAttribute("name"),
+    // );
+    // localStorage.setItem("vehicleId", id);
     const response = await getData(
       process.env.BASE_API + "/web" + API_PATHS.YEARS + "/" + id,
     );
@@ -129,6 +130,7 @@ const MainCarTip = (props) => {
         setNewOtpState(false);
         props.setMainTipDisplay(false);
         props.setMainBrandModalDisplay(true);
+        nProgress.start();
         router.push("/");
       })
       .catch((e) => console.log(e));
@@ -147,15 +149,17 @@ const MainCarTip = (props) => {
     if (props.setModalState) {
       props.setModalState(false);
     }
-    router.push("/panel/my-vehicle/my-car/create");
+    nProgress.start();
+    router.push("/panel/my-vehicle/my-car/create?type=CAR");
   };
-  console.log(props.mainCarTipsData);
 
   return (
     <Fragment>
       <div className="flex flex-col gap-4 mt-4 w-full">
         <div className="flex justify-end">
-          <span className="flex-1 text-center font-medium text-[#FEFEFE]">انتخاب تیپ</span>
+          <span className="flex-1 text-center font-medium text-[#FEFEFE]">
+            انتخاب تیپ
+          </span>
           <Image
             src={"/assets/icons/Arrow-Left 1.svg"}
             alt={"icon"}
@@ -166,17 +170,18 @@ const MainCarTip = (props) => {
           />
         </div>
         <div>
-          <Input
+          <input
             type={"text"}
             placeholder={"جستجو تیپ"}
             className={
               "placeholder:text-12 text-14 outline-none w-full py-1 px-4 text-[#B0B0B0] bg-[#b0b0b044] rounded-lg"
             }
+            onChange={props.carTipSearchHandler}
           />
         </div>
 
         <div className="max-h-[290px] w-full overflow-y-scroll grid grid-cols-3 gap-4 py-4">
-          {props.mainCarTipsData.map((item, index) => (
+          {props.searchedMainCarTipsData.map((item, index) => (
             <div
               key={index}
               className={`flex flex-col items-center gap-2 ${
@@ -203,7 +208,9 @@ const MainCarTip = (props) => {
                   className={"rounded-10 w-[50px] h-[50px]"}
                 />
               </div>
-              <span className="text-16 font-medium text-[#fefefe] line-clamp-1 text-center">{item.title}</span>
+              <span className="text-16 font-medium text-[#fefefe] line-clamp-1 text-center">
+                {item.title}
+              </span>
             </div>
           ))}
         </div>

@@ -83,7 +83,7 @@ const MachinTagInput = (props) => {
     }, [props.newPlaque_1, carTagData.options]);
 
     return (
-        <div className="flex rounded-5 h-[48px] relative bg-[#FEFEFE]">
+        <div className="flex rounded-5 h-[48px] relative bg-[#FEFEFE] font-medium">
             <div className="flex flex-col w-full items-center justify-center">
                 <Image src={"/assets/icons/iran.svg"} alt={"iran icon"} width={30} height={20} className="mt-1"/>
                 <Input

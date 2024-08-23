@@ -1,40 +1,55 @@
+"use client";
 import React, { useEffect, useRef, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import VehicleRegistration from "@/components/VehicleRegistration";
 import SelectedVehicleVerificationBox from "@/components/SelectedVehicleVerificationBox";
 import Image from "next/image";
 import { API_PATHS } from "@/configs/routes.config";
-import {serviceData} from "@/staticData/data";
+import { serviceData } from "@/staticData/data";
+import CarSelectComponent from "@/components/public/CarSelectComponent";
+import nProgress from "nprogress";
+import { useSelector } from "react-redux";
 
 function MobileBottomNav(props) {
   const router = useRouter();
-  const pathname = usePathname()
+  const pathname = usePathname();
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [serviceModalIsOpen, setServiceModalIsOpen] = useState(false);
   const [selectedTab, setSelectedTab] = useState(pathname);
-  const [vehicleImage,setVehicleImage] = useState(null)
-  const [vehicleName,setVehicleName] = useState(null)
+  const [selectedCarData, setSelectedCarData] = useState(null);
+  const [isClicked, setIsClicked] = useState();
+  const renderSetCarState = useSelector((state) => state.todo.renderSetCarState);
   const modalRef = useRef(null);
   const selectVehicleRef = useRef(null);
   const startY = useRef(null);
-
   const mobileNavData = [
     { name: "icon-Vector-4", title: "صفحه نخست", class: "right-[5%]" },
     { name: "icon-Vector-1", title: "خدمات", class: "right-[26.5%]" },
     {
       name: "icon-Vector-5",
       title: "انتخاب خودرو",
-      class: "right-[50%] translate-x-[50%]",
+      class: "right-[50%] translate-x-[50%] size-24 bottom-1",
     },
-    { name: "icon-Vector-2", title: "جستجو", class: "left-[26.5%]" },
+    {
+      name: "cc-document-align-right",
+      title: "سفارش ها",
+      class: "left-[26.5%]",
+    },
     { name: "icon-Vector-3", title: "حساب کاربری", class: "left-[5%]" },
   ];
 
-  const [isClicked, setIsClicked] = useState();
+  useEffect(() => {
+    console.log(renderSetCarState);
+    
+    setSelectedCarData(JSON.parse(localStorage.getItem("selectedVehicle")));
+  }, [renderSetCarState]);
+
   const navClickHandler = (event, index) => {
     if (index === 0) {
+      nProgress.start();
       router.push("/");
     } else if (index === 4) {
+      nProgress.start();
       router.push("/login");
     } else if (index === 1) {
       setServiceModalIsOpen((prevState) => !prevState);
@@ -80,29 +95,24 @@ function MobileBottomNav(props) {
     }
   };
 
-  useEffect(() => {
-    setVehicleImage(localStorage.getItem("vehicleImage"))
-    setVehicleName(localStorage.getItem("vehicleName"))
-    
-  } , [modalIsOpen])
-
 
   return (
-    <div className="fixed bottom-0 z-[2000] px-[1rem] pt-[5px] pb-[0.75rem] bg-[#383838] flex items-center justify-between w-full h-[70px] shadow-[0_0_5px_0_rgba(0,0,0,0.54)]">
+    <div className="fixed bottom-0 right-0 z-[2000] px-[1rem] pt-[5px] pb-[0.75rem] bg-[#383838] flex items-center justify-between w-full h-[70px] shadow-[0_0_5px_0_rgba(0,0,0,0.54)]">
       {
         <div
           ref={selectVehicleRef}
           onTouchStart={touchStartHandler}
           onTouchMove={slideDownvehicleHandler}
-          className={`fixed  right-0 left-0 w-full bg-[#fff] z-[2001] shadow-[0_0_10px_0_rgba(0,0,0,0.4)] rounded-t-[40px] transition-all duration-1000  ${
+          className={`fixed right-0 left-0 w-full bg-[#fff] z-[2002] shadow-[0_0_10px_0_rgba(0,0,0,0.4)] rounded-t-2xl transition-all duration-1000  ${
             modalIsOpen
-              ? "h-[100vh] top-[20%] bottom-0"
+              ? "h-[100vh] top-[calc(100vh-670px)] bottom-0"
               : "h-0 bottom-0 top-[100%]"
           }`}
         >
           <div className="h-[5px] w-[6rem] rounded-[20px] bg-[#333] absolute top-[2.5%] left-[50%] translate-x-[-50%]"></div>
-          <div className="z-[2001] absolute top-[10%] right-[2%] size378:right-[6%] size411:right-[10%] size460:right-[15%] size516:right-[18%] size560:right-[22%] size617:right-[25%] size720:right-[28%] md:right-[32%]">
-            <VehicleRegistration />
+          <div className="z-[2003] absolute top-10 right-[calc((100vw-400px)/2)]">
+            {/* <VehicleRegistration /> */}
+            <CarSelectComponent isMobile={true} />
           </div>
         </div>
       }
@@ -153,20 +163,20 @@ function MobileBottomNav(props) {
           key={index}
           id={index}
           onClick={(event) => navClickHandler(event, index)}
-          className={`${item.class} ${index === 2 && "bg-[#FCFFFC1F] p-3"} absolute flex flex-col justify-center items-center rounded-full`}
+          className={`${item.class} ${index === 2 && "bg-[#383838] p-3"} absolute flex flex-col justify-center items-center rounded-full`}
         >
-          {vehicleImage !== null && index === 2 ? (
-            <div className="w-[40px] h-[36px]">
+          {selectedCarData && index === 2 ? (
+            <div className="w-[60px] h-auto">
               <Image
-                width={40}
-                height={36}
+                width={60}
+                height={54}
                 alt=""
                 src={
                   process.env.BASE_API +
                   "/web" +
                   API_PATHS.FILE +
                   "/" +
-                  vehicleImage
+                  selectedCarData.image
                 }
                 className="rounded-[50%] w-full h-full"
               />
@@ -178,12 +188,16 @@ function MobileBottomNav(props) {
               } text-[1.25rem]`}
             />
           )}
-          {vehicleName !== null && index === 2 ? (
-            <p className={`text-[12px] text-center line-clamp-1 text-[#fefefe]`}>
-              {vehicleName}
+          {selectedCarData && index === 2 ? (
+            <p
+              className={`text-[12px] text-center line-clamp-1 text-[#fefefe]`}
+            >
+              {selectedCarData.title}
             </p>
           ) : (
-            <p className={`text-[9px] ${isClicked === index? "text-[#F66B34]":"text-[#fefefe]"} mt-2`}>
+            <p
+              className={`text-[9px] ${isClicked === index ? "text-[#F66B34]" : "text-[#fefefe]"} mt-2`}
+            >
               {item.title}
             </p>
           )}

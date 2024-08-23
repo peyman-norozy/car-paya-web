@@ -17,6 +17,7 @@ import {hasCookie} from "cookies-next";
 import MainHeavyCarBrand from "@/components/MainHeavyCarBrand";
 import MainHeavyCarModel from "@/components/MainHeavyCarModel";
 import MainHeavyCarTip from "@/components/MainHeavyCarTip";
+import useSetQuery from "@/hook/useSetQuery";
 
 // const tabData = [
 //   { title: "خودرو", id: "car" },
@@ -28,43 +29,48 @@ const VehicleRegistration = (props) => {
   const [mainModelDisplay, setMainModelDisplay] = useState(false);
   const [mainTipDisplay, setMainTipDisplay] = useState(false);
   const [mainCarModelData, setMainCarModelData] = useState([]);
+  const [searchedMainCarModelData, setSearchMainCarModelData] = useState([]);
   const [mainCarTipsData, setMainCarTipsData] = useState([]);
+  const [searchedMainCarTipsData, setSearchedMainCarTipsData] = useState([]);
   const [mainMotorBrandModalDisplay, setMainMotorBrandModalDisplay] =
     useState(true);
   const [mainMotorModelDisplay, setMainMotorModelDisplay] = useState(false);
   const [mainMotorTipDisplay, setMainMotorTipDisplay] = useState(false);
   const [sliderShowState, setSliderShowState] = useState(false);
   const [mainMotorModelData, setMainMotorModelData] = useState([]);
+  const [searchedMainMotorModelData, setSearchedMainMotorModelData] = useState([]);
   const [mainMotorTipsData, setMainMotorTipsData] = useState([]);
-
+  const [searchedMainMotorTipsData, setSearchedMainMotorTipsData] = useState([]);
   const [mainHeavyCarBrandModalDisplay, setMainHeavyCarBrandModalDisplay] =
       useState(true);
   const [mainHeavyCarModelDisplay, setMainHeavyCarModelDisplay] = useState(false);
   const [mainHeavyCarTipDisplay, setMainHeavyCarTipDisplay] = useState(false);
   const [mainHeavyCarModelData, setMainHeavyCarModelData] = useState([]);
+  const [searchedMainHeavyCarModelData, setSearchedMainHeavyCarModelData] = useState([]);
   const [mainHeavyCarTipsData, setMainHeavyCarTipsData] = useState([]);
+  const [searchedMainHeavyCarTipsData, setSearchedMainHeavyCarTipsData] = useState([]);
   const [newTabId, setNewTabId] = useState("car");
-  const [tabData,setTabData] = useState([ { title: "خودرو", id: "car" },
+  const [tabData] = useState([ { title: "خودرو", id: "car" },
     { title: "موتورسیکلت", id: "motorSycle" },{ title: "وسیله سنگین", id: "heavy-car" }])
   const dispatch = useDispatch()
-
-  useEffect(() => {
-    if(props.modalName ==="motorModal"){
-      setTabData([{ title: "موتورسیکلت", id: "motorSycle" }])
-      setNewTabId("motorSycle")
-    }
-    if(props.modalName === "carModal"){
-      setTabData([{ title: "خودرو", id: "car" }])
-      setNewTabId("car")
-    }
-    if(props.modalName === "heavyCarModal"){
-      setTabData([{ title: "وسیله سنگین", id: "heavy-car" }])
-      setNewTabId("heavy-car")
-    }
-    if(hasCookie("Authorization")&&props.page === "homePage"){
-      setTabData(prev=>[...prev,{ title: "خودرو من", id: "myVehicle" }])
-    }
-  }, [props.modalName,props.page]);
+  const setQuery = useSetQuery();
+  // useEffect(() => {
+  //   if(props.modalName ==="motorModal"){
+  //     setTabData([{ title: "موتورسیکلت", id: "motorSycle" }])
+  //     setNewTabId("motorSycle")
+  //   }
+  //   if(props.modalName === "carModal"){
+  //     setTabData([{ title: "خودرو", id: "car" }])
+  //     setNewTabId("car")
+  //   }
+  //   if(props.modalName === "heavyCarModal"){
+  //     setTabData([{ title: "وسیله سنگین", id: "heavy-car" }])
+  //     setNewTabId("heavy-car")
+  //   }
+  //   if(hasCookie("Authorization")&&props.page === "homePage"){
+  //     setTabData(prev=>[...prev,{ title: "خودرو من", id: "myVehicle" }])
+  //   }
+  // }, [props.modalName,props.page]);
 
   const clickTabHandler = (event) => {
     setNewTabId(event.currentTarget.id);
@@ -87,14 +93,17 @@ const VehicleRegistration = (props) => {
       .then((res) => {
         if (id === "car_brand") {
           setMainCarModelData(res.data.data);
+          setSearchMainCarModelData(res.data.data)
           setMainBrandModalDisplay(false);
           setMainModelDisplay(true);
         } else if (id === "motor_brand") {
           setMainMotorModelData(res.data.data);
+          setSearchedMainMotorModelData(res.data.data);
           setMainMotorBrandModalDisplay(false);
           setMainMotorModelDisplay(true);
         } else if(id === "heavyCar_brand"){
           setMainHeavyCarModelData(res.data.data);
+          setSearchedMainHeavyCarModelData(res.data.data)
           setMainHeavyCarBrandModalDisplay(false);
           setMainHeavyCarModelDisplay(true)
         }
@@ -134,6 +143,7 @@ const VehicleRegistration = (props) => {
             }
           });
           setMainCarTipsData(res.data.data);
+          setSearchedMainCarTipsData(res.data.data)
           setMainTipDisplay(true);
           // setMainBrandModalDisplay(false);
           setMainModelDisplay(false);
@@ -145,6 +155,7 @@ const VehicleRegistration = (props) => {
             }
           });
           setMainMotorTipsData(res.data.data);
+          setSearchedMainMotorTipsData(res.data.data)
           setMainMotorTipDisplay(true);
           setMainMotorModelDisplay(false);
           setSliderShowState(false);
@@ -155,6 +166,7 @@ const VehicleRegistration = (props) => {
             }
           });
           setMainHeavyCarTipsData(res.data.data);
+          setSearchedMainHeavyCarTipsData(res.data.data);
           setMainHeavyCarTipDisplay(true);
           setMainHeavyCarModelDisplay(false);
           setSliderShowState(false)
@@ -169,6 +181,42 @@ const VehicleRegistration = (props) => {
       });
   };
 
+  function carModelSearchHandler(e) {
+    setSearchMainCarModelData(mainCarModelData.filter((item)=>{
+      return item.title.includes(e.target.value);
+    }))
+  }
+
+  function motorModelSearchHandler(e) {
+    setSearchedMainMotorModelData(mainMotorModelData.filter((item)=>{
+      return item.title.includes(e.target.value);
+    }))
+  }
+
+  function heavycarModelSearchHandler(e) {
+    setSearchedMainHeavyCarModelData(mainHeavyCarModelData.filter((item)=>{
+      return item.title.includes(e.target.value);
+    }))
+  }
+
+  function carTipSearchHandler(e) {
+    setSearchedMainCarTipsData(mainCarTipsData.filter((item)=>{
+      return item.title.includes(e.target.value);
+    }))
+  }
+
+  function motorTipSearchHandler(e) {
+    setSearchedMainMotorTipsData(mainMotorTipsData.filter((item)=>{
+      return item.title.includes(e.target.value);
+    }))
+  }
+
+  function heavyTipSearchHandler(e) {
+    setSearchedMainHeavyCarTipsData(mainHeavyCarTipsData.filter((item)=>{
+      return item.title.includes(e.target.value);
+    }))
+  }
+
   return (
     <Fragment>
       <div
@@ -178,17 +226,16 @@ const VehicleRegistration = (props) => {
       >
         <div className="flex flex-col items-center">
           <span className="text-20 text-[#FEFEFE] font-bold">ثبت وسیله نقلیه</span>
-          <ul className="flex justify-center gap-2 text-12 mt-4">
+          <ul className="flex justify-around gap-2 text-12 mt-4 bg-[#F66B3414] p-2 w-full">
             {tabData.map((item) => (
               <li
                 key={item.id}
                 id={item.id}
-                className={`px-3 py-1 rounded-[5px] cursor-pointer flex gap-2 text-14 font-medium ${
-                  item.id === newTabId ? "bg-[#F66B34] text-[#FEFEFE]" : ""
+                className={`px-3 py-1 rounded-[5px] cursor-pointer flex gap-2 text-12 size525:text-14 font-medium ${
+                  item.id === newTabId ? "bg-[#F66B34] text-[#FEFEFE]" : "text-[#F66B34]"
                 }`}
                 onClick={clickTabHandler}
               >
-                {item.id === newTabId ? <span>s</span> : ""}
                 <span>{item.title}</span>
               </li>
             ))}
@@ -207,14 +254,16 @@ const VehicleRegistration = (props) => {
               />
             ) : mainModelDisplay ? (
               <MainCarModel
-                mainCarModelData={mainCarModelData}
+                carModelSearchHandler={carModelSearchHandler}
+                searchedMainCarModelData={searchedMainCarModelData}
                 setMainBrandModalDisplay={setMainBrandModalDisplay}
                 setMainModelDisplay={setMainModelDisplay}
                 clickModelHandler={clickModelHandler}
               />
             ) : mainTipDisplay ? (
               <MainCarTip
-                mainCarTipsData={mainCarTipsData}
+                carTipSearchHandler={carTipSearchHandler}
+                searchedMainCarTipsData={searchedMainCarTipsData}
                 setMainTipDisplay={setMainTipDisplay}
                 setMainModelDisplay={setMainModelDisplay}
                 setMainBrandModalDisplay={setMainBrandModalDisplay}
@@ -233,14 +282,16 @@ const VehicleRegistration = (props) => {
               />
             ) : mainMotorModelDisplay ? (
               <MainMotorSycleModel
-                mainMotorModelData={mainMotorModelData}
+                motorModelSearchHandler={motorModelSearchHandler}
+                searchedMainMotorModelData={searchedMainMotorModelData}
                 setMainMotorBrandModalDisplay={setMainMotorBrandModalDisplay}
                 setMainMotorModelDisplay={setMainMotorModelDisplay}
                 clickModelHandler={clickModelHandler}
               />
             ) : mainMotorTipDisplay ? (
               <MainMotorSycleTip
-                mainMotorTipsData={mainMotorTipsData}
+                searchedMainMotorTipsData={searchedMainMotorTipsData}
+                motorTipSearchHandler={motorTipSearchHandler}
                 setMainMotorTipDisplay={setMainMotorTipDisplay}
                 setMainMotorModelDisplay={setMainMotorModelDisplay}
                 setMainMotorBrandModalDisplay={setMainMotorBrandModalDisplay}
@@ -259,14 +310,16 @@ const VehicleRegistration = (props) => {
                 />
             ) : mainHeavyCarModelDisplay ? (
                 <MainHeavyCarModel
-                    mainHeavyCarModelData={mainHeavyCarModelData}
+                    searchedMainHeavyCarModelData={searchedMainHeavyCarModelData}
+                    heavycarModelSearchHandler={heavycarModelSearchHandler}
                     setMainHeavyCarBrandModalDisplay={setMainHeavyCarBrandModalDisplay}
                     setMainHeavyCarModelDisplay={setMainHeavyCarModelDisplay}
                     clickModelHandler={clickModelHandler}
                 />
             ) : mainHeavyCarTipDisplay ? (
                 <MainHeavyCarTip
-                    mainHeavyCarTipsData={mainHeavyCarTipsData}
+                    searchedMainHeavyCarTipsData={searchedMainHeavyCarTipsData}
+                    heavyTipSearchHandler={heavyTipSearchHandler}
                     setMainHeavyCarTipDisplay={setMainHeavyCarTipDisplay}
                     setMainHeavyCarModelDisplay={setMainHeavyCarModelDisplay}
                     setMainHeavyCarBrandModalDisplay={setMainHeavyCarBrandModalDisplay}

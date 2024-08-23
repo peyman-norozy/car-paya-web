@@ -1,6 +1,7 @@
 import React from "react";
 import { getCurrentData } from "@/utils/api-function-utils";
 import DetailingSelectService from "@/components/DetailingSelectService/DetailingSelectService";
+import { redirect } from "next/dist/server/api-utils";
 
 const Page = async (props) => {
   const response = await getCurrentData(
@@ -9,7 +10,15 @@ const Page = async (props) => {
 
   if (!response.success) {
     console.error("Error fetching data:", response.error);
-    return <div>Error loading data.</div>;
+    if (response.error.status === 422) {
+      return (
+        <div className={"mt-[140px] mr-[420px]"}>
+          {response.error.data.message}
+        </div>
+      );
+    } else {
+      return <div>you have error</div>;
+    }
   }
 
   const data = response.data.data;

@@ -14,6 +14,7 @@ import { postData } from "@/utils/client-api-function-utils";
 import { error } from "@/utils/function-utils";
 import { loginUser } from "@/store/loginCheckerSlice";
 import { getData } from "@/utils/api-function-utils";
+import nProgress from "nprogress";
 
 export default function RegisterUserLogin() {
   const [passwordEyesState, setPasswordEyesState] = useState({
@@ -113,6 +114,7 @@ export default function RegisterUserLogin() {
       document.cookie = `Authorization = ${
         response.data.token
       };expires=${now.toUTCString()};path=/`;
+      nProgress.start();
       router.push("/");
       dispatch(loginUser()).then((res) => console.log(res));
       setSliderShowState(false);
@@ -143,9 +145,14 @@ export default function RegisterUserLogin() {
   };
 
   return (
-    <form className="max-w-[660px] m-auto my-[80px] bg-[#383838ad] rounded-2xl" onSubmit={formSubmitHandler}>
+    <form
+      className="max-w-[660px] m-auto my-[80px] bg-[#383838ad] rounded-2xl"
+      onSubmit={formSubmitHandler}
+    >
       <div className="overflow-hidden rounded-lg w-full max-w-96 m-auto">
-        <h1 className="font-bold m-4 text-[#fefefe]">مشخصات خود را وارد کنید:</h1>
+        <h1 className="font-bold m-4 text-[#fefefe]">
+          مشخصات خود را وارد کنید:
+        </h1>
         <div className="flex flex-col gap-2 m-3">
           <Label
             text="نام:"

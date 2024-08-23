@@ -17,13 +17,13 @@ const MainPageServices = (props) => {
                     <Link href={item.href} key={index}>
                         <div className="w-full p-3 sm:p-4 flex flex-col bg-[#E7E7E7] items-center gap-2 sm:gap-3 rounded-lg" key={index} >
                             <Image className="size-8  sm:size-12" src={carachar} height={48} width={48} alt="carachar"/>
-                            <span className="text-12 sm:text-base text-[#0E0E0E]">{item.title}</span>
+                            <span className="text-12 sm:text-base text-[#0E0E0E] line-clamp-1">{item.title}</span>
                         </div>
                     </Link>
                 ))}
             </div>
         </div>
-        <button className="text-[#F66B34] flex items-center gap-2 mx-auto" onClick={()=>{setOpenService(!openService)}}><span className="font-medium text-14 sm:text-base">مشاهده {openService?"کمتر":"بیشتر"}</span><i className={`cc-arrow-down text-lg sm:text-2xl transition-transform duration-700 ${openService?"rotate-180":"rotate-0"}`}/></button>
+        <button className="text-[#F66B34] hidden sm:flex items-center gap-2 mx-auto" onClick={()=>{setOpenService(!openService)}}><span className="font-medium text-14 sm:text-base">مشاهده {openService?"کمتر":"بیشتر"}</span><i className={`cc-arrow-down text-lg sm:text-2xl transition-transform duration-700 ${openService?"rotate-180":"rotate-0"}`}/></button>
         </>
      );
 }
