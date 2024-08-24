@@ -23,14 +23,17 @@ const PurchaseBatteryModal = (props) => {
   const [provinces, setProvinces] = useState("");
   const [selectOption, setSelectOption] = useState("");
   const [cityId, setCityId] = useState("");
-  const [totalPrice, setTotalPrice] = useState({ price: 0, productId: "" });
+  const [totalPrice, setTotalPrice] = useState({
+    price: 0,
+    productId: "",
+    vehicle_tip_id: 0,
+  });
   const batteriesData = useSelector((data) => data.todo.batteriesData);
   const [nobatteriesData, setNobatteriesData] = useState({});
   const [sameAmpBattery, setSameAmpBattery] = useState({});
   const [amperSelectData, setAmperSelectData] = useState([]);
   const router = useRouter();
   const pathName = usePathname();
-  console.log(props);
   const [purchseOptions, setPurchseOption] = useState([
     {
       title: "باتری سوزوکی 70 آمپر",
@@ -59,17 +62,20 @@ const PurchaseBatteryModal = (props) => {
       setTotalPrice({
         price: nobatteriesData.calculation.payment_price,
         productId: productId,
+        vehicle_tip_id: JSON.parse(localStorage.getItem("selectedVehicle"))?.id,
       });
     } else if (id === "selectAmper") {
       console.log(cityId);
       setTotalPrice({
         price: 0,
         productId: batteriesData.id,
+        vehicle_tip_id: JSON.parse(localStorage.getItem("selectedVehicle"))?.id,
       });
     } else if (id === "oldSameAmperBattery") {
       setTotalPrice({
         price: sameAmpBattery.calculation,
         productId: batteriesData.id,
+        vehicle_tip_id: JSON.parse(localStorage.getItem("selectedVehicle"))?.id,
       });
     }
   };
@@ -96,6 +102,9 @@ const PurchaseBatteryModal = (props) => {
     } else if (cartData.response.status === 422) {
       console.log(cartData.response.data);
       error(cartData.response.data.message);
+    } else if (cartData.response.status === 401) {
+      nProgress.start();
+      router.push("/login?backurl=" + pathName + "&" + searchParams.toString());
     }
   };
 
@@ -123,6 +132,8 @@ const PurchaseBatteryModal = (props) => {
         setTotalPrice({
           price: selectAmpBatteriesData.calculation.payment_price,
           productId: batteriesData.id,
+          vehicle_tip_id: JSON.parse(localStorage.getItem("selectedVehicle"))
+            ?.id,
         });
         if (selectAmpBatteriesData === 500) {
           console.log(selectAmpBatteriesData, "server error");
@@ -149,6 +160,8 @@ const PurchaseBatteryModal = (props) => {
           setTotalPrice({
             price: sameAmpBattery.calculation,
             productId: batteriesData.id,
+            vehicle_tip_id: JSON.parse(localStorage.getItem("selectedVehicle"))
+              ?.id,
           });
           return option;
         } else if (option.id === "selectAmper") {
@@ -254,7 +267,13 @@ const PurchaseBatteryModal = (props) => {
     // }
   }, [isSelected]);
 
-  console.log(props);
+  useEffect(() => {
+    if (pathName.startsWith("/batteries")) {
+      localStorage.setItem("batteryTotalPrice", JSON.stringify(totalPrice));
+    }
+  }, [pathName, totalPrice]);
+
+  console.log(totalPrice);
 
   return (
     <div className="rounded-10 overflow-hidden w-full shadow-[0_0_5px_0_rgba(0,0,0,0.4)]">

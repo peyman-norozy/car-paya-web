@@ -47,7 +47,7 @@ const CarSelectComponent = (props) => {
 
   useEffect(() => {
     getInvoiceData();
-  }, [renderInvoice, pathname]);
+  }, [renderInvoice, pathname, searchParams]);
 
   useEffect(() => {
     if (pathname === "/" || pathname === "/periodic-service") {
@@ -119,27 +119,35 @@ const CarSelectComponent = (props) => {
     if (data.data?.status === "success") {
       let totalPrice = 0;
       for (let item of data.data.data) {
-        totalPrice = totalPrice + item.item.item?.discounted_price;
+        totalPrice = totalPrice + item.item.item?.price;
       }
       console.log(totalPrice);
       setInvoiceData({ data: data.data.data, totalPrice: totalPrice });
     }
   }
 
-  async function removeClickHandler(item) {
-    console.log(item);
+  async function removeClickHandler(id) {
+    console.log(id);
     const carTableType = pathname
       .split("/")[1]
       .toUpperCase()
       .split("-")
       .join("_");
     const data = await postData("/web/cart/remove", {
-      cartable_id: item.item.id,
+      cartable_id: id,
       cartable_type: carTableType,
       vehicle_tip_id: JSON.parse(localStorage.getItem("selectedVehicle"))?.id,
     });
-    console.log(data);
+    // console.log(data.data.data.cart_items);
     if (data.status === 200) {
+      if (carTableType === "BATTERIES") {
+        setCarSelected(false);
+        localStorage.removeItem("selectedVehicle");
+        nProgress.start();
+        router.push(
+          `/batteries/products?attribute_slug=type_vehicle&attribute_value=${attributeValue ? attributeValue : "car"}`,
+        );
+      }
       let totalPrice = 0;
       let newData = [];
       if (data.data.data.cart_items.length === 0) {
@@ -255,28 +263,40 @@ const CarSelectComponent = (props) => {
   //   localStorage.setItem("city", JSON.stringify(item));
   // }
 
-  function changeVehicleClickHandler() {
+  async function changeVehicleClickHandler() {
     setCarSelected(false);
-    localStorage.removeItem("selectedVehicle");
-    setVehicleType("car")
+    setVehicleType("car");
     if (pathname.startsWith("/batteries/battery-assistant")) {
+      localStorage.removeItem("selectedVehicle");
       setQuery.updateQueryParams({ selectTipState: null }, "");
       return null;
     } else if (pathname.startsWith("/batteries")) {
-      nProgress.start();
-      router.push(
-        `/batteries/products?attribute_slug=type_vehicle&attribute_value=${attributeValue ? attributeValue : "car"}`,
-      );
+      if (JSON.parse(localStorage.getItem("batteryTotalPrice")).productId) {
+        await removeClickHandler(
+          JSON.parse(localStorage.getItem("batteryTotalPrice")).productId,
+        );
+      } else {
+        setCarSelected(false);
+        nProgress.start();
+        router.push(
+          `/batteries/products?attribute_slug=type_vehicle&attribute_value=${attributeValue ? attributeValue : "car"}`,
+        );
+        localStorage.removeItem("selectedVehicle");
+      }
     } else if (pathname.startsWith("/detailing")) {
+      localStorage.removeItem("selectedVehicle");
       nProgress.start();
       router.push(
         `/detailing?attribute_slug=type_vehicle&attribute_value=${attributeValue ? attributeValue : "car"}`,
       );
     } else if (pathname.startsWith("/periodic-service")) {
+      localStorage.removeItem("selectedVehicle");
       nProgress.start();
       router.push(
         `/periodic-service?attribute_slug=type_vehicle&attribute_value=${attributeValue ? attributeValue : "car"}`,
       );
+    } else if (pathname.startsWith("/")) {
+      localStorage.removeItem("selectedVehicle");
     }
   }
 
@@ -345,49 +365,82 @@ const CarSelectComponent = (props) => {
                   >
                     <div className="flex flex-col gap-3 h-[292px] overflow-y-scroll">
                       {invoiceData.data &&
-                        invoiceData.data.map((item, index) => (
-                          <div
-                            className="flex flex-col px-3 py-2 bg-[#888888] rounded-lg"
-                            key={index}
-                          >
-                            <div className="flex justify-between">
-                              <span className="font-bold text-[#FEFEFE]">
-                                {item.item.item?.name}
-                              </span>
-                              <div
-                                className="bg-[#FEFEFE] rounded-full size-5 text-[#888888] font-bold pr-[5px] cursor-pointer"
-                                onClick={() => {
-                                  removeClickHandler(item.item);
-                                }}
-                              >
-                                X
+                        invoiceData.data.map((item, index) => {
+                          console.log(item);
+                          return item.vehicle_tip_id ===
+                            JSON.parse(localStorage.getItem("selectedVehicle"))
+                              ?.id ? (
+                            <div
+                              className="flex flex-col px-3 py-2 bg-[#888888] rounded-lg"
+                              key={index}
+                            >
+                              <div className="flex justify-between">
+                                <span className="font-bold text-[#FEFEFE]">
+                                  {item.item.item?.name}
+                                </span>
+                                <div
+                                  className="bg-[#FEFEFE] rounded-full size-5 text-[#888888] font-bold pr-[5px] cursor-pointer"
+                                  onClick={() => {
+                                    removeClickHandler(item.item.item.id);
+                                  }}
+                                >
+                                  X
+                                </div>
+                              </div>
+                              <div className="flex justify-start gap-2 items-center">
+                                {/*<span className="text-[#ececec] line-through text-12 ">*/}
+                                {/*  {numberWithCommas(item.item.item?.price)}{" "}*/}
+                                {/*  تومان*/}
+                                {/*</span>*/}
+                                {/*<span*/}
+                                {/*  className={*/}
+                                {/*    "size-1 bg-[#B0B0B0] rounded-full "*/}
+                                {/*  }*/}
+                                {/*></span>*/}
+                                <div className="text-[#FEFEFE] text-14 font-bold flex items-center gap-2">
+                                  <span>
+                                    {pathname.startsWith("/batteries")
+                                      ? item.item.item.id ===
+                                          JSON.parse(
+                                            localStorage.getItem(
+                                              "batteryTotalPrice",
+                                            ),
+                                          )?.productId &&
+                                        numberWithCommas(
+                                          JSON.parse(
+                                            localStorage.getItem(
+                                              "batteryTotalPrice",
+                                            ),
+                                          ).price,
+                                        )
+                                      : numberWithCommas(item.item.item.price)}
+                                  </span>
+                                  <span>تومان</span>
+                                </div>
                               </div>
                             </div>
-                            <div className="flex justify-start gap-2 items-center">
-                              <span className="text-[#ececec] line-through text-12 ">
-                                {numberWithCommas(item.item.item?.price)} تومان
-                              </span>
-                              <span
-                                className={"size-1 bg-[#B0B0B0] rounded-full "}
-                              ></span>
-                              <span className="text-[#FEFEFE] text-14 font-bold">
-                                {numberWithCommas(
-                                  item.item.item?.discounted_price,
-                                )}{" "}
-                                تومان
-                              </span>
-                            </div>
-                          </div>
-                        ))}
+                          ) : (
+                            index === 0 && <div></div>
+                          );
+                        })}
                     </div>
                     <hr />
                     <div className="flex justify-between">
                       <span className="text-white font-bold text-18">
                         مجموع سفارش
                       </span>
-                      <span className="text-white font-bold text-18">
-                        {numberWithCommas(invoiceData.totalPrice)} تومان
-                      </span>
+                      <div className="text-[#FEFEFE] text-14 font-bold flex items-center gap-2">
+                        <span>
+                          {pathname.startsWith("/batteries")
+                            ? numberWithCommas(
+                                JSON.parse(
+                                  localStorage.getItem("batteryTotalPrice"),
+                                )?.price,
+                              )
+                            : numberWithCommas(invoiceData.totalPrice)}
+                        </span>
+                        <span>تومان</span>
+                      </div>
                     </div>
                   </div>
                   <div

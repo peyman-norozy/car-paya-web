@@ -1,5 +1,5 @@
 "use client";
-import React, { useCallback, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Portal from "@/components/Portal/Portal";
 import Image from "next/image";
 import useSetQuery from "@/hook/useSetQuery";
@@ -14,20 +14,22 @@ const fakeData = [
 const CityModal = ({ isOpen, onClose }) => {
   const setQuery = useSetQuery();
   const dispatch = useDispatch();
+  const [isClient, setIsClient] = useState(false);
+
+  // Set isClient to true once the component has mounted on the client side
   useEffect(() => {
+    setIsClient(true);
     localStorage.setItem(
       "city",
       JSON.stringify({ label: "تهران", cityId: 87 }),
     );
+
     if (isOpen) {
-      // Disable scrolling by setting overflow hidden on body
       document.body.style.overflow = "hidden";
     } else {
-      // Enable scrolling when modal is closed
       document.body.style.overflow = "unset";
     }
 
-    // Cleanup function to reset the scroll style on unmount
     return () => {
       document.body.style.overflow = "unset";
     };
@@ -39,9 +41,12 @@ const CityModal = ({ isOpen, onClose }) => {
     dispatch(setCityModalState(false));
   };
 
-  // if (!isOpen) return null;
+  // Only render the modal if isClient is true
+  if (!isClient) return null;
 
-  const modalContainer = document.getElementById("modal-root"); // Ensure you have this div in your index.html
+  const modalContainer = document.getElementById("modal-root");
+
+  if (!modalContainer) return null;
 
   return (
     <Portal container={modalContainer}>
@@ -50,7 +55,9 @@ const CityModal = ({ isOpen, onClose }) => {
         onClick={() => onClose()}
       ></div>
       <div
-        className={`bg-[#eee] absolute top-[10%] left-0 right-0 m-auto w-[80%] ${isOpen ? "h-[80%]" : "h-0"} transition-all duration-500 z-[200000] overflow-hidden rounded-10`}
+        className={`bg-[#eee] absolute top-[10%] left-0 right-0 m-auto w-[80%] ${
+          isOpen ? "h-[80%]" : "h-0"
+        } transition-all duration-500 z-[200000] overflow-hidden rounded-10`}
       >
         <div className={"p-6"}>
           <div className={"flex justify-between items-center"}>
