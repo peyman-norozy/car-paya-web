@@ -276,6 +276,7 @@ const CarSelectComponent = (props) => {
           JSON.parse(localStorage.getItem("batteryTotalPrice")).productId,
         );
       } else {
+        setCarSelected(false);
         nProgress.start();
         router.push(
           `/batteries/products?attribute_slug=type_vehicle&attribute_value=${attributeValue ? attributeValue : "car"}`,
