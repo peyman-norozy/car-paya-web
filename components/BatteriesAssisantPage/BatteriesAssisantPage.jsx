@@ -16,16 +16,19 @@ const BatteriesAssisantPage = (props) => {
   console.log(props);
   const basketClickHandler = () => {
     const CityId = JSON.parse(localStorage.getItem("city"))?.cityId;
+    const selectedVehicleId = JSON.parse(
+      localStorage.getItem("selectedVehicle"),
+    )?.id;
     if (Object.keys(filterButtery).length > 0) {
-      if (CityId) {
+      if (CityId && selectedVehicleId) {
         setBatteryIsSelected(true);
         dispatch(setBatteriesData(filterButtery));
-      } else {
+      } else if (!CityId) {
         error("فیلد شهر و استان را انتخاب نشده");
-        alert("فیلد شهر و استان را انتخاب نشده");
+      } else if (!selectedVehicleId) {
+        error("لطفا خودرو خود را انتخاب کنید");
       }
     } else {
-      alert("باتری خود را انتخاب کنید");
       error("باتری خود را انتخاب کنید");
     }
   };

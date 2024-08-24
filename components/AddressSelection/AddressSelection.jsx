@@ -33,7 +33,7 @@ const AddressSelection = (props) => {
       }
       if (
         e.target !== serviceButtenRef.current &&
-        e.target.parentElement.parentElement !== serviceDropDownRef.current &&
+        e.target.parentElement?.parentElement !== serviceDropDownRef.current &&
         e.target !== serviceDropDownRef.current
       ) {
         setServicesState(false);

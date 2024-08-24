@@ -9,7 +9,6 @@ function carFormData(
   plaque_2,
   plaque_3,
   carName,
-  forceStore,
   type,
   // kilometerStart,
   // kilometerEnd,
@@ -37,7 +36,6 @@ function carFormData(
   fd.append("plaque[2]", plaque_2);
   fd.append("plaque[3]", plaque_3);
   fd.append("title", carName);
-  fd.append("kind", forceStore);
   fd.append("type", type);
   // fd.append("kilometers_now", kilometerStart);
   // fd.append("kilometers_use", kilometerEnd);

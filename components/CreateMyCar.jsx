@@ -14,12 +14,12 @@ import CertificateCard from "./certificate/CertificateCard";
 import { deleteData } from "@/utils/api-function-utils";
 import nProgress from "nprogress";
 const CreateMyCar = () => {
-  const [newMyCareData, setNewMyCareData] = useState([]);
+  const [myCareData, setMyCareData] = useState([]);
+  const [searchedMyCareData, setSearchedMyCareData] = useState([]);
   const [deleteModalState, setDeleteModalState] = useState(false);
   const [deleteModalId, setDeleteModalId] = useState(false);
   // const [newTotal, setNewTotal] = useState(0);
   const searchParams = useSearchParams();
-  const [newSkeletonState, setNewSkeletonState] = useState(false);
   const [modalState, setModalState] = useState(false);
   const router = useRouter()
   // const innerWidth = useSelector(
@@ -34,30 +34,24 @@ const CreateMyCar = () => {
   }, [searchParams, perPage, page]);
 
   const fetchData = async () => {
-    setNewSkeletonState(true);
     const response = await getData(
       process.env.BASE_API +
         API_PATHS.USERPANEL +
         "/vehicles"
     );
     if (response.status === 200) {
-      console.log(response);
-      
-      setNewMyCareData(response.data.data);
+      setMyCareData(response.data.data);
+      setSearchedMyCareData(response.data.data);
       // setNewTotal(response.data.meta.total);
-      setNewSkeletonState(false);
     } else if (response.response.status === 422) {
       console.log(response);
     } else if (response.response.status === 404) {
       console.log(response);
       notFound();
     }
-    setNewSkeletonState(false);
   };
   
-  console.log(newSkeletonState);
   const closeCarModalHandler = (event) => {
-    console.log(event.target.getAttribute("id"));
     if (event.target.id === "ChoseCar") {
       setModalState(false);
     }
@@ -77,29 +71,46 @@ const CreateMyCar = () => {
     router.push("/panel");
   };
 
+  function filterChangeHandler(e) {
+    if (e.target.value === "ALL") {
+      setSearchedMyCareData(myCareData)
+    }else{
+      setSearchedMyCareData(myCareData.filter((item)=>{
+        return item.type === e.target.value;
+      }))
+    }
+  }
+
   return (
     <PrivateRoute>
       <div className="flex flex-col size1000:flex-1 w-full rounded-[10px] lg:px-[43px] gap-6">
-        <div className={"flex items-center justify-between"}>
-          {/* <span className={"text-BLUE_600"}>خودرو من</span> */}
-          <Image
-            src={"/assets/icons/back.svg"}
-            className={"size1000:hidden block cursor-pointer"}
-            onClick={backClickHandler}
-            alt="back icon"
-            width={34}
-            height={34}
-          />
-            <button
-              type={"button"}
-              className="flex items-center justify-center gap-2 bg-[#F66B34] text-[#FEFEFE] h-[48px] rounded-lg px-4"
-              onClick={openCarModalHandler}
-            >
-              <span className="text-20 size-5 rounded-full flex items-center justify-center">
-                +
-              </span>
-              <span className="text-14 lg:text-16 font-medium">افزودن وسیله نقلیه جدید</span>
-            </button>
+        <div className="flex flex-col size411:flex-row items-start size411:items-center justify-between gap-4">
+          <div className={"flex items-center justify-start gap-4"}>
+            <Image
+              src={"/assets/icons/back.svg"}
+              className={"size1000:hidden block cursor-pointer"}
+              onClick={backClickHandler}
+              alt="back icon"
+              width={34}
+              height={34}
+            />
+              <button
+                type={"button"}
+                className="flex items-center justify-center gap-2 bg-[#F66B34] text-[#FEFEFE] h-[48px] rounded-lg px-4"
+                onClick={openCarModalHandler}
+              >
+                <span className="text-20 size-5 rounded-full flex items-center justify-center">
+                  +
+                </span>
+                <span className="text-14 lg:text-16 font-medium">افزودن وسیله نقلیه</span>
+              </button>
+          </div>
+          <select className="bg-[#5d697a] w-32 sm:w-40 text-[#FEFEFE] p-2 rounded-lg text-12 sm:text-16" onChange={filterChangeHandler}>
+            <option value="ALL">همه وسایل نقلیه</option>
+            <option value="CAR">ماشین</option>
+            <option value="MOTOR">موتور</option>
+            <option value="HEAVY_CAR">ماشین سنگین</option>
+          </select>
         </div>
         {/* <div className="mt-6 flex flex-col gap-4">
           <ul className="size800:flex hidden justify-between px-4 py-2 size1190:text-16 text-14 text-BLUE-500 rounded-10 bg-gray_light">
@@ -117,8 +128,8 @@ const CreateMyCar = () => {
           </ul>
           {!newSkeletonState ? (
             innerWidth > 800 ? (
-              newMyCareData.length > 0 &&
-              newMyCareData.map((item, index) => (
+              myCareData.length > 0 &&
+              myCareData.map((item, index) => (
                 <MyCarTableCard
                   key={item.id}
                   data={item}
@@ -128,8 +139,8 @@ const CreateMyCar = () => {
                 />
               ))
             ) : (
-              newMyCareData.length > 0 &&
-              newMyCareData.map((item, index) => (
+              myCareData.length > 0 &&
+              myCareData.map((item, index) => (
                 <ResponsiveMyCarTableCard
                   key={item.id}
                   data={item}
@@ -145,7 +156,7 @@ const CreateMyCar = () => {
 
         </div> */}
         <div className="grid grid-cols-1 size830:grid-cols-2 gap-6">
-          {newMyCareData.map((item,index)=>(
+          {searchedMyCareData.map((item,index)=>(
             <CertificateCard data={item} key={index} fetchData={fetchData} setDeleteModalState={setDeleteModalState} setDeleteModalId={setDeleteModalId}/>
           ))}
         </div>
