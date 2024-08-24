@@ -96,6 +96,9 @@ const PurchaseBatteryModal = (props) => {
     } else if (cartData.response.status === 422) {
       console.log(cartData.response.data);
       error(cartData.response.data.message);
+    } else if (cartData.response.status === 401) {
+      nProgress.start();
+      router.push("/login?backurl=" + pathName + "&" + searchParams.toString());
     }
   };
 

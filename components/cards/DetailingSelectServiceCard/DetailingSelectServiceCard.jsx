@@ -4,13 +4,16 @@ import useSetQuery from "@/hook/useSetQuery";
 import Image from "next/image";
 import { error, numberWithCommas } from "@/utils/function-utils";
 import { postData } from "@/utils/client-api-function-utils";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { ToastContainer } from "react-toastify";
 import { useEffect } from "react";
+import nProgress from "nprogress";
 
 const SelectServiceCard = (props) => {
   const setQuery = useSetQuery();
   const pathName = usePathname();
+  const router = useRouter();
+  const searchParams = useSearchParams();
 
   const selectProductHandler = () => {
     props.setProductId(props.data.id);
@@ -35,6 +38,9 @@ const SelectServiceCard = (props) => {
     } else if (cartData.response.status === 422) {
       console.log(cartData.response.data);
       error(cartData.response.data.message);
+    } else if (cartData.response.status === 401) {
+      nProgress.start();
+      router.push("/login?backurl=" + pathName + "&" + searchParams.toString());
     }
   }
 
