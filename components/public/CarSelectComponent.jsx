@@ -138,7 +138,7 @@ const CarSelectComponent = (props) => {
       cartable_type: carTableType,
       vehicle_tip_id: JSON.parse(localStorage.getItem("selectedVehicle"))?.id,
     });
-    console.log(data.data.data.cart_items);
+    // console.log(data.data.data.cart_items);
     if (data.status === 200) {
       if (carTableType === "BATTERIES") {
         setCarSelected(false);
@@ -294,6 +294,8 @@ const CarSelectComponent = (props) => {
       router.push(
         `/periodic-service?attribute_slug=type_vehicle&attribute_value=${attributeValue ? attributeValue : "car"}`,
       );
+    } else if (pathname.startsWith("/")) {
+      localStorage.removeItem("selectedVehicle");
     }
   }
 
@@ -402,7 +404,7 @@ const CarSelectComponent = (props) => {
                                             localStorage.getItem(
                                               "batteryTotalPrice",
                                             ),
-                                          ).productId &&
+                                          )?.productId &&
                                         numberWithCommas(
                                           JSON.parse(
                                             localStorage.getItem(
