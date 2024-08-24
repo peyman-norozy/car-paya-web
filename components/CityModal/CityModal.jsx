@@ -19,6 +19,11 @@ const CityModal = ({ isOpen, onClose }) => {
   // Set isClient to true once the component has mounted on the client side
   useEffect(() => {
     setIsClient(true);
+    localStorage.setItem(
+      "city",
+      JSON.stringify({ label: "تهران", cityId: 87 }),
+    );
+
     if (isOpen) {
       document.body.style.overflow = "hidden";
     } else {
