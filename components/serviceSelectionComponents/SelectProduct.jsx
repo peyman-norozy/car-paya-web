@@ -41,18 +41,6 @@ const SelectProduct = (props) => {
       nProgress.start();
       router.push("/login?backurl=" + pathname + "&" + searchParams.toString());
     }
-    // const response = await postData(
-    //   process.env.BASE_API + `/web/cart/add`,
-    //   { product_id: value },
-    //   '"Content-Type": "application/json"',
-    // );
-    // if (response.status === 200 || response.status === 201) {
-    //   dispatch(renderInvoice());
-    //   router.back();
-    // } else if (response.status === 401) {
-    //   nProgress.start();
-    //   router.push("/login?backurl=" + pathname + "&" + searchParams.toString());
-    // }
   }
 
   return (
