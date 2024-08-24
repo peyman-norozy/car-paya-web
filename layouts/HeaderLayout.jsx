@@ -6,9 +6,10 @@ import { getWindowInnerWidth, setLoginState } from "@/store/todoSlice";
 import { getCookie } from "cookies-next";
 // import MobileBottomNav from "@/layouts/MobileBottomNav";
 import ResponsiveHeader from "@/layouts/ResponsiveHeader";
-import { Fragment, useEffect } from "react";
+import { Fragment, useEffect, useState } from "react";
 
 const Header = (props) => {
+  const [hasCheckedAuth, setHasCheckedAuth] = useState(false);
   const dispatch = useDispatch();
   const innerWidthNumber = useSelector(
     (number) => number.todo.windowInnerWidth,
@@ -33,6 +34,17 @@ const Header = (props) => {
       dispatch(setLoginState(true));
     }
   });
+
+  // Hard refresh effect
+  useEffect(() => {
+    // Check if the page has already been refreshed
+    const hasRefreshed = sessionStorage.getItem("hasRefreshed");
+    if (!hasRefreshed) {
+      setHasCheckedAuth(true);
+      sessionStorage.setItem("hasRefreshed", "true"); // Set the flag
+      window.location.reload(); // Trigger a hard refresh
+    }
+  }, [hasCheckedAuth]);
 
   return (
     <Fragment>
