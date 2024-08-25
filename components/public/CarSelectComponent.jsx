@@ -126,7 +126,7 @@ const CarSelectComponent = (props) => {
     }
   }
 
-  async function removeClickHandler(id) {
+  async function removeClickHandler(id, serviceType) {
     console.log(id);
     const carTableType = pathname
       .split("/")[1]
@@ -135,7 +135,7 @@ const CarSelectComponent = (props) => {
       .join("_");
     const data = await postData("/web/cart/remove", {
       cartable_id: id,
-      cartable_type: carTableType,
+      cartable_type: serviceType ? serviceType : carTableType,
       vehicle_tip_id: JSON.parse(localStorage.getItem("selectedVehicle"))?.id,
     });
     // console.log(data.data.data.cart_items);
@@ -266,12 +266,20 @@ const CarSelectComponent = (props) => {
   async function changeVehicleClickHandler() {
     setCarSelected(false);
     setVehicleType("car");
+    if (JSON.parse(localStorage.getItem("batteryTotalPrice"))?.productId) {
+      await removeClickHandler(
+        JSON.parse(localStorage.getItem("batteryTotalPrice")).productId,
+        "BATTERIES",
+      );
+      setCarSelected(false);
+      localStorage.removeItem("batteryTotalPrice");
+    }
     if (pathname.startsWith("/batteries/battery-assistant")) {
       localStorage.removeItem("selectedVehicle");
       setQuery.updateQueryParams({ selectTipState: null }, "");
       return null;
     } else if (pathname.startsWith("/batteries")) {
-      if (JSON.parse(localStorage.getItem("batteryTotalPrice")).productId) {
+      if (JSON.parse(localStorage.getItem("batteryTotalPrice"))?.productId) {
         await removeClickHandler(
           JSON.parse(localStorage.getItem("batteryTotalPrice")).productId,
         );
