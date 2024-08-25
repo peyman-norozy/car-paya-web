@@ -271,7 +271,7 @@ const PurchaseBatteryModal = (props) => {
     if (pathName.startsWith("/batteries")) {
       localStorage.setItem("batteryTotalPrice", JSON.stringify(totalPrice));
     }
-  }, [pathName, totalPrice]);
+  }, [totalPrice]);
 
   console.log(totalPrice);
 
