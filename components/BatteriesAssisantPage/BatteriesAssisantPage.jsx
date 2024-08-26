@@ -94,7 +94,7 @@ const BatteriesAssisantPage = (props) => {
                   Male
                 </td>
                 <td className="border border-[#B0B0B0] p-2 bg-[#383838] text-[#FEFEFE] text-center">
-                  {numberWithCommas(item.price)}
+                  {numberWithCommas(item["same_amp"])}
                 </td>
                 <td className="border border-[#B0B0B0] p-2 bg-[#383838] text-[#FEFEFE] size1400:w-[160px] w-[120px]">
                   <div className="checkbox-wrapper-37 flex justify-center items-center">
