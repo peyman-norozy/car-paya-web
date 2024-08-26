@@ -390,6 +390,7 @@ const CarSelectComponent = (props) => {
                                   className="bg-[#FEFEFE] rounded-full size-5 text-[#888888] font-bold pr-[5px] cursor-pointer"
                                   onClick={() => {
                                     removeClickHandler(item.item.item.id);
+                                    setVehicleType("car");
                                   }}
                                 >
                                   X
