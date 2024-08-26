@@ -39,8 +39,6 @@ const TimeSelectorCard = (props) => {
     return () => window.removeEventListener("resize", updateHeight);
   }, []);
 
-  console.log(moment(Number(props.data.day) * 1000).format("L"));
-
   return (
     <li
       className={`bg-[#5C5C5C] lg:h-[72px] h-fit rounded-[8px] flex lg:flex-row flex-col justify-between lg:items-center p-4 transition-all duration-500 ${accordionHeight ? "gap-8" : "gap-0"}`}
