@@ -409,7 +409,7 @@ const CarSelectComponent = (props) => {
                                 <div className="text-[#FEFEFE] text-14 font-bold flex items-center gap-2">
                                   <span>
                                     {pathname.startsWith("/batteries")
-                                      ? item.item.item.id ===
+                                      ? item.item.item?.id ===
                                           JSON.parse(
                                             localStorage.getItem(
                                               "batteryTotalPrice",
@@ -422,7 +422,9 @@ const CarSelectComponent = (props) => {
                                             ),
                                           ).price,
                                         )
-                                      : numberWithCommas(item.item.item.price)}
+                                      : numberWithCommas(
+                                          item.item.item?.discounted_price,
+                                        )}
                                   </span>
                                   <span>تومان</span>
                                 </div>
