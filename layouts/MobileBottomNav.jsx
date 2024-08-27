@@ -227,7 +227,7 @@ function MobileBottomNav(props) {
         <p
           className={`text-xs font-medium  ${isClicked === 3 ? "text-[#F58052]" : "text-[#6D6D6D]"} mt-1`}
         >
-          خدمات
+          سفارش ها
         </p>
         {isClicked === 3&&<div className="w-[70px] h-[2px] bg-[#F58052]"></div>}
       </div>
@@ -243,7 +243,7 @@ function MobileBottomNav(props) {
         <p
           className={`text-xs font-medium ${isClicked === 4 ? "text-[#F58052]" : "text-[#6D6D6D]"} mt-1`}
         >
-          خدمات
+          پروفایل
         </p>
         {isClicked === 4&&<div className="w-[70px] h-[2px] bg-[#F58052]"></div>}
       </div>
