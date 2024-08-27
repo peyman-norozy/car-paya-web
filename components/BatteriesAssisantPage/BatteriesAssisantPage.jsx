@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { error, numberWithCommas } from "@/utils/function-utils";
 import Button from "@/components/Button";
 import { setBatteriesData } from "@/store/todoSlice";
@@ -18,7 +18,15 @@ const BatteriesAssisantPage = (props) => {
   const [filterButtery, setFilterButtery] = useState({});
   const searchParams = useSearchParams();
   const dispatch = useDispatch();
-  console.log(props);
+
+  //when refresh page my batteryTotalPrice remove from localStorage
+  useEffect(() => {
+    console.log(batteryBasketLength);
+    if (batteryBasketLength === 0) {
+      localStorage.removeItem("batteryTotalPrice");
+    }
+  }, [batteryBasketLength]);
+
   const basketClickHandler = () => {
     const CityId = JSON.parse(localStorage.getItem("city"))?.cityId;
     const selectedVehicleId = JSON.parse(
