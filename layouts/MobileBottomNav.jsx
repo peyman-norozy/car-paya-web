@@ -213,7 +213,7 @@ function MobileBottomNav(props) {
         <p
           className={`text-[12px] font-medium text-center line-clamp-1 text-[#6D6D6D]`}
         >
-          {selectedCarData ?selectedCarData.title:"انتخاب خودرو"}
+          {selectedCarData ?selectedCarData.model:"انتخاب خودرو"}
         </p>
         {/* <>       
         <i
@@ -234,14 +234,14 @@ function MobileBottomNav(props) {
         style={{ borderRadius: "0% 5% 0% 0% / 0% 10% 0% 0%" }}
       >
         <i
-          className={`cc-document-align-right ${
+          className={`cc-buy ${
             isClicked === 3 ? "text-[#F58052]" : "text-[#6D6D6D]"
           } text-2xl`}
         />
         <p
           className={`text-xs font-medium  ${isClicked === 3 ? "text-[#F58052]" : "text-[#6D6D6D]"} mt-1`}
         >
-          سفارش ها
+          سبد خرید
         </p>
         {isClicked === 3 && (
           <div className="w-[70px] h-[2px] bg-[#F58052]"></div>
