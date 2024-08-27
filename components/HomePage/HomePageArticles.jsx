@@ -27,7 +27,7 @@ const HomePageArticles = (props) => {
       >
         {props.data.data.map((item, index) => (
           <SwiperSlide style={{ width: "fit-content" }} key={item.id}>
-            <div className="w-[190px] sm:w-[380px] h-[223px] sm:h-[400px] rounded-2xl md:rounded-[32px] overflow-hidden flex flex-col items-center gap-[10px] bg-[#F6F6F6] shadow-[0_1px_4px_0_rgba(188,188,188,0.25)] p-2 sm:p-4">
+            <div className="w-[190px] sm:w-[380px] h-[226px] sm:h-[400px] rounded-2xl md:rounded-[32px] overflow-hidden flex flex-col items-center gap-[10px] bg-[#F6F6F6] shadow-[0_1px_4px_0_rgba(188,188,188,0.25)] p-2 sm:p-4">
               <Image
                 src={`${process.env.BASE_API}/web${API_PATHS.FILE}/${item.image_id}`}
                 className="w-full aspect-[174/135] rounded-lg"
@@ -35,10 +35,10 @@ const HomePageArticles = (props) => {
                 height={135}
                 alt=""
               />
-              <span className="font-medium text-xs md:text-base text-black line-clamp-2 text-start">
+              <span className="font-medium text-xs md:text-base text-black line-clamp-2 text-start h-8">
                 {item.title}
               </span>
-              <div className="flex justify-between items-center w-full">
+              <div className="flex justify-between items-center w-full ">
                 <p className="text-[#6D6D6D] text-xs md:text-sm">
                   {moment(item.created_at * 1000).format("L")}
                 </p>
