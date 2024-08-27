@@ -80,25 +80,26 @@ const PurchaseBatteryModal = (props) => {
       });
     } else if (id === "selectAmper") {
       console.log(cityId);
-      if (pathName.startsWith("/batteries")) {
-        if (props.batteryIsSelected) {
-          localStorage.setItem(
-            "batteryTotalPrice",
-            JSON.stringify({
-              price: 0,
-              productId: batteriesData.id,
-              vehicle_tip_id: JSON.parse(
-                localStorage.getItem("selectedVehicle"),
-              )?.id,
-            }),
-          );
-        }
-      }
-      setTotalPrice({
-        price: 0,
-        productId: batteriesData.id,
-        vehicle_tip_id: JSON.parse(localStorage.getItem("selectedVehicle"))?.id,
-      });
+      localStorage.removeItem("batteryTotalPrice");
+      // if (pathName.startsWith("/batteries")) {
+      //   if (props.batteryIsSelected) {
+      //     localStorage.setItem(
+      //       "batteryTotalPrice",
+      //       JSON.stringify({
+      //         price: 0,
+      //         productId: batteriesData.id,
+      //         vehicle_tip_id: JSON.parse(
+      //           localStorage.getItem("selectedVehicle"),
+      //         )?.id,
+      //       }),
+      //     );
+      //   }
+      // }
+      // setTotalPrice({
+      //   price: 0,
+      //   productId: batteriesData.id,
+      //   vehicle_tip_id: JSON.parse(localStorage.getItem("selectedVehicle"))?.id,
+      // });
     } else if (id === "oldSameAmperBattery") {
       if (pathName.startsWith("/batteries")) {
         if (props.batteryIsSelected) {
@@ -297,7 +298,6 @@ const PurchaseBatteryModal = (props) => {
   }, [isSelected]);
 
   useEffect(() => {
-    // if (isSelected === 1) {
     setPurchseOption((prev) =>
       prev.map((item) => {
         if (item.id === "selectAmper") {
@@ -306,27 +306,6 @@ const PurchaseBatteryModal = (props) => {
         return item;
       }),
     );
-    // setTotalPrice({
-    //   price: 0,
-    //   productId: batteriesData.id,
-    // });
-    // (async () => {
-    //   const AmperOptions = await getData(
-    //     "/web/reservation/battery?step=step-1",
-    //     {
-    //       product_id: batteriesData.id,
-    //       type: "SWING_AMP",
-    //       amp: batteriesData.amp,
-    //     },
-    //   );
-    //   console.log(AmperOptions);
-    //   if (AmperOptions === 500) {
-    //     console.log(AmperOptions, "server error");
-    //   } else if (AmperOptions === 404) {
-    //     console.log(AmperOptions, "route not corect");
-    //   }
-    // })();
-    // }
   }, [isSelected]);
 
   // useEffect(() => {
@@ -337,8 +316,11 @@ const PurchaseBatteryModal = (props) => {
   //   }
   // }, [totalPrice]);
 
-  console.log(totalPrice);
-  console.log(batteriesData);
+  useEffect(() => {
+    if (isSelected === 1) {
+      localStorage.setItem("batteryTotalPrice", JSON.stringify(totalPrice));
+    }
+  }, [totalPrice]);
 
   return (
     <>
