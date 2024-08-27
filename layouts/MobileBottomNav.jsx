@@ -158,12 +158,14 @@ function MobileBottomNav(props) {
         >
           صفحه نخست
         </p>
-        {isClicked === 0&&<div className="w-[70px] h-[2px] bg-[#F58052]"></div>}
+        {isClicked === 0 && (
+          <div className="w-[70px] h-[2px] bg-[#F58052]"></div>
+        )}
       </div>
       <div
         onClick={(event) => navClickHandler(event, 1)}
         className={`flex flex-col justify-center items-center bg-[#FEFEFE] w-[calc((100%-70px)/4)] h-full shadow-[0_-2px_4px_0_rgba(210,210,210,0.20)]`}
-        style={{borderRadius: "5% 0% 0% 0% / 10% 0% 0% 0%"}}
+        style={{ borderRadius: "5% 0% 0% 0% / 10% 0% 0% 0%" }}
       >
         <i
           className={`icon-Vector-1 ${
@@ -175,33 +177,45 @@ function MobileBottomNav(props) {
         >
           خدمات
         </p>
-        {isClicked === 1&&<div className="w-[70px] h-[2px] bg-[#F58052]"></div>}
+        {isClicked === 1 && (
+          <div className="w-[70px] h-[2px] bg-[#F58052]"></div>
+        )}
       </div>
       <div className="w-[70px]"></div>
       <div
         onClick={(event) => navClickHandler(event, 2)}
         className={`flex flex-col items-center absolute w-[70px] right-[calc(50%-35px)] h-[90px] bottom-0 overflow-hidden gap-[3px]`}
       >
-        {selectedCarData?<>
-        <div className="p-2 rounded-b-full w-full mt-[-5px]" style={{boxShadow: "0 75px 0 50px white"}}>
-          <Image
-            width={60}
-            height={54}
-            alt=""
-            src={
-              process.env.BASE_API +
-              "/web" +
-              API_PATHS.FILE +
-              "/" +
-              selectedCarData.image
-            }
-            className="rounded-full w-full max-w-[70px] aspect-square bg-white shadow-[0_2px_4px_0_rgba(0,0,0,0.4)]"
-          />
+        <div
+          className="p-2 rounded-b-full w-full mt-[-5px]"
+          style={{ boxShadow: "0 75px 0 50px white" }}
+        >
+          {selectedCarData ? (
+            <Image
+              width={60}
+              height={54}
+              alt=""
+              src={
+                process.env.BASE_API +
+                "/web" +
+                API_PATHS.FILE +
+                "/" +
+                selectedCarData.image
+              }
+              className="rounded-full w-full max-w-[70px] aspect-square bg-white shadow-[0_2px_4px_0_rgba(0,0,0,0.4)]"
+            />
+          ) : (
+            <i
+              className={`icon-Vector-5 text-[#6D6D6D] flex items-center justify-center text-2xl rounded-full w-[54px] h-[54px] aspect-square bg-white shadow-[0_2px_4px_0_rgba(0,0,0,0.4)]`}
+            />
+          )}
         </div>
-        <p className={`text-[12px] font-medium text-center line-clamp-1 text-[#6D6D6D]`}>
-          {selectedCarData.title}
-        </p></>:
-        <>       
+        <p
+          className={`text-[12px] font-medium text-center line-clamp-1 text-[#6D6D6D]`}
+        >
+          {selectedCarData ?selectedCarData.title:"انتخاب خودرو"}
+        </p>
+        {/* <>       
         <i
         className={`icon-Vector-5 ${
           isClicked === 2 ? "text-[#F58052]" : "text-[#6D6D6D]"
@@ -212,12 +226,12 @@ function MobileBottomNav(props) {
       >
         انتخاب خودرو
       </p>
-      </>}
+      </> */}
       </div>
       <div
         onClick={(event) => navClickHandler(event, 3)}
         className={`flex flex-col justify-center items-center bg-[#FEFEFE] w-[calc((100%-70px)/4)] h-full shadow-[0_-2px_4px_0_rgba(210,210,210,0.20)]`}
-        style={{borderRadius: "0% 5% 0% 0% / 0% 10% 0% 0%"}}
+        style={{ borderRadius: "0% 5% 0% 0% / 0% 10% 0% 0%" }}
       >
         <i
           className={`cc-document-align-right ${
@@ -229,7 +243,9 @@ function MobileBottomNav(props) {
         >
           سفارش ها
         </p>
-        {isClicked === 3&&<div className="w-[70px] h-[2px] bg-[#F58052]"></div>}
+        {isClicked === 3 && (
+          <div className="w-[70px] h-[2px] bg-[#F58052]"></div>
+        )}
       </div>
       <div
         onClick={(event) => navClickHandler(event, 4)}
@@ -245,7 +261,9 @@ function MobileBottomNav(props) {
         >
           پروفایل
         </p>
-        {isClicked === 4&&<div className="w-[70px] h-[2px] bg-[#F58052]"></div>}
+        {isClicked === 4 && (
+          <div className="w-[70px] h-[2px] bg-[#F58052]"></div>
+        )}
       </div>
     </div>
   );
