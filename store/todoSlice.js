@@ -15,6 +15,7 @@ const initialState = {
   cityModalState: false,
   carSelectToastState: false,
   renderSetCarState: false,
+  batteriesBasketLength: 0,
 };
 
 const todoSlice = createSlice({
@@ -66,6 +67,9 @@ const todoSlice = createSlice({
     renderSetCar(state) {
       state.renderSetCarState = !state.renderSetCarState;
     },
+    setBatteriesBasketLength(state, action) {
+      state.batteriesBasketLength = action.payload;
+    },
   },
 });
 
@@ -84,6 +88,7 @@ export const {
   renderInvoice,
   setCityModalState,
   setCarSelectToastHandler,
-  renderSetCar
+  renderSetCar,
+  setBatteriesBasketLength,
 } = todoSlice.actions;
 export default todoSlice;
