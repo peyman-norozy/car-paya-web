@@ -9,10 +9,14 @@ import toman from "@/public/assets/icons/toman.svg";
 import { setBatteriesData } from "@/store/todoSlice";
 import star from "@/public/assets/icons/Star-red.svg";
 import BatterisDetailCard from "@/components/cards/BatterisDetailCard/BatterisDetailCard";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import nProgress from "nprogress";
+import { postData } from "@/utils/client-api-function-utils";
 
 const BatteriesCard = (props) => {
+  const batteryBasketLength = useSelector(
+    (item) => item.todo.batteriesBasketLength,
+  );
   const [morDetail, setMorDetail] = useState(false);
   const router = useRouter();
   const pathName = usePathname();
@@ -27,12 +31,34 @@ const BatteriesCard = (props) => {
     router.push(pathName + "/" + props.item.id);
   };
 
-  const basketClickHandler = () => {
+  const basketClickHandler = async () => {
     const CityId = JSON.parse(localStorage.getItem("city"))?.cityId;
     const selectedVehicleId = JSON.parse(
       localStorage.getItem("selectedVehicle"),
     )?.id;
-    if (CityId && selectedVehicleId) {
+
+    // if (
+    //   pathName.includes("/batteries") &&
+    //   props.item.id !==
+    //     JSON.parse(localStorage.getItem("batteryTotalPrice"))?.productId
+    // ) {
+    //   const data = await postData("/web/cart/remove", {
+    //     cartable_id: JSON.parse(localStorage.getItem("batteryTotalPrice"))
+    //       ?.productId,
+    //     cartable_type: "BATTERIES",
+    //     vehicle_tip_id: JSON.parse(localStorage.getItem("selectedVehicle"))?.id,
+    //   });
+    //   console.log(data);
+    // }
+
+    if (batteryBasketLength) {
+      error("فقط یک محصول میتوانید به سبد خرید خود اضافه کنید");
+    } else if (
+      props.item.id ===
+      JSON.parse(localStorage.getItem("batteryTotalPrice"))?.productId
+    ) {
+      error("باتری برای این وسیله نقلیه انتخاب شده است");
+    } else if (CityId && selectedVehicleId) {
       props.setBatteryIsSelected(true);
       dispatch(setBatteriesData(props.item));
     } else if (!CityId) {
@@ -41,6 +67,8 @@ const BatteriesCard = (props) => {
       error("لطفا خودرو خود را انتخاب کنید");
     }
   };
+
+  console.log(props);
 
   return (
     <li
@@ -162,7 +190,7 @@ const BatteriesCard = (props) => {
                 "bg-[#F66B34] text-white w-[160px] h-[40px] lg:text-[16px] text-12 self-end rounded-[8px] size1400:block hidden"
               }
             >
-              اضافه به سبد خرید
+              تایید و ادامه
             </Button>
           </div>
           <Button
@@ -171,7 +199,7 @@ const BatteriesCard = (props) => {
               "bg-[#F66B34] text-white w-[160px] h-[40px] lg:text-[16px] text-12 float-left mt-rounded-[8px] size1400:hidden block rounded-[8px] mt-2"
             }
           >
-            اضافه به سبد خرید
+            تایید و ادامه
           </Button>
         </div>
       </div>
