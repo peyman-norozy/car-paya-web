@@ -15,7 +15,7 @@ const MainPageServices = (props) => {
             <div className="grid grid-cols-3 xl:grid-cols-4 gap-5 sm:gap-6 p-1" ref={serviceRef}>
                 {serviceData.map((item,index)=>(
                     <Link href={item.href} key={index}>
-                        <div className="w-full p-3 sm:p-4 flex flex-col items-center gap-2 sm:gap-3 rounded-lg farshad" key={index}>
+                        <div className="w-full p-3 sm:p-4 flex flex-col items-center gap-2 sm:gap-3 rounded-lg serviceShadow" key={index}>
                             <Image className="w-[57px] h-[47px]" src={item.icon} height={47} width={57} alt="carachar"/>
                             <span className="text-12 sm:text-base text-[#0E0E0E] line-clamp-1 font-medium">{item.title}</span>
                         </div>

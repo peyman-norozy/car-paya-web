@@ -37,6 +37,10 @@ input[type=number] {
     -moz-appearance: textfield;
 }
 
+.serviceShadow{
+  box-shadow: 3px 3px 6px 0px rgba(222, 222, 222, 0.45),-3px -3px 6px 0px rgba(255, 255, 255, 0.55);
+}
+
 @font-face {
     font-family: iranSans;
     src: url(../public/assets/fonts/woff/IRANSansWebUltraLight.woff) format("woff"),
