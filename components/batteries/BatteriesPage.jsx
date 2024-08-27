@@ -7,7 +7,7 @@ import SubFilterCard from "@/components/cards/SubFilterCard";
 import { ToastContainer } from "react-toastify";
 import BatteriesCard from "@/components/cards/BatteriesCard/BatteriesCard";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setCityModalState } from "@/store/todoSlice";
 import Link from "next/link";
 import nProgress from "nprogress";
@@ -22,6 +22,16 @@ const BatteriesPage = (props) => {
   const router = useRouter();
   const filterTitleRef = useRef(null);
   const searchParams = useSearchParams();
+  const batteryBasketLength = useSelector(
+    (item) => item.todo.batteriesBasketLength,
+  );
+
+  //when refresh page my batteryTotalPrice remove from localStorage
+  useEffect(() => {
+    if (batteryBasketLength === 0) {
+      localStorage.removeItem("batteryTotalPrice");
+    }
+  }, [batteryBasketLength]);
 
   const filterData = [
     { name: "آمپر", value: "getAmp" },
