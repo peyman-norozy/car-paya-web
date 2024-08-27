@@ -18,29 +18,16 @@ function MobileBottomNav(props) {
   const [selectedTab, setSelectedTab] = useState(pathname);
   const [selectedCarData, setSelectedCarData] = useState(null);
   const [isClicked, setIsClicked] = useState();
-  const renderSetCarState = useSelector((state) => state.todo.renderSetCarState);
+  const renderSetCarState = useSelector(
+    (state) => state.todo.renderSetCarState
+  );
   const modalRef = useRef(null);
   const selectVehicleRef = useRef(null);
   const startY = useRef(null);
-  const mobileNavData = [
-    { name: "icon-Vector-4", title: "صفحه نخست", class: "right-[5%]" },
-    { name: "icon-Vector-1", title: "خدمات", class: "right-[26.5%]" },
-    {
-      name: "icon-Vector-5",
-      title: "انتخاب خودرو",
-      class: "right-[50%] translate-x-[50%] size-24 bottom-1",
-    },
-    {
-      name: "cc-document-align-right",
-      title: "سفارش ها",
-      class: "left-[26.5%]",
-    },
-    { name: "icon-Vector-3", title: "حساب کاربری", class: "left-[5%]" },
-  ];
 
   useEffect(() => {
     console.log(renderSetCarState);
-    
+
     setSelectedCarData(JSON.parse(localStorage.getItem("selectedVehicle")));
   }, [renderSetCarState]);
 
@@ -95,9 +82,8 @@ function MobileBottomNav(props) {
     }
   };
 
-
   return (
-    <div className="fixed bottom-0 right-0 z-[2000] px-[1rem] pt-[5px] pb-[0.75rem] bg-[#383838] flex items-center justify-between w-full h-[70px] shadow-[0_0_5px_0_rgba(0,0,0,0.54)]">
+    <div className="fixed bottom-1 right-2 z-[2000] flex items-center w-[calc(100vw-16px)] h-[60px] rounded-3xl shadow-[0_4px_4px_0_rgba(160,160,160,0.20)]">
       {
         <div
           ref={selectVehicleRef}
@@ -128,7 +114,7 @@ function MobileBottomNav(props) {
           ref={modalRef}
           onTouchStart={touchStartHandler}
           onTouchMove={slideDownHandler}
-          className={`fixed  right-0 left-0 w-full  bg-[#fff] z-[2001] shadow-[0_0_10px_0_rgba(0,0,0,0.4)] rounded-t-[40px] transition-all duration-1000  ${
+          className={`fixed right-0 left-0 w-full  bg-[#fff] z-[2001] shadow-[0_0_10px_0_rgba(0,0,0,0.4)] rounded-t-[40px] transition-all duration-1000 ${
             serviceModalIsOpen
               ? "h-[100vh] top-[20%] bottom-0"
               : "h-0 bottom-0 top-[100%]"
@@ -158,51 +144,109 @@ function MobileBottomNav(props) {
           className="fixed top-0 right-0 left-0 bottom-0 bg-black opacity-[0.8] z-[2000] h-[100vh] w-full"
         ></div>
       )}
-      {mobileNavData.map((item, index) => (
-        <div
-          key={index}
-          id={index}
-          onClick={(event) => navClickHandler(event, index)}
-          className={`${item.class} ${index === 2 && "bg-[#383838] p-3"} absolute flex flex-col justify-center items-center rounded-full`}
+      <div
+        onClick={(event) => navClickHandler(event, 0)}
+        className={`flex flex-col justify-center items-center bg-[#FEFEFE] w-[calc((100%-70px)/4)] h-full rounded-r-2xl shadow-[4px_0_4px_0_rgba(190,190,190,0.20)] overflow-hidden`}
+      >
+        <i
+          className={`icon-Vector-4 ${
+            isClicked === 0 ? "text-[#F58052]" : "text-[#6D6D6D]"
+          } text-2xl`}
+        />
+        <p
+          className={`text-xs font-medium  ${isClicked === 0 ? "text-[#F58052]" : "text-[#6D6D6D]"} mt-1`}
         >
-          {selectedCarData && index === 2 ? (
-            <div className="w-[60px] h-auto">
-              <Image
-                width={60}
-                height={54}
-                alt=""
-                src={
-                  process.env.BASE_API +
-                  "/web" +
-                  API_PATHS.FILE +
-                  "/" +
-                  selectedCarData.image
-                }
-                className="rounded-[50%] w-full h-full"
-              />
-            </div>
-          ) : (
-            <i
-              className={`${item.name} ${
-                isClicked === index ? "text-[#F66B34]" : "text-[#fefefe]"
-              } text-[1.25rem]`}
-            />
-          )}
-          {selectedCarData && index === 2 ? (
-            <p
-              className={`text-[12px] text-center line-clamp-1 text-[#fefefe]`}
-            >
-              {selectedCarData.title}
-            </p>
-          ) : (
-            <p
-              className={`text-[9px] ${isClicked === index ? "text-[#F66B34]" : "text-[#fefefe]"} mt-2`}
-            >
-              {item.title}
-            </p>
-          )}
+          صفحه نخست
+        </p>
+        {isClicked === 0&&<div className="w-[70px] h-[2px] bg-[#F58052]"></div>}
+      </div>
+      <div
+        onClick={(event) => navClickHandler(event, 1)}
+        className={`flex flex-col justify-center items-center bg-[#FEFEFE] w-[calc((100%-70px)/4)] h-full shadow-[0_-2px_4px_0_rgba(210,210,210,0.20)]`}
+        style={{borderRadius: "5% 0% 0% 0% / 10% 0% 0% 0%"}}
+      >
+        <i
+          className={`icon-Vector-1 ${
+            isClicked === 1 ? "text-[#F58052]" : "text-[#6D6D6D]"
+          } text-2xl`}
+        />
+        <p
+          className={`text-xs font-medium  ${isClicked === 1 ? "text-[#F58052]" : "text-[#6D6D6D]"} mt-1`}
+        >
+          خدمات
+        </p>
+        {isClicked === 1&&<div className="w-[70px] h-[2px] bg-[#F58052]"></div>}
+      </div>
+      <div className="w-[70px]"></div>
+      <div
+        onClick={(event) => navClickHandler(event, 2)}
+        className={`flex flex-col items-center absolute w-[70px] right-[calc(50%-35px)] h-[90px] bottom-0 overflow-hidden gap-[3px]`}
+      >
+        {selectedCarData?<>
+        <div className="p-2 rounded-b-full w-full mt-[-5px]" style={{boxShadow: "0 75px 0 50px white"}}>
+          <Image
+            width={60}
+            height={54}
+            alt=""
+            src={
+              process.env.BASE_API +
+              "/web" +
+              API_PATHS.FILE +
+              "/" +
+              selectedCarData.image
+            }
+            className="rounded-full w-full max-w-[70px] aspect-square bg-white shadow-[0_2px_4px_0_rgba(0,0,0,0.4)]"
+          />
         </div>
-      ))}
+        <p className={`text-[12px] font-medium text-center line-clamp-1 text-[#6D6D6D]`}>
+          {selectedCarData.title}
+        </p></>:
+        <>       
+        <i
+        className={`icon-Vector-5 ${
+          isClicked === 2 ? "text-[#F58052]" : "text-[#6D6D6D]"
+        } text-2xl`}
+      />
+      <p
+        className={`text-xs font-medium  ${isClicked === 2 ? "text-[#F58052]" : "text-[#6D6D6D]"} mt-1`}
+      >
+        انتخاب خودرو
+      </p>
+      </>}
+      </div>
+      <div
+        onClick={(event) => navClickHandler(event, 3)}
+        className={`flex flex-col justify-center items-center bg-[#FEFEFE] w-[calc((100%-70px)/4)] h-full shadow-[0_-2px_4px_0_rgba(210,210,210,0.20)]`}
+        style={{borderRadius: "0% 5% 0% 0% / 0% 10% 0% 0%"}}
+      >
+        <i
+          className={`cc-document-align-right ${
+            isClicked === 3 ? "text-[#F58052]" : "text-[#6D6D6D]"
+          } text-2xl`}
+        />
+        <p
+          className={`text-xs font-medium  ${isClicked === 3 ? "text-[#F58052]" : "text-[#6D6D6D]"} mt-1`}
+        >
+          خدمات
+        </p>
+        {isClicked === 3&&<div className="w-[70px] h-[2px] bg-[#F58052]"></div>}
+      </div>
+      <div
+        onClick={(event) => navClickHandler(event, 4)}
+        className={`flex flex-col justify-center items-center bg-[#FEFEFE] w-[calc((100%-70px)/4)] h-full rounded-l-2xl shadow-[-4px_0_4px_0_rgba(190,190,190,0.20)]`}
+      >
+        <i
+          className={`icon-Vector-3 ${
+            isClicked === 4 ? "text-[#F58052]" : "text-[#6D6D6D]"
+          } text-2xl`}
+        />
+        <p
+          className={`text-xs font-medium ${isClicked === 4 ? "text-[#F58052]" : "text-[#6D6D6D]"} mt-1`}
+        >
+          خدمات
+        </p>
+        {isClicked === 4&&<div className="w-[70px] h-[2px] bg-[#F58052]"></div>}
+      </div>
     </div>
   );
 }

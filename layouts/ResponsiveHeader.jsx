@@ -13,17 +13,14 @@ const ResponsiveHeader = (props) => {
   const params = useParams();
   const pathName = usePathname().split("/")[1];
   const [newMenueState, setNewMenueState] = useState(true);
-  const [isClient, setIsClient] = useState(false);
+  const [phoneState, setPhoneState] = useState(false);
+  const [lastScrollY, setLastScrollY] = useState(0);
   const loginState = useSelector((state) => state.todo.loginState);
   const hambergerRef = useRef();
   const asideHambergerMenuRef = useRef();
   const asideCategoryMenuRef = useRef();
   const dispatch = useDispatch();
   const cityModalState = useSelector((state) => state.todo.cityModalState);
-
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
 
   const toggleModal = () => {
     dispatch(setCityModalState(!cityModalState));
@@ -33,12 +30,35 @@ const ResponsiveHeader = (props) => {
     setNewMenueState((prev) => !prev);
   };
 
+  const controlHeader = () => {
+    if (typeof window !== "undefined") {
+      if (window.scrollY > lastScrollY) {
+        // if scroll down
+        setPhoneState(false);
+      } else {
+        // if scroll up
+        setPhoneState(true);
+      }
+      setLastScrollY(window.scrollY);
+    }
+  };
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      window.addEventListener("scroll", controlHeader);
+
+      // Cleanup function
+      return () => {
+        window.removeEventListener("scroll", controlHeader);
+      };
+    }
+  }, [lastScrollY]);
+
   return (
     <>
       <header
         className={`${
           props.className
-        } font-light flex justify-between items-center px-[30px] py-[15px] sticky top-0 right-0 left-0 w-[100wh] bg-[#383838] z-[1599] drop-shadow-[0_3px_10px_rgba(0,0,0,.1)] h-[74px] ${
+        } font-light flex justify-between items-center px-[30px] py-[15px] sticky top-0 right-0 left-0 w-[100wh] bg-[#FEFEFE] z-[1599] drop-shadow-[0_3px_10px_rgba(0,0,0,.1)] h-[74px] ${
           pathName === "panel" && params["all-panel-tab"] ? "hidden" : ""
         }`}
         onClick={(event) => {
@@ -56,29 +76,29 @@ const ResponsiveHeader = (props) => {
         }}
       >
         <div
-          className={`cursor-pointer transition-all flex items-center ${
+          className={`cursor-pointer transition-all flex items-center justify-start ${
             newMenueState ? "rotate-0" : "rotate-[-90deg]"
           }`}
           onClick={asideMenuCloseHandler}
         >
           <i
-            className={"cc-menu text-[34px] text-[#FEFEFE]"}
+            className={"cc-menu text-[28px] text-[#5D5D5D]"}
             ref={hambergerRef}
           />
         </div>
         <HeaderLogo />
         <div
           className={
-            "py-2 px-2 rounded-5 cursor-pointer flex items-center justify-between gap-2 bg-white"
+            "py-[6px] px-3 cursor-pointer flex items-center justify-between gap-1 bg-white border-[1px] border-[#5D5D5D] text-[#5D5D5D] rounded-lg"
           }
           onClick={toggleModal}
         >
-          <span className={"inline-block w-fit text-16 font-semibold"}>
+          <span className={"inline-block w-fit text-14 font-semibold"}>
             تهران
           </span>
-          <i className={"cc-arrow-down"} />
+          <i className={"cc-location text-18"} />
         </div>
-        {/*<i className="cc-search text-[#fefefe] text-2xl"/>*/}
+        {/* <i className="cc-search text-[#fefefe] text-2xl"/> */}
         <ResponsiveMenu
           newMenueState={newMenueState}
           setNewMenueState={setNewMenueState}
@@ -88,6 +108,10 @@ const ResponsiveHeader = (props) => {
           childrenProps={props.childrenProps}
         />
       </header>
+          <div className={`bg-white flex items-center gap-1 text-sm text-[#F58052] font-medium px-2 py-1 rounded-b-lg fixed ${phoneState?"top-[74px]":"top-0"} left-8 transition-all duration-700 z-[1598]`}>
+            <span>58919</span>
+            <i className="cc-calling"/>
+          </div>
       <CityModal isOpen={cityModalState} onClose={toggleModal} />
     </>
   );

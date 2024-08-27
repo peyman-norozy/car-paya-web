@@ -30,7 +30,7 @@ export default function RootLayout({ children }) {
   return (
     <Providers>
       <html lang="fa" dir="rtl">
-        <body className="bg-[#D1D1D1]">
+        <body className="bg-[#FBFBFB]">
           <NextTopLoader
             color={"#000000"}
             height={4}

@@ -9,9 +9,9 @@ export default function HeaderLogo() {
       <Image
         src={logo}
         alt="site logo"
-        className="h-[40px] w-auto cursor-pointer"
-        width={45}
-        height={36}
+        className="h-[32px] w-auto cursor-pointer"
+        width={35}
+        height={32}
         onClick={() => {
           nProgress.start();
           router.push("/");
