@@ -57,21 +57,21 @@ const MainHeavyCarTip = (props) => {
   };
 
   const sendCarTipHandler = () => {
-    const formData = new FormData();
-    formData.set("car_tip_id", newTipId);
-    axios
-      .post(process.env.BASE_API + "/web" + API_PATHS.ADDCAR, formData)
-      .then((res) => {
-        if (res.status === 200) {
-          success("ارسال موفقیت آمیز بود");
-          setNewTipId(null);
-          props.setMainHeavyCarTipDisplay(false);
-          props.setMainHeavyCarBrandModalDisplay(true);
-        }
-      })
-      .catch((e) => {
-        console.log(e);
-      });
+    // const formData = new FormData();
+    // formData.set("car_tip_id", newTipId);
+    // axios
+    //   .post(process.env.BASE_API + "/web" + API_PATHS.ADDCAR, formData)
+    //   .then((res) => {
+    //     if (res.status === 200) {
+    //       success("ارسال موفقیت آمیز بود");
+    //       setNewTipId(null);
+    //       props.setMainHeavyCarTipDisplay(false);
+    //       props.setMainHeavyCarBrandModalDisplay(true);
+    //     }
+    //   })
+    //   .catch((e) => {
+    //     console.log(e);
+    //   });
   };
 
   const phoneNumberHandler = (event) => {

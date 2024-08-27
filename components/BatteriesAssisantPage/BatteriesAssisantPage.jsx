@@ -7,11 +7,12 @@ import { useDispatch } from "react-redux";
 import PurchaseBatteryModal from "@/components/PurchaseBatteryModal";
 import { ToastContainer } from "react-toastify";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 
 const BatteriesAssisantPage = (props) => {
   const [batteryIsSelected, setBatteryIsSelected] = useState(false);
   const [filterButtery, setFilterButtery] = useState({});
-
+  const searchParams = useSearchParams();
   const dispatch = useDispatch();
   console.log(props);
   const basketClickHandler = () => {
@@ -46,7 +47,7 @@ const BatteriesAssisantPage = (props) => {
     <div className="flex flex-col relative py-4 max-w-[1772px] m-auto">
       <section className="lg:w-[calc(100%-424px)] w-full mr-auto lg:mt-16 mt-[20px] flex flex-col">
         <Link
-          href="/batteries/products?attribute_slug=type_vehicle&attribute_value=car"
+          href={`/batteries/products?attribute_slug=type_vehicle&attribute_value=car&selectTipState=${searchParams.get("selectTipState")}`}
           className={
             "self-end w-[108px] h-[30px] flex justify-center items-center gap-1 rounded-[8px] bg-white text-[#F66B34] mb-10 text-[14px] font-semibold"
           }
@@ -94,7 +95,7 @@ const BatteriesAssisantPage = (props) => {
                   Male
                 </td>
                 <td className="border border-[#B0B0B0] p-2 bg-[#383838] text-[#FEFEFE] text-center">
-                  {numberWithCommas(item.price)}
+                  {numberWithCommas(item["same_amp"])}
                 </td>
                 <td className="border border-[#B0B0B0] p-2 bg-[#383838] text-[#FEFEFE] size1400:w-[160px] w-[120px]">
                   <div className="checkbox-wrapper-37 flex justify-center items-center">

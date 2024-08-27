@@ -14,7 +14,7 @@ import {
   getDataWithFullErrorRes,
 } from "@/utils/api-function-utils";
 import nProgress from "nprogress";
-import { renderSetCar } from "@/store/todoSlice";
+import { renderSetCar, setBatteriesBasketLength } from "@/store/todoSlice";
 const CarSelectComponent = (props) => {
   const [vehicleType, setVehicleType] = useState("car");
   const [carSelectedType, setCarSelectedType] = useState("انتخاب برند");
@@ -111,8 +111,13 @@ const CarSelectComponent = (props) => {
   }
 
   async function getInvoiceData() {
+    const cartableType = pathname
+      .split("/")[1]
+      .toUpperCase()
+      .split("-")
+      .join("_");
     const data = await getCurrentData("/web/segmentation/cart", {
-      cartable_type: pathname.split("/")[1].toUpperCase().split("-").join("_"),
+      cartable_type: cartableType,
       vehicle_tip_id: JSON.parse(localStorage.getItem("selectedVehicle"))?.id,
     });
     console.log(data);
@@ -123,6 +128,9 @@ const CarSelectComponent = (props) => {
       }
       console.log(totalPrice);
       setInvoiceData({ data: data.data.data, totalPrice: totalPrice });
+      if (cartableType === "BATTERIES") {
+        dispatch(setBatteriesBasketLength(data.data.data.length));
+      }
     }
   }
 
@@ -143,6 +151,7 @@ const CarSelectComponent = (props) => {
       if (carTableType === "BATTERIES") {
         setCarSelected(false);
         localStorage.removeItem("selectedVehicle");
+        localStorage.removeItem("batteryTotalPrice");
         nProgress.start();
         router.push(
           `/batteries/products?attribute_slug=type_vehicle&attribute_value=${attributeValue ? attributeValue : "car"}`,
@@ -230,26 +239,37 @@ const CarSelectComponent = (props) => {
         });
       setLevel(level2 + 1);
     } else {
-      axios
-        .post(process.env.BASE_API + "/web" + API_PATHS.ADDCAR, {
-          car_tip_id: id,
-        })
-        .then((res) => {
-          console.log(res.status === 200);
-          if (res.status === 200) {
-            setQuery.updateQueryParams({ selectTipState: `true,${id}` }, "");
-            localStorage.setItem(
-              "selectedVehicle",
-              JSON.stringify({
-                id: item.id,
-                title: item.title,
-                image: item.image,
-              }),
-            );
-            setCarSelected(true);
-            dispatch(renderSetCar());
-          }
-        });
+      setQuery.updateQueryParams({ selectTipState: `true,${id}` }, "");
+      localStorage.setItem(
+        "selectedVehicle",
+        JSON.stringify({
+          id: item.id,
+          title: item.title,
+          image: item.image,
+        }),
+      );
+      setCarSelected(true);
+      dispatch(renderSetCar());
+      // axios
+      //   .post(process.env.BASE_API + "/web" + API_PATHS.ADDCAR, {
+      //     car_tip_id: id,
+      //   })
+      //   .then((res) => {
+      //     console.log(res.status === 200);
+      //     if (res.status === 200) {
+      //       setQuery.updateQueryParams({ selectTipState: `true,${id}` }, "");
+      //       localStorage.setItem(
+      //         "selectedVehicle",
+      //         JSON.stringify({
+      //           id: item.id,
+      //           title: item.title,
+      //           image: item.image,
+      //         }),
+      //       );
+      //       setCarSelected(true);
+      //       dispatch(renderSetCar());
+      //     }
+      //   });
     }
   }
   // function inputChangeHandler(value) {
@@ -390,6 +410,7 @@ const CarSelectComponent = (props) => {
                                   className="bg-[#FEFEFE] rounded-full size-5 text-[#888888] font-bold pr-[5px] cursor-pointer"
                                   onClick={() => {
                                     removeClickHandler(item.item.item.id);
+                                    setVehicleType("car");
                                   }}
                                 >
                                   X
@@ -408,7 +429,7 @@ const CarSelectComponent = (props) => {
                                 <div className="text-[#FEFEFE] text-14 font-bold flex items-center gap-2">
                                   <span>
                                     {pathname.startsWith("/batteries")
-                                      ? item.item.item.id ===
+                                      ? item.item.item?.id ===
                                           JSON.parse(
                                             localStorage.getItem(
                                               "batteryTotalPrice",
@@ -421,7 +442,9 @@ const CarSelectComponent = (props) => {
                                             ),
                                           ).price,
                                         )
-                                      : numberWithCommas(item.item.item.price)}
+                                      : numberWithCommas(
+                                          item.item.item?.discounted_price,
+                                        )}
                                   </span>
                                   <span>تومان</span>
                                 </div>

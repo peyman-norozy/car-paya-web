@@ -120,24 +120,10 @@ const BatteriesPage = (props) => {
           ))}
         </ul>
       </section>
-      <div
-        className={`${!batteryIsSelected ? "hidden" : "fixed"} inset-0 h-full w-full bg-[#4c4c4caa] z-[20000] transition-all`}
-        onClick={() => {
-          setBatteryIsSelected(false);
-          localStorage.setItem(
-            "batteryTotalPrice",
-            JSON.stringify({ price: 0, productId: "", vehicle_tip_id: 0 }),
-          );
-        }}
-      ></div>
-      <div
-        className={`w-[75%] size900:w-[50%] m-auto fixed transition-all duration-1000 ${batteryIsSelected ? "top-[50%]" : "top-[-60%]"} left-[50%] translate-x-[-50%] translate-y-[-50%] z-[20000]`}
-      >
-        <PurchaseBatteryModal
-          setBatteryIsSelected={setBatteryIsSelected}
-          batteryIsSelected={batteryIsSelected}
-        />
-      </div>
+      <PurchaseBatteryModal
+        setBatteryIsSelected={setBatteryIsSelected}
+        batteryIsSelected={batteryIsSelected}
+      />
       <ToastContainer rtl={true} />
     </div>
   );
