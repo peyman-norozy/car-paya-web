@@ -45,7 +45,7 @@ const HomePageMainSlider = () => {
                 >
                 {newSlider.map((item ,index)=>(
                 <SwiperSlide className="relative" key={"mainSlider"+index}>
-                    <Image src={process.env.BASE_API+"/web"+API_PATHS.FILE+"/"+item.image_id} width={1344} height={480} className="w-full aspect-[1344/750] md:aspect-[1344/485]"/>
+                    <Image src={process.env.BASE_API+"/web"+API_PATHS.FILE+"/"+item.image_id} width={1344} height={480} className="w-full aspect-[1344/750] sm:aspect-[1344/485]"/>
                     {item.description&&<div className="w-1/2 sm:w-2/5 lg:w-1/3 absolute bg-[#5D697A52] backdrop-blur-[16px] h-fit left-4 lg:left-8 top-4 lg:top-8 flex flex-col z-[2] gap-2 lg:gap-6 p-2 sm:p-4 rounded-lg">
                         <span className="text-[#FEFEFE] text-12 lg:text-16 font-bold">{item.description}</span>
                         <Link href={item.link} className="bg-[#F66B34] text-[rgb(254,254,254)] px-2 lg:px-4 py-[6px] lg:py-[8px] w-fit rounded-[6px] self-end text-[10px] lg:text-xs">مشاهده بیشتر</Link>

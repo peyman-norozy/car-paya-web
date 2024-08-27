@@ -219,7 +219,6 @@ const CarSelectComponent = (props) => {
   }
 
   function optionClickHandler(id, item, state) {
-    console.log(id, item, state);
     const level2 = state ? state : level;
     if (level2 <= 3) {
       let array = [...backurl];
@@ -240,11 +239,15 @@ const CarSelectComponent = (props) => {
       setLevel(level2 + 1);
     } else {
       setQuery.updateQueryParams({ selectTipState: `true,${id}` }, "");
+      console.log(item);
+      
       localStorage.setItem(
         "selectedVehicle",
         JSON.stringify({
           id: item.id,
           title: item.title,
+          brand: item.title_brand,
+          model: item.title_model,
           image: item.image,
         }),
       );
@@ -364,9 +367,17 @@ const CarSelectComponent = (props) => {
                 className="w-[60%] aspect-auto m-auto"
               />
               <div className="flex justify-between items-center">
-                <span className="font-bold text-18 text-[#FEFEFE] border-r-[5px] border-[#c0c0c0] leading-6 pr-2">
-                  {selectedCar.title}
-                </span>
+                <div className="flex gap-1 font-bold text-18 text-[#FEFEFE] border-r-[5px] border-[#c0c0c0] leading-6 pr-2 items-start">
+                  <span>
+                    {selectedCar.brand}
+                  </span>
+                  <span>
+                    {selectedCar.model}
+                  </span>
+                  <span className="text-12 text-[#969696]">
+                    ( {selectedCar.title} )
+                  </span>
+                </div>
                 <button
                   className="text-[#F66B34] text-16 cursor-pointer font-medium"
                   onClick={changeVehicleClickHandler}
