@@ -19,7 +19,7 @@ const BatterisDetailCard = (props) => {
           }
         ></span>
         <p>تکنولوژی:</p>
-        <p>{props.item.filters.Technology}</p>
+        <p>{props.item.filters.technology}</p>
       </li>
       <li className={"flex items-center gap-[8px] w-[200px] text-14"}>
         <span

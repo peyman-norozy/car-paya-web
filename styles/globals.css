@@ -38,75 +38,48 @@ input[type=number] {
 }
 
 @font-face {
-    font-family: YekanBakhFaNum;
-    src: url(../public/assets/fonts/webfonts/woff/YekanBakhFaNum-Thin.woff) format("woff"),
-      url(../public/assets/fonts/ttf/YekanBakhFaNum-Thin.ttf) format("truetype"),
-      url(../public/assets/fonts/otf/YekanBakhFaNum-Thin.otf) format("otf"),
-      url(../public/assets/fonts/webfonts/woff2/YekanBakhFaNum-Thin.woff2) format("woff2");
+    font-family: iranSans;
+    src: url(../public/assets/fonts/woff/IRANSansWebUltraLight.woff) format("woff"),
+      url(../public/assets/fonts/ttf/IRANSansWebUltraLight.ttf) format("truetype"),
+      url(../public/assets/fonts/eot/IRANSansWebUltraLight.eot) format("eot"),
+      url(../public/assets/fonts/woff2/IRANSansWebUltraLight.woff2) format("woff2");
     font-weight: 200;
     font-style: normal;
   }
   @font-face {
-    font-family: YekanBakhFaNum;
-    src: url(../public/assets/fonts/webfonts/woff/YekanBakhFaNum-Light.woff) format("woff"),
-      url(../public/assets/fonts/ttf/YekanBakhFaNum-Light.ttf) format("truetype"),
-      url(../public/assets/fonts/otf/YekanBakhFaNum-Light.otf) format("otf"),
-      url(../public/assets/fonts/webfonts/woff2/YekanBakhFaNum-Light.woff2) format("woff2");
+    font-family: iranSans;
+    src: url(../public/assets/fonts/woff/IRANSansWebLight.woff) format("woff"),
+      url(../public/assets/fonts/ttf/IRANSansWebLight.ttf) format("truetype"),
+      url(../public/assets/fonts/eot/IRANSansWebLight.eot) format("eot"),
+      url(../public/assets/fonts/woff2/IRANSansWebLight.woff2) format("woff2");
     font-weight: 300;
     font-style: normal;
   }
   @font-face {
-    font-family: YekanBakhFaNum;
-    src: url(../public/assets/fonts/webfonts/woff/YekanBakhFaNum-Regular.woff) format("woff"),
-      url(../public/assets/fonts/ttf/YekanBakhFaNum-Regular.ttf) format("truetype"),
-      url(../public/assets/fonts/otf/YekanBakhFaNum-Regular.otf) format("otf"),
-      url(../public/assets/fonts/webfonts/woff2/YekanBakhFaNum-Regular.woff2) format("woff2");
+    font-family: iranSans;
+    src: url(../public/assets/fonts/woff/IRANSansWeb.woff) format("woff"),
+      url(../public/assets/fonts/ttf/IRANSansWeb.ttf) format("truetype"),
+      url(../public/assets/fonts/eot/IRANSansWeb.eot) format("eot"),
+      url(../public/assets/fonts/woff2/IRANSansWeb.woff2) format("woff2");
     font-weight: 400;
     font-style: normal;
   }
   @font-face {
-    font-family: YekanBakhFaNum;
-    src: url(../public/assets/fonts/webfonts/woff/YekanBakhFaNum-SemiBold.woff) format("woff"),
-      url(../public/assets/fonts/ttf/YekanBakhFaNum-SemiBold.ttf) format("truetype"),
-      url(../public/assets/fonts/otf/YekanBakhFaNum-SemiBold.otf) format("otf"),
-      url(../public/assets/fonts/webfonts/woff2/YekanBakhFaNum-SemiBold.woff2) format("woff2");
+    font-family: iranSans;
+    src: url(../public/assets/fonts/woff/IRANSansWebMedium.woff) format("woff"),
+      url(../public/assets/fonts/ttf/IRANSansWebMedium.ttf) format("truetype"),
+      url(../public/assets/fonts/eot/IRANSansMedium.eot) format("eot"),
+      url(../public/assets/fonts/woff2/IRANSansWebMedium.woff2) format("woff2");
     font-weight: 500;
     font-style: normal;
   }
   @font-face {
-    font-family: YekanBakhFaNum;
-    src: url(../public/assets/fonts/webfonts/woff/YekanBakhFaNum-Bold.woff) format("woff"),
-      url(../public/assets/fonts/ttf/YekanBakhFaNum-Bold.ttf) format("truetype"),
-      url(../public/assets/fonts/otf/YekanBakhFaNum-Bold.otf) format("otf"),
-      url(../public/assets/fonts/webfonts/woff2/YekanBakhFaNum-Bold.woff2) format("woff2");
-    font-weight: 600;
-    font-style: normal;
-  }
-  @font-face {
-    font-family: YekanBakhFaNum;
-    src: url(../public/assets/fonts/webfonts/woff/YekanBakhFaNum-ExtraBold.woff) format("woff"),
-      url(../public/assets/fonts/ttf/YekanBakhFaNum-ExtraBold.ttf) format("truetype"),
-      url(../public/assets/fonts/otf/YekanBakhFaNum-ExtraBold.otf) format("otf"),
-      url(../public/assets/fonts/webfonts/woff2/YekanBakhFaNum-ExtraBold.woff2) format("woff2");
+    font-family: iranSans;
+    src: url(../public/assets/fonts/woff/IRANSansWebBold.woff) format("woff"),
+      url(../public/assets/fonts/ttf/IRANSansWebBold.ttf) format("truetype"),
+      url(../public/assets/fonts/eot/IRANSansWebBold.eot) format("eot"),
+      url(../public/assets/fonts/woff2/IRANSansWebBold.woff2) format("woff2");
     font-weight: 700;
-    font-style: normal;
-  }
-  @font-face {
-    font-family: YekanBakhFaNum;
-    src: url(../public/assets/fonts/webfonts/woff/YekanBakhFaNum-Black.woff) format("woff"),
-      url(../public/assets/fonts/ttf/YekanBakhFaNum-Black.ttf) format("truetype"),
-      url(../public/assets/fonts/otf/YekanBakhFaNum-Black.otf) format("otf"),
-      url(../public/assets/fonts/webfonts/woff2/YekanBakhFaNum-Black.woff2) format("woff2");
-    font-weight: 800;
-    font-style: normal;
-  }
-  @font-face {
-    font-family: YekanBakhFaNum;
-    src: url(../public/assets/fonts/webfonts/woff/YekanBakhFaNum-ExtraBlack.woff) format("woff"),
-      url(../public/assets/fonts/ttf/YekanBakhFaNum-ExtraBlack.ttf) format("truetype"),
-      url(../public/assets/fonts/otf/YekanBakhFaNum-ExtraBlack.otf) format("otf"),
-      url(../public/assets/fonts/webfonts/woff2/YekanBakhFaNum-ExtraBlack.woff2) format("woff2");
-    font-weight: 900;
     font-style: normal;
   }
 
@@ -114,7 +87,7 @@ input[type=number] {
 
 
 body, .Toastify__toast-body {
-    font-family: "YekanBakhFaNum";
+    font-family: "iranSans";
 }
 
 li {

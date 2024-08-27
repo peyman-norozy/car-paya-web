@@ -51,9 +51,8 @@ const Page = (props) => {
       </ul>
       <button
         type={"button"}
-        className={
-          "lg:w-[204px] w-[130px] h-10 bg-[#F66B34] rounded-[8px] text-[#FEFEFE] mt-6 lg:text-14 text-12"
-        }
+        disabled={!selectedTime}
+        className={`lg:w-[204px] w-[130px] h-10 ${!selectedTime ? "bg-stone-400" : "bg-[#F66B34]"} rounded-[8px] text-[#FEFEFE] mt-6 lg:text-14 text-12`}
         onClick={onclick}
       >
         تایید و مرحله بعد

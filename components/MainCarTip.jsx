@@ -22,7 +22,7 @@ const MainCarTip = (props) => {
   const [setLoginToken, setSetLoginToken] = useState("");
   const [newPhoneNumber, setNewPhoneNumber] = useState("");
   const [carData, setCarData] = useState({});
-  const searchParams = useSearchParams()
+  const searchParams = useSearchParams();
   const router = useRouter();
   const dispatch = useDispatch();
 
@@ -60,21 +60,21 @@ const MainCarTip = (props) => {
   };
 
   const sendCarTipHandler = () => {
-    const formData = new FormData();
-    formData.set("car_tip_id", newTipId);
-    axios
-      .post(process.env.BASE_API + "/web" + API_PATHS.ADDCAR, formData)
-      .then((res) => {
-        if (res.status === 200) {
-          success("ارسال موفقیت آمیز بود");
-          setNewTipId(null);
-          props.setMainTipDisplay(false);
-          props.setMainBrandModalDisplay(true);
-        }
-      })
-      .catch((e) => {
-        console.log(e);
-      });
+    // const formData = new FormData();
+    // formData.set("car_tip_id", newTipId);
+    // axios
+    //   .post(process.env.BASE_API + "/web" + API_PATHS.ADDCAR, formData)
+    //   .then((res) => {
+    //     if (res.status === 200) {
+    //       success("ارسال موفقیت آمیز بود");
+    //       setNewTipId(null);
+    //       props.setMainTipDisplay(false);
+    //       props.setMainBrandModalDisplay(true);
+    //     }
+    //   })
+    //   .catch((e) => {
+    //     console.log(e);
+    //   });
   };
 
   const phoneNumberHandler = (event) => {

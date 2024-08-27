@@ -4,6 +4,7 @@ import moment from "jalali-moment";
 import React, { useEffect, useRef, useState } from "react";
 import { useDraggable } from "react-use-draggable-scroll";
 const TimeSelectorCard = (props) => {
+  moment.locale("fa");
   const ref = useRef(); // We will use React useRef hook to reference the wrapping div:
   const { events } = useDraggable(ref);
   const [accordionHeight, setAccordionHeight] = useState(0);
@@ -18,7 +19,6 @@ const TimeSelectorCard = (props) => {
   };
 
   useEffect(() => {
-    moment.locale("fa");
     const updateHeight = () => {
       if (window.innerWidth >= 1024) {
         // lg breakpoint

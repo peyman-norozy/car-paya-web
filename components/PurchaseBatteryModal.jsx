@@ -59,6 +59,20 @@ const PurchaseBatteryModal = (props) => {
     setIsSelected(index);
     console.log(totalPrice, productId, id);
     if (id === "noneOldBattery") {
+      if (pathName.startsWith("/batteries")) {
+        if (props.batteryIsSelected) {
+          localStorage.setItem(
+            "batteryTotalPrice",
+            JSON.stringify({
+              price: nobatteriesData.calculation.payment_price,
+              productId: batteriesData.id,
+              vehicle_tip_id: JSON.parse(
+                localStorage.getItem("selectedVehicle"),
+              )?.id,
+            }),
+          );
+        }
+      }
       setTotalPrice({
         price: nobatteriesData.calculation.payment_price,
         productId: productId,
@@ -66,12 +80,40 @@ const PurchaseBatteryModal = (props) => {
       });
     } else if (id === "selectAmper") {
       console.log(cityId);
+      if (pathName.startsWith("/batteries")) {
+        if (props.batteryIsSelected) {
+          localStorage.setItem(
+            "batteryTotalPrice",
+            JSON.stringify({
+              price: 0,
+              productId: batteriesData.id,
+              vehicle_tip_id: JSON.parse(
+                localStorage.getItem("selectedVehicle"),
+              )?.id,
+            }),
+          );
+        }
+      }
       setTotalPrice({
         price: 0,
         productId: batteriesData.id,
         vehicle_tip_id: JSON.parse(localStorage.getItem("selectedVehicle"))?.id,
       });
     } else if (id === "oldSameAmperBattery") {
+      if (pathName.startsWith("/batteries")) {
+        if (props.batteryIsSelected) {
+          localStorage.setItem(
+            "batteryTotalPrice",
+            JSON.stringify({
+              price: sameAmpBattery.calculation,
+              productId: batteriesData.id,
+              vehicle_tip_id: JSON.parse(
+                localStorage.getItem("selectedVehicle"),
+              )?.id,
+            }),
+          );
+        }
+      }
       setTotalPrice({
         price: sameAmpBattery.calculation,
         productId: batteriesData.id,
@@ -86,8 +128,28 @@ const PurchaseBatteryModal = (props) => {
   const clickSelectTimeHandler = async () => {
     console.log(batteriesData.id);
     console.log(allParams.get("provience_city_id"));
+
+    // const data = await postData("/web/cart/remove", {
+    //   cartable_id: JSON.parse(localStorage.getItem("batteryTotalPrice"))
+    //     ?.productId,
+    //   cartable_type: "BATTERIES",
+    //   vehicle_tip_id: JSON.parse(localStorage.getItem("selectedVehicle"))?.id,
+    // });
+
+    // if (data.status === 200) {
+    //   localStorage.setItem("batteryTotalPrice", JSON.stringify(totalPrice));
+    // }
+    // console.localStorageog(data);
+
+    // if (pathName.startsWith("/batteries")) {
+    //   if (props.batteryIsSelected) {
+    //     localStorage.setItem("batteryTotalPrice", JSON.stringify(totalPrice));
+    //   }
+    // }
+
     const cartData = await postData("/web/cart/add", {
-      cartable_id: batteriesData.id,
+      cartable_id: JSON.parse(localStorage.getItem("batteryTotalPrice"))
+        ?.productId,
       cartable_type: pathName.split("/")[1].toUpperCase().split("-").join("_"),
       vehicle_tip_id: JSON.parse(localStorage.getItem("selectedVehicle"))?.id,
       step: "step-1",
@@ -182,7 +244,7 @@ const PurchaseBatteryModal = (props) => {
   useEffect(() => {
     if (props.batteryIsSelected) {
       console.log(batteriesData);
-      setIsSelected(0);
+      // setIsSelected(0);
       (async () => {
         const getBatteriesData = await getDataWithFullErrorRes(
           "/web/reservation/battery?step=step-1",
@@ -267,111 +329,134 @@ const PurchaseBatteryModal = (props) => {
     // }
   }, [isSelected]);
 
-  useEffect(() => {
-    if (pathName.startsWith("/batteries")) {
-      localStorage.setItem("batteryTotalPrice", JSON.stringify(totalPrice));
-    }
-  }, [pathName, totalPrice]);
+  // useEffect(() => {
+  //   if (pathName.startsWith("/batteries")) {
+  //     if (props.batteryIsSelected) {
+  //       localStorage.setItem("batteryTotalPrice", JSON.stringify(totalPrice));
+  //     }
+  //   }
+  // }, [totalPrice]);
 
   console.log(totalPrice);
+  console.log(batteriesData);
 
   return (
-    <div className="rounded-10 overflow-hidden w-full shadow-[0_0_5px_0_rgba(0,0,0,0.4)]">
-      <div className="bg-[#eaeaea] flex items-center justify-between px-[1.25rem] py-[1rem]">
-        <h2 className="text-18">خرید باطری</h2>
-        {/*<Image*/}
-        {/*  src={cross}*/}
-        {/*  alt=""*/}
-        {/*  width={20}*/}
-        {/*  height={20}*/}
-        {/*  onClick={() => setBatteryIsSelected(false)}*/}
-        {/*  className="cursor-pointer"*/}
-        {/*/>*/}
-      </div>
-      <div className="bg-white w-full py-[1.75rem] px-[1.25rem]">
-        <div>
-          {purchseOptions.map((item, index) => (
-            <div
-              key={index}
-              className="flex size746:flex-row flex-col items-center justify-between gap-[0.75rem] py-[1rem] mb-[0.25rem] border-b-[1px] border-b-[#C0C0C0]"
-              onClick={selectPriceHandler}
-              price={item.price}
-            >
-              <div className={"flex items-center gap-2"}>
-                <GreenCheckInput
-                  isSelected={isSelected === index}
-                  on_click={() =>
-                    selectOptionHandler(
-                      index,
-                      item.price,
-                      item.productId,
-                      item.id,
-                    )
-                  }
-                  class_name="rounded-[50%] cursor-pointer self-start"
-                />
-                <h3 className={`text-14 size1000:text-16`}>
-                  <span> {item.title}</span>
-                  {item.id === "selectAmper" ? (
-                    <div className={"mt-4"}>
-                      <ProfileEditeSelectInput
-                        type={"text"}
-                        icon={"cc-edit"}
-                        title={"انتخاب آمپر"}
-                        data={amperSelectData}
-                        height={"h-[200px]"}
-                        disabled={isSelected !== 1}
-                        // star={true}
-                        relation={false}
-                        // setCitiesData={setCitiesData}
-                        // setProvinces={setProvinces}
-                        setCity={setSelectOption}
-                        setCityId={setCityId}
-                        selectOptionData={selectOption}
-                        // setProvincesId={setProvincesId}
-                        name={"select_amper"}
-                        id={"select_amper"}
-                      />
-                    </div>
-                  ) : (
-                    ""
-                  )}
-                </h3>
-              </div>
-              <div className="flex mr-[0.2rem] size933:mr-[1rem]">
-                <p className="mt-[0.5rem] flex items-center gap-2">
-                  {item.price.toString().split("")[0] === "-"
-                    ? numberWithCommas(item.price)
-                    : "+" + numberWithCommas(item.price)}
-                  <span>تومان</span>
-                </p>
-                {/*<Image src={Toman} alt="" width={20} height={20} />*/}
-              </div>
+    <>
+      <div
+        className={`${!props.batteryIsSelected ? "hidden" : "fixed"} top-0 right-0 h-screen w-screen bg-[#4c4c4caa] z-[20000] transition-all`}
+        onClick={() => {
+          props.setBatteryIsSelected(false);
+          setIsSelected(false);
+          localStorage.removeItem("batteryTotalPrice");
+          // localStorage.setItem(
+          //   "batteryTotalPrice",
+          //   JSON.stringify({ price: 0, productId: "", vehicle_tip_id: 0 }),
+          // );
+        }}
+      ></div>
+      <div
+        className={`w-[75%] size900:w-[50%] m-auto fixed transition-all duration-1000 ${props.batteryIsSelected ? "top-[50%]" : "top-[-60%]"} left-[50%] translate-x-[-50%] translate-y-[-50%] z-[20000]`}
+      >
+        <div className="rounded-10 overflow-hidden w-full shadow-[0_0_5px_0_rgba(0,0,0,0.4)]">
+          <div className="bg-[#eaeaea] flex items-center justify-between px-[1.25rem] py-[1rem]">
+            <h2 className="text-18">خرید باطری</h2>
+            {/*<Image*/}
+            {/*  src={cross}*/}
+            {/*  alt=""*/}
+            {/*  width={20}*/}
+            {/*  height={20}*/}
+            {/*  onClick={() => setBatteryIsSelected(false)}*/}
+            {/*  className="cursor-pointer"*/}
+            {/*/>*/}
+          </div>
+          <div className="bg-white w-full py-[1.75rem] px-[1.25rem]">
+            <div>
+              {purchseOptions.map((item, index) => (
+                <div
+                  key={index}
+                  className="flex size746:flex-row flex-col items-center justify-between gap-[0.75rem] py-[1rem] mb-[0.25rem] border-b-[1px] border-b-[#C0C0C0]"
+                  onClick={selectPriceHandler}
+                  price={item.price}
+                >
+                  <div className={"flex items-center gap-2"}>
+                    <GreenCheckInput
+                      isSelected={isSelected === index}
+                      on_click={() =>
+                        selectOptionHandler(
+                          index,
+                          item.price,
+                          item.productId,
+                          item.id,
+                        )
+                      }
+                      class_name="rounded-[50%] cursor-pointer self-start"
+                    />
+                    <h3 className={`text-14 size1000:text-16`}>
+                      <span> {item.title}</span>
+                      {item.id === "selectAmper" ? (
+                        <div className={"mt-4"}>
+                          <ProfileEditeSelectInput
+                            type={"text"}
+                            icon={"cc-edit"}
+                            title={"انتخاب آمپر"}
+                            data={amperSelectData}
+                            height={"h-[200px]"}
+                            disabled={isSelected !== 1}
+                            // star={true}
+                            relation={false}
+                            // setCitiesData={setCitiesData}
+                            // setProvinces={setProvinces}
+                            setCity={setSelectOption}
+                            setCityId={setCityId}
+                            selectOptionData={selectOption}
+                            // setProvincesId={setProvincesId}
+                            name={"select_amper"}
+                            id={"select_amper"}
+                          />
+                        </div>
+                      ) : (
+                        ""
+                      )}
+                    </h3>
+                  </div>
+                  <div className="flex mr-[0.2rem] size933:mr-[1rem]">
+                    <p className="mt-[0.5rem] flex items-center gap-2">
+                      {item.price.toString().split("")[0] === "-"
+                        ? numberWithCommas(item.price)
+                        : "+" + numberWithCommas(item.price)}
+                      <span>تومان</span>
+                    </p>
+                    {/*<Image src={Toman} alt="" width={20} height={20} />*/}
+                  </div>
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
 
-        <div className="flex size746:flex-row flex-col size746:gap-0 gap-4 items-center justify-between py-[1.5rem]">
-          <div className="flex items-center gap-[0.25rem] size1000:gap-[0.5rem]">
-            <p className={"size746:text-[16px] text-14"}>مبلغ قابل پرداخت: </p>
-            <div className="flex size1000:mr-[1rem]">
-              <p className="size746:text-[16px] text-14">
-                <span> {numberWithCommas(totalPrice.price)} </span>
-                <span>تومان </span>
-              </p>
-              {/*<Image src={Toman} alt="" width={20} height={20}/>*/}
+            <div className="flex size746:flex-row flex-col size746:gap-0 gap-4 items-center justify-between py-[1.5rem]">
+              <div className="flex items-center gap-[0.25rem] size1000:gap-[0.5rem]">
+                <p className={"size746:text-[16px] text-14"}>
+                  مبلغ قابل پرداخت:{" "}
+                </p>
+                <div className="flex size1000:mr-[1rem]">
+                  <p className="size746:text-[16px] text-14">
+                    <span> {numberWithCommas(totalPrice.price)} </span>
+                    <span>تومان </span>
+                  </p>
+                  {/*<Image src={Toman} alt="" width={20} height={20}/>*/}
+                </div>
+              </div>
+              <Button
+                class_name="bg-[#3aab38] rounded-10 hover:shadow-[0_0_5px_0_rgba(0,0,0,0.4)] flex items-center justify-center ga-[0.25rem] text-white px-[1.5rem] py-[0.5rem]"
+                on_click={clickSelectTimeHandler}
+              >
+                <p>اضافه به سبد خرید</p>
+                {/*<Image src={arrowLeft} alt="" height={20} width={20} />*/}
+              </Button>
             </div>
           </div>
-          <Button
-            class_name="bg-[#3aab38] rounded-10 hover:shadow-[0_0_5px_0_rgba(0,0,0,0.4)] flex items-center justify-center ga-[0.25rem] text-white px-[1.5rem] py-[0.5rem]"
-            on_click={clickSelectTimeHandler}
-          >
-            <p> تایید و ادامه</p>
-            {/*<Image src={arrowLeft} alt="" height={20} width={20} />*/}
-          </Button>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
