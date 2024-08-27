@@ -54,8 +54,9 @@ const BatteriesCard = (props) => {
     if (batteryBasketLength) {
       error("فقط یک محصول میتوانید به سبد خرید خود اضافه کنید");
     } else if (
+      batteryBasketLength &&
       props.item.id ===
-      JSON.parse(localStorage.getItem("batteryTotalPrice"))?.productId
+        JSON.parse(localStorage.getItem("batteryTotalPrice"))?.productId
     ) {
       error("باتری برای این وسیله نقلیه انتخاب شده است");
     } else if (CityId && selectedVehicleId) {
@@ -95,7 +96,7 @@ const BatteriesCard = (props) => {
               "absolute top-0 right-0 flex justify-center items-center text-white text-[14px] rounded-bl-[20px] bg-[#E61919] w-[60px] h-[40px]"
             }
           >
-            30%
+            {props.item.discounted_percent}%
           </span>
         </div>
         <div className={"flex-1"}>

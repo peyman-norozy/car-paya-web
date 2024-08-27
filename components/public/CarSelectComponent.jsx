@@ -149,7 +149,7 @@ const CarSelectComponent = (props) => {
     // console.log(data.data.data.cart_items);
     if (data.status === 200) {
       if (carTableType === "BATTERIES") {
-        setCarSelected(false);
+        // setCarSelected(false);
         localStorage.removeItem("selectedVehicle");
         localStorage.removeItem("batteryTotalPrice");
         nProgress.start();

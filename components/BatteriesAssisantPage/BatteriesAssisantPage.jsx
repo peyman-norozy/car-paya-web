@@ -3,14 +3,18 @@ import React, { useState } from "react";
 import { error, numberWithCommas } from "@/utils/function-utils";
 import Button from "@/components/Button";
 import { setBatteriesData } from "@/store/todoSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import PurchaseBatteryModal from "@/components/PurchaseBatteryModal";
 import { ToastContainer } from "react-toastify";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 
 const BatteriesAssisantPage = (props) => {
+  const batteryBasketLength = useSelector(
+    (item) => item.todo.batteriesBasketLength,
+  );
   const [batteryIsSelected, setBatteryIsSelected] = useState(false);
+  const [batteryProductId, setBatteryProductId] = useState(null);
   const [filterButtery, setFilterButtery] = useState({});
   const searchParams = useSearchParams();
   const dispatch = useDispatch();
@@ -21,7 +25,15 @@ const BatteriesAssisantPage = (props) => {
       localStorage.getItem("selectedVehicle"),
     )?.id;
     if (Object.keys(filterButtery).length > 0) {
-      if (CityId && selectedVehicleId) {
+      if (batteryBasketLength) {
+        error("فقط یک محصول میتوانید به سبد خرید خود اضافه کنید");
+      } else if (
+        batteryBasketLength &&
+        batteryProductId ===
+          JSON.parse(localStorage.getItem("batteryTotalPrice"))?.productId
+      ) {
+        error("باتری برای این وسیله نقلیه انتخاب شده است");
+      } else if (CityId && selectedVehicleId) {
         setBatteryIsSelected(true);
         dispatch(setBatteriesData(filterButtery));
       } else if (!CityId) {
@@ -36,6 +48,7 @@ const BatteriesAssisantPage = (props) => {
 
   const radioButtonChangeHandler = (id) => {
     console.log(id);
+    setBatteryProductId(id);
     const singleButtery = props.data.data.filter((item) => item.id === id);
     console.log(singleButtery);
     setFilterButtery(...singleButtery);
@@ -142,19 +155,10 @@ const BatteriesAssisantPage = (props) => {
         اضافه به سبد خرید
       </Button>
 
-      <div
-        className={`${!batteryIsSelected ? "hidden" : "fixed"} inset-0 h-full w-full bg-[#4c4c4caa] z-[20000] transition-all`}
-        onClick={() => setBatteryIsSelected(false)}
-      ></div>
-
-      <div
-        className={`w-[75%] size900:w-[50%] m-auto fixed transition-all duration-1000 ${batteryIsSelected ? "top-[50%]" : "top-[-60%]"} left-[50%] translate-x-[-50%] translate-y-[-50%] z-[20000]`}
-      >
-        <PurchaseBatteryModal
-          setBatteryIsSelected={setBatteryIsSelected}
-          batteryIsSelected={batteryIsSelected}
-        />
-      </div>
+      <PurchaseBatteryModal
+        setBatteryIsSelected={setBatteryIsSelected}
+        batteryIsSelected={batteryIsSelected}
+      />
       <ToastContainer rtl={true} />
     </div>
   );
