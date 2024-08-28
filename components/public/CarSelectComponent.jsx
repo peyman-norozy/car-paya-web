@@ -239,7 +239,6 @@ const CarSelectComponent = (props) => {
       setLevel(level2 + 1);
     } else {
       setQuery.updateQueryParams({ selectTipState: `true,${id}` }, "");
-      console.log(item);
       
       localStorage.setItem(
         "selectedVehicle",
@@ -329,6 +328,7 @@ const CarSelectComponent = (props) => {
     } else if (pathname.startsWith("/")) {
       localStorage.removeItem("selectedVehicle");
     }
+    dispatch(renderSetCar());
   }
 
   function backClickHandler() {
@@ -340,7 +340,6 @@ const CarSelectComponent = (props) => {
     }
   }
 
-  console.log(invoiceData);
 
   if (
     !pathname.includes("/invoice") &&
