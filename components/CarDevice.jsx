@@ -756,7 +756,7 @@ const CarDevice = (props) => {
                 Object.keys(selectVehicleData).length > 0
                   ? selectVehicleData.carModel &&
                     selectVehicleData.carModel.title
-                  : newEditData.vehicle_model_title
+                  : newEditData.car_model_title
               }
               placeholder={<span className="text-[#aaa]">انتخاب مدل</span>}
               onclick={selectSearchOptionHandler}
