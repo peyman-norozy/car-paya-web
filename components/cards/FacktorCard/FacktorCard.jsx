@@ -5,11 +5,11 @@ import Image from "next/image";
 
 const FacktorCard = () => {
   return (
-    <li className={"p-2 shadow-custom1 rounded-lg"}>
+    <li className={"p-2 shadow-custom1 rounded-lg min-w-[194px]"}>
       <section className={"text-left"}>
         <span className={"text-red-600 text-12 cursor-pointer"}>حذف</span>
       </section>
-      <section className={"flex items-center gap-4"}>
+      <section className={"flex flex-row lg:flex-col items-center gap-4"}>
         <div>
           <Image
             src={"/assets/images/hiclipart.com (3).png"}

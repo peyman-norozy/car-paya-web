@@ -11,7 +11,7 @@ import { ToastContainer } from "react-toastify";
 const HomePage = async () => {
   const data = await getData(`/web/mags`);
   return (
-    <div className="flex flex-col gap-4 lg:gap-9 w-full max-w-[1772px] m-auto lg:mt-32">
+    <div className="flex flex-col gap-4 lg:gap-9 w-full max-w-[1772px] m-auto lg:mt-6">
       <HomePageMainSlider />
       <div className="flex flex-col gap-4 lg:gap-9 w-full lg:w-[calc(100%-424px)] self-end">
         <MainPageServices />

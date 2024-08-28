@@ -339,7 +339,6 @@ const CarSelectComponent = (props) => {
     }
   }
 
-
   if (
     !pathname.includes("/invoice") &&
     !pathname.includes("/panel") &&
@@ -348,7 +347,7 @@ const CarSelectComponent = (props) => {
     return (
       <div className="absolute h-full top-0 right-auto pb-10">
         <div
-          className={`bg-[#383838A3] ${props.isMobile?"h-[550px]":"h-[605px]"} rounded-2xl w-[400px] sticky ${showHeaderData ? "top-[123px]" : "top-[10px]"} right-auto z-[2] backdrop-blur-[16px] p-4 ${props.isMobile ? "flex lg:hidden" : "hidden lg:flex"} flex-col gap-4`}
+          className={`bg-[#383838A3] ${props.isMobile?"h-[550px]":"h-[605px]"} rounded-2xl w-[400px] sticky top-[123px] right-auto z-[2] backdrop-blur-[16px] p-4 ${props.isMobile ? "flex lg:hidden" : "hidden lg:flex"} flex-col gap-4`}
         >
           {carSelected ? (
             <div className="flex flex-col gap-4">
