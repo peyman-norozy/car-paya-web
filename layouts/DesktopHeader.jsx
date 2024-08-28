@@ -14,7 +14,6 @@ import CityModal from "@/components/CityModal/CityModal";
 const DesktopHeader = (props) => {
   const [lastScrollY, setLastScrollY] = useState(0);
   const loginState = useSelector((state) => state.todo.loginState);
-  const showHeaderData = useSelector((state) => state.todo.showHeader);
   const [newLoginState, setNewLoginState] = useState(false);
   const router = useRouter();
   const dispatch = useDispatch();
@@ -60,7 +59,7 @@ const DesktopHeader = (props) => {
 
   return (
     <header
-      className={`${props.className} flex justify-between items-center fixed top-0 right-0 left-0 w-[100wh] z-[1599] pt-[10px] px-12 bg-[#F4F4F4] transition-all ${showHeaderData ? "translate-y-0" : "translate-y-[-100%]"}`}
+      className={`${props.className} flex justify-between items-center w-[100wh] sticky inset-0 z-[1599] pt-[10px] px-12 bg-[#F4F4F4] transition-all`}
     >
       <div
         className={`font-light flex justify-between items-center w-full max-w-[1676px] m-auto bg-[#383838] z-[10000] h-[88px] rounded-2xl py-6 px-8`}
@@ -83,7 +82,9 @@ const DesktopHeader = (props) => {
             }
             onClick={toggleModal}
           >
-            <span className={"inline-block w-fit text-16 font-semibold"}>تهران</span>
+            <span className={"inline-block w-fit text-16 font-semibold"}>
+              تهران
+            </span>
             <i className={"cc-arrow-down"} />
           </div>
         </div>
