@@ -58,7 +58,7 @@ const ResponsiveHeader = (props) => {
       <header
         className={`${
           props.className
-        } font-light flex justify-between items-center px-[30px] py-[15px] sticky top-0 right-0 left-0 w-[100wh] bg-[#FEFEFE] z-[1599] h-[74px] drop-shadow-[0_1px_5px_rgba(0,0,0,0.08)] ${
+        } font-light flex justify-between items-center px-[30px] py-[15px] sticky top-0 right-0 left-0 w-[100wh] bg-[#FEFEFE] z-[1599] h-[74px] drop-shadow-[0_3px_10px_rgba(0,0,0,0.1)] ${
           pathName === "panel" && params["all-panel-tab"] ? "hidden" : ""
         }`}
         onClick={(event) => {
@@ -108,16 +108,13 @@ const ResponsiveHeader = (props) => {
           childrenProps={props.childrenProps}
         />
       </header>
-          <div className={`bg-[#FDFDFD] text-sm flex items-center justify-between text-[#F58052] font-medium px-4 py-2 rounded-b-lg fixed ${phoneState?"top-[74px]":"top-[38px]"} transition-all right-0 w-full duration-700 z-[1598] drop-shadow-[0_3px_10px_rgba(0,0,0,0.1)]`}>
-          <div className="flex items-center gap-1">
-              <span>58919</span>
-              <i className="cc-calling"/>
-            </div>
-            <div className="flex items-center gap-1">
-              <span>کیف پول</span>
-              <i className="cc-wallet"/>
-            </div>
-          </div>
+      <div
+        className={`bg-[#FDFDFD] gap-1 text-sm flex items-center justify-between text-[#F58052] font-medium px-2 py-1 rounded-b-lg fixed ${phoneState ? "top-[73px]" : "top-[44px]"} transition-all left-8 w-fit duration-700 z-[1598] drop-shadow-[0_1px_5px_rgba(0,0,0,0.08)]`}
+      >
+        <span>58919</span>
+        <i className="cc-calling" />
+      </div>
+
       <CityModal isOpen={cityModalState} onClose={toggleModal} />
     </>
   );

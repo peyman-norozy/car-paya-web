@@ -3,9 +3,6 @@ import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import Image from "next/image";
-import { API_PATHS } from "@/configs/routes.config";
-import moment from "jalali-moment";
-import { EffectCoverflow } from "swiper/modules";
 import { serviceData } from "@/staticData/data";
 
 const HomePageServiceIntroduction = (props) => {
@@ -23,7 +20,9 @@ const HomePageServiceIntroduction = (props) => {
         }}
         className="mySwiper ArticleSlider"
         slidesPerView={"auto"}
-        style={{ width: "92%", padding: "10px" }}
+        style={{ width: "calc(100% - 32px)", marginRight: "16px" , marginLeft: "16px" , paddingTop:"8px" , paddingBottom:"16px"}}
+        centeredSlides={true}
+        loop={true}
       >
         {serviceData.map((item, index) => (
           <SwiperSlide style={{ width: "fit-content" }} key={item.id}>

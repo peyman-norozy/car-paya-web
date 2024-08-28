@@ -83,16 +83,16 @@ function MobileBottomNav(props) {
   };
 
   return (
-    <div className="fixed bottom-1 right-2 z-[2000] flex items-center w-[calc(100vw-16px)] h-[60px] rounded-3xl shadow-[0_4px_4px_0_rgba(160,160,160,0.20)]">
+    <div className="fixed bottom-2 right-2 z-[2000] flex items-center w-[calc(100vw-16px)] h-[60px] rounded-3xl shadow-[0_4px_4px_0_rgba(160,160,160,0.20)]">
       {
         <div
           ref={selectVehicleRef}
           onTouchStart={touchStartHandler}
           onTouchMove={slideDownvehicleHandler}
-          className={`fixed right-0 left-0 w-full bg-[#fff] z-[2002] shadow-[0_0_10px_0_rgba(0,0,0,0.4)] rounded-t-2xl transition-all duration-1000  ${
+          className={`fixed right-0 left-0 w-full bg-[#fff] z-[2002] shadow-[0_0_10px_0_rgba(0,0,0,0.4)] rounded-t-2xl transition-all duration-1000 h-[610px] ${
             modalIsOpen
-              ? "h-[100vh] top-[calc(100vh-670px)] bottom-0"
-              : "h-0 bottom-0 top-[100%]"
+              ? "top-[calc(100%-610px)]"
+              : "h-0 top-[100%]"
           }`}
         >
           <div className="h-[5px] w-[6rem] rounded-[20px] bg-[#333] absolute top-[2.5%] left-[50%] translate-x-[-50%]"></div>
