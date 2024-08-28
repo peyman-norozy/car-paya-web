@@ -1,5 +1,4 @@
 const SelectSearchInputCard = (props) => {
-  console.log(props.item);
   return (
     <li
       onClick={(event) => {
