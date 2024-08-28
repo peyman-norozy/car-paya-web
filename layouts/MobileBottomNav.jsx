@@ -83,7 +83,7 @@ function MobileBottomNav(props) {
   };
 
   return (
-    <div className="fixed bottom-1 right-2 z-[2000] flex items-center w-[calc(100vw-16px)] h-[60px] rounded-3xl shadow-[0_4px_4px_0_rgba(160,160,160,0.20)]">
+    <div className="fixed bottom-2 right-2 z-[2000] flex items-center w-[calc(100vw-16px)] h-[60px] rounded-3xl shadow-[0_4px_4px_0_rgba(160,160,160,0.20)]">
       {
         <div
           ref={selectVehicleRef}

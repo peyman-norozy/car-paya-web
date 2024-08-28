@@ -35,7 +35,7 @@ const HomePageArticleSlider = (props) => {
         modules={[EffectCoverflow]}
         className="mySwiper ArticleSlider"
         slidesPerView={"auto"}
-        style={{ width: "94%" }}
+        style={{ width: "calc(100% - 32px)", marginRight: "16px" , marginLeft: "16px" }}
       >
         {props.data.data.map((item, index) => (
           <SwiperSlide style={{ width: "fit-content" }} key={item.id}>

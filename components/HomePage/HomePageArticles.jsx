@@ -5,8 +5,6 @@ import "swiper/css";
 import Image from "next/image";
 import { API_PATHS } from "@/configs/routes.config";
 import moment from "jalali-moment";
-import { EffectCoverflow } from "swiper/modules";
-import { serviceData } from "@/staticData/data";
 
 const HomePageArticles = (props) => {
   return (
@@ -23,7 +21,9 @@ const HomePageArticles = (props) => {
         }}
         className="mySwiper ArticleSlider"
         slidesPerView={"auto"}
-        style={{ width: "92%" , padding:"5px"}}
+        style={{ width: "calc(100% - 32px)", marginRight: "16px" , marginLeft: "16px" }}
+        centeredSlides={true}
+        loop={true}
       >
         {props.data.data.map((item, index) => (
           <SwiperSlide style={{ width: "fit-content" }} key={item.id}>
