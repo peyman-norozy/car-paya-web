@@ -135,7 +135,6 @@ const CarSelectComponent = (props) => {
   }
 
   async function removeClickHandler(id, serviceType) {
-    console.log(id);
     const carTableType = pathname
       .split("/")[1]
       .toUpperCase()
@@ -349,7 +348,7 @@ const CarSelectComponent = (props) => {
     return (
       <div className="absolute h-full top-0 right-auto pb-10">
         <div
-          className={`bg-[#383838A3] h-[605px] rounded-2xl w-[400px] sticky ${showHeaderData ? "top-[123px]" : "top-[10px]"} right-auto z-[2] backdrop-blur-[16px] p-4 ${props.isMobile ? "flex lg:hidden" : "hidden lg:flex"} flex-col gap-4`}
+          className={`bg-[#383838A3] ${props.isMobile?"h-[550px]":"h-[605px]"} rounded-2xl w-[400px] sticky ${showHeaderData ? "top-[123px]" : "top-[10px]"} right-auto z-[2] backdrop-blur-[16px] p-4 ${props.isMobile ? "flex lg:hidden" : "hidden lg:flex"} flex-col gap-4`}
         >
           {carSelected ? (
             <div className="flex flex-col gap-4">
@@ -404,7 +403,6 @@ const CarSelectComponent = (props) => {
                     <div className="flex flex-col gap-3 h-[292px] overflow-y-scroll">
                       {invoiceData.data &&
                         invoiceData.data.map((item, index) => {
-                          console.log(item);
                           return item.vehicle_tip_id ===
                             JSON.parse(localStorage.getItem("selectedVehicle"))
                               ?.id ? (
@@ -566,9 +564,9 @@ const CarSelectComponent = (props) => {
                   />
                 </div>
                 <div
-                  className={`${myVehicleData.length ? "h-[320px]" : "h-[363px]"} overflow-y-scroll mt-2 overflow-x-hidden`}
+                  className={`${myVehicleData.length ? props.isMobile?"h-[270px]":"h-[320px]" : props.isMobile?"h-[310px]":"h-[363px]"} overflow-y-scroll mt-2 overflow-x-hidden`}
                 >
-                  <div className="grid grid-cols-3 gap-x-8 gap-y-[42px]">
+                  <div className={`grid grid-cols-3 gap-x-8 ${props.isMobile?"gap-y-[16px]":"gap-y-[42px]"}`}>
                     {searchedData.map((item, index) => (
                       <div
                         className="flex flex-col items-center gap-2 cursor-pointer hover:scale-110 transition-all duration-300"
