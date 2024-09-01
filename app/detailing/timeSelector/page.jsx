@@ -12,14 +12,14 @@
 //
 //   useEffect(() => {
 //     (async () => {
-//       const fatchData = await getCurrentData("/web/detailing?step=step-3", {
+//       const fetchData = await getCurrentData("/web/detailing?step=step-3", {
 //         vehicle_tip_id: searchParams.get("selectTipState").split(",")[1],
 //         type: searchParams.get("type"),
 //         city_id: searchParams.get("city_id"),
 //         service_location_id: searchParams.get("service_location_id"),
 //         package_id: searchParams.get("package_id"),
 //       });
-//       console.log(fatchData);
+//       console.log(fetchData);
 //
 //     })();
 //   }, []);
@@ -60,7 +60,7 @@ const Page = (props) => {
   console.log(props);
   useEffect(() => {
     (async () => {
-      const fatchData = await getCurrentData("/web/detailing?step=step-3", {
+      const fetchData = await getCurrentData("/web/detailing?step=step-3", {
         vehicle_tip_id: searchParams.get("selectTipState").split(",")[1],
         type: searchParams.get("type"),
         city_id: searchParams.get("city_id"),
@@ -68,9 +68,9 @@ const Page = (props) => {
         package_id: searchParams.get("package_id"),
       });
       setData(
-        Object.keys(fatchData.data["time-reserve"]).map((key) => ({
+        Object.keys(fetchData.data["time-reserve"]).map((key) => ({
           day: key,
-          hour: fatchData.data["time-reserve"][key],
+          hour: fetchData.data["time-reserve"][key],
         })),
       );
     })();
