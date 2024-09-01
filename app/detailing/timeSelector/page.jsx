@@ -78,7 +78,7 @@ const Page = (props) => {
 
   function onclick() {
     setQuery.updateQueryParams(
-      { time_id: selectedTime, type: "MOVING" },
+      { time_id: selectedTime, type: searchParams.get("type") },
       "/detailing/invoice",
     );
   }
