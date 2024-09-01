@@ -32,7 +32,7 @@ const SelectServiceCard = (props) => {
     if (cartData.status === 200 || cartData.status === 201) {
       console.log(cartData.data);
       setQuery.updateQueryParams(
-        { package_id: props.data.id },
+        { package_id: productId },
         "/detailing/timeSelector",
       );
     } else if (cartData.response.status === 422) {
@@ -60,7 +60,7 @@ const SelectServiceCard = (props) => {
           "/web" +
           API_PATHS.FILE +
           "/" +
-          props.data.image
+          props.data.image_id
         }
         width={125}
         height={125}
