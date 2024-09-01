@@ -544,15 +544,15 @@ const CarDevice = (props) => {
       axios
         .all(endpoints.map((endpoint) => axios.get(endpoint)))
         .then((data) => {
-          if (data[0].data.data[0]) {
-            setNewImage(
-              process.env.BASE_API +
-                "/web" +
-                API_PATHS.FILE +
-                "/" +
-                data[0].data.data[0].image,
-            );
-          }
+          // if (data[0].data.data[0]) {
+          //   setNewImage(
+          //     process.env.BASE_API +
+          //       "/web" +
+          //       API_PATHS.FILE +
+          //       "/" +
+          //       data[0].data.data[0].image,
+          //   );
+          // }
           setNewModel(data[0].data.data);
           setNewTip(data[1].data.data);
           setNewYear(data[2].data.data);
@@ -597,7 +597,6 @@ const CarDevice = (props) => {
 
   useEffect(() => {
     if (Object.keys(selectVehicleData).length > 0) {
-      console.log(selectVehicleData.carModel);
       if (selectVehicleData.carModel) {
         setNewImage(
           process.env.BASE_API +
@@ -688,6 +687,7 @@ const CarDevice = (props) => {
       setNewFinePrice(newEditData.info ? newEditData.info.fine_price : "");
       setMotorPlaque_0(newEditData.info ? newEditData.info.plaque[0] : "");
       setMotorPlaque_1(newEditData.info ? newEditData.info.plaque[1] : "");
+      newEditData.image_id&&setNewImage(process.env.BASE_API+"/web"+API_PATHS.FILE+"/"+newEditData.image_id);
     }
   }, [newEditData]);
 
@@ -700,6 +700,7 @@ const CarDevice = (props) => {
         <h1 className={"text-[#FEFEFE]"}>خودرو</h1>
         <div className={"grid size800:grid-cols-2 grid-cols-1 gap-[32px]"}>
           <section className="flex justify-center items-center rounded-[10px] flex-[1]">
+            {console.log(newImage)}
             <Image
               src={
                 newImage && newImage !== null
@@ -756,7 +757,7 @@ const CarDevice = (props) => {
                 Object.keys(selectVehicleData).length > 0
                   ? selectVehicleData.carModel &&
                     selectVehicleData.carModel.title
-                  : newEditData.vehicle_model_title
+                  : newEditData.car_model_title
               }
               placeholder={<span className="text-[#aaa]">انتخاب مدل</span>}
               onclick={selectSearchOptionHandler}

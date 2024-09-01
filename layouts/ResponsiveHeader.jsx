@@ -53,14 +53,13 @@ const ResponsiveHeader = (props) => {
     }
   }, [lastScrollY]);
 
+  //${pathName === "panel" && params["all-panel-tab"] ? "hidden" : ""}
   return (
     <>
       <header
         className={`${
           props.className
-        } font-light flex justify-between items-center px-[30px] py-[15px] sticky top-0 right-0 left-0 w-[100wh] bg-[#FEFEFE] z-[1599] h-[74px] drop-shadow-[0_3px_10px_rgba(0,0,0,0.1)] ${
-          pathName === "panel" && params["all-panel-tab"] ? "hidden" : ""
-        }`}
+        } font-light flex justify-between items-center px-[30px] py-[15px] sticky top-0 right-0 left-0 w-[100wh] bg-[#FEFEFE] z-[1599] h-[74px] drop-shadow-[0_3px_10px_rgba(0,0,0,0.1)] `}
         onClick={(event) => {
           event.target !== hambergerRef.current && setNewMenueState(true);
           asideHambergerMenuRef.current === event.target &&

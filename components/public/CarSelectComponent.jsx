@@ -69,7 +69,7 @@ const CarSelectComponent = (props) => {
   useEffect(() => {
     (async () => {
       const data = await getDataWithFullErrorRes(
-        process.env.BASE_API + "/web/my-vehicles",
+        process.env.BASE_API + "/web/my-vehicles"
       );
       if (data.status && data.status === "success") {
         setMyVehicleData(data.data);
@@ -106,7 +106,7 @@ const CarSelectComponent = (props) => {
     setSearchedData(
       data.filter((item) => {
         return item.title.includes(value);
-      }),
+      })
     );
   }
 
@@ -120,7 +120,6 @@ const CarSelectComponent = (props) => {
       cartable_type: cartableType,
       vehicle_tip_id: JSON.parse(localStorage.getItem("selectedVehicle"))?.id,
     });
-    console.log(data);
     if (data.data?.status === "success") {
       let totalPrice = 0;
       for (let item of data.data.data) {
@@ -153,7 +152,7 @@ const CarSelectComponent = (props) => {
         localStorage.removeItem("batteryTotalPrice");
         nProgress.start();
         router.push(
-          `/batteries/products?attribute_slug=type_vehicle&attribute_value=${attributeValue ? attributeValue : "car"}`,
+          `/batteries/products?attribute_slug=type_vehicle&attribute_value=${attributeValue ? attributeValue : "car"}`
         );
       }
       let totalPrice = 0;
@@ -238,7 +237,7 @@ const CarSelectComponent = (props) => {
       setLevel(level2 + 1);
     } else {
       setQuery.updateQueryParams({ selectTipState: `true,${id}` }, "");
-      
+
       localStorage.setItem(
         "selectedVehicle",
         JSON.stringify({
@@ -247,9 +246,10 @@ const CarSelectComponent = (props) => {
           brand: item.title_brand,
           model: item.title_model,
           image: item.image,
-        }),
+        })
       );
       setCarSelected(true);
+      props.setModalIsOpen && props.setModalIsOpen(false);
       dispatch(renderSetCar());
       // axios
       //   .post(process.env.BASE_API + "/web" + API_PATHS.ADDCAR, {
@@ -290,7 +290,7 @@ const CarSelectComponent = (props) => {
     if (JSON.parse(localStorage.getItem("batteryTotalPrice"))?.productId) {
       await removeClickHandler(
         JSON.parse(localStorage.getItem("batteryTotalPrice")).productId,
-        "BATTERIES",
+        "BATTERIES"
       );
       setCarSelected(false);
       localStorage.removeItem("batteryTotalPrice");
@@ -302,13 +302,13 @@ const CarSelectComponent = (props) => {
     } else if (pathname.startsWith("/batteries")) {
       if (JSON.parse(localStorage.getItem("batteryTotalPrice"))?.productId) {
         await removeClickHandler(
-          JSON.parse(localStorage.getItem("batteryTotalPrice")).productId,
+          JSON.parse(localStorage.getItem("batteryTotalPrice")).productId
         );
       } else {
         setCarSelected(false);
         nProgress.start();
         router.push(
-          `/batteries/products?attribute_slug=type_vehicle&attribute_value=${attributeValue ? attributeValue : "car"}`,
+          `/batteries/products?attribute_slug=type_vehicle&attribute_value=${attributeValue ? attributeValue : "car"}`
         );
         localStorage.removeItem("selectedVehicle");
       }
@@ -316,13 +316,13 @@ const CarSelectComponent = (props) => {
       localStorage.removeItem("selectedVehicle");
       nProgress.start();
       router.push(
-        `/detailing?attribute_slug=type_vehicle&attribute_value=${attributeValue ? attributeValue : "car"}`,
+        `/detailing?attribute_slug=type_vehicle&attribute_value=${attributeValue ? attributeValue : "car"}`
       );
     } else if (pathname.startsWith("/periodic-service")) {
       localStorage.removeItem("selectedVehicle");
       nProgress.start();
       router.push(
-        `/periodic-service?attribute_slug=type_vehicle&attribute_value=${attributeValue ? attributeValue : "car"}`,
+        `/periodic-service?attribute_slug=type_vehicle&attribute_value=${attributeValue ? attributeValue : "car"}`
       );
     } else if (pathname.startsWith("/")) {
       localStorage.removeItem("selectedVehicle");
@@ -339,7 +339,6 @@ const CarSelectComponent = (props) => {
     }
   }
 
-
   if (
     !pathname.includes("/invoice") &&
     !pathname.includes("/panel") &&
@@ -348,7 +347,7 @@ const CarSelectComponent = (props) => {
     return (
       <div className="absolute h-full top-0 right-auto pb-10">
         <div
-          className={`bg-[#383838A3] ${props.isMobile?"h-[550px]":"h-[605px]"} rounded-2xl w-[400px] sticky ${showHeaderData ? "top-[123px]" : "top-[10px]"} right-auto z-[2] backdrop-blur-[16px] p-4 ${props.isMobile ? "flex lg:hidden" : "hidden lg:flex"} flex-col gap-4`}
+          className={`bg-[#F8F8F8] ${props.isMobile ? "h-[550px]" : "h-[605px]"} rounded-2xl w-[400px] sticky top-[123px] right-auto z-[2] backdrop-blur-[16px] p-4 ${props.isMobile ? "flex lg:hidden" : "hidden lg:flex"} flex-col gap-4 shadow-[0_0_8px_0_rgba(175,175,175,0.25)]`}
         >
           {carSelected ? (
             <div className="flex flex-col gap-4">
@@ -365,19 +364,15 @@ const CarSelectComponent = (props) => {
                 className="w-[60%] aspect-auto m-auto"
               />
               <div className="flex justify-between items-center">
-                <div className="flex gap-1 font-bold text-18 text-[#FEFEFE] border-r-[5px] border-[#c0c0c0] leading-6 pr-2 items-start">
-                  <span>
-                    {selectedCar.brand}
-                  </span>
-                  <span>
-                    {selectedCar.model}
-                  </span>
-                  <span className="text-12 text-[#969696]">
+                <div className="flex gap-1 font-bold text-18 text-[#000000] border-r-[5px] border-[#c0c0c0] leading-6 pr-2 items-start">
+                  <span>{selectedCar.brand}</span>
+                  <span>{selectedCar.model}</span>
+                  <span className="text-12 text-[#747474]">
                     ( {selectedCar.title} )
                   </span>
                 </div>
                 <button
-                  className="text-[#F66B34] text-16 cursor-pointer font-medium"
+                  className="text-[#F58052] text-16 cursor-pointer font-medium"
                   onClick={changeVehicleClickHandler}
                 >
                   تغییر وسیله نقلیه
@@ -440,18 +435,18 @@ const CarSelectComponent = (props) => {
                                       ? item.item.item?.id ===
                                           JSON.parse(
                                             localStorage.getItem(
-                                              "batteryTotalPrice",
-                                            ),
+                                              "batteryTotalPrice"
+                                            )
                                           )?.productId &&
                                         numberWithCommas(
                                           JSON.parse(
                                             localStorage.getItem(
-                                              "batteryTotalPrice",
-                                            ),
-                                          ).price,
+                                              "batteryTotalPrice"
+                                            )
+                                          ).price
                                         )
                                       : numberWithCommas(
-                                          item.item.item?.discounted_price,
+                                          item.item.item?.discounted_price
                                         )}
                                   </span>
                                   <span>تومان</span>
@@ -473,8 +468,8 @@ const CarSelectComponent = (props) => {
                           {pathname.startsWith("/batteries")
                             ? numberWithCommas(
                                 JSON.parse(
-                                  localStorage.getItem("batteryTotalPrice"),
-                                )?.price,
+                                  localStorage.getItem("batteryTotalPrice")
+                                )?.price
                               )
                             : numberWithCommas(invoiceData.totalPrice)}
                         </span>
@@ -498,30 +493,30 @@ const CarSelectComponent = (props) => {
             </div>
           ) : (
             <>
-              <span className="text-[#FEFEFE] text-20 font-bold text-center">
-                {pathname === "/" ? "ثبت وسیله نقلیه" : "انتخاب وسیله نقلیه"}
+              <span className="text-[#4F4F4F] text-20 font-bold text-center">
+                انتخاب وسیله نقلیه
               </span>
-              <div className="rounded-lg bg-[#F66B3414] flex flex-wrap justify-between gap-1 p-1">
+              <div className="rounded-lg border border-[#F5F5F5] flex flex-wrap justify-between gap-1 p-1">
                 <button
-                  className={`${vehicleType === "car" ? "bg-[#F66B34] text-[#FEFEFE]" : "text-[#F66B34]"} rounded-[4px] w-[100px] h-10 flex justify-center items-center font-medium text-14`}
+                  className={`${vehicleType === "car" ? "bg-[#F58052] text-[#FEFEFE]" : "text-[#888888]"} rounded-[8px] w-[100px] h-8 flex justify-center items-center font-medium text-14`}
                   onClick={() => {
                     vehicleTypeFetch("car");
                   }}
                 >
                   خودرو
                 </button>
-                <div className="my-2 w-[1px] bg-[#F66B34]"></div>
+                <div className="my-2 w-[1px] bg-[#D7DBE0]"></div>
                 <button
-                  className={`${vehicleType === "motor" ? "bg-[#F66B34] text-[#FEFEFE]" : "text-[#F66B34]"} rounded-[4px] w-[100px] h-10 flex justify-center items-center  font-medium text-14`}
+                  className={`${vehicleType === "motor" ? "bg-[#F58052] text-[#FEFEFE]" : "text-[#888888]"} rounded-[8px] w-[100px] h-8 flex justify-center items-center  font-medium text-14`}
                   onClick={() => {
                     vehicleTypeFetch("motor");
                   }}
                 >
                   موتورسیکلت
                 </button>
-                <div className="my-2 w-[1px] bg-[#F66B34]"></div>
+                <div className="my-2 w-[1px] bg-[#D7DBE0]"></div>
                 <button
-                  className={`${vehicleType === "heavy-car" ? "bg-[#F66B34] text-[#FEFEFE]" : "text-[#F66B34]"} rounded-[4px] w-[100px] h-10 flex justify-center items-center text-[#F66B34] font-medium text-14`}
+                  className={`${vehicleType === "heavy-car" ? "bg-[#F58052] text-[#FEFEFE]" : "text-[#888888]"} rounded-[8px] w-[100px] h-8 flex justify-center items-center font-medium text-14`}
                   onClick={() => {
                     vehicleTypeFetch("heavy-car");
                   }}
@@ -530,46 +525,50 @@ const CarSelectComponent = (props) => {
                 </button>
                 {myVehicleData.length ? (
                   <div className="flex items-center m-auto gap-4">
-                    <div className="my-2 w-[1px] h-6 bg-[#F66B34]"></div>
+                    <div className="my-2 w-[1px] h-6 bg-[#D7DBE0]"></div>
                     <button
-                      className={`${vehicleType === "my-car" ? "bg-[#F66B34] text-[#FEFEFE]" : "text-[#F66B34]"} rounded-[4px] w-[100px] h-10 flex justify-center items-center text-[#F66B34] font-medium text-14`}
+                      className={`${vehicleType === "my-car" ? "bg-[#F58052] text-[#FEFEFE]" : "text-[#888888]"} rounded-[8px] w-[100px] h-8 flex justify-center items-center font-medium text-14`}
                       onClick={() => {
                         vehicleTypeFetch("my-car");
                       }}
                     >
                       وسیله من
                     </button>
-                    <div className="my-2 w-[1px] h-6 bg-[#F66B34]"></div>
+                    <div className="my-2 w-[1px] h-6 bg-[#D7DBE0]"></div>
                   </div>
                 ) : (
                   ""
                 )}
               </div>
               <div className="flex flex-col gap-4">
-                <span className="text-center font-bold text-[#FEFEFE]">
-                  {carSelectedType}
-                </span>
-                <div className="flex gap-2 py-1 pr-4 pl-1 text-[#dddddd] bg-[#B0B0B01F] rounded-lg">
+                <div className="flex items-center justify-start gap-2">
+                  <i
+                    className={`cc-arrow-right text-2xl text-[#000000] px-2 rounded-md h-7 leading-7 ${level > 2 || !myVehicleData.length ? "" : "hidden"} cursor-pointer hover:bg-[#ffffff20] transition-all duration-200`}
+                    onClick={backClickHandler}
+                  />
+                  <span className="font-bold text-[#000000]">
+                    {carSelectedType}
+                  </span>
+                </div>
+                <div className="flex gap-2 py-1 pr-4 pl-1 text-[#B0B0B0] border border-[#F5F5F5] rounded-lg">
                   <i className="cc-search text-xl" />
                   <input
-                    className="outline-none text-14 font-medium bg-[#ffffff01] w-full text-[#dddddd] placeholder:text-[#dddddd]"
+                    className="outline-none text-14 font-medium w-full"
                     placeholder="جستجو..."
                     onChange={(e) => {
                       searchChangeHandler(e.target.value);
                     }}
                   />
-                  <i
-                    className={`cc-arrow-right text-2xl rotate-180 text-[#ffffff] bg-[#ffffff38] px-2 rounded-md h-7 leading-7 ${level > 2 || !myVehicleData.length ? "" : "hidden"} cursor-pointer hover:bg-[#ffffff20] transition-all duration-200`}
-                    onClick={backClickHandler}
-                  />
                 </div>
                 <div
-                  className={`${myVehicleData.length ? props.isMobile?"h-[270px]":"h-[320px]" : props.isMobile?"h-[310px]":"h-[363px]"} overflow-y-scroll mt-2 overflow-x-hidden`}
+                  className={`${myVehicleData.length ? (props.isMobile ? "h-[270px]" : "h-[320px]") : props.isMobile ? "h-[310px]" : "h-[363px]"} overflow-y-scroll mt-2 overflow-x-hidden`}
                 >
-                  <div className={`grid grid-cols-3 gap-x-8 ${props.isMobile?"gap-y-[16px]":"gap-y-[42px]"}`}>
+                  <div
+                    className={`grid grid-cols-3 gap-x-8 ${props.isMobile ? "gap-y-[16px]" : "gap-y-[42px]"}`}
+                  >
                     {searchedData.map((item, index) => (
                       <div
-                        className="flex flex-col items-center gap-2 cursor-pointer hover:scale-110 transition-all duration-300"
+                        className="flex flex-col bg-[#FFFFFF] items-center gap-2 cursor-pointer hover:scale-110 transition-all duration-300 shadow-[0_1px_4px_0_rgba(209,209,209,0.25)] p-2 rounded-[4px]"
                         key={index}
                         onClick={() => {
                           optionClickHandler(item.id, item);
@@ -587,7 +586,7 @@ const CarSelectComponent = (props) => {
                           height={48}
                           className="w-16 h-12"
                         />
-                        <span className="text-white font-bold line-clamp-1 text-center">
+                        <span className="text-[#000000] font-medium text-sm line-clamp-1 text-center">
                           {item.title}
                         </span>
                       </div>

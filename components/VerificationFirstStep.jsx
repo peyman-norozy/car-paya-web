@@ -10,7 +10,9 @@ import CostumerSatisfaction from "@/components/vehicle-verification/CostumerSati
 import FrequentQuestions from "@/components/vehicle-verification/FrequentQuestions";
 import CustomersComment from "@/components/vehicle-verification/CustomersComment";
 import { ToastContainer } from "react-toastify";
-import expert from "@/public/assets/images/expert.png"
+import carshenasi from "@/public/assets/images/carshenasi.png";
+import zarebin from "@/public/assets/images/zarebin.png";
+import lines from "@/public/assets/images/lines.png";
 import { useRouter } from "next/navigation";
 
 const VerificationFirstStep = (props) => {
@@ -22,7 +24,7 @@ const VerificationFirstStep = (props) => {
   const [message, setMessage] = useState("");
   const [data, setData] = useState([]);
   const [modalIsOpen, setModalIsOpen] = useState(false);
-  const router = useRouter()
+  const router = useRouter();
   const setQuery = useSetQuery();
   const cityName = [{ name: "تهران" }];
   const tabTitle = [
@@ -32,7 +34,17 @@ const VerificationFirstStep = (props) => {
   ];
 
   const PackageStepHandler = () => {
-    setQuery.setMultiQuery([{key: 'city_id', value: JSON.parse(localStorage.getItem("city")).cityId}, {key: 'vehicle_tip', value: JSON.parse(localStorage.getItem("selectedVehicle")).id},{ key: "step", value: "step-1" }])
+    setQuery.setMultiQuery([
+      {
+        key: "city_id",
+        value: JSON.parse(localStorage.getItem("city")).cityId,
+      },
+      {
+        key: "vehicle_tip",
+        value: JSON.parse(localStorage.getItem("selectedVehicle")).id,
+      },
+      { key: "step", value: "step-1" },
+    ]);
     setStep(2);
     // setModalIsOpen(true);
     // router.push(
@@ -65,141 +77,87 @@ const VerificationFirstStep = (props) => {
 
   return (
     <div className="lg:flex items-start gap-8 mt-1 lg:mt-10 max-w-[1772px] m-auto py-4 relative">
-      <div className={"w-full lg:w-[calc(100%-424px)] mr-auto gap-14 flex flex-col"}>
-        {/* {modalIsOpen && (
-        <div className={""}>
-          <div
-            onClick={() => setModalIsOpen(false)}
-            className={
-              "fixed bg-black opacity-[0.5] w-full h-[100vh] z-[999999999]"
-            }
-          ></div>
-          <div className=" fixed top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] h-[75%] w-[350px] size411:w-[400px] self-center size1090:self-auto z-[1000000000]">
-            <SelectProvinceAndCarBox
-              city_id={city_id}
-              setCity_id={setCity_id}
-              selectedItem={selectedItem}
-              setSelectedItem={setSelectedItem}
-              tabTitle={tabTitle}
-              title="انتخاب وسیله نقلیه"
-              cityData={cityName}
+      <div
+        className={"w-full lg:w-[calc(100%-424px)] mr-auto gap-8 flex flex-col"}
+      >
+        <div className="sm:rounded-3xl flex p-4 flex-col size1400:flex-row items-center">
+          <div className="flex flex-col gap-2 items-start self-start">
+            <h1 className="text-lg font-medium text-[#000000]">
+              کارشناسی وسیله نقلیه
+            </h1>
+            <p className="text-sm lg:text-base text-[#000000] font-medium">
+              کارشناسی مطمئن با تیم کار پایا
+            </p>
+          </div>
+          <div className="relative self-end">
+            <Image
+              className="w-[287px] h-[164px]"
+              src={carshenasi}
+              width={287}
+              height={164}
+            />
+            <Image
+              src={zarebin}
+              className="absolute zarebin"
+              width={124}
+              height={128}
             />
           </div>
+          <button
+            className="bg-[#F66B34] rounded-md py-2 px-1 text-[#FEFEFE] w-fit text-xs mt-4 font-medium"
+            onClick={PackageStepHandler}
+          >
+            درخواست کارشناسی
+          </button>
         </div>
-      )} */}
-        {/* <div className="flex gap-[1rem] mb-[5rem] w-[98%]  m-auto size1160:w-[95%]">
-        <div className="w-full py-[1rem] flex gap-[2rem]">
-          <div className="flex flex-col size1090:flex-row  gap-[1rem] w-full">
-            <div className="hidden lg:block w-[350px] size411:w-[400px] self-center size1090:self-auto">
-              <SelectProvinceAndCarBox
-                city_id={city_id}
-                setCity_id={setCity_id}
-                setSelectedItem={setSelectedItem}
-                tabTitle={tabTitle}
-                title="انتخاب وسیله نقلیه"
-                cityData={cityName}
-              />
+        <div className="relative">
+          <div className="w-[210px] flex flex-col items-center bg-white gap-5 py-5 px-6 m-auto relative z-[2]">
+            <span className="text-[#000000] text-sm font-medium">
+              مشاور و ثبت درخواست تلفنی
+            </span>
+            <button className="border border-[#F58052] text-[#F58052] justify-center items-center flex gap-1 py-[6px] px-6 rounded-md font-medium">
+              <p>58919</p>
+              <i className={"cc-calling"} />
+            </button>
+          </div>
+          <Image className="-top-5 absolute" src={lines} width={3127} height={210}/>
+        </div>
+        <div className="flex flex-col items-center gap-3 text-[#000000]">
+          <h2 className="font-bold">چرا کار پایا !</h2>
+          <div className="grid grid-cols-2 gap-4 w-full px-4">
+            <div className="w-full h-20 flex flex-col gap-2 bg-[#ffffff] shadow-[0_0_4px_0_rgba(204,204,204,0.25)] rounded-lg">
+              <div className="flex justify-between items-center p-2">
+                <span className="font-medium text-xs">محل کارشناسی</span>
+                <span className="bg-slate-400 size-4"></span>
+              </div>
+              <span className="text-[#6D6D6D] text-xs text-center">انجام کارشناسی در مکان و زمان انتخابی شما</span>
+            </div>
+            <div className="w-full h-20 flex flex-col gap-2 bg-[#ffffff] shadow-[0_0_4px_0_rgba(204,204,204,0.25)] rounded-lg">
+              <div className="flex justify-between items-center p-2">
+                <span className="font-medium text-xs">محل کارشناسی</span>
+                <span className="bg-slate-400 size-4"></span>
+              </div>
+              <span className="text-[#6D6D6D] text-xs text-center">انجام کارشناسی در مکان و زمان انتخابی شما</span>
+            </div>
+            <div className="w-full h-20 flex flex-col gap-2 bg-[#ffffff] shadow-[0_0_4px_0_rgba(204,204,204,0.25)] rounded-lg">
+              <div className="flex justify-between items-center p-2">
+                <span className="font-medium text-xs">محل کارشناسی</span>
+                <span className="bg-slate-400 size-4"></span>
+              </div>
+              <span className="text-[#6D6D6D] text-xs text-center">انجام کارشناسی در مکان و زمان انتخابی شما</span>
+            </div>
+            <div className="w-full h-20 flex flex-col gap-2 bg-[#ffffff] shadow-[0_0_4px_0_rgba(204,204,204,0.25)] rounded-lg">
+              <div className="flex justify-between items-center p-2">
+                <span className="font-medium text-xs">محل کارشناسی</span>
+                <span className="bg-slate-400 size-4"></span>
+              </div>
+              <span className="text-[#6D6D6D] text-xs text-center">انجام کارشناسی در مکان و زمان انتخابی شما</span>
             </div>
           </div>
         </div>
-      </div> */}
-        {/* <div className="w-full flex flex-col gap-[1.5rem]">
-              <div className="hidden size1000:flex">
-                <CarServicesSlider data={serviceData} />
-              </div>
-              <div className={"relative"}>
-                <Image
-                  src={"/assets/images/mainPicVerification.png"}
-                  alt={"car"}
-                  width={824}
-                  height={377}
-                  className={"w-full min-h-[200px] lg:h-[377px]"}
-                />
-                <div
-                  className={
-                    "absolute right-[4%] top-[10%] size690:top-[20%] flex flex-col gap-2"
-                  }
-                >
-                  <h1 className={"text-14 size582:text-[24px] text-BLUE_500"}>
-                    کــارشــنــاســی خــودرو
-                  </h1>
-                  <h1 className={"text-12 size582:text-[22px]"}>
-                    با کارشناس های ما مطمعن خرید کنید
-                  </h1>
-                  <h1 className={"text-12 size582:text-[22px] text-RED_400"}>
-                    کار چک می کنار شماست
-                  </h1>
-                  <button
-                    onClick={PackageStepHandler}
-                    className={
-                      "bg-BLUE_700 mt-1 size690:mt-3 w-fit text-12 size690:text-[16px] p-[8px] text-white rounded-[4px]"
-                    }
-                  >
-                    درخواست کارشناسی
-                  </button>
-                </div>
-              </div>
-      </div> */}
-        <div className="bg-[#383838A3] sm:rounded-3xl flex gap-6 p-6 flex-col size1400:flex-row items-center">
-          <Image className="scale-x-[-1] w-[259px] h-[187px]" src={expert} width={259} height={187}/>
-          <div className="flex flex-col gap-2 items-start">
-            <h1 className="text-xl font-bold text-[#F66B34]">
-              کارشناسی وسیله نقلیه
-            </h1>
-            <p className="text-sm lg:text-base text-[#FEFEFE] font-medium">
-              لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با
-              استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله
-              در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد
-              نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد.
-              کتابهای زیادی در شصت و سه درصد گذشته، حال و آینده شناخت فراوان
-              جامعه و متخصصان را می طلبد تا با نرم افزارها شناخت بیشتری را برای
-              طراحان رایانه ای علی الخصوص طراحان خلاقی و فرهنگ پیشرو در زبان
-            </p>
-            <button className="bg-[#F66B34] rounded-md py-2 px-4 text-[#FEFEFE] w-fit text-14 mt-2 font-medium" onClick={PackageStepHandler}>درخواست کارشناسی</button>
-          </div>
-        </div>
-        <h2 className="text-18 lg:text-2xl font-bold font-[#0E0E0E] text-center mb-[-32px]">سرویس های کارشناسی کار چک</h2>
-        <table className="mx-4 sm:mx-0 rounded-3xl overflow-hidden bg-[#E7E7E7]">
-          <thead>
-            <tr className="bg-[#B0B0B0] flex px-4 lg:px-10 py-4 font-bold">
-              <th className="flex-[3_3_0%] text-start">پکیج ها</th>
-              <th className="flex-1 text-center">بدنه</th>
-              <th className="flex-1 text-center">فنی</th>
-              <th className="flex-1 text-center">قیمت</th>
-              <th className="flex-1 text-center">مکانیک</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr className="flex px-4 lg:px-10 py-5 font-bold text-16 lg:text-20">
-            <td className="flex-[3_3_0%] text-start line-clamp-1 leading-7">کارشناسی تخصصی</td>
-              <td className="flex-1 text-center"><i className="cc-tick size-8 bg-[#99E0A9] text-xl text-[#24D34B] rounded-full p-1"/></td>
-              <td className="flex-1 text-center"><i className="cc-tick size-8 bg-[#99E0A9] text-xl text-[#24D34B] rounded-full p-1"/></td>
-              <td className="flex-1 text-center"><i className="cc-tick size-8 bg-[#99E0A9] text-xl text-[#24D34B] rounded-full p-1"/></td>
-              <td className="flex-1 text-center"><i className="cc-tick size-8 bg-[#99E0A9] text-xl text-[#24D34B] rounded-full p-1"/></td>
-            </tr>
-          </tbody>
-          <tbody>
-            <tr className="flex px-4 lg:px-10 py-5 font-bold text-16 lg:text-20">
-              <td className="flex-[3_3_0%] text-start line-clamp-1 leading-7">کارشناسی فنی و بدنه</td>
-              <td className="flex-1 text-center"><i className="cc-tick size-8 bg-[#99E0A9] text-xl text-[#24D34B] rounded-full p-1"/></td>
-              <td className="flex-1 text-center"><i className="cc-tick size-8 bg-[#99E0A9] text-xl text-[#24D34B] rounded-full p-1"/></td>
-              <td className="flex-1 text-center"><i className="cc-tick size-8 bg-[#99E0A9] text-xl text-[#24D34B] rounded-full p-1"/></td>
-              <td className="flex-1 text-center rotate-45"><i className="cc-add size-8 bg-[#e79595] text-xl text-[#E61919] rounded-full p-1"/></td>
-            </tr>
-          </tbody>
-          <tbody>
-            <tr className="flex px-4 lg:px-10 py-5 font-bold text-16 lg:text-20">
-              <td className="flex-[3_3_0%] text-start line-clamp-1 leading-7">کارشناسی بدنه</td>
-              <td className="flex-1 text-center"><i className="cc-tick size-8 bg-[#99E0A9] text-xl text-[#24D34B] rounded-full p-1"/></td>
-              <td className="flex-1 text-center rotate-45"><i className="cc-add size-8 bg-[#e79595] text-xl text-[#E61919] rounded-full p-1"/></td>
-              <td className="flex-1 text-center rotate-45"><i className="cc-add size-8 bg-[#e79595] text-xl text-[#E61919] rounded-full p-1"/></td>
-              <td className="flex-1 text-center rotate-45"><i className="cc-add size-8 bg-[#e79595] text-xl text-[#E61919] rounded-full p-1"/></td>
-            </tr>
-          </tbody>
-        </table>
-        <CallAndConsult />
+        {/* <CallAndConsult />
         <CostumerSatisfaction />
-        <FrequentQuestions />
+        <FrequentQuestions /> */}
         <ToastContainer rtl={true} />
       </div>
     </div>
