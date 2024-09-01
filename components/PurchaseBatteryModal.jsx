@@ -267,6 +267,9 @@ const PurchaseBatteryModal = (props) => {
             product_id: batteriesData.id,
             type: "NO_BATTERY",
             city_id: JSON.parse(localStorage.getItem("city"))?.cityId,
+            vehicle_tip_id: JSON.parse(localStorage.getItem("selectedVehicle"))
+              ?.id,
+            amp: batteriesData.amp,
           },
         );
         console.log(getBatteriesData);
@@ -298,6 +301,8 @@ const PurchaseBatteryModal = (props) => {
             type: "SAME_AMP",
             amp: batteriesData.amp,
             city_id: JSON.parse(localStorage.getItem("city"))?.cityId,
+            vehicle_tip_id: JSON.parse(localStorage.getItem("selectedVehicle"))
+              ?.id,
           },
         );
         setNobatteriesData(getBatteriesData);
