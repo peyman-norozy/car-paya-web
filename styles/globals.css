@@ -41,6 +41,58 @@ input[type=number] {
   box-shadow: 3px 3px 6px 0px rgba(222, 222, 222, 0.45),-3px -3px 6px 0px rgba(255, 255, 255, 0.55);
 }
 
+.zarebin{
+  position: absolute;
+  -webkit-animation: linear infinite;
+  -webkit-animation-name: run;
+  -webkit-animation-duration: 5s;
+}
+@keyframes run {
+  0% {
+    bottom: 20px;
+    left: 10%;
+    rotate: 0deg;
+  }
+  25% {
+    bottom: 40px;
+    left: 35%;
+    rotate: 10deg;
+  }
+  50% {
+    bottom: 20px;
+    left: 60%;
+    rotate: 20deg;
+  }
+  75% {
+    bottom: 0;
+    left: 35%;
+    rotate: 10deg;
+  }
+  100% {
+    bottom: 20px;
+    left: 10%;
+    rotate: 0deg;
+  }
+}
+
+/* .lines{
+  position: absolute;
+  -webkit-animation: linear infinite;
+  -webkit-animation-name: run;
+  -webkit-animation-duration: 3s;
+}
+@keyframes run {
+  0% {
+    left: 100%;
+  }
+  50% {
+    left: 50%;
+  }
+  100% {
+    left: 100%;
+  }
+} */
+
 @font-face {
     font-family: iranSans;
     src: url(../public/assets/fonts/woff/IRANSansWebUltraLight.woff) format("woff"),
