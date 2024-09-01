@@ -82,11 +82,11 @@ const InvoicePage = () => {
           </div>
           <div className={"flex items-center gap-1 w-full"}>
             <span className={"font-semibold"}>نام:</span>
-            <span>{faktorData?.user_info?.mobile}</span>
+            <span>{faktorData?.user_info?.name}</span>
           </div>
           <div className={"flex items-center gap-1 w-full"}>
             <span className={"font-semibold"}>شماره تماس:</span>
-            <span>{faktorData?.user_info?.name}</span>
+            <span>{faktorData?.user_info?.mobile}</span>
           </div>
         </section>
         <section
@@ -116,9 +116,10 @@ const InvoicePage = () => {
                 {...events}
                 ref={orderProduct}
               >
-                {faktorData.product?.map((item, index) => (
-                  <FacktorCard key={item.id} item={item} />
-                ))}
+                <FacktorCard item={faktorData.product} />
+                {/*{faktorData.product?.map((item, index) => (*/}
+                {/*  <FacktorCard key={item.id} item={item} />*/}
+                {/*))}*/}
               </ul>
             </div>
           </section>
