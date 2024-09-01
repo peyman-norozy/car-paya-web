@@ -1,26 +1,17 @@
 import React from "react";
 
-const CompletePrice = () => {
+const CompletePrice = (props) => {
   return (
     <section
-      className={
-        "sticky bottom-0 right-0 z-[1000] bg-white flex justify-between p-4"
-      }
+      className={`bottom-0 right-0 z-[1000] bg-white flex justify-end p-4 ${props.customStyle}`}
     >
       <button
         className={
-          "bg-[#F66B34] rounded-[8px] text-white text-[16px] font-semibold w-36 h-10"
+          "bg-[#F66B34] rounded-[8px] text-white text-[16px] font-medium w-40 h-10"
         }
       >
-        ثبت
+        تایید و تکمیل سفارش
       </button>
-      <div className={"text-[14px]"}>
-        <span>جمع سفارش:</span>
-        <div className={"flex gap-2 items-center"}>
-          <span>1500000</span>
-          <span>تومان</span>
-        </div>
-      </div>
     </section>
   );
 };

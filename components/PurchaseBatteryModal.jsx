@@ -34,6 +34,7 @@ const PurchaseBatteryModal = (props) => {
   const [amperSelectData, setAmperSelectData] = useState([]);
   const router = useRouter();
   const pathName = usePathname();
+  const setQuery = useSetQuery();
   const [purchseOptions, setPurchseOption] = useState([
     {
       title: "باتری سوزوکی 70 آمپر",
@@ -55,12 +56,15 @@ const PurchaseBatteryModal = (props) => {
     },
   ]);
 
+  console.log(cityId, batteriesData);
+
   const selectOptionHandler = (index, totalPrice, productId, id) => {
     setIsSelected(index);
     console.log(totalPrice, productId, id);
     if (id === "noneOldBattery") {
       if (pathName.startsWith("/batteries")) {
         if (props.batteryIsSelected) {
+          setQuery.updateQueryParams({ type_service: "NO_BATTERY" });
           localStorage.setItem(
             "batteryTotalPrice",
             JSON.stringify({
@@ -80,6 +84,7 @@ const PurchaseBatteryModal = (props) => {
       });
     } else if (id === "selectAmper") {
       console.log(cityId);
+      setQuery.updateQueryParams({ type_service: "SWING_AMP" });
       localStorage.removeItem("batteryTotalPrice");
       // if (pathName.startsWith("/batteries")) {
       //   if (props.batteryIsSelected) {
@@ -103,6 +108,7 @@ const PurchaseBatteryModal = (props) => {
     } else if (id === "oldSameAmperBattery") {
       if (pathName.startsWith("/batteries")) {
         if (props.batteryIsSelected) {
+          setQuery.updateQueryParams({ type_service: "SAME_AMP" });
           localStorage.setItem(
             "batteryTotalPrice",
             JSON.stringify({
@@ -160,7 +166,7 @@ const PurchaseBatteryModal = (props) => {
       console.log(cartData.data);
       nProgress.start();
       router.push(
-        `/batteries/products/newSelectLocation?city_id=${JSON.parse(localStorage.getItem("city")).cityId}&type=MOVING&vehicle_tip_id=${JSON.parse(localStorage.getItem("selectedVehicle"))?.id}`,
+        `/batteries/products/newSelectLocation?city_id=${JSON.parse(localStorage.getItem("city")).cityId}&type=MOVING&vehicle_tip_id=${JSON.parse(localStorage.getItem("selectedVehicle"))?.id}&amper=${searchParams.get("amper")}&type_service=${searchParams.get("type_service")}`,
       );
     } else if (cartData.response.status === 422) {
       console.log(cartData.response.data);
@@ -170,6 +176,14 @@ const PurchaseBatteryModal = (props) => {
       router.push("/login?backurl=" + pathName + "&" + searchParams.toString());
     }
   };
+
+  useEffect(() => {
+    if (!cityId && batteriesData?.amp) {
+      setQuery.updateQueryParams({ amper: batteriesData.amp });
+    } else if (cityId) {
+      setQuery.updateQueryParams({ amper: cityId });
+    }
+  }, [cityId, batteriesData]);
 
   useEffect(() => {
     if (cityId) {
