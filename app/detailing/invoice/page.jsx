@@ -136,7 +136,6 @@ const InvoicePage = () => {
                   {faktorData.address_info?.address}
                 </span>
               </div>
-              {/*?type=FIXED&selectTipState=true,16&city_id=87*/}
               <Link
                 href={`/detailing/selectLocation?city_id=${cityId}&type=${type}&selectTipState=true,${vehicleTipId}`}
                 className="text-[#518dd5] flex items-center gap-1 mt-2 self-end border-b-2 border-b-[#518dd5] pb-2 cursor-pointer"
@@ -168,7 +167,7 @@ const InvoicePage = () => {
                 </span>
               </div>
               <Link
-                href={`/batteries/products/newTimeSelector?city_id=${cityId}&type=${type}&vehicle_tip_id=${vehicleTipId}&service_location_id=${serviceLocationId}`}
+                href={`/detailing/timeSelector?city_id=${cityId}&type=${type}&selectTipState=true,${vehicleTipId}&service_location_id=${serviceLocationId}&package_id=${packageId}`}
                 className="text-[#518dd5] flex items-center gap-1 mt-2 self-end border-b-2 border-b-[#518dd5] pb-2 cursor-pointer"
               >
                 <i className={"cc-edit text-20"} />
