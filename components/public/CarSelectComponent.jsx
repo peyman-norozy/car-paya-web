@@ -67,6 +67,13 @@ const CarSelectComponent = (props) => {
   }, [carSelected]);
 
   useEffect(() => {
+    setQuery.updateQueryParams(
+      {
+        attribute_slug: "type_vehicle",
+        attribute_value: "car",
+      },
+      "",
+    );
     (async () => {
       const data = await getDataWithFullErrorRes(
         process.env.BASE_API + "/web/my-vehicles",
@@ -194,13 +201,13 @@ const CarSelectComponent = (props) => {
     } else {
       getBrandData(model);
     }
-    // setQuery.updateQueryParams(
-    //   {
-    //     attribute_slug: "type_vehicle",
-    //     attribute_value: model,
-    //   },
-    //   "",
-    // );
+    setQuery.updateQueryParams(
+      {
+        attribute_slug: "type_vehicle",
+        attribute_value: model === "heavy-car" ? "heavy_car" : model,
+      },
+      "",
+    );
   }
 
   function getBrandData(model) {
