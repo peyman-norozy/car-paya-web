@@ -57,7 +57,13 @@ const FacktorCard = ({ item }) => {
           width={52}
           height={51}
         />
-        <span className={"absolute top-1 left-1"}>aa</span>
+        <span
+          className={
+            "absolute top-[7px] left-[8px] text-12 text-white -rotate-45"
+          }
+        >
+          {item.discounted_percent}%
+        </span>
       </div>
     </li>
   );
