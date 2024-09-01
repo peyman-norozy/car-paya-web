@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import VehicleRegistration from "@/components/VehicleRegistration";
 import SelectedVehicleVerificationBox from "@/components/SelectedVehicleVerificationBox";
 import Image from "next/image";
@@ -13,6 +13,7 @@ import { useSelector } from "react-redux";
 function MobileBottomNav(props) {
   const router = useRouter();
   const pathname = usePathname();
+  const searchParams = useSearchParams()
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [serviceModalIsOpen, setServiceModalIsOpen] = useState(false);
   const [selectedTab, setSelectedTab] = useState(pathname);
@@ -81,8 +82,11 @@ function MobileBottomNav(props) {
       // setIsClicked(null);
     }
   };
+// console.log(pathname.includes("step"));
+// console.log(pathname.includes("/vehicle-verification"));
+// console.log(pathname.includes("step")&&pathname.includes("/vehicle-verification"));
 
-  if(!pathname.includes("/invoice")){return (
+  if(!pathname.includes("/invoice")&&(!(searchParams.toString().includes("step")&&pathname.includes("/vehicle-verification")))){return (
     <div className="fixed bottom-2 right-2 z-[2000] flex items-center w-[calc(100vw-16px)] h-[60px] rounded-3xl shadow-[0_4px_4px_0_rgba(160,160,160,0.20)]">
         {/* <div
           ref={selectVehicleRef}
