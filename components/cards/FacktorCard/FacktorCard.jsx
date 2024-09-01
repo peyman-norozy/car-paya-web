@@ -3,8 +3,10 @@
 import React from "react";
 import Image from "next/image";
 import { numberWithCommas } from "@/utils/function-utils";
+import { usePathname } from "next/navigation";
 
 const FacktorCard = ({ item }) => {
+  const pathName = usePathname();
   return (
     <li
       className={
@@ -14,7 +16,7 @@ const FacktorCard = ({ item }) => {
       <section className={"flex flex-row lg:flex-col items-center gap-4"}>
         <div>
           <Image
-            src={process.env.BASE_API + "/web/file/" + item.image_id}
+            src={process.env.BASE_API + "/web/file/" + item?.image_id}
             className={"w-[120px] h-[114px]"}
             alt={"service product"}
             width={120}
@@ -22,7 +24,7 @@ const FacktorCard = ({ item }) => {
           />
         </div>
         <div className={"text-12 flex flex-col flex-1 gap-2"}>
-          <span>{item.name} :</span>
+          <span>{item?.name} :</span>
           <div className={"flex items-center gap-1"}>
             <span
               className={"inline-block w-[15px] h-[15px] bg-gray-300"}
@@ -36,13 +38,26 @@ const FacktorCard = ({ item }) => {
               "flex items-center gap-1 line-through text-10 text-[#B0B0B0]"
             }
           >
-            {numberWithCommas(item.price) + " تومان "}
+            {item?.discounted_salary || item?.discounted_price
+              ? numberWithCommas(
+                  pathName.includes("/detailing") ? item?.salary : item?.price,
+                ) + " تومان "
+              : ""}
           </div>
           <div className={"flex justify-between items-center w-full"}>
             <div className={"flex items-center gap-1 text-[12px]"}>
               <span>قیمت:</span>
-              <span>{numberWithCommas(item.discounted_price)}</span>
-              <span>تومان</span>
+              <span>
+                {numberWithCommas(
+                  pathName.includes("/detailing")
+                    ? item?.discounted_salary
+                      ? item?.discounted_salary
+                      : item?.salary
+                    : item?.discounted_price
+                      ? item?.discounted_price
+                      : item?.price,
+                ) + " تومان "}
+              </span>
             </div>
             <section className={"text-left"}>
               <span className={"text-red-600 text-12 cursor-pointer"}>حذف</span>
@@ -50,7 +65,9 @@ const FacktorCard = ({ item }) => {
           </div>
         </div>
       </section>
-      <div className={"absolute -top-1 -left-1"}>
+      <div
+        className={`absolute -top-1 -left-1 ${item?.discounted_percent ? "block" : "hidden"}`}
+      >
         <Image
           src={"/assets/icons/image85.svg"}
           alt={"percent"}
@@ -62,7 +79,7 @@ const FacktorCard = ({ item }) => {
             "absolute top-[7px] left-[8px] text-12 text-white -rotate-45"
           }
         >
-          {item.discounted_percent}%
+          {item?.discounted_percent}%
         </span>
       </div>
     </li>
