@@ -195,6 +195,8 @@ const PurchaseBatteryModal = (props) => {
             type: "SWING_AMP",
             amp: cityId,
             city_id: JSON.parse(localStorage.getItem("city"))?.cityId,
+            vehicle_tip_id: JSON.parse(localStorage.getItem("selectedVehicle"))
+              ?.id,
           },
         );
         console.log(selectAmpBatteriesData);
