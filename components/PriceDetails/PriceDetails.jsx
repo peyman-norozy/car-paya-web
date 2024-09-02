@@ -39,7 +39,12 @@ const PriceDetails = ({ faktorData }) => {
         </span>
       </div>
       {innerWidth > 1024 && (
-        <CompletePrice customStyle={"pl-0 border-t-2 border-t-[#eee] sticky"} />
+        <CompletePrice
+          priceTotal={numberWithCommas(faktorData?.price_total)}
+          customStyle={
+            "pl-0 pr-0 border-t-2 border-t-[#eee] sticky flex justify-between"
+          }
+        />
       )}
     </>
   );
