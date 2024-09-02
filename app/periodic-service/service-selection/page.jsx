@@ -13,15 +13,23 @@ const serviceSelection = async (props) => {
           {data.error.data.message}
         </div>
       );
-    }else if(data.error.status === 400){
-      return <div className="mt-[140px] w-full text-center min-h-[calc(100vh-300px)]">پکیج یافت نشد</div>;
-    }else {
-      return <div className="mt-[140px] w-full text-center min-h-[calc(100vh-300px)]">you have error {data.error.status}</div>;
+    } else if (data.error.status === 400) {
+      return (
+        <div className="mt-[140px] w-full text-center min-h-[calc(100vh-300px)]">
+          پکیج یافت نشد
+        </div>
+      );
+    } else {
+      return (
+        <div className="mt-[140px] w-full text-center min-h-[calc(100vh-300px)]">
+          you have error {data.error.status}
+        </div>
+      );
     }
   }
 
   return (
-    <div className="flex gap-10 max-w-[1676px] w-full px-2 sm:px-4 m-auto mb-10 mt-5 lg:mt-28 min-h-screen">
+    <div className="flex gap-10 max-w-[1676px] w-full px-2 sm:px-4 m-auto mb-10 mt-4 min-h-screen">
       <SelectService data={data.data} />
     </div>
   );
