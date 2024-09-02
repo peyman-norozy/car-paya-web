@@ -106,7 +106,7 @@ const InvoicePage = () => {
           <section>
             <div className={"text-14 flex items-center gap-1 my-4"}>
               <span className={"font-semibold"}>سفارش شما:</span>
-              <span className={"text-[#888888]"}>3 خدمات</span>
+              <span className={"text-[#888888]"}>1 کالا</span>
             </div>
             <div className={"w-full"}>
               <ul
@@ -130,6 +130,7 @@ const InvoicePage = () => {
                 <PriceDetails faktorData={faktorData} />
               </div>
             )}
+
             {/* Address Section */}
             <div className="mt-4 space-y-2 flex flex-col gap-2">
               <div className="flex flex-col">

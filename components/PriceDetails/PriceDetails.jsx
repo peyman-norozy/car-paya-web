@@ -13,7 +13,7 @@ const PriceDetails = ({ faktorData }) => {
         {/*<span className="text-gray-900">۱۵۳۰۰۰۰ تومان</span>*/}
       </div>
       <div className="flex justify-between">
-        <span className="text-gray-500">قیمت کالاها(3):</span>
+        <span className="text-gray-500">قیمت کالاها(۱):</span>
         <span className="text-gray-900">۱۵۳۰۰۰۰ تومان</span>
       </div>
       <div className="flex justify-between">
