@@ -12,6 +12,12 @@ const CompletePrice = (props) => {
       >
         تایید و تکمیل سفارش
       </button>
+      <div className={"text-[14px] lg:hidden block"}>
+        <span>جمع سفارش:</span>
+        <div className={"flex gap-2 items-center"}>
+          {props.priceTotal + " تومان "}
+        </div>
+      </div>
     </section>
   );
 };
