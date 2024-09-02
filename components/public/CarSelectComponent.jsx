@@ -14,7 +14,11 @@ import {
   getDataWithFullErrorRes,
 } from "@/utils/api-function-utils";
 import nProgress from "nprogress";
-import { renderSetCar, setBatteriesBasketLength } from "@/store/todoSlice";
+import {
+  renderSetCar,
+  setBatteriesBasketLength,
+  setPeriodicServiceBasketLength,
+} from "@/store/todoSlice";
 const CarSelectComponent = (props) => {
   const [vehicleType, setVehicleType] = useState("car");
   const [carSelectedType, setCarSelectedType] = useState("انتخاب برند");
@@ -136,6 +140,8 @@ const CarSelectComponent = (props) => {
       setInvoiceData({ data: data.data.data, totalPrice: totalPrice });
       if (cartableType === "BATTERIES") {
         dispatch(setBatteriesBasketLength(data.data.data.length));
+      } else if (cartableType === "PERIODIC_SERVICE") {
+        dispatch(setPeriodicServiceBasketLength(data.data.data.length));
       }
     }
   }
@@ -161,6 +167,15 @@ const CarSelectComponent = (props) => {
         router.push(
           `/batteries/products?attribute_slug=type_vehicle&attribute_value=${attributeValue ? attributeValue : "car"}`,
         );
+      } else if (carTableType === "PERIODIC_SERVICE") {
+        console.log(data.data.data.cart_items);
+        let len = 0;
+        for (let item of data.data.data.cart_items) {
+          if (item.type === carTableType) {
+            len = data.data.data.cart_items.length;
+          }
+        }
+        dispatch(setPeriodicServiceBasketLength(len));
       }
       let totalPrice = 0;
       let newData = [];

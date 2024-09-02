@@ -1,11 +1,15 @@
 "use client";
 import useSetQuery from "@/hook/useSetQuery";
 import SelectServiceCard from "../periodic-service-components/SelectServiceCard";
+import { useState } from "react";
+import { useSelector } from "react-redux";
 
 const SelectService = (props) => {
-  console.log(props.data);
-
   const setQuery = useSetQuery();
+  const periodicServiceBasketLength = useSelector(
+    (item) => item.todo.periodicServiceBasketLength,
+  );
+  console.log(periodicServiceBasketLength);
 
   function buttonClickHandler() {
     setQuery.updateQueryParams(
@@ -30,9 +34,8 @@ const SelectService = (props) => {
         </div>
       </div>
       <button
-        className={
-          "w-[204px] h-10 bg-[#F66B34] rounded-[8px] text-[#FEFEFE] mb-6 mr-2 sm:mr-4 lg:mr-8"
-        }
+        className={`w-[204px] h-10 ${!periodicServiceBasketLength ? "bg-stone-400" : "bg-[#F66B34]"} rounded-[8px] text-[#FEFEFE] mb-6 mr-2 sm:mr-4 lg:mr-8`}
+        disabled={!periodicServiceBasketLength}
         onClick={buttonClickHandler}
       >
         تایید و مرحله بعد
