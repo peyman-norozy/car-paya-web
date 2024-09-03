@@ -10,6 +10,7 @@ import axios from "axios";
 import { getCookie } from "cookies-next";
 import { error } from "@/utils/function-utils";
 import { ToastContainer } from "react-toastify";
+import { postData } from "@/utils/client-api-function-utils";
 
 const VerificationThirdStep = (props) => {
   // const [isSelected, setIsSelected] = useState(0);
@@ -25,6 +26,7 @@ const VerificationThirdStep = (props) => {
   const city_id = searchParams.get("city_id");
   const selectedItem = searchParams.get("vehicle_tip");
   const package_id = searchParams.get("package_id");
+  const vehicle_tip = searchParams.get("vehicle_tip");
   const reservation_time_slice_id = searchParams.get(
     "reservation_time_slice_id"
   );
@@ -127,6 +129,12 @@ const VerificationThirdStep = (props) => {
         { key: "type_service", value: type },
         { key: "registrationable_id", value: selectedAddress },
       ]);
+      postData("/web/cart/add", {
+        cartable_id: package_id,
+        cartable_type: "VEHICLE_VERIFICATION",
+        vehicle_tip_id: vehicle_tip,
+        step: "5",
+      });
     }
   };
 
