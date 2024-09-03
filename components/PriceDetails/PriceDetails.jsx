@@ -3,7 +3,7 @@ import CompletePrice from "@/components/CompletePrice/CompletePrice";
 import { useSelector } from "react-redux";
 import { numberWithCommas } from "@/utils/function-utils";
 
-const PriceDetails = ({ faktorData }) => {
+const PriceDetails = ({ faktorData, length }) => {
   const innerWidth = useSelector((item) => item.todo.windowInnerWidth);
 
   return (
@@ -13,7 +13,7 @@ const PriceDetails = ({ faktorData }) => {
         {/*<span className="text-gray-900">۱۵۳۰۰۰۰ تومان</span>*/}
       </div>
       <div className="flex justify-between">
-        <span className="text-gray-500">قیمت کالاها(3):</span>
+        <span className="text-gray-500">{" قیمت کالاها " + `(${length})`}</span>
         <span className="text-gray-900">۱۵۳۰۰۰۰ تومان</span>
       </div>
       <div className="flex justify-between">
