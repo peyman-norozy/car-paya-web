@@ -12,14 +12,14 @@
 //
 //   useEffect(() => {
 //     (async () => {
-//       const fatchData = await getCurrentData("/web/detailing?step=step-3", {
+//       const fetchData = await getCurrentData("/web/detailing?step=step-3", {
 //         vehicle_tip_id: searchParams.get("selectTipState").split(",")[1],
 //         type: searchParams.get("type"),
 //         city_id: searchParams.get("city_id"),
 //         service_location_id: searchParams.get("service_location_id"),
 //         package_id: searchParams.get("package_id"),
 //       });
-//       console.log(fatchData);
+//       console.log(fetchData);
 //
 //     })();
 //   }, []);
@@ -60,7 +60,7 @@ const Page = (props) => {
   console.log(props);
   useEffect(() => {
     (async () => {
-      const fatchData = await getCurrentData("/web/detailing?step=step-3", {
+      const fetchData = await getCurrentData("/web/detailing?step=step-3", {
         vehicle_tip_id: searchParams.get("selectTipState").split(",")[1],
         type: searchParams.get("type"),
         city_id: searchParams.get("city_id"),
@@ -68,9 +68,9 @@ const Page = (props) => {
         package_id: searchParams.get("package_id"),
       });
       setData(
-        Object.keys(fatchData.data["time-reserve"]).map((key) => ({
+        Object.keys(fetchData.data["time-reserve"]).map((key) => ({
           day: key,
-          hour: fatchData.data["time-reserve"][key],
+          hour: fetchData.data["time-reserve"][key],
         })),
       );
     })();
@@ -78,7 +78,7 @@ const Page = (props) => {
 
   function onclick() {
     setQuery.updateQueryParams(
-      { time_id: selectedTime, type: "MOVING" },
+      { time_id: selectedTime, type: searchParams.get("type") },
       "/detailing/invoice",
     );
   }
@@ -98,9 +98,8 @@ const Page = (props) => {
       </ul>
       <button
         type={"button"}
-        className={
-          "w-[204px] h-10 bg-[#F66B34] rounded-[8px] text-[#FEFEFE] mt-6"
-        }
+        disabled={!selectedTime}
+        className={`lg:w-[204px] w-[130px] h-10 ${!selectedTime ? "bg-stone-400" : "bg-[#F66B34]"} rounded-[8px] text-[#FEFEFE] mt-6 lg:text-14 text-12`}
         onClick={onclick}
       >
         تایید و مرحله بعد

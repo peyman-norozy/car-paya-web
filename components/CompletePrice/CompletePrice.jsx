@@ -1,26 +1,25 @@
 import React from "react";
+import { numberWithCommas } from "@/utils/function-utils";
 
-const CompletePrice = () => {
+const CompletePrice = (props) => {
+  console.log(props);
   return (
     <section
-      className={
-        "sticky bottom-0 right-0 z-[1000] bg-white flex justify-between p-4"
-      }
+      className={`bottom-0 right-0 z-[1000] bg-white p-4 ${props.customStyle}`}
     >
-      <button
-        className={
-          "bg-[#F66B34] rounded-[8px] text-white text-[16px] font-semibold w-36 h-10"
-        }
-      >
-        ثبت
-      </button>
-      <div className={"text-[14px]"}>
+      <div className={"text-[14px] lg:hidden block"}>
         <span>جمع سفارش:</span>
-        <div className={"flex gap-2 items-center"}>
-          <span>1500000</span>
-          <span>تومان</span>
+        <div className={"flex gap-2 items-center text-[14px] text-[#518DD5]"}>
+          {numberWithCommas(props.priceTotal) + " تومان "}
         </div>
       </div>
+      <button
+        className={
+          "bg-[#F66B34] rounded-[8px] text-white text-[16px] font-medium w-40 h-10"
+        }
+      >
+        تایید و تکمیل سفارش
+      </button>
     </section>
   );
 };

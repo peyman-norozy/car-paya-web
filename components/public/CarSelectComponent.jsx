@@ -14,7 +14,11 @@ import {
   getDataWithFullErrorRes,
 } from "@/utils/api-function-utils";
 import nProgress from "nprogress";
-import { renderSetCar, setBatteriesBasketLength } from "@/store/todoSlice";
+import {
+  renderSetCar,
+  setBatteriesBasketLength,
+  setPeriodicServiceBasketLength,
+} from "@/store/todoSlice";
 const CarSelectComponent = (props) => {
   const [vehicleType, setVehicleType] = useState("car");
   const [carSelectedType, setCarSelectedType] = useState("انتخاب برند");
@@ -67,9 +71,16 @@ const CarSelectComponent = (props) => {
   }, [carSelected]);
 
   useEffect(() => {
+    setQuery.updateQueryParams(
+      {
+        attribute_slug: "type_vehicle",
+        attribute_value: "car",
+      },
+      "",
+    );
     (async () => {
       const data = await getDataWithFullErrorRes(
-        process.env.BASE_API + "/web/my-vehicles"
+        process.env.BASE_API + "/web/my-vehicles",
       );
       if (data.status && data.status === "success") {
         setMyVehicleData(data.data);
@@ -106,7 +117,7 @@ const CarSelectComponent = (props) => {
     setSearchedData(
       data.filter((item) => {
         return item.title.includes(value);
-      })
+      }),
     );
   }
 
@@ -129,6 +140,8 @@ const CarSelectComponent = (props) => {
       setInvoiceData({ data: data.data.data, totalPrice: totalPrice });
       if (cartableType === "BATTERIES") {
         dispatch(setBatteriesBasketLength(data.data.data.length));
+      } else if (cartableType === "PERIODIC_SERVICE") {
+        dispatch(setPeriodicServiceBasketLength(data.data.data.length));
       }
     }
   }
@@ -152,8 +165,17 @@ const CarSelectComponent = (props) => {
         localStorage.removeItem("batteryTotalPrice");
         nProgress.start();
         router.push(
-          `/batteries/products?attribute_slug=type_vehicle&attribute_value=${attributeValue ? attributeValue : "car"}`
+          `/batteries/products?attribute_slug=type_vehicle&attribute_value=${attributeValue ? attributeValue : "car"}`,
         );
+      } else if (carTableType === "PERIODIC_SERVICE") {
+        console.log(data.data.data.cart_items);
+        let len = 0;
+        for (let item of data.data.data.cart_items) {
+          if (item.type === carTableType) {
+            len = data.data.data.cart_items.length;
+          }
+        }
+        dispatch(setPeriodicServiceBasketLength(len));
       }
       let totalPrice = 0;
       let newData = [];
@@ -166,7 +188,6 @@ const CarSelectComponent = (props) => {
 
       for (let item of data.data.data.cart_items) {
         if (item.type === carTableType) {
-          console.log(item.item.item.discounted_price);
           totalPrice = totalPrice + item.item.item.discounted_price;
           newData.push(item);
         } else if (item.type === carTableType) {
@@ -195,13 +216,13 @@ const CarSelectComponent = (props) => {
     } else {
       getBrandData(model);
     }
-    // setQuery.updateQueryParams(
-    //   {
-    //     attribute_slug: "type_vehicle",
-    //     attribute_value: model,
-    //   },
-    //   "",
-    // );
+    setQuery.updateQueryParams(
+      {
+        attribute_slug: "type_vehicle",
+        attribute_value: model === "heavy-car" ? "heavy_car" : model,
+      },
+      "",
+    );
   }
 
   function getBrandData(model) {
@@ -246,7 +267,7 @@ const CarSelectComponent = (props) => {
           brand: item.title_brand,
           model: item.title_model,
           image: item.image,
-        })
+        }),
       );
       setCarSelected(true);
       props.setModalIsOpen && props.setModalIsOpen(false);
@@ -290,7 +311,7 @@ const CarSelectComponent = (props) => {
     if (JSON.parse(localStorage.getItem("batteryTotalPrice"))?.productId) {
       await removeClickHandler(
         JSON.parse(localStorage.getItem("batteryTotalPrice")).productId,
-        "BATTERIES"
+        "BATTERIES",
       );
       setCarSelected(false);
       localStorage.removeItem("batteryTotalPrice");
@@ -302,13 +323,13 @@ const CarSelectComponent = (props) => {
     } else if (pathname.startsWith("/batteries")) {
       if (JSON.parse(localStorage.getItem("batteryTotalPrice"))?.productId) {
         await removeClickHandler(
-          JSON.parse(localStorage.getItem("batteryTotalPrice")).productId
+          JSON.parse(localStorage.getItem("batteryTotalPrice")).productId,
         );
       } else {
         setCarSelected(false);
         nProgress.start();
         router.push(
-          `/batteries/products?attribute_slug=type_vehicle&attribute_value=${attributeValue ? attributeValue : "car"}`
+          `/batteries/products?attribute_slug=type_vehicle&attribute_value=${attributeValue ? attributeValue : "car"}`,
         );
         localStorage.removeItem("selectedVehicle");
       }
@@ -316,13 +337,13 @@ const CarSelectComponent = (props) => {
       localStorage.removeItem("selectedVehicle");
       nProgress.start();
       router.push(
-        `/detailing?attribute_slug=type_vehicle&attribute_value=${attributeValue ? attributeValue : "car"}`
+        `/detailing?attribute_slug=type_vehicle&attribute_value=${attributeValue ? attributeValue : "car"}`,
       );
     } else if (pathname.startsWith("/periodic-service")) {
       localStorage.removeItem("selectedVehicle");
       nProgress.start();
       router.push(
-        `/periodic-service?attribute_slug=type_vehicle&attribute_value=${attributeValue ? attributeValue : "car"}`
+        `/periodic-service?attribute_slug=type_vehicle&attribute_value=${attributeValue ? attributeValue : "car"}`,
       );
     } else if (pathname.startsWith("/")) {
       localStorage.removeItem("selectedVehicle");
@@ -435,18 +456,20 @@ const CarSelectComponent = (props) => {
                                       ? item.item.item?.id ===
                                           JSON.parse(
                                             localStorage.getItem(
-                                              "batteryTotalPrice"
-                                            )
+                                              "batteryTotalPrice",
+                                            ),
                                           )?.productId &&
                                         numberWithCommas(
                                           JSON.parse(
                                             localStorage.getItem(
-                                              "batteryTotalPrice"
-                                            )
-                                          ).price
+                                              "batteryTotalPrice",
+                                            ),
+                                          ).price,
                                         )
                                       : numberWithCommas(
                                           item.item.item?.discounted_price
+                                            ? item.item.item?.discounted_price
+                                            : item.item.item?.price,
                                         )}
                                   </span>
                                   <span>تومان</span>
@@ -459,17 +482,15 @@ const CarSelectComponent = (props) => {
                         })}
                     </div>
                     <hr />
-                    <div className="flex justify-between">
-                      <span className="text-white font-bold text-18">
-                        مجموع سفارش
-                      </span>
-                      <div className="text-[#FEFEFE] text-14 font-bold flex items-center gap-2">
+                    <div className="text-[#454545] flex justify-between">
+                      <span className="font-bold text-18">مجموع سفارش</span>
+                      <div className="text-14 font-bold flex items-center gap-2">
                         <span>
                           {pathname.startsWith("/batteries")
                             ? numberWithCommas(
                                 JSON.parse(
-                                  localStorage.getItem("batteryTotalPrice")
-                                )?.price
+                                  localStorage.getItem("batteryTotalPrice"),
+                                )?.price,
                               )
                             : numberWithCommas(invoiceData.totalPrice)}
                         </span>

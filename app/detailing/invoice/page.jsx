@@ -1,253 +1,203 @@
-'use client'
+"use client";
+import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
+import FacktorCard from "@/components/cards/FacktorCard/FacktorCard";
+import PriceDetails from "@/components/PriceDetails/PriceDetails";
+import { useSelector } from "react-redux";
+import CompletePrice from "@/components/CompletePrice/CompletePrice";
+import { useDraggable } from "react-use-draggable-scroll";
+import { getCurrentData } from "@/utils/api-function-utils";
+import { useSearchParams } from "next/navigation";
+import { persianDateCovertor, persianStringDay } from "@/utils/function-utils";
+import Link from "next/link";
+import DiscountPercent from "@/components/DiscountPercent/DiscountPercent";
 
 const InvoicePage = () => {
-    return ( 
-        <div className="w-full flex flex-col lg:flex-row lg:rounded-2xl text-[#FEFEFE] mt-8 lg:mt-32 mb-6 overflow-hidden gap-4 lg:gap-px">
-            <div className="w-full lg:max-w-[400px] max-w-[600px] flex flex-col gap-px m-auto lg:m-0">
-                <h1 className="h-12 hidden lg:flex items-center justify-center bg-[#47505D] font-bold">مشخصات</h1>
-                <div className="flex flex-col gap-2 bg-[#707070] h-[calc(100%-49px)] rounded-2xl lg:rounded-none overflow-hidden m-4 lg:m-0">
-                    <Image src={"/assets/images/car6.png"} width={270} height={190} className="mx-auto"/>
-                    <div className="px-6 flex flex-col gap-4 bg-[#47505D] py-4 h-full">
-                        <div className="font-normal">
-                            <span className="font-semibold ml-1">نوع وسیله نقلیه:</span>
-                            <span className="font-normal">خودرو</span>
-                        </div>
-                        <div className="font-normal">
-                            <span className="font-semibold ml-1">نام وسیله نقلیه:</span>
-                            <span className="font-normal">بی ام وه ام 5 پترول 2022</span>
-                        </div>
-                        <div className="font-normal">
-                            <span className="font-semibold ml-1">نام مشتری:</span>
-                            <span className="font-normal">حسام نژاد</span>
-                        </div>
-                        <div className="font-normal">
-                            <span className="font-semibold ml-1">شماره موبایل:</span>
-                            <span className="font-normal">09123622427</span>
-                        </div>
-                        <div className="font-normal">
-                            <span className="font-semibold ml-1">آدرس:</span>
-                            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dicta
-                        </div>
-                        <div className="font-normal">
-                            <span className="font-semibold ml-1">کد فاکتور:</span>
-                            <span className="font-normal">02165804056</span>
-                        </div>
-                    </div>
-                </div>
+  const [faktorData, setFaktorData] = useState({});
+  const innerWidth = useSelector((item) => item.todo.windowInnerWidth);
+
+  const orderProduct = useRef();
+  const { events } = useDraggable(orderProduct);
+  const searchParams = useSearchParams();
+  const cityId = searchParams.get("city_id"); //ok
+  const packageId = searchParams.get("package_id"); //ok
+  const reservationTimeSlice = searchParams.get("time_id"); //ok
+  const type = searchParams.get("type"); //ok
+  const vehicleTipId = Number(searchParams.get("selectTipState").split(",")[1]); //ok
+  const serviceLocationId = searchParams.get("service_location_id"); //ok
+  console.log(reservationTimeSlice);
+
+  useEffect(() => {
+    (async () => {
+      const response = await getCurrentData("/web/detailing?step=step-4", {
+        city_id: cityId, //ok
+        reservation_time_slice_id: reservationTimeSlice, //ok
+        vehicle_tip_id: vehicleTipId, //ok
+        package_id: packageId, //ok
+        registrationable_id: serviceLocationId, //ok
+        type_service: type,
+      });
+      if (response.success) {
+        console.log(response);
+        setFaktorData(response.data.data);
+      } else {
+        console.log(response);
+      }
+    })();
+  }, []);
+
+  console.log(faktorData);
+
+  return (
+    <div className={"bg-white py-6 pt-[20px] px-4 lg:flex lg:gap-6 mb-8"}>
+      <div className={"lg:w-[calc(100%-424px)]"}>
+        <section
+          className={
+            "flex items-center gap-2 sticky lg:top-[97px] top-[74px] right-0 bg-white py-2 z-[1000]"
+          }
+        >
+          <Link
+            href={`/detailing/timeSelector?city_id=${cityId}&type=${type}&selectTipState=true,${vehicleTipId}&service_location_id=${serviceLocationId}&package_id=${packageId}`}
+          >
+            <i className={"cc-arrow-right text-24"} />
+          </Link>
+          <span className={"text-14 font-semibold"}>جزئیات سفارش باتری</span>
+        </section>
+        <section className={"flex justify-center"}>
+          <Image
+            src={process.env.BASE_API + "/web/file/" + faktorData.vehicle_image}
+            className={"w-[350px] h-[250px]"}
+            alt={"car"}
+            width={1000}
+            height={750}
+          />
+        </section>
+        <section
+          className={
+            "text-14 flex flex-col lg:flex-row gap-4 border-b-2 border-b-[#F5F5F5] pb-4"
+          }
+        >
+          <div className={"flex items-center gap-1 w-full"}>
+            <span className={"font-semibold"}>خودرو شما:</span>
+            <span>{faktorData.vehicle_brand}</span>
+            <span>{faktorData.vehicle_model}</span>
+            <span>{faktorData.vehicle_tip}</span>
+          </div>
+          <div className={"flex items-center gap-1 w-full"}>
+            <span className={"font-semibold"}>نام:</span>
+            <span>{faktorData?.user_info?.name}</span>
+          </div>
+          <div className={"flex items-center gap-1 w-full"}>
+            <span className={"font-semibold"}>شماره تماس:</span>
+            <span>{faktorData?.user_info?.mobile}</span>
+          </div>
+        </section>
+        <section
+          className={
+            "mt-4 text-14 flex flex-col lg:flex-row gap-4 border-b-2 border-b-[#F5F5F5] pb-4"
+          }
+        >
+          <div className={"flex items-center gap-1 w-full "}>
+            <span>تاریخ ثبت سفارش:</span>
+            <span className={"font-semibold"}>
+              {Object.keys(faktorData).length > 0 &&
+                persianDateCovertor(faktorData.created_at)}
+            </span>
+          </div>
+        </section>
+        <section className={"lg:flex lg:flex-col-reverse"}>
+          <section>
+            <div className={"text-14 flex items-center gap-1 my-4"}>
+              <span className={"font-semibold"}>سفارش شما:</span>
+              <span className={"text-[#888888]"}>1 خدمات</span>
             </div>
-            <div className="hidden lg:flex flex-col gap-px w-full">
-                <div className="flex flex-row gap-px w-full font-bold">
-                    <div className="h-12 flex items-center justify-center bg-[#47505D] flex-1">ردیف</div>
-                    <div className="h-12 flex items-center justify-center bg-[#47505D] flex-[3_3_0%]">کد کالا و خدمات</div>
-                    <div className="h-12 flex items-center justify-center bg-[#47505D] flex-[3_3_0%]">شرح خدمات</div>
-                    <div className="h-12 flex items-center justify-center bg-[#47505D] flex-[3_3_0%]">عنوان</div>
-                    <div className="h-12 flex items-center justify-center bg-[#47505D] flex-1">واحد</div>
-                    <div className="h-12 flex items-center justify-center bg-[#47505D] flex-1">تعداد</div>
-                    <div className="h-12 flex items-center justify-center bg-[#47505D] flex-[3_3_0%]">قیمت واحد</div>
-                    <div className="h-12 flex items-center justify-center bg-[#47505D] flex-[3_3_0%]">مبلغ</div>
-                </div>
-                <div className="flex flex-row gap-px w-full font-normal">
-                    <div className="h-12 flex items-center justify-center bg-[#5B5B5B] flex-1">1</div>
-                    <div className="h-12 flex items-center justify-center bg-[#5B5B5B] flex-[3_3_0%]">8964521</div>
-                    <div className="h-12 flex items-center justify-center bg-[#5B5B5B] flex-[3_3_0%]">تعویض روغن</div>
-                    <div className="h-12 flex items-center justify-center bg-[#5B5B5B] flex-[3_3_0%]">روغن موتور اسپیدی</div>
-                    <div className="h-12 flex items-center justify-center bg-[#5B5B5B] flex-1">عدد</div>
-                    <div className="h-12 flex items-center justify-center bg-[#5B5B5B] flex-1">1</div>
-                    <div className="h-12 flex items-center justify-center bg-[#5B5B5B] flex-[3_3_0%]">1،500،000</div>
-                    <div className="h-12 flex items-center justify-center bg-[#5B5B5B] flex-[3_3_0%]">1،500،000</div>
-                </div>
-                <div className="flex flex-row gap-px w-full font-normal">
-                    <div className="h-12 flex items-center justify-center bg-[#5B5B5B] flex-1">2</div>
-                    <div className="h-12 flex items-center justify-center bg-[#5B5B5B] flex-[3_3_0%]">8964521</div>
-                    <div className="h-12 flex items-center justify-center bg-[#5B5B5B] flex-[3_3_0%]">تعویض روغن</div>
-                    <div className="h-12 flex items-center justify-center bg-[#5B5B5B] flex-[3_3_0%]">روغن موتور اسپیدی</div>
-                    <div className="h-12 flex items-center justify-center bg-[#5B5B5B] flex-1">عدد</div>
-                    <div className="h-12 flex items-center justify-center bg-[#5B5B5B] flex-1">1</div>
-                    <div className="h-12 flex items-center justify-center bg-[#5B5B5B] flex-[3_3_0%]">1،500،000</div>
-                    <div className="h-12 flex items-center justify-center bg-[#5B5B5B] flex-[3_3_0%]">1،500،000</div>
-                </div>
-                <div className="flex flex-row gap-px w-full font-normal">
-                    <div className="h-12 flex items-center justify-center bg-[#5B5B5B] flex-1">3</div>
-                    <div className="h-12 flex items-center justify-center bg-[#5B5B5B] flex-[3_3_0%]">8964521</div>
-                    <div className="h-12 flex items-center justify-center bg-[#5B5B5B] flex-[3_3_0%]">تعویض روغن</div>
-                    <div className="h-12 flex items-center justify-center bg-[#5B5B5B] flex-[3_3_0%]">روغن موتور اسپیدی</div>
-                    <div className="h-12 flex items-center justify-center bg-[#5B5B5B] flex-1">عدد</div>
-                    <div className="h-12 flex items-center justify-center bg-[#5B5B5B] flex-1">1</div>
-                    <div className="h-12 flex items-center justify-center bg-[#5B5B5B] flex-[3_3_0%]">1،500،000</div>
-                    <div className="h-12 flex items-center justify-center bg-[#5B5B5B] flex-[3_3_0%]">1،500،000</div>
-                </div>
-                <div className="flex flex-row gap-px w-full font-normal">
-                    <div className="h-12 flex items-center justify-center bg-[#5B5B5B] flex-1">4</div>
-                    <div className="h-12 flex items-center justify-center bg-[#5B5B5B] flex-[3_3_0%]"></div>
-                    <div className="h-12 flex items-center justify-center bg-[#5B5B5B] flex-[3_3_0%]"></div>
-                    <div className="h-12 flex items-center justify-center bg-[#5B5B5B] flex-[3_3_0%]"></div>
-                    <div className="h-12 flex items-center justify-center bg-[#5B5B5B] flex-1"></div>
-                    <div className="h-12 flex items-center justify-center bg-[#5B5B5B] flex-1"></div>
-                    <div className="h-12 flex items-center justify-center bg-[#5B5B5B] flex-[3_3_0%]"></div>
-                    <div className="h-12 flex items-center justify-center bg-[#5B5B5B] flex-[3_3_0%]"></div>
-                </div>
-                <div className="flex flex-row gap-px w-full font-normal">
-                    <div className="h-12 flex items-center justify-center bg-[#5B5B5B] flex-1">5</div>
-                    <div className="h-12 flex items-center justify-center bg-[#5B5B5B] flex-[3_3_0%]"></div>
-                    <div className="h-12 flex items-center justify-center bg-[#5B5B5B] flex-[3_3_0%]"></div>
-                    <div className="h-12 flex items-center justify-center bg-[#5B5B5B] flex-[3_3_0%]"></div>
-                    <div className="h-12 flex items-center justify-center bg-[#5B5B5B] flex-1"></div>
-                    <div className="h-12 flex items-center justify-center bg-[#5B5B5B] flex-1"></div>
-                    <div className="h-12 flex items-center justify-center bg-[#5B5B5B] flex-[3_3_0%]"></div>
-                    <div className="h-12 flex items-center justify-center bg-[#5B5B5B] flex-[3_3_0%]"></div>
-                </div>
-                <div className="flex flex-row gap-px w-full font-normal">
-                    <div className="h-12 flex items-center justify-center bg-[#5B5B5B] flex-1">6</div>
-                    <div className="h-12 flex items-center justify-center bg-[#5B5B5B] flex-[3_3_0%]"></div>
-                    <div className="h-12 flex items-center justify-center bg-[#5B5B5B] flex-[3_3_0%]"></div>
-                    <div className="h-12 flex items-center justify-center bg-[#5B5B5B] flex-[3_3_0%]"></div>
-                    <div className="h-12 flex items-center justify-center bg-[#5B5B5B] flex-1"></div>
-                    <div className="h-12 flex items-center justify-center bg-[#5B5B5B] flex-1"></div>
-                    <div className="h-12 flex items-center justify-center bg-[#5B5B5B] flex-[3_3_0%]"></div>
-                    <div className="h-12 flex items-center justify-center bg-[#5B5B5B] flex-[3_3_0%]"></div>
-                </div>
-                <div className="flex flex-row gap-px w-full font-normal">
-                    <div className="h-12 flex items-center justify-center bg-[#5B5B5B] flex-1">8</div>
-                    <div className="h-12 flex items-center justify-center bg-[#5B5B5B] flex-[3_3_0%]"></div>
-                    <div className="h-12 flex items-center justify-center bg-[#5B5B5B] flex-[3_3_0%]"></div>
-                    <div className="h-12 flex items-center justify-center bg-[#5B5B5B] flex-[3_3_0%]"></div>
-                    <div className="h-12 flex items-center justify-center bg-[#5B5B5B] flex-1"></div>
-                    <div className="h-12 flex items-center justify-center bg-[#5B5B5B] flex-1"></div>
-                    <div className="h-12 flex items-center justify-center bg-[#5B5B5B] flex-[3_3_0%]"></div>
-                    <div className="h-12 flex items-center justify-center bg-[#5B5B5B] flex-[3_3_0%]"></div>
-                </div>
-                <div className="flex flex-row gap-px w-full font-normal">
-                    <div className="h-12 flex items-center justify-center bg-[#5B5B5B] flex-1">9</div>
-                    <div className="h-12 flex items-center justify-center bg-[#5B5B5B] flex-[3_3_0%]"></div>
-                    <div className="h-12 flex items-center justify-center bg-[#5B5B5B] flex-[3_3_0%]"></div>
-                    <div className="h-12 flex items-center justify-center bg-[#5B5B5B] flex-[3_3_0%]"></div>
-                    <div className="h-12 flex items-center justify-center bg-[#5B5B5B] flex-1"></div>
-                    <div className="h-12 flex items-center justify-center bg-[#5B5B5B] flex-1"></div>
-                    <div className="h-12 flex items-center justify-center bg-[#5B5B5B] flex-[3_3_0%]"></div>
-                    <div className="h-12 flex items-center justify-center bg-[#5B5B5B] flex-[3_3_0%]"></div>
-                </div>
-                <div className="flex flex-row gap-px w-full font-bold">
-                    <div className="h-12 flex items-center justify-center bg-[#383838] flex-[15_15_0%]">مبلغ کل</div>
-                    <div className="h-12 flex items-center justify-center bg-[#383838] flex-[3_3_0%]">2,000,000 تومان</div>
-                </div>
-                <div className="flex flex-row gap-px w-full font-bold">
-                    <div className="h-12 flex items-center justify-center bg-[#383838] flex-[15_15_0%]">تخفیف</div>
-                    <div className="h-12 flex items-center justify-center bg-[#383838] flex-[3_3_0%]">2,000,000 تومان</div>
-                </div>
-                <div className="flex flex-row gap-px w-full font-bold">
-                    <div className="h-12 flex items-center justify-center bg-[#383838] flex-[15_15_0%]">مبلغ نهایی</div>
-                    <div className="h-12 flex items-center justify-center bg-[#383838] flex-[3_3_0%]">2,000,000 تومان</div>
-                </div>
+            <div className={"w-full"}>
+              <ul
+                className={
+                  "flex flex-col lg:flex-row gap-4 overflow-x-auto py-4 px-1"
+                }
+                {...events}
+                ref={orderProduct}
+              >
+                <FacktorCard item={faktorData.service} />
+              </ul>
             </div>
-            <div className="flex lg:hidden flex-col gap-4 m-auto w-full max-w-[600px]">
-                <div className="grid grid-cols-2 p-4 bg-[#383838A3] rounded-2xl gap-4 m-4">
-                    <div className="flex gap-1 items-center col-span-full">
-                        <span className="font-bold">عنوان:</span>
-                        <span className="text-sm">پولیش</span>
-                    </div>
-                    <div className="flex gap-1 items-center">
-                        <span className="font-bold">کد کالا و خدمات:</span>
-                        <span className="text-sm">8964521</span>
-                    </div>
-                    <div className="flex gap-1 items-center">
-                        <span className="font-bold">شرح خدمات:</span>
-                        <span className="text-sm">تعویض روغن</span>
-                    </div>
-                    <div className="flex gap-1 items-center">
-                        <span className="font-bold">تعداد:</span>
-                        <span className="text-sm">1</span>
-                    </div>
-                    <div className="flex gap-1 items-center">
-                        <span className="font-bold">واحد:</span>
-                        <span className="text-sm">لیتر</span>
-                    </div>
-                    <div className="flex flex-col gap-1 items-start">
-                        <span className="font-bold">قیمت کل:</span>
-                        <span className="text-sm">2,000,000 تومان</span>
-                    </div>
-                    <div className="flex flex-col gap-1 items-start">
-                        <span className="font-bold">قیمت واحد:</span>
-                        <span className="text-sm">2,000,000 تومان</span>
-                    </div>
-                </div>
-                <div className="grid grid-cols-2 p-4 bg-[#383838A3] rounded-2xl gap-4 m-4">
-                    <div className="flex gap-1 items-center col-span-full">
-                        <span className="font-bold">عنوان:</span>
-                        <span className="text-sm">پولیش</span>
-                    </div>
-                    <div className="flex gap-1 items-center">
-                        <span className="font-bold">کد کالا و خدمات:</span>
-                        <span className="text-sm">8964521</span>
-                    </div>
-                    <div className="flex gap-1 items-center">
-                        <span className="font-bold">شرح خدمات:</span>
-                        <span className="text-sm">تعویض روغن</span>
-                    </div>
-                    <div className="flex gap-1 items-center">
-                        <span className="font-bold">تعداد:</span>
-                        <span className="text-sm">1</span>
-                    </div>
-                    <div className="flex gap-1 items-center">
-                        <span className="font-bold">واحد:</span>
-                        <span className="text-sm">لیتر</span>
-                    </div>
-                    <div className="flex flex-col gap-1 items-start">
-                        <span className="font-bold">قیمت کل:</span>
-                        <span className="text-sm">2,000,000 تومان</span>
-                    </div>
-                    <div className="flex flex-col gap-1 items-start">
-                        <span className="font-bold">قیمت واحد:</span>
-                        <span className="text-sm">2,000,000 تومان</span>
-                    </div>
-                </div>
-                <div className="grid grid-cols-2 p-4 bg-[#383838A3] rounded-2xl gap-4 m-4">
-                    <div className="flex gap-1 items-center col-span-full">
-                        <span className="font-bold">عنوان:</span>
-                        <span className="text-sm">پولیش</span>
-                    </div>
-                    <div className="flex gap-1 items-center">
-                        <span className="font-bold">کد کالا و خدمات:</span>
-                        <span className="text-sm">8964521</span>
-                    </div>
-                    <div className="flex gap-1 items-center">
-                        <span className="font-bold">شرح خدمات:</span>
-                        <span className="text-sm">تعویض روغن</span>
-                    </div>
-                    <div className="flex gap-1 items-center">
-                        <span className="font-bold">تعداد:</span>
-                        <span className="text-sm">1</span>
-                    </div>
-                    <div className="flex gap-1 items-center">
-                        <span className="font-bold">واحد:</span>
-                        <span className="text-sm">لیتر</span>
-                    </div>
-                    <div className="flex flex-col gap-1 items-start">
-                        <span className="font-bold">قیمت کل:</span>
-                        <span className="text-sm">2,000,000 تومان</span>
-                    </div>
-                    <div className="flex flex-col gap-1 items-start">
-                        <span className="font-bold">قیمت واحد:</span>
-                        <span className="text-sm">2,000,000 تومان</span>
-                    </div>
-                </div>
-                <div className="flex flex-col p-4 bg-[#383838] rounded-2xl gap-4 m-4">
-                    <div className="flex items-center justify-between">
-                        <span className="font-bold">مبلغ کل</span>
-                        <span className="text-sm">2,000,000 تومان</span>
-                    </div>
-                    <div className="flex items-center justify-between">
-                        <span className="font-bold">تخفیف</span>
-                        <span className="text-sm">1,000,000 تومان</span>
-                    </div>
-                    <div className="flex items-center justify-between">
-                        <span className="font-bold">مبلغ نهایی</span>
-                        <span className="text-sm">1,000,000 تومان</span>
-                    </div>
-                </div>
+          </section>
+          <section className="bg-white rounded-lg w-full text-14 mt-4">
+            {/* Price Details Section */}
+            {innerWidth < 1024 && (
+              <div className="space-y-4 p-4 shadow-custom1 rounded-lg w-full lg:h-fit">
+                <PriceDetails faktorData={faktorData} length={1} />
+              </div>
+            )}
+            <div className={"mt-4 hidden lg:block"}>
+              <DiscountPercent />
             </div>
+            {/* Address Section */}
+            <div className="mt-4 space-y-2 flex flex-col gap-2">
+              <div className="flex flex-col">
+                <span className="text-gray-500">محل دریافت خدمات:</span>
+                <span className="text-gray-900 text-right">
+                  {faktorData.address_info?.address}
+                </span>
+              </div>
+              <Link
+                href={`/detailing/selectLocation?city_id=${cityId}&type=${type}&selectTipState=true,${vehicleTipId}`}
+                className="text-[#518dd5] flex items-center gap-1 mt-2 self-end border-b-2 border-b-[#518dd5] pb-2 cursor-pointer"
+              >
+                <i className={"cc-edit text-20"} />
+                <span className={"font-semibold"}>تغییر آدرس</span>
+              </Link>
+            </div>
+
+            {/* Date and Time Section */}
+            <div className="mt-4 space-y-2 flex flex-col gap-2">
+              <div className="flex justify-between lg:justify-start lg:gap-4">
+                <span className="text-gray-500">تاریخ دریافت خدمات:</span>
+                <div className="text-gray-900 flex gap-2 items-start">
+                  <span>
+                    {Object.keys(faktorData).length > 0 &&
+                      persianStringDay(faktorData.reservation_time_day)}
+                  </span>
+                  <span>
+                    {Object.keys(faktorData).length > 0 &&
+                      persianDateCovertor(faktorData.reservation_time_day)}
+                  </span>
+                </div>
+              </div>
+              <div className="flex justify-between lg:justify-start lg:gap-4">
+                <span className="text-gray-500">ساعت دریافت خدمات:</span>
+                <span>
+                  {faktorData.reservation_time_slice?.split(",").join(" تا ")}
+                </span>
+              </div>
+              <Link
+                href={`/detailing/timeSelector?city_id=${cityId}&type=${type}&selectTipState=true,${vehicleTipId}&service_location_id=${serviceLocationId}&package_id=${packageId}`}
+                className="text-[#518dd5] flex items-center gap-1 mt-2 self-end border-b-2 border-b-[#518dd5] pb-2 cursor-pointer"
+              >
+                <i className={"cc-edit text-20"} />
+                <span className={"font-semibold"}>تغییر تاریخ و زمان</span>
+              </Link>
+            </div>
+            <div className={"mt-4 block lg:hidden"}>
+              <DiscountPercent />
+            </div>
+          </section>
+        </section>
+        {innerWidth < 1024 && (
+          <CompletePrice
+            customStyle={"bg-[#eeeeee] fixed left-0 flex justify-between"}
+            priceTotal={faktorData.price_total}
+          />
+        )}
+      </div>
+      {innerWidth > 1024 && (
+        <div className="space-y-4 p-4 shadow-custom1 rounded-lg lg:w-[400px] lg:h-fit lg:sticky lg:top-[110px] lg:left-0 lg:block">
+          <PriceDetails faktorData={faktorData} length={1} />
         </div>
-     );
-}
- 
+      )}
+    </div>
+  );
+};
+
 export default InvoicePage;

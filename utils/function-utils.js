@@ -83,7 +83,12 @@ function timeStampToTime(timeStamp) {
 }
 function persianDateCovertor(timeStamp) {
   moment.locale("fa");
-  return moment.unix(timeStamp).format("L");
+  return moment(Number(timeStamp) * 1000).format("L");
+}
+
+function persianStringDay(timeStamp) {
+  moment.locale("fa");
+  return moment(Number(timeStamp) * 1000).format("dddd");
 }
 
 export {
@@ -95,4 +100,5 @@ export {
   timeStampToTime,
   persianDateCovertor,
   numberWithSlash,
+  persianStringDay,
 };

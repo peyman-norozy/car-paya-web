@@ -3,10 +3,12 @@ import React, { useEffect, useState } from "react";
 import TimeSelectorCard from "@/components/TimeSelectorCard/TimeSelectorCard";
 import { getDataWithFullErrorRes } from "@/utils/api-function-utils";
 import useSetQuery from "@/hook/useSetQuery";
+import { useSearchParams } from "next/navigation";
 const Page = (props) => {
   const [selectedTime, setSelectedTime] = useState();
   const [data, setData] = useState([]);
   const setQuery = useSetQuery();
+  const searchParams = useSearchParams();
   useEffect(() => {
     async function getTimeData() {
       try {
@@ -29,7 +31,7 @@ const Page = (props) => {
 
   function onclick() {
     setQuery.updateQueryParams(
-      { time_id: selectedTime, type: "MOVING" },
+      { time_id: selectedTime, type: searchParams.get("type") },
       "/batteries/invoice",
     );
   }

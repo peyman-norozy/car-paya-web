@@ -16,6 +16,7 @@ const initialState = {
   carSelectToastState: false,
   renderSetCarState: false,
   batteriesBasketLength: 0,
+  periodicServiceBasketLength: 0,
 };
 
 const todoSlice = createSlice({
@@ -70,6 +71,9 @@ const todoSlice = createSlice({
     setBatteriesBasketLength(state, action) {
       state.batteriesBasketLength = action.payload;
     },
+    setPeriodicServiceBasketLength(state, action) {
+      state.periodicServiceBasketLength = action.payload;
+    },
   },
 });
 
@@ -90,5 +94,6 @@ export const {
   setCarSelectToastHandler,
   renderSetCar,
   setBatteriesBasketLength,
+  setPeriodicServiceBasketLength,
 } = todoSlice.actions;
 export default todoSlice;
