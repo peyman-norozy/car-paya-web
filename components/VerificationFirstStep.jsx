@@ -111,7 +111,7 @@ const VerificationFirstStep = (props) => {
           </button>
         </div>
         <div className="relative">
-          <div className="w-[210px] flex flex-col items-center bg-white gap-5 py-5 px-6 m-auto relative z-[2]">
+          <div className="w-[210px] flex flex-col items-center bg-white gap-5 py-5 px-6 m-auto relative z-[2] shadow-[0_0_4px_0_rgba(171,171,171,0.25)]">
             <span className="text-[#000000] text-sm font-medium">
               مشاور و ثبت درخواست تلفنی
             </span>

@@ -22,18 +22,18 @@ const ReserveTimeVerification = (props) => {
     <div className={"grid grid-cols-1 size666:grid-cols-2 gap-4"}>
       <div
         className={
-          "bg-[#FFF0F0] col-span-full rounded-lg py-2 px-3.5 flex items-center justify-between"
+          "col-span-full py-2 px-3 flex items-center justify-between border-r-2 border-[#F58052]"
         }
       >
-        <div className={"flex items-end gap-2"}>
-          <p className={"text-18"}>{weekDay}</p>
-          <p className={"text-14"}>{persianDateCovertor(data[0])}</p>
+        <div className={"flex items-end gap-2 text-sm font-medium"}>
+          <p>{weekDay}</p>
+          <p>{persianDateCovertor(data[0])}</p>
         </div>
       </div>
       {data &&
         data[1].map((item, index) => (
           <div
-            className={" rounded-lg border border-[#CDCDCD] h-fit"}
+            className={"shadow-[0_0_8px_0_rgba(215,215,215,0.25)] rounded-lg h-fit"}
             key={index}
           >
             <div
@@ -41,8 +41,8 @@ const ReserveTimeVerification = (props) => {
               className={"flex items-center justify-between px-4 py-5"}
             >
               <div className={"flex items-center gap-4"}>
-                <p className={"text-[13px]"}>
-                  {item.start_time} تا {item.end_time}
+                <p className={"text-sm text-[#518DD5] font-medium"}>
+                  {item.start_time}:00 تا {item.end_time}:00
                 </p>
                 {item.swing_type === "INCREASE" ? (
                   <p className={"text-[12px] text-blue-600"}>
@@ -65,14 +65,14 @@ const ReserveTimeVerification = (props) => {
               : props.accordionState) && (
               <div
                 className={
-                  "grid grid-cols-2 place-content-center border-t border-t-[#EBEDF9] w-[85%] m-auto justify-items-center py-3 gap-y-4"
+                  "grid grid-cols-2 place-content-center w-[85%] m-auto justify-items-center py-3 gap-y-4"
                 }
               >
                 {/*first time*/}
                 <div
                   key={index}
                   className={
-                    "flex items-center p-2 border-b border-b-[#F5F6FF] gap-6"
+                    `flex items-center p-2 ${timeIsSelected === item.id + "/" + +item.start_time + ":00" ? "border-b border-b-[#F66B34]" : ""} gap-6`
                   }
                 >
                   <p>{item.start_time + ":00"}</p>
@@ -81,11 +81,11 @@ const ReserveTimeVerification = (props) => {
                       setTimeIsSelected(item.id + "/" + item.start_time + ":00")
                     }
                     className={
-                      "rounded-[50%] border border-[#EBEDF9] w-6 h-6 flex item-center justify-center cursor-pointer"
+                      "rounded-[50%] border-2 border-[#F66B34] size-6 flex item-center justify-center cursor-pointer"
                     }
                   >
                     <div
-                      className={`w-[18px] h-[18px] m-auto rounded-[50%] transition-all duration-500 ease-out  ${timeIsSelected === item.id + "/" + +item.start_time + ":00" ? "bg-BLUE_600" : "bg-[#EBEDF9]"}`}
+                      className={`size-[14px] m-auto rounded-[50%] transition-all duration-500 ease-out  ${timeIsSelected === item.id + "/" + +item.start_time + ":00" ? "bg-[#F66B34]" : ""}`}
                     ></div>
                   </div>
                 </div>
@@ -93,7 +93,7 @@ const ReserveTimeVerification = (props) => {
                 <div
                   key={index}
                   className={
-                    "flex items-center p-2 border-b border-b-[#F5F6FF] gap-6"
+                    `flex items-center p-2 ${timeIsSelected === item.id + "/" + (+item.start_time + 1) + ":00" ? "border-b border-b-[#F66B34]" : ""} gap-6`
                   }
                 >
                   <p>{+item.start_time + 1 + ":00"}</p>
@@ -104,11 +104,11 @@ const ReserveTimeVerification = (props) => {
                       )
                     }
                     className={
-                      "rounded-[50%] border border-[#EBEDF9] w-6 h-6 flex item-center justify-center cursor-pointer"
+                      "rounded-[50%] border-2 border-[#F66B34] size-6 flex item-center justify-center cursor-pointer"
                     }
                   >
                     <div
-                      className={`w-[18px] h-[18px] m-auto rounded-[50%] transition-all duration-500 ease-out ${timeIsSelected === item.id + "/" + (+item.start_time + 1) + ":00" ? "bg-BLUE_600" : "bg-[#EBEDF9]"}`}
+                      className={`size-[14px] m-auto rounded-[50%] transition-all duration-500 ease-out ${timeIsSelected === item.id + "/" + (+item.start_time + 1) + ":00" ? "bg-[#F66B34]" : ""}`}
                     ></div>
                   </div>
                 </div>
@@ -116,7 +116,7 @@ const ReserveTimeVerification = (props) => {
                 <div
                   key={index}
                   className={
-                    "flex items-center p-2 border-b border-b-[#F5F6FF] gap-6"
+                    `flex items-center p-2 ${timeIsSelected === item.id + "/" + +item.start_time + ":30" ? "border-b border-b-[#F66B34]" : ""} gap-6`
                   }
                 >
                   <p>{item.start_time + ":30"}</p>
@@ -125,11 +125,11 @@ const ReserveTimeVerification = (props) => {
                       setTimeIsSelected(item.id + "/" + item.start_time + ":30")
                     }
                     className={
-                      "rounded-[50%] border border-[#EBEDF9] w-6 h-6 flex item-center justify-center cursor-pointer"
+                      "rounded-[50%] border-2 border-[#F66B34] size-6 flex item-center justify-center cursor-pointer"
                     }
                   >
                     <div
-                      className={`w-[18px] h-[18px] m-auto rounded-[50%] transition-all duration-500 ease-out ${timeIsSelected === item.id + "/" + +item.start_time + ":30" ? "bg-BLUE_600" : "bg-[#EBEDF9]"}`}
+                      className={`size-[14px] m-auto rounded-[50%] transition-all duration-500 ease-out ${timeIsSelected === item.id + "/" + +item.start_time + ":30" ? "bg-[#F66B34]" : ""}`}
                     ></div>
                   </div>
                 </div>
@@ -137,7 +137,7 @@ const ReserveTimeVerification = (props) => {
                 <div
                   key={index}
                   className={
-                    "flex items-center p-2 border-b border-b-[#F5F6FF] gap-6"
+                    `flex items-center p-2 ${timeIsSelected === item.id + "/" + (+item.start_time + 1) + ":30" ? "border-b border-b-[#F66B34]" : ""} gap-6`
                   }
                 >
                   <p>{+item.start_time + 1 + ":30"}</p>
@@ -148,11 +148,11 @@ const ReserveTimeVerification = (props) => {
                       )
                     }
                     className={
-                      "rounded-[50%] border border-[#EBEDF9] w-6 h-6 flex item-center justify-center cursor-pointer"
+                      "rounded-[50%] border-2 border-[#F66B34] size-6 flex item-center justify-center cursor-pointer"
                     }
                   >
                     <div
-                      className={`w-[18px] h-[18px] m-auto rounded-[50%] transition-all duration-500 ease-out ${timeIsSelected === item.id + "/" + (+item.start_time + 1) + ":30" ? "bg-BLUE_600" : "bg-[#EBEDF9]"}`}
+                      className={`size-[14px] m-auto rounded-[50%] transition-all duration-500 ease-out ${timeIsSelected === item.id + "/" + (+item.start_time + 1) + ":30" ? "bg-[#F66B34]" : ""}`}
                     ></div>
                   </div>
                 </div>
@@ -160,14 +160,14 @@ const ReserveTimeVerification = (props) => {
             )}
           </div>
         ))}
-      <div className={"flex items-center gap-2"}>
+      {/* <div className={"flex items-center gap-2"}>
         {!props.accordionState && (
           <p className={"text-14 text-[#212B5E]"}>
             در صورت انتخاب بازده زمانی 16:00 - 18:00 افزایش قیمت به دلیل پیک
             درخواست.
           </p>
         )}
-      </div>
+      </div> */}
     </div>
   );
 };
