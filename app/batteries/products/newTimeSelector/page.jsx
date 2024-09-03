@@ -37,7 +37,7 @@ const Page = (props) => {
   }
 
   return (
-    <div className={"lg:mt-[124px] mt-6 min-h-screen lg:mr-[420px] px-3 mb-6"}>
+    <div className={"mt-4 min-h-screen lg:mr-[420px] px-3 mb-6"}>
       <h1 className={"text-center lg:text-[24px] text-18"}>
         انتخاب زمان دریافت خدمات
       </h1>

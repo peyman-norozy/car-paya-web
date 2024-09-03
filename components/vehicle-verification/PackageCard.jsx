@@ -12,7 +12,7 @@ const PackageCard = (props) => {
   return (
     <div
       className={
-        "p-[0.75rem] size752:p-[1.5rem] border border-[#848484] rounded-lg flex flex-col gap-3 "
+        `p-[0.75rem] size752:p-[1.5rem] rounded-lg flex flex-col gap-3 shadow-[0_0_8px_0_rgba(215,215,215,0.25)] ${isSelected === id?"border border-[#F58052]":""}`
       }
     >
       <div
@@ -22,16 +22,16 @@ const PackageCard = (props) => {
         <div className={"flex items-center gap-2 justify-center "}>
           <div
             className={
-              "rounded-[50%] border border-black w-[24px] h-[24px] flex items-center justify-center"
+              "rounded-[50%] border border-[#F58052] w-[24px] h-[24px] flex items-center justify-center"
             }
           >
             <div
-              className={`rounded-[50%] bg-BLUE_600 w-[16px] h-[16px] transition-all duration-500 ${isSelected === id ? "scale-1" : "scale-0"}`}
+              className={`rounded-[50%] bg-[#F58052] w-[16px] h-[16px] transition-all duration-500 ${isSelected === id ? "scale-1" : "scale-0"}`}
             ></div>
           </div>
-          <h6 className={"font-medium text-14 size752:text-16"}>{title}</h6>
+          <h6 className={"text-14 size752:text-16 text-[#010101]"}>{title}</h6>
         </div>
-        <p className={"text-BLUE_600 text-14 size752:text-16"}>
+        <p className={"text-[#518DD5] text-14 size752:text-16 font-medium"}>
           {price.toLocaleString()} تومان
         </p>
       </div>
@@ -43,10 +43,10 @@ const PackageCard = (props) => {
               className={"flex items-center justify-between cursor-pointer"}
             >
               <div className={"flex items-center gap-2 justify-center "}>
-                <p>-</p>
+                <i className="cc-tick text-[#5D5D5D]"/>
                 <h6
                   className={
-                    "font-medium text-12 size752:text-14 text-[#303030]"
+                    "font-medium text-12 size752:text-14 text-[#454545]"
                   }
                 >
                   {item.label}
@@ -56,7 +56,7 @@ const PackageCard = (props) => {
             </div>
             {optionsIsOpen && (
               <div
-                className={"p-[12px] text-12 text-gray-500"}
+                className={"p-[12px] text-12 text-[#4F4F4F]"}
                 dangerouslySetInnerHTML={{ __html: item.value }}
               ></div>
             )}

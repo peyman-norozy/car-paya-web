@@ -52,9 +52,9 @@ const BatteriesMainPage = () => {
 
   return (
     <>
-      <div className="bg-[#383838A3] rounded-3xl  flex size900:flex-row-reverse flex-col-reverse gap-6 p-6 items-center">
+      <div className="bg-[#383838A3] rounded-3xl flex size900:flex-row-reverse flex-col-reverse gap-6 p-6 items-center">
         <div className="flex flex-col gap-2 items-start flex-1">
-          <h1 className="lg:text-xl  font-bold text-[#F66B34]">باتری</h1>
+          <h1 className="lg:text-xl font-bold text-[#F66B34]">باتری</h1>
           <p className="text-[#FEFEFE] font-bold leading-8 lg:text-base text-[12px]">
             لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با
             استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در

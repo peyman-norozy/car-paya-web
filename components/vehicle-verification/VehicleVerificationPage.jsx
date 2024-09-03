@@ -18,6 +18,7 @@ import { useSelector } from "react-redux";
 import VerificationLogin from "@/components/vehicle-verification/VerificationLogin";
 import VerificationLastStep from "@/components/vehicle-verification/VerificationLastStep";
 import { useRouter } from "next/navigation";
+import VerificationInvoice from "./VerificationInvoice";
 
 const VehicleVerificationPage = (props) => {
   const { params } = props;
@@ -44,7 +45,8 @@ const VehicleVerificationPage = (props) => {
       {params.step === "step-2" && <VerificationSecondStep setStep={setStep} />}
       {params.step === "step-3" && <VerificationLogin />}
       {params.step === "step-4" && <VerificationThirdStep setStep={setStep} />}
-      {params.step === "step-5" && <VerificationLastStep />}
+      {/* {params.step === "step-5" && <VerificationLastStep />} */}
+      {params.step === "step-5" && <VerificationInvoice />}
     </div>
   );
 };

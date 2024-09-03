@@ -15,8 +15,9 @@ const CompletePrice = (props) => {
       </div>
       <button
         className={
-          "bg-[#F66B34] rounded-[8px] text-white text-[16px] font-medium w-40 h-10"
+          `${props.roleChecked?"bg-[#F66B34]":"bg-[#FCCAAC]"} rounded-[8px] text-white text-[16px] font-medium w-40 h-10`
         }
+        disabled={!props.roleChecked}
       >
         تایید و تکمیل سفارش
       </button>

@@ -18,7 +18,10 @@ const VerificationLastStep = () => {
   const city_id = searchParams.get("city_id");
   const selectedItem = searchParams.get("vehicle_tip");
   const package_id = searchParams.get("package_id");
-  const time_id = searchParams.get("time_id");
+  const reservation_time_slice_id = searchParams.get(
+    "reservation_time_slice_id"
+  );
+  const exact_time = searchParams.get("exact_time");
   const expert_id = searchParams.get("expert-id");
   const delegate_id = searchParams.get("delegate-id");
   const params = new URLSearchParams(searchParams.toString());
@@ -77,7 +80,7 @@ const VerificationLastStep = () => {
           value: delegate_id,
         },
       ],
-      params,
+      params
     );
     setQuery.updateMultiQuery([{ key: "step", value: "step-4" }], params);
   };
@@ -91,9 +94,9 @@ const VerificationLastStep = () => {
           "&city_id=" +
           city_id +
           "&exact_time=" +
-          time_id.split("/")[1] +
+          exact_time +
           "&reservation_time_slice_id=" +
-          time_id.split("/")[0] +
+          reservation_time_slice_id +
           "&vehicle_tip_id=" +
           selectedItem +
           locationId,
@@ -101,7 +104,7 @@ const VerificationLastStep = () => {
           headers: {
             Authorization: `Bearer ${getCookie("Authorization")}`,
           },
-        },
+        }
       )
       .then((res) => {
         console.log(res);
@@ -139,7 +142,7 @@ const VerificationLastStep = () => {
         <p>{weekDay}</p>
         <p>
           {new Date(data.reservation_time_day * 1000).toLocaleDateString(
-            "fa-IR",
+            "fa-IR"
           )}
         </p>
         <p>ساعت {data.exact_time}</p>
