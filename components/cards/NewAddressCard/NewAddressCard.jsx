@@ -108,6 +108,7 @@ const NewAddressCard = ({
           justShowPosition={true}
           status={status}
           editData={item.map}
+          dragging={false}
         />
       </div>
       <AddressDeleteModal
