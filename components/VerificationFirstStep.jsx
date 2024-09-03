@@ -14,6 +14,7 @@ import carshenasi from "@/public/assets/images/carshenasi.png";
 import zarebin from "@/public/assets/images/zarebin.png";
 import lines from "@/public/assets/images/lines.png";
 import { useRouter } from "next/navigation";
+import { error } from "@/utils/function-utils";
 
 const VerificationFirstStep = (props) => {
   const { on_click, verificationData, setStep, step } = props;
@@ -34,6 +35,13 @@ const VerificationFirstStep = (props) => {
   ];
 
   const PackageStepHandler = () => {
+    if(!localStorage.getItem("selectedVehicle")){
+      error("ابتدا وسیله نقلیه را انتخاب کنید")
+    }
+    if(!localStorage.getItem("city")){
+      error("ابتدا شهر خود را انتخاب کنید")
+    }
+    if(localStorage.getItem("city")&&localStorage.getItem("selectedVehicle")){
     setQuery.setMultiQuery([
       {
         key: "city_id",
@@ -46,6 +54,7 @@ const VerificationFirstStep = (props) => {
       { key: "step", value: "step-1" },
     ]);
     setStep(2);
+  }
     // setModalIsOpen(true);
     // router.push(
     //   `/periodic-service/location-selection?city_id=${localStorage.getItem("city").cityId}&vehicle_tip=${localStorage.getItem("selectedVehicle").id}`,
