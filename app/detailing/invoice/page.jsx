@@ -10,6 +10,7 @@ import { getCurrentData } from "@/utils/api-function-utils";
 import { useSearchParams } from "next/navigation";
 import { persianDateCovertor, persianStringDay } from "@/utils/function-utils";
 import Link from "next/link";
+import DiscountPercent from "@/components/DiscountPercent/DiscountPercent";
 
 const InvoicePage = () => {
   const [faktorData, setFaktorData] = useState({});
@@ -55,7 +56,11 @@ const InvoicePage = () => {
             "flex items-center gap-2 sticky lg:top-[97px] top-[74px] right-0 bg-white py-2 z-[1000]"
           }
         >
-          <i className={"cc-arrow-right text-24"} />
+          <Link
+            href={`/detailing/timeSelector?city_id=${cityId}&type=${type}&selectTipState=true,${vehicleTipId}&service_location_id=${serviceLocationId}&package_id=${packageId}`}
+          >
+            <i className={"cc-arrow-right text-24"} />
+          </Link>
           <span className={"text-14 font-semibold"}>جزئیات سفارش باتری</span>
         </section>
         <section className={"flex justify-center"}>
@@ -104,7 +109,7 @@ const InvoicePage = () => {
           <section>
             <div className={"text-14 flex items-center gap-1 my-4"}>
               <span className={"font-semibold"}>سفارش شما:</span>
-              <span className={"text-[#888888]"}>3 خدمات</span>
+              <span className={"text-[#888888]"}>1 خدمات</span>
             </div>
             <div className={"w-full"}>
               <ul
@@ -115,9 +120,6 @@ const InvoicePage = () => {
                 ref={orderProduct}
               >
                 <FacktorCard item={faktorData.service} />
-                {/*{faktorData.product?.map((item, index) => (*/}
-                {/*  <FacktorCard key={item.id} item={item} />*/}
-                {/*))}*/}
               </ul>
             </div>
           </section>
@@ -125,9 +127,12 @@ const InvoicePage = () => {
             {/* Price Details Section */}
             {innerWidth < 1024 && (
               <div className="space-y-4 p-4 shadow-custom1 rounded-lg w-full lg:h-fit">
-                <PriceDetails faktorData={faktorData} />
+                <PriceDetails faktorData={faktorData} length={1} />
               </div>
             )}
+            <div className={"mt-4 hidden lg:block"}>
+              <DiscountPercent />
+            </div>
             {/* Address Section */}
             <div className="mt-4 space-y-2 flex flex-col gap-2">
               <div className="flex flex-col">
@@ -174,15 +179,21 @@ const InvoicePage = () => {
                 <span className={"font-semibold"}>تغییر تاریخ و زمان</span>
               </Link>
             </div>
+            <div className={"mt-4 block lg:hidden"}>
+              <DiscountPercent />
+            </div>
           </section>
         </section>
         {innerWidth < 1024 && (
-          <CompletePrice customStyle={"bg-[#eeeeee] fixed left-0"} />
+          <CompletePrice
+            customStyle={"bg-[#eeeeee] fixed left-0 flex justify-between"}
+            priceTotal={faktorData.price_total}
+          />
         )}
       </div>
       {innerWidth > 1024 && (
         <div className="space-y-4 p-4 shadow-custom1 rounded-lg lg:w-[400px] lg:h-fit lg:sticky lg:top-[110px] lg:left-0 lg:block">
-          <PriceDetails faktorData={faktorData} />
+          <PriceDetails faktorData={faktorData} length={1} />
         </div>
       )}
     </div>
