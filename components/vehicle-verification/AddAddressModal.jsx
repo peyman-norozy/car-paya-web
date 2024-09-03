@@ -211,11 +211,13 @@ const AddressModal = (props) => {
             setMapPosition={setMapPosition}
             editData={mapPosition ? (editData.map = mapPosition) : editData.map}
             setItarateMapData={setItarateMapData}
+            dragging={true}
           />
         ) : props.pageType === "create" ? (
           <MapDirection
             setMapPosition={setMapPosition}
             setItarateMapData={setItarateMapData}
+            dragging={true}
           />
         ) : (
           ""

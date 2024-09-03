@@ -65,6 +65,7 @@ const MapDirection = (props) => {
           className={`${props.justShowPosition ? "w-full h-full" : ""}`}
           scrollWheelZoom={true}
           ref={setMap}
+          dragging={props.dragging}
         >
           <TileLayer
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'

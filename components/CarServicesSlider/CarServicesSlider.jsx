@@ -38,7 +38,7 @@ const CarServicesSlider = (props) => {
   return (
     carServicesShow && (
       <div
-        className={`lg:block hidden sticky ${showHeaderData ? "top-[98px]" : "top-0"} bg-[#d1d1d1] py-4 rounded-b-lg  w-[calc(100%-424px)] mr-auto z-[2000]`}
+        className={`lg:block hidden sticky top-[98px] bg-[#F4F4F4] py-7 rounded-b-lg w-[calc(100%-424px)] mr-auto z-[2000]`}
       >
         <CustomSlider>
           {props.data.map((item, index) => (
