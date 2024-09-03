@@ -58,7 +58,11 @@ const InvoicePage = () => {
             "flex items-center gap-2 sticky lg:top-[97px] top-[74px] right-0 bg-white py-2 z-[1000]"
           }
         >
-          <i className={"cc-arrow-right text-24"} />
+          <Link
+            href={`/periodic-service/time-selection?city_id=${cityId}&type=${type}&selectTipState=true,${vehicleTipId}&service_location_id=${serviceLocationId}&package_id=${packageId}`}
+          >
+            <i className={"cc-arrow-right text-24"} />
+          </Link>{" "}
           <span className={"text-14 font-semibold"}>جزئیات سفارش باتری</span>
         </section>
         <section className={"flex justify-center"}>
@@ -107,7 +111,9 @@ const InvoicePage = () => {
           <section>
             <div className={"text-14 flex items-center gap-1 my-4"}>
               <span className={"font-semibold"}>سفارش شما:</span>
-              <span className={"text-[#888888]"}>3 خدمات</span>
+              <span className={"text-[#888888]"}>
+                {faktorData?.product?.length + " کالا "}
+              </span>
             </div>
             <div className={"w-full"}>
               <ul
@@ -181,12 +187,16 @@ const InvoicePage = () => {
         {innerWidth < 1024 && (
           <CompletePrice
             customStyle={"bg-[#eeeeee] fixed left-0 flex justify-between"}
+            priceTotal={faktorData.price_total}
           />
         )}
       </div>
       {innerWidth > 1024 && (
         <div className="space-y-4 p-4 shadow-custom1 rounded-lg lg:w-[400px] lg:h-fit lg:sticky lg:top-[110px] lg:left-0 lg:block">
-          <PriceDetails faktorData={faktorData} />
+          <PriceDetails
+            faktorData={faktorData}
+            length={faktorData?.product?.length}
+          />
         </div>
       )}
     </div>
