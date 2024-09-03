@@ -76,9 +76,7 @@ const BatteriesPage = (props) => {
 
   return (
     <div className={"flex flex-col relative py-4 max-w-[1772px] m-auto"}>
-      <section
-        className={"lg:w-[calc(100%-424px)] w-full mr-auto lg:mt-16 mt-[20px]"}
-      >
+      <section className={"lg:w-[calc(100%-424px)] w-full mr-auto mt-4"}>
         <div className="flex items-center justify-between">
           <div className={"flex items-center gap-4 relative filterModal"}>
             <div className={"flex items-center gap-4"}>
