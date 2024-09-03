@@ -38,14 +38,17 @@ const VerificationSecondStep = (props) => {
     } else {
       setButtonIsdisabled(false);
       // if (loginState) {
-        setQuery.setMultiQuery([
-          { key: "step", value: "step-4" },
-          { key: "city_id", value: city_id },
-          { key: "vehicle_tip" , value: selectedItem,},
-          { key: "package_id", value: package_id },
-          { key: "reservation_time_slice_id", value: timeIsSelected.split("/")[0] },
-          { key: "exact_time", value: timeIsSelected.split("/")[1] },
-        ]);
+      setQuery.setMultiQuery([
+        { key: "step", value: "step-4" },
+        { key: "city_id", value: city_id },
+        { key: "vehicle_tip", value: selectedItem },
+        { key: "package_id", value: package_id },
+        {
+          key: "reservation_time_slice_id",
+          value: timeIsSelected.split("/")[0],
+        },
+        { key: "exact_time", value: timeIsSelected.split("/")[1] },
+      ]);
       // } else {
       //   setQuery.setMultiQuery([
       //     { key: "step", value: "step-3" },
@@ -105,7 +108,9 @@ const VerificationSecondStep = (props) => {
         "flex items-start justify-between pt-[28px] lg:w-[calc(100%-424px)] mr-auto mb-4"
       }
     >
-      <div className={"w-full size1570:w-[50%] flex flex-col mx-4 sm:mx-0 gap-4"}>
+      <div
+        className={"w-full size1570:w-[50%] flex flex-col mx-4 sm:mx-0 gap-4"}
+      >
         <div
           className={
             "flex items-center gap-2 size752:gap-[16px] text-[#0E0E0E] w-full"
@@ -116,11 +121,15 @@ const VerificationSecondStep = (props) => {
             onClick={backStepHandler}
           />
           <p className={"text-14 size752:text-16 w-full font-medium"}>
-          انتخاب زمان
+            انتخاب زمان
           </p>
         </div>
-        <div className="w-full h-1 bg-[#D1D1D1] rounded-sm flex justify-start overflow-hidden">
-          <div className="bg-[#518DD5] h-1 w-1/2 "></div>
+        <div className="flex gap-2 items-center w-full bg-[#FFFFFF] text-[#D1D1D1]">
+          <i className="cc-search text-2xl text-[#518DD5]" />
+          <div className="border-b-4 border-dotted border-[#518DD5] w-full"></div>
+          <i className="cc-timer text-2xl text-[#518DD5]" />
+          <div className="border-b-4 border-dotted border-[#D1D1D1] w-full"></div>
+          <i className="cc-location text-2xl text-[#D1D1D1]" />
         </div>
         <p
           className={
@@ -138,7 +147,7 @@ const VerificationSecondStep = (props) => {
               setOptionIsOpen={setOptionIsOpen}
               optionIsOpen={optionIsOpen}
               accordionState={props.accordionState}
-              key={item.id+index}
+              key={item.id + index}
             />
           ))}
         </div>
@@ -150,8 +159,14 @@ const VerificationSecondStep = (props) => {
           <p>تایید و ادامه</p>
           <i className={"cc-left text-[20px]"} />
         </button>
-        <div className="fixed w-full rounded-t-2xl shadow-[0_-2px_4px_0_rgba(199,199,199,0.25)] flex justify-center pt-4 pb-6 items-start bottom-0 right-0 bg-white z-[2000] px-10 lg:hidden" onClick={continueSecondStepHandler} disabled={buttonIsdisabled}>
-          <button className="bg-[#F66B34] rounded-lg w-full sm:max-w-[400px] text-[#FEFEFE] text-sm font-medium py-3">تایید ادامه</button>
+        <div
+          className="fixed w-full rounded-t-2xl shadow-[0_-2px_4px_0_rgba(199,199,199,0.25)] flex justify-center pt-4 pb-6 items-start bottom-0 right-0 bg-white z-[2000] px-10 lg:hidden"
+          onClick={continueSecondStepHandler}
+          disabled={buttonIsdisabled}
+        >
+          <button className="bg-[#F66B34] rounded-lg w-full sm:max-w-[400px] text-[#FEFEFE] text-sm font-medium py-3">
+            تایید ادامه
+          </button>
         </div>
       </div>
       <Image

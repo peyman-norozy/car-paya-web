@@ -25,7 +25,9 @@ const VerificationThirdStep = (props) => {
   const city_id = searchParams.get("city_id");
   const selectedItem = searchParams.get("vehicle_tip");
   const package_id = searchParams.get("package_id");
-  const reservation_time_slice_id = searchParams.get("reservation_time_slice_id");
+  const reservation_time_slice_id = searchParams.get(
+    "reservation_time_slice_id"
+  );
   const exact_time = searchParams.get("exact_time");
   const params = new URLSearchParams(searchParams.toString());
   const pathname = usePathname();
@@ -118,7 +120,7 @@ const VerificationThirdStep = (props) => {
       setQuery.setMultiQuery([
         { key: "step", value: "step-5" },
         { key: "city_id", value: city_id },
-        { key: "vehicle_tip" , value: selectedItem,},
+        { key: "vehicle_tip", value: selectedItem },
         { key: "package_id", value: package_id },
         { key: "reservation_time_slice_id", value: reservation_time_slice_id },
         { key: "exact_time", value: exact_time },
@@ -143,8 +145,12 @@ const VerificationThirdStep = (props) => {
           انتخاب مکان
         </p>
       </div>
-      <div className="w-full h-1 bg-[#D1D1D1] rounded-sm flex justify-start overflow-hidden">
-        <div className="bg-[#518DD5] h-1 w-3/4"></div>
+      <div className="flex gap-2 items-center w-full bg-[#FFFFFF] text-[#D1D1D1]">
+        <i className="cc-search text-2xl text-[#518DD5]" />
+        <div className="border-b-4 border-dotted border-[#518DD5] w-full"></div>
+        <i className="cc-timer text-2xl text-[#518DD5]" />
+        <div className="border-b-4 border-dotted border-[#518DD5] w-full"></div>
+        <i className="cc-location text-2xl text-[#518DD5]" />
       </div>
       <div className="flex justify-between items-center h-10">
         <p
@@ -173,7 +179,7 @@ const VerificationThirdStep = (props) => {
             onClick={() => {
               setTab(1);
               setType("MOVING");
-              setSelectedAddress("")
+              setSelectedAddress("");
             }}
           >
             در محل شما
@@ -183,7 +189,7 @@ const VerificationThirdStep = (props) => {
             onClick={() => {
               setTab(0);
               setType("FIXED");
-              setSelectedAddress("")
+              setSelectedAddress("");
             }}
           >
             در مراکز کار پایا

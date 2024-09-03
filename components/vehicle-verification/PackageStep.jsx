@@ -78,8 +78,12 @@ const PackageStep = () => {
             انتخاب سرویس
           </p>
         </div>
-        <div className="w-full h-1 bg-[#D1D1D1] rounded-sm flex justify-start overflow-hidden">
-          <div className="bg-[#518DD5] h-1 w-1/4 "></div>
+        <div className="flex gap-2 items-center w-full bg-[#FFFFFF] text-[#D1D1D1]">
+          <i className="cc-search text-2xl text-[#518DD5]"/>
+          <div className="border-b-4 border-dotted border-[#D1D1D1] w-full"></div>
+          <i className="cc-timer text-2xl text-[#D1D1D1]"/>
+          <div className="border-b-4 border-dotted border-[#D1D1D1] w-full"></div>
+          <i className="cc-location text-2xl text-[#D1D1D1]"/>
         </div>
         <p
           className={
