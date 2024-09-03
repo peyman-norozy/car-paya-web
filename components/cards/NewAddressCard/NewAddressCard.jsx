@@ -40,7 +40,7 @@ const NewAddressCard = ({
 
   return (
     <li
-      className={`bg-[#E7E7E7] p-4 rounded-[16px] flex xl:flex-row flex-col-reverse gap-6 ${status === "FIXED" ? "xl:h-[335px] h-fit" : "size1228:h-[232px] lg:h-[270px] size830:h-[232px] xl:h-[270px] h-fit"}`}
+      className={`bg-[#E7E7E7] p-4 rounded-[16px] flex xl:flex-row flex-col-reverse gap-6 ${status === "FIXED" ? "xl:h-[335px] h-fit" : status === "MOVING" ? "h-full" : "size1228:h-[232px] lg:h-[270px] size830:h-[232px] xl:h-[270px] h-fit"}`}
     >
       <div className={"flex-1"}>
         <section className={"flex justify-between"}>
