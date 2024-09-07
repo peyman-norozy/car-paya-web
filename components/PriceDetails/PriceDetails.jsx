@@ -14,7 +14,7 @@ const PriceDetails = ({ faktorData, length }) => {
       </div>
       <div className="flex justify-between">
         <span className="text-sm">قیمت سرویس:</span>
-        <span className="text-[#454545] text-sm">۱۵۳۰۰۰۰ تومان</span>
+        <span className="text-[#454545] text-sm">{numberWithCommas(faktorData?.service?.price)}</span>
       </div>
       <div className="flex justify-between">
         <span className="text-sm">افزایش تعرفه به دلیل پیک درخواست:</span>
@@ -22,7 +22,7 @@ const PriceDetails = ({ faktorData, length }) => {
       </div>
       <div className="flex justify-between">
         <span className="text-sm">مبلغ تخفیف:</span>
-        <span className="text-[#22A137] text-sm">--</span>
+        <span className="text-[#22A137] text-sm">{numberWithCommas(faktorData?.service?.price - faktorData?.service?.discounted_price)}</span>
       </div>
       <div className="flex justify-between">
         <span className="text-sm text-[#F58052]">جمع قابل پرداخت:</span>

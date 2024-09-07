@@ -20,8 +20,8 @@ const VerificationInvoice = () => {
   const [faktorData, setFaktorData] = useState({});
   const [roleChecked, setRoleChecked] = useState(false);
   const innerWidth = useSelector((item) => item.todo.windowInnerWidth);
-//   const orderProduct = useRef();
-//   const { events } = useDraggable(orderProduct);
+  //   const orderProduct = useRef();
+  //   const { events } = useDraggable(orderProduct);
   const searchParams = useSearchParams();
   const cityId = searchParams.get("city_id");
   const typeService = searchParams.get("type_service");
@@ -118,8 +118,7 @@ const VerificationInvoice = () => {
                 persianDate(faktorData.reservation_time_day, "dddd")}
             </span> */}
             <span className={"text-[#454545] font-medium text-sm"}>
-              طرح‌نما یا لورم ایپسوم به نوشتاری آزمایشی و بی‌معنی در صنعت چاپ،
-              صفحه‌آرایی و طراحی گرافیک گفته می‌شود.
+              {faktorData?.address_info}
             </span>
           </div>
           <Link
@@ -148,10 +147,7 @@ const VerificationInvoice = () => {
           </div>
           <div className={"flex items-center gap-1 w-full "}>
             <span>ساعت دریافت خدمات:</span>
-            <span className={"font-medium"}>
-              {Object.keys(faktorData).length > 0 &&
-                persianDate(faktorData.reservation_time_day, "LT")}
-            </span>
+            <span className={"font-medium"}>{faktorData?.reservation_time_slice?.split(',')[0]} تا {faktorData?.reservation_time_slice?.split(',')[1]}</span>
           </div>
           <Link
             href={`/vehicle-verification?step=step-2&city_id=${cityId}&package_id=${package_id}&vehicle_tip=${vehicleTipId}&exact_time=${exact_time}&type_service=${typeService}&reservation_time_slice_id=${reservation_time_slice_id}&registrationable_id=${registrationable_id}`}
@@ -244,17 +240,26 @@ const VerificationInvoice = () => {
         </section>
         {innerWidth < 1024 && (
           <CompletePrice
-            customStyle={"bg-white fixed left-0 flex justify-between shadow-[0_-2px_4px_0_rgba(199,199,199,0.25)] rounded-t-xl"}
+            customStyle={
+              "bg-white fixed left-0 flex justify-between shadow-[0_-2px_4px_0_rgba(199,199,199,0.25)] rounded-t-xl"
+            }
             priceTotal={faktorData.price_total}
             roleChecked={roleChecked}
           />
         )}
         <div className="flex justify-start items-center text-xs gap-1 font-medium">
-            <div className={`border-2 border-[#F58052] size-6 rounded-md ml-1 flex justify-center items-center ${roleChecked?"bg-[#f58052]":""}`} onClick={()=>{setRoleChecked(!roleChecked)}}>
-                <i className="cc-tick text-white text-xl"/>
-            </div>
-            <span className="text-[#F58052] underline">قوانین کار پایا و سیاست‌ نامه حریم‌ خصوصی</span>
-            <span className="text-[#518DD5]">را می پذیرم</span>
+          <div
+            className={`border-2 border-[#F58052] size-6 rounded-md ml-1 flex justify-center items-center ${roleChecked ? "bg-[#f58052]" : ""}`}
+            onClick={() => {
+              setRoleChecked(!roleChecked);
+            }}
+          >
+            <i className="cc-tick text-white text-xl" />
+          </div>
+          <span className="text-[#F58052] underline">
+            قوانین کار پایا و سیاست‌ نامه حریم‌ خصوصی
+          </span>
+          <span className="text-[#518DD5]">را می پذیرم</span>
         </div>
       </div>
       {innerWidth > 1024 && (
