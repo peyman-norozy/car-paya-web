@@ -129,12 +129,6 @@ const VerificationThirdStep = (props) => {
         { key: "type_service", value: type },
         { key: "registrationable_id", value: selectedAddress },
       ]);
-      postData("/web/cart/add", {
-        cartable_id: package_id,
-        cartable_type: "VEHICLE_VERIFICATION",
-        vehicle_tip_id: vehicle_tip,
-        step: "5",
-      });
     }
   };
 
