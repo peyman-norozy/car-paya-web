@@ -20,7 +20,7 @@ const ReserveTimeVerification = (props) => {
 
   return (
     <div className={"grid grid-cols-1 size666:grid-cols-2 gap-4"}>
-      <div
+      {/* <div
         className={
           "col-span-full py-2 px-3 flex items-center justify-between border-r-2 border-[#F58052]"
         }
@@ -29,7 +29,7 @@ const ReserveTimeVerification = (props) => {
           <p>{weekDay}</p>
           <p>{persianDateCovertor(data[0])}</p>
         </div>
-      </div>
+      </div> */}
       {data &&
         data[1].map((item, index) => (
           <div
@@ -45,14 +45,14 @@ const ReserveTimeVerification = (props) => {
                   {item.start_time}:00 تا {item.end_time}:00
                 </p>
                 {item.swing_type === "INCREASE" ? (
-                  <p className={"text-[12px] text-blue-600"}>
-                    <span>{item.diff_price} تومان </span>
-                    <span>افزایش قیمت به دلیل پیک درخواست</span>
+                  <p className={"text-[12px] flex items-center gap-px"}>
+                    <span className="text-red-600">*</span>
+                    <span className="text-[#010101]">{item.diff_price} تومان افزایش قیمت به دلیل پیک درخواست</span>
                   </p>
                 ) : item.swing_type === "DECREASE" ? (
-                  <p className={"text-[12px] text-green-600"}>
-                    <span>{item.diff_price} تومان </span>
-                    <span>تخفیف کارچک</span>
+                  <p className={"text-[12px] flex items-center gap-px"}>
+                    <span className="text-red-600">*</span>
+                    <span className="text-[#010101]">{item.diff_price} تومان تخفیف کارچک</span>
                   </p>
                 ) : (
                   ""

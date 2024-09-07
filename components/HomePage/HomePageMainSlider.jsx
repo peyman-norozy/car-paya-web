@@ -15,12 +15,9 @@ import Link from "next/link";
 
 const HomePageMainSlider = () => {
     const [newSlider, setNewSlider] = useState([]);
-    const [sliderShowState, setSliderShowState] = useState(false)
-
     useEffect(() => {
-        // setSliderShowState(false)
         axios
-            .get(process.env.BASE_API + "/web" + API_PATHS.SLIDERS)
+            .get(process.env.BASE_API + "/web" + API_PATHS.SLIDERS+`?type=${window.innerWidth>768?"DESKTOP":"MOBILE"}`)
             .then((res) => {
                 // const m = res.data.data;
                 // m.push(res.data.data);

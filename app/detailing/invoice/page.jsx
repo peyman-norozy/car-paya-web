@@ -25,7 +25,6 @@ const InvoicePage = () => {
   const type = searchParams.get("type"); //ok
   const vehicleTipId = Number(searchParams.get("selectTipState").split(",")[1]); //ok
   const serviceLocationId = searchParams.get("service_location_id"); //ok
-  console.log(reservationTimeSlice);
 
   useEffect(() => {
     (async () => {

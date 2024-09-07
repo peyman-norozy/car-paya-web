@@ -6,10 +6,11 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import ReserveTimeVerification from "@/components/vehicle-verification/ReserveTimeVerification";
 import useSetQuery from "@/hook/useSetQuery";
 import { useDispatch } from "react-redux";
-import { error } from "@/utils/function-utils";
+import { error, persianDate, persianDateCovertor } from "@/utils/function-utils";
 import { ToastContainer } from "react-toastify";
 import { getCookie } from "cookies-next";
 import nProgress from "nprogress";
+import moment from "jalali-moment";
 
 const VerificationSecondStep = (props) => {
   const { setStep } = props;
@@ -19,11 +20,11 @@ const VerificationSecondStep = (props) => {
   const selectedItem = searchParams.get("vehicle_tip");
   const package_id = searchParams.get("package_id");
 
+  const [date, setDate] = useState(0);
   const [loginState, setLoginState] = useState();
   const [optionIsOpen, setOptionIsOpen] = useState(false);
   const [timeIsSelected, setTimeIsSelected] = useState(null);
   const [buttonIsdisabled, setButtonIsdisabled] = useState(false);
-
   const [data, setData] = useState([]);
   const [isSelected, setIsSelected] = useState(null);
   const setQuery = useSetQuery();
@@ -138,18 +139,28 @@ const VerificationSecondStep = (props) => {
         >
           زمان خود را انتخاب کنید:
         </p>
-        <div className={"flex flex-col gap-[2rem]"}>
+        <div className="flex justify-around items-center">
           {data.map((item, index) => (
-            <ReserveTimeVerification
-              data={item}
-              timeIsSelected={timeIsSelected}
-              setTimeIsSelected={setTimeIsSelected}
-              setOptionIsOpen={setOptionIsOpen}
-              optionIsOpen={optionIsOpen}
-              accordionState={props.accordionState}
-              key={item.id + index}
-            />
+            <div
+              className={`flex items-end gap-2 text-sm font-medium border-b ${date===index?"text-[#F58052] border-[#F58052]":"text-[#FCCAAC] border-[#FCCAAC]"}`}
+              onClick={() => {
+                setDate(index);
+              }}
+            >
+              <p>{persianDate(item[0],"dddd")}</p>
+              <p>{persianDateCovertor(item[0])}</p>
+            </div>
           ))}
+        </div>
+        <div className={"flex flex-col gap-[2rem]"}>
+          <ReserveTimeVerification
+            data={data[date]}
+            timeIsSelected={timeIsSelected}
+            setTimeIsSelected={setTimeIsSelected}
+            setOptionIsOpen={setOptionIsOpen}
+            optionIsOpen={optionIsOpen}
+            accordionState={props.accordionState}
+          />
         </div>
         <button
           disabled={buttonIsdisabled}
