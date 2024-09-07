@@ -69,141 +69,102 @@ const BatteriesCard = (props) => {
     }
   };
 
-  console.log(props);
-
   return (
     <li
       className={
-        "bg-[#E7E7E7] size666:rounded-[16px] rounded-none shadow-lg p-[16px] "
+        "bg-[#E7E7E7] rounded-[16px] shadow-lg p-[16px] relative text-[#5D5D5D] flex flex-col gap-3"
       }
     >
-      <div className={"flex lg:flex-row flex-col gap-[16px]"}>
+      <div className={"flex flex-col justify-end gap-[8px]"}>
+        <h1 className="lg:text-[24px] text-[14px] text-start font-bold text-[#303030]">
+          {props.item.filters.brand} {props.item.name}
+        </h1>
+      </div>
+      <div className={"flex gap-2"}>
         <div
           className={
-            "w-[240px] h-[240px] bg-[#eee] rounded-[8px] relative self-center overflow-hidden"
+            "h-[87px] w-[73px] bg-[#eee] rounded-[8px] relative self-center overflow-hidden"
           }
         >
           <Image
             src={process.env.BASE_API + "/web/file/" + props.item.image_id}
             alt={props.item.name}
-            height={240}
-            width={240}
-            className={"cursor-pointer"}
+            height={87}
+            width={73}
+            className={"cursor-pointer h-[87px] w-[73px]"}
             onClick={batteryShowHandler}
           />
-          <span
-            className={
-              "absolute top-0 right-0 flex justify-center items-center text-white text-[14px] rounded-bl-[20px] bg-[#E61919] w-[60px] h-[40px]"
-            }
-          >
-            {props.item.discounted_percent}%
+          {/*<span*/}
+          {/*  className={*/}
+          {/*    "absolute top-0 right-0 flex justify-center items-center text-white text-[14px] rounded-bl-[20px] bg-[#E61919] w-[60px] h-[40px]"*/}
+          {/*  }*/}
+          {/*>*/}
+          {/*  {props.item.discounted_percent}%*/}
+          {/*</span>*/}
+        </div>
+        <ul className={`grid grid-cols-2 gap-y-2 text-[12px] text-[#47505D]`}>
+          <BatterisDetailCard
+            item={props.item}
+            buletStyle={"w-[5px] h-[5px] bg-[#5D5D5D]"}
+          />
+        </ul>
+      </div>
+      <div className={`absolute -top-1 -left-1`}>
+        <Image
+          src={"/assets/icons/image85.svg"}
+          alt={"percent"}
+          width={52}
+          height={51}
+        />
+        <span
+          className={
+            "absolute top-[7px] left-[8px] text-12 text-white -rotate-45"
+          }
+        >
+          {props.item.discounted_percent}%
+        </span>
+      </div>
+      <div className="flex items-center size671:flex-row gap-[0.75rem] pt-[0.25rem]">
+        <p className={"lg:text-[16px] text-14"}>قیمت </p>
+        <div className="flex flex-row items-center gap-[0.75rem]">
+          <span className="flex items-center gap-[0.25rem] line-through text-center lg:text-[16px] text-14">
+            {numberWithCommas(props.item.price)} تومان
+          </span>
+          <span className="flex items-center gap-[0.25rem] text-center lg:text-[16px] text-14">
+            {numberWithCommas(props.item["discounted_price"])}
+            <span>تومان</span>
           </span>
         </div>
-        <div className={"flex-1"}>
-          <div className={"flex flex-col justify-end gap-[8px]"}>
-            <h1 className="lg:text-[24px] text-[20px] text-center size671:text-start font-bold text-[#303030] ">
-              {props.item.filters.brand} {props.item.name}
-            </h1>
-          </div>
-          <ul
-            className={`size1142:grid hidden grid-cols-2 gap-y-[16px] text-[12px] text-[#47505D] mt-[24px]`}
-          >
-            <BatterisDetailCard item={props.item} />
-          </ul>
-          <div className={"mt-[24px] flex justify-between size"}>
-            <div>
-              <div className={"flex items-center gap-[0.75rem]"}>
-                <Image
-                  src={star}
-                  alt=""
-                  width={20}
-                  height={20}
-                  className="mb-[0.35rem] self-center mt-[0.25rem]"
-                />
-                <p className={"lg:text-[16px] text-14"}>ارسال و نصب رایگان</p>
-              </div>
-              <div className="flex items-center size671:flex-row gap-[0.75rem] pt-[0.25rem]">
-                <Image
-                  src={star}
-                  alt=""
-                  width={20}
-                  height={20}
-                  className="mb-[0.35rem] self-center mt-[0.25rem]"
-                />
-                <p className={"lg:text-[16px] text-14"}>قیمت </p>
-                <div className="flex flex-row items-center gap-[0.75rem]">
-                  <span className="flex items-center gap-[0.25rem] line-through text-center lg:text-[16px] text-14">
-                    {numberWithCommas(props.item.price)}
-                    <Image
-                      src={toman}
-                      alt=""
-                      width={20}
-                      height={20}
-                      className="mb-[0.5rem]"
-                    />
-                  </span>
-                  <span className="flex items-center gap-[0.25rem] text-center lg:text-[16px] text-14">
-                    {numberWithCommas(props.item["discounted_price"])}
-                    <Image
-                      src={toman}
-                      alt=""
-                      width={20}
-                      height={20}
-                      className="mb-[0.5rem]"
-                    />
-                  </span>
-                </div>
-              </div>
-              <div className="flex items-center size671:flex-row gap-[0.75rem] pt-[0.25rem]">
-                <Image
-                  src={star}
-                  alt=""
-                  width={20}
-                  height={20}
-                  className="mb-[0.35rem] self-center mt-[0.25rem]"
-                />
-                <div
-                  className={
-                    "flex flex-col size1314:flex-row size1314:gap-[0.75rem] gap-0"
-                  }
-                >
-                  <p className={"lg:text-[16px] text-14"}>
-                    قیمت با دریافت باطری فرسوده هم آمپر
-                  </p>
-                  <div className="flex items-center gap-[0.75rem]">
-                    <span className="flex items-center gap-[0.25rem] text-center lg:text-[16px] text-14">
-                      {numberWithCommas(props.item["same_amp"])}
-                      <Image
-                        src={toman}
-                        alt=""
-                        width={20}
-                        height={20}
-                        className="mb-[0.5rem]"
-                      />
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <Button
-              on_click={basketClickHandler}
-              class_name={
-                "bg-[#F66B34] text-white w-[160px] h-[40px] lg:text-[16px] text-12 self-end rounded-[8px] size1400:block hidden"
-              }
-            >
-              تایید و ادامه
-            </Button>
-          </div>
-          <Button
-            on_click={basketClickHandler}
-            class_name={
-              "bg-[#F66B34] text-white w-[160px] h-[40px] lg:text-[16px] text-12 float-left mt-rounded-[8px] size1400:hidden block rounded-[8px] mt-2"
-            }
-          >
-            تایید و ادامه
-          </Button>
+      </div>
+      <div className={"flex size1314:flex-row size1314:gap-[0.75rem] gap-0"}>
+        <p className={"lg:text-[16px] text-14"}>
+          قیمت با دریافت باطری فرسوده هم آمپر
+        </p>
+        <div className="flex items-center gap-[0.75rem]">
+          <span className="flex items-center gap-[0.25rem] text-center lg:text-[16px] text-14">
+            {numberWithCommas(props.item["same_amp"])}تومان
+          </span>
         </div>
       </div>
+      <div className={"flex justify-between"}>
+        <div className={"flex items-center gap-[0.75rem]"}>
+          <p className={"lg:text-[14      px] text-12 text-[#518DD5]"}>
+            ارسال و نصب رایگان
+          </p>
+        </div>
+        <Button
+          on_click={basketClickHandler}
+          class_name={
+            "bg-[#F66B34] text-white w-[120px] h-[34px] text-12 self-end rounded-[8px] flex item-center justify-between"
+          }
+        >
+          <span className={"h-full flex  items-center pr-3"}>
+            تایید و ادامه
+          </span>
+          <i className={"cc-left text-[24px] mt-1 mr-1 pl-3"} />
+        </Button>
+      </div>
+
       <div className={"size1142:hidden block"}>
         {pathName !== "/batteries/products" && <DetailingResponsiveButton />}
       </div>
