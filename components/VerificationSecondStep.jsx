@@ -1,31 +1,35 @@
 "use client";
 import Image from "next/image";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import ReserveTimeVerification from "@/components/vehicle-verification/ReserveTimeVerification";
 import useSetQuery from "@/hook/useSetQuery";
 import { useDispatch } from "react-redux";
-import { error } from "@/utils/function-utils";
+import {
+  error,
+  persianDate,
+  persianDateCovertor,
+} from "@/utils/function-utils";
 import { ToastContainer } from "react-toastify";
 import { getCookie } from "cookies-next";
 import nProgress from "nprogress";
+import moment from "jalali-moment";
+import { useDraggable } from "react-use-draggable-scroll";
 
 const VerificationSecondStep = (props) => {
-  const { setStep } = props;
   const searchParams = useSearchParams();
   const params = new URLSearchParams(searchParams.toString());
   const city_id = searchParams.get("city_id");
   const selectedItem = searchParams.get("vehicle_tip");
   const package_id = searchParams.get("package_id");
-
-  const [loginState, setLoginState] = useState();
+  const dateRef = useRef();
+  const { events } = useDraggable(dateRef);
+  const [date, setDate] = useState(0);
   const [optionIsOpen, setOptionIsOpen] = useState(false);
   const [timeIsSelected, setTimeIsSelected] = useState(null);
   const [buttonIsdisabled, setButtonIsdisabled] = useState(false);
-
   const [data, setData] = useState([]);
-  const [isSelected, setIsSelected] = useState(null);
   const setQuery = useSetQuery();
   const router = useRouter();
 
@@ -90,7 +94,6 @@ const VerificationSecondStep = (props) => {
         }
       )
       .then((res) => {
-        setLoginState(res.data["check_auth"]);
         console.log(res.data["check_auth"]);
         setData(
           Object.keys(res.data["time-reserve"]).map((key) => [
@@ -109,7 +112,7 @@ const VerificationSecondStep = (props) => {
       }
     >
       <div
-        className={"w-full size1570:w-[50%] flex flex-col mx-4 sm:mx-0 gap-4"}
+        className={"w-full size1570:w-[50%] flex flex-col px-4 sm:px-0 gap-4"}
       >
         <div
           className={
@@ -138,23 +141,40 @@ const VerificationSecondStep = (props) => {
         >
           زمان خود را انتخاب کنید:
         </p>
+        <div className="overflow-x-scroll hide_scrollbar">
+          <div
+            className="w-fit flex justify-around items-center gap-6 min-w-full"
+            {...events}
+            ref={dateRef}
+          >
+            {data.map((item, index) => (
+              <div
+                key={index}
+                className={`flex items-end gap-2 text-sm font-medium border-b ${date === index ? "text-[#F58052] border-[#F58052]" : "text-[#FCCAAC] border-[#FCCAAC]"}`}
+                onClick={() => {
+                  setDate(index);
+                }}
+              >
+                <p>{persianDate(item[0], "dddd")}</p>
+                <p>{persianDateCovertor(item[0])}</p>
+              </div>
+            ))}
+          </div>
+        </div>
         <div className={"flex flex-col gap-[2rem]"}>
-          {data.map((item, index) => (
-            <ReserveTimeVerification
-              data={item}
-              timeIsSelected={timeIsSelected}
-              setTimeIsSelected={setTimeIsSelected}
-              setOptionIsOpen={setOptionIsOpen}
-              optionIsOpen={optionIsOpen}
-              accordionState={props.accordionState}
-              key={item.id + index}
-            />
-          ))}
+          <ReserveTimeVerification
+            data={data[date]}
+            timeIsSelected={timeIsSelected}
+            setTimeIsSelected={setTimeIsSelected}
+            setOptionIsOpen={setOptionIsOpen}
+            optionIsOpen={optionIsOpen}
+            accordionState={props.accordionState}
+          />
         </div>
         <button
-          disabled={buttonIsdisabled}
+          disabled={timeIsSelected ? false : true}
           onClick={continueSecondStepHandler}
-          className={`${buttonIsdisabled ? "bg-[#F66B34] bg-opacity-[0.5] cursor-not-allowed" : "bg-[#F66B34]"} self-end hidden lg:flex items-center gap-2 mt-4 size690:mt-3 w-fit text-12 size690:text-[16px] p-[8px] text-white rounded-[4px]`}
+          className={`${timeIsSelected ? "bg-[#F66B34]" : "bg-[#FCCAAC]"} self-end hidden lg:flex items-center gap-2 mt-4 size690:mt-3 w-fit text-12 size690:text-[16px] p-[8px] text-white rounded-[4px]`}
         >
           <p>تایید و ادامه</p>
           <i className={"cc-left text-[20px]"} />
@@ -162,9 +182,11 @@ const VerificationSecondStep = (props) => {
         <div
           className="fixed w-full rounded-t-2xl shadow-[0_-2px_4px_0_rgba(199,199,199,0.25)] flex justify-center pt-4 pb-6 items-start bottom-0 right-0 bg-white z-[2000] px-10 lg:hidden"
           onClick={continueSecondStepHandler}
-          disabled={buttonIsdisabled}
         >
-          <button className="bg-[#F66B34] rounded-lg w-full sm:max-w-[400px] text-[#FEFEFE] text-sm font-medium py-3">
+          <button
+            className={`${timeIsSelected ? "bg-[#F66B34]" : "bg-[#FCCAAC]"} rounded-lg w-full sm:max-w-[400px] text-[#FEFEFE] text-sm font-medium py-3`}
+            disabled={timeIsSelected ? false : true}
+          >
             تایید ادامه
           </button>
         </div>

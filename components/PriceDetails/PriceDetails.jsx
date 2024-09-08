@@ -5,7 +5,8 @@ import { numberWithCommas } from "@/utils/function-utils";
 
 const PriceDetails = ({ faktorData, length }) => {
   const innerWidth = useSelector((item) => item.todo.windowInnerWidth);
-
+  console.log(faktorData);
+  
   return (
     <>
       <div className="flex justify-between border-b-2 border-b-stone-100 pb-1">
@@ -14,20 +15,21 @@ const PriceDetails = ({ faktorData, length }) => {
       </div>
       <div className="flex justify-between">
         <span className="text-sm">قیمت سرویس:</span>
-        <span className="text-[#454545] text-sm">۱۵۳۰۰۰۰ تومان</span>
+        <span className="text-[#454545] text-sm">{numberWithCommas(faktorData?.service?.discounted_price)}</span>
       </div>
       <div className="flex justify-between">
-        <span className="text-sm">افزایش تعرفه به دلیل پیک درخواست:</span>
-        <span className="text-[#DB3737] text-sm">--</span>
+        <span className="text-sm">{faktorData?.price_diff_description}</span>
+        <span className={`${faktorData?.swing_type === "INCREASE"?"text-[#DB3737]":"text-[#22A137]"} text-sm`}>{faktorData?.diff_price}</span>
       </div>
       <div className="flex justify-between">
         <span className="text-sm">مبلغ تخفیف:</span>
+        {/* <span className="text-[#22A137] text-sm">{numberWithCommas(faktorData?.service?.price - faktorData?.service?.discounted_price)}</span> */}
         <span className="text-[#22A137] text-sm">--</span>
       </div>
       <div className="flex justify-between">
         <span className="text-sm text-[#F58052]">جمع قابل پرداخت:</span>
         <span className="text-[#F58052] text-sm">
-          {numberWithCommas(faktorData?.price_total)} تومان
+          {numberWithCommas(faktorData?.swing_type === "INCREASE"?Number(faktorData?.service?.discounted_price)+Number(faktorData?.diff_price):Number(faktorData?.service?.discounted_price)-Number(faktorData?.diff_price))} تومان
         </span>
       </div>
       {/*<div className="flex justify-between font-semibold">*/}

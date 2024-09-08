@@ -35,26 +35,29 @@ const VerificationFirstStep = (props) => {
   ];
 
   const PackageStepHandler = () => {
-    if(!localStorage.getItem("selectedVehicle")){
-      error("ابتدا وسیله نقلیه را انتخاب کنید")
+    if (!localStorage.getItem("selectedVehicle")) {
+      error("ابتدا وسیله نقلیه را انتخاب کنید");
     }
-    if(!localStorage.getItem("city")){
-      error("ابتدا شهر خود را انتخاب کنید")
+    if (!localStorage.getItem("city")) {
+      error("ابتدا شهر خود را انتخاب کنید");
     }
-    if(localStorage.getItem("city")&&localStorage.getItem("selectedVehicle")){
-    setQuery.setMultiQuery([
-      {
-        key: "city_id",
-        value: JSON.parse(localStorage.getItem("city")).cityId,
-      },
-      {
-        key: "vehicle_tip",
-        value: JSON.parse(localStorage.getItem("selectedVehicle")).id,
-      },
-      { key: "step", value: "step-1" },
-    ]);
-    setStep(2);
-  }
+    if (
+      localStorage.getItem("city") &&
+      localStorage.getItem("selectedVehicle")
+    ) {
+      setQuery.setMultiQuery([
+        {
+          key: "city_id",
+          value: JSON.parse(localStorage.getItem("city")).cityId,
+        },
+        {
+          key: "vehicle_tip",
+          value: JSON.parse(localStorage.getItem("selectedVehicle")).id,
+        },
+        { key: "step", value: "step-1" },
+      ]);
+      setStep(2);
+    }
     // setModalIsOpen(true);
     // router.push(
     //   `/periodic-service/location-selection?city_id=${localStorage.getItem("city").cityId}&vehicle_tip=${localStorage.getItem("selectedVehicle").id}`,
@@ -119,7 +122,7 @@ const VerificationFirstStep = (props) => {
             درخواست کارشناسی
           </button>
         </div>
-        <div className="relative">
+        <div className="relative overflow-hidden">
           <div className="w-[210px] flex flex-col items-center bg-white gap-5 py-5 px-6 m-auto relative z-[2] shadow-[0_0_4px_0_rgba(171,171,171,0.25)]">
             <span className="text-[#000000] text-sm font-medium">
               مشاور و ثبت درخواست تلفنی
@@ -129,7 +132,12 @@ const VerificationFirstStep = (props) => {
               <i className={"cc-calling"} />
             </button>
           </div>
-          <Image className="-top-5 absolute" src={lines} width={3127} height={210}/>
+            <Image
+              className="-top-5 absolute w-full h-[180px]"
+              src={lines}
+              width={430}
+              height={179}
+            />
         </div>
         <div className="flex flex-col items-center gap-3 text-[#000000]">
           <h2 className="font-bold">چرا کار پایا !</h2>
@@ -139,28 +147,36 @@ const VerificationFirstStep = (props) => {
                 <span className="font-medium text-xs">محل کارشناسی</span>
                 <span className="bg-slate-400 size-4"></span>
               </div>
-              <span className="text-[#6D6D6D] text-xs text-center">انجام کارشناسی در مکان و زمان انتخابی شما</span>
+              <span className="text-[#6D6D6D] text-xs text-center">
+                انجام کارشناسی در مکان و زمان انتخابی شما
+              </span>
             </div>
             <div className="w-full h-20 flex flex-col gap-2 bg-[#ffffff] shadow-[0_0_4px_0_rgba(204,204,204,0.25)] rounded-lg">
               <div className="flex justify-between items-center p-2">
                 <span className="font-medium text-xs">محل کارشناسی</span>
                 <span className="bg-slate-400 size-4"></span>
               </div>
-              <span className="text-[#6D6D6D] text-xs text-center">انجام کارشناسی در مکان و زمان انتخابی شما</span>
+              <span className="text-[#6D6D6D] text-xs text-center">
+                انجام کارشناسی در مکان و زمان انتخابی شما
+              </span>
             </div>
             <div className="w-full h-20 flex flex-col gap-2 bg-[#ffffff] shadow-[0_0_4px_0_rgba(204,204,204,0.25)] rounded-lg">
               <div className="flex justify-between items-center p-2">
                 <span className="font-medium text-xs">محل کارشناسی</span>
                 <span className="bg-slate-400 size-4"></span>
               </div>
-              <span className="text-[#6D6D6D] text-xs text-center">انجام کارشناسی در مکان و زمان انتخابی شما</span>
+              <span className="text-[#6D6D6D] text-xs text-center">
+                انجام کارشناسی در مکان و زمان انتخابی شما
+              </span>
             </div>
             <div className="w-full h-20 flex flex-col gap-2 bg-[#ffffff] shadow-[0_0_4px_0_rgba(204,204,204,0.25)] rounded-lg">
               <div className="flex justify-between items-center p-2">
                 <span className="font-medium text-xs">محل کارشناسی</span>
                 <span className="bg-slate-400 size-4"></span>
               </div>
-              <span className="text-[#6D6D6D] text-xs text-center">انجام کارشناسی در مکان و زمان انتخابی شما</span>
+              <span className="text-[#6D6D6D] text-xs text-center">
+                انجام کارشناسی در مکان و زمان انتخابی شما
+              </span>
             </div>
           </div>
         </div>
