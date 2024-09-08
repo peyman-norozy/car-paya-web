@@ -8,12 +8,12 @@ import { postData } from "@/utils/client-api-function-utils";
 import { useSelector } from "react-redux";
 import { error } from "@/utils/function-utils";
 import { ToastContainer } from "react-toastify";
-
+import search from "@/public/assets/images/search.png"
 const PackageStep = () => {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const [data, setData] = useState([]);
+  const [data, setData] = useState();
   const [message, setMessage] = useState("");
   const [isSelected, setIsSelected] = useState(null);
   const Length = useSelector(
@@ -43,12 +43,13 @@ const PackageStep = () => {
           city
       )
       .then((res) => {
-        console.log(res);
-        setData(res.data.data);
+        res.data.data.length?
+        setData(res.data.data)
+        :setData([])
       })
       .catch((err) => {
         setMessage(err.response.data.message);
-        console.log(err);
+        setData([])
       });
   }, [searchParams]);
   const nextStepHandler = async () => {
@@ -117,8 +118,12 @@ const PackageStep = () => {
           >
             سرویس خود را انتخاب کنید:
           </p>
+          {data?.length===0?<div className={`flex flex-col items-center m-auto my-10 gap-6`}>
+            <Image className="" src={search} width={175} height={175}/>
+            <span className="text-[#454545] font-medium text-sm">در حال حاضر سرویسی برای این خودرو ثبت نشد</span>
+          </div>:
           <ul className={"flex flex-col gap-2 mb-[2.5rem]"}>
-            {data.map((item, index) => (
+            {data?.map((item, index) => (
               <li key={index}>
                 <PackageCard
                   options={item.information}
@@ -129,12 +134,14 @@ const PackageStep = () => {
                   price={item.price}
                   discounted_price={item.discounted_price}
                   onClick={() => selectPackageHandler(item.id)}
-                />
+                  />
               </li>
             ))}
           </ul>
+          }
           <button
             onClick={nextStepHandler}
+            disabled={isSelected?false:true}
             className={
               "bg-[#F66B34] hidden self-end lg:flex items-center gap-2 mt-1 size690:mt-3 w-fit text-12 size690:text-[16px] p-[8px] text-white rounded-[4px]"
             }
@@ -146,7 +153,7 @@ const PackageStep = () => {
             className="fixed w-full rounded-t-2xl shadow-[0_-2px_4px_0_rgba(199,199,199,0.25)] flex justify-center pt-4 pb-6 items-start bottom-0 right-0 bg-white z-[2000] px-10 lg:hidden"
             onClick={nextStepHandler}
           >
-            <button className="bg-[#F66B34] rounded-lg w-full sm:max-w-[400px] text-[#FEFEFE] text-sm font-medium py-3">
+            <button className={`${isSelected?"bg-[#F66B34]":"bg-[#FCCAAC]"} rounded-lg w-full sm:max-w-[400px] text-[#FEFEFE] text-sm font-medium py-3`} disabled={isSelected?false:true}>
               تایید ادامه
             </button>
           </div>
