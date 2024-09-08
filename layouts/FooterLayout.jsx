@@ -1,12 +1,13 @@
 "use client";
 import Image from "next/image";
-import { useParams, usePathname } from "next/navigation";
+import { useParams, usePathname, useSearchParams } from "next/navigation";
 import { useSelector } from "react-redux";
 import MobileBottomNav from "./MobileBottomNav";
 import logoFarsi from "@/public/assets/images/logoFarsi.png";
 const Footer = (props) => {
   const params = useParams();
   const pathName = usePathname();
+  const searchParams = useSearchParams()
   const innerWidthNumber = useSelector(
     (number) => number.todo.windowInnerWidth
   );
@@ -17,7 +18,7 @@ const Footer = (props) => {
     >
       {innerWidthNumber > 1025 &&
       !(
-        pathName.includes("/vehicle-verification") && pathName.includes("step=")
+        pathName.includes("/vehicle-verification") && searchParams.toString().includes("step=")
       ) ? (
         <>
           <div className="flex flex-col w-full gap-4 max-w-[620px] m-auto lg:m-0">
