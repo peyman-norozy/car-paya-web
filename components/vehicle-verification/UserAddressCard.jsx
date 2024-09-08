@@ -16,8 +16,8 @@ const UserAddressCard = (props) => {
         </div>
         <div className="relative">
           <i className="cc-menu-kebab text-2xl bg-white relative z-[2]" onClick={()=>{setOpenMenu(!openMenu)}}/>
-          <i className={`cc-edit text-2xl absolute ${openMenu?"left-12":"left-0"} top-0 transition-all text-[#DB3737]`} />
-          <i className={`cc-filter text-2xl absolute ${openMenu?"left-24":"left-0"} transition-all top-0 text-[#22A137]`} />
+          <i className={`cc-edit text-2xl absolute ${openMenu?"left-12":"left-0"} top-0 transition-all text-[#22A137]`} />
+          <i className={`cc-filter text-2xl absolute ${openMenu?"left-24":"left-0"} transition-all top-0 text-[#DB3737]`} />
         </div>
       </div>
       <div className="flex flex-col gap-2">
