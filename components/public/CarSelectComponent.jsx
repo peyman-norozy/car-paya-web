@@ -137,14 +137,13 @@ const CarSelectComponent = (props) => {
       for (let item of data.data.data) {
         totalPrice = totalPrice + item.item.item?.price;
       }
-      console.log(totalPrice);
       setInvoiceData({ data: data.data.data, totalPrice: totalPrice });
       if (cartableType === "BATTERIES") {
         dispatch(setBatteriesBasketLength(data.data.data.length));
       } else if (cartableType === "PERIODIC_SERVICE") {
         dispatch(setPeriodicServiceBasketLength(data.data.data.length));
       } else if (cartableType === "VEHICLE_VERIFICATION") {
-        dispatch(setVehicleVerificationBasketLength(data.data.data.length));
+        dispatch(setVehicleVerificationBasketLength(data.data.data));
       }
     }
   }

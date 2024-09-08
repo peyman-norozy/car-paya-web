@@ -29,6 +29,7 @@ const PackageStep = () => {
   };
 
   useEffect(() => {
+    setIsSelected(Length[0]?.item?.item?.id)
     const city_id = searchParams.get("city_id");
     const selectedItem = searchParams.get("vehicle_tip");
     const city = city_id === undefined ? "" : "&city_id=" + city_id;
@@ -50,11 +51,20 @@ const PackageStep = () => {
         console.log(err);
       });
   }, [searchParams]);
-  const nextStepHandler = () => {
-    if (!Length) {
+  const nextStepHandler = async () => {
+    console.log(Length);
+    
+    if (Length.length) {
+      await postData("/web/cart/remove", {
+        cartable_id: Length[0].item.item.id,
+        cartable_type: "VEHICLE_VERIFICATION",
+        vehicle_tip_id: Length[0].vehicle_tip_id,
+        step: "5",
+      });
+    }
       const city_id = searchParams.get("city_id");
       const selectedItem = searchParams.get("vehicle_tip");
-      postData("/web/cart/add", {
+      await postData("/web/cart/add", {
         cartable_id: isSelected,
         cartable_type: "VEHICLE_VERIFICATION",
         vehicle_tip_id: selectedItem,
@@ -69,9 +79,6 @@ const PackageStep = () => {
         },
         { key: "package_id", value: isSelected },
       ]);
-    } else {
-      error("درحال حاضر پکیج دیگری در سفارشات خود دارید");
-    }
   };
   return (
     <>

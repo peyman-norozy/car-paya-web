@@ -17,7 +17,7 @@ const initialState = {
   renderSetCarState: false,
   batteriesBasketLength: 0,
   periodicServiceBasketLength: 0,
-  vehicleVerificationBasketLength: 0,
+  vehicleVerificationBasketLength: {},
 };
 
 const todoSlice = createSlice({
