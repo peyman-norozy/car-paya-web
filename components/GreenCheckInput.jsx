@@ -7,17 +7,15 @@ const GreenCheckInput = (props) => {
   return (
     <div
       className={
-        "w-[30px] h-[30px] flex items-center justify-center self-start"
+        "w-[20px] h-[20px] flex items-center justify-center self-start"
       }
     >
       <div
-        className={`w-[1.5rem] h-[1.5rem] flex items-center justify-center border-[1px] border-[#C0C0C0] relative ${class_name}`}
+        className={`w-[20px] h-[20px] flex items-center justify-center border-[2px] border-[#F66B34] relative ${class_name}`}
         onClick={on_click}
       >
         {isSelected && (
-          <div
-            className={"w-[1.2rem] h-[1.2rem] rounded-[50%] bg-BLUE_700"}
-          ></div>
+          <div className={"w-[10px] h-[10px] rounded-[50%] bg-[#F66B34]"}></div>
         )}
       </div>
     </div>
