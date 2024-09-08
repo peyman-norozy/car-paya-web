@@ -115,7 +115,7 @@ const ResponsiveHeader = (props) => {
       <div
         className={`bg-[#FDFDFD] gap-1 text-sm flex items-center justify-between text-[#F58052] font-medium px-2 py-1 rounded-b-lg fixed ${phoneState ? "top-[73px]" : "top-[44px]"} transition-all left-8 w-fit duration-700 z-[1598] drop-shadow-[0_1px_5px_rgba(0,0,0,0.08)]`}
       >
-        <span>58919</span>
+        <a href="tel:02158919">58919</a>
         <i className="cc-calling" />
       </div>
 
