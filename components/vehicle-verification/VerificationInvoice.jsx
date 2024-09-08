@@ -118,7 +118,7 @@ const VerificationInvoice = () => {
                 persianDate(faktorData.reservation_time_day, "dddd")}
             </span> */}
             <span className={"text-[#454545] font-medium text-sm"}>
-              {faktorData?.address_info}
+              {faktorData?.address_info?.address}
             </span>
           </div>
           <Link
