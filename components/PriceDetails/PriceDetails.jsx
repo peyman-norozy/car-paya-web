@@ -9,35 +9,37 @@ const PriceDetails = ({ faktorData, length }) => {
   return (
     <>
       <div className="flex justify-between border-b-2 border-b-stone-100 pb-1">
-        <span className="text-gray-500 font-semibold">جزئیات قیمت</span>
+        <span className="text-[#454545] font-medium text-sm">جزئیات قیمت سرویس:</span>
         {/*<span className="text-gray-900">۱۵۳۰۰۰۰ تومان</span>*/}
       </div>
       <div className="flex justify-between">
-        <span className="text-gray-500">{" قیمت کالاها " + `(${length})`}</span>
-        <span className="text-gray-900">۱۵۳۰۰۰۰ تومان</span>
+        <span className="text-sm">قیمت سرویس:</span>
+        <span className="text-[#454545] text-sm">۱۵۳۰۰۰۰ تومان</span>
       </div>
       <div className="flex justify-between">
-        <span className="text-gray-500">کد تخفیف:</span>
-        <span className="text-gray-900">---</span>
+        <span className="text-sm">افزایش تعرفه به دلیل پیک درخواست:</span>
+        <span className="text-[#DB3737] text-sm">--</span>
       </div>
       <div className="flex justify-between">
-        <span className="text-gray-500">هزینه ایاب ذهاب :</span>
-        <span className="text-gray-900">---</span>
+        <span className="text-sm">مبلغ تخفیف:</span>
+        <span className="text-[#22A137] text-sm">--</span>
       </div>
       <div className="flex justify-between">
-        <span className="text-gray-500">هزینه دستمزد:</span>
-        <span className="text-gray-900">---</span>
+        <span className="text-sm text-[#F58052]">جمع قابل پرداخت:</span>
+        <span className="text-[#F58052] text-sm">
+          {numberWithCommas(faktorData?.price_total)} تومان
+        </span>
       </div>
       {/*<div className="flex justify-between font-semibold">*/}
       {/*  <span className="text-[#137BDB]">سود شما از این خرید:</span>*/}
       {/*  <span className="text-[#137BDB]">۱۵۳۰۰۰۰ تومان</span>*/}
       {/*</div>*/}
-      <div className="flex justify-between font-semibold">
+      {/* <div className="flex justify-between font-semibold">
         <span className="text-[#F58052]">جمع قابل پرداخت:</span>
         <span className="text-[#F58052]">
           {numberWithCommas(faktorData?.price_total)} تومان
         </span>
-      </div>
+      </div> */}
       {innerWidth > 1024 && (
         <CompletePrice
           priceTotal={numberWithCommas(faktorData?.price_total)}

@@ -32,7 +32,7 @@ const PackageStep = () => {
         process.env.BASE_API +
           "/web/expert/reservation?step=step-1" +
           vehicle_tip +
-          city,
+          city
       )
       .then((res) => {
         console.log(res);
@@ -62,28 +62,38 @@ const PackageStep = () => {
         "flex items-start justify-between pt-[28px] w-full lg:w-[calc(100%-424px)] mr-auto mb-4"
       }
     >
-      <div className={"w-full size1570:w-[50%] flex flex-col mx-4 sm:mx-0"}>
+      <div
+        className={"w-full size1570:w-[50%] flex flex-col gap-4 mx-4 sm:mx-0"}
+      >
         <div
           className={
-            "flex items-center gap-2 size752:gap-[16px] text-[#0E0E0E] w-full mb-4"
+            "flex items-center gap-2 size752:gap-[16px] text-[#0E0E0E] w-full"
           }
         >
           <i
             className={"cc-arrow-right text-24 cursor-pointer"}
             onClick={backStepHandler}
           />
-          <p
-            className={
-              "p-[6px] text-14 size752:text-16 w-full border-b border-[#0E0E0E]"
-            }
-          >
-            سرویس مد نظر خود را انتخاب کنید
+          <p className={"text-14 size752:text-16 w-full font-medium"}>
+            انتخاب سرویس
           </p>
         </div>
-        <ul
+        <div className="flex gap-2 items-center w-full bg-[#FFFFFF] text-[#D1D1D1]">
+          <i className="cc-search text-2xl text-[#518DD5]"/>
+          <div className="border-b-4 border-dotted border-[#D1D1D1] w-full"></div>
+          <i className="cc-timer text-2xl text-[#D1D1D1]"/>
+          <div className="border-b-4 border-dotted border-[#D1D1D1] w-full"></div>
+          <i className="cc-location text-2xl text-[#D1D1D1]"/>
+        </div>
+        <p
           className={
-            "pr-[36px] size752:pr-[40px] flex flex-col gap-[14px] mb-[2.5rem]"
+            "text-14 size752:text-16 w-full font-medium text-[#454545]"
           }
+        >
+          سرویس خود را انتخاب کنید:
+        </p>
+        <ul
+          className={"flex flex-col gap-2 mb-[2.5rem]"}
         >
           {data.map((item, index) => (
             <li key={index}>
@@ -102,12 +112,15 @@ const PackageStep = () => {
         <button
           onClick={nextStepHandler}
           className={
-            "bg-[#F66B34] self-end flex items-center gap-2 mt-1 size690:mt-3 w-fit text-12 size690:text-[16px] p-[8px] text-white rounded-[4px]"
+            "bg-[#F66B34] hidden self-end lg:flex items-center gap-2 mt-1 size690:mt-3 w-fit text-12 size690:text-[16px] p-[8px] text-white rounded-[4px]"
           }
         >
           <p>تایید و ادامه</p>
           <i className={"cc-left text-[20px]"} />
         </button>
+        <div className="fixed w-full rounded-t-2xl shadow-[0_-2px_4px_0_rgba(199,199,199,0.25)] flex justify-center pt-4 pb-6 items-start bottom-0 right-0 bg-white z-[2000] px-10 lg:hidden" onClick={nextStepHandler}>
+          <button className="bg-[#F66B34] rounded-lg w-full sm:max-w-[400px] text-[#FEFEFE] text-sm font-medium py-3">تایید ادامه</button>
+        </div>
       </div>
       <Image
         src={"/assets/images/packagePic.svg"}

@@ -27,7 +27,7 @@ const AddressModal = (props) => {
   const [editData, setEditData] = useState({});
   const [mapPosition, setMapPosition] = useState("");
   const [ItarateMapData, setItarateMapData] = useState({});
-  console.log(mapPosition);
+
   const addressFormSubmitHandler = async (event) => {
     event.preventDefault();
     if (props.deliveryPackage) {
@@ -69,7 +69,7 @@ const AddressModal = (props) => {
         formData,
       );
       if (update.status === 200) {
-        props.getDataFetch();
+        props.getDataFetch([]);
         props.setModalIsOpen(false);
         props.setIsLoading(false);
         props.timeData();
@@ -90,7 +90,7 @@ const AddressModal = (props) => {
           props.setAddressModalState(false);
           props.getAddressFetchData();
         } else if (pathName === "/vehicle-verification") {
-          props.getDataFetch(post.data);
+          props.getDataFetch((prev)=>[...prev,post.data.data]);
           props.setModalIsOpen(false);
         } else if (pathName === "/batteries/products/newSelectLocation") {
           console.log(props);
@@ -191,12 +191,10 @@ const AddressModal = (props) => {
     }
   }, [ItarateMapData, props.pageType, editData]);
 
-  console.log(editData);
-
   return (
     <form
       className={
-        "absolute inset-0 m-auto my-[100px] w-[789px] min-h-[192px] h-[80%] bg-[#FFFFFF] px-[40px] py-[24px] rounded-[10px] overflow-hidden flex flex-col gap-[20px] overflow-y-scroll"
+        "absolute inset-0 m-auto mt-[10%] md:my-[100px] w-full max-w-[789px] min-h-[192px] h-[80%] bg-[#FFFFFF] px-[40px] py-[24px] rounded-[10px] overflow-hidden flex flex-col gap-[20px] overflow-y-scroll"
       }
       onSubmit={addressFormSubmitHandler}
     >
@@ -383,7 +381,7 @@ const AddressModal = (props) => {
       <button
         type={"submit"}
         className={
-          "bg-BLUE_700 self-end flex items-center gap-2 mt-4 size690:mt-3 w-fit text-12 size690:text-[16px] p-[8px] text-white rounded-[4px]"
+          "bg-[#F66B34] self-end flex items-center gap-2 size690:mt-3 w-fit text-12 size690:text-[16px] p-[8px] text-white rounded-[4px]"
         }
       >
         <p>ثبت آدرس</p>

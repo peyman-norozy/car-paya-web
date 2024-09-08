@@ -91,6 +91,11 @@ function persianStringDay(timeStamp) {
   return moment(Number(timeStamp) * 1000).format("dddd");
 }
 
+function persianDate(timeStamp , format) {
+  moment.locale("fa");
+  return moment(Number(timeStamp) * 1000).format(format);
+}
+
 export {
   error,
   success,
@@ -101,4 +106,5 @@ export {
   persianDateCovertor,
   numberWithSlash,
   persianStringDay,
+  persianDate
 };
