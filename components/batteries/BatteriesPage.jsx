@@ -16,6 +16,7 @@ const BatteriesPage = (props) => {
   const query = useSetQuery();
   const [batteryIsSelected, setBatteryIsSelected] = useState(false);
   const [filterModalState, setFilterModalState] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
   const [filterId, setFilterId] = useState("");
   const dispatch = useDispatch();
   const filterRef = useRef(null);
@@ -25,6 +26,11 @@ const BatteriesPage = (props) => {
   const batteryBasketLength = useSelector(
     (item) => item.todo.batteriesBasketLength,
   );
+  const innerWidth = useSelector((item) => item.todo.windowInnerWidth);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   //when refresh page my batteryTotalPrice remove from localStorage
   useEffect(() => {
@@ -73,6 +79,8 @@ const BatteriesPage = (props) => {
     window.addEventListener("click", closeFilterHandler);
     return () => window.removeEventListener("click", closeFilterHandler);
   }, []);
+
+  console.log(innerWidth);
 
   return (
     <div className={"flex flex-col relative py-4 max-w-[1772px] m-auto"}>
@@ -123,6 +131,8 @@ const BatteriesPage = (props) => {
             <BatteriesCard
               key={index}
               item={item}
+              innerWidth={innerWidth}
+              isMounted={isMounted}
               setBatteryIsSelected={setBatteryIsSelected}
             />
           ))}

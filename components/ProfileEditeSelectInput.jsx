@@ -94,7 +94,7 @@ const ProfileEditeSelectInput = (props) => {
     >
       <div className={"relative"} ref={selectGenderRef}>
         <i
-          className={`${props.icon} absolute text-[20px] top-[15px] right-[10px] border-l border-l-stone-500 pl-2 z-10`}
+          className={`${props.icon} absolute ${props.iconSize ? props.iconSize : "text-[20px]"} top-[15px] right-[10px] border-l border-l-stone-500 pl-2 z-10`}
         />
         <input
           type={props.type}
@@ -102,15 +102,13 @@ const ProfileEditeSelectInput = (props) => {
           id={props.id}
           disabled={props.disabled}
           autoComplete={"off"}
-          className={
-            "border border-1 border-[#B0B0B0] rounded-[8px] h-[48px] w-full outline-none pr-[50px] caret-transparent relative"
-          }
+          className={`border border-1 border-[#B0B0B0] rounded-[8px] ${props.inputHeight ? props.inputHeight : "h-[48px]"} w-full outline-none pr-[50px] caret-transparent relative`}
           onKeyDown={inputTypeHandler}
           onClick={inputClickHandler}
           value={props.selectOptionData}
         />
         <i
-          className={`cc-arrow-down text-[24px] absolute left-1 top-[13px] ${optionHeightHandler && props.data.length > 0 ? "rotate-[-90deg]" : "rotate-0"} transition-all`}
+          className={`cc-arrow-down ${props.iconSize ? props.iconSize : "text-[24px]"} absolute left-1 top-[13px] ${optionHeightHandler && props.data.length > 0 ? "rotate-[-90deg]" : "rotate-0"} transition-all`}
         />
         <label
           className={

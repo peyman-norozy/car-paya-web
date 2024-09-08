@@ -44,25 +44,17 @@ const Page = (props) => {
   }, [searchParams]);
 
   return (
-    <div className={"min-h-screen mt-4 lg:mr-[420px] px-3 mb-[71px]"}>
-      <div
-        className={`sticky size720:top-[98px] top-[74px] bg-[#F4F4F4] z-[2000] py-4 transition-all`}
-      >
-        <div className={"flex size540:flex-row flex-col justify-center gap-6"}>
+    <div className={"min-h-screen mt-4 lg:mr-[470px] px-3 mb-[71px]"}>
+      <div className={`z-[2000] py-4 transition-all`}>
+        <div className={"flex justify-center sm:gap-[139px] gap-[20px]"}>
           <SelectLocationTab
             headerText={"در محل شما"}
-            description={
-              "دریافت خدمات سرویس دوره‌ای در موقعیت مکان مورد نظر شما انجام می‌شود."
-            }
             addressTabState={"MOVING"}
             selectAddressState={selectAddressState}
             setSelectAddressState={setSelectAddressState}
           />
           <SelectLocationTab
-            headerText={"در نمایندگی کار چک"}
-            description={
-              "برای دریافت خدمات سرویس دوره‌ای باید به یکی از مراکز کارچک مراجعه کنید."
-            }
+            headerText={"در مراکز کارپایا"}
             addressTabState={"FIXED"}
             selectAddressState={selectAddressState}
             setSelectAddressState={setSelectAddressState}

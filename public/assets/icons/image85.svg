@@ -1,9 +1,5 @@
-<svg width="53" height="53" viewBox="0 0 53 53" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-<rect width="53" height="53" fill="url(#pattern0_451_13302)"/>
-<defs>
-<pattern id="pattern0_451_13302" patternContentUnits="objectBoundingBox" width="1" height="1">
-<use xlink:href="#image0_451_13302" transform="scale(0.00943396)"/>
-</pattern>
-<image id="image0_451_13302" width="106" height="106" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGoAAABqCAYAAABUIcSXAAAACXBIWXMAABYlAAAWJQFJUiTwAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAANFSURBVHgB7dzLbRNRFMbxM9cuICXYHZgKAgv2oYNQAXQQ6CRUQAcke4jiBQ8BC6eAgB3ElrnMN3Ks2PFjHvd9v78UyZ5499PxjGasU0jDZpOnRyLqZDCQYy3FRESPqsNHwqz1489cnv+8LvB6eOjDFdBIDdUr0XJavT3S9VEtzG5A+n73e/V+JxQmaKDUmS7kNV3ctomEtkLVUzRQF5XPSJjTtiEhtXmgQpoASYjkvF1IaG2ilpP0XojkvM/zXzL7u9j5/+L+Bc5JFdK1EMl5pSpfjj9enu/7zOqrDxcOQiTnNUFC9UQtv/JmwpzWFAnVE1UhnQlzWhskVCzPTXNhzmqLhJQodSLMTVoWpRQv2iKhoSrkWJj9gFSWz8bTy6l0qDpH4QYrs1pPJKSWd8GZrQwgIVz18VGFrQwhISXMTgaREKFspPWNSSR08MEha1mNpIF0IwbjRJnMEhIilKksIiFCmcgyEiJU3xwgIUL1yRESIlTXHCIhQnXJMRIiVNs8ICFCtckTEiJU4/TUFxLiLaRGVUj/aqSFeIoTdTD/SIhQewsDCRFqZ+EgIUJtLSwkRKiNStHvQkNCvOp7EJDGVxenEmCcqGUhIyFCSfhIKHuoGJBQ1lCxIKFsocpC3saChLKEqpE+fXgjEZUdVIxIKCuoWJFQNlAxI6EsoGJHQslDpYCEkoZKBQklC5USEkoSKjUklBxUikgoKahUkVAyUCkjoSSe8HZZWRNb0U9UDkgoaqhckFC0UDkhoSihckNC0UHliISigsoVCcVxeX6/V+jK3Mqa2Ap/ogwvf4q1sKGItCpcKCKtFSYUkR4VHhSRthYWFJF2Fs7luccdDjEUxkQR6WD+oYjUKL9QRGqcPygitcoPFJFa5x6KSJ1yC0WkzrmDIlKv3EARqXf2oYhkJLtQRDKWPSgiGc0OFJGMZwGqXpL7hEhmMwwV3kLCVDIIRSSbGYIiku0MQBHJRT2hiOSqHlBEclmnH7fEtJAwlVpPFJH81AqKSP5qDEUkvzWCIpL/DkIRKYz2QhEpnHZCxbZuOvW2Qn27u5WU9wrF2CMoIH2t/lhYrUERKdxWUEQKuxqKSOGniBRHwy/z23NhjDHGwus/Kwitif0ndLkAAAAASUVORK5CYII="/>
-</defs>
+<svg width="46" height="43" viewBox="0 0 46 43" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M45.0003 1.00022L43.5 1.00026L40.0004 4.00018L45.0818 4.00016L45.0003 1.00022Z" fill="#94161F"/>
+<path d="M3 42.6V39L0 41.5846V43L3 42.6Z" fill="#8E151A"/>
+<path d="M0 9C0 4.58172 3.58172 1 8 1H45L25.082 19.55L0 43V9Z" fill="#E13342"/>
 </svg>

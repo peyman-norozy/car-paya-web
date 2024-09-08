@@ -8,7 +8,8 @@ import { Suspense } from "react";
 
 export const metadata = {
   manifest: "/manifest.json", // we are accessing our manifest file here
-  title: "carcheck",
+  // title: "carcheck",
+  title: "34819897",
   // ... other options
 };
 
