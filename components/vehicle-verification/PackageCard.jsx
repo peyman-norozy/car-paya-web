@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 
 const PackageCard = (props) => {
-  const { title, id, isSelected, onClick, options, price } = props;
-  console.log(props);
+  const { title, id, isSelected, onClick, options, price ,discounted_price} = props;
   const [optionsIsOpen, setOptionsIsOpen] = useState(true);
 
   const openOptionHandler = () => {
@@ -11,9 +10,7 @@ const PackageCard = (props) => {
 
   return (
     <div
-      className={
-        `p-[0.75rem] size752:p-[1.5rem] rounded-lg flex flex-col gap-3 shadow-[0_0_8px_0_rgba(215,215,215,0.25)] ${isSelected === id?"border border-[#F58052]":""}`
-      }
+      className={`p-[0.75rem] size752:p-[1.5rem] rounded-lg flex flex-col gap-3 shadow-[0_0_8px_0_rgba(215,215,215,0.25)] ${isSelected === id ? "border border-[#F58052]" : ""}`}
     >
       <div
         className={"flex  items-center justify-between cursor-pointer"}
@@ -31,9 +28,14 @@ const PackageCard = (props) => {
           </div>
           <h6 className={"text-14 size752:text-16 text-[#010101]"}>{title}</h6>
         </div>
-        <p className={"text-[#518DD5] text-14 size752:text-16 font-medium"}>
-          {price.toLocaleString()} تومان
-        </p>
+        <div className="flex items-center gap-1">
+          <p className={"text-[#8cb5d8] text-10 size752:text-16 line-through"}>
+            {price.toLocaleString()} تومان
+          </p>
+          <p className={"text-[#518DD5] text-14 size752:text-16 font-medium"}>
+            {discounted_price.toLocaleString()} تومان
+          </p>
+        </div>
       </div>
       {options &&
         options.map((item, index) => (
@@ -43,7 +45,7 @@ const PackageCard = (props) => {
               className={"flex items-center justify-between cursor-pointer"}
             >
               <div className={"flex items-center gap-2 justify-center "}>
-                <i className="cc-tick text-[#5D5D5D]"/>
+                <i className="cc-tick text-[#5D5D5D]" />
                 <h6
                   className={
                     "font-medium text-12 size752:text-14 text-[#454545]"

@@ -127,6 +127,7 @@ const PackageStep = () => {
                   setIsSelected={setIsSelected}
                   title={item.title}
                   price={item.price}
+                  discounted_price={item.discounted_price}
                   onClick={() => selectPackageHandler(item.id)}
                 />
               </li>
