@@ -145,9 +145,9 @@ const VerificationInvoice = () => {
                 persianDate(faktorData.reservation_time_day, "L")}
             </span>
           </div>
-          <div className={"flex items-center gap-1 w-full "}>
+          <div className={"flex items-center gap-1 w-full"}>
             <span>ساعت دریافت خدمات:</span>
-            <span className={"font-medium"}>{faktorData?.reservation_time_slice?.split(',')[0]} تا {faktorData?.reservation_time_slice?.split(',')[1]}</span>
+            <span className={"font-medium"}>{faktorData?.exact_time}</span>
           </div>
           <Link
             href={`/vehicle-verification?step=step-2&city_id=${cityId}&package_id=${package_id}&vehicle_tip=${vehicleTipId}&exact_time=${exact_time}&type_service=${typeService}&reservation_time_slice_id=${reservation_time_slice_id}&registrationable_id=${registrationable_id}`}
@@ -243,7 +243,7 @@ const VerificationInvoice = () => {
             customStyle={
               "bg-white fixed left-0 flex justify-between shadow-[0_-2px_4px_0_rgba(199,199,199,0.25)] rounded-t-xl"
             }
-            priceTotal={faktorData.price_total}
+            priceTotal={faktorData?.swing_type === "INCREASE"?Number(faktorData?.service?.discounted_price)+Number(faktorData?.diff_price):Number(faktorData?.service?.discounted_price)-Number(faktorData?.diff_price)}
             roleChecked={roleChecked}
           />
         )}
