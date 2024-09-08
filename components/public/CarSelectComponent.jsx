@@ -18,7 +18,7 @@ import {
   renderSetCar,
   setBatteriesBasketLength,
   setPeriodicServiceBasketLength,
-  setVehicleVerificationBasketLength
+  setVehicleVerificationBasketLength,
 } from "@/store/todoSlice";
 const CarSelectComponent = (props) => {
   const [vehicleType, setVehicleType] = useState("car");
@@ -365,7 +365,8 @@ const CarSelectComponent = (props) => {
   if (
     !pathname.includes("/invoice") &&
     !pathname.includes("/panel") &&
-    pathname !== "/login"
+    pathname !== "/login" &&
+    !(pathname.includes("/vehicle-verification") && searchParams.toString().includes("step-5"))
   ) {
     return (
       <div className="absolute h-full top-0 right-auto pb-10">

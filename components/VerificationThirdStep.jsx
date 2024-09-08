@@ -20,7 +20,7 @@ const VerificationThirdStep = (props) => {
   const [agentData, setAgentData] = useState([]);
   const [userAdressData, setUserAdressData] = useState([]);
   const [modalIsOpen, setModalIsOpen] = useState(false);
-  const [type, setType] = useState("FIXED");
+  const [type, setType] = useState("MOVING");
   const [isLoading, setIsLoading] = useState(false);
   const [selectedAddress, setSelectedAddress] = useState("");
   const city_id = searchParams.get("city_id");
