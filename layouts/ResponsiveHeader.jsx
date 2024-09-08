@@ -57,9 +57,7 @@ const ResponsiveHeader = (props) => {
   return (
     <>
       <header
-        className={`${
-          props.className
-        } font-light flex justify-between items-center px-[30px] py-[15px] sticky top-0 right-0 left-0 w-[100wh] bg-[#FEFEFE] z-[1599] h-[74px] drop-shadow-[0_3px_10px_rgba(0,0,0,0.1)] `}
+        className={`${props.className} font-light flex justify-between items-center px-[30px] py-[15px] sticky top-0 right-0 left-0 w-[100wh] bg-[#FEFEFE] z-[1599] h-[74px] drop-shadow-[0_3px_10px_rgba(0,0,0,0.1)] `}
         onClick={(event) => {
           event.target !== hambergerRef.current && setNewMenueState(true);
           asideHambergerMenuRef.current === event.target &&
@@ -74,28 +72,35 @@ const ResponsiveHeader = (props) => {
             event.target && setNewMenueState(false);
         }}
       >
-        <div
-          className={`cursor-pointer transition-all flex items-center justify-start ${
-            newMenueState ? "rotate-0" : "rotate-[-90deg]"
-          }`}
-          onClick={asideMenuCloseHandler}
-        >
-          <i
-            className={"cc-menu text-[28px] text-[#5D5D5D]"}
-            ref={hambergerRef}
-          />
-        </div>
-        <HeaderLogo />
-        <div
-          className={
-            "py-[6px] px-3 cursor-pointer flex items-center justify-between gap-1 bg-white border-[1px] border-[#5D5D5D] text-[#5D5D5D] rounded-lg"
-          }
-          onClick={toggleModal}
-        >
-          <span className={"inline-block w-fit text-14 font-semibold"}>
-            تهران
-          </span>
-          <i className={"cc-location text-18"} />
+        <div className="flex items-center justify-between w-full">
+          <div className="gap-4 flex items-center">
+            <div
+              className={`cursor-pointer transition-all flex items-center justify-start ${
+                newMenueState ? "rotate-0" : "rotate-[-90deg]"
+              }`}
+              onClick={asideMenuCloseHandler}
+            >
+              <i
+                className={"cc-menu text-[28px] text-[#5D5D5D]"}
+                ref={hambergerRef}
+              />
+            </div>
+            <HeaderLogo />
+          </div>
+          <div className="gap-4 flex items-center">
+            <i className={"cc-buy text-2xl"} />
+            <div
+              className={
+                "py-[6px] px-3 cursor-pointer flex items-center justify-between gap-1 bg-white border-[1px] border-[#5D5D5D] text-[#5D5D5D] rounded-lg"
+              }
+              onClick={toggleModal}
+            >
+              <span className={"inline-block w-fit text-14 font-semibold"}>
+                تهران
+              </span>
+              <i className={"cc-location text-18"} />
+            </div>
+          </div>
         </div>
         {/* <i className="cc-search text-[#fefefe] text-2xl"/> */}
         <ResponsiveMenu
