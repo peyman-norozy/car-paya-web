@@ -149,6 +149,7 @@ const VerificationSecondStep = (props) => {
           >
             {data.map((item, index) => (
               <div
+                key={index}
                 className={`flex items-end gap-2 text-sm font-medium border-b ${date === index ? "text-[#F58052] border-[#F58052]" : "text-[#FCCAAC] border-[#FCCAAC]"}`}
                 onClick={() => {
                   setDate(index);
@@ -173,7 +174,7 @@ const VerificationSecondStep = (props) => {
         <button
           disabled={timeIsSelected ? false : true}
           onClick={continueSecondStepHandler}
-          className={`${timeIsSelected ?"bg-[#F66B34]":"bg-[#FCCAAC]"} self-end hidden lg:flex items-center gap-2 mt-4 size690:mt-3 w-fit text-12 size690:text-[16px] p-[8px] text-white rounded-[4px]`}
+          className={`${timeIsSelected ? "bg-[#F66B34]" : "bg-[#FCCAAC]"} self-end hidden lg:flex items-center gap-2 mt-4 size690:mt-3 w-fit text-12 size690:text-[16px] p-[8px] text-white rounded-[4px]`}
         >
           <p>تایید و ادامه</p>
           <i className={"cc-left text-[20px]"} />
@@ -183,7 +184,7 @@ const VerificationSecondStep = (props) => {
           onClick={continueSecondStepHandler}
         >
           <button
-            className={`${timeIsSelected ?"bg-[#F66B34]":"bg-[#FCCAAC]"} rounded-lg w-full sm:max-w-[400px] text-[#FEFEFE] text-sm font-medium py-3`}
+            className={`${timeIsSelected ? "bg-[#F66B34]" : "bg-[#FCCAAC]"} rounded-lg w-full sm:max-w-[400px] text-[#FEFEFE] text-sm font-medium py-3`}
             disabled={timeIsSelected ? false : true}
           >
             تایید ادامه
