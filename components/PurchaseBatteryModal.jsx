@@ -343,41 +343,39 @@ const PurchaseBatteryModal = (props) => {
     }
   }, [totalPrice]);
 
+  const closeClickHandler = () => {
+    props.setBatteryIsSelected(false);
+    setIsSelected(false);
+    localStorage.removeItem("batteryTotalPrice");
+    // localStorage.setItem(
+    //   "batteryTotalPrice",
+    //   JSON.stringify({ price: 0, productId: "", vehicle_tip_id: 0 }),
+    // );
+  };
+
   return (
     <>
       <div
         className={`${!props.batteryIsSelected ? "hidden" : "fixed"} top-0 right-0 h-screen w-screen bg-[#4c4c4caa] z-[20000] transition-all`}
-        onClick={() => {
-          props.setBatteryIsSelected(false);
-          setIsSelected(false);
-          localStorage.removeItem("batteryTotalPrice");
-          // localStorage.setItem(
-          //   "batteryTotalPrice",
-          //   JSON.stringify({ price: 0, productId: "", vehicle_tip_id: 0 }),
-          // );
-        }}
+        onClick={closeClickHandler}
       ></div>
       <div
-        className={`w-[75%] size900:w-[50%] m-auto fixed transition-all duration-1000 ${props.batteryIsSelected ? "top-[50%]" : "top-[-60%]"} left-[50%] translate-x-[-50%] translate-y-[-50%] z-[20000]`}
+        className={`fixed transition-all w-full sm:w-[658px] duration-1000 ${props.batteryIsSelected ? "bottom-0" : "-bottom-full"} left-[50%] translate-x-[-50%] sm:-translate-y-[50%] z-[20000]`}
       >
-        <div className="rounded-10 overflow-hidden w-full shadow-[0_0_5px_0_rgba(0,0,0,0.4)]">
-          <div className="bg-[#eaeaea] flex items-center justify-between px-[1.25rem] py-[1rem]">
-            <h2 className="text-18">خرید باطری</h2>
-            {/*<Image*/}
-            {/*  src={cross}*/}
-            {/*  alt=""*/}
-            {/*  width={20}*/}
-            {/*  height={20}*/}
-            {/*  onClick={() => setBatteryIsSelected(false)}*/}
-            {/*  className="cursor-pointer"*/}
-            {/*/>*/}
+        <div className="w-full h-fit sm:w-[658px] bg-white rounded-10 overflow-hidden shadow-[0_0_5px_0_rgba(0,0,0,0.4)]">
+          <div className="bg-[#F6FBFF] flex items-center justify-between p-4">
+            <h2 className="text-18">{sameAmpBattery.product_name}</h2>
+            <i
+              className={"cc-close-circle text-[24px]"}
+              onClick={closeClickHandler}
+            />
           </div>
-          <div className="bg-white w-full py-[1.75rem] px-[1.25rem]">
+          <div className="bg-white w-full p-4">
             <div>
               {purchseOptions.map((item, index) => (
                 <div
                   key={index}
-                  className="flex size746:flex-row flex-col items-center justify-between gap-[0.75rem] py-[1rem] mb-[0.25rem] border-b-[1px] border-b-[#C0C0C0]"
+                  className="flex size746:pb-[10px] flex-col items-start justify-between gap-2.5 mb-[0.25rem] [&:not(:last-child)]:border-b-[1px] border-b-[#C0C0C0] [&:not(:first-child)]:pt-[16px]"
                   onClick={selectPriceHandler}
                   price={item.price}
                 >
@@ -394,8 +392,8 @@ const PurchaseBatteryModal = (props) => {
                       }
                       class_name="rounded-[50%] cursor-pointer self-start"
                     />
-                    <h3 className={`text-14 size1000:text-16`}>
-                      <span> {item.title}</span>
+                    <h3 className={`text-12 size1000:text-14`}>
+                      <span className={""}> {item.title}</span>
                       {item.id === "selectAmper" ? (
                         <div className={"mt-4"}>
                           <ProfileEditeSelectInput
@@ -404,6 +402,8 @@ const PurchaseBatteryModal = (props) => {
                             title={"انتخاب آمپر"}
                             data={amperSelectData}
                             height={"h-[200px]"}
+                            inputHeight={"h-[40px]"}
+                            iconSize={"text-[18px]"}
                             disabled={isSelected !== 1}
                             // star={true}
                             relation={false}
@@ -422,8 +422,8 @@ const PurchaseBatteryModal = (props) => {
                       )}
                     </h3>
                   </div>
-                  <div className="flex mr-[0.2rem] size933:mr-[1rem]">
-                    <p className="mt-[0.5rem] flex items-center gap-2">
+                  <div className="flex justify-end w-full">
+                    <p className="flex items-center gap-2 text-16">
                       {item.price.toString().split("")[0] === "-"
                         ? numberWithCommas(item.price)
                         : "+" + numberWithCommas(item.price)}
@@ -434,28 +434,27 @@ const PurchaseBatteryModal = (props) => {
                 </div>
               ))}
             </div>
-
-            <div className="flex size746:flex-row flex-col size746:gap-0 gap-4 items-center justify-between py-[1.5rem]">
-              <div className="flex items-center gap-[0.25rem] size1000:gap-[0.5rem]">
-                <p className={"size746:text-[16px] text-14"}>
-                  مبلغ قابل پرداخت:{" "}
+          </div>
+          <div className="flex size746:gap-0 gap-4 items-center justify-between py-[1.5rem] shadow-[0_0_5px_0_rgba(0,0,0,0.4)] px-4">
+            <div className="flex items-center gap-[0.25rem] size1000:gap-[0.5rem]">
+              <p className={"size746:text-[16px] text-14"}>
+                مبلغ قابل پرداخت:{" "}
+              </p>
+              <div className="flex size1000:mr-[1rem]">
+                <p className="size746:text-[16px] text-14">
+                  <span> {numberWithCommas(totalPrice.price)} </span>
+                  <span>تومان </span>
                 </p>
-                <div className="flex size1000:mr-[1rem]">
-                  <p className="size746:text-[16px] text-14">
-                    <span> {numberWithCommas(totalPrice.price)} </span>
-                    <span>تومان </span>
-                  </p>
-                  {/*<Image src={Toman} alt="" width={20} height={20}/>*/}
-                </div>
+                {/*<Image src={Toman} alt="" width={20} height={20}/>*/}
               </div>
-              <Button
-                class_name="bg-[#3aab38] rounded-10 hover:shadow-[0_0_5px_0_rgba(0,0,0,0.4)] flex items-center justify-center ga-[0.25rem] text-white px-[1.5rem] py-[0.5rem]"
-                on_click={clickSelectTimeHandler}
-              >
-                <p>اضافه به سبد خرید</p>
-                {/*<Image src={arrowLeft} alt="" height={20} width={20} />*/}
-              </Button>
             </div>
+            <Button
+              class_name="bg-[#F58052] rounded-10 hover:shadow-[0_0_5px_0_rgba(0,0,0,0.4)] flex items-center justify-center ga-[0.25rem] text-white px-2 py-2 text-12"
+              on_click={clickSelectTimeHandler}
+            >
+              <p>اضافه به سبد خرید</p>
+              {/*<Image src={arrowLeft} alt="" height={20} width={20} />*/}
+            </Button>
           </div>
         </div>
       </div>

@@ -10,10 +10,10 @@ const SelectLocationTab = (props) => {
 
   return (
     <div
-      className={`${props.selectAddressState === props.addressTabState ? "bg-[#B0B0B0]" : "bg-[#E7E7E7]"} flex-1 rounded-[12px] size540:w-[416px] w-full lg:min-h-[118px] min-h-[90px] py-3 px-4 cursor-pointer`}
+      className={`border-b-2 ${props.selectAddressState === props.addressTabState ? "text-[#F58052] border-[#F58052]" : "text-[#FCCAAC] border-[#FCCAAC]"} w-[249px] py-3 px-4 cursor-pointer`}
       onClick={clickTabHandler}
     >
-      <h1 className={"lg:text-[24px] text-[16px] lg:mb-4 mb-1 font-semibold"}>
+      <h1 className={"text-[14px] text-center font-semibold"}>
         {props.headerText}
       </h1>
       <p

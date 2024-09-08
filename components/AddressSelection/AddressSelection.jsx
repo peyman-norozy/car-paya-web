@@ -3,7 +3,8 @@ import Button from "@/components/Button";
 import NewAddressCard from "@/components/cards/NewAddressCard/NewAddressCard";
 import AddAddressModal from "@/components/vehicle-verification/AddAddressModal";
 import Spinner from "@/components/Spinner";
-import { usePathname } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
+import useSetQuery from "@/hook/useSetQuery";
 
 const AddressSelection = (props) => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -15,12 +16,22 @@ const AddressSelection = (props) => {
   const [servicesState, setServicesState] = useState(false);
   const [servicesData, setServicesData] = useState([]);
   const [srviceQuery, setServiceQuery] = useState([]);
+  const [locationId, setLocationId] = useState("");
 
   const optionRef = useRef(null);
   const inputRef = useRef(null);
   const serviceButtenRef = useRef(null);
   const serviceDropDownRef = useRef(null);
   const pathName = usePathname();
+  const setQuery = useSetQuery();
+
+  const nextUrl = pathName.startsWith("/detailing")
+    ? "/detailing/selected-services"
+    : pathName.startsWith("/periodic-service")
+      ? "/periodic-service/service-selection"
+      : pathName.startsWith("/batteries")
+        ? "/batteries/products/newTimeSelector"
+        : "";
 
   useEffect(() => {
     document.addEventListener("click", (e) => {
@@ -69,6 +80,11 @@ const AddressSelection = (props) => {
   function searchClickHandler() {
     props.timeData({ services: srviceQuery.join(",") });
   }
+
+  const confirmAndContinue = () => {
+    setQuery.updateQueryParams({ service_location_id: locationId }, nextUrl);
+  };
+
   return (
     <>
       {props.status === "FIXED" ? (
@@ -174,15 +190,22 @@ const AddressSelection = (props) => {
           </div>
         </div>
       ) : (
-        <Button
-          class_name={
-            "bg-[#5D697A] text-[#FEFEFE] py-2 px-3 lg:text-[16px] text-14 flex item-center gap-2 rounded-[8px] self-start"
-          }
-          on_click={openModalHandler}
-        >
-          <span className={"lg:text-[24px] text-20"}>+</span>
-          <span className={"mt-1.5"}>افزودن آدرس جدید</span>
-        </Button>
+        <div className={"flex justify-between items-center"}>
+          <span className={"font-semibold text-14"}>
+            آدرس خود را انتخاب کنید:
+          </span>
+          <Button
+            class_name={
+              "bg-[#FFFFFF] text-[#F66B34] py-2 px-3 lg:text-[16px] text-14 flex item-center gap-2 rounded-[8px] self-start border border-[#F66B34]"
+            }
+            on_click={openModalHandler}
+          >
+            <span className={"text-12 flex justify-center items-center"}>
+              +
+            </span>
+            <span className={"text-12"}>آدرس جدید</span>
+          </Button>
+        </div>
       )}
       {props.status === "FIXED" ? (
         <ul className={" grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-6"}>
@@ -191,15 +214,8 @@ const AddressSelection = (props) => {
               key={item.id}
               status={props.status}
               item={item}
-              nextUrl={
-                pathName.startsWith("/detailing")
-                  ? "/detailing/selected-services"
-                  : pathName.startsWith("/periodic-service")
-                    ? "/periodic-service/service-selection"
-                    : pathName.startsWith("/batteries")
-                      ? "/batteries/products/newTimeSelector"
-                      : ""
-              }
+              setLocationId={setLocationId}
+              locationId={locationId}
             />
           ))}
         </ul>
@@ -215,20 +231,22 @@ const AddressSelection = (props) => {
                 setPageType={setPageType}
                 setModalIsOpen={setModalIsOpen}
                 setAddressEditId={setAddressEditId}
-                nextUrl={
-                  pathName.startsWith("/detailing")
-                    ? "/detailing/selected-services"
-                    : pathName.startsWith("/periodic-service")
-                      ? "/periodic-service/service-selection"
-                      : pathName.startsWith("/batteries")
-                        ? "/batteries/products/newTimeSelector"
-                        : ""
-                }
+                setLocationId={setLocationId}
+                locationId={locationId}
               />
             ))}
         </ul>
       )}
-
+      <div className={"flex justify-end"}>
+        <button
+          className={
+            "bg-[#F66B34] text-white text-14 w-[199px] h-[40px] rounded-[8px]"
+          }
+          onClick={confirmAndContinue}
+        >
+          تایید و ادامه
+        </button>
+      </div>
       {modalIsOpen && props.status === "MOVING" && (
         <div>
           <div>
