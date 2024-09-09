@@ -1,6 +1,6 @@
 export const serviceData = [
   {
-    title: "کارشناسی خودرو",
+    title: "کارشناسی",
     icon: "/assets/images/service1.png",
     href: "/vehicle-verification",
     id: "vehicleVerification",
@@ -21,7 +21,7 @@ export const serviceData = [
     description: "کار پایا چه خدماتی ارائه میدهدکار پایا چه خدماتی ارائه میدهد"
   },
   {
-    title: "شناسنامه خودرو",
+    title: "شناسنامه",
     icon: "/assets/images/service4.png",
     href: "/panel/my-vehicle/my-car",
     id: "myVehicleMyCar",
