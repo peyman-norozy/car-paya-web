@@ -19,7 +19,6 @@ const AddressDeleteModal = ({ isOpen, onClose, title, id, timeData }) => {
   }, [isOpen]);
 
   const deleteAddressHandler = async () => {
-    console.log(id);
     const deleteAddress = await deleteData(`/user-panel/user-address/${id}`);
     if (deleteAddress.status === 200) {
       onClose();
