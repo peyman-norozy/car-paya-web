@@ -8,7 +8,7 @@ import { postData } from "@/utils/client-api-function-utils";
 import { useSelector } from "react-redux";
 import { error } from "@/utils/function-utils";
 import { ToastContainer } from "react-toastify";
-import search from "@/public/assets/images/search.png"
+import search from "@/public/assets/images/search.png";
 const PackageStep = () => {
   const router = useRouter();
   const pathname = usePathname();
@@ -25,11 +25,11 @@ const PackageStep = () => {
     router.replace(pathname);
   };
   const selectPackageHandler = (id) => {
-    setIsSelected(id);
+    isSelected === id ? setIsSelected(null) : setIsSelected(id);
   };
 
   useEffect(() => {
-    setIsSelected(Length[0]?.item?.item?.id)
+    setIsSelected(Length[0]?.item?.item?.id);
     const city_id = searchParams.get("city_id");
     const selectedItem = searchParams.get("vehicle_tip");
     const city = city_id === undefined ? "" : "&city_id=" + city_id;
@@ -43,18 +43,16 @@ const PackageStep = () => {
           city
       )
       .then((res) => {
-        res.data.data.length?
-        setData(res.data.data)
-        :setData([])
+        res.data.data.length ? setData(res.data.data) : setData([]);
       })
       .catch((err) => {
         setMessage(err.response.data.message);
-        setData([])
+        setData([]);
       });
   }, [searchParams]);
   const nextStepHandler = async () => {
     console.log(Length);
-    
+
     if (Length.length) {
       await postData("/web/cart/remove", {
         cartable_id: Length[0].item.item.id,
@@ -63,23 +61,23 @@ const PackageStep = () => {
         step: "5",
       });
     }
-      const city_id = searchParams.get("city_id");
-      const selectedItem = searchParams.get("vehicle_tip");
-      await postData("/web/cart/add", {
-        cartable_id: isSelected,
-        cartable_type: "VEHICLE_VERIFICATION",
-        vehicle_tip_id: selectedItem,
-        step: "5",
-      });
-      setQuery.setMultiQuery([
-        { key: "step", value: "step-2" },
-        { key: "city_id", value: city_id },
-        {
-          key: "vehicle_tip",
-          value: selectedItem,
-        },
-        { key: "package_id", value: isSelected },
-      ]);
+    const city_id = searchParams.get("city_id");
+    const selectedItem = searchParams.get("vehicle_tip");
+    await postData("/web/cart/add", {
+      cartable_id: isSelected,
+      cartable_type: "VEHICLE_VERIFICATION",
+      vehicle_tip_id: selectedItem,
+      step: "5",
+    });
+    setQuery.setMultiQuery([
+      { key: "step", value: "step-2" },
+      { key: "city_id", value: city_id },
+      {
+        key: "vehicle_tip",
+        value: selectedItem,
+      },
+      { key: "package_id", value: isSelected },
+    ]);
   };
   return (
     <>
@@ -118,30 +116,34 @@ const PackageStep = () => {
           >
             سرویس خود را انتخاب کنید:
           </p>
-          {data?.length===0?<div className={`flex flex-col items-center m-auto my-10 gap-6`}>
-            <Image className="" src={search} width={175} height={175}/>
-            <span className="text-[#454545] font-medium text-sm">در حال حاضر سرویسی برای این خودرو ثبت نشد</span>
-          </div>:
-          <ul className={"flex flex-col gap-2 mb-[2.5rem]"}>
-            {data?.map((item, index) => (
-              <li key={index}>
-                <PackageCard
-                  options={item.information}
-                  isSelected={isSelected}
-                  id={item.id}
-                  setIsSelected={setIsSelected}
-                  title={item.title}
-                  price={item.price}
-                  discounted_price={item.discounted_price}
-                  onClick={() => selectPackageHandler(item.id)}
+          {data?.length === 0 ? (
+            <div className={`flex flex-col items-center m-auto my-10 gap-6`}>
+              <Image className="" src={search} width={175} height={175} />
+              <span className="text-[#454545] font-medium text-sm">
+                در حال حاضر سرویسی برای این خودرو ثبت نشد
+              </span>
+            </div>
+          ) : (
+            <ul className={"flex flex-col gap-2 mb-[2.5rem]"}>
+              {data?.map((item, index) => (
+                <li key={index}>
+                  <PackageCard
+                    options={item.information}
+                    isSelected={isSelected}
+                    id={item.id}
+                    setIsSelected={setIsSelected}
+                    title={item.title}
+                    price={item.price}
+                    discounted_price={item.discounted_price}
+                    onClick={() => selectPackageHandler(item.id)}
                   />
-              </li>
-            ))}
-          </ul>
-          }
+                </li>
+              ))}
+            </ul>
+          )}
           <button
             onClick={nextStepHandler}
-            disabled={isSelected?false:true}
+            disabled={isSelected ? false : true}
             className={
               "bg-[#F66B34] hidden self-end lg:flex items-center gap-2 mt-1 size690:mt-3 w-fit text-12 size690:text-[16px] p-[8px] text-white rounded-[4px]"
             }
@@ -153,7 +155,10 @@ const PackageStep = () => {
             className="fixed w-full rounded-t-2xl shadow-[0_-2px_4px_0_rgba(199,199,199,0.25)] flex justify-center pt-4 pb-6 items-start bottom-0 right-0 bg-white z-[2000] px-10 lg:hidden"
             onClick={nextStepHandler}
           >
-            <button className={`${isSelected?"bg-[#F66B34]":"bg-[#FCCAAC]"} rounded-lg w-full sm:max-w-[400px] text-[#FEFEFE] text-sm font-medium py-3`} disabled={isSelected?false:true}>
+            <button
+              className={`${isSelected ? "bg-[#F66B34]" : "bg-[#FCCAAC]"} rounded-lg w-full sm:max-w-[400px] text-[#FEFEFE] text-sm font-medium py-3`}
+              disabled={isSelected ? false : true}
+            >
               تایید ادامه
             </button>
           </div>
