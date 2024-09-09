@@ -5,6 +5,7 @@ import Providers from "@/store/provider";
 import MainLayout from "@/layouts/MainLayout";
 import NextTopLoader from "nextjs-toploader";
 import { Suspense } from "react";
+import LoginModal from "@/components/login/LoginModal";
 
 export const metadata = {
   manifest: "/manifest.json", // we are accessing our manifest file here
@@ -45,6 +46,7 @@ export default function RootLayout({ children }) {
             easing="ease"
             speed={2000}
           />
+          <LoginModal/>
           <Suspense>
             <MainLayout>{children}</MainLayout>
           </Suspense>

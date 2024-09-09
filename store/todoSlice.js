@@ -18,6 +18,7 @@ const initialState = {
   batteriesBasketLength: 0,
   periodicServiceBasketLength: 0,
   vehicleVerificationBasketLength: {},
+  LoginModalState: false,
 };
 
 const todoSlice = createSlice({
@@ -69,13 +70,15 @@ const todoSlice = createSlice({
     renderSetCar(state) {
       state.renderSetCarState = !state.renderSetCarState;
     },
-    setBatteriesBasketLength(state, action) {
-    },
+    setBatteriesBasketLength(state, action) {},
     setPeriodicServiceBasketLength(state, action) {
       state.periodicServiceBasketLength = action.payload;
     },
     setVehicleVerificationBasketLength(state, action) {
       state.vehicleVerificationBasketLength = action.payload;
+    },
+    setLoginModal(state, action) {
+      state.LoginModalState = action.payload;
     },
   },
 });
@@ -98,6 +101,7 @@ export const {
   renderSetCar,
   setBatteriesBasketLength,
   setPeriodicServiceBasketLength,
-  setVehicleVerificationBasketLength
+  setVehicleVerificationBasketLength,
+  setLoginModal
 } = todoSlice.actions;
 export default todoSlice;
