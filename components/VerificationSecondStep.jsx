@@ -11,8 +11,10 @@ import {
   persianDateCovertor,
 } from "@/utils/function-utils";
 import { ToastContainer } from "react-toastify";
-import { getCookie } from "cookies-next";
+import { getCookie, getCookies } from "cookies-next";
 import nProgress from "nprogress";
+import { setLoginModal } from "@/store/todoSlice";
+import { useDispatch } from "react-redux";
 
 const VerificationSecondStep = (props) => {
   const searchParams = useSearchParams();
@@ -20,7 +22,7 @@ const VerificationSecondStep = (props) => {
   const city_id = searchParams.get("city_id");
   const selectedItem = searchParams.get("vehicle_tip");
   const package_id = searchParams.get("package_id");
-  const [packagePrice,setPackagePrice] = useState(0)
+  const [packagePrice, setPackagePrice] = useState(0);
   const [date, setDate] = useState(0);
   const [tab, setTab] = useState(0);
   const [optionIsOpen, setOptionIsOpen] = useState(false);
@@ -29,40 +31,43 @@ const VerificationSecondStep = (props) => {
   const [data, setData] = useState([]);
   const setQuery = useSetQuery();
   const router = useRouter();
+  const dispatch = useDispatch();
 
   const continueSecondStepHandler = () => {
-    setButtonIsdisabled(true);
-    if (timeIsSelected === null) {
-      setButtonIsdisabled(false);
-      error("زمان مورد نظر را انتخاب کنید");
-      window.scroll({ top: 0, left: 0, behavior: "smooth" });
-    } else {
-      setButtonIsdisabled(false);
-      // if (loginState) {
-      setQuery.setMultiQuery([
-        { key: "step", value: "step-4" },
-        { key: "city_id", value: city_id },
-        { key: "vehicle_tip", value: selectedItem },
-        { key: "package_id", value: package_id },
-        {
-          key: "reservation_time_slice_id",
-          value: timeIsSelected.split("/")[0],
-        },
-        { key: "exact_time", value: timeIsSelected.split("/")[1] },
-      ]);
-      // } else {
-      //   setQuery.setMultiQuery([
-      //     { key: "step", value: "step-3" },
-      //     { key: "city_id", value: city_id },
-      //     {
-      //       key: "vehicle_tip",
-      //       value: selectedItem,
-      //     },
-      //     { key: "package_id", value: package_id },
-      //     { key: "time_id", value: timeIsSelected },
-      //   ]);
-      // }
-    }
+    
+        setButtonIsdisabled(true);
+        if (timeIsSelected === null) {
+          setButtonIsdisabled(false);
+          error("زمان مورد نظر را انتخاب کنید");
+          window.scroll({ top: 0, left: 0, behavior: "smooth" });
+        } else {
+          setButtonIsdisabled(false);
+          // if (loginState) {
+          setQuery.setMultiQuery([
+            { key: "step", value: "step-4" },
+            { key: "city_id", value: city_id },
+            { key: "vehicle_tip", value: selectedItem },
+            { key: "package_id", value: package_id },
+            {
+              key: "reservation_time_slice_id",
+              value: timeIsSelected.split("/")[0],
+            },
+            { key: "exact_time", value: timeIsSelected.split("/")[1] },
+          ]);
+          // } else {
+          //   setQuery.setMultiQuery([
+          //     { key: "step", value: "step-3" },
+          //     { key: "city_id", value: city_id },
+          //     {
+          //       key: "vehicle_tip",
+          //       value: selectedItem,
+          //     },
+          //     { key: "package_id", value: package_id },
+          //     { key: "time_id", value: timeIsSelected },
+          //   ]);
+          // }
+        }
+
   };
 
   const backStepHandler = () => {
@@ -98,7 +103,7 @@ const VerificationSecondStep = (props) => {
             res.data["time-reserve"][key],
           ])
         );
-        setPackagePrice(res?.data?.price_service?.discounted_price)
+        setPackagePrice(res?.data?.price_service?.discounted_price);
       })
       .catch((err) => console.log(err));
   }, []);
@@ -154,9 +159,9 @@ const VerificationSecondStep = (props) => {
               <p>{persianDateCovertor(item[0])}</p>
             </div>
           ))}
-        <div
-          className={`${tab ? "right-1/2" : "right-0"} w-1/2 h-[2px] bg-[#F58052] mt-[-2px] transition-all absolute bottom-0`}
-        ></div>
+          <div
+            className={`${tab ? "right-1/2" : "right-0"} w-1/2 h-[2px] bg-[#F58052] mt-[-2px] transition-all absolute bottom-0`}
+          ></div>
         </div>
         <div className={"flex flex-col gap-[2rem]"}>
           <ReserveTimeVerification

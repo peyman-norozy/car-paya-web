@@ -21,7 +21,6 @@ const HomePage = async () => {
         <HomePageArticleSlider data={data} />
         <HomePageArticles data={data}/>
       </div>
-      {/* <LoginModal/> */}
       <ToastContainer rtl={true} />
     </div>
   );

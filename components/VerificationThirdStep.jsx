@@ -11,6 +11,8 @@ import { getCookie } from "cookies-next";
 import { error } from "@/utils/function-utils";
 import { ToastContainer } from "react-toastify";
 import { postData } from "@/utils/client-api-function-utils";
+import { useDispatch } from "react-redux";
+import { setLoginModal } from "@/store/todoSlice";
 
 const VerificationThirdStep = (props) => {
   // const [isSelected, setIsSelected] = useState(0);
@@ -35,6 +37,7 @@ const VerificationThirdStep = (props) => {
   const pathname = usePathname();
   const router = useRouter();
   const setQuery = useSetQuery();
+  const dispatch = useDispatch()
   useEffect(() => {
     //   verification in carcheck place
     axios
@@ -60,9 +63,10 @@ const VerificationThirdStep = (props) => {
         // setChosenTime(res.data.time);
       })
       .catch((err) => {
-        router.push(
-          `login?backUrl=${pathname + "?" + searchParams.toString()}`
-        );
+        // router.push(
+        //   `login?backUrl=${pathname + "?" + searchParams.toString()}`
+        // );
+        dispatch(setLoginModal(true))
       });
     //   ///////////////////////////////////
     //   verification in costumers place

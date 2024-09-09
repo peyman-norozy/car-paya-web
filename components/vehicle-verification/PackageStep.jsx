@@ -5,10 +5,12 @@ import useSetQuery from "@/hook/useSetQuery";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import axios from "axios";
 import { postData } from "@/utils/client-api-function-utils";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { error } from "@/utils/function-utils";
 import { ToastContainer } from "react-toastify";
 import search from "@/public/assets/images/search.png";
+import { getCookies } from "cookies-next";
+import { setLoginModal } from "@/store/todoSlice";
 const PackageStep = () => {
   const router = useRouter();
   const pathname = usePathname();
@@ -16,6 +18,7 @@ const PackageStep = () => {
   const [data, setData] = useState();
   const [message, setMessage] = useState("");
   const [isSelected, setIsSelected] = useState(null);
+  const dispatch = useDispatch()
   const Length = useSelector(
     (state) => state.todo.vehicleVerificationBasketLength
   );
@@ -52,7 +55,13 @@ const PackageStep = () => {
   }, [searchParams]);
   const nextStepHandler = async () => {
     console.log(Length);
-
+    axios
+    .get(process.env.BASE_API + "/check-authorization", {
+      headers: {
+        Authorization: "Bearer " + getCookies("Authorization").Authorization,
+      },
+    })
+    .then(async() => {
     if (Length.length) {
       await postData("/web/cart/remove", {
         cartable_id: Length[0].item.item.id,
@@ -78,6 +87,10 @@ const PackageStep = () => {
       },
       { key: "package_id", value: isSelected },
     ]);
+  })
+  .catch((err) => {
+    dispatch(setLoginModal(true));
+  });
   };
   return (
     <>
