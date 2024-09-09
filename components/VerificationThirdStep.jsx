@@ -43,7 +43,9 @@ const VerificationThirdStep = (props) => {
           "/web/expert/reservation?step=step-5&type=DELEGATE&city_id=" +
           city_id +
           "&reservation_time_slice_id=" +
-          reservation_time_slice_id,
+          reservation_time_slice_id +
+          "&package_id=" +
+          package_id,
         {
           headers: {
             Authorization: "Bearer " + getCookie("Authorization"),
@@ -70,7 +72,9 @@ const VerificationThirdStep = (props) => {
           "/web/expert/reservation?step=step-5&type=EXPERT&city_id=" +
           city_id +
           "&reservation_time_slice_id=" +
-          reservation_time_slice_id,
+          reservation_time_slice_id +
+          "&package_id=" +
+          package_id,
         {
           headers: {
             Authorization: "Bearer " + getCookie("Authorization"),
@@ -221,17 +225,21 @@ const VerificationThirdStep = (props) => {
             ))}
       </div>
       <button
-          onClick={continueSecondStepHandler}
-          className={`bg-[#F66B34] self-end hidden lg:flex items-center gap-2 mt-4 size690:mt-3 w-fit text-12 size690:text-[16px] p-[8px] text-white rounded-[4px]`}
-        >
-          <p>تایید و ادامه</p>
-          <i className={"cc-left text-[20px]"} />
-        </button>
+        onClick={continueSecondStepHandler}
+        className={`bg-[#F66B34] self-end hidden lg:flex items-center gap-2 mt-4 size690:mt-3 w-fit text-12 size690:text-[16px] p-[8px] text-white rounded-[4px]`}
+        disabled={selectedAddress === "" ? true : false}
+      >
+        <p>تایید و ادامه</p>
+        <i className={"cc-left text-[20px]"} />
+      </button>
       <div
         className="fixed w-full rounded-t-2xl shadow-[0_-2px_4px_0_rgba(199,199,199,0.25)] flex justify-center pt-4 pb-6 items-start bottom-0 right-0 bg-white z-[2000] px-10 lg:hidden"
         onClick={continueSecondStepHandler}
       >
-        <button className="bg-[#F66B34] rounded-lg w-full sm:max-w-[400px] text-[#FEFEFE] text-sm font-medium py-3">
+        <button
+          className={`${selectedAddress === "" ? "bg-[#FCCAAC]" : "bg-[#F66B34]"} rounded-lg w-full sm:max-w-[400px] text-[#FEFEFE] text-sm font-medium py-3`}
+          disabled={selectedAddress === "" ? true : false}
+        >
           تایید ادامه
         </button>
       </div>

@@ -25,7 +25,7 @@ const HomePageArticles = (props) => {
         centeredSlides={true}
         loop={true}
       >
-        {props.data.data.map((item, index) => (
+        {props?.data?.data?.map((item, index) => (
           <SwiperSlide style={{ width: "fit-content" }} key={item.id}>
             <div className="w-[190px] sm:w-[380px] h-[226px] sm:h-[400px] rounded-2xl md:rounded-[32px] overflow-hidden flex flex-col items-center gap-[10px] bg-[#F6F6F6] shadow-[0_1px_4px_0_rgba(188,188,188,0.25)] p-2 sm:p-4">
               <Image

@@ -1,11 +1,10 @@
 "use client";
 import Image from "next/image";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import ReserveTimeVerification from "@/components/vehicle-verification/ReserveTimeVerification";
 import useSetQuery from "@/hook/useSetQuery";
-import { useDispatch } from "react-redux";
 import {
   error,
   persianDate,
@@ -14,8 +13,6 @@ import {
 import { ToastContainer } from "react-toastify";
 import { getCookie } from "cookies-next";
 import nProgress from "nprogress";
-import moment from "jalali-moment";
-import { useDraggable } from "react-use-draggable-scroll";
 
 const VerificationSecondStep = (props) => {
   const searchParams = useSearchParams();
@@ -23,9 +20,9 @@ const VerificationSecondStep = (props) => {
   const city_id = searchParams.get("city_id");
   const selectedItem = searchParams.get("vehicle_tip");
   const package_id = searchParams.get("package_id");
-  const dateRef = useRef();
-  const { events } = useDraggable(dateRef);
+  const [packagePrice,setPackagePrice] = useState(0)
   const [date, setDate] = useState(0);
+  const [tab, setTab] = useState(0);
   const [optionIsOpen, setOptionIsOpen] = useState(false);
   const [timeIsSelected, setTimeIsSelected] = useState(null);
   const [buttonIsdisabled, setButtonIsdisabled] = useState(false);
@@ -86,7 +83,7 @@ const VerificationSecondStep = (props) => {
     axios
       .get(
         process.env.BASE_API +
-          `${props.fetchUrl ? props.fetchUrl : "/web/expert/reservation?step=step-2"}`,
+          `${props.fetchUrl ? props.fetchUrl : `/web/expert/reservation?step=step-2&city_id=${city_id}&vehicle_tip_id=${selectedItem}&package_id=${package_id}`}`,
         {
           headers: {
             Authorization: "Bearer " + getCookie("Authorization"),
@@ -101,6 +98,7 @@ const VerificationSecondStep = (props) => {
             res.data["time-reserve"][key],
           ])
         );
+        setPackagePrice(res?.data?.price_service?.discounted_price)
       })
       .catch((err) => console.log(err));
   }, []);
@@ -141,29 +139,29 @@ const VerificationSecondStep = (props) => {
         >
           زمان خود را انتخاب کنید:
         </p>
-        <div className="overflow-x-scroll hide_scrollbar">
-          <div
-            className="w-fit flex justify-around items-center gap-6 min-w-full"
-            {...events}
-            ref={dateRef}
-          >
-            {data.map((item, index) => (
-              <div
-                key={index}
-                className={`flex items-end gap-2 text-sm font-medium border-b ${date === index ? "text-[#F58052] border-[#F58052]" : "text-[#FCCAAC] border-[#FCCAAC]"}`}
-                onClick={() => {
-                  setDate(index);
-                }}
-              >
-                <p>{persianDate(item[0], "dddd")}</p>
-                <p>{persianDateCovertor(item[0])}</p>
-              </div>
-            ))}
-          </div>
+
+        <div className="w-fit flex justify-around items-center gap-6 min-w-full relative border-b border-[#FCCAAC] pb-2">
+          {data.slice(0, 2).map((item, index) => (
+            <div
+              key={index}
+              className={`flex items-end gap-2 text-sm font-medium ${date === index ? "text-[#F58052]" : "text-[#FCCAAC]"}`}
+              onClick={() => {
+                setDate(index);
+                setTab(index);
+              }}
+            >
+              <p>{persianDate(item[0], "dddd")}</p>
+              <p>{persianDateCovertor(item[0])}</p>
+            </div>
+          ))}
+        <div
+          className={`${tab ? "right-1/2" : "right-0"} w-1/2 h-[2px] bg-[#F58052] mt-[-2px] transition-all absolute bottom-0`}
+        ></div>
         </div>
         <div className={"flex flex-col gap-[2rem]"}>
           <ReserveTimeVerification
             data={data[date]}
+            packagePrice={packagePrice}
             timeIsSelected={timeIsSelected}
             setTimeIsSelected={setTimeIsSelected}
             setOptionIsOpen={setOptionIsOpen}

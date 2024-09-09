@@ -31,6 +31,9 @@ export default function RootLayout({ children }) {
   return (
     <Providers>
       <html lang="fa" dir="rtl">
+        <head>
+          <meta name="enamad" content="34819897" />
+        </head>
         <body className="bg-[#FBFBFB]">
           <NextTopLoader
             color={"#000000"}

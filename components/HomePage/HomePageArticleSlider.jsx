@@ -37,7 +37,7 @@ const HomePageArticleSlider = (props) => {
         slidesPerView={"auto"}
         style={{ width: "calc(100% - 32px)", marginRight: "16px" , marginLeft: "16px" }}
       >
-        {props.data.data.map((item, index) => (
+        {props?.data?.data?.map((item, index) => (
           <SwiperSlide style={{ width: "fit-content" }} key={item.id}>
             <div className="rounded-lg md:rounded-[32px] overflow-hidden relative">
               <Image

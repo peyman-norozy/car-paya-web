@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { persianDateCovertor } from "@/utils/function-utils";
+import { numberWithCommas, persianDateCovertor } from "@/utils/function-utils";
 
 const ReserveTimeVerification = (props) => {
   const {
@@ -8,8 +8,9 @@ const ReserveTimeVerification = (props) => {
     timeIsSelected,
     optionIsOpen,
     setOptionIsOpen,
+    packagePrice
   } = props;
-
+  
   const weekDay =
     data &&
     new Date(data[0] * 1000).toLocaleDateString("fa-IR", { weekday: "long" });
@@ -47,12 +48,12 @@ const ReserveTimeVerification = (props) => {
                 {item.swing_type === "INCREASE" ? (
                   <p className={"text-[12px] flex items-center gap-px"}>
                     <span className="text-red-600">*</span>
-                    <span className="text-[#010101]">{item.diff_price} تومان افزایش قیمت به دلیل پیک درخواست</span>
+                    <span className="text-[#010101]">{numberWithCommas(packagePrice*item.diff_percent/100)} تومان افزایش قیمت به دلیل پیک درخواست</span>
                   </p>
                 ) : item.swing_type === "DECREASE" ? (
                   <p className={"text-[12px] flex items-center gap-px"}>
                     <span className="text-red-600">*</span>
-                    <span className="text-[#010101]">{item.diff_price} تومان تخفیف کارچک</span>
+                    <span className="text-[#010101]">{numberWithCommas(packagePrice*item.diff_percent/100)} تومان تخفیف کارچک</span>
                   </p>
                 ) : (
                   ""
@@ -78,7 +79,7 @@ const ReserveTimeVerification = (props) => {
                   <p>{item.start_time + ":00"}</p>
                   <div
                     onClick={(e) =>
-                      setTimeIsSelected(item.id + "/" + item.start_time + ":00")
+                      timeIsSelected ===item.id + "/" + item.start_time + ":00"?setTimeIsSelected(null): setTimeIsSelected(item.id + "/" + item.start_time + ":00")
                     }
                     className={
                       "rounded-[50%] border-2 border-[#F66B34] size-6 flex item-center justify-center cursor-pointer"
@@ -99,9 +100,7 @@ const ReserveTimeVerification = (props) => {
                   <p>{+item.start_time + 1 + ":00"}</p>
                   <div
                     onClick={(e) =>
-                      setTimeIsSelected(
-                        item.id + "/" + (+item.start_time + 1) + ":00",
-                      )
+                      timeIsSelected ===item.id + "/" + (+item.start_time + 1) + ":00"?setTimeIsSelected(null): setTimeIsSelected(item.id + "/" + (+item.start_time + 1) + ":00")
                     }
                     className={
                       "rounded-[50%] border-2 border-[#F66B34] size-6 flex item-center justify-center cursor-pointer"
@@ -122,7 +121,7 @@ const ReserveTimeVerification = (props) => {
                   <p>{item.start_time + ":30"}</p>
                   <div
                     onClick={(e) =>
-                      setTimeIsSelected(item.id + "/" + item.start_time + ":30")
+                      timeIsSelected ===item.id + "/" + item.start_time + ":30"?setTimeIsSelected(null): setTimeIsSelected(item.id + "/" + item.start_time + ":30")
                     }
                     className={
                       "rounded-[50%] border-2 border-[#F66B34] size-6 flex item-center justify-center cursor-pointer"
@@ -143,9 +142,7 @@ const ReserveTimeVerification = (props) => {
                   <p>{+item.start_time + 1 + ":30"}</p>
                   <div
                     onClick={(e) =>
-                      setTimeIsSelected(
-                        item.id + "/" + (+item.start_time + 1) + ":30",
-                      )
+                      timeIsSelected ===item.id + "/" + (+item.start_time + 1) + ":30"?setTimeIsSelected(null): setTimeIsSelected(item.id + "/" + (+item.start_time + 1) + ":30")
                     }
                     className={
                       "rounded-[50%] border-2 border-[#F66B34] size-6 flex item-center justify-center cursor-pointer"
