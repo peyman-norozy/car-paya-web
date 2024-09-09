@@ -1,6 +1,13 @@
 const AgentAdressCard = (props) => {
   return (
-    <div className={`p-4 flex flex-col gap-3 bg-white shadow-[0_0_8px_0_rgba(215,215,215,0.25)] rounded-lg ${props.selectedAddress === props.data.id?"border border-[#F58052]":""} `} onClick={()=>{props.setSelectedAddress(props.data.id)}}>
+    <div
+      className={`p-4 flex flex-col gap-3 bg-white shadow-[0_0_8px_0_rgba(215,215,215,0.25)] rounded-lg ${props.selectedAddress === props.data.id ? "border border-[#F58052]" : ""} `}
+      onClick={() => {
+        props.selectedAddress === props.data.id
+          ? props.setSelectedAddress("")
+          : props.setSelectedAddress(props.data.id);
+      }}
+    >
       <div className="flex justify-start gap-2 items-center">
         <div
           className={
