@@ -20,6 +20,7 @@ const VerificationSecondStep = (props) => {
   const city_id = searchParams.get("city_id");
   const selectedItem = searchParams.get("vehicle_tip");
   const package_id = searchParams.get("package_id");
+  const [packagePrice,setPackagePrice] = useState(0)
   const [date, setDate] = useState(0);
   const [tab, setTab] = useState(0);
   const [optionIsOpen, setOptionIsOpen] = useState(false);
@@ -82,7 +83,7 @@ const VerificationSecondStep = (props) => {
     axios
       .get(
         process.env.BASE_API +
-          `${props.fetchUrl ? props.fetchUrl : "/web/expert/reservation?step=step-2"}`,
+          `${props.fetchUrl ? props.fetchUrl : `/web/expert/reservation?step=step-2&city_id=${city_id}&vehicle_tip_id=${selectedItem}&package_id=${package_id}`}`,
         {
           headers: {
             Authorization: "Bearer " + getCookie("Authorization"),
@@ -97,6 +98,7 @@ const VerificationSecondStep = (props) => {
             res.data["time-reserve"][key],
           ])
         );
+        setPackagePrice(res?.data?.price_service?.discounted_price)
       })
       .catch((err) => console.log(err));
   }, []);
@@ -159,6 +161,7 @@ const VerificationSecondStep = (props) => {
         <div className={"flex flex-col gap-[2rem]"}>
           <ReserveTimeVerification
             data={data[date]}
+            packagePrice={packagePrice}
             timeIsSelected={timeIsSelected}
             setTimeIsSelected={setTimeIsSelected}
             setOptionIsOpen={setOptionIsOpen}

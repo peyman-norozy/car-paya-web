@@ -14,7 +14,7 @@ const DiscountPercent = () => {
       />
       <input
         type={"text"}
-        placeholder={"12145"}
+        placeholder={"کد تخفیف"}
         className={"w-full h-full outline-0 pr-2"}
       />
       <button

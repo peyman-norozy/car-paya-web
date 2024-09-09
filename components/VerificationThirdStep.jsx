@@ -43,7 +43,9 @@ const VerificationThirdStep = (props) => {
           "/web/expert/reservation?step=step-5&type=DELEGATE&city_id=" +
           city_id +
           "&reservation_time_slice_id=" +
-          reservation_time_slice_id,
+          reservation_time_slice_id +
+          "&package_id=" +
+          package_id,
         {
           headers: {
             Authorization: "Bearer " + getCookie("Authorization"),
@@ -70,7 +72,9 @@ const VerificationThirdStep = (props) => {
           "/web/expert/reservation?step=step-5&type=EXPERT&city_id=" +
           city_id +
           "&reservation_time_slice_id=" +
-          reservation_time_slice_id,
+          reservation_time_slice_id +
+          "&package_id=" +
+          package_id,
         {
           headers: {
             Authorization: "Bearer " + getCookie("Authorization"),
