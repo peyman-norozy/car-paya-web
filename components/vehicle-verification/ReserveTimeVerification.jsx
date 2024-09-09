@@ -78,7 +78,7 @@ const ReserveTimeVerification = (props) => {
                   <p>{item.start_time + ":00"}</p>
                   <div
                     onClick={(e) =>
-                      setTimeIsSelected(item.id + "/" + item.start_time + ":00")
+                      timeIsSelected ===item.id + "/" + item.start_time + ":00"?setTimeIsSelected(null): setTimeIsSelected(item.id + "/" + item.start_time + ":00")
                     }
                     className={
                       "rounded-[50%] border-2 border-[#F66B34] size-6 flex item-center justify-center cursor-pointer"
@@ -99,9 +99,7 @@ const ReserveTimeVerification = (props) => {
                   <p>{+item.start_time + 1 + ":00"}</p>
                   <div
                     onClick={(e) =>
-                      setTimeIsSelected(
-                        item.id + "/" + (+item.start_time + 1) + ":00",
-                      )
+                      timeIsSelected ===item.id + "/" + (+item.start_time + 1) + ":00"?setTimeIsSelected(null): setTimeIsSelected(item.id + "/" + (+item.start_time + 1) + ":00")
                     }
                     className={
                       "rounded-[50%] border-2 border-[#F66B34] size-6 flex item-center justify-center cursor-pointer"
@@ -122,7 +120,7 @@ const ReserveTimeVerification = (props) => {
                   <p>{item.start_time + ":30"}</p>
                   <div
                     onClick={(e) =>
-                      setTimeIsSelected(item.id + "/" + item.start_time + ":30")
+                      timeIsSelected ===item.id + "/" + item.start_time + ":30"?setTimeIsSelected(null): setTimeIsSelected(item.id + "/" + item.start_time + ":30")
                     }
                     className={
                       "rounded-[50%] border-2 border-[#F66B34] size-6 flex item-center justify-center cursor-pointer"
@@ -143,9 +141,7 @@ const ReserveTimeVerification = (props) => {
                   <p>{+item.start_time + 1 + ":30"}</p>
                   <div
                     onClick={(e) =>
-                      setTimeIsSelected(
-                        item.id + "/" + (+item.start_time + 1) + ":30",
-                      )
+                      timeIsSelected ===item.id + "/" + (+item.start_time + 1) + ":30"?setTimeIsSelected(null): setTimeIsSelected(item.id + "/" + (+item.start_time + 1) + ":30")
                     }
                     className={
                       "rounded-[50%] border-2 border-[#F66B34] size-6 flex item-center justify-center cursor-pointer"
