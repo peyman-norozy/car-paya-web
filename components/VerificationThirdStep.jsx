@@ -303,7 +303,7 @@ const VerificationThirdStep = (props) => {
                 setModalIsOpen(false);
               }}
               className={
-                "w-full h-[100vh] fixed top-0 right-0 bg-black opacity-[0.5] z-[100000000]"
+                "w-full h-[100vh] fixed top-0 right-0 bg-black opacity-[0.7] z-[100000000]"
               }
             ></div>
           </div>
