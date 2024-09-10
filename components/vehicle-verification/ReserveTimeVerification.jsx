@@ -8,9 +8,9 @@ const ReserveTimeVerification = (props) => {
     timeIsSelected,
     optionIsOpen,
     setOptionIsOpen,
-    packagePrice
+    packagePrice,
   } = props;
-  
+
   const weekDay =
     data &&
     new Date(data[0] * 1000).toLocaleDateString("fa-IR", { weekday: "long" });
@@ -34,32 +34,40 @@ const ReserveTimeVerification = (props) => {
       {data &&
         data[1].map((item, index) => (
           <div
-            className={"shadow-[0_0_8px_0_rgba(215,215,215,0.25)] rounded-lg h-fit"}
+            className={
+              "shadow-[0_0_8px_0_rgba(215,215,215,0.25)] rounded-lg h-fit"
+            }
             key={index}
           >
             <div
               onClick={() => openOptionHandler(item.id)}
-              className={"flex items-center justify-between px-4 py-5"}
+              className={"flex flex-col items-start px-4 py-5"}
             >
-              <div className={"flex items-center gap-4"}>
+              <div className={"flex items-center justify-between w-full"}>
                 <p className={"text-sm text-[#518DD5] font-medium"}>
                   {item.start_time}:00 تا {item.end_time}:00
                 </p>
-                {item.swing_type === "INCREASE" ? (
-                  <p className={"text-[12px] flex items-center gap-px"}>
-                    <span className="text-red-600">*</span>
-                    <span className="text-[#010101]">{numberWithCommas(packagePrice*item.diff_percent/100)} تومان افزایش قیمت به دلیل پیک درخواست</span>
-                  </p>
-                ) : item.swing_type === "DECREASE" ? (
-                  <p className={"text-[12px] flex items-center gap-px"}>
-                    <span className="text-red-600">*</span>
-                    <span className="text-[#010101]">{numberWithCommas(packagePrice*item.diff_percent/100)} تومان تخفیف کارچک</span>
-                  </p>
-                ) : (
-                  ""
-                )}
+                <i className={"cc-arrow-down"} />
               </div>
-              <i className={"cc-arrow-down"} />
+              {item.swing_type === "INCREASE" ? (
+                <p className={"text-[12px] flex items-center gap-px"}>
+                  <span className="text-red-600">*</span>
+                  <span className="text-[#010101]">
+                    {numberWithCommas((packagePrice * item.diff_percent) / 100)}{" "}
+                    تومان افزایش قیمت به دلیل پیک درخواست
+                  </span>
+                </p>
+              ) : item.swing_type === "DECREASE" ? (
+                <p className={"text-[12px] flex items-center gap-px"}>
+                  <span className="text-red-600">*</span>
+                  <span className="text-[#010101]">
+                    {numberWithCommas((packagePrice * item.diff_percent) / 100)}{" "}
+                    تومان تخفیف کارچک
+                  </span>
+                </p>
+              ) : (
+                ""
+              )}
             </div>
             {(props.accordionState === undefined
               ? optionIsOpen === item.id
@@ -72,14 +80,16 @@ const ReserveTimeVerification = (props) => {
                 {/*first time*/}
                 <div
                   key={index}
-                  className={
-                    `flex items-center p-2 ${timeIsSelected === item.id + "/" + +item.start_time + ":00" ? "border-b border-b-[#F66B34]" : ""} gap-6`
-                  }
+                  className={`flex items-center p-2 ${timeIsSelected === item.id + "/" + +item.start_time + ":00" ? "border-b border-b-[#F66B34]" : ""} gap-6`}
                 >
                   <p>{item.start_time + ":00"}</p>
                   <div
                     onClick={(e) =>
-                      timeIsSelected ===item.id + "/" + item.start_time + ":00"?setTimeIsSelected(null): setTimeIsSelected(item.id + "/" + item.start_time + ":00")
+                      timeIsSelected === item.id + "/" + item.start_time + ":00"
+                        ? setTimeIsSelected(null)
+                        : setTimeIsSelected(
+                            item.id + "/" + item.start_time + ":00"
+                          )
                     }
                     className={
                       "rounded-[50%] border-2 border-[#F66B34] size-6 flex item-center justify-center cursor-pointer"
@@ -93,14 +103,17 @@ const ReserveTimeVerification = (props) => {
                 {/*    second time*/}
                 <div
                   key={index}
-                  className={
-                    `flex items-center p-2 ${timeIsSelected === item.id + "/" + (+item.start_time + 1) + ":00" ? "border-b border-b-[#F66B34]" : ""} gap-6`
-                  }
+                  className={`flex items-center p-2 ${timeIsSelected === item.id + "/" + (+item.start_time + 1) + ":00" ? "border-b border-b-[#F66B34]" : ""} gap-6`}
                 >
                   <p>{+item.start_time + 1 + ":00"}</p>
                   <div
                     onClick={(e) =>
-                      timeIsSelected ===item.id + "/" + (+item.start_time + 1) + ":00"?setTimeIsSelected(null): setTimeIsSelected(item.id + "/" + (+item.start_time + 1) + ":00")
+                      timeIsSelected ===
+                      item.id + "/" + (+item.start_time + 1) + ":00"
+                        ? setTimeIsSelected(null)
+                        : setTimeIsSelected(
+                            item.id + "/" + (+item.start_time + 1) + ":00"
+                          )
                     }
                     className={
                       "rounded-[50%] border-2 border-[#F66B34] size-6 flex item-center justify-center cursor-pointer"
@@ -114,14 +127,16 @@ const ReserveTimeVerification = (props) => {
                 {/*    third time*/}
                 <div
                   key={index}
-                  className={
-                    `flex items-center p-2 ${timeIsSelected === item.id + "/" + +item.start_time + ":30" ? "border-b border-b-[#F66B34]" : ""} gap-6`
-                  }
+                  className={`flex items-center p-2 ${timeIsSelected === item.id + "/" + +item.start_time + ":30" ? "border-b border-b-[#F66B34]" : ""} gap-6`}
                 >
                   <p>{item.start_time + ":30"}</p>
                   <div
                     onClick={(e) =>
-                      timeIsSelected ===item.id + "/" + item.start_time + ":30"?setTimeIsSelected(null): setTimeIsSelected(item.id + "/" + item.start_time + ":30")
+                      timeIsSelected === item.id + "/" + item.start_time + ":30"
+                        ? setTimeIsSelected(null)
+                        : setTimeIsSelected(
+                            item.id + "/" + item.start_time + ":30"
+                          )
                     }
                     className={
                       "rounded-[50%] border-2 border-[#F66B34] size-6 flex item-center justify-center cursor-pointer"
@@ -135,14 +150,17 @@ const ReserveTimeVerification = (props) => {
                 {/*    forth time*/}
                 <div
                   key={index}
-                  className={
-                    `flex items-center p-2 ${timeIsSelected === item.id + "/" + (+item.start_time + 1) + ":30" ? "border-b border-b-[#F66B34]" : ""} gap-6`
-                  }
+                  className={`flex items-center p-2 ${timeIsSelected === item.id + "/" + (+item.start_time + 1) + ":30" ? "border-b border-b-[#F66B34]" : ""} gap-6`}
                 >
                   <p>{+item.start_time + 1 + ":30"}</p>
                   <div
                     onClick={(e) =>
-                      timeIsSelected ===item.id + "/" + (+item.start_time + 1) + ":30"?setTimeIsSelected(null): setTimeIsSelected(item.id + "/" + (+item.start_time + 1) + ":30")
+                      timeIsSelected ===
+                      item.id + "/" + (+item.start_time + 1) + ":30"
+                        ? setTimeIsSelected(null)
+                        : setTimeIsSelected(
+                            item.id + "/" + (+item.start_time + 1) + ":30"
+                          )
                     }
                     className={
                       "rounded-[50%] border-2 border-[#F66B34] size-6 flex item-center justify-center cursor-pointer"
