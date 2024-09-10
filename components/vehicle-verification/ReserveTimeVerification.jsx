@@ -35,7 +35,7 @@ const ReserveTimeVerification = (props) => {
         data[1].map((item, index) => (
           <div
             className={
-              "shadow-[0_0_8px_0_rgba(215,215,215,0.25)] rounded-lg h-fit"
+              "shadow-[0_0_4px_0_rgba(152,152,152,0.4)] rounded-lg h-fit"
             }
             key={index}
           >
@@ -44,7 +44,7 @@ const ReserveTimeVerification = (props) => {
               className={"flex flex-col items-start px-4 py-5 gap-1 border-b border-[#F2F2F2]"}
             >
               <div className={"flex items-center justify-between w-full"}>
-                <p className={"text-sm text-[#518DD5] font-medium"}>
+                <p className={"text-sm text-[#1E67BF] font-medium"}>
                   {item.start_time}:00 تا {item.end_time}:00
                 </p>
                 <i className={"cc-arrow-down"} />

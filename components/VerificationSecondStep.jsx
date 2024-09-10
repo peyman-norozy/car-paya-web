@@ -128,11 +128,11 @@ const VerificationSecondStep = (props) => {
             انتخاب زمان
           </p>
         </div>
-        <div className="flex gap-2 items-center w-full bg-[#FFFFFF] text-[#D1D1D1]">
-          <i className="cc-car-o text-2xl text-[#518DD5]" onClick={() => router.push(`/vehicle-verification`)}/>
-          <div className="border-b-4 border-dotted border-[#518DD5] w-full"></div>
-          <i className="cc-search text-2xl text-[#518DD5]" onClick={() => router.push(`/vehicle-verification?step=step-1&city_id=${city_id}&vehicle_tip=${selectedItem}`)}/>
-          <div className="border-b-4 border-dotted border-[#518DD5] w-full"></div>
+        <div className="flex gap-2 items-center w-full bg-[#FFFFFF] text-[#D1D1D1] border border-[#F2F2F2] rounded-full px-2">
+          <i className="cc-car-o text-2xl text-[#1E67BF]" onClick={() => router.push(`/vehicle-verification`)}/>
+          <div className="border-b-4 border-dotted border-[#1E67BF] w-full"></div>
+          <i className="cc-search text-2xl text-[#1E67BF]" onClick={() => router.push(`/vehicle-verification?step=step-1&city_id=${city_id}&vehicle_tip=${selectedItem}`)}/>
+          <div className="border-b-4 border-dotted border-[#1E67BF] w-full"></div>
           <i className="cc-timer text-2xl text-[#D1D1D1]" />
           <div className="border-b-4 border-dotted border-[#D1D1D1] w-full"></div>
           <i className="cc-location text-2xl text-[#D1D1D1]" />
