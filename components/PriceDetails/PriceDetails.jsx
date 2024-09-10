@@ -9,7 +9,7 @@ const PriceDetails = ({ faktorData, length }) => {
 
   return (
     <>
-      <div className="flex justify-between border-b-2 border-b-stone-100 pb-1">
+      <div className="flex justify-between">
         <span className="text-[#454545] font-medium text-sm">
           جزئیات قیمت سرویس:
         </span>
@@ -39,8 +39,8 @@ const PriceDetails = ({ faktorData, length }) => {
         <span className="text-[#22A137] text-sm">--</span>
       </div>
       <div className="flex justify-between">
-        <span className="text-sm text-[#F58052]">جمع قابل پرداخت:</span>
-        <span className="text-[#F58052] text-sm">
+        <span className="text-[#F58052] font-medium">جمع قابل پرداخت:</span>
+        <span className="text-[#F58052] font-medium">
           {numberWithCommas(
             faktorData?.swing_type === "INCREASE"
               ? Number(faktorData?.service?.discounted_price) +
