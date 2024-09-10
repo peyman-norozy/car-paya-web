@@ -19,11 +19,11 @@ const PackageCard = (props) => {
         <div className={"flex items-center gap-2 justify-center "}>
           <div
             className={
-              "rounded-[50%] border border-[#F58052] w-[24px] h-[24px] flex items-center justify-center"
+              "rounded-[50%] border-2 border-[#F58052] size-5 flex items-center justify-center"
             }
           >
             <div
-              className={`rounded-[50%] bg-[#F58052] w-[16px] h-[16px] transition-all duration-500 ${isSelected === id ? "scale-1" : "scale-0"}`}
+              className={`rounded-[50%] bg-[#F58052] size-[10px] transition-all duration-500 ${isSelected === id ? "scale-1" : "scale-0"}`}
             ></div>
           </div>
           <h6 className={"text-14 size752:text-16 text-[#010101]"}>{title}</h6>

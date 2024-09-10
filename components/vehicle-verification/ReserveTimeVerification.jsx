@@ -41,7 +41,7 @@ const ReserveTimeVerification = (props) => {
           >
             <div
               onClick={() => openOptionHandler(item.id)}
-              className={"flex flex-col items-start px-4 py-5 gap-1"}
+              className={"flex flex-col items-start px-4 py-5 gap-1 border-b border-[#F2F2F2]"}
             >
               <div className={"flex items-center justify-between w-full"}>
                 <p className={"text-sm text-[#518DD5] font-medium"}>
@@ -81,22 +81,22 @@ const ReserveTimeVerification = (props) => {
                 <div
                   key={index}
                   className={`flex items-center p-2 ${timeIsSelected === item.id + "/" + +item.start_time + ":00" ? "border-b border-b-[#F66B34]" : ""} gap-6`}
+                  onClick={(e) =>
+                    timeIsSelected === item.id + "/" + item.start_time + ":00"
+                      ? setTimeIsSelected(null)
+                      : setTimeIsSelected(
+                          item.id + "/" + item.start_time + ":00"
+                        )
+                  }
                 >
                   <p>{item.start_time + ":00"}</p>
                   <div
-                    onClick={(e) =>
-                      timeIsSelected === item.id + "/" + item.start_time + ":00"
-                        ? setTimeIsSelected(null)
-                        : setTimeIsSelected(
-                            item.id + "/" + item.start_time + ":00"
-                          )
-                    }
                     className={
-                      "rounded-[50%] border-2 border-[#F66B34] size-6 flex item-center justify-center cursor-pointer"
+                      "rounded-[50%] border-2 border-[#F66B34] size-5 flex item-center justify-center cursor-pointer"
                     }
                   >
                     <div
-                      className={`size-[14px] m-auto rounded-[50%] transition-all duration-500 ease-out  ${timeIsSelected === item.id + "/" + +item.start_time + ":00" ? "bg-[#F66B34]" : ""}`}
+                      className={`size-[10px] m-auto rounded-[50%] transition-all duration-500 ease-out  ${timeIsSelected === item.id + "/" + +item.start_time + ":00" ? "bg-[#F66B34]" : ""}`}
                     ></div>
                   </div>
                 </div>
@@ -104,23 +104,23 @@ const ReserveTimeVerification = (props) => {
                 <div
                   key={index}
                   className={`flex items-center p-2 ${timeIsSelected === item.id + "/" + (+item.start_time + 1) + ":00" ? "border-b border-b-[#F66B34]" : ""} gap-6`}
+                  onClick={(e) =>
+                    timeIsSelected ===
+                    item.id + "/" + (+item.start_time + 1) + ":00"
+                      ? setTimeIsSelected(null)
+                      : setTimeIsSelected(
+                          item.id + "/" + (+item.start_time + 1) + ":00"
+                        )
+                  }
                 >
                   <p>{+item.start_time + 1 + ":00"}</p>
                   <div
-                    onClick={(e) =>
-                      timeIsSelected ===
-                      item.id + "/" + (+item.start_time + 1) + ":00"
-                        ? setTimeIsSelected(null)
-                        : setTimeIsSelected(
-                            item.id + "/" + (+item.start_time + 1) + ":00"
-                          )
-                    }
                     className={
-                      "rounded-[50%] border-2 border-[#F66B34] size-6 flex item-center justify-center cursor-pointer"
+                      "rounded-[50%] border-2 border-[#F66B34] size-5 flex item-center justify-center cursor-pointer"
                     }
                   >
                     <div
-                      className={`size-[14px] m-auto rounded-[50%] transition-all duration-500 ease-out ${timeIsSelected === item.id + "/" + (+item.start_time + 1) + ":00" ? "bg-[#F66B34]" : ""}`}
+                      className={`size-[10px] m-auto rounded-[50%] transition-all duration-500 ease-out ${timeIsSelected === item.id + "/" + (+item.start_time + 1) + ":00" ? "bg-[#F66B34]" : ""}`}
                     ></div>
                   </div>
                 </div>
@@ -128,22 +128,22 @@ const ReserveTimeVerification = (props) => {
                 <div
                   key={index}
                   className={`flex items-center p-2 ${timeIsSelected === item.id + "/" + +item.start_time + ":30" ? "border-b border-b-[#F66B34]" : ""} gap-6`}
+                  onClick={(e) =>
+                    timeIsSelected === item.id + "/" + item.start_time + ":30"
+                      ? setTimeIsSelected(null)
+                      : setTimeIsSelected(
+                          item.id + "/" + item.start_time + ":30"
+                        )
+                  }
                 >
                   <p>{item.start_time + ":30"}</p>
                   <div
-                    onClick={(e) =>
-                      timeIsSelected === item.id + "/" + item.start_time + ":30"
-                        ? setTimeIsSelected(null)
-                        : setTimeIsSelected(
-                            item.id + "/" + item.start_time + ":30"
-                          )
-                    }
                     className={
-                      "rounded-[50%] border-2 border-[#F66B34] size-6 flex item-center justify-center cursor-pointer"
+                      "rounded-[50%] border-2 border-[#F66B34] size-5 flex item-center justify-center cursor-pointer"
                     }
                   >
                     <div
-                      className={`size-[14px] m-auto rounded-[50%] transition-all duration-500 ease-out ${timeIsSelected === item.id + "/" + +item.start_time + ":30" ? "bg-[#F66B34]" : ""}`}
+                      className={`size-[10px] m-auto rounded-[50%] transition-all duration-500 ease-out ${timeIsSelected === item.id + "/" + +item.start_time + ":30" ? "bg-[#F66B34]" : ""}`}
                     ></div>
                   </div>
                 </div>
@@ -151,23 +151,23 @@ const ReserveTimeVerification = (props) => {
                 <div
                   key={index}
                   className={`flex items-center p-2 ${timeIsSelected === item.id + "/" + (+item.start_time + 1) + ":30" ? "border-b border-b-[#F66B34]" : ""} gap-6`}
+                  onClick={(e) =>
+                    timeIsSelected ===
+                    item.id + "/" + (+item.start_time + 1) + ":30"
+                      ? setTimeIsSelected(null)
+                      : setTimeIsSelected(
+                          item.id + "/" + (+item.start_time + 1) + ":30"
+                        )
+                  }
                 >
                   <p>{+item.start_time + 1 + ":30"}</p>
                   <div
-                    onClick={(e) =>
-                      timeIsSelected ===
-                      item.id + "/" + (+item.start_time + 1) + ":30"
-                        ? setTimeIsSelected(null)
-                        : setTimeIsSelected(
-                            item.id + "/" + (+item.start_time + 1) + ":30"
-                          )
-                    }
                     className={
-                      "rounded-[50%] border-2 border-[#F66B34] size-6 flex item-center justify-center cursor-pointer"
+                      "rounded-[50%] border-2 border-[#F66B34] size-5 flex item-center justify-center cursor-pointer"
                     }
                   >
                     <div
-                      className={`size-[14px] m-auto rounded-[50%] transition-all duration-500 ease-out ${timeIsSelected === item.id + "/" + (+item.start_time + 1) + ":30" ? "bg-[#F66B34]" : ""}`}
+                      className={`size-[10px] m-auto rounded-[50%] transition-all duration-500 ease-out ${timeIsSelected === item.id + "/" + (+item.start_time + 1) + ":30" ? "bg-[#F66B34]" : ""}`}
                     ></div>
                   </div>
                 </div>
