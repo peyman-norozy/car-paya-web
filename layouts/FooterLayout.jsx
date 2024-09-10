@@ -17,10 +17,9 @@ const Footer = (props) => {
   );
   return (
     <footer
-      className={`${props.className} bg-white absolute right-0 left-0 p-6 pb-24 sm:pb-6 rounded-t-2xl flex flex-col lg:flex-row gap-10 text-[#3C3C3C] justify-around ${condition?"shadow-[0_-3px_6px_0_rgba(220,220,220,0.25)]":""}`}
+      className={`${props.className} bg-white absolute right-0 left-0 p-6 pb-24 sm:pb-6 rounded-t-2xl flex flex-col lg:flex-row gap-10 text-[#3C3C3C] justify-around ${condition ? "shadow-[0_-3px_6px_0_rgba(220,220,220,0.25)]" : ""}`}
     >
-      {innerWidthNumber > 1025 &&
-      condition ? (
+      {innerWidthNumber > 1025 || condition ? (
         <>
           <div className="flex flex-col w-full gap-4 max-w-[620px] m-auto lg:m-0">
             <div className="flex gap-4 flex-row">
@@ -83,15 +82,15 @@ const Footer = (props) => {
               <a
                 referrerpolicy="origin"
                 target="_blank"
-                href="https://trustseal.enamad.ir/?id=516939&Code=2tAiW764fGvFlV9b5qFrVhBbe6rQHow2"
+                href="https://trustseal.enamad.ir/?id=525362&Code=BHIlG5lcIDB6bsGDp8LzoME3yAXovE8d"
               >
                 <img
                   className="size-12 lg:size-16"
                   referrerpolicy="origin"
-                  src="https://trustseal.enamad.ir/logo.aspx?id=516939&Code=2tAiW764fGvFlV9b5qFrVhBbe6rQHow2"
+                  src="https://trustseal.enamad.ir/logo.aspx?id=525362&Code=BHIlG5lcIDB6bsGDp8LzoME3yAXovE8d"
                   alt=""
-                  style={{ cursor: "pointer" }}
-                  code="2tAiW764fGvFlV9b5qFrVhBbe6rQHow2"
+                  style={{cursor:"pointer"}}
+                  code="BHIlG5lcIDB6bsGDp8LzoME3yAXovE8d"
                 />
               </a>
               <div className="bg-gray-400 size-[60px]"></div>
