@@ -73,7 +73,7 @@ const ResponsiveHeader = (props) => {
         }}
       >
         <div className="flex items-center justify-between w-full">
-          <div className="gap-4 flex items-center">
+          <div className="gap-2 flex items-center">
             <div
               className={`cursor-pointer transition-all flex items-center justify-start ${
                 newMenueState ? "rotate-0" : "rotate-[-90deg]"
@@ -88,17 +88,16 @@ const ResponsiveHeader = (props) => {
             <HeaderLogo />
           </div>
           <div className="gap-4 flex items-center">
-            <i className={"cc-buy text-2xl"} />
             <div
               className={
-                "py-[6px] px-3 cursor-pointer flex items-center justify-between gap-1 bg-white border-[1px] border-[#5D5D5D] text-[#5D5D5D] rounded-lg"
+                "py-[4px] px-2 cursor-pointer flex items-center justify-between gap-1 bg-white border-[1px] border-[#5D5D5D] text-[#5D5D5D] rounded-lg"
               }
               onClick={toggleModal}
             >
-              <span className={"inline-block w-fit text-14 font-semibold"}>
+              <span className={"inline-block w-fit text-12 font-medium"}>
                 تهران
               </span>
-              <i className={"cc-location text-18"} />
+              <i className={"cc-location"} />
             </div>
           </div>
         </div>
