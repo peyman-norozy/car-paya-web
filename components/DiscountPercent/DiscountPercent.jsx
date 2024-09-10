@@ -4,7 +4,7 @@ const DiscountPercent = () => {
   return (
     <div
       className={
-        "h-[40px] border border-stone-200 rounded-[8px] flex items-center justify-between pr-3"
+        "h-[48px] border border-[#B0B0B0] rounded-[8px] flex items-center justify-between pr-3 relative"
       }
     >
       <i
@@ -14,7 +14,7 @@ const DiscountPercent = () => {
       />
       <input
         type={"text"}
-        placeholder={"کد تخفیف"}
+        placeholder={"123456"}
         className={"w-full h-full outline-0 pr-2"}
       />
       <button
@@ -22,6 +22,7 @@ const DiscountPercent = () => {
       >
         تایید
       </button>
+      <span className="bg-[#fbfbfb] px-2 text-[#454545] text-sm absolute -top-3 right-2">کد تخفیف</span>
     </div>
   );
 };

@@ -41,7 +41,7 @@ const ReserveTimeVerification = (props) => {
           >
             <div
               onClick={() => openOptionHandler(item.id)}
-              className={"flex flex-col items-start px-4 py-5"}
+              className={"flex flex-col items-start px-4 py-5 gap-1"}
             >
               <div className={"flex items-center justify-between w-full"}>
                 <p className={"text-sm text-[#518DD5] font-medium"}>
