@@ -37,7 +37,7 @@ const VerificationThirdStep = (props) => {
   const pathname = usePathname();
   const router = useRouter();
   const setQuery = useSetQuery();
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   useEffect(() => {
     //   verification in carcheck place
     axios
@@ -66,7 +66,7 @@ const VerificationThirdStep = (props) => {
         // router.push(
         //   `login?backUrl=${pathname + "?" + searchParams.toString()}`
         // );
-        dispatch(setLoginModal(true))
+        dispatch(setLoginModal(true));
       });
     //   ///////////////////////////////////
     //   verification in costumers place
@@ -156,11 +156,30 @@ const VerificationThirdStep = (props) => {
         </p>
       </div>
       <div className="flex gap-2 items-center w-full bg-[#FFFFFF] text-[#D1D1D1]">
-        <i className="cc-search text-2xl text-[#518DD5]" />
+        <i
+          className="cc-car-o text-2xl text-[#518DD5]"
+          onClick={() => router.push(`/vehicle-verification`)}
+        />
         <div className="border-b-4 border-dotted border-[#518DD5] w-full"></div>
-        <i className="cc-timer text-2xl text-[#518DD5]" />
+        <i
+          className="cc-search text-2xl text-[#518DD5]"
+          onClick={() =>
+            router.push(
+              `/vehicle-verification?step=step-1&city_id=${city_id}&vehicle_tip=${selectedItem}`
+            )
+          }
+        />
         <div className="border-b-4 border-dotted border-[#518DD5] w-full"></div>
-        <i className="cc-location text-2xl text-[#518DD5]" />
+        <i
+          className="cc-timer text-2xl text-[#518DD5]"
+          onClick={() =>
+            router.push(
+              `/vehicle-verification?city_id=${city_id}&vehicle_tip=${selectedItem}&step=step-2&package_id=${package_id}`
+            )
+          }
+        />
+        <div className="border-b-4 border-dotted border-[#518DD5] w-full"></div>
+        <i className="cc-location text-2xl text-[#D1D1D1]" />
       </div>
       <div className="flex justify-between items-center h-10">
         <p
