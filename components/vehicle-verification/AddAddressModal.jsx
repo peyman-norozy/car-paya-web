@@ -73,7 +73,8 @@ const AddressModal = (props) => {
         props.getDataFetch([]);
         props.setModalIsOpen(false);
         props.setIsLoading(false);
-        props.timeData();
+        props.timeData&&props.timeData();
+        
       } else if (update.status === 422) {
         setErrorData(update.data.errors);
         console.log(update.data.errors);

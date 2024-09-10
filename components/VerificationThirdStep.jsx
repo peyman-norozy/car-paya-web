@@ -11,8 +11,9 @@ import { getCookie } from "cookies-next";
 import { error } from "@/utils/function-utils";
 import { ToastContainer } from "react-toastify";
 import { postData } from "@/utils/client-api-function-utils";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setLoginModal } from "@/store/todoSlice";
+import DeleteModal from "./public/DeleteModal";
 
 const VerificationThirdStep = (props) => {
   // const [isSelected, setIsSelected] = useState(0);
@@ -22,6 +23,7 @@ const VerificationThirdStep = (props) => {
   const [agentData, setAgentData] = useState([]);
   const [userAdressData, setUserAdressData] = useState([]);
   const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [editModalIsOpen, setEditModalIsOpen] = useState(false);
   const [type, setType] = useState("MOVING");
   const [isLoading, setIsLoading] = useState(false);
   const [selectedAddress, setSelectedAddress] = useState("");
@@ -38,6 +40,10 @@ const VerificationThirdStep = (props) => {
   const router = useRouter();
   const setQuery = useSetQuery();
   const dispatch = useDispatch();
+  const renderUserAddrressState = useSelector(
+    (state) => state.todo.renderUserAddrressState
+  );
+
   useEffect(() => {
     //   verification in carcheck place
     axios
@@ -93,7 +99,7 @@ const VerificationThirdStep = (props) => {
         // setChosenTime(res.data.time);
       })
       .catch((err) => console.log(err));
-  }, [modalIsOpen]);
+  }, [modalIsOpen, renderUserAddrressState, editModalIsOpen]);
 
   const placeData = [
     {
@@ -236,6 +242,11 @@ const VerificationThirdStep = (props) => {
                 data={item}
                 selectedAddress={selectedAddress}
                 setSelectedAddress={setSelectedAddress}
+                getDataFetch={setUserAdressData}
+                setModalIsOpen={setModalIsOpen}
+                setIsLoading={setIsLoading}
+                editModalIsOpen={editModalIsOpen}
+                setEditModalIsOpen={setEditModalIsOpen}
               />
             ))
           : agentData.map((item, index) => (
@@ -289,27 +300,26 @@ const VerificationThirdStep = (props) => {
       </div> */}
       {modalIsOpen && (
         <div>
-          <div>
-            <div className={"fixed m-auto inset-0 z-[10000000000]"}>
-              <AddAddressModal
-                getDataFetch={setUserAdressData}
-                pageType={"create"}
-                setModalIsOpen={setModalIsOpen}
-                setIsLoading={setIsLoading}
-              />
-            </div>
-            <div
-              onClick={() => {
-                setModalIsOpen(false);
-              }}
-              className={
-                "w-full h-[100vh] fixed top-0 right-0 bg-black opacity-[0.7] z-[100000000]"
-              }
-            ></div>
+          <div className={"fixed m-auto inset-0 z-[10000000000]"}>
+            <AddAddressModal
+              getDataFetch={setUserAdressData}
+              pageType={"create"}
+              setModalIsOpen={setModalIsOpen}
+              setIsLoading={setIsLoading}
+            />
           </div>
+          <div
+            onClick={() => {
+              setModalIsOpen(false);
+            }}
+            className={
+              "w-full h-[100vh] fixed top-0 right-0 bg-black opacity-[0.7] z-[100000000]"
+            }
+          ></div>
         </div>
       )}
       <ToastContainer />
+      <DeleteModal />
     </div>
   );
 };
