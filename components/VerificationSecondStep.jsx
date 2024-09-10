@@ -34,40 +34,38 @@ const VerificationSecondStep = (props) => {
   const dispatch = useDispatch();
 
   const continueSecondStepHandler = () => {
-    
-        setButtonIsdisabled(true);
-        if (timeIsSelected === null) {
-          setButtonIsdisabled(false);
-          error("زمان مورد نظر را انتخاب کنید");
-          window.scroll({ top: 0, left: 0, behavior: "smooth" });
-        } else {
-          setButtonIsdisabled(false);
-          // if (loginState) {
-          setQuery.setMultiQuery([
-            { key: "step", value: "step-4" },
-            { key: "city_id", value: city_id },
-            { key: "vehicle_tip", value: selectedItem },
-            { key: "package_id", value: package_id },
-            {
-              key: "reservation_time_slice_id",
-              value: timeIsSelected.split("/")[0],
-            },
-            { key: "exact_time", value: timeIsSelected.split("/")[1] },
-          ]);
-          // } else {
-          //   setQuery.setMultiQuery([
-          //     { key: "step", value: "step-3" },
-          //     { key: "city_id", value: city_id },
-          //     {
-          //       key: "vehicle_tip",
-          //       value: selectedItem,
-          //     },
-          //     { key: "package_id", value: package_id },
-          //     { key: "time_id", value: timeIsSelected },
-          //   ]);
-          // }
-        }
-
+    setButtonIsdisabled(true);
+    if (timeIsSelected === null) {
+      setButtonIsdisabled(false);
+      error("زمان مورد نظر را انتخاب کنید");
+      window.scroll({ top: 0, left: 0, behavior: "smooth" });
+    } else {
+      setButtonIsdisabled(false);
+      // if (loginState) {
+      setQuery.setMultiQuery([
+        { key: "step", value: "step-4" },
+        { key: "city_id", value: city_id },
+        { key: "vehicle_tip", value: selectedItem },
+        { key: "package_id", value: package_id },
+        {
+          key: "reservation_time_slice_id",
+          value: timeIsSelected.split("/")[0],
+        },
+        { key: "exact_time", value: timeIsSelected.split("/")[1] },
+      ]);
+      // } else {
+      //   setQuery.setMultiQuery([
+      //     { key: "step", value: "step-3" },
+      //     { key: "city_id", value: city_id },
+      //     {
+      //       key: "vehicle_tip",
+      //       value: selectedItem,
+      //     },
+      //     { key: "package_id", value: package_id },
+      //     { key: "time_id", value: timeIsSelected },
+      //   ]);
+      // }
+    }
   };
 
   const backStepHandler = () => {
@@ -130,10 +128,12 @@ const VerificationSecondStep = (props) => {
             انتخاب زمان
           </p>
         </div>
-        <div className="flex gap-2 items-center w-full bg-[#FFFFFF] text-[#D1D1D1]">
-          <i className="cc-search text-2xl text-[#518DD5]" />
-          <div className="border-b-4 border-dotted border-[#518DD5] w-full"></div>
-          <i className="cc-timer text-2xl text-[#518DD5]" />
+        <div className="flex gap-2 items-center w-full bg-[#FFFFFF] text-[#D1D1D1] border border-[#F2F2F2] rounded-full px-2">
+          <i className="cc-car-o text-2xl text-[#1E67BF]" onClick={() => router.push(`/vehicle-verification`)}/>
+          <div className="border-b-4 border-dotted border-[#1E67BF] w-full"></div>
+          <i className="cc-search text-2xl text-[#1E67BF]" onClick={() => router.push(`/vehicle-verification?step=step-1&city_id=${city_id}&vehicle_tip=${selectedItem}`)}/>
+          <div className="border-b-4 border-dotted border-[#1E67BF] w-full"></div>
+          <i className="cc-timer text-2xl text-[#D1D1D1]" />
           <div className="border-b-4 border-dotted border-[#D1D1D1] w-full"></div>
           <i className="cc-location text-2xl text-[#D1D1D1]" />
         </div>

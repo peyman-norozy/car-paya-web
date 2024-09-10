@@ -12,6 +12,7 @@ const MapDirection = dynamic(() => import("@/components/MapDirection"), {
 });
 import { postData, putData } from "@/utils/client-api-function-utils";
 import nProgress from "nprogress";
+import AddressTextarea from "./AddressTextarea";
 
 const AddressModal = (props) => {
   const router = useRouter();
@@ -72,7 +73,8 @@ const AddressModal = (props) => {
         props.getDataFetch([]);
         props.setModalIsOpen(false);
         props.setIsLoading(false);
-        props.timeData();
+        props.timeData&&props.timeData();
+        
       } else if (update.status === 422) {
         setErrorData(update.data.errors);
         console.log(update.data.errors);
@@ -194,7 +196,7 @@ const AddressModal = (props) => {
   return (
     <form
       className={
-        "absolute inset-0 m-auto mt-[10%] md:my-[100px] w-full max-w-[789px] min-h-[192px] h-[80%] bg-[#FFFFFF] px-[40px] py-[24px] rounded-[10px] overflow-hidden flex flex-col gap-[20px] overflow-y-scroll"
+        "absolute bottom-0 lg:inset-0 m-auto w-full max-w-[789px] min-h-[192px] h-[80%] bg-[#FFFFFF] px-[40px] py-[24px] rounded-t-2xl overflow-hidden flex flex-col gap-6 overflow-y-scroll pb-20 lg:pb-0"
       }
       onSubmit={addressFormSubmitHandler}
     >
@@ -224,8 +226,8 @@ const AddressModal = (props) => {
         )}
       </div>
       <div className={"grid grid-cols-2 gap-6"}>
-        <div className={"col-span-2"}>
-          <AddressInput
+        <div className={"col-span-full"}>
+          <AddressTextarea
             type={"text"}
             icon={"cc-location"}
             editData={editData.address}
@@ -245,7 +247,7 @@ const AddressModal = (props) => {
             </span>
           )}
         </div>
-        <div className={"z-[99999]"}>
+        <div className={"col-span-full md:col-span-1"}>
           <ProfileEditeSelectInput
             type={"text"}
             icon={"cc-edit"}
@@ -272,7 +274,7 @@ const AddressModal = (props) => {
             </span>
           )}
         </div>
-        <div className={"z-[99999]"}>
+        <div className={"col-span-full md:col-span-1"}>
           <ProfileEditeSelectInput
             type={"text"}
             icon={"cc-edit"}
@@ -295,7 +297,7 @@ const AddressModal = (props) => {
             </span>
           )}
         </div>
-        <div className={"col-span-2"}>
+        <div className={"col-span-full md:col-span-1"}>
           <AddressInput
             type={"text"}
             name={"title"}
@@ -315,7 +317,7 @@ const AddressModal = (props) => {
             </span>
           )}
         </div>
-        <div className={"col-span-2"}>
+        <div className={"col-span-full md:col-span-1"}>
           <AddressInput
             type={"text"}
             icon={"cc-document-align-right"}
@@ -324,7 +326,7 @@ const AddressModal = (props) => {
             pageType={props.pageType}
             id={"postalCode"}
             name={"postalCode"}
-            star={true}
+            star={false}
             // profileData={""}
           />
           {errroData.postal_code && (
@@ -378,14 +380,16 @@ const AddressModal = (props) => {
           </div>
         </div>
       )}
-      <button
-        type={"submit"}
-        className={
-          "bg-[#F66B34] self-end flex items-center gap-2 size690:mt-3 w-fit text-12 size690:text-[16px] p-[8px] text-white rounded-[4px]"
-        }
+      <div
+        className="fixed lg:static w-full rounded-t-2xl shadow-[0_-2px_4px_0_rgba(199,199,199,0.25)] flex justify-center pt-4 pb-6 items-start bottom-0 right-0 bg-white z-[2000] px-10"
+        type="submit"
       >
-        <p>ثبت آدرس</p>
-      </button>
+        <button
+          className={`bg-[#F66B34] rounded-lg w-full sm:max-w-[400px] text-[#FEFEFE] text-sm font-medium py-3`}
+        >
+          ثبت
+        </button>
+      </div>
     </form>
   );
 };

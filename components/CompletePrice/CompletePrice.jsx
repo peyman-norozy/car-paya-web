@@ -7,9 +7,9 @@ const CompletePrice = (props) => {
     <section
       className={`bottom-0 right-0 z-[1000] bg-white p-4 ${props.customStyle}`}
     >
-      <div className={"text-[14px] lg:hidden block"}>
+      <div className={"font-medium lg:hidden block"}>
         <span>جمع سفارش:</span>
-        <div className={"flex gap-2 items-center text-[14px] text-[#518DD5]"}>
+        <div className={"flex gap-2 items-center text-[#518DD5]"}>
           {numberWithCommas(props.priceTotal) + " تومان "}
         </div>
       </div>

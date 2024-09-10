@@ -178,10 +178,10 @@ const VerificationInvoice = () => {
               </ul>
             </div>
           </section> */}
-          <section className="bg-white rounded-lg w-full text-14 mt-4">
+          <section className="bg-white w-full text-14 mt-4 border-t border-[#D1D1D1]">
             {/* Price Details Section */}
             {innerWidth < 1024 && (
-              <div className="space-y-4 p-4 w-full lg:h-fit">
+              <div className="space-y-4 py-4 w-full lg:h-fit border-b border-[#D1D1D1]">
                 <PriceDetails faktorData={faktorData} length={1} />
               </div>
             )}
@@ -247,7 +247,7 @@ const VerificationInvoice = () => {
             roleChecked={roleChecked}
           />
         )}
-        <div className="flex justify-start items-center text-xs gap-1 font-medium">
+        <div className="flex justify-start items-center text-xs gap-1 font-medium mt-2">
           <div
             className={`border-2 border-[#F58052] size-6 rounded-md ml-1 flex justify-center items-center ${roleChecked ? "bg-[#f58052]" : ""}`}
             onClick={() => {

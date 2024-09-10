@@ -11,8 +11,9 @@ import { getCookie } from "cookies-next";
 import { error } from "@/utils/function-utils";
 import { ToastContainer } from "react-toastify";
 import { postData } from "@/utils/client-api-function-utils";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setLoginModal } from "@/store/todoSlice";
+import DeleteModal from "./public/DeleteModal";
 
 const VerificationThirdStep = (props) => {
   // const [isSelected, setIsSelected] = useState(0);
@@ -22,6 +23,7 @@ const VerificationThirdStep = (props) => {
   const [agentData, setAgentData] = useState([]);
   const [userAdressData, setUserAdressData] = useState([]);
   const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [editModalIsOpen, setEditModalIsOpen] = useState(false);
   const [type, setType] = useState("MOVING");
   const [isLoading, setIsLoading] = useState(false);
   const [selectedAddress, setSelectedAddress] = useState("");
@@ -37,7 +39,11 @@ const VerificationThirdStep = (props) => {
   const pathname = usePathname();
   const router = useRouter();
   const setQuery = useSetQuery();
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
+  const renderUserAddrressState = useSelector(
+    (state) => state.todo.renderUserAddrressState
+  );
+
   useEffect(() => {
     //   verification in carcheck place
     axios
@@ -66,7 +72,7 @@ const VerificationThirdStep = (props) => {
         // router.push(
         //   `login?backUrl=${pathname + "?" + searchParams.toString()}`
         // );
-        dispatch(setLoginModal(true))
+        dispatch(setLoginModal(true));
       });
     //   ///////////////////////////////////
     //   verification in costumers place
@@ -93,7 +99,7 @@ const VerificationThirdStep = (props) => {
         // setChosenTime(res.data.time);
       })
       .catch((err) => console.log(err));
-  }, [modalIsOpen]);
+  }, [modalIsOpen, renderUserAddrressState, editModalIsOpen]);
 
   const placeData = [
     {
@@ -156,11 +162,30 @@ const VerificationThirdStep = (props) => {
         </p>
       </div>
       <div className="flex gap-2 items-center w-full bg-[#FFFFFF] text-[#D1D1D1]">
-        <i className="cc-search text-2xl text-[#518DD5]" />
+        <i
+          className="cc-car-o text-2xl text-[#518DD5]"
+          onClick={() => router.push(`/vehicle-verification`)}
+        />
         <div className="border-b-4 border-dotted border-[#518DD5] w-full"></div>
-        <i className="cc-timer text-2xl text-[#518DD5]" />
+        <i
+          className="cc-search text-2xl text-[#518DD5]"
+          onClick={() =>
+            router.push(
+              `/vehicle-verification?step=step-1&city_id=${city_id}&vehicle_tip=${selectedItem}`
+            )
+          }
+        />
         <div className="border-b-4 border-dotted border-[#518DD5] w-full"></div>
-        <i className="cc-location text-2xl text-[#518DD5]" />
+        <i
+          className="cc-timer text-2xl text-[#518DD5]"
+          onClick={() =>
+            router.push(
+              `/vehicle-verification?city_id=${city_id}&vehicle_tip=${selectedItem}&step=step-2&package_id=${package_id}`
+            )
+          }
+        />
+        <div className="border-b-4 border-dotted border-[#518DD5] w-full"></div>
+        <i className="cc-location text-2xl text-[#D1D1D1]" />
       </div>
       <div className="flex justify-between items-center h-10">
         <p
@@ -217,6 +242,11 @@ const VerificationThirdStep = (props) => {
                 data={item}
                 selectedAddress={selectedAddress}
                 setSelectedAddress={setSelectedAddress}
+                getDataFetch={setUserAdressData}
+                setModalIsOpen={setModalIsOpen}
+                setIsLoading={setIsLoading}
+                editModalIsOpen={editModalIsOpen}
+                setEditModalIsOpen={setEditModalIsOpen}
               />
             ))
           : agentData.map((item, index) => (
@@ -270,27 +300,26 @@ const VerificationThirdStep = (props) => {
       </div> */}
       {modalIsOpen && (
         <div>
-          <div>
-            <div className={"fixed m-auto inset-0 z-[10000000000]"}>
-              <AddAddressModal
-                getDataFetch={setUserAdressData}
-                pageType={"create"}
-                setModalIsOpen={setModalIsOpen}
-                setIsLoading={setIsLoading}
-              />
-            </div>
-            <div
-              onClick={() => {
-                setModalIsOpen(false);
-              }}
-              className={
-                "w-full h-[100vh] fixed top-0 right-0 bg-black opacity-[0.5] z-[100000000]"
-              }
-            ></div>
+          <div className={"fixed m-auto inset-0 z-[10000000000]"}>
+            <AddAddressModal
+              getDataFetch={setUserAdressData}
+              pageType={"create"}
+              setModalIsOpen={setModalIsOpen}
+              setIsLoading={setIsLoading}
+            />
           </div>
+          <div
+            onClick={() => {
+              setModalIsOpen(false);
+            }}
+            className={
+              "w-full h-[100vh] fixed top-0 right-0 bg-black opacity-[0.7] z-[100000000]"
+            }
+          ></div>
         </div>
       )}
       <ToastContainer />
+      <DeleteModal />
     </div>
   );
 };

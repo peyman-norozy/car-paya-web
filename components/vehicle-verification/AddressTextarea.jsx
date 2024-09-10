@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from "react";
 
-const AddressInput = (props) => {
+const AddressTextarea = (props) => {
   const inputRef = useRef();
 
   useEffect(() => {
@@ -18,12 +18,12 @@ const AddressInput = (props) => {
   }, [props.ItaratedAddress, props.editData, props.pageType]);
   return (
     <div className={`${props.containderClassName} relative`}>
-      <input
+      <textarea
         type={props.type}
         name={props.name}
         ref={inputRef}
         id={props.id}
-        className={`border border-[#B0B0B0] rounded-[8px] h-[48px] w-full outline-none p-3 text-sm font-medium`}
+        className={`border border-[#B0B0B0] rounded-[8px] text-sm font-medium w-full outline-none p-3 h-24`}
       />
       <label
         className={
@@ -45,4 +45,4 @@ const AddressInput = (props) => {
   );
 };
 
-export default AddressInput;
+export default AddressTextarea;

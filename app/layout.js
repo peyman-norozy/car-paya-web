@@ -6,6 +6,7 @@ import MainLayout from "@/layouts/MainLayout";
 import NextTopLoader from "nextjs-toploader";
 import { Suspense } from "react";
 import LoginModal from "@/components/login/LoginModal";
+import { ToastContainer } from "react-toastify";
 
 export const metadata = {
   manifest: "/manifest.json", // we are accessing our manifest file here
@@ -47,6 +48,7 @@ export default function RootLayout({ children }) {
             speed={2000}
           />
           <LoginModal/>
+          <ToastContainer rtl={true} />
           <Suspense>
             <MainLayout>{children}</MainLayout>
           </Suspense>

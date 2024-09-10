@@ -19,6 +19,9 @@ const initialState = {
   periodicServiceBasketLength: 0,
   vehicleVerificationBasketLength: {},
   LoginModalState: false,
+  DeleteModalState: false,
+  DeleteModalId: "",
+  renderUserAddrressState:false
 };
 
 const todoSlice = createSlice({
@@ -80,6 +83,15 @@ const todoSlice = createSlice({
     setLoginModal(state, action) {
       state.LoginModalState = action.payload;
     },
+    setDeleteModal(state, action) {
+      state.DeleteModalState = action.payload;
+    },
+    setDeleteModalId(state, action) {
+      state.DeleteModalId = action.payload;
+    },
+    renderUserAddrress(state) {
+      state.renderUserAddrressState = !state.renderUserAddrressState;
+    },
   },
 });
 
@@ -102,6 +114,9 @@ export const {
   setBatteriesBasketLength,
   setPeriodicServiceBasketLength,
   setVehicleVerificationBasketLength,
-  setLoginModal
+  setLoginModal,
+  setDeleteModal,
+  setDeleteModalId,
+  renderUserAddrress
 } = todoSlice.actions;
 export default todoSlice;

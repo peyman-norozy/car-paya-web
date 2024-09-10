@@ -19,20 +19,20 @@ const PackageCard = (props) => {
         <div className={"flex items-center gap-2 justify-center "}>
           <div
             className={
-              "rounded-[50%] border border-[#F58052] w-[24px] h-[24px] flex items-center justify-center"
+              "rounded-[50%] border-2 border-[#F58052] size-5 flex items-center justify-center"
             }
           >
             <div
-              className={`rounded-[50%] bg-[#F58052] w-[16px] h-[16px] transition-all duration-500 ${isSelected === id ? "scale-1" : "scale-0"}`}
+              className={`rounded-[50%] bg-[#F58052] size-[10px] transition-all duration-500 ${isSelected === id ? "scale-1" : "scale-0"}`}
             ></div>
           </div>
           <h6 className={"text-14 size752:text-16 text-[#010101]"}>{title}</h6>
         </div>
         <div className="flex items-center gap-1">
-          <p className={"text-[#8cb5d8] text-10 size752:text-16 line-through"}>
+          <p className={"text-[#60ABEC] font-medium text-xs size752:text-16 line-through"}>
             {price.toLocaleString()} تومان
           </p>
-          <p className={"text-[#518DD5] text-14 size752:text-16 font-medium"}>
+          <p className={"text-[#1E67BF] text-14 size752:text-16 font-medium"}>
             {discounted_price.toLocaleString()} تومان
           </p>
         </div>

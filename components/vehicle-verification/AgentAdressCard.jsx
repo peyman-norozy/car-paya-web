@@ -11,11 +11,11 @@ const AgentAdressCard = (props) => {
       <div className="flex justify-start gap-2 items-center">
         <div
           className={
-            "rounded-[50%] border border-[#F58052] w-[24px] h-[24px] flex items-center justify-center"
+            "rounded-[50%] border-2 border-[#F58052] size-5 flex items-center justify-center"
           }
         >
           <div
-            className={`rounded-[50%] bg-[#F58052] w-[16px] h-[16px] transition-all duration-500 ${props.selectedAddress === props.data.id ? "scale-1" : "scale-0"}`}
+            className={`rounded-[50%] bg-[#F58052] size-[10px] transition-all duration-500 ${props.selectedAddress === props.data.id ? "scale-1" : "scale-0"}`}
           ></div>
         </div>
         <span className="text-[#010101] text-sm">{props.data.name}</span>
