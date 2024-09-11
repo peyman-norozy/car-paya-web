@@ -22,13 +22,16 @@ const VerificationThirdStep = (props) => {
   const [tab, setTab] = useState(1);
   const searchParams = useSearchParams();
   const [agentData, setAgentData] = useState([]);
+  const [searchedAgentData, setSearchedAgentData] = useState([]);
+  const [filter, setFilter] = useState();
+  const [checkedArea, setCheckedArea] = useState([]);
   const [userAdressData, setUserAdressData] = useState([]);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [editModalIsOpen, setEditModalIsOpen] = useState(false);
   const [type, setType] = useState("MOVING");
   const [isLoading, setIsLoading] = useState(false);
   const [selectedAddress, setSelectedAddress] = useState("");
-  const [areaModal , setAreaModal] = useState()
+  const [areaModal, setAreaModal] = useState();
   const city_id = searchParams.get("city_id");
   const selectedItem = searchParams.get("vehicle_tip");
   const package_id = searchParams.get("package_id");
@@ -65,8 +68,9 @@ const VerificationThirdStep = (props) => {
       )
       .then((res) => {
         console.log(res.data.data);
-
+        setFilter(res?.data?.filter?.area);
         setAgentData(res.data.data);
+        setSearchedAgentData(res.data.data);
         // setCarCheckLocations(res.data.data);
         // setChosenTime(res.data.time);
       })
@@ -147,6 +151,31 @@ const VerificationThirdStep = (props) => {
       ]);
     }
   };
+
+  function checkboxChangeHandler(id, checked) {
+    if (checked) {
+      setCheckedArea([...checkedArea, id]);
+    } else {
+      setCheckedArea(
+        checkedArea.filter((item) => {
+          return item !== id;
+        })
+      );
+    }
+  }
+
+  function areaFilterHandler() {
+    if (checkedArea.length === 0) {
+      setSearchedAgentData(agentData);
+    } else {
+      const array = checkedArea.map((item) => {
+        return agentData.filter((item2) => {
+          return item2.area_id === item;
+        });
+      });
+      setSearchedAgentData(array.flat());
+    }
+  }
 
   return (
     <div className="pt-[2rem] mb-[7rem] lg:w-[calc(100%-424px)] mr-auto overflow-hidden flex flex-col gap-4 px-4">
@@ -236,10 +265,17 @@ const VerificationThirdStep = (props) => {
           className={`${tab ? "right-0" : "right-1/2"} w-1/2 h-[2px] bg-[#F58052] mt-[-2px] transition-all absolute bottom-0`}
         ></div>
       </div>
-        <button className="flex w-fit p-2 gap-2 items-center text-xs text-[#3C3C3C] bg-[#FEFEFE] shadow-[0_0_4px_0_rgba(224,222,222,0.7)] rounded-[4px]" onClick={()=>{dispatch(setAreaeModalState(true));}}>
-          <i className="cc-filter"/>
+      {type === "FIXED" && (
+        <button
+          className="flex w-fit p-2 gap-2 items-center text-xs text-[#3C3C3C] bg-[#FEFEFE] shadow-[0_0_4px_0_rgba(224,222,222,0.7)] rounded-[4px]"
+          onClick={() => {
+            dispatch(setAreaeModalState(true));
+          }}
+        >
+          <i className="cc-filter" />
           <span>انتخاب محله</span>
         </button>
+      )}
       <div className="flex flex-col gap-2 pb-2">
         {tab
           ? userAdressData.map((item, index) => (
@@ -255,7 +291,7 @@ const VerificationThirdStep = (props) => {
                 setEditModalIsOpen={setEditModalIsOpen}
               />
             ))
-          : agentData.map((item, index) => (
+          : searchedAgentData?.map((item, index) => (
               <AgentAdressCard
                 key={index}
                 data={item}
@@ -324,7 +360,7 @@ const VerificationThirdStep = (props) => {
           ></div>
         </div>
       )}
-      <AreaModal/>
+      <AreaModal data={filter} checkboxChangeHandler={checkboxChangeHandler} areaFilterHandler={areaFilterHandler}/>
       <ToastContainer />
       <DeleteModal />
     </div>

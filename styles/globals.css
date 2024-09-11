@@ -554,10 +554,10 @@ li {
   .checkbox-wrapper-42 .cbx {
     position: relative;
     top: 1px;
-    width: 17px;
-    height: 17px;
-    border: 1px solid #c8ccd4;
-    border-radius: 3px;
+    width: 22px;
+    height: 22px;
+    border: 2px solid #F66B34;
+    border-radius: 4px;
     vertical-align: middle;
     transition: background 0.1s ease;
     cursor: pointer;
@@ -566,10 +566,10 @@ li {
   .checkbox-wrapper-42 .cbx:after {
     content: '';
     position: absolute;
-    top: 1px;
+    top: 0;
     left: 5px;
-    width: 5px;
-    height: 11px;
+    width: 8px;
+    height: 16px;
     opacity: 0;
     transform: rotate(45deg) scale(0);
     border-right: 2px solid #fff;
@@ -579,13 +579,15 @@ li {
   }
   .checkbox-wrapper-42 .lbl {
     font-size: 14px;
-    color: #FEFEFE;
+    color: #3C3C3C;
     vertical-align: middle;
     cursor: pointer;
+    margin-right: 8px;
+    font-weight: 500;
   }
   .checkbox-wrapper-42 input[type="checkbox"]:checked ~ .cbx {
     border-color: transparent;
-    background: #6871f1;
+    background: #F66B34;
     animation: jelly-42 0.6s ease;
   }
   .checkbox-wrapper-42 input[type="checkbox"]:checked ~ .cbx:after {
