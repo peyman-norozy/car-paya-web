@@ -87,7 +87,7 @@ function MobileBottomNav(props) {
 // console.log(pathname.includes("step")&&pathname.includes("/vehicle-verification"));
 
   if(!pathname.includes("/invoice")&&(!(searchParams.toString().includes("step")&&pathname.includes("/vehicle-verification")))){return (
-    <div className="fixed bottom-2 right-2 z-[2000] flex items-center w-[calc(100vw-16px)] h-[60px] rounded-3xl shadow-[0_4px_4px_0_rgba(160,160,160,0.20)]">
+    <div className="fixed bottom-2 right-2 z-[2000] flex items-center w-full h-[60px] rounded-3xl shadow-[0_4px_4px_0_rgba(160,160,160,0.20)]">
         {/* <div
           ref={selectVehicleRef}
           onTouchStart={touchStartHandler}
@@ -99,7 +99,7 @@ function MobileBottomNav(props) {
           }`}
         > */}
           {/* <div className="h-[5px] w-[6rem] rounded-[20px] bg-[#333] absolute top-[2.5%] left-[50%] translate-x-[-50%]"></div> */}
-          <div className={`z-[2003] fixed right-[calc((100vw-400px)/2)] ${ modalIsOpen ? "top-[calc((100vh-550px)/2)]" : "top-[120%]" } transition-all duration-700`}>
+          <div className={`z-[2003] w-screen h-[570px] bg-white fixed right-0 flex justify-center ${ modalIsOpen ? "bottom-0" : "bottom-[-580px]" }  transition-all duration-700 rounded-t-3xl`}>
             {/* <VehicleRegistration /> */}
             <CarSelectComponent isMobile={true} setModalIsOpen={setModalIsOpen} closeModalHandler={closeModalHandler}/>
           </div>

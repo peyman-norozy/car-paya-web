@@ -374,7 +374,7 @@ const CarSelectComponent = (props) => {
     return (
       <div className="absolute h-full top-0 right-auto pb-10">
         <div
-          className={`bg-[#F8F8F8] ${props.isMobile ? "h-[550px]" : "h-[605px]"} rounded-2xl w-[400px] sticky top-[123px] right-auto z-[2] backdrop-blur-[16px] p-4 ${props.isMobile ? "flex lg:hidden" : "hidden lg:flex"} flex-col gap-4 shadow-[0_0_8px_0_rgba(175,175,175,0.25)] relative`}
+          className={`bg-[#F8F8F8] ${props.isMobile ? "h-[550px]" : "h-[605px]"} rounded-2xl w-[400px] sticky top-[123px] right-auto z-[2] backdrop-blur-[16px] p-4 pt-8 ${props.isMobile ? "flex lg:hidden" : "hidden lg:flex"} flex-col gap-4 shadow-[0_0_8px_0_rgba(175,175,175,0.25)] relative`}
         >
           {carSelected ? (
             <div className="flex flex-col gap-4">
@@ -523,7 +523,7 @@ const CarSelectComponent = (props) => {
               <span className="text-[#4F4F4F] text-base lg:text-20 font-medium lg:font-bold text-center">
                 انتخاب وسیله نقلیه
               </span>
-              <i className="cc-add text-2xl rotate-45 text-[#4F4F4F] absolute top-3 left-4" onClick={props.closeModalHandler}/>
+              <i className="cc-add text-2xl rotate-45 text-[#4F4F4F] absolute top-7 left-4" onClick={props.closeModalHandler}/>
               <div className="rounded-lg border border-[#F5F5F5] flex flex-wrap justify-between gap-1 p-1">
                 <button
                   className={`${vehicleType === "car" ? "bg-[#F58052] text-[#FEFEFE]" : "text-[#888888]"} rounded-[8px] w-[100px] h-8 flex justify-center items-center font-medium text-14`}
@@ -596,7 +596,7 @@ const CarSelectComponent = (props) => {
                   >
                     {searchedData.map((item, index) => (
                       <div
-                        className="flex flex-col bg-[#FFFFFF] items-center gap-2 cursor-pointer hover:scale-110 transition-all duration-300 shadow-[0_1px_4px_0_rgba(209,209,209,0.25)] p-2 rounded-[4px]"
+                        className="flex flex-col bg-[#FFFFFF] items-center gap-2 cursor-pointer hover:scale-110 transition-all duration-300 shadow-[0_1px_4px_0_rgba(235,235,235,0.25)] p-2 rounded-[4px]"
                         key={index}
                         onClick={() => {
                           optionClickHandler(item.id, item);
@@ -610,9 +610,9 @@ const CarSelectComponent = (props) => {
                             "/" +
                             (item.logo ? item.logo : item.image)
                           }
-                          width={64}
-                          height={48}
-                          className="w-16 h-12"
+                          width={88}
+                          height={66}
+                          className="w-[88px] h-[66px]"
                         />
                         <span className="text-[#000000] font-medium text-sm line-clamp-1 text-center">
                           {item.title}
