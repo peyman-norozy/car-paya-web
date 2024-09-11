@@ -12,8 +12,9 @@ import { error } from "@/utils/function-utils";
 import { ToastContainer } from "react-toastify";
 import { postData } from "@/utils/client-api-function-utils";
 import { useDispatch, useSelector } from "react-redux";
-import { setLoginModal } from "@/store/todoSlice";
+import { setAreaeModalState, setLoginModal } from "@/store/todoSlice";
 import DeleteModal from "./public/DeleteModal";
+import AreaModal from "./vehicle-verification/AreaModal";
 
 const VerificationThirdStep = (props) => {
   // const [isSelected, setIsSelected] = useState(0);
@@ -27,6 +28,7 @@ const VerificationThirdStep = (props) => {
   const [type, setType] = useState("MOVING");
   const [isLoading, setIsLoading] = useState(false);
   const [selectedAddress, setSelectedAddress] = useState("");
+  const [areaModal , setAreaModal] = useState()
   const city_id = searchParams.get("city_id");
   const selectedItem = searchParams.get("vehicle_tip");
   const package_id = searchParams.get("package_id");
@@ -234,6 +236,10 @@ const VerificationThirdStep = (props) => {
           className={`${tab ? "right-0" : "right-1/2"} w-1/2 h-[2px] bg-[#F58052] mt-[-2px] transition-all absolute bottom-0`}
         ></div>
       </div>
+        <button className="flex w-fit p-2 gap-2 items-center text-xs text-[#3C3C3C] bg-[#FEFEFE] shadow-[0_0_4px_0_rgba(224,222,222,0.7)] rounded-[4px]" onClick={()=>{dispatch(setAreaeModalState(true));}}>
+          <i className="cc-filter"/>
+          <span>انتخاب محله</span>
+        </button>
       <div className="flex flex-col gap-2 pb-2">
         {tab
           ? userAdressData.map((item, index) => (
@@ -318,6 +324,7 @@ const VerificationThirdStep = (props) => {
           ></div>
         </div>
       )}
+      <AreaModal/>
       <ToastContainer />
       <DeleteModal />
     </div>

@@ -72,7 +72,7 @@ const AddressSelection = (props) => {
       setServiceQuery(
         srviceQuery.filter((item) => {
           return item !== value;
-        }),
+        })
       );
     }
   }
