@@ -19,6 +19,7 @@ import DiscountPercent from "@/components/DiscountPercent/DiscountPercent";
 const VerificationInvoice = () => {
   const [faktorData, setFaktorData] = useState({});
   const [roleChecked, setRoleChecked] = useState(false);
+  const [discount , setDiscount] = useState(null)
   const innerWidth = useSelector((item) => item.todo.windowInnerWidth);
   //   const orderProduct = useRef();
   //   const { events } = useDraggable(orderProduct);
@@ -158,7 +159,7 @@ const VerificationInvoice = () => {
           </Link>
         </section>
         <div className={"mt-4 block lg:hidden"}>
-          <DiscountPercent />
+          <DiscountPercent id={faktorData?.id} type={"MASTER"} setDiscount={setDiscount}/>
         </div>
         <section className={"lg:flex lg:flex-col-reverse"}>
           {/* <section>

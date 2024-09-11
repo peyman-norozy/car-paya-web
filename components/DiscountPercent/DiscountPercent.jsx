@@ -1,6 +1,19 @@
-import React from "react";
+import axios from "axios";
+import React, { useState } from "react";
 
-const DiscountPercent = () => {
+const DiscountPercent = (props) => {
+  const [copon , setCopon] = useState("")
+  function sendCopon() {
+    axios.post(process.env.BASE_API+"/web/cart/discount",{
+      "registration_id": props.id,
+      "cartable_type": props.type,
+      "coupon_code": copon
+    }).then((res)=>{
+      console.log(res);
+      
+      // props.setDiscount()
+    })
+  }
   return (
     <div
       className={
@@ -16,9 +29,12 @@ const DiscountPercent = () => {
         type={"text"}
         placeholder={"123456"}
         className={"w-full h-full outline-0 pr-2"}
+        onChange={(e)=>{setCopon(e.target.value)}}
+        value={copon}
       />
       <button
         className={"bg-[#518DD5] h-full w-[96px] text-white rounded-[8px]"}
+        onClick={sendCopon}
       >
         تایید
       </button>
