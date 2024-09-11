@@ -21,7 +21,8 @@ const initialState = {
   LoginModalState: false,
   DeleteModalState: false,
   DeleteModalId: "",
-  renderUserAddrressState:false
+  renderUserAddrressState:false,
+  areaModalState:false
 };
 
 const todoSlice = createSlice({
@@ -92,6 +93,9 @@ const todoSlice = createSlice({
     renderUserAddrress(state) {
       state.renderUserAddrressState = !state.renderUserAddrressState;
     },
+    setAreaeModalState(state, action) {
+      state.areaModalState = action.payload;
+    },
   },
 });
 
@@ -117,6 +121,7 @@ export const {
   setLoginModal,
   setDeleteModal,
   setDeleteModalId,
-  renderUserAddrress
+  renderUserAddrress,
+  setAreaeModalState
 } = todoSlice.actions;
 export default todoSlice;

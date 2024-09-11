@@ -15,6 +15,7 @@ import zarebin from "@/public/assets/images/zarebin.png";
 import lines from "@/public/assets/images/lines.png";
 import { useRouter } from "next/navigation";
 import { error } from "@/utils/function-utils";
+import { useSelector } from "react-redux";
 
 const VerificationFirstStep = (props) => {
   const { on_click, verificationData, setStep, step } = props;
@@ -25,6 +26,7 @@ const VerificationFirstStep = (props) => {
   const [message, setMessage] = useState("");
   const [data, setData] = useState([]);
   const [modalIsOpen, setModalIsOpen] = useState(false);
+  const vehicleVerificationBasket = useSelector((state) => state.todo.vehicleVerificationBasketLength);
   const router = useRouter();
   const setQuery = useSetQuery();
   const cityName = [{ name: "تهران" }];
@@ -119,7 +121,7 @@ const VerificationFirstStep = (props) => {
             className="bg-[#F66B34] rounded-md py-2 px-1 text-[#FEFEFE] w-fit text-xs mt-4 font-medium"
             onClick={PackageStepHandler}
           >
-            درخواست کارشناسی
+            {vehicleVerificationBasket.length?"ادامه ":""}درخواست کارشناسی
           </button>
         </div>
         <div className="relative overflow-hidden">

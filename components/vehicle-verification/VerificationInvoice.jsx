@@ -19,6 +19,7 @@ import DiscountPercent from "@/components/DiscountPercent/DiscountPercent";
 const VerificationInvoice = () => {
   const [faktorData, setFaktorData] = useState({});
   const [roleChecked, setRoleChecked] = useState(false);
+  const [discount , setDiscount] = useState(0)
   const innerWidth = useSelector((item) => item.todo.windowInnerWidth);
   //   const orderProduct = useRef();
   //   const { events } = useDraggable(orderProduct);
@@ -53,6 +54,7 @@ const VerificationInvoice = () => {
       );
       if (response.success) {
         console.log(response);
+        setDiscount(response.data.data.coupon_price?response.data.data.coupon_price:0)
         setFaktorData(response.data.data);
       } else {
         console.log(response);
@@ -78,7 +80,7 @@ const VerificationInvoice = () => {
         </section>
         <section
           className={
-            "text-14 flex flex-col lg:flex-row gap-4 border-b-2 border-b-[#F5F5F5] pb-4"
+            "text-14 flex flex-col gap-4 border-b-2 border-b-[#F5F5F5] pb-4 lg:mt-10"
           }
         >
           <div className={"flex items-center gap-1 w-full font-bold text-sm"}>
@@ -158,7 +160,7 @@ const VerificationInvoice = () => {
           </Link>
         </section>
         <div className={"mt-4 block lg:hidden"}>
-          <DiscountPercent />
+          <DiscountPercent id={faktorData?.id} type={"MASTER"} setDiscount={setDiscount}/>
         </div>
         <section className={"lg:flex lg:flex-col-reverse"}>
           {/* <section>
@@ -182,7 +184,7 @@ const VerificationInvoice = () => {
             {/* Price Details Section */}
             {innerWidth < 1024 && (
               <div className="space-y-4 py-4 w-full lg:h-fit border-b border-[#D1D1D1]">
-                <PriceDetails faktorData={faktorData} length={1} />
+                <PriceDetails faktorData={faktorData} length={1} discount={discount}/>
               </div>
             )}
             <div className={"mt-4 hidden lg:block"}>
@@ -245,6 +247,7 @@ const VerificationInvoice = () => {
             }
             priceTotal={faktorData?.swing_type === "INCREASE"?Number(faktorData?.service?.discounted_price)+Number(faktorData?.diff_price):Number(faktorData?.service?.discounted_price)-Number(faktorData?.diff_price)}
             roleChecked={roleChecked}
+            discount={discount}
           />
         )}
         <div className="flex justify-start items-center text-xs gap-1 font-medium mt-2">
@@ -264,7 +267,7 @@ const VerificationInvoice = () => {
       </div>
       {innerWidth > 1024 && (
         <div className="space-y-4 p-4 shadow-custom1 rounded-lg lg:w-[458px] lg:h-fit lg:sticky lg:top-[110px] lg:left-0 lg:block">
-          <PriceDetails faktorData={faktorData} length={1} />
+          <PriceDetails faktorData={faktorData} length={1} discount={discount} roleChecked={roleChecked}/>
         </div>
       )}
     </div>

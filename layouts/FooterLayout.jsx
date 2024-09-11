@@ -17,7 +17,7 @@ const Footer = (props) => {
   );
   return (
     <footer
-      className={`${props.className} bg-white absolute right-0 left-0 p-6 pb-24 sm:pb-6 rounded-t-2xl flex flex-col lg:flex-row gap-10 text-[#3C3C3C] justify-around ${condition ? "shadow-[0_-3px_6px_0_rgba(220,220,220,0.25)]" : ""}`}
+      className={`${props.className} bg-white absolute right-0 left-0 p-6 ${innerWidthNumber > 1025 || condition?"pb-24":"pb-16"} sm:pb-6 rounded-t-2xl flex flex-col lg:flex-row gap-10 text-[#3C3C3C] justify-around ${condition ? "shadow-[0_-3px_6px_0_rgba(220,220,220,0.25)]" : ""}`}
     >
       {innerWidthNumber > 1025 || condition ? (
         <>
