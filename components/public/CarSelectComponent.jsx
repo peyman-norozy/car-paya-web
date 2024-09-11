@@ -422,7 +422,7 @@ const CarSelectComponent = (props) => {
                   <div
                     className={`flex flex-col gap-4 ${invoiceData.data && invoiceData.data.length ? "" : "hidden"}`}
                   >
-                    <div className="flex flex-col gap-3 h-[292px] overflow-y-scroll">
+                    <div className="flex flex-col gap-3 h-[240px] overflow-y-scroll">
                       {invoiceData.data &&
                         invoiceData.data.map((item, index) => {
                           return item.vehicle_tip_id ===
