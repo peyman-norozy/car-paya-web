@@ -5,9 +5,13 @@ import Image from "next/image";
 import useSetQuery from "@/hook/useSetQuery";
 import { useDispatch } from "react-redux";
 import { setCityModalState } from "@/store/todoSlice";
-import azadi from "@/public/assets/images/azadi.png"
+import azadi from "@/public/assets/images/azadi.png";
 const fakeData = [
-  { city: "تهران", id: 87 },
+  { city: "تهران", id: 87, image: "/assets/images/azadi.png" },
+  { city: "آبادان", id: 139, image: "/assets/images/hafez.png" },
+  { city: "نوشهر", id: 309, image: "/assets/images/hafez.png" },
+  { city: "نکا", id: 307, image: "/assets/images/hafez.png" },
+  { city: "قم", id: 211, image: "/assets/images/hafez.png" },
 ];
 
 const CityModal = ({ isOpen, onClose }) => {
@@ -20,7 +24,7 @@ const CityModal = ({ isOpen, onClose }) => {
     setIsClient(true);
     localStorage.setItem(
       "city",
-      JSON.stringify({ label: "تهران", cityId: 87 }),
+      JSON.stringify({ label: "تهران", cityId: 87 })
     );
 
     if (isOpen) {
@@ -54,7 +58,7 @@ const CityModal = ({ isOpen, onClose }) => {
         onClick={() => onClose()}
       ></div>
       <div
-        className={`bg-[#eee] absolute bottom-0 right-0 m-auto w-full max-w-[500px] ${
+        className={`bg-[#FEFEFE] absolute bottom-0 right-0 left-0 m-auto w-full max-w-[640px] ${
           isOpen ? "h-[80%]" : "h-0"
         } transition-all duration-500 z-[200000] overflow-hidden rounded-10`}
       >
@@ -81,16 +85,23 @@ const CityModal = ({ isOpen, onClose }) => {
             </div>
             <span className={"font-semibold text-16"}>ایران</span>
           </div> */}
-          <ul className={"grid grid-cols-3 gap-2 mt-4"}>
+          <ul
+            className={
+              "grid grid-cols-3 size411:grid-cols-4 sm:grid-cols-5 gap-2 mt-4"
+            }
+          >
             {fakeData.map((item, index) => (
               <li
                 key={index}
-                className={
-                  "flex flex-col items-center cursor-pointer gap-2"
-                }
+                className={"flex flex-col items-center cursor-pointer gap-2"}
                 onClick={() => cityClickHandler(item.id, item.city)}
               >
-                <Image className="w-[60px] h-auto" width={60} height={60} src={azadi}/>
+                <Image
+                  className="size-[60px]"
+                  width={60}
+                  height={60}
+                  src={item.image}
+                />
                 {item.city}
               </li>
             ))}
