@@ -5,10 +5,9 @@ import Image from "next/image";
 import useSetQuery from "@/hook/useSetQuery";
 import { useDispatch } from "react-redux";
 import { setCityModalState } from "@/store/todoSlice";
-
+import azadi from "@/public/assets/images/azadi.png"
 const fakeData = [
   { city: "تهران", id: 87 },
-  { city: "آذربایجان شرقی-جلفا", id: 7 },
 ];
 
 const CityModal = ({ isOpen, onClose }) => {
@@ -55,21 +54,18 @@ const CityModal = ({ isOpen, onClose }) => {
         onClick={() => onClose()}
       ></div>
       <div
-        className={`bg-[#eee] absolute top-[10%] left-0 right-0 m-auto w-[80%] ${
+        className={`bg-[#eee] absolute bottom-0 right-0 m-auto w-full max-w-[500px] ${
           isOpen ? "h-[80%]" : "h-0"
         } transition-all duration-500 z-[200000] overflow-hidden rounded-10`}
       >
         <div className={"p-6"}>
           <div className={"flex justify-between items-center"}>
-            <p className={"text-[24px] font-medium"}>شهر خود را انتخاب کنید</p>
+            <p className={"font-medium text-[#3C3C3C]"}>انتخاب شهر</p>
             <div className={"rotate-45 w-fit h-fit"}>
-              <i className={"cc-add text-[24px]"} onClick={() => onClose()} />
+              <i className={"cc-add text-[20px]"} onClick={() => onClose()} />
             </div>
           </div>
-          <p className={"mt-4"}>
-            این به ما در ارائه خدمات سریع به شما کمک می کند
-          </p>
-          <div
+          {/* <div
             className={
               "flex items-center gap-2 mt-4 border-b-2 pb-1 border-b-[#f66b34] w-[87px]"
             }
@@ -84,16 +80,17 @@ const CityModal = ({ isOpen, onClose }) => {
               />
             </div>
             <span className={"font-semibold text-16"}>ایران</span>
-          </div>
-          <ul className={"flex gap-2 mt-4"}>
+          </div> */}
+          <ul className={"grid grid-cols-3 gap-2 mt-4"}>
             {fakeData.map((item, index) => (
               <li
                 key={index}
                 className={
-                  "min-w-[100px] h-[100px] bg-stone-400 flex justify-center items-center rounded-5 cursor-pointer p-2"
+                  "flex flex-col items-center cursor-pointer gap-2"
                 }
                 onClick={() => cityClickHandler(item.id, item.city)}
               >
+                <Image className="w-[60px] h-auto" width={60} height={60} src={azadi}/>
                 {item.city}
               </li>
             ))}
