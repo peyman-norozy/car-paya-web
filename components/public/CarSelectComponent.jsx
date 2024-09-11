@@ -179,6 +179,9 @@ const CarSelectComponent = (props) => {
         }
         dispatch(setPeriodicServiceBasketLength(len));
       }
+      else if (carTableType === "VEHICLE_VERIFICATION") {
+        dispatch(setVehicleVerificationBasketLength({}))
+      }
       let totalPrice = 0;
       let newData = [];
       if (data.data.data.cart_items.length === 0) {
