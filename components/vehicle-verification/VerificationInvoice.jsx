@@ -19,7 +19,7 @@ import DiscountPercent from "@/components/DiscountPercent/DiscountPercent";
 const VerificationInvoice = () => {
   const [faktorData, setFaktorData] = useState({});
   const [roleChecked, setRoleChecked] = useState(false);
-  const [discount , setDiscount] = useState(null)
+  const [discount , setDiscount] = useState(0)
   const innerWidth = useSelector((item) => item.todo.windowInnerWidth);
   //   const orderProduct = useRef();
   //   const { events } = useDraggable(orderProduct);
@@ -54,6 +54,7 @@ const VerificationInvoice = () => {
       );
       if (response.success) {
         console.log(response);
+        setDiscount(response.data.data.coupon_price?response.data.data.coupon_price:0)
         setFaktorData(response.data.data);
       } else {
         console.log(response);
@@ -183,7 +184,7 @@ const VerificationInvoice = () => {
             {/* Price Details Section */}
             {innerWidth < 1024 && (
               <div className="space-y-4 py-4 w-full lg:h-fit border-b border-[#D1D1D1]">
-                <PriceDetails faktorData={faktorData} length={1} />
+                <PriceDetails faktorData={faktorData} length={1} discount={discount}/>
               </div>
             )}
             <div className={"mt-4 hidden lg:block"}>

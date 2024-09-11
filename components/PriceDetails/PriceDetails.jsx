@@ -3,7 +3,7 @@ import CompletePrice from "@/components/CompletePrice/CompletePrice";
 import { useSelector } from "react-redux";
 import { numberWithCommas } from "@/utils/function-utils";
 
-const PriceDetails = ({ faktorData, length }) => {
+const PriceDetails = ({ faktorData, length , discount}) => {
   const innerWidth = useSelector((item) => item.todo.windowInnerWidth);
   console.log(faktorData);
 
@@ -36,7 +36,7 @@ const PriceDetails = ({ faktorData, length }) => {
       <div className="flex justify-between">
         <span className="text-sm">مبلغ تخفیف:</span>
         {/* <span className="text-[#22A137] text-sm">{numberWithCommas(faktorData?.service?.price - faktorData?.service?.discounted_price)}</span> */}
-        <span className="text-[#22A137] text-sm">--</span>
+        <span className="text-[#22A137] text-sm">{discount?discount:"--"}</span>
       </div>
       <div className="flex justify-between">
         <span className="text-[#F58052] font-medium">جمع قابل پرداخت:</span>
@@ -44,9 +44,9 @@ const PriceDetails = ({ faktorData, length }) => {
           {numberWithCommas(
             faktorData?.swing_type === "INCREASE"
               ? Number(faktorData?.service?.discounted_price) +
-                  Number(faktorData?.diff_price)
+                  Number(faktorData?.diff_price) - discount
               : Number(faktorData?.service?.discounted_price) -
-                  Number(faktorData?.diff_price)
+                  Number(faktorData?.diff_price) - discount
           )}{" "}
           تومان
         </span>

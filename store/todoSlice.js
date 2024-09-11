@@ -22,7 +22,7 @@ const initialState = {
   DeleteModalState: false,
   DeleteModalId: "",
   renderUserAddrressState:false,
-  areaModalState:true
+  areaModalState:false
 };
 
 const todoSlice = createSlice({

@@ -11,7 +11,7 @@ const DiscountPercent = (props) => {
     }).then((res)=>{
       console.log(res);
       
-      // props.setDiscount()
+      props.setDiscount(res.data.coupon_price)
     })
   }
   return (
