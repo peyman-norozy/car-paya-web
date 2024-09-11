@@ -2,12 +2,12 @@
 import React, { useEffect, useState } from "react";
 import PeriodicServiceTabCard from "@/components/cards/PeriodicServiceTabCard";
 import CustomSlider from "@/components/CustomSlider/CustomSlider";
-import { usePathname } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 import { useSelector } from "react-redux";
 
 const CarServicesSlider = (props) => {
   const pathname = usePathname();
-  // console.log(pathname);
+  const searchParams = useSearchParams()
   const [isClicked, setIsClicked] = useState(pathname);
   const [carServicesShow, setCarServicesShow] = useState(false);
   const showHeaderData = useSelector((state) => state.todo.showHeader);
@@ -34,30 +34,31 @@ const CarServicesSlider = (props) => {
         setCarServicesShow(false);
     }
   }, [pathname]);
-
-  return (
-    carServicesShow && (
-      <div
-        className={`lg:block hidden sticky top-[98px] bg-[#F4F4F4] py-7 rounded-b-lg w-[calc(100%-424px)] mr-auto z-[2000]`}
-      >
-        <CustomSlider>
-          {props.data.map((item, index) => (
-            <PeriodicServiceTabCard
-              href={item.href}
-              isClicked={isClicked}
-              onClick={() => selectTabHandler(item.href)}
-              index={index}
-              key={index}
-              title={item.title}
-              src={item.icon}
-              width={60}
-              height={40}
-            />
-          ))}
-        </CustomSlider>
-      </div>
-    )
-  );
+  if (!(searchParams.toString().includes("step")&&pathname.includes("/vehicle-verification"))) {
+    return (
+      carServicesShow && (
+        <div
+          className={`lg:block hidden sticky top-[98px] bg-[#F4F4F4] py-7 rounded-b-lg w-[calc(100%-424px)] mr-auto z-[2000]`}
+        >
+          <CustomSlider>
+            {props.data.map((item, index) => (
+              <PeriodicServiceTabCard
+                href={item.href}
+                isClicked={isClicked}
+                onClick={() => selectTabHandler(item.href)}
+                index={index}
+                key={index}
+                title={item.title}
+                src={item.icon}
+                width={60}
+                height={40}
+              />
+            ))}
+          </CustomSlider>
+        </div>
+      )
+    );
+  }
 };
 
 export default CarServicesSlider;

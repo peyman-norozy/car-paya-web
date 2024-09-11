@@ -80,7 +80,7 @@ const VerificationInvoice = () => {
         </section>
         <section
           className={
-            "text-14 flex flex-col lg:flex-row gap-4 border-b-2 border-b-[#F5F5F5] pb-4"
+            "text-14 flex flex-col gap-4 border-b-2 border-b-[#F5F5F5] pb-4 lg:mt-10"
           }
         >
           <div className={"flex items-center gap-1 w-full font-bold text-sm"}>
@@ -267,7 +267,7 @@ const VerificationInvoice = () => {
       </div>
       {innerWidth > 1024 && (
         <div className="space-y-4 p-4 shadow-custom1 rounded-lg lg:w-[458px] lg:h-fit lg:sticky lg:top-[110px] lg:left-0 lg:block">
-          <PriceDetails faktorData={faktorData} length={1} />
+          <PriceDetails faktorData={faktorData} length={1} discount={discount} roleChecked={roleChecked}/>
         </div>
       )}
     </div>

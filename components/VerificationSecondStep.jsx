@@ -113,7 +113,7 @@ const VerificationSecondStep = (props) => {
       }
     >
       <div
-        className={"w-full size1570:w-[50%] flex flex-col px-4 sm:px-0 gap-4"}
+        className={"w-full flex flex-col px-4 sm:px-0 gap-4"}
       >
         <div
           className={
@@ -194,13 +194,6 @@ const VerificationSecondStep = (props) => {
           </button>
         </div>
       </div>
-      <Image
-        src={"/assets/images/reserveTimePic.svg"}
-        alt={"reserveTime"}
-        width={544}
-        height={544}
-        className={"hidden size1570:block"}
-      />
       <ToastContainer />
     </div>
   );

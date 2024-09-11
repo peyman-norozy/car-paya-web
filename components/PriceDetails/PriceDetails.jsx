@@ -3,9 +3,9 @@ import CompletePrice from "@/components/CompletePrice/CompletePrice";
 import { useSelector } from "react-redux";
 import { numberWithCommas } from "@/utils/function-utils";
 
-const PriceDetails = ({ faktorData, length , discount}) => {
+const PriceDetails = (props) => {
+  const { faktorData, length, discount } = props;
   const innerWidth = useSelector((item) => item.todo.windowInnerWidth);
-  console.log(faktorData);
 
   return (
     <>
@@ -36,7 +36,9 @@ const PriceDetails = ({ faktorData, length , discount}) => {
       <div className="flex justify-between">
         <span className="text-sm">مبلغ تخفیف:</span>
         {/* <span className="text-[#22A137] text-sm">{numberWithCommas(faktorData?.service?.price - faktorData?.service?.discounted_price)}</span> */}
-        <span className="text-[#22A137] text-sm">{discount?discount:"--"}</span>
+        <span className="text-[#22A137] text-sm">
+          {discount ? discount : "--"}
+        </span>
       </div>
       <div className="flex justify-between">
         <span className="text-[#F58052] font-medium">جمع قابل پرداخت:</span>
@@ -44,9 +46,11 @@ const PriceDetails = ({ faktorData, length , discount}) => {
           {numberWithCommas(
             faktorData?.swing_type === "INCREASE"
               ? Number(faktorData?.service?.discounted_price) +
-                  Number(faktorData?.diff_price) - discount
+                  Number(faktorData?.diff_price) -
+                  discount
               : Number(faktorData?.service?.discounted_price) -
-                  Number(faktorData?.diff_price) - discount
+                  Number(faktorData?.diff_price) -
+                  discount
           )}{" "}
           تومان
         </span>
@@ -64,6 +68,7 @@ const PriceDetails = ({ faktorData, length , discount}) => {
       {innerWidth > 1024 && (
         <CompletePrice
           priceTotal={numberWithCommas(faktorData?.price_total)}
+          roleChecked={props.roleChecked}
           customStyle={
             "pl-0 pr-0 border-t-2 border-t-[#eee] sticky flex justify-between"
           }

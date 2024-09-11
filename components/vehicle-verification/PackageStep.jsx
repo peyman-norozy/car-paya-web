@@ -100,7 +100,7 @@ const PackageStep = () => {
         }
       >
         <div
-          className={"w-full size1570:w-[50%] flex flex-col gap-4 mx-4 sm:mx-0"}
+          className={"w-full flex flex-col gap-4 mx-4 sm:mx-0"}
         >
           <div
             className={
@@ -178,13 +178,13 @@ const PackageStep = () => {
             </button>
           </div>
         </div>
-        <Image
+        {/* <Image
           src={"/assets/images/packagePic.svg"}
           alt={""}
           width={544}
           height={544}
           className={"hidden size1570:block"}
-        />
+        /> */}
       </div>
       <ToastContainer rtl={true} />
     </>
