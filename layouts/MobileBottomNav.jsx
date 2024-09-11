@@ -101,7 +101,7 @@ function MobileBottomNav(props) {
           {/* <div className="h-[5px] w-[6rem] rounded-[20px] bg-[#333] absolute top-[2.5%] left-[50%] translate-x-[-50%]"></div> */}
           <div className={`z-[2003] fixed right-[calc((100vw-400px)/2)] ${ modalIsOpen ? "top-[calc((100vh-550px)/2)]" : "top-[120%]" } transition-all duration-700`}>
             {/* <VehicleRegistration /> */}
-            <CarSelectComponent isMobile={true} setModalIsOpen={setModalIsOpen} />
+            <CarSelectComponent isMobile={true} setModalIsOpen={setModalIsOpen} closeModalHandler={closeModalHandler}/>
           </div>
         {/* </div> */}
       {modalIsOpen && (
