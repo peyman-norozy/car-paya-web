@@ -135,7 +135,7 @@ const CarSelectComponent = (props) => {
     if (data.data?.status === "success") {
       let totalPrice = 0;
       for (let item of data.data.data) {
-        totalPrice = totalPrice + item.item.item?.price;
+        totalPrice = totalPrice + item.item.item?.discounted_price?item.item.item?.discounted_price:item.item.item?.price;
       }
       setInvoiceData({ data: data.data.data, totalPrice: totalPrice });
       if (cartableType === "BATTERIES") {
