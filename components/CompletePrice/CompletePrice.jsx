@@ -10,7 +10,7 @@ const CompletePrice = (props) => {
       <div className={"font-medium lg:hidden block"}>
         <span>جمع سفارش:</span>
         <div className={"flex gap-2 items-center text-[#518DD5]"}>
-          {numberWithCommas(props.priceTotal) + " تومان "}
+          {numberWithCommas(props.priceTotal - props.discount) + " تومان "}
         </div>
       </div>
       <button

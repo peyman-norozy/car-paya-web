@@ -247,6 +247,7 @@ const VerificationInvoice = () => {
             }
             priceTotal={faktorData?.swing_type === "INCREASE"?Number(faktorData?.service?.discounted_price)+Number(faktorData?.diff_price):Number(faktorData?.service?.discounted_price)-Number(faktorData?.diff_price)}
             roleChecked={roleChecked}
+            discount={discount}
           />
         )}
         <div className="flex justify-start items-center text-xs gap-1 font-medium mt-2">
