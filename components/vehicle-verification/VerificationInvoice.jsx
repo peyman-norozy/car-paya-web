@@ -7,7 +7,7 @@ import { useSelector } from "react-redux";
 import CompletePrice from "@/components/CompletePrice/CompletePrice";
 import { useDraggable } from "react-use-draggable-scroll";
 import { getCurrentData } from "@/utils/api-function-utils";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import {
   persianDate,
   persianDateCovertor,
@@ -15,11 +15,13 @@ import {
 } from "@/utils/function-utils";
 import Link from "next/link";
 import DiscountPercent from "@/components/DiscountPercent/DiscountPercent";
+import axios from "axios";
+import { getCookie } from "cookies-next";
 
 const VerificationInvoice = () => {
   const [faktorData, setFaktorData] = useState({});
   const [roleChecked, setRoleChecked] = useState(false);
-  const [discount , setDiscount] = useState(0)
+  const [discount, setDiscount] = useState(0);
   const innerWidth = useSelector((item) => item.todo.windowInnerWidth);
   //   const orderProduct = useRef();
   //   const { events } = useDraggable(orderProduct);
@@ -33,7 +35,7 @@ const VerificationInvoice = () => {
     "reservation_time_slice_id"
   );
   const registrationable_id = searchParams.get("registrationable_id");
-
+  const router = useRouter();
   useEffect(() => {
     (async () => {
       const response = await getCurrentData(
@@ -54,13 +56,30 @@ const VerificationInvoice = () => {
       );
       if (response.success) {
         console.log(response);
-        setDiscount(response.data.data.coupon_price?response.data.data.coupon_price:0)
+        setDiscount(
+          response.data.data.coupon_price ? response.data.data.coupon_price : 0
+        );
         setFaktorData(response.data.data);
       } else {
         console.log(response);
       }
     })();
   }, []);
+  function registerClickHandler() {
+    axios
+      .post(
+        process.env.BASE_API + "/web/order/register/master",
+        { registration_id: faktorData.id },
+        {
+          headers: {
+            Authorization: "Bearer " + getCookie("Authorization"),
+          },
+        }
+      )
+      .then((res) => {
+        router.push(res?.data?.data?.url);
+      });
+  }
   return (
     <div className={"bg-white py-6 pt-[20px] px-4 lg:flex lg:gap-6 mb-8"}>
       <div className={"lg:w-[calc(100%-424px)]"}>
@@ -160,7 +179,11 @@ const VerificationInvoice = () => {
           </Link>
         </section>
         <div className={"mt-4 block lg:hidden"}>
-          <DiscountPercent id={faktorData?.id} type={"MASTER"} setDiscount={setDiscount}/>
+          <DiscountPercent
+            id={faktorData?.id}
+            type={"MASTER"}
+            setDiscount={setDiscount}
+          />
         </div>
         <section className={"lg:flex lg:flex-col-reverse"}>
           {/* <section>
@@ -184,11 +207,20 @@ const VerificationInvoice = () => {
             {/* Price Details Section */}
             {innerWidth < 1024 && (
               <div className="space-y-4 py-4 w-full lg:h-fit border-b border-[#D1D1D1]">
-                <PriceDetails faktorData={faktorData} length={1} discount={discount}/>
+                <PriceDetails
+                  faktorData={faktorData}
+                  length={1}
+                  discount={discount}
+                  registerClickHandler={registerClickHandler}
+                />
               </div>
             )}
             <div className={"mt-4 hidden lg:block"}>
-              <DiscountPercent />
+              <DiscountPercent
+                id={faktorData?.id}
+                type={"MASTER"}
+                setDiscount={setDiscount}
+              />
             </div>
             {/* Address Section */}
             {/* <div className="mt-4 space-y-2 flex flex-col gap-2">
@@ -245,9 +277,16 @@ const VerificationInvoice = () => {
             customStyle={
               "bg-white fixed left-0 flex justify-between shadow-[0_-2px_4px_0_rgba(199,199,199,0.25)] rounded-t-xl"
             }
-            priceTotal={faktorData?.swing_type === "INCREASE"?Number(faktorData?.service?.discounted_price)+Number(faktorData?.diff_price):Number(faktorData?.service?.discounted_price)-Number(faktorData?.diff_price)}
+            priceTotal={
+              faktorData?.swing_type === "INCREASE"
+                ? Number(faktorData?.service?.discounted_price) +
+                  Number(faktorData?.diff_price)
+                : Number(faktorData?.service?.discounted_price) -
+                  Number(faktorData?.diff_price)
+            }
             roleChecked={roleChecked}
             discount={discount}
+            registerClickHandler={registerClickHandler}
           />
         )}
         <div className="flex justify-start items-center text-xs gap-1 font-medium mt-2">
@@ -267,7 +306,13 @@ const VerificationInvoice = () => {
       </div>
       {innerWidth > 1024 && (
         <div className="space-y-4 p-4 shadow-custom1 rounded-lg lg:w-[458px] lg:h-fit lg:sticky lg:top-[110px] lg:left-0 lg:block">
-          <PriceDetails faktorData={faktorData} length={1} discount={discount} roleChecked={roleChecked}/>
+          <PriceDetails
+            faktorData={faktorData}
+            length={1}
+            discount={discount}
+            roleChecked={roleChecked}
+            registerClickHandler={registerClickHandler}
+          />
         </div>
       )}
     </div>

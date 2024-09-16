@@ -6,7 +6,7 @@ import { numberWithCommas } from "@/utils/function-utils";
 const PriceDetails = (props) => {
   const { faktorData, length, discount } = props;
   const innerWidth = useSelector((item) => item.todo.windowInnerWidth);
-
+  
   return (
     <>
       <div className="flex justify-between">
@@ -72,6 +72,7 @@ const PriceDetails = (props) => {
           customStyle={
             "pl-0 pr-0 border-t-2 border-t-[#eee] sticky flex justify-between"
           }
+          registerClickHandler={props.registerClickHandler}
         />
       )}
     </>
