@@ -110,7 +110,7 @@ const LoginModal = () => {
             <div className="flex flex-col items-center gap-6 w-full rounded">
               <div className="flex items-center flex-col w-full gap-2">
                 <span className="text-xs font-medium">
-                  کد تایید برای شماره 09037229617 پیامک شد
+                  کد تایید برای شماره {phone} پیامک شد
                 </span>
                 <div className="m-auto">
                   <OTPInput
