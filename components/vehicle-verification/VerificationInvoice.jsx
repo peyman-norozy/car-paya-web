@@ -188,7 +188,7 @@ const VerificationInvoice = () => {
               </div>
             )}
             <div className={"mt-4 hidden lg:block"}>
-              <DiscountPercent />
+              <DiscountPercent id={faktorData?.id} type={"MASTER"} setDiscount={setDiscount}/>
             </div>
             {/* Address Section */}
             {/* <div className="mt-4 space-y-2 flex flex-col gap-2">
