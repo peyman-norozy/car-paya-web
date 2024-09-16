@@ -38,7 +38,7 @@ const AreaModal = (props) => {
         onClick={() => closeModal()}
       >
         <div
-          className="absolute bg-white bottom-0 right-0 w-full rounded-t-3xl flex flex-col gap-4 p-4 pb-28 "
+          className="absolute bg-white bottom-0 right-0 w-full rounded-t-3xl flex flex-col gap-4 p-4 pb-28"
           onClick={(event) => {
             event.stopPropagation();
           }}
