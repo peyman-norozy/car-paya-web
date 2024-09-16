@@ -16,6 +16,12 @@ const ReserveTimeVerification = (props) => {
     new Date(data[0] * 1000).toLocaleDateString("fa-IR", { weekday: "long" });
 
   const openOptionHandler = (index) => {
+    if (optionIsOpen !== index) {
+      window.scrollTo({
+        top: 200, // مقدار به پیکسل، 500 پیکسل به پایین اسکرول می‌کند
+        behavior: "smooth", // اسکرول آرام
+      });
+    }
     setOptionIsOpen((prevState) => (prevState === index ? null : index));
   };
 
@@ -41,7 +47,9 @@ const ReserveTimeVerification = (props) => {
           >
             <div
               onClick={() => openOptionHandler(item.id)}
-              className={"flex flex-col items-start px-4 py-5 gap-1 border-b border-[#F2F2F2]"}
+              className={
+                "flex flex-col items-start px-4 py-5 gap-1 border-b border-[#F2F2F2]"
+              }
             >
               <div className={"flex items-center justify-between w-full"}>
                 <p className={"text-sm text-[#1E67BF] font-medium"}>
