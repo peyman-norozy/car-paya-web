@@ -1,5 +1,6 @@
 import React from "react";
 import { numberWithCommas } from "@/utils/function-utils";
+import axios from "axios";
 
 const CompletePrice = (props) => {
   console.log(props);
@@ -18,6 +19,7 @@ const CompletePrice = (props) => {
           `${props.roleChecked?"bg-[#F66B34]":"bg-[#FCCAAC]"} rounded-[8px] text-white text-[16px] font-medium w-40 h-10`
         }
         disabled={!props.roleChecked}
+        onClick={props.registerClickHandler}
       >
         تایید و تکمیل سفارش
       </button>
