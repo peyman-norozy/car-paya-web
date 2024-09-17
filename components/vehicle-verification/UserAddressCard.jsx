@@ -8,7 +8,7 @@ const UserAddressCard = (props) => {
   const dispatch = useDispatch();
   return (
     <div
-      className={`flex flex-col gap-4 shadow-[0_0_8px_0_rgba(215,215,215,0.25)] p-4 rounded-lg bg-white ${props.selectedAddress === props.data.id ? "border border-[#F58052]" : ""}`}
+      className={`flex flex-col gap-4 p-4 rounded-lg bg-white cursor-pointer shadow-[0_0_4px_0_rgba(207,207,207,0.7)] ${props.selectedAddress === props.data.id ? "border border-[#F58052]" : ""}`}
       onClick={() => {
         props.selectedAddress === props.data.id
           ? props.setSelectedAddress("")

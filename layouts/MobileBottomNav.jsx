@@ -99,7 +99,7 @@ function MobileBottomNav(props) {
           }`}
         > */}
           {/* <div className="h-[5px] w-[6rem] rounded-[20px] bg-[#333] absolute top-[2.5%] left-[50%] translate-x-[-50%]"></div> */}
-          <div className={`z-[2003] w-screen h-[570px] bg-white fixed right-0 flex justify-center ${ modalIsOpen ? "bottom-0" : "bottom-[-580px]" }  transition-all duration-700 rounded-t-3xl`}>
+          <div className={`z-[2003] w-screen h-[570px] bg-[#FEFEFE] fixed right-0 flex justify-center ${ modalIsOpen ? "bottom-0" : "bottom-[-580px]" }  transition-all duration-700 rounded-t-3xl`}>
             {/* <VehicleRegistration /> */}
             <CarSelectComponent isMobile={true} setModalIsOpen={setModalIsOpen} closeModalHandler={closeModalHandler}/>
           </div>

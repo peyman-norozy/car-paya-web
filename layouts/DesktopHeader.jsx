@@ -59,7 +59,7 @@ const DesktopHeader = (props) => {
 
   return (
     <header
-      className={`${props.className} flex justify-between items-center w-[100wh] sticky inset-0 z-[1599] pt-[10px] px-12 bg-[#F4F4F4] transition-all`}
+      className={`${props.className} flex justify-between items-center w-[100wh] sticky inset-0 z-[1599] pt-[10px] px-12 bg-[#FBFBFB] transition-all`}
     >
       <div
         className={`font-light flex justify-between items-center w-full max-w-[1676px] m-auto bg-[#383838] z-[10000] h-[88px] rounded-2xl py-6 px-8`}

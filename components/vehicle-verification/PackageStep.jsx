@@ -96,17 +96,11 @@ const PackageStep = () => {
     <>
       <div
         className={
-          "flex items-start justify-between pt-[28px] w-full lg:w-[calc(100%-424px)] mr-auto mb-4"
+          "flex items-start justify-between mt-[28px] p-6 rounded-2xl w-full lg:w-[calc(100%-424px)] mr-auto mb-4 bg-[#FDFDFD] shadow-[0_0_6px_0_rgba(125,125,125,0.5)] min-h-[605px]"
         }
       >
-        <div
-          className={"w-full flex flex-col gap-4 mx-4 sm:mx-0"}
-        >
-          <div
-            className={
-              "flex items-center gap-2 size752:gap-[16px] text-[#0E0E0E] w-full"
-            }
-          >
+        <div className={"w-full flex flex-col gap-4 mx-4 sm:mx-0"}>
+          <div className={"flex items-center gap-2 text-[#0E0E0E] w-full"}>
             <i
               className={"cc-arrow-right text-24 cursor-pointer"}
               onClick={backStepHandler}
@@ -115,67 +109,72 @@ const PackageStep = () => {
               انتخاب سرویس
             </p>
           </div>
-          <div className="flex gap-2 items-center w-full bg-[#FFFFFF] text-[#D1D1D1] rounded-full border border-[#F2F2F2] px-2">
-            <i className="cc-car-o text-2xl text-[#518DD5]" onClick={() => router.push(`/vehicle-verification`)}/>
-            <div className="border-b-4 border-dotted border-[#518DD5] w-full"></div>
-            <i className="cc-search text-2xl text-[#D1D1D1]" />
-            <div className="border-b-4 border-dotted border-[#D1D1D1] w-full"></div>
-            <i className="cc-timer text-2xl text-[#D1D1D1]" />
-            <div className="border-b-4 border-dotted border-[#D1D1D1] w-full"></div>
-            <i className="cc-location text-2xl text-[#D1D1D1]" />
-          </div>
-          <p
-            className={
-              "text-14 size752:text-16 w-full font-medium text-[#454545]"
-            }
-          >
-            سرویس خود را انتخاب کنید:
-          </p>
-          {data?.length === 0 ? (
-            <div className={`flex flex-col items-center m-auto my-10 gap-6`}>
-              <Image className="" src={search} width={175} height={175} />
-              <span className="text-[#454545] font-medium text-sm">
-                در حال حاضر سرویسی برای این خودرو ثبت نشد
-              </span>
+          <div className=" flex flex-col gap-4 mr-8">
+            <div className="flex gap-2 items-center w-full bg-[#FFFFFF] text-[#D1D1D1] rounded-full border border-[#F2F2F2] px-2 shadow-[0_0_4px_0_rgba(207,207,207,0.7)]">
+              <i
+                className="cc-car-o text-2xl text-[#518DD5]"
+                onClick={() => router.push(`/vehicle-verification`)}
+              />
+              <div className="border-b-4 border-dotted border-[#518DD5] w-full"></div>
+              <i className="cc-search text-2xl text-[#D1D1D1]" />
+              <div className="border-b-4 border-dotted border-[#D1D1D1] w-full"></div>
+              <i className="cc-timer text-2xl text-[#D1D1D1]" />
+              <div className="border-b-4 border-dotted border-[#D1D1D1] w-full"></div>
+              <i className="cc-location text-2xl text-[#D1D1D1]" />
             </div>
-          ) : (
-            <ul className={"flex flex-col gap-2 mb-[2.5rem]"}>
-              {data?.map((item, index) => (
-                <li key={index}>
-                  <PackageCard
-                    options={item.information}
-                    isSelected={isSelected}
-                    id={item.id}
-                    setIsSelected={setIsSelected}
-                    title={item.title}
-                    price={item.price}
-                    discounted_price={item.discounted_price}
-                    onClick={() => selectPackageHandler(item.id)}
-                  />
-                </li>
-              ))}
-            </ul>
-          )}
-          <button
-            onClick={nextStepHandler}
-            disabled={isSelected ? false : true}
-            className={
-              "bg-[#F66B34] hidden self-end lg:flex items-center gap-2 mt-1 size690:mt-3 w-fit text-12 size690:text-[16px] p-[8px] text-white rounded-[4px]"
-            }
-          >
-            <p>تایید و ادامه</p>
-            <i className={"cc-left text-[20px]"} />
-          </button>
-          <div
-            className="fixed w-full rounded-t-2xl shadow-[0_-2px_4px_0_rgba(199,199,199,0.25)] flex justify-center pt-4 pb-6 items-start bottom-0 right-0 bg-white z-[2000] px-10 lg:hidden"
-            onClick={nextStepHandler}
-          >
-            <button
-              className={`${isSelected ? "bg-[#F66B34]" : "bg-[#FCCAAC]"} rounded-lg w-full sm:max-w-[400px] text-[#FEFEFE] text-sm font-medium py-3`}
-              disabled={isSelected ? false : true}
+            <p
+              className={
+                "text-14 size752:text-16 w-full font-medium text-[#454545]"
+              }
             >
-              تایید ادامه
+              سرویس خود را انتخاب کنید:
+            </p>
+            {data?.length === 0 ? (
+              <div className={`flex flex-col items-center m-auto my-10 gap-6`}>
+                <Image className="" src={search} width={175} height={175} />
+                <span className="text-[#454545] font-medium text-sm">
+                  در حال حاضر سرویسی برای این خودرو ثبت نشد
+                </span>
+              </div>
+            ) : (
+              <ul className={"flex flex-col gap-2 mb-[2.5rem]"}>
+                {data?.map((item, index) => (
+                  <li key={index}>
+                    <PackageCard
+                      options={item.information}
+                      isSelected={isSelected}
+                      id={item.id}
+                      setIsSelected={setIsSelected}
+                      title={item.title}
+                      price={item.price}
+                      discounted_price={item.discounted_price}
+                      onClick={() => selectPackageHandler(item.id)}
+                    />
+                  </li>
+                ))}
+              </ul>
+            )}
+            <button
+              onClick={nextStepHandler}
+              disabled={isSelected ? false : true}
+              className={
+                "bg-[#F66B34] hidden self-end lg:flex items-center gap-2 mt-1 size690:mt-3 w-fit text-12 size690:text-[16px] p-[8px] text-white rounded-[4px]"
+              }
+            >
+              <p>تایید و ادامه</p>
+              <i className={"cc-left text-[20px]"} />
             </button>
+            <div
+              className="fixed w-full rounded-t-2xl shadow-[0_-2px_4px_0_rgba(199,199,199,0.25)] flex justify-center pt-4 pb-6 items-start bottom-0 right-0 bg-white z-[2000] px-10 lg:hidden"
+              onClick={nextStepHandler}
+            >
+              <button
+                className={`${isSelected ? "bg-[#F66B34]" : "bg-[#FCCAAC]"} rounded-lg w-full sm:max-w-[400px] text-[#FEFEFE] text-sm font-medium py-3`}
+                disabled={isSelected ? false : true}
+              >
+                تایید ادامه
+              </button>
+            </div>
           </div>
         </div>
         {/* <Image
