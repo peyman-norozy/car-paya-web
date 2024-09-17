@@ -72,7 +72,7 @@ const AddressSelection = (props) => {
       setServiceQuery(
         srviceQuery.filter((item) => {
           return item !== value;
-        })
+        }),
       );
     }
   }
@@ -190,10 +190,7 @@ const AddressSelection = (props) => {
           </div>
         </div>
       ) : (
-        <div className={"flex justify-between items-center"}>
-          <span className={"font-semibold text-14"}>
-            آدرس خود را انتخاب کنید:
-          </span>
+        <div className={"flex justify-end items-center"}>
           <Button
             class_name={
               "bg-[#FFFFFF] text-[#F66B34] py-2 px-3 lg:text-[16px] text-14 flex item-center gap-2 rounded-[8px] self-start border border-[#F66B34]"
@@ -239,9 +236,8 @@ const AddressSelection = (props) => {
       )}
       <div className={"flex justify-end"}>
         <button
-          className={
-            "bg-[#F66B34] text-white text-14 w-[199px] h-[40px] rounded-[8px]"
-          }
+          className={`${!Boolean(locationId) ? "bg-[#ecb8a3]" : "bg-[#F66B34]"} text-white text-14 w-[199px] h-[40px] rounded-[8px]`}
+          disabled={!Boolean(locationId)}
           onClick={confirmAndContinue}
         >
           تایید و ادامه
