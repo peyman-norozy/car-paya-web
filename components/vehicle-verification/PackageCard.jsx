@@ -10,7 +10,7 @@ const PackageCard = (props) => {
 
   return (
     <div
-      className={`p-[0.75rem] size752:p-[1.5rem] rounded-lg flex flex-col gap-3 shadow-[0_0_8px_0_rgba(215,215,215,0.25)] ${isSelected === id ? "border border-[#F58052]" : ""}`}
+      className={`p-[0.75rem] size752:p-[1.5rem] rounded-lg flex flex-col gap-3 shadow-[0_0_4px_0_rgba(207,207,207,0.7)] ${isSelected === id ? "border border-[#F58052]" : ""}`}
     >
       <div
         className={"flex  items-center justify-between cursor-pointer"}
