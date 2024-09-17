@@ -18,10 +18,23 @@ const LoginModal = () => {
   const isOpen = useSelector((state) => state.todo.LoginModalState);
   const [phoneValidation, setPhoneValidation] = useState(null);
   const [otpValidation, setOtpValidation] = useState(null);
-
+  const [countdown,setCountdown] = useState(120)
   useEffect(() => {
     setIsClient(true);
   }, []);
+
+  function startCountdown() {
+    setCountdown(120)
+    let interval = setInterval(function() {
+      setCountdown((previous) => {
+        if (previous <= 0) {
+          clearInterval(interval);
+          return 0;
+        }
+        return previous - 1;
+      });
+    }, 1000);
+  }
 
   function closeModal() {
     dispatch(setLoginModal(false));
@@ -33,6 +46,7 @@ const LoginModal = () => {
       .then((res) => {
         setLoginToken(res.data.data.login_token);
         setStep(1);
+        startCountdown()
       })
       .catch((err) => {
         if (err?.response?.status) {
@@ -62,6 +76,19 @@ const LoginModal = () => {
       });
   }
 
+  function resendOtpHandler() {
+    axios
+      .post(process.env.BASE_API + "/resend-otp", { mobile: phone ,login_token:loginToken})
+      .then((res) => {
+        startCountdown()
+      })
+      .catch((err) => {
+        if (err?.response?.status) {
+          setOtpValidation(err?.response?.data?.message);
+        }
+      });
+  }
+
   if (!isClient) return null;
 
   const modalContainer = document.getElementById("modal-root");
@@ -76,7 +103,7 @@ const LoginModal = () => {
       >
         {step === 0 ? (
           <div
-            className="absolute bottom-0 right-0 sm:inset-0 sm:m-auto h-fit sm:max-w-[560px] sm:rounded-2xl w-screen p-7 flex flex-col items-center gap-10 z-[3001] bg-white shadow-[0_0_8px_0_rgba(175,175,175,0.25)] rounded-t-3xl pb-32 sm:p-10"
+            className="absolute bottom-0 right-0 sm:inset-0 sm:m-auto h-fit sm:max-w-[560px] sm:rounded-2xl w-screen p-7 flex flex-col items-center gap-10 z-[3001] bg-white shadow-[0_0_8px_0_rgba(175,175,175,0.25)] rounded-t-3xl pb-16 sm:p-10"
             onClick={(event) => {
               event.stopPropagation();
             }}
@@ -106,7 +133,7 @@ const LoginModal = () => {
               </div>
               <div className="flex flex-col gap-2 w-full items-center">
                 <button
-                  className="bg-[#F66B34] text-[#FEFEFE] font-medium text-sm items-center justify-center rounded-lg py-2 w-[calc(100%-40px)]"
+                  className="bg-[#F66B34] text-[#FEFEFE] font-medium text-sm items-center justify-center rounded-lg py-2 w-[calc(100%-40px)] max-w-[280px]"
                   onClick={getOtpHandler}
                 >
                   تایید ادامه
@@ -121,7 +148,7 @@ const LoginModal = () => {
           </div>
         ) : (
           <div
-            className="absolute bottom-0 right-0 sm:inset-0 sm:m-auto h-fit sm:max-w-[560px] sm:rounded-2xl w-screen p-7 flex flex-col items-center gap-10 z-[3001] bg-white shadow-[0_0_8px_0_rgba(175,175,175,0.25)] rounded-t-3xl pb-32 sm:p-10"
+            className="absolute bottom-0 right-0 sm:inset-0 sm:m-auto h-fit sm:max-w-[560px] sm:rounded-2xl w-screen p-7 flex flex-col items-center gap-10 z-[3001] bg-white shadow-[0_0_8px_0_rgba(175,175,175,0.25)] rounded-t-3xl pb-16 sm:p-10"
             onClick={(event) => {
               event.stopPropagation();
             }}
@@ -132,9 +159,9 @@ const LoginModal = () => {
               onClick={closeModal}
             />
             <span className="font-medium">ورود/ ثبت نام</span>
-            <div className="flex flex-col items-center gap-6 w-full rounded">
-              <div className="flex items-center flex-col w-full gap-2">
-                <span className="text-xs font-medium">
+            <div className="flex flex-col items-center gap-4 w-full rounded">
+              <div className="flex items-center flex-col w-fit gap-2">
+                <span className="text-xs font-medium w-full text-start">
                   کد تایید برای شماره {phone} پیامک شد
                 </span>
                 <div className="m-auto flex flex-col w-fit items-start gap-2">
@@ -147,24 +174,25 @@ const LoginModal = () => {
                     renderSeparator={false}
                     renderInput={(props) => <input {...props} />}
                     containerStyle={{
-                      width: "250px",
+                      width: "284px",
                       height: "50px",
                       direction: "ltr",
-                      marginLeft: "10px",
-                      gap: "10px",
+                      gap: "24px",
                     }}
                     inputStyle={`flex-1 h-full bg-[#00000000] outline-none border ${otpValidation ? "border-[#FF0031]" : "border-[#B0B0B0]"} text-[#3C3C3C] text-14 font-medium rounded-[4px]`}
                   />
-                  {otpValidation && (
-                    <span className="text-[#FF0031] px-1 text-14">
+                    <span className="text-[#FF0031] px-1 text-12 h-[18px]">
                       {otpValidation}
                     </span>
-                  )}
+                  <div className="flex justify-between w-full">
+                    <span className="font-medium text-xs"><span className="text-[#F66B34] w-7 inline-block text-end">{parseInt(countdown/60).toString().padStart(2, '0') + ":" + (countdown%60).toString().padStart(2, '0')}</span> مانده تا دریافت مجدد کد</span>
+                    <button className={`flex items-center gap-1 ${countdown?"text-[#888888] cursor-not-allowed":"text-[#1E67BF] cursor-pointer"}`} disabled={countdown} onClick={resendOtpHandler}><i className="cc-undo"/><span className="font-medium text-xs">ارسال مجدد کد</span></button>
+                  </div>
                 </div>
               </div>
               <div className="flex flex-col gap-2 w-full items-center">
                 <button
-                  className="bg-[#F66B34] text-[#FEFEFE] font-medium text-sm items-center justify-center rounded-lg py-2 w-[calc(100%-40px)]"
+                  className="bg-[#F66B34] text-[#FEFEFE] font-medium text-sm items-center justify-center rounded-lg py-2 w-[300px]"
                   onClick={sendOtpHandler}
                 >
                   تایید
