@@ -41,15 +41,19 @@ const useSetQuery = () => {
     nProgress.start();
     router.push(pathname + query);
   }, []);
-  const deleteSingleQuery = useCallback((data, params, options) => {
-    data.map((item) => {
-      params.delete(item.key, item.value);
-    });
-    const search = params.toString();
-    const query = search ? `?${search}` : "";
-    nProgress.start();
-    router.push(pathname + query, options);
-  }, []);
+  const deleteSingleQuery = useCallback(
+    (data, params, options, newPathName) => {
+      data.map((item) => {
+        params.delete(item.key, item.value);
+      });
+      const search = params.toString();
+      const query = search ? `?${search}` : "";
+      console.log(pathname);
+      nProgress.start();
+      router.push(newPathName ? newPathName : pathname + query, options);
+    },
+    [],
+  );
 
   const updateMultiQuery = useCallback((data, params, options) => {
     data.map((item) => {
