@@ -49,12 +49,12 @@ const DeleteModal = (props) => {
         onClick={() => closeModal()}
       >
         <div
-          className="absolute bg-white bottom-0 right-0 w-full rounded-t-3xl py-16 flex flex-col items-center gap-10 px-9"
+          className="absolute bg-white bottom-0 right-0 sm:inset-0 sm:m-auto w-full rounded-t-3xl sm:rounded-3xl py-16 flex flex-col items-center gap-10 px-9 sm:max-w-[560px] h-fit"
           onClick={(event) => {
             event.stopPropagation();
           }}
         >
-          <span className="text-sm font-medium">
+          <span className="text-sm sm:text-base font-medium">
             آیا از حذف این مورد اطمینان دارید ؟
           </span>
           <div className="flex items-center gap-9 w-full justify-center">

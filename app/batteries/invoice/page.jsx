@@ -14,6 +14,8 @@ import DiscountPercent from "@/components/DiscountPercent/DiscountPercent";
 
 const InvoicePage = () => {
   const [faktorData, setFaktorData] = useState({});
+  const [roleChecked, setRoleChecked] = useState(false);
+  const [discount, setDiscount] = useState(0);
   const innerWidth = useSelector((item) => item.todo.windowInnerWidth);
   const orderProduct = useRef();
   const { events } = useDraggable(orderProduct);
@@ -31,9 +33,10 @@ const InvoicePage = () => {
         "/web/reservation/battery?step=step-4",
         {
           city_id: searchParams.get("city_id"),
-          reservation_time_slice_id: searchParams.get("time_id"),
+          reservation_time_slice_id: searchParams.get("time_id")?.split("/")[0],
           vehicle_tip_id: searchParams.get("vehicle_tip_id"),
           registrationable_id: searchParams.get("service_location_id"),
+          exact_time: searchParams.get("time_id")?.split("/")[1],
           amp: searchParams.get("amper"),
           type: searchParams.get("type_service"),
           type_service: searchParams.get("type"),
@@ -127,11 +130,20 @@ const InvoicePage = () => {
             {/* Price Details Section */}
             {innerWidth < 1024 && (
               <div className="space-y-4 p-4 shadow-custom1 rounded-lg w-full lg:h-fit">
-                <PriceDetails faktorData={faktorData} length={1} />
+                <PriceDetails
+                  faktorData={faktorData}
+                  length={1}
+                  discount={discount}
+                  type={"product_key"}
+                />
               </div>
             )}
             <div className={"mt-4 hidden lg:block"}>
-              <DiscountPercent />
+              <DiscountPercent
+                id={faktorData?.id}
+                type={"BATTERY"}
+                setDiscount={setDiscount}
+              />
             </div>
             {/* Address Section */}
             <div className="mt-4 space-y-2 flex flex-col gap-2">
@@ -180,20 +192,49 @@ const InvoicePage = () => {
               </Link>
             </div>
             <div className={"mt-4 block lg:hidden"}>
-              <DiscountPercent />
+              <DiscountPercent
+                id={faktorData?.id}
+                type={"BATTERY"}
+                setDiscount={setDiscount}
+              />
             </div>
           </section>
         </section>
         {innerWidth < 1024 && (
           <CompletePrice
-            customStyle={"bg-[#eeeeee] fixed left-0 flex justify-between"}
-            priceTotal={faktorData.price_total}
+            customStyle={
+              "bg-white fixed left-0 flex justify-between shadow-[0_-2px_4px_0_rgba(199,199,199,0.25)] rounded-t-xl"
+            }
+            faktorData={faktorData}
+            type={"product_key"}
+            roleChecked={roleChecked}
+            discount={discount}
           />
         )}
+        <div className="flex justify-start items-center text-xs gap-1 font-medium mt-2">
+          <div
+            className={`border-2 border-[#F58052] size-6 rounded-md ml-1 flex justify-center items-center ${roleChecked ? "bg-[#f58052]" : ""}`}
+            onClick={() => {
+              setRoleChecked(!roleChecked);
+            }}
+          >
+            <i className="cc-tick text-white text-xl" />
+          </div>
+          <span className="text-[#F58052] underline">
+            قوانین کار پایا و سیاست‌ نامه حریم‌ خصوصی
+          </span>
+          <span className="text-[#518DD5]">را می پذیرم</span>
+        </div>
       </div>
       {innerWidth > 1024 && (
         <div className="space-y-4 p-4 shadow-custom1 rounded-lg lg:w-[458px] lg:h-fit lg:sticky lg:top-[110px] lg:left-0 lg:block">
-          <PriceDetails faktorData={faktorData} length={1} />
+          <PriceDetails
+            faktorData={faktorData}
+            length={1}
+            discount={discount}
+            roleChecked={roleChecked}
+            type={"product_key"}
+          />
         </div>
       )}
     </div>

@@ -8,6 +8,7 @@ import React, { useState } from "react";
 import useSetQuery from "@/hook/useSetQuery";
 import AddressDeleteModal from "@/components/modal/AddressDeleteModal";
 import AddressCheckInput from "@/components/AddressCheckInput/AddressCheckInput";
+import { setDeleteModal, setDeleteModalId } from "@/store/todoSlice";
 
 const NewAddressCard = ({
   status,
@@ -20,6 +21,8 @@ const NewAddressCard = ({
   locationId,
 }) => {
   const [isOpenDeleteModal, setModalIsOpenDeleteModal] = useState(false);
+  const [openMenu, setOpenMenu] = useState(false);
+
   const setQuery = useSetQuery();
 
   const clickEditHandler = (id) => {
@@ -60,16 +63,44 @@ const NewAddressCard = ({
           {status === "FIXED" ? (
             ""
           ) : (
-            <div className={"flex items-center gap-[16px]"}>
+            <div
+              className="relative"
+              onClick={(event) => {
+                event.stopPropagation();
+              }}
+            >
               <i
-                className={"cc-edit text-[20px] cursor-pointer"}
-                onClick={() => clickEditHandler(item.id)}
+                className="cc-menu-kebab text-2xl bg-white relative z-[2] cursor-pointer"
+                onClick={() => {
+                  setOpenMenu(!openMenu);
+                }}
               />
               <i
-                className={"cc-filter text-[20px] cursor-pointer"}
-                onClick={() => openDeleteModal(item.id)}
+                className={`cc-edit text-2xl absolute ${openMenu ? "left-12" : "left-0"} top-0 transition-all text-[#22A137] cursor-pointer`}
+                onClick={() => {
+                  // props.setEditModalIsOpen(true);
+                  clickEditHandler(item.id);
+                }}
+              />
+              <i
+                className={`cc-filter text-2xl absolute ${openMenu ? "left-24" : "left-0"} transition-all top-0 text-[#DB3737] cursor-pointer`}
+                onClick={() => {
+                  // dispatch(setDeleteModal(true));
+                  // dispatch(setDeleteModalId(props.data.id));
+                  openDeleteModal(item.id);
+                }}
               />
             </div>
+            // <div className={"flex items-center gap-[16px]"}>
+            //   <i
+            //     className={"cc-edit text-[20px] cursor-pointer"}
+            //     onClick={() => clickEditHandler(item.id)}
+            //   />
+            //   <i
+            //     className={"cc-filter text-[20px] cursor-pointer"}
+            //     onClick={() => openDeleteModal(item.id)}
+            //   />
+            // </div>
           )}
         </section>
         <section className={"flex lg:gap-6 gap-2 mb-4 mt-3"}>
