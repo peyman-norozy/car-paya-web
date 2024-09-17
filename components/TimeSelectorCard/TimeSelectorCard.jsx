@@ -1,89 +1,194 @@
 "use client";
 
-import moment from "jalali-moment";
-import React, { useEffect, useRef, useState } from "react";
-import { useDraggable } from "react-use-draggable-scroll";
-const TimeSelectorCard = (props) => {
-  moment.locale("fa");
-  const ref = useRef(); // We will use React useRef hook to reference the wrapping div:
-  const { events } = useDraggable(ref);
-  const [accordionHeight, setAccordionHeight] = useState(0);
+import React, { useEffect, useState } from "react";
+import { numberWithCommas, persianDateCovertor } from "@/utils/function-utils";
 
-  console.log(props.data);
-  const clickAccordionHandler = () => {
-    if (accordionHeight) {
-      setAccordionHeight(0);
-    } else {
-      setAccordionHeight(ref.current.scrollHeight);
-    }
+const ReserveTimeVerification = (props) => {
+  const {
+    data,
+    setTimeIsSelected,
+    timeIsSelected,
+    optionIsOpen,
+    setOptionIsOpen,
+    packagePrice,
+  } = props;
+
+  const weekDay =
+    data &&
+    new Date(data[0] * 1000).toLocaleDateString("fa-IR", { weekday: "long" });
+
+  const openOptionHandler = (index) => {
+    setOptionIsOpen((prevState) => (prevState === index ? null : index));
   };
-
-  useEffect(() => {
-    const updateHeight = () => {
-      if (window.innerWidth >= 1024) {
-        // lg breakpoint
-        setAccordionHeight(48); // Set the height for large screens
-      } else if (window.innerWidth < 1024) {
-        // md breakpoint
-        setAccordionHeight(0); // Set the height for medium screens
-      }
-    };
-
-    // Initial calculation
-    updateHeight();
-
-    // Update height on window resize
-    window.addEventListener("resize", updateHeight);
-
-    // Clean up the event listener on component unmount
-    return () => window.removeEventListener("resize", updateHeight);
-  }, []);
-
+  console.log(data);
   return (
-    <li
-      className={`bg-[#5C5C5C] lg:h-[72px] h-fit rounded-[8px] flex lg:flex-row flex-col justify-between lg:items-center p-4 transition-all duration-500 ${accordionHeight ? "gap-8" : "gap-0"}`}
-    >
-      <div
-        className={"flex justify-between lg:cursor-default cursor-pointer"}
-        onClick={clickAccordionHandler}
+    <div className={"grid grid-cols-1 size666:grid-cols-2 gap-4"}>
+      {/* <div
+        className={
+          "col-span-full py-2 px-3 flex items-center justify-between border-r-2 border-[#F58052]"
+        }
       >
-        <div className={"flex flex-col text-[#FEFEFE] w-[78px] items-center"}>
-          <span className={"lg:text-[16px] text-14 font-bold"}>
-            {moment(Number(props.data.day) * 1000).format("L")}
-          </span>
-          <span className={"text-[12px] text-center"}>
-            {moment(Number(props.data.day) * 1000).format("dddd")}
-          </span>
+        <div className={"flex items-end gap-2 text-sm font-medium"}>
+          <p>{weekDay}</p>
+          <p>{persianDateCovertor(data[0])}</p>
         </div>
-        <div className={" lg:hidden flex justify-center items-center"}>
-          <i
-            className={`cc-arrow-up text-white lg:text-[24px] text-18 transition-all duration-500 ${accordionHeight ? "" : "rotate-[-180deg]"}`}
-          />
-        </div>
-      </div>
-
-      <ul
-        {...events}
-        ref={ref}
-        className={`flex gap-6 lg:overflow-x-scroll overflow-y-hidden select-none lg:flex-nowrap flex-wrap transition-all duration-500`}
-        style={{ height: `${accordionHeight}px` }}
-      >
-        {props.data.hour.map((item) => (
-          <li
-            key={item.id}
-            className={`${item.status === "ACTIVE" ? (props.selectedTime === item.id ? "bg-[#F66B34] text-[#FEFEFE] cursor-pointer" : "bg-[#FEFEFE] text-[#0E0E0E] cursor-pointer") : "bg-[#B0B0B0] text-[#5D697A] cursor-none"} flex gap-1 py-2 px-4 rounded-[8px] select-none lg:min-w-[125px] min-w-[100px]`}
-            onClick={() => {
-              props.setSelectedTime(item.id);
-            }}
+      </div> */}
+      {data &&
+        data["hour"].map((item, index) => (
+          <div
+            className={
+              "shadow-[0_0_4px_0_rgba(152,152,152,0.4)] rounded-lg h-fit"
+            }
+            key={index}
           >
-            <span className="flex items-center lg:text-14 text-12">
-              {item.start_time}:00 - {item.end_time}:00
-            </span>
-          </li>
+            <div
+              onClick={() => openOptionHandler(item.id)}
+              className={
+                "flex flex-col items-start px-4 py-5 gap-1 border-b border-[#F2F2F2]"
+              }
+            >
+              <div className={"flex items-center justify-between w-full"}>
+                <p className={"text-sm text-[#1E67BF] font-medium"}>
+                  {item.start_time}:00 تا {item.end_time}:00
+                </p>
+                <i className={"cc-arrow-down"} />
+              </div>
+              {item.swing_type === "INCREASE" ? (
+                <p className={"text-[12px] flex items-center gap-px"}>
+                  <span className="text-red-600">*</span>
+                  <span className="text-[#010101]">
+                    {numberWithCommas((packagePrice * item.diff_percent) / 100)}{" "}
+                    تومان افزایش قیمت به دلیل پیک درخواست
+                  </span>
+                </p>
+              ) : item.swing_type === "DECREASE" ? (
+                <p className={"text-[12px] flex items-center gap-px"}>
+                  <span className="text-red-600">*</span>
+                  <span className="text-[#010101]">
+                    {numberWithCommas((packagePrice * item.diff_percent) / 100)}{" "}
+                    تومان تخفیف کارچک
+                  </span>
+                </p>
+              ) : (
+                ""
+              )}
+            </div>
+            {(props.accordionState === undefined
+              ? optionIsOpen === item.id
+              : props.accordionState) && (
+              <div
+                className={
+                  "grid grid-cols-2 place-content-center w-[85%] m-auto justify-items-center py-3 gap-y-4"
+                }
+              >
+                {/*first time*/}
+                <div
+                  key={index}
+                  className={`flex items-center p-2 ${timeIsSelected === item.id + "/" + +item.start_time + ":00" ? "border-b border-b-[#F66B34]" : ""} gap-6`}
+                  onClick={(e) =>
+                    timeIsSelected === item.id + "/" + item.start_time + ":00"
+                      ? setTimeIsSelected(null)
+                      : setTimeIsSelected(
+                          item.id + "/" + item.start_time + ":00",
+                        )
+                  }
+                >
+                  <p>{item.start_time + ":00"}</p>
+                  <div
+                    className={
+                      "rounded-[50%] border-2 border-[#F66B34] size-5 flex item-center justify-center cursor-pointer"
+                    }
+                  >
+                    <div
+                      className={`size-[10px] m-auto rounded-[50%] transition-all duration-500 ease-out  ${timeIsSelected === item.id + "/" + +item.start_time + ":00" ? "bg-[#F66B34]" : ""}`}
+                    ></div>
+                  </div>
+                </div>
+                {/*    second time*/}
+                <div
+                  key={index}
+                  className={`flex items-center p-2 ${timeIsSelected === item.id + "/" + (+item.start_time + 1) + ":00" ? "border-b border-b-[#F66B34]" : ""} gap-6`}
+                  onClick={(e) =>
+                    timeIsSelected ===
+                    item.id + "/" + (+item.start_time + 1) + ":00"
+                      ? setTimeIsSelected(null)
+                      : setTimeIsSelected(
+                          item.id + "/" + (+item.start_time + 1) + ":00",
+                        )
+                  }
+                >
+                  <p>{+item.start_time + 1 + ":00"}</p>
+                  <div
+                    className={
+                      "rounded-[50%] border-2 border-[#F66B34] size-5 flex item-center justify-center cursor-pointer"
+                    }
+                  >
+                    <div
+                      className={`size-[10px] m-auto rounded-[50%] transition-all duration-500 ease-out ${timeIsSelected === item.id + "/" + (+item.start_time + 1) + ":00" ? "bg-[#F66B34]" : ""}`}
+                    ></div>
+                  </div>
+                </div>
+                {/*    third time*/}
+                <div
+                  key={index}
+                  className={`flex items-center p-2 ${timeIsSelected === item.id + "/" + +item.start_time + ":30" ? "border-b border-b-[#F66B34]" : ""} gap-6`}
+                  onClick={(e) =>
+                    timeIsSelected === item.id + "/" + item.start_time + ":30"
+                      ? setTimeIsSelected(null)
+                      : setTimeIsSelected(
+                          item.id + "/" + item.start_time + ":30",
+                        )
+                  }
+                >
+                  <p>{item.start_time + ":30"}</p>
+                  <div
+                    className={
+                      "rounded-[50%] border-2 border-[#F66B34] size-5 flex item-center justify-center cursor-pointer"
+                    }
+                  >
+                    <div
+                      className={`size-[10px] m-auto rounded-[50%] transition-all duration-500 ease-out ${timeIsSelected === item.id + "/" + +item.start_time + ":30" ? "bg-[#F66B34]" : ""}`}
+                    ></div>
+                  </div>
+                </div>
+                {/*    forth time*/}
+                <div
+                  key={index}
+                  className={`flex items-center p-2 ${timeIsSelected === item.id + "/" + (+item.start_time + 1) + ":30" ? "border-b border-b-[#F66B34]" : ""} gap-6`}
+                  onClick={(e) =>
+                    timeIsSelected ===
+                    item.id + "/" + (+item.start_time + 1) + ":30"
+                      ? setTimeIsSelected(null)
+                      : setTimeIsSelected(
+                          item.id + "/" + (+item.start_time + 1) + ":30",
+                        )
+                  }
+                >
+                  <p>{+item.start_time + 1 + ":30"}</p>
+                  <div
+                    className={
+                      "rounded-[50%] border-2 border-[#F66B34] size-5 flex item-center justify-center cursor-pointer"
+                    }
+                  >
+                    <div
+                      className={`size-[10px] m-auto rounded-[50%] transition-all duration-500 ease-out ${timeIsSelected === item.id + "/" + (+item.start_time + 1) + ":30" ? "bg-[#F66B34]" : ""}`}
+                    ></div>
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
         ))}
-      </ul>
-    </li>
+      {/* <div className={"flex items-center gap-2"}>
+        {!props.accordionState && (
+          <p className={"text-14 text-[#212B5E]"}>
+            در صورت انتخاب بازده زمانی 16:00 - 18:00 افزایش قیمت به دلیل پیک
+            درخواست.
+          </p>
+        )}
+      </div> */}
+    </div>
   );
 };
 
-export default TimeSelectorCard;
+export default ReserveTimeVerification;

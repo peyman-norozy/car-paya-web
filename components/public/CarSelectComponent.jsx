@@ -2,7 +2,7 @@
 import { API_PATHS } from "@/configs/routes.config";
 import axios from "axios";
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import invoice from "@/public/assets/images/invoice.png";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
@@ -77,11 +77,11 @@ const CarSelectComponent = (props) => {
         attribute_slug: "type_vehicle",
         attribute_value: "car",
       },
-      ""
+      "",
     );
     (async () => {
       const data = await getDataWithFullErrorRes(
-        process.env.BASE_API + "/web/my-vehicles"
+        process.env.BASE_API + "/web/my-vehicles",
       );
       if (data.status && data.status === "success") {
         setMyVehicleData(data.data);
@@ -118,7 +118,7 @@ const CarSelectComponent = (props) => {
     setSearchedData(
       data.filter((item) => {
         return item.title.includes(value);
-      })
+      }),
     );
   }
 
@@ -135,7 +135,10 @@ const CarSelectComponent = (props) => {
     if (data.data?.status === "success") {
       let totalPrice = 0;
       for (let item of data.data.data) {
-        totalPrice = totalPrice + item.item.item?.discounted_price?item.item.item?.discounted_price:item.item.item?.price;
+        totalPrice =
+          totalPrice + item.item.item?.discounted_price
+            ? item.item.item?.discounted_price
+            : item.item.item?.price;
       }
       setInvoiceData({ data: data.data.data, totalPrice: totalPrice });
       if (cartableType === "BATTERIES") {
@@ -167,7 +170,7 @@ const CarSelectComponent = (props) => {
         localStorage.removeItem("batteryTotalPrice");
         nProgress.start();
         router.push(
-          `/batteries/products?attribute_slug=type_vehicle&attribute_value=${attributeValue ? attributeValue : "car"}`
+          `/batteries/products?attribute_slug=type_vehicle&attribute_value=${attributeValue ? attributeValue : "car"}`,
         );
       } else if (carTableType === "PERIODIC_SERVICE") {
         console.log(data.data.data.cart_items);
@@ -178,9 +181,8 @@ const CarSelectComponent = (props) => {
           }
         }
         dispatch(setPeriodicServiceBasketLength(len));
-      }
-      else if (carTableType === "VEHICLE_VERIFICATION") {
-        dispatch(setVehicleVerificationBasketLength({}))
+      } else if (carTableType === "VEHICLE_VERIFICATION") {
+        dispatch(setVehicleVerificationBasketLength({}));
       }
       let totalPrice = 0;
       let newData = [];
@@ -218,6 +220,27 @@ const CarSelectComponent = (props) => {
       setData(myVehicleData);
       setSearchedData(myVehicleData);
       setLevel(4);
+      console.log(pathname.includes("/batteries"));
+      if (pathname.includes("/batteries")) {
+        setQuery.deleteSingleQuery(
+          [
+            {
+              key: "attribute_slug",
+              value: searchParams.get("attribute_slug"),
+            },
+            {
+              key: "attribute_value",
+              value: searchParams.get("attribute_value"),
+            },
+          ],
+          params,
+          "",
+          pathname.includes("/batteries/battery-assistant")
+            ? "/batteries/battery-assistant"
+            : "/batteries/products",
+        );
+      }
+      return;
     } else {
       getBrandData(model);
     }
@@ -226,7 +249,7 @@ const CarSelectComponent = (props) => {
         attribute_slug: "type_vehicle",
         attribute_value: model === "heavy-car" ? "heavy_car" : model,
       },
-      ""
+      "",
     );
   }
 
@@ -272,7 +295,7 @@ const CarSelectComponent = (props) => {
           brand: item.title_brand,
           model: item.title_model,
           image: item.image,
-        })
+        }),
       );
       setCarSelected(true);
       props.setModalIsOpen && props.setModalIsOpen(false);
@@ -316,7 +339,7 @@ const CarSelectComponent = (props) => {
     if (JSON.parse(localStorage.getItem("batteryTotalPrice"))?.productId) {
       await removeClickHandler(
         JSON.parse(localStorage.getItem("batteryTotalPrice")).productId,
-        "BATTERIES"
+        "BATTERIES",
       );
       setCarSelected(false);
       localStorage.removeItem("batteryTotalPrice");
@@ -328,13 +351,13 @@ const CarSelectComponent = (props) => {
     } else if (pathname.startsWith("/batteries")) {
       if (JSON.parse(localStorage.getItem("batteryTotalPrice"))?.productId) {
         await removeClickHandler(
-          JSON.parse(localStorage.getItem("batteryTotalPrice")).productId
+          JSON.parse(localStorage.getItem("batteryTotalPrice")).productId,
         );
       } else {
         setCarSelected(false);
         nProgress.start();
         router.push(
-          `/batteries/products?attribute_slug=type_vehicle&attribute_value=${attributeValue ? attributeValue : "car"}`
+          `/batteries/products?attribute_slug=type_vehicle&attribute_value=${attributeValue ? attributeValue : "car"}`,
         );
         localStorage.removeItem("selectedVehicle");
       }
@@ -342,13 +365,13 @@ const CarSelectComponent = (props) => {
       localStorage.removeItem("selectedVehicle");
       nProgress.start();
       router.push(
-        `/detailing?attribute_slug=type_vehicle&attribute_value=${attributeValue ? attributeValue : "car"}`
+        `/detailing?attribute_slug=type_vehicle&attribute_value=${attributeValue ? attributeValue : "car"}`,
       );
     } else if (pathname.startsWith("/periodic-service")) {
       localStorage.removeItem("selectedVehicle");
       nProgress.start();
       router.push(
-        `/periodic-service?attribute_slug=type_vehicle&attribute_value=${attributeValue ? attributeValue : "car"}`
+        `/periodic-service?attribute_slug=type_vehicle&attribute_value=${attributeValue ? attributeValue : "car"}`,
       );
     } else if (pathname.startsWith("/")) {
       localStorage.removeItem("selectedVehicle");
@@ -369,7 +392,10 @@ const CarSelectComponent = (props) => {
     !pathname.includes("/invoice") &&
     !pathname.includes("/panel") &&
     pathname !== "/login" &&
-    !(pathname.includes("/vehicle-verification") && searchParams.toString().includes("step-5"))
+    !(
+      pathname.includes("/vehicle-verification") &&
+      searchParams.toString().includes("step-5")
+    )
   ) {
     return (
       <div className="absolute h-full top-0 right-auto pb-10">
@@ -462,20 +488,20 @@ const CarSelectComponent = (props) => {
                                       ? item.item.item?.id ===
                                           JSON.parse(
                                             localStorage.getItem(
-                                              "batteryTotalPrice"
-                                            )
+                                              "batteryTotalPrice",
+                                            ),
                                           )?.productId &&
                                         numberWithCommas(
                                           JSON.parse(
                                             localStorage.getItem(
-                                              "batteryTotalPrice"
-                                            )
-                                          ).price
+                                              "batteryTotalPrice",
+                                            ),
+                                          ).price,
                                         )
                                       : numberWithCommas(
                                           item.item.item?.discounted_price
                                             ? item.item.item?.discounted_price
-                                            : item.item.item?.price
+                                            : item.item.item?.price,
                                         )}
                                   </span>
                                   <span>تومان</span>
@@ -495,8 +521,8 @@ const CarSelectComponent = (props) => {
                           {pathname.startsWith("/batteries")
                             ? numberWithCommas(
                                 JSON.parse(
-                                  localStorage.getItem("batteryTotalPrice")
-                                )?.price
+                                  localStorage.getItem("batteryTotalPrice"),
+                                )?.price,
                               )
                             : numberWithCommas(invoiceData.totalPrice)}
                         </span>
@@ -523,7 +549,10 @@ const CarSelectComponent = (props) => {
               <span className="text-[#4F4F4F] text-base lg:text-20 font-medium lg:font-bold text-center">
                 انتخاب وسیله نقلیه
               </span>
-              <i className="cc-add text-2xl rotate-45 text-[#4F4F4F] absolute top-7 left-4" onClick={props.closeModalHandler}/>
+              <i
+                className="cc-add text-2xl rotate-45 text-[#4F4F4F] absolute top-7 left-4"
+                onClick={props.closeModalHandler}
+              />
               <div className="rounded-lg border border-[#F5F5F5] flex flex-wrap justify-between gap-1 p-1">
                 <button
                   className={`${vehicleType === "car" ? "bg-[#F58052] text-[#FEFEFE]" : "text-[#888888]"} rounded-[8px] w-[100px] h-8 flex justify-center items-center font-medium text-14`}

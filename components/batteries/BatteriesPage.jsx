@@ -11,11 +11,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { setCityModalState } from "@/store/todoSlice";
 import Link from "next/link";
 import nProgress from "nprogress";
+import BatteriesFilterModal from "@/components/BatteriesFilterModal/BatteriesFilterModal";
 
 const BatteriesPage = (props) => {
   const query = useSetQuery();
   const [batteryIsSelected, setBatteryIsSelected] = useState(false);
   const [filterModalState, setFilterModalState] = useState(false);
+  const [modalState, setModalState] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
   const [filterId, setFilterId] = useState("");
   const dispatch = useDispatch();
@@ -27,7 +29,11 @@ const BatteriesPage = (props) => {
     (item) => item.todo.batteriesBasketLength,
   );
   const innerWidth = useSelector((item) => item.todo.windowInnerWidth);
+  const attributeSlug = searchParams.get("attribute_slug");
+  const attributeValue = searchParams.get("attribute_value");
+  const selectTipState = searchParams.get("selectTipState");
 
+  console.log(props);
   useEffect(() => {
     setIsMounted(true);
   }, []);
@@ -42,6 +48,7 @@ const BatteriesPage = (props) => {
   const filterData = [
     { name: "آمپر", value: "getAmp" },
     { name: "برند", value: "brand" },
+    { name: "گارانتی", value: "warranty" },
   ];
 
   useEffect(() => {
@@ -80,51 +87,66 @@ const BatteriesPage = (props) => {
     return () => window.removeEventListener("click", closeFilterHandler);
   }, []);
 
-  console.log(innerWidth);
+  const closeModal = () => {
+    setModalState(false);
+  };
+
+  const openModal = () => {
+    setModalState(true);
+  };
 
   return (
     <div className={"flex flex-col relative py-4 max-w-[1772px] m-auto"}>
       <section className={"lg:w-[calc(100%-424px)] w-full mr-auto mt-4"}>
+        <div className="flex gap-2 items-center w-full bg-[#FFFFFF] text-[#D1D1D1] border border-[#F2F2F2] rounded-full px-2 mb-[30px]">
+          <i
+            className="cc-car-o text-2xl text-[#1E67BF]"
+            onClick={() =>
+              router.push(
+                `/batteries?attribute_slug=${attributeSlug}&attribute_value=${attributeValue}&selectTipState=${selectTipState}`,
+              )
+            }
+          />
+          <div className="border-b-4 border-dotted border-[#1E67BF] w-full"></div>
+          <i className="cc-search text-2xl" />
+          <div className="border-b-4 border-dotted w-full"></div>
+          <i className="cc-location text-2xl text-[#D1D1D1]" />
+          <div className="border-b-4 border-dotted border-[#D1D1D1] w-full"></div>
+          <i className="cc-timer text-2xl text-[#D1D1D1]" />
+        </div>
         <div className="flex items-center justify-between">
           <div className={"flex items-center gap-4 relative filterModal"}>
-            <div className={"flex items-center gap-4"}>
-              {filterData.map((item, index) => (
-                <div
-                  ref={filterTitleRef}
-                  className="bg-[#5D697A] rounded-[8px] py-[0.5rem] px-[1.5rem] flex items-center gap-[0.5rem] text-white cursor-pointer relative font-semibold filterModal"
-                  key={index}
-                  onClick={(event) => filterClickHandler(event, item.value)}
-                  order_by={item.value}
-                  id={item.value}
-                >
-                  <i className={"cc-arrow-down text-[20px]"} />
-                  <p className="text-14">{item.name}</p>
-                </div>
-              ))}
+            <div>
+              <button
+                className={
+                  "shadow-lg rounded-[8px] bg-[#FBFBFB] w-[116px] h-[32px] text-right pr-[16px] flex items-center gap-2"
+                }
+                onClick={openModal}
+              >
+                <i className={"cc-filter text-18"} />
+                <span className={"text-12 font-medium"}>فیلتر</span>
+              </button>
+              <BatteriesFilterModal
+                isOpen={modalState}
+                onClose={closeModal}
+                options={props.data.filter}
+                selectInputSlug={props.data.filter[filterId]}
+              />
             </div>
-            <ul
-              ref={filterRef}
-              className={`bg-[#5D697A] overflow-y-scroll  absolute top-10 rounded-[8px] z-[100] text-12 text-white transition-all duration-500 ${filterModalState ? "h-[250px] p-2" : "h-0 p-0"} ${filterId ? "block" : "hidden"} ${filterId === "brand" ? "mr-[117px]" : ""}`}
-            >
-              {props.data.filter[filterId]?.map((item, index) => (
-                <SubFilterCard
-                  key={item.value}
-                  filterId={filterId}
-                  item={item}
-                  index={index}
-                  setFilterModalState={setFilterModalState}
-                />
-              ))}
-            </ul>
           </div>
-          <Link
-            href={`/batteries/battery-assistant?selectTipState=${searchParams.get("selectTipState")}`}
-            className={
-              "bg-[#5D697A] text-12 text-white w-[146px] h-[36px] rounded-[8px] font-semibold animate-bounce flex justify-center items-center"
-            }
-          >
-            دستیار باتری
-          </Link>
+          <div className={"shadow-lg rounded-[11px] bg-[#FBFBFB]"}>
+            <div className="relative z-10 flex cursor-pointer items-center overflow-hidden rounded-xl p-[3px] w-fit">
+              <div className="animate-rotate absolute inset-0 h-full w-full rounded-full bg-[conic-gradient(#F66B34_20deg,transparent_120deg)]"></div>
+              <Link
+                href={`/batteries/battery-assistant?selectTipState=${searchParams.get("selectTipState")}`}
+                className={
+                  "relative z-20 p-2 bg-white text-12 text-[#3C3C3C] w-[146px] h-[36px] rounded-[8px] font-semibold flex justify-center items-center"
+                }
+              >
+                دستیار باتری
+              </Link>
+            </div>
+          </div>
         </div>
         <ul className={"mt-4 flex flex-col gap-[24px]"}>
           {props.data?.data?.map((item, index) => (

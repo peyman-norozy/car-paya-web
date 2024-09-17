@@ -2,6 +2,7 @@ import BatteriesPage from "@/components/batteries/BatteriesPage";
 import { META_PATHS } from "@/configs/routes.config";
 import { getData } from "@/utils/api-function-utils";
 import { Suspense } from "react";
+import { revalidatePath } from "next/cache";
 export const metadata = {
   title: " فروشگاه باطری",
   description:
@@ -31,8 +32,9 @@ export const metadata = {
 
 const BatteriesData = async (props) => {
   const fetchState = props.filter.selectTipState?.split(",")[1];
-  console.log(props, "aaaaaaaa");
 
+  console.log(props.filter.attribute_value);
+  await revalidatePath("/batteries/products");
   const fetchData = await getData(
     "/web/batteries",
     // + "?order_by=" + props.filter,

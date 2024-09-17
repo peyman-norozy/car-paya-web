@@ -32,7 +32,7 @@ const VerificationInvoice = () => {
   const package_id = searchParams.get("package_id");
   const exact_time = searchParams.get("exact_time");
   const reservation_time_slice_id = searchParams.get(
-    "reservation_time_slice_id"
+    "reservation_time_slice_id",
   );
   const registrationable_id = searchParams.get("registrationable_id");
   const router = useRouter();
@@ -44,20 +44,18 @@ const VerificationInvoice = () => {
           city_id: searchParams.get("city_id"),
           vehicle_tip_id: searchParams.get("vehicle_tip"),
           type_service: searchParams.get("type_service"),
-          reservation_time_slice_id: searchParams.get("time_id"),
           package_id: searchParams.get("package_id"),
-          registrationable_id: searchParams.get("service_location_id"),
           exact_time: searchParams.get("exact_time"),
           reservation_time_slice_id: searchParams.get(
-            "reservation_time_slice_id"
+            "reservation_time_slice_id",
           ),
           registrationable_id: searchParams.get("registrationable_id"),
-        }
+        },
       );
       if (response.success) {
         console.log(response);
         setDiscount(
-          response.data.data.coupon_price ? response.data.data.coupon_price : 0
+          response.data.data.coupon_price ? response.data.data.coupon_price : 0,
         );
         setFaktorData(response.data.data);
       } else {
@@ -74,7 +72,7 @@ const VerificationInvoice = () => {
           headers: {
             Authorization: "Bearer " + getCookie("Authorization"),
           },
-        }
+        },
       )
       .then((res) => {
         router.push(res?.data?.data?.url);
@@ -286,13 +284,7 @@ const VerificationInvoice = () => {
               customStyle={
                 "bg-white fixed left-0 flex justify-between shadow-[0_-2px_4px_0_rgba(199,199,199,0.25)] rounded-t-xl"
               }
-              priceTotal={
-                faktorData?.swing_type === "INCREASE"
-                  ? Number(faktorData?.service?.discounted_price) +
-                    Number(faktorData?.diff_price)
-                  : Number(faktorData?.service?.discounted_price) -
-                    Number(faktorData?.diff_price)
-              }
+              faktorData={faktorData}
               roleChecked={roleChecked}
               discount={discount}
               registerClickHandler={registerClickHandler}
