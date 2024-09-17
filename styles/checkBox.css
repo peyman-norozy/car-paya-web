@@ -1,6 +1,6 @@
 .checkbox-wrapper-37 input[type="radio"] {
-     display: none;
- }
+    display: none;
+}
 
 .checkbox-wrapper-37 .terms-label {
     cursor: pointer;
@@ -13,8 +13,8 @@
 }
 
 .checkbox-wrapper-37 .checkbox-svg {
-    width: 30px;
-    height: 30px;
+    width: 20px;
+    height: 20px;
     border: 2px solid #F66B34;
     border-radius: 4px;
 }
