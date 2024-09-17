@@ -97,7 +97,7 @@ const LoginModal = () => {
             </div>
           </div>
         ) : (
-          <div className="absolute bottom-0 right-0 w-screen p-7 flex flex-col items-center gap-10 z-[3001] bg-white shadow-[0_0_8px_0_rgba(175,175,175,0.25)] rounded-t-3xl pb-32" onClick={(event)=>{event.stopPropagation()}}>
+          <div className="absolute bottom-0 right-0 sm:inset-0 sm:m-auto h-fit sm:max-w-[560px] sm:rounded-2xl w-screen p-7 flex flex-col items-center gap-10 z-[3001] bg-white shadow-[0_0_8px_0_rgba(175,175,175,0.25)] rounded-t-3xl pb-32 sm:p-10" onClick={(event)=>{event.stopPropagation()}}>
             <span className="text-2xl text-[#F66B34] font-black">CAR PAYA</span>
             <i className="cc-add text-2xl rotate-45 absolute top-5 left-5" onClick={closeModal}/>
             <span className="font-medium">ورود/ ثبت نام</span>
@@ -135,7 +135,7 @@ const LoginModal = () => {
                 >
                   تایید
                 </button>
-                <span className="text-10 flex gap-[2px]">
+                <span className="text-10 sm:text-12 flex gap-[2px]">
                   ورود شما به معنای پذیرش
                   <span className="text-[#1E67BF]">شرایط کار پایا</span>و
                   <span className="text-[#1E67BF]">قوانین حریم خصوصی</span>است
