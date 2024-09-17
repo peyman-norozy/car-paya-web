@@ -96,7 +96,7 @@ const PackageStep = () => {
     <>
       <div
         className={
-          "flex items-start justify-between mt-[28px] p-6 rounded-2xl w-full lg:w-[calc(100%-424px)] mr-auto mb-4 bg-[#FDFDFD] shadow-[0_0_6px_0_rgba(125,125,125,0.5)] min-h-[605px]"
+          "flex items-start justify-between mt-[28px] lg:p-6 rounded-2xl w-full lg:w-[calc(100%-424px)] mr-auto mb-4 bg-[#FDFDFD] lg:shadow-[0_0_6px_0_rgba(125,125,125,0.5)] min-h-[605px]"
         }
       >
         <div className={"w-full flex flex-col gap-4 mx-4 sm:mx-0"}>
@@ -109,7 +109,7 @@ const PackageStep = () => {
               انتخاب سرویس
             </p>
           </div>
-          <div className=" flex flex-col gap-4 mr-8">
+          <div className=" flex flex-col gap-4 lg:mr-8">
             <div className="flex gap-2 items-center w-full bg-[#FFFFFF] text-[#D1D1D1] rounded-full border border-[#F2F2F2] px-2 shadow-[0_0_4px_0_rgba(207,207,207,0.7)]">
               <i
                 className="cc-car-o text-2xl text-[#518DD5]"

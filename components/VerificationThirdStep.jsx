@@ -178,7 +178,7 @@ const VerificationThirdStep = (props) => {
   }
 
   return (
-    <div className="mb-[7rem] lg:w-[calc(100%-424px)] mr-auto overflow-hidden flex flex-col gap-4 mt-[28px] bg-[#FDFDFD] shadow-[0_0_6px_0_rgba(125,125,125,0.5)] p-6 rounded-2xl min-h-[605px]">
+    <div className="mb-[7rem] lg:w-[calc(100%-424px)] mr-auto overflow-hidden flex flex-col gap-4 mt-[28px] bg-[#FDFDFD] lg:shadow-[0_0_6px_0_rgba(125,125,125,0.5)] px-2 lg:p-6 rounded-2xl min-h-[605px]">
       <div
         className={
           "flex items-center gap-2 size752:gap-[16px] text-[#0E0E0E] w-full"
@@ -192,7 +192,7 @@ const VerificationThirdStep = (props) => {
           انتخاب مکان
         </p>
       </div>
-      <div className=" flex flex-col gap-4 mr-8">
+      <div className=" flex flex-col gap-4 lg:mr-8">
         <div className="flex gap-2 items-center w-full bg-[#FFFFFF] text-[#D1D1D1]">
           <i
             className="cc-car-o text-2xl text-[#518DD5]"
