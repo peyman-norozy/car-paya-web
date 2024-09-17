@@ -35,6 +35,8 @@ const PurchaseBatteryModal = (props) => {
   const router = useRouter();
   const pathName = usePathname();
   const setQuery = useSetQuery();
+  const attributeSlug = searchParams.get("attribute_slug");
+  const attributeValue = searchParams.get("attribute_value");
   const [purchseOptions, setPurchseOption] = useState([
     {
       title: "باتری سوزوکی 70 آمپر",
@@ -166,7 +168,7 @@ const PurchaseBatteryModal = (props) => {
       console.log(cartData.data);
       nProgress.start();
       router.push(
-        `/batteries/products/newSelectLocation?city_id=${JSON.parse(localStorage.getItem("city")).cityId}&type=MOVING&vehicle_tip_id=${JSON.parse(localStorage.getItem("selectedVehicle"))?.id}&amper=${searchParams.get("amper")}&type_service=${searchParams.get("type_service")}`,
+        `/batteries/products/newSelectLocation?attribute_slug=${attributeSlug}&attribute_value=${attributeValue}&city_id=${JSON.parse(localStorage.getItem("city")).cityId}&type=MOVING&vehicle_tip_id=${JSON.parse(localStorage.getItem("selectedVehicle"))?.id}&amper=${searchParams.get("amper")}&type_service=${searchParams.get("type_service")}`,
       );
     } else if (cartData.response.status === 422) {
       console.log(cartData.response.data);
