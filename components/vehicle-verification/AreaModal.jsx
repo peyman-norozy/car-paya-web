@@ -18,7 +18,6 @@ const AreaModal = (props) => {
   const isOpen = useSelector((state) => state.todo.areaModalState);
   useEffect(() => {
     setIsClient(true);
-    console.log(props.filter);
   }, []);
 
   function closeModal() {
@@ -38,7 +37,7 @@ const AreaModal = (props) => {
         onClick={() => closeModal()}
       >
         <div
-          className="absolute bg-white bottom-0 right-0 w-full rounded-t-3xl flex flex-col gap-4 p-4 pb-28"
+          className="absolute bg-white bottom-0 right-0 sm:inset-0 sm:m-auto h-fit sm:max-w-[560px] sm:rounded-2xl w-full rounded-t-3xl flex flex-col gap-4 p-4 pb-28 sm:pb-4"
           onClick={(event) => {
             event.stopPropagation();
           }}
@@ -78,14 +77,14 @@ const AreaModal = (props) => {
               ))}
             </div>
           </div>
-        </div>
-        <div className="fixed lg:static w-full rounded-t-2xl shadow-[0_-2px_4px_0_rgba(199,199,199,0.25)] flex justify-center pt-4 pb-6 items-start bottom-0 right-0 bg-white z-[2000] px-10">
+        <div className="fixed sm:static w-full rounded-t-2xl shadow-[0_-2px_4px_0_rgba(199,199,199,0.25)] flex justify-center pt-4 pb-6 items-start bottom-0 right-0 bg-white z-[2000] px-10">
           <button
             className={`bg-[#F66B34] rounded-lg w-full sm:max-w-[400px] text-[#FEFEFE] text-sm font-medium py-3`}
             onClick={props.areaFilterHandler}
           >
             ثبت
           </button>
+        </div>
         </div>
       </div>
     </Portal>
