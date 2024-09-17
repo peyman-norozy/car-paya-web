@@ -34,7 +34,7 @@ export default function RootLayout({ children }) {
     <Providers>
       <html lang="fa" dir="rtl">
         <head>
-          <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"/>
         </head>
         <body className="bg-[#FBFBFB]">
           <NextTopLoader
