@@ -2,17 +2,18 @@ import axios from "axios";
 import React, { useState } from "react";
 
 const DiscountPercent = (props) => {
-  const [copon , setCopon] = useState("")
+  const [copon, setCopon] = useState("");
   function sendCopon() {
-    axios.post(process.env.BASE_API+"/web/cart/discount",{
-      "registration_id": props.id,
-      "cartable_type": props.type,
-      "coupon_code": copon
-    }).then((res)=>{
-      console.log(res);
-      
-      props.setDiscount(res.data.data.coupon_price)
-    })
+    axios
+      .post(process.env.BASE_API + "/web/cart/discount", {
+        registration_id: props.id,
+        cartable_type: props.type,
+        coupon_code: copon,
+      })
+      .then((res) => {
+        console.log(res);
+        props.setDiscount(res.data.data.coupon_price);
+      });
   }
   return (
     <div
@@ -29,7 +30,9 @@ const DiscountPercent = (props) => {
         type={"text"}
         placeholder={"123456"}
         className={"w-full h-full outline-0 pr-2"}
-        onChange={(e)=>{setCopon(e.target.value)}}
+        onChange={(e) => {
+          setCopon(e.target.value);
+        }}
         value={copon}
       />
       <button
@@ -38,7 +41,9 @@ const DiscountPercent = (props) => {
       >
         تایید
       </button>
-      <span className="bg-[#fbfbfb] px-2 text-[#454545] text-sm absolute -top-3 right-2">کد تخفیف</span>
+      <span className="bg-[#fbfbfb] px-2 text-[#454545] text-sm absolute -top-3 right-2">
+        کد تخفیف
+      </span>
     </div>
   );
 };
