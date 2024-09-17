@@ -8,6 +8,7 @@ import PurchaseBatteryModal from "@/components/PurchaseBatteryModal";
 import { ToastContainer } from "react-toastify";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
+import GreenCheckInput from "@/components/GreenCheckInput";
 
 const BatteriesAssisantPage = (props) => {
   const batteryBasketLength = useSelector(
@@ -16,6 +17,7 @@ const BatteriesAssisantPage = (props) => {
   const [batteryIsSelected, setBatteryIsSelected] = useState(false);
   const [batteryProductId, setBatteryProductId] = useState(null);
   const [filterButtery, setFilterButtery] = useState({});
+  const [isSelected, setIsSelected] = useState(false);
   const searchParams = useSearchParams();
   const dispatch = useDispatch();
 
@@ -62,6 +64,13 @@ const BatteriesAssisantPage = (props) => {
     setFilterButtery(...singleButtery);
   };
 
+  const selectOptionHandler = (index, id) => {
+    setIsSelected(index);
+    setBatteryProductId(id);
+    const singleButtery = props.data.data.filter((item) => item.id === id);
+    setFilterButtery(...singleButtery);
+  };
+
   console.log(filterButtery);
 
   return (
@@ -70,89 +79,66 @@ const BatteriesAssisantPage = (props) => {
         <Link
           href={`/batteries/products?attribute_slug=type_vehicle&attribute_value=car&selectTipState=${searchParams.get("selectTipState")}`}
           className={
-            "self-end w-[108px] h-[30px] flex justify-center items-center gap-1 rounded-[8px] bg-white text-[#F66B34] mb-10 text-[14px] font-semibold"
+            "self-start w-[108px] h-[30px] flex justify-center items-center gap-1 rounded-[8px] bg-white mb-10 text-[14px] font-semibold"
           }
         >
-          <span>بازگشت</span>
-          <i className={"cc-undo text-[20px]"} />
+          <i className={"cc-arrow-right text-[24px]"} />
+          <span className={"text-16"}>دستیار باتری</span>
         </Link>
-        <table className="table-auto border-collapse w-full rounded-[20px] overflow-hidden">
-          <thead>
-            <tr className={"h-[60px] text-[12px]"}>
-              <th className="border border-[#B0B0B0] p-2 bg-[#47505D] text-[#FEFEFE]">
-                نام باتری
-              </th>
-              <th className="border border-[#B0B0B0] p-2 bg-[#47505D] text-[#FEFEFE]">
-                آمپر
-              </th>
-              <th className="border border-[#B0B0B0] p-2 bg-[#47505D] text-[#FEFEFE]">
-                گارانتی ماه
-              </th>
-              <th className="border border-[#B0B0B0] p-2 bg-[#47505D]">
-                <p
-                  className={
-                    "flex items-center justify-center size560:flex-row flex-col text-[#FEFEFE]"
-                  }
-                >
-                  <span> قیمت باتری</span>
-                  <span>(با باتری فرسوده هم آمپر)</span>
-                </p>
-              </th>
-              <th className="border border-[#B0B0B0] p-2 bg-[#47505D] text-[#FEFEFE]">
-                انتخاب
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {props.data.data.map((item) => (
-              <tr key={item.id} className={"text-[12px] h-[88px]"}>
-                <td className="border border-[#B0B0B0] p-2 bg-[#383838] text-[#FEFEFE] text-center">
+        <ul
+          className={
+            "flex bg-white w-full text-[#3C3C3C] text-14 font-medium shadow-[0_3px_10px_rgb(0,0,0,0.2)] py-2 rounded-[8px]"
+          }
+        >
+          <li className="flex-1 border-l border-l-[#CECECE] py-2 sm:px-2 bg-white text-center">
+            نام باتری
+          </li>
+          <li className="flex-1 border-l border-l-[#CECECE] py-2 sm:px-2 bg-white text-center">
+            آمپر
+          </li>
+          <li className="flex-1 border-l border-l-[#CECECE] py-2 sm:px-2 bg-white text-center">
+            گارانتی ماه
+          </li>
+          <li className="flex-1 py-2 sm:p-2 bg-white text-center">
+            قیمت باتری
+          </li>
+        </ul>
+        <div className={"flex flex-col mt-4 gap-4"}>
+          {props.data.data.map((item, index) => (
+            <ul
+              key={item.id}
+              className={
+                "flex bg-white w-full text-[#3C3C3C] sm:text-14 text-12 font-medium shadow-[0_3px_10px_rgb(0,0,0,0.2)] py-4 rounded-[8px]"
+              }
+            >
+              <li
+                className={
+                  "flex-1 flex items-center justify-center gap-1 border-l border-l-[#CECECE] p-2 bg-white"
+                }
+              >
+                <div className="checkbox-wrapper-37 flex justify-center items-center h-full">
+                  <GreenCheckInput
+                    isSelected={isSelected === index}
+                    on_click={() => selectOptionHandler(index, item.id)}
+                    class_name="rounded-[50%] cursor-pointer self-start"
+                  />
+                </div>
+                <span onClick={() => selectOptionHandler(index, item.id)}>
                   {item.name}
-                </td>
-                <td className="border border-[#B0B0B0] p-2 bg-[#383838] text-[#FEFEFE] text-center">
-                  {item.amp}
-                </td>
-                <td className="border border-[#B0B0B0] p-2 bg-[#383838] text-[#FEFEFE] text-center">
-                  Male
-                </td>
-                <td className="border border-[#B0B0B0] p-2 bg-[#383838] text-[#FEFEFE] text-center">
-                  {numberWithCommas(item["same_amp"])}
-                </td>
-                <td className="border border-[#B0B0B0] p-2 bg-[#383838] text-[#FEFEFE] size1400:w-[160px] w-[120px]">
-                  <div className="checkbox-wrapper-37 flex justify-center items-center">
-                    <input
-                      type="radio"
-                      name={"terms-checkbox-37"}
-                      id={item.id}
-                      className="hidden"
-                      onChange={() => radioButtonChangeHandler(item.id)}
-                    />
-                    <label
-                      htmlFor={item.id}
-                      className="terms-label flex items-center cursor-pointer"
-                    >
-                      <svg
-                        className="checkbox-svg w-7 h-7 border-2 border-[#F66B34] rounded fill-none transition-all duration-300"
-                        viewBox="0 0 200 200"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <rect
-                          width="200"
-                          height="200"
-                          className="checkbox-box stroke-[#F66B34] stroke-[20]"
-                        />
-                        <path
-                          className="checkbox-tick stroke-white stroke-[15]"
-                          d="M52 111.018L76.9867 136L149 64"
-                        />
-                      </svg>
-                    </label>
-                  </div>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+                </span>
+              </li>
+              <li className="flex-1 border-l border-l-[#CECECE] sm:p-2 bg-white flex justify-center items-center">
+                {item.amp}
+              </li>
+              <li className="flex-1 border-l border-l-[#CECECE] sm:p-2 bg-white flex justify-center items-center">
+                Male
+              </li>
+              <li className="flex-1 sm:p-2 bg-white flex justify-center items-center">
+                {numberWithCommas(item["same_amp"])}
+              </li>
+            </ul>
+          ))}
+        </div>
       </section>
       <Button
         on_click={basketClickHandler}
