@@ -102,7 +102,7 @@ const VerificationInvoice = () => {
         <div className=" flex flex-col gap-4 lg:mr-8">
           <section
             className={
-              "text-14 flex flex-col gap-4 border-b-2 border-b-[#F5F5F5] pb-4 lg:mt-10"
+              "text-14 flex flex-col gap-4 border-b-2 border-b-[#D1D1D1] pb-4 lg:mt-10"
             }
           >
             <div className={"flex items-center gap-1 w-full font-bold text-sm"}>
@@ -134,7 +134,7 @@ const VerificationInvoice = () => {
           </section>
           <section
             className={
-              "mt-4 text-14 flex flex-col lg:flex-row gap-4 border-b-2 border-b-[#F5F5F5] pb-4"
+              "mt-4 text-14 flex flex-col lg:flex-row gap-4 border-b-2 border-b-[#D1D1D1] pb-4"
             }
           >
             <div className={"flex items-start gap-1 w-full flex-col"}>
@@ -222,13 +222,6 @@ const VerificationInvoice = () => {
                   />
                 </div>
               )}
-              <div className={"mt-4 hidden lg:block"}>
-                <DiscountPercent
-                  id={faktorData?.id}
-                  type={"MASTER"}
-                  setDiscount={setDiscount}
-                />
-              </div>
               {/* Address Section */}
               {/* <div className="mt-4 space-y-2 flex flex-col gap-2">
               <div className="flex flex-col">
@@ -290,7 +283,7 @@ const VerificationInvoice = () => {
               registerClickHandler={registerClickHandler}
             />
           )}
-          <div className="flex justify-start items-center text-xs gap-1 font-medium mt-2">
+          {/* <div className="flex justify-start items-center text-xs gap-1 font-medium mt-2 lg:hidden">
             <div
               className={`border-2 border-[#F58052] size-6 rounded-md ml-1 flex justify-center items-center ${roleChecked ? "bg-[#f58052]" : ""}`}
               onClick={() => {
@@ -303,7 +296,7 @@ const VerificationInvoice = () => {
               قوانین کار پایا و سیاست‌ نامه حریم‌ خصوصی
             </span>
             <span className="text-[#518DD5]">را می پذیرم</span>
-          </div>
+          </div> */}
         </div>
       </div>
       {innerWidth > 1024 && (
@@ -314,6 +307,7 @@ const VerificationInvoice = () => {
             discount={discount}
             roleChecked={roleChecked}
             registerClickHandler={registerClickHandler}
+            setDiscount={setDiscount}
           />
         </div>
       )}
