@@ -9,6 +9,15 @@ module.exports = {
   ],
   theme: {
     extend: {
+      keyframes: {
+        rotate: {
+          "0%": { transform: "rotate(0deg) scale(10)" },
+          "100%": { transform: "rotate(-360deg) scale(10)" },
+        },
+      },
+      animation: {
+        rotate: "rotate 2s linear infinite",
+      },
       boxShadow: {
         custom1: "0px 0px 16px rgba(17, 17, 26, 0.1)",
       },
