@@ -1,8 +1,15 @@
 import React from "react";
 import Button from "@/components/Button";
 import { error, numberWithCommas } from "@/utils/function-utils";
-import { setBatteriesData } from "@/store/todoSlice";
+import {
+  setBatteriesData,
+  setLoginModal,
+  setLoginState,
+} from "@/store/todoSlice";
 import { useDispatch, useSelector } from "react-redux";
+import axios from "axios";
+import { getCookies } from "cookies-next";
+import { postData } from "@/utils/client-api-function-utils";
 
 const BatteryPriceDitail = (props) => {
   const batteryBasketLength = useSelector(
@@ -16,36 +23,33 @@ const BatteryPriceDitail = (props) => {
       localStorage.getItem("selectedVehicle"),
     )?.id;
 
-    // if (
-    //   pathName.includes("/batteries") &&
-    //   props.item.id !==
-    //     JSON.parse(localStorage.getItem("batteryTotalPrice"))?.productId
-    // ) {
-    //   const data = await postData("/web/cart/remove", {
-    //     cartable_id: JSON.parse(localStorage.getItem("batteryTotalPrice"))
-    //       ?.productId,
-    //     cartable_type: "BATTERIES",
-    //     vehicle_tip_id: JSON.parse(localStorage.getItem("selectedVehicle"))?.id,
-    //   });
-    //   console.log(data);
-    // }
-
-    if (batteryBasketLength) {
-      error("فقط یک محصول میتوانید به سبد خرید خود اضافه کنید");
-    } else if (
-      batteryBasketLength &&
-      props.item.id ===
-        JSON.parse(localStorage.getItem("batteryTotalPrice"))?.productId
-    ) {
-      error("باتری برای این وسیله نقلیه انتخاب شده است");
-    } else if (CityId && selectedVehicleId) {
-      props.setBatteryIsSelected(true);
-      dispatch(setBatteriesData(props.item));
-    } else if (!CityId) {
-      error("فیلد شهر و استان را انتخاب نشده");
-    } else if (!selectedVehicleId) {
-      error("لطفا خودرو خود را انتخاب کنید");
-    }
+    axios
+      .get(process.env.BASE_API + "/check-authorization", {
+        headers: {
+          Authorization: "Bearer " + getCookies("Authorization").Authorization,
+        },
+      })
+      .then(async () => {
+        if (batteryBasketLength) {
+          error("فقط یک محصول میتوانید به سبد خرید خود اضافه کنید");
+        } else if (
+          batteryBasketLength &&
+          props.item.id ===
+            JSON.parse(localStorage.getItem("batteryTotalPrice"))?.productId
+        ) {
+          error("باتری برای این وسیله نقلیه انتخاب شده است");
+        } else if (CityId && selectedVehicleId) {
+          props.setBatteryIsSelected(true);
+          dispatch(setBatteriesData(props.item));
+        } else if (!CityId) {
+          error("فیلد شهر و استان را انتخاب نشده");
+        } else if (!selectedVehicleId) {
+          error("لطفا خودرو خود را انتخاب کنید");
+        }
+      })
+      .catch((err) => {
+        dispatch(setLoginModal(true));
+      });
   };
 
   return (
