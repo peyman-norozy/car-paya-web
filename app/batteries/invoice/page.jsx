@@ -7,10 +7,11 @@ import { useSelector } from "react-redux";
 import CompletePrice from "@/components/CompletePrice/CompletePrice";
 import { useDraggable } from "react-use-draggable-scroll";
 import { getCurrentData } from "@/utils/api-function-utils";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { persianDateCovertor, persianStringDay } from "@/utils/function-utils";
 import Link from "next/link";
 import DiscountPercent from "@/components/DiscountPercent/DiscountPercent";
+import { postData } from "@/utils/client-api-function-utils";
 
 const InvoicePage = () => {
   const [faktorData, setFaktorData] = useState({});
@@ -26,6 +27,7 @@ const InvoicePage = () => {
   const amper = searchParams.get("amper");
   const typeService = searchParams.get("type_service");
   const serviceLocationId = searchParams.get("service_location_id");
+  const router = useRouter();
 
   useEffect(() => {
     (async () => {
@@ -43,13 +45,19 @@ const InvoicePage = () => {
         },
       );
       if (response.success) {
-        console.log(response);
         setFaktorData(response.data.data);
       } else {
         console.log(response);
       }
     })();
   }, []);
+
+  async function registerClickHandler() {
+    const response = await postData("/web/order/register/battery", {
+      registration_id: faktorData.id,
+    });
+    router.push(response?.data?.data?.url);
+  }
 
   return (
     <div className={"bg-white py-6 pt-[20px] px-14 lg:flex lg:gap-6 mb-8"}>
@@ -234,6 +242,7 @@ const InvoicePage = () => {
             discount={discount}
             roleChecked={roleChecked}
             type={"product_key"}
+            registerClickHandler={registerClickHandler}
           />
         </div>
       )}
