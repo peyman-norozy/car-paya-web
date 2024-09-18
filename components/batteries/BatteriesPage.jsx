@@ -96,9 +96,34 @@ const BatteriesPage = (props) => {
   };
 
   return (
-    <div className={"flex flex-col relative py-4 max-w-[1772px] m-auto"}>
-      <section className={"lg:w-[calc(100%-424px)] w-full mr-auto mt-4"}>
-        <div className="flex gap-2 items-center w-full bg-[#FFFFFF] text-[#D1D1D1] border border-[#F2F2F2] rounded-full px-2 mb-[30px]">
+    <div
+      className={
+        "flex flex-col relative py-4 max-w-[1772px] lg:w-[calc(100%-424px)] mr-auto bg-[#FDFDFD] lg:shadow-[0_0_6px_0_rgba(125,125,125,0.5)] lg:p-6 rounded-2xl min-h-[605px] mb-4 mt-7"
+      }
+    >
+      <div
+        className={
+          "flex items-center gap-2 size752:gap-[16px] text-[#0E0E0E] w-full"
+        }
+      >
+        <i
+          className={"cc-arrow-right text-24 cursor-pointer"}
+          onClick={() =>
+            router.push(
+              `/batteries?attribute_slug=${attributeSlug}&attribute_value=${attributeValue}&selectTipState=${selectTipState}`,
+            )
+          }
+        />
+        <p className={"text-14 size752:text-16 w-full font-medium"}>
+          انتخاب باتری
+        </p>
+      </div>
+      <section className={"w-full mr-auto mt-4"}>
+        <div
+          className={
+            "flex gap-2 items-center w-full bg-[#FFFFFF] text-[#D1D1D1] shadow-[0_0_4px_0_rgba(152,152,152,0.4)] lg:py-2 py-1 rounded-[16px] px-2 my-4"
+          }
+        >
           <i
             className="cc-car-o text-2xl text-[#1E67BF]"
             onClick={() =>

@@ -60,7 +60,11 @@ const InvoicePage = () => {
   }
 
   return (
-    <div className={"bg-white py-6 pt-[20px] px-14 lg:flex lg:gap-6 mb-8"}>
+    <div
+      className={
+        "bg-white py-6 pt-[20px] px-14 lg:flex lg:gap-6 mb-8 lg:shadow-[0_0_6px_0_rgba(125,125,125,0.5)] mt-6 rounded-[16px]"
+      }
+    >
       <div className={"lg:w-[calc(100%-424px)]"}>
         <section
           className={
@@ -146,13 +150,7 @@ const InvoicePage = () => {
                 />
               </div>
             )}
-            <div className={"mt-4 hidden lg:block"}>
-              <DiscountPercent
-                id={faktorData?.id}
-                type={"BATTERY"}
-                setDiscount={setDiscount}
-              />
-            </div>
+
             {/* Address Section */}
             <div className="mt-4 space-y-2 flex flex-col gap-2">
               <div className="flex flex-col">
@@ -217,25 +215,12 @@ const InvoicePage = () => {
             type={"product_key"}
             roleChecked={roleChecked}
             discount={discount}
+            registerClickHandler={registerClickHandler}
           />
         )}
-        <div className="flex justify-start items-center text-xs gap-1 font-medium mt-2">
-          <div
-            className={`border-2 border-[#F58052] size-6 rounded-md ml-1 flex justify-center items-center ${roleChecked ? "bg-[#f58052]" : ""}`}
-            onClick={() => {
-              setRoleChecked(!roleChecked);
-            }}
-          >
-            <i className="cc-tick text-white text-xl" />
-          </div>
-          <span className="text-[#F58052] underline">
-            قوانین کار پایا و سیاست‌ نامه حریم‌ خصوصی
-          </span>
-          <span className="text-[#518DD5]">را می پذیرم</span>
-        </div>
       </div>
       {innerWidth > 1024 && (
-        <div className="space-y-4 p-4 shadow-custom1 rounded-lg lg:w-[458px] lg:h-fit lg:sticky lg:top-[110px] lg:left-0 lg:block">
+        <div className="space-y-4 p-4 shadow-custom1 rounded-lg lg:w-[458px] lg:h-fit lg:sticky lg:top-[110px] lg:left-0 lg:block lg:shadow-[0_0_6px_0_rgba(125,125,125,0.5)]">
           <PriceDetails
             faktorData={faktorData}
             length={1}
@@ -244,6 +229,27 @@ const InvoicePage = () => {
             type={"product_key"}
             registerClickHandler={registerClickHandler}
           />
+          <div className={"mt-4 hidden lg:block"}>
+            <DiscountPercent
+              id={faktorData?.id}
+              type={"BATTERY"}
+              setDiscount={setDiscount}
+            />
+          </div>
+          <div className="flex justify-start items-center text-xs gap-1 font-medium mt-2 border-t-2 border-t-[#BBBBBB] pt-4">
+            <div
+              className={`border-2 border-[#F58052] size-6 rounded-md ml-1 flex justify-center items-center ${roleChecked ? "bg-[#f58052]" : ""}`}
+              onClick={() => {
+                setRoleChecked(!roleChecked);
+              }}
+            >
+              <i className="cc-tick text-white text-xl" />
+            </div>
+            <span className="text-[#F58052] underline">
+              قوانین کار پایا و سیاست‌ نامه حریم‌ خصوصی
+            </span>
+            <span className="text-[#518DD5]">را می پذیرم</span>
+          </div>
         </div>
       )}
     </div>

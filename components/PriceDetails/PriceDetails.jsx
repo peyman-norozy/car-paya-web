@@ -40,9 +40,11 @@ const PriceDetails = (props) => {
           {discount ? discount : "--"}
         </span>
       </div>
-      <div className="flex justify-between">
-        <span className="text-[#F58052] font-medium">جمع قابل پرداخت:</span>
-        <span className="text-[#F58052] font-medium">
+      <div className="flex justify-between item-center">
+        <span className="text-[#F58052] font-medium flex justify-between items-center">
+          جمع قابل پرداخت:
+        </span>
+        <span className="text-[#F58052] font-medium flex justify-between items-center">
           {props.type === "product_key"
             ? numberWithCommas(
                 Number(faktorData?.product?.discounted_price) - discount,
@@ -58,6 +60,14 @@ const PriceDetails = (props) => {
               )}
           تومان
         </span>
+        {innerWidth > 1024 && (
+          <CompletePrice
+            priceTotal={numberWithCommas(faktorData?.price_total)}
+            roleChecked={props.roleChecked}
+            customStyle={"pl-0 pr-0 sticky flex justify-between"}
+            registerClickHandler={props.registerClickHandler}
+          />
+        )}
       </div>
       {/*<div className="flex justify-between font-semibold">*/}
       {/*  <span className="text-[#137BDB]">سود شما از این خرید:</span>*/}
@@ -69,16 +79,6 @@ const PriceDetails = (props) => {
           {numberWithCommas(faktorData?.price_total)} تومان
         </span>
       </div> */}
-      {innerWidth > 1024 && (
-        <CompletePrice
-          priceTotal={numberWithCommas(faktorData?.price_total)}
-          roleChecked={props.roleChecked}
-          customStyle={
-            "pl-0 pr-0 border-t-2 border-t-[#eee] sticky flex justify-between"
-          }
-          registerClickHandler={props.registerClickHandler}
-        />
-      )}
     </>
   );
 };

@@ -74,16 +74,22 @@ const BatteriesAssisantPage = (props) => {
   console.log(filterButtery);
 
   return (
-    <div className="flex flex-col relative py-4 max-w-[1772px] m-auto">
-      <section className="lg:w-[calc(100%-424px)] w-full mr-auto lg:mt-16 mt-[20px] flex flex-col">
+    <div
+      className={
+        "flex flex-col relative max-w-[1772px] lg:w-[calc(100%-424px)] mr-auto bg-[#FDFDFD] lg:shadow-[0_0_6px_0_rgba(125,125,125,0.5)] lg:px-6 rounded-2xl min-h-[605px] mb-4 mt-7"
+      }
+    >
+      <section className={"w-full mr-auto mt-4"}>
         <Link
           href={`/batteries/products?attribute_slug=type_vehicle&attribute_value=car&selectTipState=${searchParams.get("selectTipState")}`}
           className={
-            "self-start w-[108px] h-[30px] flex justify-center items-center gap-1 rounded-[8px] bg-white mb-10 text-[14px] font-semibold"
+            "flex items-center gap-2 size752:gap-[16px] text-[#0E0E0E] w-full"
           }
         >
-          <i className={"cc-arrow-right text-[24px]"} />
-          <span className={"text-16"}>دستیار باتری</span>
+          <i className={"cc-arrow-right text-24 cursor-pointer"} />
+          <span className={"text-14 size752:text-16 w-full font-medium"}>
+            دستیار باتری
+          </span>
         </Link>
         <ul
           className={
