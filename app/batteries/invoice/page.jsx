@@ -7,18 +7,19 @@ import { useSelector } from "react-redux";
 import CompletePrice from "@/components/CompletePrice/CompletePrice";
 import { useDraggable } from "react-use-draggable-scroll";
 import { getCurrentData } from "@/utils/api-function-utils";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { persianDateCovertor, persianStringDay } from "@/utils/function-utils";
 import Link from "next/link";
 import DiscountPercent from "@/components/DiscountPercent/DiscountPercent";
+import { postData } from "@/utils/client-api-function-utils";
 
 const InvoicePage = () => {
   const [faktorData, setFaktorData] = useState({});
   const [roleChecked, setRoleChecked] = useState(false);
   const [discount, setDiscount] = useState(0);
   const innerWidth = useSelector((item) => item.todo.windowInnerWidth);
-  const orderProduct = useRef();
-  const { events } = useDraggable(orderProduct);
+  // const orderProduct = useRef();
+  // const { events } = useDraggable(orderProduct);
   const searchParams = useSearchParams();
   const cityId = searchParams.get("city_id");
   const type = searchParams.get("type");
@@ -26,6 +27,7 @@ const InvoicePage = () => {
   const amper = searchParams.get("amper");
   const typeService = searchParams.get("type_service");
   const serviceLocationId = searchParams.get("service_location_id");
+  const router = useRouter();
 
   useEffect(() => {
     (async () => {
@@ -43,7 +45,6 @@ const InvoicePage = () => {
         },
       );
       if (response.success) {
-        console.log(response);
         setFaktorData(response.data.data);
       } else {
         console.log(response);
@@ -51,8 +52,19 @@ const InvoicePage = () => {
     })();
   }, []);
 
+  async function registerClickHandler() {
+    const response = await postData("/web/order/register/battery", {
+      registration_id: faktorData.id,
+    });
+    router.push(response?.data?.data?.url);
+  }
+
   return (
-    <div className={"bg-white py-6 pt-[20px] px-14 lg:flex lg:gap-6 mb-8"}>
+    <div
+      className={
+        "bg-white py-6 pt-[20px] px-14 lg:flex lg:gap-6 mb-8 lg:shadow-[0_0_6px_0_rgba(125,125,125,0.5)] mt-6 rounded-[16px]"
+      }
+    >
       <div className={"lg:w-[calc(100%-424px)]"}>
         <section
           className={
@@ -109,42 +121,38 @@ const InvoicePage = () => {
           </div>
         </section>
         <section className={"lg:flex lg:flex-col-reverse"}>
-          <section>
-            <div className={"text-14 flex items-center gap-1 my-4"}>
-              <span className={"font-semibold"}>سفارش شما:</span>
-              <span className={"text-[#888888]"}>1 کالا</span>
-            </div>
-            <div className={"w-full"}>
-              <ul
-                className={
-                  "flex flex-col lg:flex-row gap-4 overflow-x-auto py-4 px-1"
-                }
-                {...events}
-                ref={orderProduct}
-              >
-                <FacktorCard item={faktorData.product} />
-              </ul>
-            </div>
-          </section>
+          {/*<section>*/}
+          {/*  <div className={"text-14 flex items-center gap-1 my-4"}>*/}
+          {/*    <span className={"font-semibold"}>سفارش شما:</span>*/}
+          {/*    <span className={"text-[#888888]"}>1 کالا</span>*/}
+          {/*  </div>*/}
+          {/*  <div className={"w-full"}>*/}
+          {/*    <ul*/}
+          {/*      className={*/}
+          {/*        "flex flex-col lg:flex-row gap-4 overflow-x-auto py-4 px-1"*/}
+          {/*      }*/}
+          {/*      {...events}*/}
+          {/*      ref={orderProduct}*/}
+          {/*    >*/}
+          {/*      <FacktorCard item={faktorData.product} />*/}
+          {/*    </ul>*/}
+          {/*  </div>*/}
+          {/*</section>*/}
           <section className="bg-white rounded-lg w-full text-14 mt-4">
             {/* Price Details Section */}
             {innerWidth < 1024 && (
               <div className="space-y-4 p-4 shadow-custom1 rounded-lg w-full lg:h-fit">
                 <PriceDetails
                   faktorData={faktorData}
+                  setRoleChecked={setRoleChecked}
+                  roleChecked={roleChecked}
                   length={1}
                   discount={discount}
                   type={"product_key"}
                 />
               </div>
             )}
-            <div className={"mt-4 hidden lg:block"}>
-              <DiscountPercent
-                id={faktorData?.id}
-                type={"BATTERY"}
-                setDiscount={setDiscount}
-              />
-            </div>
+
             {/* Address Section */}
             <div className="mt-4 space-y-2 flex flex-col gap-2">
               <div className="flex flex-col">
@@ -209,32 +217,42 @@ const InvoicePage = () => {
             type={"product_key"}
             roleChecked={roleChecked}
             discount={discount}
+            registerClickHandler={registerClickHandler}
           />
         )}
-        <div className="flex justify-start items-center text-xs gap-1 font-medium mt-2">
-          <div
-            className={`border-2 border-[#F58052] size-6 rounded-md ml-1 flex justify-center items-center ${roleChecked ? "bg-[#f58052]" : ""}`}
-            onClick={() => {
-              setRoleChecked(!roleChecked);
-            }}
-          >
-            <i className="cc-tick text-white text-xl" />
-          </div>
-          <span className="text-[#F58052] underline">
-            قوانین کار پایا و سیاست‌ نامه حریم‌ خصوصی
-          </span>
-          <span className="text-[#518DD5]">را می پذیرم</span>
-        </div>
       </div>
       {innerWidth > 1024 && (
-        <div className="space-y-4 p-4 shadow-custom1 rounded-lg lg:w-[458px] lg:h-fit lg:sticky lg:top-[110px] lg:left-0 lg:block">
+        <div className="space-y-4 p-4 shadow-custom1 rounded-lg lg:w-[458px] lg:h-fit lg:sticky lg:top-[110px] lg:left-0 lg:block lg:shadow-[0_0_6px_0_rgba(125,125,125,0.5)]">
           <PriceDetails
             faktorData={faktorData}
             length={1}
             discount={discount}
+            setRoleChecked={setRoleChecked}
             roleChecked={roleChecked}
             type={"product_key"}
+            registerClickHandler={registerClickHandler}
           />
+          {/*<div className={"mt-4 hidden lg:block"}>*/}
+          {/*  <DiscountPercent*/}
+          {/*    id={faktorData?.id}*/}
+          {/*    type={"BATTERY"}*/}
+          {/*    setDiscount={setDiscount}*/}
+          {/*  />*/}
+          {/*</div>*/}
+          {/*<div className="flex justify-start items-center text-xs gap-1 font-medium mt-2 border-t-2 border-t-[#BBBBBB] pt-4">*/}
+          {/*  <div*/}
+          {/*    className={`border-2 border-[#F58052] size-6 rounded-md ml-1 flex justify-center items-center ${roleChecked ? "bg-[#f58052]" : ""}`}*/}
+          {/*    onClick={() => {*/}
+          {/*      setRoleChecked(!roleChecked);*/}
+          {/*    }}*/}
+          {/*  >*/}
+          {/*    <i className="cc-tick text-white text-xl" />*/}
+          {/*  </div>*/}
+          {/*  <span className="text-[#F58052] underline">*/}
+          {/*    قوانین کار پایا و سیاست‌ نامه حریم‌ خصوصی*/}
+          {/*  </span>*/}
+          {/*  <span className="text-[#518DD5]">را می پذیرم</span>*/}
+          {/*</div>*/}
         </div>
       )}
     </div>

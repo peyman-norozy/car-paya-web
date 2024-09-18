@@ -19,7 +19,7 @@ const BatteriesCard = (props) => {
   return (
     <li
       className={
-        "bg-[#E7E7E7] rounded-[16px] shadow-lg p-[16px] relative text-[#5D5D5D] flex flex-col gap-3"
+        "bg-[#FDFDFD] rounded-[16px] p-[16px] relative text-[#5D5D5D] flex flex-col gap-3 shadow-[0_0_4px_0_rgba(207,207,207,0.7)]"
       }
     >
       <div className={"flex flex-col justify-end gap-[8px]"}>

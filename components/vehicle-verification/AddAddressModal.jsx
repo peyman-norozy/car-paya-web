@@ -196,7 +196,7 @@ const AddressModal = (props) => {
   return (
     <form
       className={
-        "absolute bottom-0 lg:inset-0 m-auto w-full max-w-[789px] min-h-[192px] h-[80%] bg-[#FFFFFF] px-[40px] py-[24px] rounded-t-2xl overflow-hidden flex flex-col gap-6 overflow-y-scroll pb-20 lg:pb-0"
+        "absolute bottom-0 md:inset-0 md:m-auto w-full max-w-[768px] min-h-[192px] h-[80%] bg-[#FFFFFF] px-[40px] py-[24px] rounded-t-2xl md: rounded-2xl overflow-hidden flex flex-col gap-6 overflow-y-scroll pb-20 lg:pb-0"
       }
       onSubmit={addressFormSubmitHandler}
     >
@@ -381,7 +381,7 @@ const AddressModal = (props) => {
         </div>
       )}
       <div
-        className="fixed lg:static w-full rounded-t-2xl shadow-[0_-2px_4px_0_rgba(199,199,199,0.25)] flex justify-center pt-4 pb-6 items-start bottom-0 right-0 bg-white z-[2000] px-10"
+        className="fixed md:static w-full rounded-t-2xl shadow-[0_-2px_4px_0_rgba(199,199,199,0.25)] flex justify-center pt-4 pb-6 items-start bottom-0 right-0 bg-white z-[2000] px-10"
         type="submit"
       >
         <button

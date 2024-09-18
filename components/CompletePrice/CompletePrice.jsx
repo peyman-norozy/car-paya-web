@@ -5,7 +5,7 @@ const CompletePrice = (props) => {
   console.log(props);
   return (
     <section
-      className={`bottom-0 right-0 z-[1000] bg-white p-4 ${props.customStyle}`}
+      className={`bottom-0 right-0 z-[1000] bg-white ${props.customStyle}`}
     >
       <div className={"font-medium lg:hidden block"}>
         <span>جمع سفارش:</span>
@@ -13,14 +13,14 @@ const CompletePrice = (props) => {
           {props.type === "product_key"
             ? numberWithCommas(
                 Number(props.faktorData?.product?.discounted_price) -
-                  props.discount,
+                  props.discount
               )
             : numberWithCommas(
                 props.faktorData?.swing_type === "INCREASE"
                   ? Number(props.faktorData?.service?.discounted_price) +
                       Number(props.faktorData?.diff_price)
                   : Number(props.faktorData?.service?.discounted_price) -
-                      Number(props.faktorData?.diff_price),
+                      Number(props.faktorData?.diff_price)
               )}
           تومان
         </div>

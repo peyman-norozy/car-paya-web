@@ -52,17 +52,23 @@ const Page = (props) => {
   }
 
   return (
-    <div className={"mt-4 min-h-screen lg:mr-[420px] px-3 mb-6"}>
+    <div
+      className={
+        "flex flex-col relative py-4 max-w-[1772px] lg:w-[calc(100%-424px)] mr-auto bg-[#FDFDFD] lg:shadow-[0_0_6px_0_rgba(125,125,125,0.5)] lg:p-6 rounded-2xl min-h-[605px] mb-4 mt-7"
+      }
+    >
       <Link
-        href={`/batteries/products/newSelectLocation?city_id=${cityId}&type=${type}&vehicle_tip_id=${vehicleTipId}&amper=${amper}&type_service=${typeService}`}
+        href={`/batteries/products/newSelectLocation?attribute_slug=${attributeSlug}&attribute_value=${attributeValue}&city_id=${cityId}&type=${type}&vehicle_tip_id=${vehicleTipId}&amper=${amper}&type_service=${typeService}`}
         className={
-          "self-start h-[30px] flex items-center gap-2 rounded-[8px] bg-white mt-6 mb-3 text-[14px] font-semibold"
+          "flex items-center gap-2 size752:gap-[16px] text-[#0E0E0E] w-full"
         }
       >
-        <i className={"cc-arrow-right text-[24px]"} />
-        <span className={"text-16"}>انتخاب زمان</span>
+        <i className={"cc-arrow-right text-24 cursor-pointer"} />
+        <span className={"text-14 size752:text-16 w-full font-medium"}>
+          انتخاب زمان
+        </span>
       </Link>
-      <div className="flex gap-2 items-center w-full bg-[#FFFFFF] text-[#D1D1D1] border border-[#F2F2F2] rounded-full px-2">
+      <div className="flex gap-2 items-center w-full bg-[#FFFFFF] text-[#D1D1D1] shadow-[0_0_4px_0_rgba(152,152,152,0.4)] lg:py-2 py-1 rounded-[16px] px-2 my-4">
         <i
           className="cc-car-o text-2xl text-[#1E67BF]"
           onClick={() =>
@@ -76,12 +82,19 @@ const Page = (props) => {
           className="cc-search text-2xl text-[#1E67BF]"
           onClick={() =>
             router.push(
-              `/batteries/products/newSelectLocation?attribute_slug=${attributeSlug}&attribute_value=${attributeValue}&city_id=${cityId}&type=${type}&vehicle_tip_id=${vehicleTipId}&amper=${amper}&type_service=${typeService}`,
+              `/batteries/products?attribute_slug=${attributeSlug}&attribute_value=${attributeValue}&selectTipState=true,${vehicleTipId}&amper=${amper}&type_service=${typeService}`,
             )
           }
         />
         <div className="border-b-4 border-dotted border-[#1E67BF] w-full"></div>
-        <i className="cc-location text-2xl text-[#1E67BF]" />
+        <i
+          className="cc-location text-2xl text-[#1E67BF]"
+          onClick={() =>
+            router.push(
+              `/batteries/products/newSelectLocation?attribute_slug=${attributeSlug}&attribute_value=${attributeValue}&city_id=${cityId}&type=${type}&vehicle_tip_id=${vehicleTipId}&amper=${amper}&type_service=${typeService}`,
+            )
+          }
+        />
         <div className="border-b-4 border-dotted border-[#1E67BF] w-full"></div>
         <i className="cc-timer text-2xl text-[#D1D1D1]" />
       </div>
