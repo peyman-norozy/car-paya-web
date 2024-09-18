@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import OTPInput from "react-otp-input";
 import Portal from "@/components/Portal/Portal";
 import { useDispatch, useSelector } from "react-redux";
-import { setLoginModal } from "@/store/todoSlice";
+import { setLoginModal, setLoginState } from "@/store/todoSlice";
 import { setCookie } from "cookies-next";
 import TextInput from "../public/TextInput";
 
@@ -18,14 +18,14 @@ const LoginModal = () => {
   const isOpen = useSelector((state) => state.todo.LoginModalState);
   const [phoneValidation, setPhoneValidation] = useState(null);
   const [otpValidation, setOtpValidation] = useState(null);
-  const [countdown,setCountdown] = useState(120)
+  const [countdown, setCountdown] = useState(120);
   useEffect(() => {
     setIsClient(true);
   }, []);
 
   function startCountdown() {
-    setCountdown(120)
-    let interval = setInterval(function() {
+    setCountdown(120);
+    let interval = setInterval(function () {
       setCountdown((previous) => {
         if (previous <= 0) {
           clearInterval(interval);
@@ -46,7 +46,7 @@ const LoginModal = () => {
       .then((res) => {
         setLoginToken(res.data.data.login_token);
         setStep(1);
-        startCountdown()
+        startCountdown();
       })
       .catch((err) => {
         if (err?.response?.status) {
@@ -63,13 +63,15 @@ const LoginModal = () => {
       })
       .then((res) => {
         console.log(res.data.token);
+        dispatch(setLoginState(false));
         setCookie("Authorization", res.data.token);
         setStep(0);
         setOtp("");
         setLoginToken("");
         setPhone("");
         closeModal();
-      }).catch((err) => {
+      })
+      .catch((err) => {
         if (err?.response?.status) {
           setOtpValidation(err?.response?.data?.message);
         }
@@ -78,9 +80,12 @@ const LoginModal = () => {
 
   function resendOtpHandler() {
     axios
-      .post(process.env.BASE_API + "/resend-otp", { mobile: phone ,login_token:loginToken})
+      .post(process.env.BASE_API + "/resend-otp", {
+        mobile: phone,
+        login_token: loginToken,
+      })
       .then((res) => {
-        startCountdown()
+        startCountdown();
       })
       .catch((err) => {
         if (err?.response?.status) {
@@ -181,12 +186,28 @@ const LoginModal = () => {
                     }}
                     inputStyle={`flex-1 h-full bg-[#00000000] outline-none border ${otpValidation ? "border-[#FF0031]" : "border-[#B0B0B0]"} text-[#3C3C3C] text-14 font-medium rounded-[4px]`}
                   />
-                    <span className="text-[#FF0031] px-1 text-12 h-[18px]">
-                      {otpValidation}
-                    </span>
+                  <span className="text-[#FF0031] px-1 text-12 h-[18px]">
+                    {otpValidation}
+                  </span>
                   <div className="flex justify-between w-full">
-                    <span className="font-medium text-xs"><span className="text-[#F66B34] w-7 inline-block text-end">{parseInt(countdown/60).toString().padStart(2, '0') + ":" + (countdown%60).toString().padStart(2, '0')}</span> مانده تا دریافت مجدد کد</span>
-                    <button className={`flex items-center gap-1 ${countdown?"text-[#888888] cursor-not-allowed":"text-[#1E67BF] cursor-pointer"}`} disabled={countdown} onClick={resendOtpHandler}><i className="cc-undo"/><span className="font-medium text-xs">ارسال مجدد کد</span></button>
+                    <span className="font-medium text-xs">
+                      <span className="text-[#F66B34] w-7 inline-block text-end">
+                        {parseInt(countdown / 60)
+                          .toString()
+                          .padStart(2, "0") +
+                          ":" +
+                          (countdown % 60).toString().padStart(2, "0")}
+                      </span>{" "}
+                      مانده تا دریافت مجدد کد
+                    </span>
+                    <button
+                      className={`flex items-center gap-1 ${countdown ? "text-[#888888] cursor-not-allowed" : "text-[#1E67BF] cursor-pointer"}`}
+                      disabled={countdown}
+                      onClick={resendOtpHandler}
+                    >
+                      <i className="cc-undo" />
+                      <span className="font-medium text-xs">ارسال مجدد کد</span>
+                    </button>
                   </div>
                 </div>
               </div>
