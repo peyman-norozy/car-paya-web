@@ -306,6 +306,7 @@ const VerificationInvoice = () => {
             length={1}
             discount={discount}
             roleChecked={roleChecked}
+            setRoleChecked={setRoleChecked}
             registerClickHandler={registerClickHandler}
             setDiscount={setDiscount}
           />

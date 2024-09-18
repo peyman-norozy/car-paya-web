@@ -100,7 +100,7 @@ const PriceDetails = (props) => {
         <div
           className={`border-2 border-[#F58052] size-6 rounded-md ml-1 flex justify-center items-center ${props.roleChecked ? "bg-[#f58052]" : ""}`}
           onClick={() => {
-            setRoleChecked(!props.roleChecked);
+            props.setRoleChecked(!props.roleChecked);
           }}
         >
           <i className="cc-tick text-white text-xl" />
