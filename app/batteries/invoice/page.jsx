@@ -18,8 +18,8 @@ const InvoicePage = () => {
   const [roleChecked, setRoleChecked] = useState(false);
   const [discount, setDiscount] = useState(0);
   const innerWidth = useSelector((item) => item.todo.windowInnerWidth);
-  const orderProduct = useRef();
-  const { events } = useDraggable(orderProduct);
+  // const orderProduct = useRef();
+  // const { events } = useDraggable(orderProduct);
   const searchParams = useSearchParams();
   const cityId = searchParams.get("city_id");
   const type = searchParams.get("type");
@@ -121,29 +121,31 @@ const InvoicePage = () => {
           </div>
         </section>
         <section className={"lg:flex lg:flex-col-reverse"}>
-          <section>
-            <div className={"text-14 flex items-center gap-1 my-4"}>
-              <span className={"font-semibold"}>سفارش شما:</span>
-              <span className={"text-[#888888]"}>1 کالا</span>
-            </div>
-            <div className={"w-full"}>
-              <ul
-                className={
-                  "flex flex-col lg:flex-row gap-4 overflow-x-auto py-4 px-1"
-                }
-                {...events}
-                ref={orderProduct}
-              >
-                <FacktorCard item={faktorData.product} />
-              </ul>
-            </div>
-          </section>
+          {/*<section>*/}
+          {/*  <div className={"text-14 flex items-center gap-1 my-4"}>*/}
+          {/*    <span className={"font-semibold"}>سفارش شما:</span>*/}
+          {/*    <span className={"text-[#888888]"}>1 کالا</span>*/}
+          {/*  </div>*/}
+          {/*  <div className={"w-full"}>*/}
+          {/*    <ul*/}
+          {/*      className={*/}
+          {/*        "flex flex-col lg:flex-row gap-4 overflow-x-auto py-4 px-1"*/}
+          {/*      }*/}
+          {/*      {...events}*/}
+          {/*      ref={orderProduct}*/}
+          {/*    >*/}
+          {/*      <FacktorCard item={faktorData.product} />*/}
+          {/*    </ul>*/}
+          {/*  </div>*/}
+          {/*</section>*/}
           <section className="bg-white rounded-lg w-full text-14 mt-4">
             {/* Price Details Section */}
             {innerWidth < 1024 && (
               <div className="space-y-4 p-4 shadow-custom1 rounded-lg w-full lg:h-fit">
                 <PriceDetails
                   faktorData={faktorData}
+                  setRoleChecked={setRoleChecked}
+                  roleChecked={roleChecked}
                   length={1}
                   discount={discount}
                   type={"product_key"}
@@ -225,31 +227,32 @@ const InvoicePage = () => {
             faktorData={faktorData}
             length={1}
             discount={discount}
+            setRoleChecked={setRoleChecked}
             roleChecked={roleChecked}
             type={"product_key"}
             registerClickHandler={registerClickHandler}
           />
-          <div className={"mt-4 hidden lg:block"}>
-            <DiscountPercent
-              id={faktorData?.id}
-              type={"BATTERY"}
-              setDiscount={setDiscount}
-            />
-          </div>
-          <div className="flex justify-start items-center text-xs gap-1 font-medium mt-2 border-t-2 border-t-[#BBBBBB] pt-4">
-            <div
-              className={`border-2 border-[#F58052] size-6 rounded-md ml-1 flex justify-center items-center ${roleChecked ? "bg-[#f58052]" : ""}`}
-              onClick={() => {
-                setRoleChecked(!roleChecked);
-              }}
-            >
-              <i className="cc-tick text-white text-xl" />
-            </div>
-            <span className="text-[#F58052] underline">
-              قوانین کار پایا و سیاست‌ نامه حریم‌ خصوصی
-            </span>
-            <span className="text-[#518DD5]">را می پذیرم</span>
-          </div>
+          {/*<div className={"mt-4 hidden lg:block"}>*/}
+          {/*  <DiscountPercent*/}
+          {/*    id={faktorData?.id}*/}
+          {/*    type={"BATTERY"}*/}
+          {/*    setDiscount={setDiscount}*/}
+          {/*  />*/}
+          {/*</div>*/}
+          {/*<div className="flex justify-start items-center text-xs gap-1 font-medium mt-2 border-t-2 border-t-[#BBBBBB] pt-4">*/}
+          {/*  <div*/}
+          {/*    className={`border-2 border-[#F58052] size-6 rounded-md ml-1 flex justify-center items-center ${roleChecked ? "bg-[#f58052]" : ""}`}*/}
+          {/*    onClick={() => {*/}
+          {/*      setRoleChecked(!roleChecked);*/}
+          {/*    }}*/}
+          {/*  >*/}
+          {/*    <i className="cc-tick text-white text-xl" />*/}
+          {/*  </div>*/}
+          {/*  <span className="text-[#F58052] underline">*/}
+          {/*    قوانین کار پایا و سیاست‌ نامه حریم‌ خصوصی*/}
+          {/*  </span>*/}
+          {/*  <span className="text-[#518DD5]">را می پذیرم</span>*/}
+          {/*</div>*/}
         </div>
       )}
     </div>
