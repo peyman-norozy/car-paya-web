@@ -81,7 +81,7 @@ const VerificationInvoice = () => {
   return (
     <div
       className={
-        "lg:flex lg:gap-6 mb-8 mt-[28px] bg-[#FDFDFD] shadow-[0_0_6px_0_rgba(125,125,125,0.5)] p-6 rounded-2xl min-h-[605px]"
+        "lg:flex lg:gap-6 mb-8 mt-[28px] bg-[#FDFDFD] lg:shadow-[0_0_6px_0_rgba(125,125,125,0.5)] px-2 lg:p-6 rounded-2xl min-h-[605px]"
       }
     >
       <div className={"lg:w-[calc(100%-424px)]"}>
@@ -99,7 +99,7 @@ const VerificationInvoice = () => {
             جزئیات درخواست کارشناسی
           </span>
         </section>
-        <div className=" flex flex-col gap-4 mr-8">
+        <div className=" flex flex-col gap-4 lg:mr-8">
           <section
             className={
               "text-14 flex flex-col gap-4 border-b-2 border-b-[#F5F5F5] pb-4 lg:mt-10"

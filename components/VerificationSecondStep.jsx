@@ -109,7 +109,7 @@ const VerificationSecondStep = (props) => {
   return (
     <div
       className={
-        "flex items-start justify-between lg:w-[calc(100%-424px)] mr-auto mb-4 mt-[28px] bg-[#FDFDFD] shadow-[0_0_6px_0_rgba(125,125,125,0.5)] p-6 rounded-2xl min-h-[605px]"
+        "flex items-start justify-between lg:w-[calc(100%-424px)] mr-auto mb-4 mt-[28px] bg-[#FDFDFD] lg:shadow-[0_0_6px_0_rgba(125,125,125,0.5)] lg:p-6 rounded-2xl min-h-[605px]"
       }
     >
       <div className={"w-full flex flex-col px-4 sm:px-0 gap-4"}>
@@ -126,7 +126,7 @@ const VerificationSecondStep = (props) => {
             انتخاب زمان
           </p>
         </div>
-        <div className=" flex flex-col gap-4 mr-8">
+        <div className=" flex flex-col gap-4 lg:mr-8">
           <div className="flex gap-2 items-center w-full bg-[#FFFFFF] text-[#D1D1D1] border border-[#F2F2F2] rounded-full px-2">
             <i
               className="cc-car-o text-2xl text-[#1E67BF]"
