@@ -87,7 +87,7 @@ function MobileBottomNav(props) {
 // console.log(pathname.includes("step")&&pathname.includes("/vehicle-verification"));
 
   if(!pathname.includes("/invoice")&&(!(searchParams.toString().includes("step")&&pathname.includes("/vehicle-verification")))){return (
-    <div className="fixed bottom-2 right-2 z-[2000] flex items-center w-full h-[60px] rounded-3xl shadow-[0_4px_4px_0_rgba(160,160,160,0.20)]">
+    <div className="fixed bottom-2 right-2 z-[2000] flex items-center w-[calc(100%-16px)] h-[60px] rounded-3xl shadow-[0_4px_4px_0_rgba(160,160,160,0.20)]">
         {/* <div
           ref={selectVehicleRef}
           onTouchStart={touchStartHandler}
