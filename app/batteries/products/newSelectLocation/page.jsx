@@ -9,6 +9,8 @@ import { useRouter, useSearchParams } from "next/navigation";
 
 const Page = (props) => {
   const [selectAddressState, setSelectAddressState] = useState("MOVING"); //FIXED
+  const [locationId, setLocationId] = useState("");
+
   const [myLocationData, setMyLocationData] = useState([]);
   const [carCheckLocations, setCarCheckLocations] = useState([]);
   const [filter, setFilter] = useState([]);
@@ -20,7 +22,9 @@ const Page = (props) => {
   const typeService = searchParams.get("type_service");
   const router = useRouter();
 
-  const showHeaderState = useSelector((state) => state.todo.showHeader);
+  const renderUserAddrressState = useSelector(
+    (state) => state.todo.renderUserAddrressState,
+  );
 
   useEffect(() => {
     setSelectAddressState(searchParams.get("type"));
@@ -47,12 +51,12 @@ const Page = (props) => {
 
   useEffect(() => {
     timeData();
-  }, [searchParams]);
+  }, [searchParams, renderUserAddrressState]);
 
   return (
     <div
       className={
-        "flex flex-col relative py-4 max-w-[1772px] lg:w-[calc(100%-424px)] mr-auto bg-[#FDFDFD] lg:shadow-[0_0_6px_0_rgba(125,125,125,0.5)] lg:p-6 rounded-2xl min-h-[605px] mb-4 mt-7"
+        "flex flex-col relative py-4 max-w-[1772px] lg:w-[calc(100%-424px)] mr-auto bg-[#FDFDFD] lg:shadow-[0_0_6px_0_rgba(125,125,125,0.5)] lg:p-6 rounded-2xl min-h-[605px] mb-4 lg:mt-7"
       }
     >
       <div
@@ -100,19 +104,21 @@ const Page = (props) => {
         <i className="cc-timer text-2xl text-[#D1D1D1]" />
       </div>
       <span className={"font-semibold text-14"}>آدرس خود را انتخاب کنید:</span>
-      <div className={`z-[2000] py-4 transition-all`}>
+      <div className={`py-4 transition-all`}>
         <div className={"flex justify-center"}>
           <SelectLocationTab
             headerText={"در محل شما"}
             addressTabState={"MOVING"}
             selectAddressState={selectAddressState}
             setSelectAddressState={setSelectAddressState}
+            setLocationId={setLocationId}
           />
           <SelectLocationTab
             headerText={"در مراکز کارپایا"}
             addressTabState={"FIXED"}
             selectAddressState={selectAddressState}
             setSelectAddressState={setSelectAddressState}
+            setLocationId={setLocationId}
           />
         </div>
       </div>
@@ -125,6 +131,8 @@ const Page = (props) => {
                 timeData={timeData}
                 myLocationData={myLocationData}
                 status={"MOVING"}
+                locationId={locationId}
+                setLocationId={setLocationId}
               />
             ),
             FIXED: (
@@ -133,6 +141,8 @@ const Page = (props) => {
                 status={"FIXED"}
                 timeData={timeData}
                 filter={filter}
+                locationId={locationId}
+                setLocationId={setLocationId}
               />
             ),
           }[selectAddressState]

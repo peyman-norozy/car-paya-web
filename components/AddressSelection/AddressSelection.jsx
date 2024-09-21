@@ -16,7 +16,6 @@ const AddressSelection = (props) => {
   const [servicesState, setServicesState] = useState(false);
   const [servicesData, setServicesData] = useState([]);
   const [srviceQuery, setServiceQuery] = useState([]);
-  const [locationId, setLocationId] = useState("");
 
   const optionRef = useRef(null);
   const inputRef = useRef(null);
@@ -82,7 +81,10 @@ const AddressSelection = (props) => {
   }
 
   const confirmAndContinue = () => {
-    setQuery.updateQueryParams({ service_location_id: locationId }, nextUrl);
+    setQuery.updateQueryParams(
+      { service_location_id: props.locationId },
+      nextUrl,
+    );
   };
 
   return (
@@ -211,8 +213,8 @@ const AddressSelection = (props) => {
               key={item.id}
               status={props.status}
               item={item}
-              setLocationId={setLocationId}
-              locationId={locationId}
+              setLocationId={props.setLocationId}
+              locationId={props.locationId}
             />
           ))}
         </ul>
@@ -228,16 +230,20 @@ const AddressSelection = (props) => {
                 setPageType={setPageType}
                 setModalIsOpen={setModalIsOpen}
                 setAddressEditId={setAddressEditId}
-                setLocationId={setLocationId}
-                locationId={locationId}
+                setLocationId={props.setLocationId}
+                locationId={props.locationId}
               />
             ))}
         </ul>
       )}
-      <div className={"flex justify-end"}>
+      <div
+        className={
+          "flex justify-center lg:justify-end fixed bottom-0 right-0 left-0 lg:relative w-full z-50 bg-white py-4 px-10 rounded-t-[16px] lg:rounded-none lg:shadow-none shadow-[0_0_6px_0_rgba(125,125,125,0.5)]"
+        }
+      >
         <button
-          className={`${!Boolean(locationId) ? "bg-[#ecb8a3]" : "bg-[#F66B34]"} text-white text-14 w-[199px] h-[40px] rounded-[8px]`}
-          disabled={!Boolean(locationId)}
+          className={`${!Boolean(props.locationId) ? "bg-[#ecb8a3]" : "bg-[#F66B34]"} text-white text-14 lg:w-[199px] w-full h-[40px] rounded-[8px]`}
+          disabled={!Boolean(props.locationId)}
           onClick={confirmAndContinue}
         >
           تایید و ادامه
@@ -246,7 +252,7 @@ const AddressSelection = (props) => {
       {modalIsOpen && props.status === "MOVING" && (
         <div>
           <div>
-            <div className={"fixed w-[45%] m-auto inset-0 z-[10000000000]"}>
+            <div className={"fixed m-auto inset-0 z-[10000000000]"}>
               <AddAddressModal
                 getDataFetch={props.setMyLocationData}
                 pageType={pageType}

@@ -451,7 +451,8 @@ const PurchaseBatteryModal = (props) => {
               </div>
             </div>
             <Button
-              class_name="bg-[#F58052] rounded-10 hover:shadow-[0_0_5px_0_rgba(0,0,0,0.4)] flex items-center justify-center ga-[0.25rem] text-white px-2 py-2 text-12"
+              class_name={`${isSelected === false ? "bg-[#ecb8a3]" : "bg-[#F66B34]"} rounded-10 hover:shadow-[0_0_5px_0_rgba(0,0,0,0.4)] flex items-center justify-center ga-[0.25rem] text-white px-2 py-2 text-12`}
+              disabled_btn={isSelected === false}
               on_click={clickSelectTimeHandler}
             >
               <p>اضافه به سبد خرید</p>

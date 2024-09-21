@@ -98,7 +98,7 @@ const BatteriesPage = (props) => {
   return (
     <div
       className={
-        "flex flex-col relative py-4 max-w-[1772px] lg:w-[calc(100%-424px)] mr-auto bg-[#FDFDFD] lg:shadow-[0_0_6px_0_rgba(125,125,125,0.5)] lg:p-6 rounded-2xl min-h-[605px] mb-4 mt-7"
+        "flex flex-col relative py-4 max-w-[1772px] lg:w-[calc(100%-424px)] mr-auto bg-[#FDFDFD] lg:shadow-[0_0_6px_0_rgba(125,125,125,0.5)] lg:p-6 rounded-2xl min-h-[605px] mb-4 lg:mt-7"
       }
     >
       <div
@@ -118,7 +118,7 @@ const BatteriesPage = (props) => {
           انتخاب باتری
         </p>
       </div>
-      <section className={"w-full mr-auto mt-4"}>
+      <section className={"w-full mr-auto lg:mt-4"}>
         <div
           className={
             "flex gap-2 items-center w-full bg-[#FFFFFF] text-[#D1D1D1] shadow-[0_0_4px_0_rgba(152,152,152,0.4)] lg:py-2 py-1 rounded-[16px] px-2 my-4"
@@ -173,7 +173,7 @@ const BatteriesPage = (props) => {
             </div>
           </div>
         </div>
-        <ul className={"mt-4 flex flex-col gap-[24px]"}>
+        <ul className={"mt-4 flex flex-col gap-[32px]"}>
           {props.data?.data?.map((item, index) => (
             <BatteriesCard
               key={index}

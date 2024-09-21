@@ -62,7 +62,7 @@ const InvoicePage = () => {
   return (
     <div
       className={
-        "bg-white py-6 pt-[20px] px-14 lg:flex lg:gap-6 mb-8 lg:shadow-[0_0_6px_0_rgba(125,125,125,0.5)] mt-6 rounded-[16px]"
+        "bg-white py-6 pt-[20px] px-14 lg:flex lg:gap-6 mb-8 lg:shadow-[0_0_6px_0_rgba(125,125,125,0.5)] lg:mt-6 rounded-[16px]"
       }
     >
       <div className={"lg:w-[calc(100%-424px)]"}>
@@ -73,9 +73,10 @@ const InvoicePage = () => {
         >
           <Link
             href={`/batteries/products/newTimeSelector?city_id=${cityId}&type=${type}&vehicle_tip_id=${vehicleTipId}&amper=${amper}&type_service=${typeService}&service_location_id=${serviceLocationId}`}
+            className={"flex items-center"}
           >
             <i className={"cc-arrow-right text-24"} />
-          </Link>{" "}
+          </Link>
           <span className={"text-14 font-semibold"}>جزئیات سفارش باتری</span>
         </section>
         <section className={"flex justify-center"}>

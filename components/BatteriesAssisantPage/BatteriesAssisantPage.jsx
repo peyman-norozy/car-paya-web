@@ -76,10 +76,10 @@ const BatteriesAssisantPage = (props) => {
   return (
     <div
       className={
-        "flex flex-col relative max-w-[1772px] lg:w-[calc(100%-424px)] mr-auto bg-[#FDFDFD] lg:shadow-[0_0_6px_0_rgba(125,125,125,0.5)] lg:px-6 rounded-2xl min-h-[605px] mb-4 mt-7"
+        "flex flex-col relative py-4 max-w-[1772px] lg:w-[calc(100%-424px)] mr-auto bg-[#FDFDFD] lg:shadow-[0_0_6px_0_rgba(125,125,125,0.5)] lg:px-6 rounded-2xl min-h-[605px] mb-4 lg:mt-7"
       }
     >
-      <section className={"w-full mr-auto mt-4"}>
+      <section className={"w-full mr-auto"}>
         <Link
           href={`/batteries/products?attribute_slug=type_vehicle&attribute_value=car&selectTipState=${searchParams.get("selectTipState")}`}
           className={
@@ -93,20 +93,20 @@ const BatteriesAssisantPage = (props) => {
         </Link>
         <ul
           className={
-            "flex bg-white w-full text-[#3C3C3C] text-14 font-medium shadow-[0_3px_10px_rgb(0,0,0,0.2)] py-2 rounded-[8px]"
+            "sticky top-[70px] flex bg-white w-full text-[#3C3C3C] text-12 sm:text-14 font-bold shadow-[0_3px_10px_rgb(0,0,0,0.2)] py-2 rounded-[8px] mt-4 z-50"
           }
         >
-          <li className="flex-1 border-l border-l-[#CECECE] py-2 sm:px-2 bg-white text-center">
+          <li className="flex-1 border-l border-l-[#CECECE] py-2 sm:px-2 bg-white flex justify-center items-center">
             نام باتری
           </li>
-          <li className="flex-1 border-l border-l-[#CECECE] py-2 sm:px-2 bg-white text-center">
+          <li className="lg:flex-1 sm:w-[150px] w-[90px] border-l border-l-[#CECECE] py-2 sm:px-2 bg-white flex justify-center items-center">
             آمپر
           </li>
-          <li className="flex-1 border-l border-l-[#CECECE] py-2 sm:px-2 bg-white text-center">
-            گارانتی ماه
+          <li className="lg:flex-1 sm:w-[150px] w-[90px] border-l border-l-[#CECECE] py-2 sm:px-2 bg-white flex justify-center items-center">
+            گارانتی (ماه)
           </li>
           <li className="flex-1 py-2 sm:p-2 bg-white text-center">
-            قیمت باتری
+            قیمت باتری (تومان)
           </li>
         </ul>
         <div className={"flex flex-col mt-4 gap-4"}>
@@ -119,24 +119,26 @@ const BatteriesAssisantPage = (props) => {
             >
               <li
                 className={
-                  "flex-1 flex items-center justify-center gap-1 border-l border-l-[#CECECE] p-2 bg-white"
+                  "flex-1 border-l border-l-[#CECECE] p-2 bg-white relative"
                 }
               >
-                <div className="checkbox-wrapper-37 flex justify-center items-center h-full">
-                  <GreenCheckInput
-                    isSelected={isSelected === index}
-                    on_click={() => selectOptionHandler(index, item.id)}
-                    class_name="rounded-[50%] cursor-pointer self-start"
-                  />
+                <div className={"flex justify-start w-full"}>
+                  <div className="checkbox-wrapper-37 flex justify-center items-center h-full">
+                    <GreenCheckInput
+                      isSelected={isSelected === index}
+                      on_click={() => selectOptionHandler(index, item.id)}
+                      class_name="rounded-[50%] cursor-pointer self-start"
+                    />
+                  </div>
+                  <span onClick={() => selectOptionHandler(index, item.id)}>
+                    {item.name}
+                  </span>
                 </div>
-                <span onClick={() => selectOptionHandler(index, item.id)}>
-                  {item.name}
-                </span>
               </li>
-              <li className="flex-1 border-l border-l-[#CECECE] sm:p-2 bg-white flex justify-center items-center">
+              <li className="lg:flex-1 sm:w-[150px] w-[90px] border-l border-l-[#CECECE] sm:p-2 bg-white flex justify-center items-center">
                 {item.amp}
               </li>
-              <li className="flex-1 border-l border-l-[#CECECE] sm:p-2 bg-white flex justify-center items-center">
+              <li className="lg:flex-1 sm:w-[150px] w-[90px] border-l border-l-[#CECECE] sm:p-2 bg-white flex justify-center items-center">
                 Male
               </li>
               <li className="flex-1 sm:p-2 bg-white flex justify-center items-center">
@@ -148,11 +150,10 @@ const BatteriesAssisantPage = (props) => {
       </section>
       <Button
         on_click={basketClickHandler}
-        class_name={
-          "bg-[#F66B34] text-white h-[40px] lg:text-[16px] text-12 self-end rounded-[8px] size1400:w-[160px] w-[120px] mt-4"
-        }
+        disabled_btn={isSelected === false}
+        class_name={`${isSelected === false ? "bg-[#ecb8a3]" : "bg-[#F66B34]"} text-white h-[40px] lg:text-[16px] text-12 self-end rounded-[8px] size1400:w-[160px] w-[120px] mt-4`}
       >
-        اضافه به سبد خرید
+        تایید و ادامه
       </Button>
 
       <PurchaseBatteryModal

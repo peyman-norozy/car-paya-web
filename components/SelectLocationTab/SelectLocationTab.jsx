@@ -5,6 +5,7 @@ const SelectLocationTab = (props) => {
   const setQuery = useSetQuery();
   const clickTabHandler = () => {
     props.setSelectAddressState(props.addressTabState);
+    props.setLocationId("");
     setQuery.updateQueryParams({ type: props.addressTabState });
   };
 
