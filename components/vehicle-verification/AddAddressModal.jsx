@@ -73,8 +73,7 @@ const AddressModal = (props) => {
         props.getDataFetch([]);
         props.setModalIsOpen(false);
         props.setIsLoading(false);
-        props.timeData&&props.timeData();
-        
+        props.timeData && props.timeData();
       } else if (update.status === 422) {
         setErrorData(update.data.errors);
         console.log(update.data.errors);
@@ -92,7 +91,7 @@ const AddressModal = (props) => {
           props.setAddressModalState(false);
           props.getAddressFetchData();
         } else if (pathName === "/vehicle-verification") {
-          props.getDataFetch((prev)=>[...prev,post.data.data]);
+          props.getDataFetch((prev) => [...prev, post.data.data]);
           props.setModalIsOpen(false);
         } else if (pathName === "/batteries/products/newSelectLocation") {
           console.log(props);
@@ -231,7 +230,7 @@ const AddressModal = (props) => {
             type={"text"}
             icon={"cc-location"}
             editData={editData.address}
-            ItaratedAddress={ItarateMapData.address}
+            ItaratedAddress={ItarateMapData.address_compact}
             pageType={props.pageType}
             title={"آدرس"}
             star={true}
