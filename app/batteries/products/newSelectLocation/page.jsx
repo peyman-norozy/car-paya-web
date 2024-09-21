@@ -9,6 +9,8 @@ import { useRouter, useSearchParams } from "next/navigation";
 
 const Page = (props) => {
   const [selectAddressState, setSelectAddressState] = useState("MOVING"); //FIXED
+  const [locationId, setLocationId] = useState("");
+
   const [myLocationData, setMyLocationData] = useState([]);
   const [carCheckLocations, setCarCheckLocations] = useState([]);
   const [filter, setFilter] = useState([]);
@@ -107,12 +109,14 @@ const Page = (props) => {
             addressTabState={"MOVING"}
             selectAddressState={selectAddressState}
             setSelectAddressState={setSelectAddressState}
+            setLocationId={setLocationId}
           />
           <SelectLocationTab
             headerText={"در مراکز کارپایا"}
             addressTabState={"FIXED"}
             selectAddressState={selectAddressState}
             setSelectAddressState={setSelectAddressState}
+            setLocationId={setLocationId}
           />
         </div>
       </div>
@@ -125,6 +129,8 @@ const Page = (props) => {
                 timeData={timeData}
                 myLocationData={myLocationData}
                 status={"MOVING"}
+                locationId={locationId}
+                setLocationId={setLocationId}
               />
             ),
             FIXED: (
@@ -133,6 +139,8 @@ const Page = (props) => {
                 status={"FIXED"}
                 timeData={timeData}
                 filter={filter}
+                locationId={locationId}
+                setLocationId={setLocationId}
               />
             ),
           }[selectAddressState]
