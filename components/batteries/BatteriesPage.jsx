@@ -173,7 +173,7 @@ const BatteriesPage = (props) => {
             </div>
           </div>
         </div>
-        <ul className={"mt-4 flex flex-col gap-[24px]"}>
+        <ul className={"mt-4 flex flex-col gap-[32px]"}>
           {props.data?.data?.map((item, index) => (
             <BatteriesCard
               key={index}

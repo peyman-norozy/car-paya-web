@@ -1,7 +1,6 @@
 "use client";
 import React from "react";
 import Image from "next/image";
-import DetailingResponsiveButton from "@/components/DetailingResponsiveButton/DetailingResponsiveButton";
 import { usePathname, useRouter } from "next/navigation";
 import BatterisDetailCard from "@/components/cards/BatterisDetailCard/BatterisDetailCard";
 import nProgress from "nprogress";
@@ -19,11 +18,11 @@ const BatteriesCard = (props) => {
   return (
     <li
       className={
-        "bg-[#FDFDFD] rounded-[16px] p-[16px] relative text-[#5D5D5D] flex flex-col gap-3 shadow-[0_0_4px_0_rgba(207,207,207,0.7)]"
+        "bg-[#FDFDFD] rounded-[16px] p-[16px] relative text-[#5D5D5D] flex flex-col gap-3 shadow-[0_0_6px_0_rgba(125,125,125,0.5)] lg:shadow-[0_0_4px_0_rgba(207,207,207,0.7)]"
       }
     >
       <div className={"flex flex-col justify-end gap-[8px]"}>
-        <h1 className="lg:text-[16px] text-[14px] text-start font-bold text-[#303030]">
+        <h1 className="lg:text-[16px] text-[14px] text-start font-bold text-[#303030] border-r border-r-[#F66B34] pr-2">
           {props.item.filters.brand} {props.item.name}
         </h1>
       </div>
@@ -87,9 +86,6 @@ const BatteriesCard = (props) => {
           setBatteryIsSelected={props.setBatteryIsSelected}
         />
       )}
-      <div className={"size1142:hidden block"}>
-        {pathName !== "/batteries/products" && <DetailingResponsiveButton />}
-      </div>
     </li>
   );
 };

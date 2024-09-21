@@ -76,10 +76,10 @@ const BatteriesAssisantPage = (props) => {
   return (
     <div
       className={
-        "flex flex-col relative max-w-[1772px] lg:w-[calc(100%-424px)] mr-auto bg-[#FDFDFD] lg:shadow-[0_0_6px_0_rgba(125,125,125,0.5)] lg:px-6 rounded-2xl min-h-[605px] mb-4 mt-7"
+        "flex flex-col relative py-4 max-w-[1772px] lg:w-[calc(100%-424px)] mr-auto bg-[#FDFDFD] lg:shadow-[0_0_6px_0_rgba(125,125,125,0.5)] lg:px-6 rounded-2xl min-h-[605px] mb-4 lg:mt-7"
       }
     >
-      <section className={"w-full mr-auto mt-4"}>
+      <section className={"w-full mr-auto"}>
         <Link
           href={`/batteries/products?attribute_slug=type_vehicle&attribute_value=car&selectTipState=${searchParams.get("selectTipState")}`}
           className={
@@ -93,7 +93,7 @@ const BatteriesAssisantPage = (props) => {
         </Link>
         <ul
           className={
-            "flex bg-white w-full text-[#3C3C3C] text-14 font-medium shadow-[0_3px_10px_rgb(0,0,0,0.2)] py-2 rounded-[8px]"
+            "flex bg-white w-full text-[#3C3C3C] text-14 font-medium shadow-[0_3px_10px_rgb(0,0,0,0.2)] py-2 rounded-[8px] mt-4"
           }
         >
           <li className="flex-1 border-l border-l-[#CECECE] py-2 sm:px-2 bg-white text-center">
