@@ -104,7 +104,7 @@ const Page = (props) => {
         <i className="cc-timer text-2xl text-[#D1D1D1]" />
       </div>
       <span className={"font-semibold text-14"}>آدرس خود را انتخاب کنید:</span>
-      <div className={`z-[2000] py-4 transition-all`}>
+      <div className={`py-4 transition-all`}>
         <div className={"flex justify-center"}>
           <SelectLocationTab
             headerText={"در محل شما"}
