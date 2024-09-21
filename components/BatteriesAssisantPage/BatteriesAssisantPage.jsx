@@ -149,7 +149,7 @@ const BatteriesAssisantPage = (props) => {
       <Button
         on_click={basketClickHandler}
         disabled_btn={isSelected === false}
-        class_name={`${isSelected === false ? "bg-[#ecb8a3]" : "bg-[#F66B34]"}  text-white h-[40px] lg:text-[16px] text-12 self-end rounded-[8px] size1400:w-[160px] w-[120px] mt-4`}
+        class_name={`${isSelected === false ? "bg-[#ecb8a3]" : "bg-[#F66B34]"} text-white h-[40px] lg:text-[16px] text-12 self-end rounded-[8px] size1400:w-[160px] w-[120px] mt-4`}
       >
         تایید و ادامه
       </Button>
