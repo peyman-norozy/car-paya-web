@@ -22,7 +22,9 @@ const Page = (props) => {
   const typeService = searchParams.get("type_service");
   const router = useRouter();
 
-  const showHeaderState = useSelector((state) => state.todo.showHeader);
+  const renderUserAddrressState = useSelector(
+    (state) => state.todo.renderUserAddrressState,
+  );
 
   useEffect(() => {
     setSelectAddressState(searchParams.get("type"));
@@ -49,7 +51,7 @@ const Page = (props) => {
 
   useEffect(() => {
     timeData();
-  }, [searchParams]);
+  }, [searchParams, renderUserAddrressState]);
 
   return (
     <div
