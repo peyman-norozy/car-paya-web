@@ -29,7 +29,7 @@ const BatteriesCard = (props) => {
       <div className={"flex lg:gap-6 gap-2"}>
         <div
           className={
-            "h-[87px] w-[73px] lg:h-[183px] lg:w-[167px] bg-[#eee] rounded-[8px] relative self-center overflow-hidden"
+            "h-[87px] w-[73px] lg:h-[183px] lg:w-[167px] rounded-[8px] relative self-center overflow-hidden"
           }
         >
           <Image
