@@ -9,23 +9,35 @@ import x from "@/public/assets/images/x.png";
 import youtube from "@/public/assets/images/youtube.png";
 import instagram from "@/public/assets/images/instagram.png";
 import linkedin from "@/public/assets/images/linkedin.png";
+import { useEffect, useState } from "react";
 
 const Footer = (props) => {
+  const [footerState, setFooterState] = useState(true);
   const params = useParams();
   const pathName = usePathname();
   const searchParams = useSearchParams();
   const innerWidthNumber = useSelector(
-    (number) => number.todo.windowInnerWidth
+    (number) => number.todo.windowInnerWidth,
   );
-  const condition = !(
-    pathName.includes("/vehicle-verification") &&
-    searchParams.toString().includes("step=")
-  );
+
+  useEffect(() => {
+    if (
+      pathName.includes("/vehicle-verification") &&
+      searchParams.toString().includes("step=")
+    ) {
+      setFooterState(false);
+    } else if (pathName.startsWith("/batteries/")) {
+      setFooterState(false);
+    } else {
+      setFooterState(true);
+    }
+  }, [pathName, searchParams]);
+
   return (
     <footer
-      className={`${props.className} bg-white absolute right-0 left-0 py-6 ${innerWidthNumber > 1025 || condition ? "pb-24" : "pb-16"} sm:pb-6 rounded-t-2xl flex flex-col lg:flex-row gap-6 text-[#3C3C3C] justify-around ${condition ? "shadow-[0_-5px_8px_0_rgba(164,164,164,0.25)]" : ""}`}
+      className={`${props.className} bg-white absolute right-0 left-0 py-6 ${innerWidthNumber > 1025 || footerState ? "pb-24" : "pb-16"} sm:pb-6 rounded-t-2xl flex flex-col lg:flex-row gap-6 text-[#3C3C3C] justify-around ${footerState ? "shadow-[0_-5px_8px_0_rgba(164,164,164,0.25)]" : ""}`}
     >
-      {innerWidthNumber > 1025 || condition ? (
+      {innerWidthNumber > 1025 || footerState ? (
         <>
           <div className="flex flex-col w-full gap-4 max-w-[620px] m-auto lg:m-0 px-6">
             <div className="flex gap-3 flex-row justify-start">
@@ -136,12 +148,12 @@ const Footer = (props) => {
             />     */}
             </div>
           </div>
-            <div className="border-t border-[#BBBBBB] w-full px-4 pt-2 pb-4">
-              <p className="text-[#888888] text-xs font-medium text-center">
-                کلیه حقوق مادی و معنوی این وب سایت متعلق به شرکت آسان خودرو می
-                باشد.
-              </p>
-            </div>
+          <div className="border-t border-[#BBBBBB] w-full px-4 pt-2 pb-4">
+            <p className="text-[#888888] text-xs font-medium text-center">
+              کلیه حقوق مادی و معنوی این وب سایت متعلق به شرکت آسان خودرو می
+              باشد.
+            </p>
+          </div>
         </>
       ) : (
         ""
