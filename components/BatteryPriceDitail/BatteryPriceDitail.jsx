@@ -66,16 +66,6 @@ const BatteryPriceDitail = (props) => {
           </span>
         </div>
       </div>
-      <div className={"flex size1314:flex-row size1314:gap-[0.75rem] gap-0"}>
-        <p className={"lg:text-[16px] text-14"}>
-          قیمت با دریافت باطری فرسوده هم آمپر
-        </p>
-        <div className="flex items-center gap-[0.75rem]">
-          <span className="flex items-center gap-[0.25rem] text-center lg:text-[16px] text-14">
-            {numberWithCommas(props.item["same_amp"])}تومان
-          </span>
-        </div>
-      </div>
       <div className={"flex justify-between"}>
         <div className={"flex items-center gap-[0.75rem]"}>
           <p className={"lg:text-[14px] text-12 text-[#518DD5]"}>
