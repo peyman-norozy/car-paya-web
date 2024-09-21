@@ -55,10 +55,7 @@ const BatteriesCard = (props) => {
           <ul
             className={`grid grid-cols-2 gap-y-2 text-[12px] lg:text-[14px] text-[#47505D]`}
           >
-            <BatterisDetailCard
-              item={props.item}
-              buletStyle={"w-[5px] h-[5px] bg-[#5D5D5D]"}
-            />
+            <BatterisDetailCard item={props.item} />
           </ul>
           {props.isMounted && props.innerWidth >= 1024 && (
             <BatteryPriceDitail
