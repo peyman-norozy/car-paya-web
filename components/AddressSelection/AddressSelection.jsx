@@ -16,7 +16,6 @@ const AddressSelection = (props) => {
   const [servicesState, setServicesState] = useState(false);
   const [servicesData, setServicesData] = useState([]);
   const [srviceQuery, setServiceQuery] = useState([]);
-  const [locationId, setLocationId] = useState("");
 
   const optionRef = useRef(null);
   const inputRef = useRef(null);
@@ -82,7 +81,10 @@ const AddressSelection = (props) => {
   }
 
   const confirmAndContinue = () => {
-    setQuery.updateQueryParams({ service_location_id: locationId }, nextUrl);
+    setQuery.updateQueryParams(
+      { service_location_id: props.locationId },
+      nextUrl,
+    );
   };
 
   return (
@@ -211,8 +213,8 @@ const AddressSelection = (props) => {
               key={item.id}
               status={props.status}
               item={item}
-              setLocationId={setLocationId}
-              locationId={locationId}
+              setLocationId={props.setLocationId}
+              locationId={props.locationId}
             />
           ))}
         </ul>
@@ -228,16 +230,16 @@ const AddressSelection = (props) => {
                 setPageType={setPageType}
                 setModalIsOpen={setModalIsOpen}
                 setAddressEditId={setAddressEditId}
-                setLocationId={setLocationId}
-                locationId={locationId}
+                setLocationId={props.setLocationId}
+                locationId={props.locationId}
               />
             ))}
         </ul>
       )}
       <div className={"flex justify-end"}>
         <button
-          className={`${!Boolean(locationId) ? "bg-[#ecb8a3]" : "bg-[#F66B34]"} text-white text-14 w-[199px] h-[40px] rounded-[8px]`}
-          disabled={!Boolean(locationId)}
+          className={`${!Boolean(props.locationId) ? "bg-[#ecb8a3]" : "bg-[#F66B34]"} text-white text-14 w-[199px] h-[40px] rounded-[8px]`}
+          disabled={!Boolean(props.locationId)}
           onClick={confirmAndContinue}
         >
           تایید و ادامه
@@ -246,7 +248,7 @@ const AddressSelection = (props) => {
       {modalIsOpen && props.status === "MOVING" && (
         <div>
           <div>
-            <div className={"fixed w-[45%] m-auto inset-0 z-[10000000000]"}>
+            <div className={"fixed m-auto inset-0 z-[10000000000]"}>
               <AddAddressModal
                 getDataFetch={props.setMyLocationData}
                 pageType={pageType}
