@@ -148,11 +148,10 @@ const BatteriesAssisantPage = (props) => {
       </section>
       <Button
         on_click={basketClickHandler}
-        class_name={
-          "bg-[#F66B34] text-white h-[40px] lg:text-[16px] text-12 self-end rounded-[8px] size1400:w-[160px] w-[120px] mt-4"
-        }
+        disabled_btn={isSelected === false}
+        class_name={`${isSelected === false ? "bg-[#ecb8a3]" : "bg-[#F66B34]"}  text-white h-[40px] lg:text-[16px] text-12 self-end rounded-[8px] size1400:w-[160px] w-[120px] mt-4`}
       >
-        اضافه به سبد خرید
+        تایید و ادامه
       </Button>
 
       <PurchaseBatteryModal
