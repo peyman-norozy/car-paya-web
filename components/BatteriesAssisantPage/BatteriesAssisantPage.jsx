@@ -93,20 +93,20 @@ const BatteriesAssisantPage = (props) => {
         </Link>
         <ul
           className={
-            "flex bg-white w-full text-[#3C3C3C] text-14 font-medium shadow-[0_3px_10px_rgb(0,0,0,0.2)] py-2 rounded-[8px] mt-4"
+            "sticky top-[70px] flex bg-white w-full text-[#3C3C3C] text-12 sm:text-14 font-bold shadow-[0_3px_10px_rgb(0,0,0,0.2)] py-2 rounded-[8px] mt-4 z-50"
           }
         >
-          <li className="flex-1 border-l border-l-[#CECECE] py-2 sm:px-2 bg-white text-center">
+          <li className="flex-1 border-l border-l-[#CECECE] py-2 sm:px-2 bg-white flex justify-center items-center">
             نام باتری
           </li>
-          <li className="flex-1 border-l border-l-[#CECECE] py-2 sm:px-2 bg-white text-center">
+          <li className="lg:flex-1 sm:w-[150px] w-[90px] border-l border-l-[#CECECE] py-2 sm:px-2 bg-white flex justify-center items-center">
             آمپر
           </li>
-          <li className="flex-1 border-l border-l-[#CECECE] py-2 sm:px-2 bg-white text-center">
-            گارانتی ماه
+          <li className="lg:flex-1 sm:w-[150px] w-[90px] border-l border-l-[#CECECE] py-2 sm:px-2 bg-white flex justify-center items-center">
+            گارانتی (ماه)
           </li>
           <li className="flex-1 py-2 sm:p-2 bg-white text-center">
-            قیمت باتری
+            قیمت باتری (تومان)
           </li>
         </ul>
         <div className={"flex flex-col mt-4 gap-4"}>
@@ -119,24 +119,26 @@ const BatteriesAssisantPage = (props) => {
             >
               <li
                 className={
-                  "flex-1 flex items-center justify-center gap-1 border-l border-l-[#CECECE] p-2 bg-white"
+                  "flex-1 border-l border-l-[#CECECE] p-2 bg-white relative"
                 }
               >
-                <div className="checkbox-wrapper-37 flex justify-center items-center h-full">
-                  <GreenCheckInput
-                    isSelected={isSelected === index}
-                    on_click={() => selectOptionHandler(index, item.id)}
-                    class_name="rounded-[50%] cursor-pointer self-start"
-                  />
+                <div className={"flex justify-start w-full"}>
+                  <div className="checkbox-wrapper-37 flex justify-center items-center h-full">
+                    <GreenCheckInput
+                      isSelected={isSelected === index}
+                      on_click={() => selectOptionHandler(index, item.id)}
+                      class_name="rounded-[50%] cursor-pointer self-start"
+                    />
+                  </div>
+                  <span onClick={() => selectOptionHandler(index, item.id)}>
+                    {item.name}
+                  </span>
                 </div>
-                <span onClick={() => selectOptionHandler(index, item.id)}>
-                  {item.name}
-                </span>
               </li>
-              <li className="flex-1 border-l border-l-[#CECECE] sm:p-2 bg-white flex justify-center items-center">
+              <li className="lg:flex-1 sm:w-[150px] w-[90px] border-l border-l-[#CECECE] sm:p-2 bg-white flex justify-center items-center">
                 {item.amp}
               </li>
-              <li className="flex-1 border-l border-l-[#CECECE] sm:p-2 bg-white flex justify-center items-center">
+              <li className="lg:flex-1 sm:w-[150px] w-[90px] border-l border-l-[#CECECE] sm:p-2 bg-white flex justify-center items-center">
                 Male
               </li>
               <li className="flex-1 sm:p-2 bg-white flex justify-center items-center">
