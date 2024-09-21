@@ -146,15 +146,18 @@ const Page = (props) => {
           accordionState={props.accordionState}
         />
       </ul>
-      <div className={"flex justify-end"}>
+      <div
+        className={
+          "flex justify-center lg:justify-end fixed bottom-0 right-0 left-0 lg:relative w-full z-50 bg-white py-4 px-10 rounded-t-[16px] lg:rounded-none lg:shadow-none shadow-[0_0_6px_0_rgba(125,125,125,0.5)]"
+        }
+      >
         <button
-          type={"button"}
+          className={`${!selectedTime ? "bg-[#ecb8a3]" : "bg-[#F66B34]"} text-white text-14 lg:w-[199px] w-full h-[40px] rounded-[8px] flex items-center justify-center`}
           disabled={!selectedTime}
-          className={`h-10 ${!selectedTime ? "bg-stone-400" : "bg-[#F66B34]"} rounded-[4px] text-[#FEFEFE] mt-6 lg:text-14 text-12 flex items-center justify-center p-2`}
           onClick={onclick}
         >
           <span>تایید و ادامه</span>
-          <i className={"cc-left text-[24px]"} />
+          <i className={"cc-left text-[24px] lg:block hidden"} />
         </button>
       </div>
     </div>

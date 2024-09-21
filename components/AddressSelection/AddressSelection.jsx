@@ -236,9 +236,13 @@ const AddressSelection = (props) => {
             ))}
         </ul>
       )}
-      <div className={"flex justify-end"}>
+      <div
+        className={
+          "flex justify-center lg:justify-end fixed bottom-0 right-0 left-0 lg:relative w-full z-50 bg-white py-4 px-10 rounded-t-[16px] lg:rounded-none lg:shadow-none shadow-[0_0_6px_0_rgba(125,125,125,0.5)]"
+        }
+      >
         <button
-          className={`${!Boolean(props.locationId) ? "bg-[#ecb8a3]" : "bg-[#F66B34]"} text-white text-14 w-[199px] h-[40px] rounded-[8px]`}
+          className={`${!Boolean(props.locationId) ? "bg-[#ecb8a3]" : "bg-[#F66B34]"} text-white text-14 lg:w-[199px] w-full h-[40px] rounded-[8px]`}
           disabled={!Boolean(props.locationId)}
           onClick={confirmAndContinue}
         >
