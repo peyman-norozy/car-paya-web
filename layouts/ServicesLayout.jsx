@@ -9,7 +9,7 @@ const ServicesLayout = (props) => {
       className={`lg:mt-0 relative max-w-[1772px] sm:px-[48px] px-2 m-auto`}
     >
       <CarSelectComponent />
-      <CarServicesSlider data={serviceData} />
+      {/*<CarServicesSlider data={serviceData} />*/}
       {props.children}
     </main>
   );

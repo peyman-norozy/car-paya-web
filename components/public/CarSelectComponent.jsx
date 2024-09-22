@@ -398,9 +398,9 @@ const CarSelectComponent = (props) => {
     )
   ) {
     return (
-      <div className="absolute h-full top-0 right-auto pb-10">
+      <div className="absolute h-full top-0 right-auto pb-10 mr-1">
         <div
-          className={`bg-[#fbfbfb] ${props.isMobile ? "h-[550px]" : "h-[605px]"} rounded-2xl w-[400px] sticky top-[123px] right-auto z-[2] backdrop-blur-[16px] p-4 pt-8 ${props.isMobile ? "flex lg:hidden" : "hidden lg:flex"} flex-col gap-4 lg:shadow-[0_0_6px_0_rgba(125,125,125,0.5)] relative`}
+          className={`bg-[#fbfbfb] ${props.isMobile ? "h-[550px]" : "h-[605px]"} rounded-2xl w-[400px] sticky top-[127px] right-auto z-[2] backdrop-blur-[16px] p-4 pt-8 ${props.isMobile ? "flex lg:hidden" : "hidden lg:flex"} flex-col gap-4 lg:shadow-[0_0_6px_0_rgba(125,125,125,0.5)] relative`}
         >
           {carSelected ? (
             <div className="flex flex-col gap-4">
