@@ -14,7 +14,7 @@ const DeleteModal = (props) => {
   const isOpen = useSelector((state) => state.todo.DeleteModalState);
   const id = useSelector((state) => state.todo.DeleteModalId);
 
-  useEffect(() => {    
+  useEffect(() => {
     setIsClient(true);
   }, []);
 
@@ -23,17 +23,20 @@ const DeleteModal = (props) => {
   }
 
   function deleteHandler() {
-    axios.delete(process.env.BASE_API + "/user-panel/user-address/"+id , {
-        headers:{
-            Authorization: "Bearer " + getCookie("Authorization")
-        }
-    }).then((res)=>{
-        success("اطلاعات با موفقیت حذف شد")
-        dispatch(renderUserAddrress())
-        closeModal()
-    }).catch((err)=>{
+    axios
+      .delete(process.env.BASE_API + "/user-panel/user-address/" + id, {
+        headers: {
+          Authorization: "Bearer " + getCookie("Authorization"),
+        },
+      })
+      .then((res) => {
+        success("اطلاعات با موفقیت حذف شد");
+        dispatch(renderUserAddrress());
+        closeModal();
+      })
+      .catch((err) => {
         console.log(err);
-    })
+      });
   }
 
   if (!isClient) return null;
@@ -45,7 +48,7 @@ const DeleteModal = (props) => {
   return (
     <Portal container={modalContainer}>
       <div
-        className={`${!isOpen ? "hidden" : "fixed"} fixed top-0 right-0 w-screen h-screen bg-[#000000b2] z-[3000]`}
+        className={`${!isOpen ? "hidden" : "fixed"} fixed top-0 right-0 w-screen h-screen bg-[#10101069] z-[3000]`}
         onClick={() => closeModal()}
       >
         <div
@@ -60,11 +63,14 @@ const DeleteModal = (props) => {
           <div className="flex items-center gap-9 w-full justify-center">
             <button
               className="text-[#FEFEFE] text-sm font-medium flex items-center justify-center bg-[#F66B34] rounded-lg py-3 w-32"
-              onClick={()=>closeModal()}
+              onClick={() => closeModal()}
             >
               انصراف
             </button>
-            <button className="text-[#F58052] text-sm font-medium flex items-center justify-center border border-[#F66B34] rounded-lg py-3 w-32" onClick={deleteHandler}>
+            <button
+              className="text-[#F58052] text-sm font-medium flex items-center justify-center border border-[#F66B34] rounded-lg py-3 w-32"
+              onClick={deleteHandler}
+            >
               تایید
             </button>
           </div>
