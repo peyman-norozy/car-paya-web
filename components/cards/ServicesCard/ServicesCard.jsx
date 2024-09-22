@@ -4,7 +4,7 @@ import Image from "next/image";
 import { numberWithCommas } from "@/utils/function-utils";
 import Button from "@/components/Button";
 import DetailingDetailCard from "@/components/cards/DetailingDetailCard/DetailingDetailCard";
-import DetailingResponsiveButton from "@/components/DetailingResponsiveButton/DetailingResponsiveButton";
+// import DetailingResponsiveButton from "@/components/DetailingResponsiveButton/DetailingResponsiveButton";
 
 const ServicesCard = (props) => {
   console.log(props);
@@ -108,7 +108,7 @@ const ServicesCard = (props) => {
         </div>
       </div>
       <div className={"size1142:hidden block"}>
-        {<DetailingResponsiveButton />}
+        {/*{<DetailingResponsiveButton />}*/}
       </div>
     </li>
   );

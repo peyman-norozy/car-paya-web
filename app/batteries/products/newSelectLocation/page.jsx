@@ -3,9 +3,10 @@
 import React, { useCallback, useEffect, useState } from "react";
 import SelectLocationTab from "@/components/SelectLocationTab/SelectLocationTab";
 import AddressSelection from "@/components/AddressSelection/AddressSelection";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getDataWithFullErrorRes } from "@/utils/api-function-utils";
 import { useRouter, useSearchParams } from "next/navigation";
+import { setAreaeModalState } from "@/store/todoSlice";
 
 const Page = (props) => {
   const [selectAddressState, setSelectAddressState] = useState("MOVING"); //FIXED
@@ -21,6 +22,7 @@ const Page = (props) => {
   const amper = searchParams.get("amper");
   const typeService = searchParams.get("type_service");
   const router = useRouter();
+  const dispatch = useDispatch();
 
   const renderUserAddrressState = useSelector(
     (state) => state.todo.renderUserAddrressState,
@@ -41,6 +43,7 @@ const Page = (props) => {
         if (searchParams.get("type") === "FIXED") {
           setCarCheckLocations(fetchTimeData.data);
           setFilter(fetchTimeData.filter);
+          dispatch(setAreaeModalState(false));
         } else if (searchParams.get("type") === "MOVING") {
           setMyLocationData(fetchTimeData.data);
         }
