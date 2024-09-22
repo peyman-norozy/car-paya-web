@@ -3,25 +3,26 @@ import Button from "@/components/Button";
 import NewAddressCard from "@/components/cards/NewAddressCard/NewAddressCard";
 import AddAddressModal from "@/components/vehicle-verification/AddAddressModal";
 import Spinner from "@/components/Spinner";
-import { usePathname, useSearchParams } from "next/navigation";
+import { usePathname } from "next/navigation";
 import useSetQuery from "@/hook/useSetQuery";
+import { setAreaeModalState } from "@/store/todoSlice";
+import { useDispatch } from "react-redux";
+import BatteryAreaModal from "@/components/modal/BatteryAreaModal";
 
 const AddressSelection = (props) => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [pageType, setPageType] = useState("");
   const [addressEditId, setAddressEditId] = useState("");
-  const [searchCity, setSearchCity] = useState([]);
-  const [optionState, setOptionState] = useState(false);
   const [servicesState, setServicesState] = useState(false);
   const [servicesData, setServicesData] = useState([]);
   const [srviceQuery, setServiceQuery] = useState([]);
+  const [filter, setFilter] = useState();
 
-  const optionRef = useRef(null);
-  const inputRef = useRef(null);
   const serviceButtenRef = useRef(null);
   const serviceDropDownRef = useRef(null);
   const pathName = usePathname();
+  const dispatch = useDispatch();
   const setQuery = useSetQuery();
 
   const nextUrl = pathName.startsWith("/detailing")
@@ -35,13 +36,6 @@ const AddressSelection = (props) => {
   useEffect(() => {
     document.addEventListener("click", (e) => {
       if (
-        e.target !== optionRef.current &&
-        e.target.parentElement !== optionRef.current &&
-        e.target !== inputRef.current
-      ) {
-        setOptionState(false);
-      }
-      if (
         e.target !== serviceButtenRef.current &&
         e.target.parentElement?.parentElement !== serviceDropDownRef.current &&
         e.target !== serviceDropDownRef.current
@@ -50,7 +44,7 @@ const AddressSelection = (props) => {
       }
     });
     if (props.filter && props.filter.area) {
-      setSearchCity(props.filter.area);
+      setFilter(props.filter.area);
       setServicesData(props.filter.service);
     }
   }, [props.filter]);
@@ -59,10 +53,6 @@ const AddressSelection = (props) => {
     setModalIsOpen(true);
     setPageType("create");
   };
-
-  function inputChangeHandler(value) {
-    setSearchCity(props.filter.area.filter((i) => i.label.includes(value)));
-  }
 
   function checkboxChangeHandler(value, checked) {
     if (checked) {
@@ -92,52 +82,15 @@ const AddressSelection = (props) => {
       {props.status === "FIXED" ? (
         <div className=" flex items-center justify-between">
           <div className="relative">
-            <span
-              className="text-[#FEFEFE] font-bold cursor-pointer bg-[#5D697A] w-40 flex items-center justify-center rounded-lg py-2"
+            <button
+              className="flex w-fit p-2 gap-2 items-center text-xs text-[#3C3C3C] bg-[#FEFEFE] shadow-[0_0_4px_0_rgba(224,222,222,0.7)] rounded-[4px]"
               onClick={() => {
-                setOptionState(true);
+                dispatch(setAreaeModalState(true));
               }}
-              ref={inputRef}
             >
-              انتخاب محله
-            </span>
-            <div
-              className={`absolute overflow-y-scroll rounded-lg top-[42px] z-[2] bg-[#5D697A] ${optionState ? "w-40" : "w-0"} overflow-hidden transition-all z-[1000000]`}
-            >
-              <div
-                className="max-h-[200px] flex flex-col p-2 gap-1 w-40"
-                ref={optionRef}
-              >
-                <input
-                  className="w-full bg-[#FEFEFE] rounded-lg text-[#0E0E0E] h-8 outline-none mb-1 px-2"
-                  onChange={(e) => {
-                    inputChangeHandler(e.target.value);
-                  }}
-                />
-                <span
-                  className="cursor-pointer hover:bg-[#6e7c91] py-1 px-2 text-[#FEFEFE] text-14"
-                  onClick={(e) => {
-                    props.timeData();
-                    setOptionState(false);
-                  }}
-                >
-                  همه محله ها
-                </span>
-                {searchCity.map((item, index) => (
-                  <span
-                    className="cursor-pointer hover:bg-[#6e7c91] py-1 px-2 text-[#FEFEFE] text-14"
-                    value={item.id}
-                    onClick={(e) => {
-                      props.timeData({ area_id: item.id });
-                      setOptionState(false);
-                    }}
-                    key={index}
-                  >
-                    {item.label}
-                  </span>
-                ))}
-              </div>
-            </div>
+              <i className="cc-filter" />
+              <span>انتخاب محله</span>
+            </button>
           </div>
           <div className="relative">
             {pathName !== "/batteries/products/newSelectLocation" && (
@@ -292,6 +245,12 @@ const AddressSelection = (props) => {
           ></div>
         </div>
       )}
+      <BatteryAreaModal data={filter} timeData={props.timeData} />
+      {/*<AreaModal*/}
+      {/*  data={filter}*/}
+      {/*  checkboxChangeHandler={checkboxChangeHandler}*/}
+      {/*  // areaFilterHandler={areaFilterHandler}*/}
+      {/*/>*/}
     </>
   );
 };
