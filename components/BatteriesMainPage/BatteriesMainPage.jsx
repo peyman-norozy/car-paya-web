@@ -68,46 +68,12 @@ const BatteriesMainPage = () => {
           "flex flex-col relative max-w-[1772px] m-auto lg:mr-[424px] pb-10 mt-10"
         }
       >
-        <div className="bg-[#383838A3] rounded-3xl flex size900:flex-row-reverse flex-col-reverse gap-6 p-6 items-center">
-          <div className="flex flex-col gap-2 items-start flex-1">
-            <h1 className="lg:text-xl font-bold text-[#F66B34]">باتری</h1>
-            <p className="text-[#FEFEFE] font-bold leading-8 lg:text-base text-[12px]">
-              لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با
-              استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله
-              در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد
-              نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد.
-            </p>
-            <Link
-              href={
-                pathName.startsWith("/batteries") &&
-                JSON.parse(localStorage.getItem("selectedVehicle"))?.id &&
-                cityId
-                  ? `batteries/products?attribute_slug=type_vehicle&attribute_value=car${
-                      JSON.parse(localStorage.getItem("selectedVehicle"))?.id
-                        ? `&selectTipState=true,${JSON.parse(localStorage.getItem("selectedVehicle")).id.toString()}`
-                        : ""
-                    }`
-                  : ""
-              }
-              onClick={() => {
-                setToastieDisplay((prev) => !prev);
-                setPreventFirstRender(true);
-              }}
-              className="bg-[#F66B34] rounded-md py-2 px-4 text-[#FEFEFE] w-fit mt-2 font-medium lg:text-14 text-12"
-            >
-              ثبت درخواست
-            </Link>
-          </div>
-          <Image
-            alt={"buttery description image"}
-            src={"/assets/images/batteryIndex.png"}
-            width={245}
-            height={195}
-          />
-        </div>
+        <h1 className={"text-[18px] font-medium text-[#F58052]"}>
+          مراحل تعویض باتری با کار پایا
+        </h1>
         <ul
           className={
-            "flex justify-between lg:gap-8 gap-4 mt-10 overflow-x-scroll pb-2 [&>*:last-child]:hidden"
+            "flex justify-between lg:gap-8 gap-4 mt-10 overflow-x-scroll py-2 px-1 [&>*:last-child]:hidden"
           }
         >
           {batteryPurchaseProcessData.map((item, index) => (
