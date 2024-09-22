@@ -6,7 +6,7 @@ const BatteryPurchaseProcess = ({ icon, title }) => {
     <>
       <li
         className={
-          "bg-[#E7E7E7] flex flex-col justify-center gap-[16px] lg:min-w-[158px] min-w-[130px] lg:h-[136px] h-[100px] rounded-[16px]"
+          "bg-white flex flex-col justify-center gap-[16px] lg:min-w-[158px] min-w-[130px] lg:h-[136px] h-[100px] rounded-[16px] shadow-[0_0_6px_0_rgba(125,125,125,0.5)]"
         }
       >
         <div className={"flex justify-center"}>
@@ -18,9 +18,7 @@ const BatteryPurchaseProcess = ({ icon, title }) => {
             className={"lg:w-12 w-8"}
           />
         </div>
-        <span className={"flex justify-center lg:text-16 text-14"}>
-          {title}
-        </span>
+        <span className={"text-center lg:text-16 text-14"}>{title}</span>
       </li>
       <li className={"min-w-[20px] rotate-180 flex items-center"}>
         <Image
