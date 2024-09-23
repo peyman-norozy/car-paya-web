@@ -192,16 +192,7 @@ const Dealership = (props) => {
   ];
 
   const backstopHandler = () => {
-    setQuery.deleteSingleQuery(
-      [
-        {
-          key: "reservation_time_slice_id",
-          value: reservation_time_slice_id,
-        },
-      ],
-      params
-    );
-    setQuery.updateMultiQuery([{ key: "step", value: "step-2" }], params);
+    router.push("/periodic-service")
   };
 
   const continueSecondStepHandler = () => {
