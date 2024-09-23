@@ -80,7 +80,7 @@ const AreaModal = (props) => {
         <div className="fixed sm:static w-full rounded-t-2xl shadow-[0_-2px_4px_0_rgba(199,199,199,0.25)] flex justify-center pt-4 pb-6 items-start bottom-0 right-0 bg-white z-[2000] px-10">
           <button
             className={`bg-[#F66B34] rounded-lg w-full sm:max-w-[400px] text-[#FEFEFE] text-sm font-medium py-3`}
-            onClick={props.areaFilterHandler}
+            onClick={()=>{props.areaFilterHandler();closeModal()}}
           >
             ثبت
           </button>
