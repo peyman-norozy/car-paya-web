@@ -267,12 +267,12 @@ const Dealership = (props) => {
             className="cc-car-o text-2xl text-[#518DD5]"
             onClick={() => router.push(`/periodic-service`)}
           />
+          <div className="border-b-4 border-dotted border-[#518DD5] w-full"></div>
+          <i className="cc-location text-2xl text-[#D1D1D1]" />
           <div className="border-b-4 border-dotted border-[#D1D1D1] w-full"></div>
           <i className="cc-search text-2xl text-[#D1D1D1]" />
           <div className="border-b-4 border-dotted border-[#D1D1D1] w-full"></div>
           <i className="cc-timer text-2xl text-[#D1D1D1]" />
-          <div className="border-b-4 border-dotted border-[#D1D1D1] w-full"></div>
-          <i className="cc-location text-2xl text-[#D1D1D1]" />
         </div>
         <div className="flex justify-between items-center h-10">
           <p
