@@ -26,7 +26,7 @@ const BatteriesCard = (props) => {
           {props.item.filters.brand} {props.item.name}
         </h1>
       </div>
-      <div className={"flex lg:gap-6 gap-2"}>
+      <div className={"flex lg:gap-16 gap-4"}>
         <div
           className={
             "h-[87px] w-[73px] lg:h-[183px] lg:w-[167px] rounded-[8px] relative self-center overflow-hidden"
@@ -52,7 +52,7 @@ const BatteriesCard = (props) => {
         </div>
         <div className={"flex-1"}>
           <ul
-            className={`grid grid-cols-2 gap-y-2 text-[12px] lg:text-[14px] text-[#47505D]`}
+            className={`grid lg:grid-cols-3 grid-cols-2 gap-y-2 text-[12px] lg:text-[14px] text-[#47505D]`}
           >
             <BatterisDetailCard item={props.item} />
           </ul>
