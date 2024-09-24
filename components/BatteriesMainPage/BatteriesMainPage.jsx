@@ -117,7 +117,7 @@ const BatteriesMainPage = () => {
       })()}
       <div
         className={
-          "bg-[#bcc3c9] rounded-[16px] mt-6 w-full h-auto aspect-[full/612]"
+          "bg-[#cff9ff] rounded-[16px] mt-6 w-full h-auto aspect-[full/612]"
         }
       >
         <div className={"flex flex-col"}>
