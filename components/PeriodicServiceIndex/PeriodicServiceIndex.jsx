@@ -9,6 +9,10 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { error } from "@/utils/function-utils";
 import { ToastContainer } from "react-toastify";
 import nProgress from "nprogress";
+import axios from "axios";
+import { getCookies } from "cookies-next";
+import { useDispatch } from "react-redux";
+import { setLoginModal } from "@/store/todoSlice";
 const PeriodicServiceIndex = (props) => {
   const pathName = usePathname();
   const [toastieDisplay, setToastieDisplay] = useState(false);
@@ -18,7 +22,7 @@ const PeriodicServiceIndex = (props) => {
   const [servicesState, setServicesState] = useState("");
   const [cityId, setCityId] = useState(null);
   const searchParams = useSearchParams();
-
+  const dispatch = useDispatch()
   const router = useRouter();
 
   useEffect(() => {
@@ -36,7 +40,7 @@ const PeriodicServiceIndex = (props) => {
   useEffect(() => {
     if (typeof window !== "undefined") {
       const selectedVehicle = JSON.parse(
-        localStorage.getItem("selectedVehicle"),
+        localStorage.getItem("selectedVehicle")
       );
       const city = JSON.parse(localStorage.getItem("city"));
       if (preventFirstRender) {
@@ -50,39 +54,50 @@ const PeriodicServiceIndex = (props) => {
   }, [preventFirstRender, toastieDisplay]);
 
   const selectServiceClickHandler = (status) => {
-    setToastieDisplay((prev) => !prev);
-    setPreventFirstRender(true);
-    if (
-      pathName.startsWith("/detailing") &&
-      JSON.parse(localStorage.getItem("selectedVehicle"))?.id &&
-      cityId
-    ) {
-      nProgress.start();
-      router.push(
-        `/detailing/selectLocation?type=${status}${
-          JSON.parse(localStorage.getItem("selectedVehicle"))?.id
-            ? `&selectTipState=true,${
-                JSON.parse(localStorage.getItem("selectedVehicle"))?.id
-              }`
-            : ""
-        }&city_id=${JSON.parse(localStorage.getItem("city"))?.cityId}`,
-      );
-    } else if (
-      pathName.startsWith("/periodic-service") &&
-      JSON.parse(localStorage.getItem("selectedVehicle"))?.id &&
-      cityId
-    ) {
-      nProgress.start();
-      router.push(
-        `/periodic-service/location-selection?type=${status}&${
-          JSON.parse(localStorage.getItem("selectedVehicle"))?.id
-            ? `&selectTipState=true,${
-                JSON.parse(localStorage.getItem("selectedVehicle"))?.id
-              }`
-            : ""
-        }&city_id=${cityId}`,
-      );
-    }
+    axios
+      .get(process.env.BASE_API + "/check-authorization", {
+        headers: {
+          Authorization: "Bearer " + getCookies("Authorization").Authorization,
+        },
+      })
+      .then(async () => {
+        setToastieDisplay((prev) => !prev);
+        setPreventFirstRender(true);
+        if (
+          pathName.startsWith("/detailing") &&
+          JSON.parse(localStorage.getItem("selectedVehicle"))?.id &&
+          cityId
+        ) {
+          nProgress.start();
+          router.push(
+            `/detailing/selectLocation?type=${status}${
+              JSON.parse(localStorage.getItem("selectedVehicle"))?.id
+                ? `&selectTipState=true,${
+                    JSON.parse(localStorage.getItem("selectedVehicle"))?.id
+                  }`
+                : ""
+            }&city_id=${JSON.parse(localStorage.getItem("city"))?.cityId}`
+          );
+        } else if (
+          pathName.startsWith("/periodic-service") &&
+          JSON.parse(localStorage.getItem("selectedVehicle"))?.id &&
+          cityId
+        ) {
+          nProgress.start();
+          router.push(
+            `/periodic-service/location-selection?type=${status}&${
+              JSON.parse(localStorage.getItem("selectedVehicle"))?.id
+                ? `&selectTipState=true,${
+                    JSON.parse(localStorage.getItem("selectedVehicle"))?.id
+                  }`
+                : ""
+            }&city_id=${cityId}`
+          );
+        }
+      })
+      .catch((err) => {
+        dispatch(setLoginModal(true));
+      });
   };
 
   if (!isClient) {
