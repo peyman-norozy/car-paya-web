@@ -85,7 +85,7 @@ const CustomSearchInput = (props) => {
           </span>
         )}
         <ul
-          className={`${optionContainerStyle} ${optionAccordionState ? "h-[90px]" : "h-0"}`}
+          className={`${optionContainerStyle} ${optionAccordionState ? "h-[150px]" : "h-0"}`}
         >
           {options?.map((item) => {
             console.log(item.value, selectedOption);
