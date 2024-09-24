@@ -12,12 +12,15 @@ import { error } from "@/utils/function-utils";
 import { usePathname, useSearchParams } from "next/navigation";
 import CarServicesSlider from "@/components/CarServicesSlider/CarServicesSlider";
 import PointView from "@/components/PointView/PointView";
+import SelectCarAndCity from "@/components/public/SelectCarAndCity";
+import SelectCity from "@/components/public/SelectCity";
+import CarSelect from "@/components/public/CarSelect";
 
 const BatteriesMainPage = () => {
   const [client, setClient] = useState(false);
   const [cityId, setCityId] = useState(null);
-
   const [toastieDisplay, setToastieDisplay] = useState(false);
+  const [asideStatus, setAsideStatus] = useState("car_city");
 
   const [preventFirstRender, setPreventFirstRender] = useState(false);
   const pathName = usePathname();
@@ -39,10 +42,10 @@ const BatteriesMainPage = () => {
       );
       const city = JSON.parse(localStorage.getItem("city"));
       if (preventFirstRender) {
-        if (!selectedVehicle) {
-          error("لطفا خودرو خود را انتخاب کنید");
-        } else if (!city) {
+        if (!city) {
           error("لطفا شهر خود را انتخاب کنید");
+        } else if (!selectedVehicle) {
+          error("لطفا خودرو خود را انتخاب کنید");
         }
       }
     }
@@ -52,48 +55,108 @@ const BatteriesMainPage = () => {
     return null;
   }
 
+  // <div className="bg-[#383838A3] rounded-3xl flex size900:flex-row-reverse flex-col-reverse gap-6 p-6 items-center">
+  //   <div className="flex flex-col gap-2 items-start flex-1">
+  //     <h1 className="lg:text-xl font-bold text-[#F66B34]">باتری</h1>
+  //     <p className="text-[#FEFEFE] font-bold leading-8 lg:text-base text-[12px]">
+  //       لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با
+  //       استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در
+  //       ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و
+  //       کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد.
+  //     </p>
+  //     <Link
+  //         href={
+  //           pathName.startsWith("/batteries") &&
+  //           JSON.parse(localStorage.getItem("selectedVehicle"))?.id &&
+  //           cityId
+  //               ? `batteries/products?attribute_slug=type_vehicle&attribute_value=car${
+  //                   JSON.parse(localStorage.getItem("selectedVehicle"))?.id
+  //                       ? `&selectTipState=true,${JSON.parse(localStorage.getItem("selectedVehicle")).id.toString()}`
+  //                       : ""
+  //               }`
+  //               : ""
+  //         }
+  //         onClick={() => {
+  //           setToastieDisplay((prev) => !prev);
+  //           setPreventFirstRender(true);
+  //         }}
+  //         className="bg-[#F66B34] rounded-md py-2 px-4 text-[#FEFEFE] w-fit mt-2 font-medium lg:text-14 text-12"
+  //     >
+  //       ثبت درخواست
+  //     </Link>
+  //   </div>
+  //   <Image
+  //       alt={"buttery description image"}
+  //       src={"/assets/images/batteryIndex.png"}
+  //       width={245}
+  //       height={195}
+  //   />
+  // </div>
+
   return (
-    <>
+    <div className={"relative"}>
+      {(() => {
+        switch (asideStatus) {
+          case "car_city":
+            return (
+              <SelectCarAndCity
+                buttonTitle={"درخواست باتری"}
+                setAsideStatus={setAsideStatus}
+                setToastieDisplay={setToastieDisplay}
+                setPreventFirstRender={setPreventFirstRender}
+                cityId={cityId}
+              />
+            );
+          case "citySelection":
+            return <SelectCity setAsideStatus={setAsideStatus} />;
+          case "carSelection":
+            return <CarSelect setAsideStatus={setAsideStatus} />;
+          default:
+            return null;
+        }
+      })()}
       <div
         className={
-          "bg-[#EBF5FF] rounded-[16px] mt-6 w-full h-auto aspect-[full/612] flex flex-col"
+          "bg-[#bcc3c9] rounded-[16px] mt-6 w-full h-auto aspect-[full/612]"
         }
       >
-        <h1
-          className={
-            "flex items-center justify-center gap-1 lg:text-[24px] text-[20px] font-bold mt-10 mr-8 lg:mr-0 self-start lg:self-center"
-          }
-        >
-          <span>استارت مطمئن با</span>
-          <span className={"text-[#F66B34]"}>کارپایا</span>
-        </h1>
-        <div className={"flex flex-row-reverse justify-start"}>
-          <Image
-            src={"/assets/images/carshenasi.png"}
-            alt={"battery banner"}
-            width={522}
-            height={352}
+        <div className={"flex flex-col"}>
+          <h1
             className={
-              "lg:w-[522px] lg:h-[352px] w-[224px] h-[151px] self-end mb-[71px]"
+              "flex items-center justify-center gap-1 lg:text-[24px] text-[20px] font-bold mt-10 mr-8 lg:mr-0 self-start lg:self-center"
             }
-          />
-          <Image
-            src={"/assets/images/image 110 (1).svg"}
-            alt={"battery banner"}
-            width={178}
-            height={217}
+          >
+            <span>استارت مطمئن وسیله نقلیه با</span>
+            <span className={"text-[#F66B34]"}>کارپایا</span>
+          </h1>
+          <div className={"flex flex-row-reverse justify-start"}>
+            <Image
+              src={"/assets/images/carshenasi.png"}
+              alt={"battery banner"}
+              width={522}
+              height={352}
+              className={
+                "lg:w-[522px] lg:h-[352px] w-[224px] h-[151px] self-end mb-[71px]"
+              }
+            />
+            <Image
+              src={"/assets/images/image 110 (1).svg"}
+              alt={"battery banner"}
+              width={178}
+              height={217}
+              className={
+                "lg:w-[178px] lg:h-[217px] w-[82px] h-[100px] self-end mb-[71px]"
+              }
+            />
+          </div>
+          <button
             className={
-              "lg:w-[178px] lg:h-[217px] w-[82px] h-[100px] self-end mb-[71px]"
+              "block lg:hidden bg-[#F66B34] text-[#FEFEFE] w-[165px] h-[36px] mb-[14px] text-[12px] font-medium self-center rounded-[4px]"
             }
-          />
+          >
+            درخواست باتری
+          </button>
         </div>
-        <button
-          className={
-            "block lg:hidden bg-[#F66B34] text-[#FEFEFE] w-[165px] h-[36px] mb-[14px] text-[12px] font-medium self-center rounded-[4px]"
-          }
-        >
-          درخواست باتری
-        </button>
       </div>
       <CarServicesSlider data={serviceData} />
       <div
@@ -117,9 +180,9 @@ const BatteriesMainPage = () => {
 
         {/*<BatteryAdvice />*/}
         <BatteryFaq />
-        {preventFirstRender && <ToastContainer rtl={true} />}
+        {/*{preventFirstRender && <ToastContainer rtl={true} />}*/}
       </div>
-    </>
+    </div>
   );
 };
 
