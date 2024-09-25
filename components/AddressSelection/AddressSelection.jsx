@@ -83,13 +83,13 @@ const AddressSelection = (props) => {
         <div className=" flex items-center justify-between">
           <div className="relative">
             <button
-              className="flex w-fit p-2 gap-2 items-center text-xs text-[#3C3C3C] bg-[#FEFEFE] shadow-[0_0_4px_0_rgba(224,222,222,0.7)] rounded-[4px]"
+              className="flex w-fit p-2 gap-2 items-center lg:text-14 text-12 text-[#3C3C3C] bg-[#FEFEFE] shadow-[0_0_6px_0_rgba(125,125,125,0.5)] rounded-[4px]"
               onClick={() => {
                 dispatch(setAreaeModalState(true));
               }}
             >
-              <i className="cc-filter" />
-              <span>انتخاب محله</span>
+              <i className="cc-filter text-[20px]" />
+              <span className={"font-medium"}>انتخاب محله</span>
             </button>
           </div>
           <div className="relative">

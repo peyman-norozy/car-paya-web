@@ -74,7 +74,9 @@ const UserAddressCard = (props) => {
       </div>
       {props.editModalIsOpen && (
           <>
-            <div className={"fixed m-auto inset-0 z-[10000000000]"}>
+            <div className={"fixed m-auto inset-0 z-[10000000000] bg-[#0000002d]"} onClick={() => {
+                props.setEditModalIsOpen(false);
+              }}>
               <AddAddressModal
                 getDataFetch={props.getDataFetch}
                 pageType={"edite"}
@@ -83,14 +85,14 @@ const UserAddressCard = (props) => {
                 addressEditId={props.data.id}
               />
             </div>
-            <div
+            {/* <div
               onClick={() => {
                 props.setEditModalIsOpen(false);
               }}
               className={
                 "w-full h-[100vh] fixed top-0 right-0 bg-black opacity-[0.7] z-[100000000]"
               }
-            ></div>
+            ></div> */}
           </>
       )}
     </div>

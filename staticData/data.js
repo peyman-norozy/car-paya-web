@@ -4,63 +4,63 @@ export const serviceData = [
     icon: "/assets/images/service1.png",
     href: "/vehicle-verification",
     id: "vehicleVerification",
-    description: "کار پایا چه خدماتی ارائه میدهدکار پایا چه خدماتی ارائه میدهد"
+    description: "کار پایا چه خدماتی ارائه میدهدکار پایا چه خدماتی ارائه میدهد",
   },
   {
     title: "دیتیلینگ",
     icon: "/assets/images/service2.png",
     href: "/detailing",
     id: "detailing",
-    description: "کار پایا چه خدماتی ارائه میدهدکار پایا چه خدماتی ارائه میدهد"
+    description: "کار پایا چه خدماتی ارائه میدهدکار پایا چه خدماتی ارائه میدهد",
   },
   {
     title: "سرویس دوره ای",
     icon: "/assets/images/service3.png",
     href: "/periodic-service",
     id: "periodicService",
-    description: "کار پایا چه خدماتی ارائه میدهدکار پایا چه خدماتی ارائه میدهد"
+    description: "کار پایا چه خدماتی ارائه میدهدکار پایا چه خدماتی ارائه میدهد",
   },
   {
     title: "شناسنامه",
     icon: "/assets/images/service4.png",
     href: "/panel/my-vehicle/my-car",
     id: "myVehicleMyCar",
-    description: "کار پایا چه خدماتی ارائه میدهدکار پایا چه خدماتی ارائه میدهد"
+    description: "کار پایا چه خدماتی ارائه میدهدکار پایا چه خدماتی ارائه میدهد",
   },
   {
     title: "باتری",
     icon: "/assets/images/service5.png",
     href: "/batteries?attribute_slug=type_vehicle&attribute_value=car",
     id: "batteries",
-    description: "کار پایا چه خدماتی ارائه میدهدکار پایا چه خدماتی ارائه میدهد"
+    description: "کار پایا چه خدماتی ارائه میدهدکار پایا چه خدماتی ارائه میدهد",
   },
   {
     title: "بیمه",
     icon: "/assets/images/service6.png",
     href: "#",
     id: "insurance",
-    description: "کار پایا چه خدماتی ارائه میدهدکار پایا چه خدماتی ارائه میدهد"
+    description: "کار پایا چه خدماتی ارائه میدهدکار پایا چه خدماتی ارائه میدهد",
   },
   {
     title: "لوازم یدکی",
     icon: "/assets/images/service7.png",
     href: "/products",
     id: "products",
-    description: "کار پایا چه خدماتی ارائه میدهدکار پایا چه خدماتی ارائه میدهد"
+    description: "کار پایا چه خدماتی ارائه میدهدکار پایا چه خدماتی ارائه میدهد",
   },
   {
     title: "خرید خودرو",
     icon: "/assets/images/service8.png",
     href: "#",
     id: "#",
-    description: "کار پایا چه خدماتی ارائه میدهدکار پایا چه خدماتی ارائه میدهد"
+    description: "کار پایا چه خدماتی ارائه میدهدکار پایا چه خدماتی ارائه میدهد",
   },
   {
     title: "فروش خودرو",
     icon: "/assets/images/service9.png",
     href: "#",
     id: "#",
-    description: "کار پایا چه خدماتی ارائه میدهدکار پایا چه خدماتی ارائه میدهد"
+    description: "کار پایا چه خدماتی ارائه میدهدکار پایا چه خدماتی ارائه میدهد",
   },
 ];
 export const HowWorksMockUpData = [
@@ -247,30 +247,30 @@ export const panelTabData = [
   },
 ];
 export const batteryPurchaseProcessData = [
-  { icon: "/assets/icons/headphone.svg", title: "مشاوره رایگان" },
-  { icon: "/assets/icons/headphone.svg", title: "ثبت سفارش" },
-  { icon: "/assets/icons/headphone.svg", title: "پرداخت آنلاین" },
-  { icon: "/assets/icons/headphone.svg", title: "ارسال فوری" },
-  { icon: "/assets/icons/headphone.svg", title: "تعویض باتری" },
+  { icon: "/assets/icons/headphone.svg", title: "انتخاب وسیله نقلیه" },
+  { icon: "/assets/icons/headphone.svg", title: "انتخاب باتری" },
+  { icon: "/assets/icons/headphone.svg", title: "انتخاب مکان" },
+  { icon: "/assets/icons/headphone.svg", title: "انتخاب زمان" },
+  { icon: "/assets/icons/headphone.svg", title: "دریافت خدمات" },
 ];
 export const batteryFaqData = [
   {
-    title: "لورم ایپسوم متن ساختگی",
+    title: "سریع ترین خدمات در محل شما و نمایندگی کارپایا چگونه است؟",
     description:
       "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد.",
   },
   {
-    title: "لورم ایپسوم متن ساختگی",
+    title: "سریع ترین خدمات در محل شما و نمایندگی کارپایا چگونه است؟",
     description:
       "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد.",
   },
   {
-    title: "لورم ایپسوم متن ساختگی",
+    title: "سریع ترین خدمات در محل شما و نمایندگی کارپایا چگونه است؟",
     description:
       "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد.",
   },
   {
-    title: "لورم ایپسوم متن ساختگی",
+    title: "سریع ترین خدمات در محل شما و نمایندگی کارپایا چگونه است؟",
     description:
       "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد.",
   },

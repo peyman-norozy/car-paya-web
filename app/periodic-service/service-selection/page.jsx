@@ -30,7 +30,7 @@ const serviceSelection = async (props) => {
 
   return (
     <div className="flex gap-10 max-w-[1676px] w-full px-2 sm:px-4 m-auto mb-10 mt-4 min-h-screen">
-      <SelectService data={data.data} />
+      <SelectService data={data.data} params={props.searchParams}/>
     </div>
   );
 };

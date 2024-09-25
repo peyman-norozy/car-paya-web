@@ -13,6 +13,7 @@ import Link from "next/link";
 
 const InvoicePage = () => {
   const [faktorData, setFaktorData] = useState({});
+  const [roleChecked, setRoleChecked] = useState(false);
   const innerWidth = useSelector((item) => item.todo.windowInnerWidth);
 
   const orderProduct = useRef();
@@ -20,9 +21,9 @@ const InvoicePage = () => {
   const searchParams = useSearchParams();
   const cityId = searchParams.get("city_id"); //ok
   const packageId = searchParams.get("package_id"); //ok
-  const reservationTimeSlice = searchParams.get("time_id"); //ok
+  const reservationTimeSlice = searchParams.get("reservation_time_slice_id"); //ok
   const type = searchParams.get("type"); //ok
-  const vehicleTipId = Number(searchParams.get("selectTipState").split(",")[1]); //ok
+  const vehicleTipId = Number(searchParams.get("vehicle_tip_id").split(",")[1]); //ok
   const serviceLocationId = searchParams.get("service_location_id"); //ok
   console.log(reservationTimeSlice);
 
@@ -37,7 +38,7 @@ const InvoicePage = () => {
           package_id: packageId, //ok
           registrationable_id: serviceLocationId, //ok
           type_service: type,
-        },
+        }
       );
       if (response.success) {
         console.log(response);
@@ -130,12 +131,6 @@ const InvoicePage = () => {
             </div>
           </section>
           <section className="bg-white rounded-lg w-full text-14 mt-4">
-            {/* Price Details Section */}
-            {innerWidth < 1024 && (
-              <div className="space-y-4 p-4 shadow-custom1 rounded-lg w-full lg:h-fit">
-                <PriceDetails faktorData={faktorData} />
-              </div>
-            )}
             {/* Address Section */}
             <div className="mt-4 space-y-2 flex flex-col gap-2">
               <div className="flex flex-col">
@@ -182,12 +177,23 @@ const InvoicePage = () => {
                 <span className={"font-semibold"}>تغییر تاریخ و زمان</span>
               </Link>
             </div>
+            {/* Price Details Section */}
+            {innerWidth < 1024 && (
+              <div className="space-y-4 p-4 shadow-custom1 rounded-lg w-full lg:h-fit">
+                <PriceDetails
+                  faktorData={faktorData}
+                  roleChecked={roleChecked}
+                  setRoleChecked={setRoleChecked}
+                />
+              </div>
+            )}
           </section>
         </section>
         {innerWidth < 1024 && (
           <CompletePrice
             customStyle={"bg-[#eeeeee] fixed left-0 flex justify-between"}
             priceTotal={faktorData.price_total}
+            roleChecked={roleChecked}
           />
         )}
       </div>
@@ -196,6 +202,8 @@ const InvoicePage = () => {
           <PriceDetails
             faktorData={faktorData}
             length={faktorData?.product?.length}
+            roleChecked={roleChecked}
+            setRoleChecked={setRoleChecked}
           />
         </div>
       )}

@@ -1,22 +1,18 @@
 "use client";
-
 import React, { useEffect, useState } from "react";
-import Link from "next/link";
-import { ToastContainer } from "react-toastify";
-import Image from "next/image";
-import { batteryPurchaseProcessData, serviceData } from "@/staticData/data";
-import BatteryPurchaseProcess from "@/components/cards/BatteryPurchaseProcess";
-import BatteryFaq from "@/components/BatteryFaq/BatteryFaq";
-import BatteryAdvice from "@/components/‌BatteryAdvice/‌BatteryAdvice";
-import { error } from "@/utils/function-utils";
 import { usePathname, useSearchParams } from "next/navigation";
-import CarServicesSlider from "@/components/CarServicesSlider/CarServicesSlider";
-import PointView from "@/components/PointView/PointView";
+import { error } from "@/utils/function-utils";
 import SelectCarAndCity from "@/components/public/SelectCarAndCity";
 import SelectCity from "@/components/public/SelectCity";
 import CarSelect from "@/components/public/CarSelect";
+import Image from "next/image";
+import CarServicesSlider from "@/components/CarServicesSlider/CarServicesSlider";
+import { batteryPurchaseProcessData, serviceData } from "@/staticData/data";
+import BatteryPurchaseProcess from "@/components/cards/BatteryPurchaseProcess";
+import PointView from "@/components/PointView/PointView";
+import BatteryFaq from "@/components/BatteryFaq/BatteryFaq";
 
-const BatteriesMainPage = () => {
+const DetailingIndex = () => {
   const [client, setClient] = useState(false);
   const [modalClickState, setModalClickState] = useState(false);
   const [cityId, setCityId] = useState(null);
@@ -97,23 +93,34 @@ const BatteriesMainPage = () => {
   return (
     <div className={"relative"}>
       <div
-        className={`lg:absolute fixed transition-all duration-500 ${modalClickState ? "bottom-0 right-0 left-0" : "bottom-[-500px]"} w-full lg:top-0 lg:right-0.5 lg:h-full lg:z-0 z-[10000]`}
+        className={`lg:absolute fixed transition-all duration-500 ${modalClickState ? "bottom-0 right-0 left-0" : "bottom-[-500px] right-0 left-0"} w-full lg:top-0 lg:right-0.5 lg:h-full lg:z-0 z-[10000]`}
       >
+        {modalClickState && (
+          <div
+            className={"w-full h-screen"}
+            onClick={() => setModalClickState(false)}
+          ></div>
+        )}
+
         {(() => {
           switch (asideStatus) {
             case "car_city":
               return (
                 <SelectCarAndCity
-                  buttonTitle={"درخواست باتری"}
+                  buttonTitle={"درخواست دیتیلینگ"}
                   href={
                     JSON.parse(localStorage.getItem("selectedVehicle"))?.id &&
                     cityId
-                      ? `batteries/products?attribute_slug=type_vehicle&attribute_value=${searchParams.get("attribute_value")}${
+                      ? `/detailing/selectLocation?type=${"FIXED"}${
                           JSON.parse(localStorage.getItem("selectedVehicle"))
                             ?.id
-                            ? `&selectTipState=true,${JSON.parse(localStorage.getItem("selectedVehicle")).id.toString()}`
+                            ? `&selectTipState=true,${
+                                JSON.parse(
+                                  localStorage.getItem("selectedVehicle"),
+                                )?.id
+                              }`
                             : ""
-                        }`
+                        }&city_id=${JSON.parse(localStorage.getItem("city"))?.cityId}`
                       : ""
                   }
                   setAsideStatus={setAsideStatus}
@@ -141,7 +148,7 @@ const BatteriesMainPage = () => {
               "flex items-center justify-center gap-1 lg:text-[24px] text-[20px] font-bold mt-10 mr-8 lg:mr-0 self-start lg:self-center"
             }
           >
-            <span>استارت مطمئن وسیله نقلیه با</span>
+            <span>دیتیلینگ خودرو با</span>
             <span className={"text-[#F66B34]"}>کارپایا</span>
           </h1>
           <div className={"flex flex-row-reverse justify-start"}>
@@ -170,7 +177,7 @@ const BatteriesMainPage = () => {
             }
             onClick={() => setModalClickState(true)}
           >
-            درخواست باتری
+            درخواست دیتیلینگ
           </button>
         </div>
       </div>
@@ -202,4 +209,4 @@ const BatteriesMainPage = () => {
   );
 };
 
-export default BatteriesMainPage;
+export default DetailingIndex;
