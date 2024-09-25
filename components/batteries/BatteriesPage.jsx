@@ -142,8 +142,12 @@ const BatteriesPage = (props) => {
             <div className="border-b-4 border-dotted border-[#D1D1D1] w-full"></div>
             <i className="cc-timer text-2xl text-[#D1D1D1]" />
           </div>
-          <div className="flex items-center justify-between">
-            <div className={"flex items-center gap-4 relative filterModal"}>
+          <div className="flex items-center justify-between lg:justify-end">
+            <div
+              className={
+                "flex items-center gap-4 relative filterModal lg:hidden"
+              }
+            >
               <div>
                 <button
                   className={

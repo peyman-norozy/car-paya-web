@@ -15,7 +15,7 @@ const filterData = [
     labelStyle: "text-12 font-semibold",
     iconStyle: "cc-arrow-down absolute top-[12px] left-[10px]",
     inputStyle:
-      "outline-none border border-[#B0B0B0] rounded-[8px] w-full h-[40px] pr-1 placeholder:text-12",
+      "outline-none border border-[#F58052] rounded-[8px] w-full h-[40px] pr-1 placeholder:text-12",
     optionContainerStyle:
       "bg-[#FFFFFF] flex flex-col gap-2 z-[1000000] right-0 left-0 transition-all duration-500 overflow-y-scroll",
     optionStyle:
@@ -28,7 +28,7 @@ const filterData = [
     labelStyle: "text-12 font-semibold",
     iconStyle: "cc-arrow-down absolute top-[12px] left-[10px]",
     inputStyle:
-      "outline-none border border-[#B0B0B0] rounded-[8px] w-full h-[40px] pr-1 placeholder:text-12",
+      "outline-none border border-[#F58052] rounded-[8px] w-full h-[40px] pr-1 placeholder:text-12",
     optionContainerStyle:
       "bg-[#FFFFFF] flex flex-col gap-2 z-[1000000] right-0 left-0 transition-all duration-500 overflow-y-scroll",
     optionStyle:
@@ -84,7 +84,7 @@ const FilterAndSelectedCar = ({ options }) => {
   const carModel = JSON.parse(localStorage.getItem("selectedVehicle"))?.model;
   const carTitle = JSON.parse(localStorage.getItem("selectedVehicle"))?.title;
   return (
-    <div className={"absolute right-0.5 h-full"}>
+    <div className={"absolute right-0.5 h-full lg:block hidden"}>
       <section
         className={
           "bg-[#FDFDFD] w-[409px] h-fit sticky right-2 top-32 rounded-[16px] p-6 flex flex-col justify-between overflow-hidden gap-4 shadow-[0_0_6px_6px_rgba(125,125,125,0.5)]"

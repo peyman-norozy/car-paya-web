@@ -3,6 +3,8 @@ import Portal from "@/components/Portal/Portal";
 import CustomSearchInput from "@/components/CustomSearchInput/CustomSearchInput";
 import useSetQuery from "@/hook/useSetQuery";
 import { useSearchParams } from "next/navigation";
+import Image from "next/image";
+import { API_PATHS } from "@/configs/routes.config";
 
 const filterData = [
   {
@@ -22,19 +24,6 @@ const filterData = [
     name: "برند",
     value: "brand",
     placeHolder: "برند خود را انتخاب کنید",
-    labelStyle: "text-12 font-semibold",
-    iconStyle: "cc-arrow-down absolute top-[12px] left-[10px]",
-    inputStyle:
-      "outline-none border border-[#B0B0B0] rounded-[8px] w-full h-[40px] pr-1 placeholder:text-12",
-    optionContainerStyle:
-      "bg-[#FFFFFF] flex flex-col gap-2 absolute top-10 z-[1000000] right-0 left-0 transition-all duration-500 overflow-y-scroll",
-    optionStyle:
-      "even:bg-[#F8F5F5] odd:bg-[#F2F9FE] flex items-center gap-2 py-[6px] px-1 rounded-[4px] text-14 cursor-pointer hover:bg-[#e3e3e3]",
-  },
-  {
-    name: "گارانتی",
-    value: "warranty",
-    placeHolder: "گارانتی خود را انتخاب کنید",
     labelStyle: "text-12 font-semibold",
     iconStyle: "cc-arrow-down absolute top-[12px] left-[10px]",
     inputStyle:
@@ -66,9 +55,7 @@ const BatteriesFilterModal = ({ isOpen, onClose, options }) => {
         ? "amp"
         : inputValueType === "brand"
           ? "brand"
-          : inputValueType === "warranty"
-            ? "warranty"
-            : "",
+          : "",
       value,
     );
   };
@@ -94,6 +81,10 @@ const BatteriesFilterModal = ({ isOpen, onClose, options }) => {
   const modalContainer = document.getElementById("modal-root");
   if (!modalContainer) return null;
 
+  const carBrand = JSON.parse(localStorage.getItem("selectedVehicle"))?.brand;
+  const carModel = JSON.parse(localStorage.getItem("selectedVehicle"))?.model;
+  const carTitle = JSON.parse(localStorage.getItem("selectedVehicle"))?.title;
+
   return (
     <Portal container={modalContainer}>
       <div
@@ -101,7 +92,7 @@ const BatteriesFilterModal = ({ isOpen, onClose, options }) => {
         onClick={() => onClose()}
       ></div>
       <div
-        className={`transition-all duration-1000 bg-[#FEFEFE] fixed sm:inset-0 sm:m-auto sm:max-w-[362px] w-full h-[409px] ${
+        className={`transition-all duration-1000 bg-[#FEFEFE] fixed sm:inset-0 sm:m-auto sm:max-w-[362px] w-full h-full ${
           isOpen ? "translate-y-0 bottom-0" : "translate-y-[200%] bottom-0"
         } z-[200000] overflow-hidden rounded-10`}
       >
@@ -116,7 +107,29 @@ const BatteriesFilterModal = ({ isOpen, onClose, options }) => {
             onClick={() => onClose()}
           />
         </div>
-        {console.log(options)}
+        <div>
+          <span
+            className={
+              "inline-block text-14 text-[#454545] font-medium px-[18.5px]"
+            }
+          >
+            {carTitle ? `${carBrand} ${carModel} (${carTitle})` : ""}
+          </span>
+          <Image
+            src={
+              process.env.BASE_API +
+              "/web" +
+              API_PATHS.FILE +
+              "/" +
+              JSON.parse(localStorage.getItem("selectedVehicle"))?.image
+            }
+            width={226}
+            height={108}
+            alt={"car"}
+            className="w-[60%] aspect-auto mx-auto"
+          />
+          <div className={"h-[1px] bg-[#BBBBBB] mx-[18.5px]"}></div>
+        </div>
         <div className={"py-4 px-[18.5px] flex flex-col gap-2 mt-6"}>
           {filterData.map((item, index) => (
             <div key={index}>
@@ -145,6 +158,7 @@ const BatteriesFilterModal = ({ isOpen, onClose, options }) => {
             className={
               "bg-[#F66B34] text-[#FEFEFE] w-full text-14 py-[8px] rounded-[8px]"
             }
+            onClick={() => onClose()}
           >
             تایید و ادامه
           </button>

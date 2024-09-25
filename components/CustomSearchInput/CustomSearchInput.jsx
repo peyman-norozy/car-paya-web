@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import GreenCheckInput from "@/components/GreenCheckInput";
 
 const CustomSearchInput = (props) => {
   const {
@@ -16,6 +17,7 @@ const CustomSearchInput = (props) => {
   } = props;
   const [optionAccordionState, setOptionAccordionState] = useState(false);
   const [preventFirstRender, setPreventFirstRender] = useState(false);
+  const [isSelected, setIsSelected] = useState(false);
   const [searchInputValue, setSearchInputValue] = useState("");
   const [selectedOption, setSelectedOption] = useState("");
 
@@ -42,8 +44,9 @@ const CustomSearchInput = (props) => {
     setOptionAccordionState((prev) => !prev);
   };
 
-  const optionClickHandler = (event, value) => {
-    setSearchInputValue(event.target.innerText);
+  const optionClickHandler = (index, innerText, value) => {
+    setIsSelected(index);
+    setSearchInputValue(innerText);
     setSelectedOption(value);
     // onClick(value);
   };
@@ -85,17 +88,27 @@ const CustomSearchInput = (props) => {
           </span>
         )}
         <ul
-          className={`${optionContainerStyle} ${optionAccordionState ? "h-[150px]" : "h-0"}`}
+          className={`${optionContainerStyle} ${optionAccordionState ? "h-[300px]" : "h-0"}`}
         >
-          {options?.map((item) => {
+          {options?.map((item, index) => {
             console.log(item.value, selectedOption);
+            // ${item.value === selectedOption ? "even:bg-green-500 odd:bg-green-500 text-white" : ""}
             return (
               <li
                 key={item.value}
-                className={`${optionStyle} ${item.value === selectedOption ? "bg-red-500" : ""}`}
-                onClick={(event) => optionClickHandler(event, item.value)}
+                className={`${optionStyle}`}
+                onClick={(event) =>
+                  optionClickHandler(index, item.label, item.value)
+                }
               >
-                {item.label}
+                <GreenCheckInput
+                  isSelected={isSelected === index}
+                  on_click={() =>
+                    optionClickHandler(index, item.label, item.value)
+                  }
+                  class_name="rounded-[50%] cursor-pointer self-start"
+                />
+                <span>{item.label}</span>
               </li>
             );
           })}

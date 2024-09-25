@@ -18,6 +18,7 @@ import CarSelect from "@/components/public/CarSelect";
 
 const BatteriesMainPage = () => {
   const [client, setClient] = useState(false);
+  const [modalClickState, setModalClickState] = useState(false);
   const [cityId, setCityId] = useState(null);
   const [toastieDisplay, setToastieDisplay] = useState(false);
   const [asideStatus, setAsideStatus] = useState("car_city");
@@ -95,26 +96,30 @@ const BatteriesMainPage = () => {
 
   return (
     <div className={"relative"}>
-      {(() => {
-        switch (asideStatus) {
-          case "car_city":
-            return (
-              <SelectCarAndCity
-                buttonTitle={"درخواست باتری"}
-                setAsideStatus={setAsideStatus}
-                setToastieDisplay={setToastieDisplay}
-                setPreventFirstRender={setPreventFirstRender}
-                cityId={cityId}
-              />
-            );
-          case "citySelection":
-            return <SelectCity setAsideStatus={setAsideStatus} />;
-          case "carSelection":
-            return <CarSelect setAsideStatus={setAsideStatus} />;
-          default:
-            return null;
-        }
-      })()}
+      <div
+        className={`lg:absolute fixed transition-all duration-500 ${modalClickState ? "bottom-0 right-0 left-0" : "bottom-[-500px]"} w-full lg:top-0 lg:right-0.5 lg:h-full lg:z-0 z-[10000]`}
+      >
+        {(() => {
+          switch (asideStatus) {
+            case "car_city":
+              return (
+                <SelectCarAndCity
+                  buttonTitle={"درخواست باتری"}
+                  setAsideStatus={setAsideStatus}
+                  setToastieDisplay={setToastieDisplay}
+                  setPreventFirstRender={setPreventFirstRender}
+                  cityId={cityId}
+                />
+              );
+            case "citySelection":
+              return <SelectCity setAsideStatus={setAsideStatus} />;
+            case "carSelection":
+              return <CarSelect setAsideStatus={setAsideStatus} />;
+            default:
+              return null;
+          }
+        })()}
+      </div>
       <div
         className={
           "bg-[#cff9ff] rounded-[16px] mt-6 w-full h-auto aspect-[full/612]"
@@ -153,6 +158,7 @@ const BatteriesMainPage = () => {
             className={
               "block lg:hidden bg-[#F66B34] text-[#FEFEFE] w-[165px] h-[36px] mb-[14px] text-[12px] font-medium self-center rounded-[4px]"
             }
+            onClick={() => setModalClickState(true)}
           >
             درخواست باتری
           </button>

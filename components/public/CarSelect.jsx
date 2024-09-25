@@ -342,126 +342,122 @@ const CarSelect = (props) => {
   }
 
   return (
-    <div className={"absolute right-0.5 h-full"}>
-      <section
-        className={
-          "bg-[#FDFDFD] w-[409px] h-[485px] sticky right-2 top-32 rounded-[16px] flex flex-col justify-between overflow-hidden gap-4 shadow-[0_0_6px_6px_rgba(125,125,125,0.5)]"
-        }
-      >
-        <div className={"pt-6 pb-4 px-8"}>
-          <div className={"flex items-center justify-between mb-4"}>
-            <span className="inline-block text-[#4F4F4F] text-14 font-medium lg:font-bold">
-              انتخاب وسیله نقلیه
-            </span>
-            <button
-              onClick={() => props.setAsideStatus("car_city")}
-              className={"text-14 font-bold text-red-500"}
-            >
-              بازگشت
-            </button>
-          </div>
-          <div className="rounded-lg border border-[#cfcfcf] flex flex-wrap justify-between gap-1 p-1 mb-[12px]">
-            <button
-              className={`${vehicleType === "car" ? "bg-[#F58052] text-[#FEFEFE]" : "text-[#888888]"} rounded-[8px] w-[100px] h-8 flex justify-center items-center font-medium text-14`}
-              onClick={() => {
-                vehicleTypeFetch("car");
-              }}
-            >
-              خودرو
-            </button>
-            <div className="my-2 w-[1px] bg-[#D7DBE0]"></div>
-            <button
-              className={`${vehicleType === "motor" ? "bg-[#F58052] text-[#FEFEFE]" : "text-[#888888]"} rounded-[8px] w-[100px] h-8 flex justify-center items-center  font-medium text-14`}
-              onClick={() => {
-                vehicleTypeFetch("motor");
-              }}
-            >
-              موتورسیکلت
-            </button>
-            <div className="my-2 w-[1px] bg-[#D7DBE0]"></div>
-            <button
-              className={`${vehicleType === "heavy-car" ? "bg-[#F58052] text-[#FEFEFE]" : "text-[#888888]"} rounded-[8px] w-[100px] h-8 flex justify-center items-center font-medium text-14`}
-              onClick={() => {
-                vehicleTypeFetch("heavy-car");
-              }}
-            >
-              وسیله سنگین
-            </button>
-          </div>
+    <section
+      className={
+        "bg-[#FDFDFD] w-[409px] h-[485px] sticky right-2 top-32 rounded-[16px] flex flex-col justify-between overflow-hidden gap-4 shadow-[0_0_6px_6px_rgba(125,125,125,0.5)] z-50"
+      }
+    >
+      <div className={"pt-6 pb-4 px-8"}>
+        <div className={"flex items-center justify-between mb-4"}>
+          <span className="inline-block text-[#4F4F4F] text-14 font-medium lg:font-bold">
+            انتخاب وسیله نقلیه
+          </span>
+          <button
+            onClick={() => props.setAsideStatus("car_city")}
+            className={"text-14 font-bold text-red-500"}
+          >
+            بازگشت
+          </button>
+        </div>
+        <div className="rounded-lg border border-[#cfcfcf] flex flex-wrap justify-between gap-1 p-1 mb-[12px]">
+          <button
+            className={`${vehicleType === "car" ? "bg-[#F58052] text-[#FEFEFE]" : "text-[#888888]"} rounded-[8px] w-[100px] h-8 flex justify-center items-center font-medium text-14`}
+            onClick={() => {
+              vehicleTypeFetch("car");
+            }}
+          >
+            خودرو
+          </button>
+          <div className="my-2 w-[1px] bg-[#D7DBE0]"></div>
+          <button
+            className={`${vehicleType === "motor" ? "bg-[#F58052] text-[#FEFEFE]" : "text-[#888888]"} rounded-[8px] w-[100px] h-8 flex justify-center items-center  font-medium text-14`}
+            onClick={() => {
+              vehicleTypeFetch("motor");
+            }}
+          >
+            موتورسیکلت
+          </button>
+          <div className="my-2 w-[1px] bg-[#D7DBE0]"></div>
+          <button
+            className={`${vehicleType === "heavy-car" ? "bg-[#F58052] text-[#FEFEFE]" : "text-[#888888]"} rounded-[8px] w-[100px] h-8 flex justify-center items-center font-medium text-14`}
+            onClick={() => {
+              vehicleTypeFetch("heavy-car");
+            }}
+          >
+            وسیله سنگین
+          </button>
+        </div>
 
-          <div className="flex flex-col gap-2">
-            <div className="flex items-center justify-between gap-2">
-              <div className={"flex items-center"}>
-                <i
-                  className={`cc-arrow-right text-2xl text-[#000000] px-2 rounded-md h-7 leading-7 ${level > 2 || !myVehicleData.length ? "" : "hidden"} cursor-pointer hover:bg-[#ffffff20] transition-all duration-200`}
-                  onClick={backClickHandler}
-                />
-                <span className="font-medium text-[#000000] text-14">
-                  {carSelectedType}
-                </span>
-              </div>
-              {myVehicleData.length ? (
-                <div
-                  className={`text-left ${vehicleType !== "my-car" && "border border-[#cfcfcf]"} rounded-8`}
-                >
-                  <button
-                    className={`${vehicleType === "my-car" ? "bg-[#F58052] text-[#FEFEFE]" : "text-[#888888]"} rounded-[8px] w-[100px] h-8 flex justify-center items-center font-medium text-14`}
-                    onClick={() => {
-                      vehicleTypeFetch("my-car");
-                    }}
-                  >
-                    وسیله من
-                  </button>
-                </div>
-              ) : (
-                ""
-              )}
-            </div>
-            <div className="flex gap-2 py-1 pr-4 pl-1 text-[#B0B0B0] border border-[#BBBBBB] rounded-lg">
-              <i className="cc-search text-xl" />
-              <input
-                className="outline-none text-14 font-medium w-full"
-                placeholder="جستجو..."
-                onChange={(e) => {
-                  searchChangeHandler(e.target.value);
-                }}
+        <div className="flex flex-col gap-2">
+          <div className="flex items-center justify-between gap-2">
+            <div className={"flex items-center"}>
+              <i
+                className={`cc-arrow-right text-2xl text-[#000000] px-2 rounded-md h-7 leading-7 ${level > 2 || !myVehicleData.length ? "" : "hidden"} cursor-pointer hover:bg-[#ffffff20] transition-all duration-200`}
+                onClick={backClickHandler}
               />
+              <span className="font-medium text-[#000000] text-14">
+                {carSelectedType}
+              </span>
             </div>
-            <div
-              className={`h-[260px] overflow-y-scroll mt-2 overflow-x-hidden`}
-            >
-              <div className={`grid grid-cols-3 gap-x-7 gap-y-2`}>
-                {searchedData.map((item, index) => (
-                  <div
-                    className="flex flex-col bg-[#FFFFFF] items-center gap-2 cursor-pointer hover:scale-110 transition-all duration-300 shadow-[0_1px_4px_0_rgba(235,235,235,0.25)] p-2 rounded-[4px]"
-                    key={index}
-                    onClick={() => {
-                      optionClickHandler(item.id, item);
-                    }}
-                  >
-                    <Image
-                      src={
-                        process.env.BASE_API +
-                        "/web" +
-                        API_PATHS.FILE +
-                        "/" +
-                        (item.logo ? item.logo : item.image)
-                      }
-                      width={88}
-                      height={66}
-                      className="w-[88px] h-[66px]"
-                    />
-                    <span className="text-[#000000] font-medium text-sm line-clamp-1 text-center">
-                      {item.title}
-                    </span>
-                  </div>
-                ))}
+            {myVehicleData.length ? (
+              <div
+                className={`text-left ${vehicleType !== "my-car" && "border border-[#cfcfcf]"} rounded-8`}
+              >
+                <button
+                  className={`${vehicleType === "my-car" ? "bg-[#F58052] text-[#FEFEFE]" : "text-[#888888]"} rounded-[8px] w-[100px] h-8 flex justify-center items-center font-medium text-14`}
+                  onClick={() => {
+                    vehicleTypeFetch("my-car");
+                  }}
+                >
+                  وسیله من
+                </button>
               </div>
+            ) : (
+              ""
+            )}
+          </div>
+          <div className="flex gap-2 py-1 pr-4 pl-1 text-[#B0B0B0] border border-[#BBBBBB] rounded-lg">
+            <i className="cc-search text-xl" />
+            <input
+              className="outline-none text-14 font-medium w-full"
+              placeholder="جستجو..."
+              onChange={(e) => {
+                searchChangeHandler(e.target.value);
+              }}
+            />
+          </div>
+          <div className={`h-[260px] overflow-y-scroll mt-2 overflow-x-hidden`}>
+            <div className={`grid grid-cols-3 gap-x-7 gap-y-2`}>
+              {searchedData.map((item, index) => (
+                <div
+                  className="flex flex-col bg-[#FFFFFF] items-center gap-2 cursor-pointer hover:scale-110 transition-all duration-300 shadow-[0_1px_4px_0_rgba(235,235,235,0.25)] p-2 rounded-[4px]"
+                  key={index}
+                  onClick={() => {
+                    optionClickHandler(item.id, item);
+                  }}
+                >
+                  <Image
+                    src={
+                      process.env.BASE_API +
+                      "/web" +
+                      API_PATHS.FILE +
+                      "/" +
+                      (item.logo ? item.logo : item.image)
+                    }
+                    width={88}
+                    height={66}
+                    className="w-[88px] h-[66px]"
+                  />
+                  <span className="text-[#000000] font-medium text-sm line-clamp-1 text-center">
+                    {item.title}
+                  </span>
+                </div>
+              ))}
             </div>
           </div>
         </div>
-      </section>
-    </div>
+      </div>
+    </section>
   );
 };
 
