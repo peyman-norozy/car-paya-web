@@ -76,8 +76,8 @@ const InvoiceModal = (props) => {
                   </div>
                 </div>
               ))} */}
-            {props.invoiceData.data.map((item) => (
-              <div className="flex items-center gap-2 py-2 shadow-[0_0_8px_0_rgba(176,176,176,0.25)] relative">
+            {props.invoiceData.data.map((item , index) => (
+              <div className="flex items-center gap-2 py-2 shadow-[0_0_8px_0_rgba(176,176,176,0.25)] relative" key={index}>
                 <Image
                   src={
                     process.env.BASE_API +

@@ -87,6 +87,7 @@ const SelectProductModal = (props) => {
                     ? setSelectedProduct("")
                     : setSelectedProduct(item.id);
                 }}
+                key={index}
               >
                 <div className="flex justify-between items-center">
                   <div className="flex items-center gap-2">

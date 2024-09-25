@@ -112,8 +112,8 @@ const SelectService = (props) => {
           </div>
         </div>
         <div className="grid grid-cols-3 gap-x-3 gap-y-6">
-          {props.data.map((item) => (
-            <div className="bg-white shadow-[0_0_6px_0_rgba(125,125,125,0.5)] rounded-lg flex flex-col items-center w-full p-2 pb-1 gap-1" onClick={()=>{setSelectedService(item.id);setProductModalState(true)}}>
+          {props.data.map((item , index) => (
+            <div className="bg-white shadow-[0_0_6px_0_rgba(125,125,125,0.5)] rounded-lg flex flex-col items-center w-full p-2 pb-1 gap-1" onClick={()=>{setSelectedService(item.id);setProductModalState(true)}} key={index}>
               <Image
                 className="w-full rounded-lg aspect-[67/50]"
                 src={
