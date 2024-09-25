@@ -1,51 +1,54 @@
+"use client";
+
 import React, { useEffect, useState } from "react";
-import Portal from "@/components/Portal/Portal";
-import CustomSearchInput from "@/components/CustomSearchInput/CustomSearchInput";
-import useSetQuery from "@/hook/useSetQuery";
-import { useSearchParams } from "next/navigation";
 import Image from "next/image";
 import { API_PATHS } from "@/configs/routes.config";
+import CustomSearchInput from "@/components/CustomSearchInput/CustomSearchInput";
+import { useSearchParams } from "next/navigation";
+import useSetQuery from "@/hook/useSetQuery";
 
 const filterData = [
   {
-    name: "آمپر",
+    name: "بر اساس آمپر",
     value: "getAmp",
     placeHolder: "آمپر خود را انتخاب کنید",
     labelStyle: "text-12 font-semibold",
     iconStyle: "cc-arrow-down absolute top-[12px] left-[10px]",
     inputStyle:
-      "outline-none border border-[#B0B0B0] rounded-[8px] w-full h-[40px] pr-1 placeholder:text-12",
+      "outline-none border border-[#F58052] rounded-[8px] w-full h-[40px] pr-1 placeholder:text-12",
     optionContainerStyle:
-      "bg-[#FFFFFF] flex flex-col gap-2 absolute top-10 z-[1000000] right-0 left-0 transition-all duration-500 overflow-y-scroll",
+      "bg-[#FFFFFF] flex flex-col gap-2 z-[1000000] right-0 left-0 transition-all duration-500 overflow-y-scroll",
     optionStyle:
       "even:bg-[#F8F5F5] odd:bg-[#F2F9FE] flex items-center gap-2 py-[6px] px-1 rounded-[4px] text-14 cursor-pointer hover:bg-[#e3e3e3]",
   },
   {
-    name: "برند",
+    name: "بر اساس برند",
     value: "brand",
     placeHolder: "برند خود را انتخاب کنید",
     labelStyle: "text-12 font-semibold",
     iconStyle: "cc-arrow-down absolute top-[12px] left-[10px]",
     inputStyle:
-      "outline-none border border-[#B0B0B0] rounded-[8px] w-full h-[40px] pr-1 placeholder:text-12",
+      "outline-none border border-[#F58052] rounded-[8px] w-full h-[40px] pr-1 placeholder:text-12",
     optionContainerStyle:
-      "bg-[#FFFFFF] flex flex-col gap-2 absolute top-10 z-[1000000] right-0 left-0 transition-all duration-500 overflow-y-scroll",
+      "bg-[#FFFFFF] flex flex-col gap-2 z-[1000000] right-0 left-0 transition-all duration-500 overflow-y-scroll",
     optionStyle:
       "even:bg-[#F8F5F5] odd:bg-[#F2F9FE] flex items-center gap-2 py-[6px] px-1 rounded-[4px] text-14 cursor-pointer hover:bg-[#e3e3e3]",
   },
 ];
 
-const BatteriesFilterModal = ({ isOpen, onClose, options }) => {
-  const [isClient, setIsClient] = useState(false);
+const FilterAndSelectedCar = ({ options }) => {
+  const [client, setClient] = useState(false);
   const searchParams = useSearchParams();
   const params = new URLSearchParams(searchParams.toString());
   const setQuery = useSetQuery();
 
   useEffect(() => {
-    setIsClient(true);
+    setClient(true);
   }, []);
 
-  console.log(options);
+  if (!client) {
+    return null;
+  }
 
   const filterClickHandler = (value, inputValueType) => {
     console.log(value.length, inputValueType);
@@ -77,42 +80,18 @@ const BatteriesFilterModal = ({ isOpen, onClose, options }) => {
     }
   };
 
-  if (!isClient) return null;
-  const modalContainer = document.getElementById("modal-root");
-  if (!modalContainer) return null;
-
   const carBrand = JSON.parse(localStorage.getItem("selectedVehicle"))?.brand;
   const carModel = JSON.parse(localStorage.getItem("selectedVehicle"))?.model;
   const carTitle = JSON.parse(localStorage.getItem("selectedVehicle"))?.title;
-
   return (
-    <Portal container={modalContainer}>
-      <div
-        className={`${!isOpen ? "hidden" : "fixed"} inset-0 h-full w-full bg-[#4c4c4caa] z-[20000] transition-all`}
-        onClick={() => onClose()}
-      ></div>
-      <div
-        className={`transition-all duration-1000 bg-[#FEFEFE] fixed sm:inset-0 sm:m-auto sm:max-w-[362px] w-full h-full ${
-          isOpen ? "translate-y-0 bottom-0" : "translate-y-[200%] bottom-0"
-        } z-[200000] overflow-hidden rounded-10`}
+    <div className={"absolute right-0.5 h-full lg:block hidden"}>
+      <section
+        className={
+          "bg-[#FDFDFD] w-[409px] h-fit sticky right-2 top-32 rounded-[16px] p-6 flex flex-col justify-between overflow-hidden gap-4 shadow-[0_0_6px_6px_rgba(125,125,125,0.5)]"
+        }
       >
-        <div
-          className={
-            "bg-[#F6FBFF] flex justify-between items-center py-4 px-[18.5px]"
-          }
-        >
-          <span className={"text-16 font-medium"}>فیلتر</span>
-          <i
-            className={"cc-close-circle text-[24px] cursor-pointer"}
-            onClick={() => onClose()}
-          />
-        </div>
         <div>
-          <span
-            className={
-              "inline-block text-14 text-[#454545] font-medium px-[18.5px]"
-            }
-          >
+          <span className={"text-14 text-[#454545] font-medium"}>
             {carTitle ? `${carBrand} ${carModel} (${carTitle})` : ""}
           </span>
           <Image
@@ -128,9 +107,13 @@ const BatteriesFilterModal = ({ isOpen, onClose, options }) => {
             alt={"car"}
             className="w-[60%] aspect-auto mx-auto"
           />
-          <div className={"h-[1px] bg-[#BBBBBB] mx-[18.5px]"}></div>
+          <div className={"h-[1px] bg-[#BBBBBB] w-full"}></div>
         </div>
-        <div className={"py-4 px-[18.5px] flex flex-col gap-2 mt-6"}>
+        <div className={"flex items-center gap-2"}>
+          <i className={"cc-filter text-18"} />
+          <span className={"text-16 text-[#0F0F0F] font-medium"}>فیلتر</span>
+        </div>
+        <div className={"flex flex-col gap-2"}>
           {filterData.map((item, index) => (
             <div key={index}>
               <CustomSearchInput
@@ -149,23 +132,9 @@ const BatteriesFilterModal = ({ isOpen, onClose, options }) => {
             </div>
           ))}
         </div>
-        <div
-          className={
-            "shadow-[0_3px_10px_rgb(0,0,0,0.2)] rounded-t-[16px]  py-4 px-[18.5px] absolute bottom-0 left-0 right-0"
-          }
-        >
-          <button
-            className={
-              "bg-[#F66B34] text-[#FEFEFE] w-full text-14 py-[8px] rounded-[8px]"
-            }
-            onClick={() => onClose()}
-          >
-            تایید و ادامه
-          </button>
-        </div>
-      </div>
-    </Portal>
+      </section>
+    </div>
   );
 };
 
-export default BatteriesFilterModal;
+export default FilterAndSelectedCar;

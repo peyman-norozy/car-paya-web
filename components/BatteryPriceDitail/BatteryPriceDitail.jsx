@@ -53,7 +53,7 @@ const BatteryPriceDitail = (props) => {
   };
 
   return (
-    <div className={"flex flex-col gap-3"}>
+    <div className={"flex flex-col lg:gap-8 gap-4 lg:mt-4"}>
       <div className="flex items-center size671:flex-row gap-[0.75rem] pt-[0.25rem]">
         <p className={"lg:text-[16px] text-14"}>قیمت </p>
         <div className="flex flex-row items-center gap-[0.75rem]">

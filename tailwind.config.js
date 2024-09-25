@@ -65,6 +65,7 @@ module.exports = {
       },
       borderRadius: {
         5: "5px",
+        8: "8px",
         10: "10px",
       },
       screens: {

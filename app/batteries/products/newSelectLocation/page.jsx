@@ -125,7 +125,7 @@ const Page = (props) => {
           />
         </div>
       </div>
-      <div className={"mt-7 flex flex-col gap-5"}>
+      <div className={"lg:mt-7 flex flex-col gap-5"}>
         {
           {
             MOVING: (
