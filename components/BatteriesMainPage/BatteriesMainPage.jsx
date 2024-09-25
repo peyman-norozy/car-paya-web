@@ -105,10 +105,20 @@ const BatteriesMainPage = () => {
               return (
                 <SelectCarAndCity
                   buttonTitle={"درخواست باتری"}
+                  href={
+                    JSON.parse(localStorage.getItem("selectedVehicle"))?.id &&
+                    cityId
+                      ? `batteries/products?attribute_slug=type_vehicle&attribute_value=${searchParams.get("attribute_value")}${
+                          JSON.parse(localStorage.getItem("selectedVehicle"))
+                            ?.id
+                            ? `&selectTipState=true,${JSON.parse(localStorage.getItem("selectedVehicle")).id.toString()}`
+                            : ""
+                        }`
+                      : ""
+                  }
                   setAsideStatus={setAsideStatus}
                   setToastieDisplay={setToastieDisplay}
                   setPreventFirstRender={setPreventFirstRender}
-                  cityId={cityId}
                 />
               );
             case "citySelection":
