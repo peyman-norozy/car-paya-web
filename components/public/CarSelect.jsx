@@ -344,7 +344,7 @@ const CarSelect = (props) => {
   return (
     <section
       className={
-        "bg-[#FDFDFD] w-[409px] h-[485px] sticky right-2 top-32 rounded-[16px] flex flex-col justify-between overflow-hidden gap-4 shadow-[0_0_6px_6px_rgba(125,125,125,0.5)] z-50"
+        "bg-[#FDFDFD] lg:w-[409px] w-full h-[485px] sticky right-2 top-32 rounded-[16px] pt-6 flex flex-col justify-between overflow-hidden gap-4 shadow-[0_0_6px_6px_rgba(125,125,125,0.5)] z-50"
       }
     >
       <div className={"pt-6 pb-4 px-8"}>
