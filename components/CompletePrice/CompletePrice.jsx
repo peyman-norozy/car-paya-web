@@ -5,7 +5,7 @@ const CompletePrice = (props) => {
   console.log(props);
   return (
     <section
-      className={`bottom-0 right-0 z-[1000] bg-white ${props.customStyle}`}
+      className={`bottom-0 right-0 z-[1000] bg-white ${props.customStyle} p-4 rounded-t-2xl shadow-[0_-2px_4px_0_rgba(199,199,199,0.25)]`}
     >
       <div className={"font-medium lg:hidden block"}>
         <span>جمع سفارش:</span>

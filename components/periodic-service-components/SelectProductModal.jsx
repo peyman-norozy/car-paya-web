@@ -11,7 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Portal from "../Portal/Portal";
 import axios from "axios";
 import { getCookie } from "cookies-next";
-import { error, success } from "@/utils/function-utils";
+import { error, numberWithCommas, success } from "@/utils/function-utils";
 import { getCurrentData } from "@/utils/api-function-utils";
 import { postData } from "@/utils/client-api-function-utils";
 
@@ -105,10 +105,10 @@ const SelectProductModal = (props) => {
                   </div>
                   <div className="flex items-center gap-1">
                     <span className="text-[#60ABEC] line-through font-medium text-xs">
-                      {item.discounted_price} تومان
+                      {numberWithCommas(item.discounted_price)} تومان
                     </span>
                     <span className="text-[#1E67BF] font-medium text-sm">
-                      {item.price} تومان
+                      {numberWithCommas(item.price)} تومان
                     </span>
                   </div>
                 </div>

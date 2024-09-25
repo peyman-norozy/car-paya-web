@@ -1,6 +1,7 @@
 import { API_PATHS } from "@/configs/routes.config";
 import { renderInvoice } from "@/store/todoSlice";
 import { postData } from "@/utils/client-api-function-utils";
+import { numberWithCommas } from "@/utils/function-utils";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
@@ -109,9 +110,9 @@ const InvoiceModal = (props) => {
                   <div className="flex items-center gap-1">
                     <span className="text-sm font-medium">قیمت :</span>
                     <span className="text-xs font-medium text-[#1E67BF]">
-                      {item.item.item.discounted_price
+                      {numberWithCommas(item.item.item.discounted_price
                         ? item.item.item.discounted_price
-                        : item.item.item.price}{" "}
+                        : item.item.item.price)}{" "}
                       تومان
                     </span>
                   </div>
