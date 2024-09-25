@@ -13,8 +13,6 @@ const SelectCarAndCity = (props) => {
   const carModel = JSON.parse(localStorage.getItem("selectedVehicle"))?.model;
   const carTitle = JSON.parse(localStorage.getItem("selectedVehicle"))?.title;
   const cityLabel = JSON.parse(localStorage.getItem("city"))?.label;
-  const pathName = usePathname();
-  const searchParams = useSearchParams();
 
   const cityAsidHandler = () => {
     props.setAsideStatus("citySelection");
@@ -84,17 +82,7 @@ const SelectCarAndCity = (props) => {
         }
       >
         <Link
-          href={
-            pathName.startsWith("/batteries") &&
-            JSON.parse(localStorage.getItem("selectedVehicle"))?.id &&
-            props.cityId
-              ? `batteries/products?attribute_slug=type_vehicle&attribute_value=${searchParams.get("attribute_value")}${
-                  JSON.parse(localStorage.getItem("selectedVehicle"))?.id
-                    ? `&selectTipState=true,${JSON.parse(localStorage.getItem("selectedVehicle")).id.toString()}`
-                    : ""
-                }`
-              : ""
-          }
+          href={props.href}
           onClick={() => {
             props.setToastieDisplay((prev) => !prev);
             props.setPreventFirstRender(true);
