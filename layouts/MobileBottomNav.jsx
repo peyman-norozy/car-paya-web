@@ -97,7 +97,7 @@ function MobileBottomNav(props) {
       setFooterState(false);
     } else if (pathName.startsWith("/batteries/")) {
       setFooterState(false);
-    } else if ("/periodic-service/") {
+    } else if (pathName.startsWith("/periodic-service/")) {
       setFooterState(false);
     } else {
       setFooterState(true);
