@@ -10,21 +10,21 @@ const FacktorCard = ({ item }) => {
   return (
     <li
       className={
-        "p-2 shadow-custom1 rounded-lg min-w-[197px] min-h-[238px] relative"
+        "p-2 shadow-custom1 rounded-lg min-w-[197px]  relative"
       }
     >
       <section className={"flex flex-row lg:flex-col items-center gap-4"}>
         <div>
           <Image
             src={process.env.BASE_API + "/web/file/" + item?.image_id}
-            className={"w-[120px] h-[114px]"}
+            className={"w-[120px] h-[114px] bg-slate-200 rounded"}
             alt={"service product"}
             width={120}
             height={114}
           />
         </div>
         <div className={"text-12 flex flex-col flex-1 gap-2"}>
-          <span>{item?.name} :</span>
+          <span>{item?.name}</span>
           <div className={"flex items-center gap-1"}>
             <span
               className={"inline-block w-[15px] h-[15px] bg-gray-300"}

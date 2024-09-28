@@ -52,14 +52,14 @@ const AddressModal = (props) => {
       props.deliveryPackage &&
         formData.set(
           "receiver_cellphone",
-          event.target.phoneNumber.value.toString(),
+          event.target.phoneNumber.value.toString()
         );
       props.deliveryPackage &&
         formData.set("receiver_name", event.target.fullName.value);
     }
     formData.set(
       "map",
-      `${mapPosition.split(",")[0]},${mapPosition.split(",")[1]}`,
+      `${mapPosition.split(",")[0]},${mapPosition.split(",")[1]}`
     );
 
     if (props.pageType === "edite") {
@@ -67,7 +67,7 @@ const AddressModal = (props) => {
       props.setIsLoading(true);
       const update = await putData(
         API_PATHS.DASHBOARDUSERADDRESS + "/" + props.addressEditId,
-        formData,
+        formData
       );
       if (update.status === 200) {
         props.getDataFetch([]);
@@ -101,6 +101,9 @@ const AddressModal = (props) => {
           props.timeData();
           props.setModalIsOpen(false);
         }
+        else if (pathName === "/periodic-service/location-selection") {
+          props.setModalIsOpen(false);
+        }
 
         // props.setIsLoading(true);
       } else if (post.response.status === 422) {
@@ -127,7 +130,7 @@ const AddressModal = (props) => {
         console.log(getCity.data.error);
       }
     },
-    [router],
+    [router]
   );
 
   useEffect(() => {
@@ -159,7 +162,7 @@ const AddressModal = (props) => {
     if (props.pageType === "edite") {
       (async () => {
         const getEditData = await getData(
-          API_PATHS.DASHBOARDUSERADDRESS + "/" + props.addressEditId + "/edit",
+          API_PATHS.DASHBOARDUSERADDRESS + "/" + props.addressEditId + "/edit"
         );
         if (getEditData.status === "success") {
           setEditData(getEditData.data);
@@ -198,6 +201,9 @@ const AddressModal = (props) => {
         "absolute bottom-0 md:inset-0 md:m-auto w-full max-w-[768px] min-h-[192px] h-[80%] bg-[#FFFFFF] px-[40px] py-[24px] rounded-t-2xl md: rounded-2xl overflow-hidden flex flex-col gap-6 overflow-y-scroll pb-20 lg:pb-0"
       }
       onSubmit={addressFormSubmitHandler}
+      onClick={(event) => {
+        event.stopPropagation();
+      }}
     >
       <div className={"flex -items-center justify-between"}>
         <h1 className={"text-center font-bold text-[#454545]"}>افزودن آدرس</h1>

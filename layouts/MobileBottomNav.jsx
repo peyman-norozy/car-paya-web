@@ -21,7 +21,7 @@ function MobileBottomNav(props) {
   const [selectedCarData, setSelectedCarData] = useState(null);
   const [isClicked, setIsClicked] = useState();
   const renderSetCarState = useSelector(
-    (state) => state.todo.renderSetCarState,
+    (state) => state.todo.renderSetCarState
   );
   const pathName = usePathname();
 
@@ -99,6 +99,8 @@ function MobileBottomNav(props) {
       pathName.startsWith("/batteries/") ||
       pathName.startsWith("/detailing/")
     ) {
+      setFooterState(false);
+    } else if ("/periodic-service/") {
       setFooterState(false);
     } else {
       setFooterState(true);
