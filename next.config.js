@@ -14,7 +14,7 @@ const withPWA = require("@ducanh2912/next-pwa").default({
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   env: {
-    BASE_API: "https://api.carcheckme.ir/api/V1",
+    BASE_API: "https://api.carcheckme.ir/api/v1",
   },
   images: {
     remotePatterns: [
