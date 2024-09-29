@@ -12,6 +12,7 @@ import { getData } from "@/utils/api-function-utils";
 import otpImage from "@/public/assets/images/otp.png";
 import Image from "next/image";
 import nProgress from "nprogress";
+import { setLoginState } from "@/store/todoSlice";
 
 export default function OtpUsersLogin(props) {
   const [otp, setOtp] = useState("");
@@ -23,71 +24,115 @@ export default function OtpUsersLogin(props) {
 
   const postOtp = () => {
     let fd = new FormData();
-    fd.append("login_token", otpData.login_token);
+    // fd.append("login_token", otpData.login_token);
     fd.append("mobile", otpData.mobile);
     fd.append("otp", otp);
     setSliderShowState(true);
-    otpData.loginOtpState
-      ? axios
-          .post(process.env.BASE_API + API_PATHS.LOGINOTP, fd)
-          .then((res) => {
-            if (res.status === 200) {
-              let now = new Date();
-              let time = now.getTime();
-              let expireTime = time + res.data.expires_at;
-              console.log(expireTime);
-              now.setTime(expireTime);
-              console.log(now.toUTCString());
-              document.cookie = `Authorization = ${
-                res.data.token
-              };expires=${now.toUTCString()};path=/`;
-              setSliderShowState(false);
-            }
-          })
-          .then(() => {
-            nProgress.start();
-            router.push("/");
-            dispatch(loginUser()).then((res) => console.log(res));
-            (async () => {
-              const getProfileData = await getData(API_PATHS.DASHBOARDPROFILE);
-              console.log(getProfileData);
-              if (getProfileData.status === "success") {
-                localStorage.setItem(
-                  "profileData",
-                  JSON.stringify(getProfileData.data),
-                );
-              }
-            })();
-          })
-          .catch((e) => {
-            setSliderShowState(false);
-            if (e.response.status === 422) {
-              setNewErrorText(e.response.data.errors.otp[0]);
-              setTimeout(() => {
-                setNewErrorText("");
-              }, 5000);
-            }
-            console.log(e);
-          })
-      : axios
-          .post(process.env.BASE_API + API_PATHS.CHECKOTP, fd)
-          .then((res) => {
-            if (res.data.data.status.step === "register_user") {
-              props.setLoginState("register_user");
-              setSliderShowState(false);
-            }
-          })
-          .catch((e) => {
-            setSliderShowState(false);
-            if (e.response.status === 422) {
-              // error(e.response.data.errors.otp[0]);
-              setNewErrorText(e.response.data.errors.otp[0]);
-              setTimeout(() => {
-                setNewErrorText("");
-              }, 5000);
-            }
-          });
+    axios
+      .post(process.env.BASE_API + API_PATHS.CHECKOTP, fd)
+      .then((res) => {
+        console.log(res);
+        if (res.status === 200) {
+          let now = new Date();
+          let time = now.getTime();
+          let expireTime = time + res.data.expires_at;
+          console.log(expireTime);
+          now.setTime(expireTime);
+          console.log(now.toUTCString());
+          document.cookie = `Authorization = ${
+            res.data.token
+          };expires=${now.toUTCString()};path=/;SameSite=Strict;Secure`;
+          setSliderShowState(false);
+        }
+      })
+      .then(() => {
+        nProgress.start();
+        router.push("/");
+        dispatch(setLoginState(false));
+        // dispatch(loginUser()).then((res) => console.log(res));
+        // (async () => {
+        //   const getProfileData = await getData(API_PATHS.DASHBOARDPROFILE);
+        //   console.log(getProfileData);
+        //   if (getProfileData.status === "success") {
+        //     localStorage.setItem(
+        //       "profileData",
+        //       JSON.stringify(getProfileData.data),
+        //     );
+        //   }
+        // })();
+      })
+      .catch((e) => {
+        setSliderShowState(false);
+        if (e.response.status === 422) {
+          setNewErrorText(e.response.data.errors.otp[0]);
+          setTimeout(() => {
+            setNewErrorText("");
+          }, 5000);
+        }
+        console.log(e);
+      });
   };
+  //   otpData.loginOtpState
+  //     ? axios
+  //         .post(process.env.BASE_API + API_PATHS.LOGINOTP, fd)
+  //         .then((res) => {
+  //           if (res.status === 200) {
+  //             let now = new Date();
+  //             let time = now.getTime();
+  //             let expireTime = time + res.data.expires_at;
+  //             console.log(expireTime);
+  //             now.setTime(expireTime);
+  //             console.log(now.toUTCString());
+  //             document.cookie = `Authorization = ${
+  //               res.data.token
+  //             };expires=${now.toUTCString()};path=/`;
+  //             setSliderShowState(false);
+  //           }
+  //         })
+  //         .then(() => {
+  //           nProgress.start();
+  //           router.push("/");
+  //           dispatch(loginUser()).then((res) => console.log(res));
+  //           (async () => {
+  //             const getProfileData = await getData(API_PATHS.DASHBOARDPROFILE);
+  //             console.log(getProfileData);
+  //             if (getProfileData.status === "success") {
+  //               localStorage.setItem(
+  //                 "profileData",
+  //                 JSON.stringify(getProfileData.data),
+  //               );
+  //             }
+  //           })();
+  //         })
+  //         .catch((e) => {
+  //           setSliderShowState(false);
+  //           if (e.response.status === 422) {
+  //             setNewErrorText(e.response.data.errors.otp[0]);
+  //             setTimeout(() => {
+  //               setNewErrorText("");
+  //             }, 5000);
+  //           }
+  //           console.log(e);
+  //         })
+  //     : axios
+  //         .post(process.env.BASE_API + API_PATHS.CHECKOTP, fd)
+  //         .then((res) => {
+  //           if (res.data.data.status.step === "register_user") {
+  //             props.setLoginState("register_user");
+  //             setSliderShowState(false);
+  //           }
+  //         })
+  //         .catch((e) => {
+  //           setSliderShowState(false);
+  //           if (e.response.status === 422) {
+  //             // error(e.response.data.errors.otp[0]);
+  //             setNewErrorText(e.response.data.errors.otp[0]);
+  //             setTimeout(() => {
+  //               setNewErrorText("");
+  //             }, 5000);
+  //           }
+  //         });
+  // };
 
   const sendOtpClickHandler = () => {
     postOtp();
