@@ -12,11 +12,11 @@ export const INTERNAL_PATHS = {
 };
 
 export const API_PATHS = {
-  GETOTP: "/get-otp",
+  GETOTP: "/admin/get-otp",
   RESENDOTP: "/resend-otp",
   LOGINPASSWord: "/login-password",
   LOGINOTP: "/login-otp",
-  CHECKOTP: "/check-otp",
+  CHECKOTP: "/admin/check-otp",
   REGISTER: "/register",
   LOGOUT: "/logout",
   CONTACTUS: "/contact-us",
