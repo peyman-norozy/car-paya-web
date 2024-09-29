@@ -95,9 +95,12 @@ function MobileBottomNav(props) {
       searchParams.toString().includes("step=")
     ) {
       setFooterState(false);
-    } else if (pathName.startsWith("/batteries/")) {
+    } else if (
+      pathName.startsWith("/batteries/") ||
+      pathName.startsWith("/detailing/")
+    ) {
       setFooterState(false);
-    } else if ("/periodic-service/") {
+    } else if (pathName.startsWith("/periodic-service/")) {
       setFooterState(false);
     } else {
       setFooterState(true);

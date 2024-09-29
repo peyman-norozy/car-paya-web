@@ -50,39 +50,67 @@ const SelectServiceCard = (props) => {
 
   return (
     <div
-      className={`rounded-lg flex flex-col items-center p-6 gap-3 cursor-pointer hover:scale-105 transition-transform duration-300 relative bg-[#E7E7E7] ${props.data.id === props.productId ? "border-2 border-lime-500 " : ""}`}
+      className={`rounded-lg flex items-start p-2 gap-3 cursor-pointer transition-transform duration-300 relative shadow-[0_0_4px_0_rgba(152,152,152,0.4)] ${props.data.id === props.productId ? "border-2 border-[#F66B34]" : ""}`}
       onClick={selectProductHandler}
     >
-      <Image
-        className="size-[65px] lg:size-[125px] bg-amber-600 rounded-lg"
-        src={
-          process.env.BASE_API +
-          "/web" +
-          API_PATHS.FILE +
-          "/" +
-          props.data.image_id
-        }
-        width={125}
-        height={125}
-      />
-      <span className="text-14 lg:text-18">
-        {props.data.selected ? props.data.product : props.data.name}
-      </span>
-      {props.data?.discount_sallary && (
-        <div className={"flex items-center gap-1 line-through"}>
-          <span>{numberWithCommas(props.data?.discount_sallary)}</span>
-          <span className={"text-[12px] font-semibold"}>تومان</span>
+      <section className={"flex gap-2"}>
+        <div
+          className={
+            "border-2 border-[#F66B34] size-[20px] rounded-full relative"
+          }
+        >
+          {props.data.id === props.productId && (
+            <div
+              className={
+                "bg-[#F66B34] size-3 rounded-full absolute top-[2px] right-[2px]"
+              }
+            ></div>
+          )}
         </div>
-      )}
-      {props.data?.salary && (
-        <div className={"flex items-center gap-1"}>
-          <span>{numberWithCommas(props.data?.salary)}</span>
-          <span className={"text-[12px] font-semibold"}>تومان</span>
+        <div className={"w-[76px] h-[65px]"}>
+          <Image
+            className="bg-amber-600 rounded-lg size-full"
+            src={
+              process.env.BASE_API +
+              "/web" +
+              API_PATHS.FILE +
+              "/" +
+              props.data.image_id
+            }
+            alt={"detailing service image"}
+            width={76}
+            height={65}
+          />
         </div>
-      )}
-      {props.data.selected && (
-        <i className="cc-twitter text-[18px] lg:text-[24px] xl:text-[32px] p-2 bg-[#00000020] rounded-lg absolute top-2 left-2 text-red-600" />
-      )}
+      </section>
+      <section>
+        <div className={"flex w-full"}>
+          <span className="text-14 lg:text-18 font-medium">
+            {props.data.selected ? props.data.product : props.data.name}
+          </span>
+        </div>
+        <ul className={"text-[12px] font-medium flex flex-col gap-2"}>
+          <li>سرامیک خودرو / محافظ کننده خودرو </li>
+          <li>سرامیک خودرو / محافظ کننده خودرو </li>
+        </ul>
+        <div className={"w-full h-[1px] bg-[#BBBBBB] my-2"}></div>
+        {props.data?.discount_sallary && (
+          <div
+            className={
+              "flex items-center gap-1 line-through text-12 font-medium"
+            }
+          >
+            <span>{numberWithCommas(props.data?.discount_sallary)}</span>
+            <span className={"text-[12px] font-semibold"}>تومان</span>
+          </div>
+        )}
+        {props.data?.salary && (
+          <div className={"flex items-center gap-1 text-12 font-medium"}>
+            <span>{numberWithCommas(props.data?.salary)}</span>
+            <span className={"text-[12px] font-semibold"}>تومان</span>
+          </div>
+        )}
+      </section>
     </div>
   );
 };
