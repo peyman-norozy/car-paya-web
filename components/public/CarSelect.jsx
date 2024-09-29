@@ -235,7 +235,7 @@ const CarSelect = (props) => {
 
   function getBrandData(model) {
     axios
-      .get(process.env.BASE_API + "/web/" + model + "-brands")
+      .get(process.env.BASE_API + "/web" + "/vehicle-brands?" + "type=" + model)
       .then((res) => {
         setData(res.data.data);
         setSearchedData(res.data.data);
@@ -247,13 +247,24 @@ const CarSelect = (props) => {
 
   function optionClickHandler(id, item, state) {
     const level2 = state ? state : level;
+    console.log(vehicleType, id);
     if (level2 <= 3) {
       let array = [...backurl];
       array[level2 - 1] = id;
       setBackurl(array);
       const route = level2 === 2 ? "-models/" : "-tips/";
       axios
-        .get(process.env.BASE_API + "/web/" + vehicleType + route + id)
+        .get(
+          process.env.BASE_API +
+            "/web" +
+            "/vehicle" +
+            route +
+            id +
+            "?type=" +
+            vehicleType,
+          // vehicleType +
+          // route +
+        )
         .then((res) => {
           setData(res.data.data);
           if (level2 === 2) {
@@ -446,6 +457,7 @@ const CarSelect = (props) => {
                     }
                     width={88}
                     height={66}
+                    alt={"car image"}
                     className="w-[88px] h-[66px]"
                   />
                   <span className="text-[#000000] font-medium text-sm line-clamp-1 text-center">
