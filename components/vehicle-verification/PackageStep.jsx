@@ -41,9 +41,9 @@ const PackageStep = () => {
     axios
       .get(
         process.env.BASE_API +
-          "/web/expert/reservation?step=step-1" +
-          vehicle_tip +
-          city
+        "/web/expert/reservation?step=step-1" +
+        vehicle_tip +
+        city
       )
       .then((res) => {
         res.data.data.length ? setData(res.data.data) : setData([]);
@@ -55,42 +55,43 @@ const PackageStep = () => {
   }, [searchParams]);
   const nextStepHandler = async () => {
     console.log(Length);
-    axios
-      .get(process.env.BASE_API + "/check-authorization", {
-        headers: {
-          Authorization: "Bearer " + getCookies("Authorization").Authorization,
-        },
-      })
-      .then(async () => {
-        if (Length.length) {
-          await postData("/web/cart/remove", {
-            cartable_id: Length[0].item.item.id,
-            cartable_type: "VEHICLE_VERIFICATION",
-            vehicle_tip_id: Length[0].vehicle_tip_id,
-            step: "5",
-          });
-        }
-        const city_id = searchParams.get("city_id");
-        const selectedItem = searchParams.get("vehicle_tip");
-        await postData("/web/cart/add", {
-          cartable_id: isSelected,
-          cartable_type: "VEHICLE_VERIFICATION",
-          vehicle_tip_id: selectedItem,
-          step: "5",
-        });
-        setQuery.setMultiQuery([
-          { key: "step", value: "step-2" },
-          { key: "city_id", value: city_id },
-          {
-            key: "vehicle_tip",
-            value: selectedItem,
-          },
-          { key: "package_id", value: isSelected },
-        ]);
-      })
-      .catch((err) => {
-        dispatch(setLoginModal(true));
+    // axios
+    //   .get(process.env.BASE_API + "/check-authorization", {
+    //     headers: {
+    //       Authorization: "Bearer " + getCookies("Authorization").Authorization,
+    //     },
+    //   })
+    //   .then(async () => {
+    if (Length.length) {
+      await postData("/web/cart/remove", {
+        cartable_id: Length[0].item.item.id,
+        cartable_type: "VEHICLE_VERIFICATION",
+        vehicle_tip_id: Length[0].vehicle_tip_id,
+        step: "5",
       });
+    }
+    const city_id = searchParams.get("city_id");
+    const selectedItem = searchParams.get("vehicle_tip");
+    // await postData("/web/cart/add", {
+    //   cartable_id: isSelected,
+    //   cartable_type: "VEHICLE_VERIFICATION",
+    //   vehicle_tip_id: selectedItem,
+    //   step: "5",
+    // });
+    localStorage.setItem("verificationCart", { package_id: isSelected })
+    setQuery.setMultiQuery([
+      { key: "step", value: "step-2" },
+      { key: "city_id", value: city_id },
+      {
+        key: "vehicle_tip",
+        value: selectedItem,
+      },
+      { key: "package_id", value: isSelected },
+    ]);
+    // })
+    // .catch((err) => {
+    //   dispatch(setLoginModal(true));
+    // });
   };
   return (
     <>
