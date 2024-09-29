@@ -8,6 +8,7 @@ import useSetQuery from "@/hook/useSetQuery";
 import { setAreaeModalState } from "@/store/todoSlice";
 import { useDispatch } from "react-redux";
 import BatteryAreaModal from "@/components/modal/BatteryAreaModal";
+import SelectServiceModal from "@/components/modal/SelectServiceModal";
 
 const AddressSelection = (props) => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -34,15 +35,6 @@ const AddressSelection = (props) => {
         : "";
 
   useEffect(() => {
-    document.addEventListener("click", (e) => {
-      if (
-        e.target !== serviceButtenRef.current &&
-        e.target.parentElement?.parentElement !== serviceDropDownRef.current &&
-        e.target !== serviceDropDownRef.current
-      ) {
-        setServicesState(false);
-      }
-    });
     if (props.filter && props.filter.area) {
       setFilter(props.filter.area);
       setServicesData(props.filter.service);
@@ -94,54 +86,16 @@ const AddressSelection = (props) => {
           </div>
           <div className="relative">
             {pathName !== "/batteries/products/newSelectLocation" && (
-              <span
-                className="text-[#FEFEFE] font-bold cursor-pointer bg-[#5D697A] w-40 flex items-center justify-center rounded-lg py-2"
+              <button
+                className="flex w-fit p-2 gap-2 items-center lg:text-14 text-12 text-[#3C3C3C] bg-[#FEFEFE] shadow-[0_0_6px_0_rgba(125,125,125,0.5)] rounded-[4px] font-medium"
                 onClick={() => {
                   setServicesState(true);
                 }}
                 ref={serviceButtenRef}
               >
                 انتخاب سرویس ها
-              </span>
-            )}
-            <div
-              className={`absolute rounded-lg top-[42px] left-0 bg-[#5D697A] z-[1010] ${servicesState ? `w-[240px] sm:w-[calc(100vw*2/5)] p-4` : `w-0`} transition-all duration-500 flex flex-col gap-4 overflow-hidden`}
-            >
-              <div
-                className={`flex flex-wrap gap-6 overflow-y-scroll overflow-x-hidden max-h-[200px]`}
-                ref={serviceDropDownRef}
-              >
-                {servicesData?.map((item, index) => (
-                  <div
-                    key={index}
-                    className="checkbox-wrapper-42 flex items-center gap-1 min-w-[210px]"
-                  >
-                    <input
-                      id={item.value}
-                      type="checkbox"
-                      onChange={(e) => {
-                        checkboxChangeHandler(item.value, e.target.checked);
-                      }}
-                    />
-                    <label className="cbx" for={item.value}></label>
-                    <label
-                      className="lbl line-clamp-1 select-none"
-                      for={item.value}
-                    >
-                      {item.label}
-                    </label>
-                  </div>
-                ))}
-              </div>
-              <button
-                className={
-                  "bg-[#F66B34] px-8 py-2 text-[#FEFEFE] rounded-[8px] text-14 w-fit"
-                }
-                onClick={searchClickHandler}
-              >
-                جستجو
               </button>
-            </div>
+            )}
           </div>
         </div>
       ) : (
@@ -246,6 +200,14 @@ const AddressSelection = (props) => {
         </div>
       )}
       <BatteryAreaModal data={filter} timeData={props.timeData} />
+      <SelectServiceModal
+        servicesState={servicesState}
+        servicesData={servicesData}
+        setServicesData={setServicesData}
+        setServicesState={setServicesState}
+        checkboxChangeHandler={checkboxChangeHandler}
+        searchClickHandler={searchClickHandler}
+      />
       {/*<AreaModal*/}
       {/*  data={filter}*/}
       {/*  checkboxChangeHandler={checkboxChangeHandler}*/}

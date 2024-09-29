@@ -92,6 +92,7 @@ import UserAddressCard from "@/components/vehicle-verification/UserAddressCard";
 import AgentAdressCard from "@/components/vehicle-verification/AgentAdressCard";
 import AreaModal from "@/components/vehicle-verification/AreaModal";
 import DeleteModal from "@/components/public/DeleteModal";
+import ServicesModal from "@/components/periodic-service-components/ServicesModal";
 
 const Dealership = (props) => {
   // const [isSelected, setIsSelected] = useState(0);
@@ -108,7 +109,8 @@ const Dealership = (props) => {
   const [type, setType] = useState("MOVING");
   const [isLoading, setIsLoading] = useState(false);
   const [selectedAddress, setSelectedAddress] = useState("");
-  const [areaModal, setAreaModal] = useState();
+  const [serviceModal, setServiceModal] = useState(false);
+  const [checkedService,setCheckedService]= useState([])
   const city_id = searchParams.get("city_id");
   const selectedItem = searchParams.get("vehicle_tip");
   const package_id = searchParams.get("package_id");
@@ -143,7 +145,7 @@ const Dealership = (props) => {
       )
       .then((res) => {
         console.log(res.data.data);
-        setFilter(res?.data?.filter?.area);
+        setFilter(res?.data?.filter);
         setAgentData(res.data.data);
         setSearchedAgentData(res.data.data);
         // setCarCheckLocations(res.data.data);
@@ -192,7 +194,7 @@ const Dealership = (props) => {
   ];
 
   const backstopHandler = () => {
-    router.push("/periodic-service")
+    router.push("/periodic-service");
   };
 
   const continueSecondStepHandler = () => {
@@ -215,10 +217,11 @@ const Dealership = (props) => {
     //   ]);
     // }
     console.log(selectedAddress);
-    
-      setQuery.updateQueryParams(
-        { service_location_id: selectedAddress },"/periodic-service/service-selection"
-      );
+
+    setQuery.updateQueryParams(
+      { service_location_id: selectedAddress },
+      "/periodic-service/service-selection"
+    );
   };
 
   function checkboxChangeHandler(id, checked) {
@@ -241,6 +244,38 @@ const Dealership = (props) => {
         return agentData.filter((item2) => {
           return item2.area_id === item;
         });
+      });
+      setSearchedAgentData(array.flat());
+    }
+  }
+
+  function servicesCheckboxChangeHandler(id, checked) { 
+    if (checked) {
+      setCheckedService([...checkedService, id]);
+    } else {
+      setCheckedService(
+        checkedService.filter((item) => {
+          return item !== id;
+        })
+      );
+    }
+  }
+
+  function serviceFilterHandler() {
+    if (checkedService.length === 0) {
+      setSearchedAgentData(agentData);
+    } else {
+      const array = checkedService.map((item) => {
+        const a = agentData.filter((item2) => {
+          let b = false;
+           item2.services.map((item3)=>{
+            if (item3.key === item && item3.value) {
+              b = true
+            } 
+          });          
+          return b 
+        });
+        return a.flat()
       });
       setSearchedAgentData(array.flat());
     }
@@ -322,15 +357,26 @@ const Dealership = (props) => {
           ></div>
         </div>
         {type === "FIXED" && (
-          <button
-            className="flex w-fit p-2 gap-2 items-center text-xs text-[#3C3C3C] bg-[#FEFEFE] shadow-[0_0_4px_0_rgba(224,222,222,0.7)] rounded-[4px]"
-            onClick={() => {
-              dispatch(setAreaeModalState(true));
-            }}
-          >
-            <i className="cc-filter" />
-            <span>انتخاب محله</span>
-          </button>
+          <div className="justify-between flex">
+            <button
+              className="flex w-fit p-2 gap-2 items-center text-xs text-[#3C3C3C] bg-[#FEFEFE] shadow-[0_0_4px_0_rgba(224,222,222,0.7)] rounded-[4px]"
+              onClick={() => {
+                dispatch(setAreaeModalState(true));
+              }}
+            >
+              <i className="cc-filter" />
+              <span>انتخاب محله</span>
+            </button>
+            <button
+              className="flex w-fit p-2 gap-2 items-center text-xs text-[#3C3C3C] bg-[#FEFEFE] shadow-[0_0_4px_0_rgba(224,222,222,0.7)] rounded-[4px]"
+              onClick={() => {
+                setServiceModal(true);
+              }}
+            >
+              <i className="cc-filter" />
+              <span>انتخاب سرویس</span>
+            </button>
+          </div>
         )}
         <div className="flex flex-col gap-2 pb-2">
           {tab
@@ -424,9 +470,16 @@ const Dealership = (props) => {
         )}
       </div>
       <AreaModal
-        data={filter}
+        data={filter?.area}
         checkboxChangeHandler={checkboxChangeHandler}
         areaFilterHandler={areaFilterHandler}
+      />
+      <ServicesModal
+        data={filter?.service}
+        serviceFilterHandler={serviceFilterHandler}
+        servicesCheckboxChangeHandler={servicesCheckboxChangeHandler}
+        setServiceModal={setServiceModal}
+        serviceModal={serviceModal}
       />
       <ToastContainer />
       <DeleteModal />

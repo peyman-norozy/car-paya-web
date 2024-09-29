@@ -255,7 +255,7 @@ const CarSelectComponent = (props) => {
 
   function getBrandData(model) {
     axios
-      .get(process.env.BASE_API + "/web/" + model + "-brands")
+      .get(process.env.BASE_API + "/web/vehicle-brands?type="+model)
       .then((res) => {
         setData(res.data.data);
         setSearchedData(res.data.data);

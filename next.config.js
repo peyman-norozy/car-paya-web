@@ -25,7 +25,7 @@ const nextConfig = {
       {
         protocol: "https",
         hostname: "picsum.photos",
-      }
+      },
     ],
   },
   reactStrictMode: false,

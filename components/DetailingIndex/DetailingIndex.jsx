@@ -111,7 +111,7 @@ const DetailingIndex = () => {
                   href={
                     JSON.parse(localStorage.getItem("selectedVehicle"))?.id &&
                     cityId
-                      ? `/detailing/selectLocation?type=${"FIXED"}${
+                      ? `/detailing/selectLocation?type=${"FIXED"}&attribute_slug=${searchParams.get("attribute_slug")}&attribute_value=${searchParams.get("attribute_value")}${
                           JSON.parse(localStorage.getItem("selectedVehicle"))
                             ?.id
                             ? `&selectTipState=true,${
