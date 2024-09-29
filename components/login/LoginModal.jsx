@@ -42,7 +42,7 @@ const LoginModal = () => {
 
   function getOtpHandler() {
     axios
-      .post(process.env.BASE_API + "/force/get-otp", { mobile: phone })
+      .post(process.env.BASE_API + "/admin/get-otp", { mobile: phone })
       .then((res) => {
         setLoginToken(res.data.data.login_token);
         setStep(1);
@@ -56,7 +56,7 @@ const LoginModal = () => {
   }
   function sendOtpHandler() {
     axios
-      .post(process.env.BASE_API + "/force/check-otp", {
+      .post(process.env.BASE_API + "/admin/check-otp", {
         mobile: phone,
         login_token: loginToken,
         otp: otp,
