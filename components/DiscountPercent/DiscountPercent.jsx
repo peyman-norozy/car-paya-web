@@ -1,19 +1,32 @@
-import axios from "axios";
-import React, { useState } from "react";
+import React from "react";
+import { getCurrentData } from "@/utils/api-function-utils";
 
 const DiscountPercent = (props) => {
-  const [copon, setCopon] = useState("");
-  function sendCopon() {
-    axios
-      .post(process.env.BASE_API + "/web/cart/discount", {
-        registration_id: props.id,
-        cartable_type: props.type,
-        coupon_code: copon,
-      })
-      .then((res) => {
-        console.log(res);
-        props.setDiscount(res.data.data.coupon_price);
+  async function sendCopon() {
+    const response = await getCurrentData("/web/verify/coupon", {
+      coupon_code: props.coupon,
+      type: props.type,
+    });
+    console.log(response.data.data);
+    if (response.success) {
+      props.setDiscountPrice({
+        amount: response.data.data["amount"],
+        percentage: response.data.data["percentage"],
       });
+    } else {
+      console.log(response);
+    }
+
+    // axios
+    //   .post(process.env.BASE_API + "/web/cart/discount", {
+    //     registration_id: props.id,
+    //     cartable_type: props.type,
+    //     coupon_code: coupon,
+    //   })
+    //   .then((res) => {
+    //     console.log(res);
+    //     props.setDiscount(res.data.data.coupon_price);
+    //   });
   }
   return (
     <div
@@ -31,9 +44,9 @@ const DiscountPercent = (props) => {
         placeholder={"123456"}
         className={"w-full h-full outline-0 pr-2"}
         onChange={(e) => {
-          setCopon(e.target.value);
+          props.setCoupon(e.target.value);
         }}
-        value={copon}
+        value={props.coupon}
       />
       <button
         className={"bg-[#518DD5] h-full w-[96px] text-white rounded-[8px]"}

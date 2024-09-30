@@ -14,8 +14,13 @@ import DiscountPercent from "@/components/DiscountPercent/DiscountPercent";
 import { postData } from "@/utils/client-api-function-utils";
 
 const InvoicePage = () => {
+  const [client, setClient] = useState(false);
   const [faktorData, setFaktorData] = useState({});
   const [roleChecked, setRoleChecked] = useState(false);
+  const [price, setPrice] = useState(0);
+  const [discountPrice, setDiscountPrice] = useState({});
+  const [coupon, setCoupon] = useState("");
+
   const [discount, setDiscount] = useState(0);
   const innerWidth = useSelector((item) => item.todo.windowInnerWidth);
   // const orderProduct = useRef();
@@ -27,37 +32,64 @@ const InvoicePage = () => {
   const amper = searchParams.get("amper");
   const typeService = searchParams.get("type_service");
   const serviceLocationId = searchParams.get("service_location_id");
+  const time = searchParams.get("time_id");
   const router = useRouter();
+  const timestamp = Math.floor(Date.now() / 1000);
 
   useEffect(() => {
-    (async () => {
-      const response = await getCurrentData(
-        "/web/reservation/battery?step=step-4",
-        {
-          city_id: searchParams.get("city_id"),
-          reservation_time_slice_id: searchParams.get("time_id")?.split("/")[0],
-          vehicle_tip_id: searchParams.get("vehicle_tip_id"),
-          registrationable_id: searchParams.get("service_location_id"),
-          exact_time: searchParams.get("time_id")?.split("/")[1],
-          amp: searchParams.get("amper"),
-          type: searchParams.get("type_service"),
-          type_service: searchParams.get("type"),
-        },
-      );
-      if (response.success) {
-        setFaktorData(response.data.data);
-      } else {
-        console.log(response);
-      }
-    })();
+    setClient(true);
+    //   (async () => {
+    //     const response = await getCurrentData(
+    //       "/web/reservation/battery?step=step-4",
+    //       {
+    //         city_id: searchParams.get("city_id"),
+    //         reservation_time_slice_id: searchParams.get("time_id")?.split("/")[0],
+    //         vehicle_tip_id: searchParams.get("vehicle_tip_id"),
+    //         registrationable_id: searchParams.get("service_location_id"),
+    //         exact_time: searchParams.get("time_id")?.split("/")[1],
+    //         amp: searchParams.get("amper"),
+    //         type: searchParams.get("type_service"),
+    //         type_service: searchParams.get("type"),
+    //       },
+    //     );
+    //     if (response.success) {
+    //       setFaktorData(response.data.data);
+    //     } else {
+    //       console.log(response);
+    //     }
+    //   })();
   }, []);
 
   async function registerClickHandler() {
-    const response = await postData("/web/order/register/battery", {
-      registration_id: faktorData.id,
+    const response = await postData("/web/order/register", {
+      item_id: searchParams.get("item_id"),
+      type: "battery",
+      address_id: searchParams.get("service_location_id"),
+      vehicle_tip_id: searchParams.get("vehicle_tip_id"),
+      reservation_time_slice_id: searchParams.get("time_id")?.split("/")[0],
+      coupon_code: searchParams.get(coupon),
+      amp_user: searchParams.get("amper"),
+      battery_type: searchParams.get("type_service"),
+      shipped_time: searchParams.get("time_id")?.split("/")[1],
     });
-    router.push(response?.data?.data?.url);
+    console.log(response);
+    // router.push(response?.data?.data?.url);
   }
+
+  if (!client) {
+    return null;
+  }
+
+  const cartTipImage = JSON.parse(localStorage.getItem("selectedVehicle"));
+  const userMobile = JSON.parse(localStorage.getItem("user-profile")).mobile;
+  const locationServiceAddress = JSON.parse(
+    sessionStorage.getItem("batteriesCart"),
+  )?.address;
+  const dateServiceAddress = JSON.parse(
+    sessionStorage.getItem("batteriesCart"),
+  )?.timeSelect;
+
+  console.log(dateServiceAddress);
 
   return (
     <div
@@ -81,7 +113,7 @@ const InvoicePage = () => {
         </section>
         <section className={"flex justify-center"}>
           <Image
-            src={process.env.BASE_API + "/web/file/" + faktorData.vehicle_image}
+            src={process.env.BASE_API + "/web/file/" + cartTipImage.image}
             className={"w-[350px] h-[250px]"}
             alt={"car"}
             width={1000}
@@ -95,9 +127,9 @@ const InvoicePage = () => {
         >
           <div className={"flex items-center gap-1 w-full"}>
             <span className={"font-semibold"}>خودرو شما:</span>
-            <span>{faktorData.vehicle_brand}</span>
-            <span>{faktorData.vehicle_model}</span>
-            <span>{faktorData.vehicle_tip}</span>
+            {/*<span>{cartTipImage.brand}</span>*/}
+            {/*<span>{cartTipImage.model}</span>*/}
+            <span>{cartTipImage.title}</span>
           </div>
           <div className={"flex items-center gap-1 w-full"}>
             <span className={"font-semibold"}>نام:</span>
@@ -105,7 +137,8 @@ const InvoicePage = () => {
           </div>
           <div className={"flex items-center gap-1 w-full"}>
             <span className={"font-semibold"}>شماره تماس:</span>
-            <span>{faktorData?.user_info?.mobile}</span>
+            {/*<span>{faktorData?.user_info?.mobile}</span>*/}
+            <span>{userMobile}</span>
           </div>
         </section>
         <section
@@ -116,8 +149,9 @@ const InvoicePage = () => {
           <div className={"flex items-center gap-1 w-full "}>
             <span>تاریخ ثبت سفارش:</span>
             <span className={"font-semibold"}>
-              {Object.keys(faktorData).length > 0 &&
-                persianDateCovertor(faktorData.created_at)}
+              {/*{Object.keys(faktorData).length > 0 &&*/}
+              {/*  persianDateCovertor(faktorData.created_at)}*/}
+              {persianDateCovertor(timestamp)}
             </span>
           </div>
         </section>
@@ -149,6 +183,12 @@ const InvoicePage = () => {
                   roleChecked={roleChecked}
                   length={1}
                   discount={discount}
+                  setPrice={setPrice}
+                  price={price}
+                  discountPrice={discountPrice}
+                  setDiscountPrice={setDiscountPrice}
+                  coupon={coupon}
+                  setCoupon={setCoupon}
                   type={"product_key"}
                 />
               </div>
@@ -159,7 +199,8 @@ const InvoicePage = () => {
               <div className="flex flex-col">
                 <span className="text-gray-500">محل دریافت خدمات:</span>
                 <span className="text-gray-900 text-right">
-                  {faktorData.address_info?.address}
+                  {/*{faktorData.address_info?.address}*/}
+                  {locationServiceAddress}
                 </span>
               </div>
               <Link
@@ -177,19 +218,22 @@ const InvoicePage = () => {
                 <span className="text-gray-500">تاریخ دریافت خدمات:</span>
                 <div className="text-gray-900 flex gap-2 items-start">
                   <span>
-                    {Object.keys(faktorData).length > 0 &&
-                      persianStringDay(faktorData.reservation_time_day)}
+                    {/*{Object.keys(faktorData).length > 0 &&*/}
+                    {/*  persianStringDay(faktorData.reservation_time_day)}*/}
+                    {persianStringDay(dateServiceAddress)}
                   </span>
                   <span>
-                    {Object.keys(faktorData).length > 0 &&
-                      persianDateCovertor(faktorData.reservation_time_day)}
+                    {/*{Object.keys(faktorData).length > 0 &&*/}
+                    {/*  persianDateCovertor(faktorData.reservation_time_day)}*/}
+                    {persianDateCovertor(dateServiceAddress)}
                   </span>
                 </div>
               </div>
               <div className="flex justify-between lg:justify-start lg:gap-4">
                 <span className="text-gray-500">ساعت دریافت خدمات:</span>
                 <span>
-                  {faktorData.reservation_time_slice?.split(",").join(" تا ")}
+                  {/*{faktorData.reservation_time_slice?.split(",").join(" تا ")}*/}
+                  {time.split("/")[1]}
                 </span>
               </div>
               <Link
@@ -203,8 +247,11 @@ const InvoicePage = () => {
             <div className={"mt-4 block lg:hidden"}>
               <DiscountPercent
                 id={faktorData?.id}
-                type={"BATTERY"}
+                type={"battery"}
+                setDiscountPrice={setDiscountPrice}
                 setDiscount={setDiscount}
+                coupon={coupon}
+                setCoupon={setCoupon}
               />
             </div>
           </section>
@@ -219,6 +266,7 @@ const InvoicePage = () => {
             roleChecked={roleChecked}
             discount={discount}
             registerClickHandler={registerClickHandler}
+            price={price}
           />
         )}
       </div>
@@ -228,10 +276,16 @@ const InvoicePage = () => {
             faktorData={faktorData}
             length={1}
             discount={discount}
+            setPrice={setPrice}
+            price={price}
             setRoleChecked={setRoleChecked}
             roleChecked={roleChecked}
+            discountPrice={discountPrice}
+            setDiscountPrice={setDiscountPrice}
             type={"product_key"}
             registerClickHandler={registerClickHandler}
+            coupon={coupon}
+            setCoupon={setCoupon}
           />
           {/*<div className={"mt-4 hidden lg:block"}>*/}
           {/*  <DiscountPercent*/}

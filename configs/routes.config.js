@@ -12,11 +12,11 @@ export const INTERNAL_PATHS = {
 };
 
 export const API_PATHS = {
-  GETOTP: "/get-otp",
+  GETOTP: "/admin/get-otp",
   RESENDOTP: "/resend-otp",
   LOGINPASSWord: "/login-password",
   LOGINOTP: "/login-otp",
-  CHECKOTP: "/check-otp",
+  CHECKOTP: "/admin/check-otp",
   REGISTER: "/register",
   LOGOUT: "/logout",
   CONTACTUS: "/contact-us",
@@ -40,7 +40,7 @@ export const API_PATHS = {
   CARS: "/cars",
   MOTORS: "/motors",
   HEAVYCARS: "/heavy-cars",
-  USERPANEL: "/user-panel",
+  USERPANEL: "/user",
   INSURANCES: "/insurances",
   SLIDERS: "/sliders",
   ADDCAR: "/add-car",
@@ -51,12 +51,12 @@ export const API_PATHS = {
   MAGCATEGORY: "/mag-categories",
   MAGCOMMENTS: "/mag-comments",
   GETPRODUCT: "/get-products",
-  DASHBOARDUSERADDRESS: "/user-panel/user-address",
+  DASHBOARDUSERADDRESS: "/user/user-address",
   PROFILE: "/profile",
   ADDRESS: "/address",
   COUPONS: "/coupons",
   PROFILEUPDATE: "/profile/update",
-  DASHBOARDPROFILE: "/user-panel/profile",
+  DASHBOARDPROFILE: "/user/profile",
 };
 
 export const META_PATHS = {

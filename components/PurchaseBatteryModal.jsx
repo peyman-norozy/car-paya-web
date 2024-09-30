@@ -155,28 +155,32 @@ const PurchaseBatteryModal = (props) => {
     //     localStorage.setItem("batteryTotalPrice", JSON.stringify(totalPrice));
     //   }
     // }
+    nProgress.start();
+    router.push(
+      `/batteries/products/newSelectLocation?attribute_slug=${attributeSlug}&attribute_value=${attributeValue}&city_id=${JSON.parse(localStorage.getItem("city")).cityId}&type=MOVING&vehicle_tip_id=${JSON.parse(localStorage.getItem("selectedVehicle"))?.id}&amper=${searchParams.get("amper")}&type_service=${searchParams.get("type_service")}&item_id=${batteriesData.id}`,
+    );
 
-    const cartData = await postData("/web/cart/add", {
-      cartable_id: JSON.parse(localStorage.getItem("batteryTotalPrice"))
-        ?.productId,
-      cartable_type: pathName.split("/")[1].toUpperCase().split("-").join("_"),
-      vehicle_tip_id: JSON.parse(localStorage.getItem("selectedVehicle"))?.id,
-      step: "step-1",
-    });
-    console.log(cartData);
-    if (cartData.status === 200 || cartData.status === 201) {
-      console.log(cartData.data);
-      nProgress.start();
-      router.push(
-        `/batteries/products/newSelectLocation?attribute_slug=${attributeSlug}&attribute_value=${attributeValue}&city_id=${JSON.parse(localStorage.getItem("city")).cityId}&type=MOVING&vehicle_tip_id=${JSON.parse(localStorage.getItem("selectedVehicle"))?.id}&amper=${searchParams.get("amper")}&type_service=${searchParams.get("type_service")}`,
-      );
-    } else if (cartData.response.status === 422) {
-      console.log(cartData.response.data);
-      error(cartData.response.data.message);
-    } else if (cartData.response.status === 401) {
-      nProgress.start();
-      router.push("/login?backurl=" + pathName + "&" + searchParams.toString());
-    }
+    // const cartData = await postData("/web/cart/add", {
+    //   cartable_id: JSON.parse(localStorage.getItem("batteryTotalPrice"))
+    //     ?.productId,
+    //   cartable_type: pathName.split("/")[1].toUpperCase().split("-").join("_"),
+    //   vehicle_tip_id: JSON.parse(localStorage.getItem("selectedVehicle"))?.id,
+    //   step: "step-1",
+    // });
+    // console.log(cartData);
+    // if (cartData.status === 200 || cartData.status === 201) {
+    //   console.log(cartData.data);
+    //   nProgress.start();
+    //   router.push(
+    //     `/batteries/products/newSelectLocation?attribute_slug=${attributeSlug}&attribute_value=${attributeValue}&city_id=${JSON.parse(localStorage.getItem("city")).cityId}&type=MOVING&vehicle_tip_id=${JSON.parse(localStorage.getItem("selectedVehicle"))?.id}&amper=${searchParams.get("amper")}&type_service=${searchParams.get("type_service")}`,
+    //   );
+    // } else if (cartData.response.status === 422) {
+    //   console.log(cartData.response.data);
+    //   error(cartData.response.data.message);
+    // } else if (cartData.response.status === 401) {
+    //   nProgress.start();
+    //   router.push("/login?backurl=" + pathName + "&" + searchParams.toString());
+    // }
   };
 
   useEffect(() => {
