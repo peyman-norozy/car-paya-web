@@ -18,6 +18,7 @@ const PackageStep = () => {
   const [data, setData] = useState();
   const [message, setMessage] = useState("");
   const [isSelected, setIsSelected] = useState(null);
+  const [title, setTitle] = useState(null);
   const dispatch = useDispatch();
   const Length = useSelector(
     (state) => state.todo.vehicleVerificationBasketLength
@@ -27,8 +28,14 @@ const PackageStep = () => {
   const backStepHandler = () => {
     router.replace(pathname);
   };
-  const selectPackageHandler = (id) => {
-    isSelected === id ? setIsSelected(null) : setIsSelected(id);
+  const selectPackageHandler = (id, title) => {
+    if (isSelected !== id) {
+      setIsSelected(id);
+      setTitle(title);
+    } else {
+      setIsSelected(null);
+      setTitle(null);
+    }
   };
 
   useEffect(() => {
@@ -41,9 +48,9 @@ const PackageStep = () => {
     axios
       .get(
         process.env.BASE_API +
-        "/web/expert/reservation?step=step-1" +
-        vehicle_tip +
-        city
+          "/web/expert/reservation?step=step-1" +
+          vehicle_tip +
+          city
       )
       .then((res) => {
         res.data.data.length ? setData(res.data.data) : setData([]);
@@ -78,7 +85,7 @@ const PackageStep = () => {
     //   vehicle_tip_id: selectedItem,
     //   step: "5",
     // });
-    localStorage.setItem("verificationCart", { package_id: isSelected })
+    sessionStorage.setItem("verificationCart", JSON.stringify({ package_id: isSelected, package_title:title}));
     setQuery.setMultiQuery([
       { key: "step", value: "step-2" },
       { key: "city_id", value: city_id },
@@ -149,7 +156,7 @@ const PackageStep = () => {
                       title={item.title}
                       price={item.price}
                       discounted_price={item.discounted_price}
-                      onClick={() => selectPackageHandler(item.id)}
+                      onClick={() => selectPackageHandler(item.id,item.title)}
                     />
                   </li>
                 ))}
