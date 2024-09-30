@@ -70,7 +70,7 @@ const PurchaseBatteryModal = (props) => {
           localStorage.setItem(
             "batteryTotalPrice",
             JSON.stringify({
-              price: nobatteriesData.calculation.payment_price,
+              price: nobatteriesData.calculation?.payment_price,
               productId: batteriesData.id,
               vehicle_tip_id: JSON.parse(
                 localStorage.getItem("selectedVehicle"),
@@ -80,7 +80,7 @@ const PurchaseBatteryModal = (props) => {
         }
       }
       setTotalPrice({
-        price: nobatteriesData.calculation.payment_price,
+        price: nobatteriesData.calculation?.payment_price,
         productId: productId,
         vehicle_tip_id: JSON.parse(localStorage.getItem("selectedVehicle"))?.id,
       });
@@ -306,8 +306,8 @@ const PurchaseBatteryModal = (props) => {
           "/web/reservation/battery?step=step-1",
           {
             product_id: batteriesData.id,
-            type: "SAME_AMP",
-            amp: batteriesData.amp,
+            battery_type: "SAME_AMP",
+            amp_user: batteriesData.amp,
             city_id: JSON.parse(localStorage.getItem("city"))?.cityId,
             vehicle_tip_id: JSON.parse(localStorage.getItem("selectedVehicle"))
               ?.id,
