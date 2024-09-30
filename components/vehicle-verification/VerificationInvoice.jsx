@@ -22,6 +22,8 @@ const VerificationInvoice = () => {
   const [faktorData, setFaktorData] = useState({});
   const [roleChecked, setRoleChecked] = useState(false);
   const [discount, setDiscount] = useState(0);
+  const [cart , setCart] = useState({})
+  const [vehicle , setVehicle] = useState({})
   const innerWidth = useSelector((item) => item.todo.windowInnerWidth);
   //   const orderProduct = useRef();
   //   const { events } = useDraggable(orderProduct);
@@ -62,6 +64,8 @@ const VerificationInvoice = () => {
         console.log(response);
       }
     })();
+    setCart(JSON.parse(sessionStorage.getItem("verificationCart")))
+    setVehicle(JSON.parse(localStorage.getItem("selectedVehicle")))
   }, []);
   function registerClickHandler() {
     axios
@@ -106,13 +110,13 @@ const VerificationInvoice = () => {
             }
           >
             <div className={"flex items-center gap-1 w-full font-bold text-sm"}>
-              <span>{faktorData.vehicle_brand}</span>
-              <span>{faktorData.vehicle_model}</span>
-              <span>{faktorData.vehicle_tip}</span>
+              <span>{vehicle.brand}</span>
+              <span>{vehicle.model}</span>
+              <span>{vehicle.tip}</span>
             </div>
             <Image
               src={
-                process.env.BASE_API + "/web/file/" + faktorData.vehicle_image
+                process.env.BASE_API + "/web/file/" + vehicle.image
               }
               className={"w-[350px] h-[250px]"}
               alt={"car"}
@@ -125,7 +129,7 @@ const VerificationInvoice = () => {
               }
             >
               <span className={"font-medium"}>نوع کارشناسی:</span>
-              <span className="font-bold">{faktorData?.service?.title}</span>
+              <span className="font-bold">{cart.package_title}</span>
             </div>
             {/* <div className={"flex items-center gap-1 w-full text-sm text-[#4F4F4F]"}>
                 <span className={"font-medium"}>شماره تماس:</span>
@@ -134,7 +138,7 @@ const VerificationInvoice = () => {
           </section>
           <section
             className={
-              "mt-4 text-14 flex flex-col lg:flex-row gap-4 border-b-2 border-b-[#D1D1D1] pb-4"
+              " text-14 flex flex-col lg:flex-row gap-4 border-b-2 border-b-[#D1D1D1] pb-4"
             }
           >
             <div className={"flex items-start gap-1 w-full flex-col"}>
@@ -146,7 +150,7 @@ const VerificationInvoice = () => {
                 persianDate(faktorData.reservation_time_day, "dddd")}
             </span> */}
               <span className={"text-[#454545] font-medium text-sm"}>
-                {faktorData?.address_info?.address}
+                {cart.selectedAddressText}
               </span>
             </div>
             <Link
@@ -165,17 +169,15 @@ const VerificationInvoice = () => {
             <div className={"flex items-center gap-1 w-full "}>
               <span>تاریخ دریافت خدمات:</span>
               <span className={"font-medium"}>
-                {Object.keys(faktorData).length > 0 &&
-                  persianDate(faktorData.reservation_time_day, "dddd")}
+                {persianDate(cart?.time_stamp, "dddd")}
               </span>
               <span className={"font-medium"}>
-                {Object.keys(faktorData).length > 0 &&
-                  persianDate(faktorData.reservation_time_day, "L")}
+                {persianDate(cart?.time_stamp, "L")}
               </span>
             </div>
             <div className={"flex items-center gap-1 w-full"}>
               <span>ساعت دریافت خدمات:</span>
-              <span className={"font-medium"}>{faktorData?.exact_time}</span>
+              <span className={"font-medium"}>{cart.exact_time}</span>
             </div>
             <Link
               href={`/vehicle-verification?step=step-2&city_id=${cityId}&package_id=${package_id}&vehicle_tip=${vehicleTipId}&exact_time=${exact_time}&type_service=${typeService}&reservation_time_slice_id=${reservation_time_slice_id}&registrationable_id=${registrationable_id}`}

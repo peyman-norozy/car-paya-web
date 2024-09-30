@@ -9,6 +9,7 @@ const ReserveTimeVerification = (props) => {
     optionIsOpen,
     setOptionIsOpen,
     packagePrice,
+    setTimeStamp,
   } = props;
 
   const weekDay =
@@ -89,13 +90,14 @@ const ReserveTimeVerification = (props) => {
                 <div
                   key={index}
                   className={`flex items-center p-2 ${timeIsSelected === item.id + "/" + +item.start_time + ":00" ? "border-b border-b-[#F66B34]" : ""} gap-6`}
-                  onClick={(e) =>
+                  onClick={(e) => {
+                    setTimeStamp(data[0]);
                     timeIsSelected === item.id + "/" + item.start_time + ":00"
                       ? setTimeIsSelected(null)
                       : setTimeIsSelected(
                           item.id + "/" + item.start_time + ":00"
-                        )
-                  }
+                        );
+                  }}
                 >
                   <p>{item.start_time + ":00"}</p>
                   <div
@@ -112,14 +114,15 @@ const ReserveTimeVerification = (props) => {
                 <div
                   key={index}
                   className={`flex items-center p-2 ${timeIsSelected === item.id + "/" + (+item.start_time + 1) + ":00" ? "border-b border-b-[#F66B34]" : ""} gap-6`}
-                  onClick={(e) =>
+                  onClick={(e) => {
+                    setTimeStamp(data[0]);
                     timeIsSelected ===
                     item.id + "/" + (+item.start_time + 1) + ":00"
                       ? setTimeIsSelected(null)
                       : setTimeIsSelected(
                           item.id + "/" + (+item.start_time + 1) + ":00"
-                        )
-                  }
+                        );
+                  }}
                 >
                   <p>{+item.start_time + 1 + ":00"}</p>
                   <div
@@ -136,13 +139,14 @@ const ReserveTimeVerification = (props) => {
                 <div
                   key={index}
                   className={`flex items-center p-2 ${timeIsSelected === item.id + "/" + +item.start_time + ":30" ? "border-b border-b-[#F66B34]" : ""} gap-6`}
-                  onClick={(e) =>
+                  onClick={(e) => {
+                    setTimeStamp(data[0]);
                     timeIsSelected === item.id + "/" + item.start_time + ":30"
                       ? setTimeIsSelected(null)
                       : setTimeIsSelected(
                           item.id + "/" + item.start_time + ":30"
-                        )
-                  }
+                        );
+                  }}
                 >
                   <p>{item.start_time + ":30"}</p>
                   <div
@@ -159,14 +163,15 @@ const ReserveTimeVerification = (props) => {
                 <div
                   key={index}
                   className={`flex items-center p-2 ${timeIsSelected === item.id + "/" + (+item.start_time + 1) + ":30" ? "border-b border-b-[#F66B34]" : ""} gap-6`}
-                  onClick={(e) =>
+                  onClick={(e) => {
+                    setTimeStamp(data[0]);
                     timeIsSelected ===
                     item.id + "/" + (+item.start_time + 1) + ":30"
                       ? setTimeIsSelected(null)
                       : setTimeIsSelected(
                           item.id + "/" + (+item.start_time + 1) + ":30"
-                        )
-                  }
+                        );
+                  }}
                 >
                   <p>{+item.start_time + 1 + ":30"}</p>
                   <div
