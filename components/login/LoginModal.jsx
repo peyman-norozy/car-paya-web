@@ -62,7 +62,8 @@ const LoginModal = () => {
         otp: otp,
       })
       .then((res) => {
-        console.log(res.data.token);
+        console.log(res.data);
+        localStorage.setItem("user-profile", JSON.stringify(res.data.user));
         dispatch(setLoginState(false));
         setCookie("Authorization", res.data.token);
         setStep(0);

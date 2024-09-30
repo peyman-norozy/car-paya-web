@@ -17,8 +17,9 @@ const ReserveTimeVerification = (props) => {
     data &&
     new Date(data[0] * 1000).toLocaleDateString("fa-IR", { weekday: "long" });
 
-  const openOptionHandler = (index) => {
-    setOptionIsOpen((prevState) => (prevState === index ? null : index));
+  const openOptionHandler = (item) => {
+    setOptionIsOpen((prevState) => (prevState === item.id ? null : item.id));
+    console.log(item);
   };
   console.log(data);
   return (
@@ -42,7 +43,7 @@ const ReserveTimeVerification = (props) => {
             key={index}
           >
             <div
-              onClick={() => openOptionHandler(item.id)}
+              onClick={() => openOptionHandler(item)}
               className={
                 "flex flex-col items-start px-4 py-5 gap-1 border-b border-[#F2F2F2]"
               }

@@ -10,7 +10,7 @@ import { getLoginOtpData } from "@/store/todoSlice";
 import Spinner from "@/components/Spinner";
 import { postData } from "@/utils/client-api-function-utils";
 import Image from "next/image";
-import loginImage from "@/public/assets/images/login.png"
+import loginImage from "@/public/assets/images/login.png";
 export default function PhoneNumberLogin(props) {
   const [telPhoneValueNumber, setTelPhoneValueNumber] = useState("");
   const [sliderShowState, setSliderShowState] = useState(false);
@@ -36,31 +36,41 @@ export default function PhoneNumberLogin(props) {
       fd.append("mobile", telPhoneValueNumber);
       setSliderShowState(true);
       const response = await postData(API_PATHS.GETOTP, fd);
+      console.log(response);
       if (response.status === 200) {
-        if (response.data.data.status.login === "exists") {
-          dispatch(
-            getLoginOtpData({
-              login_token: response.data.data.login_token,
-              mobile: telPhoneValueNumber,
-              loginOtpState: true,
-            }),
-          );
-          if (response.data.data.status.step === "register_user") {
-            props.setLoginState("register_user");
-          } else {
-            props.setLoginState("user_passwordNumber");
-          }
-          setSliderShowState(false);
-        } else if (response.data.data.status.login === "new") {
-          dispatch(
-            getLoginOtpData({
-              login_token: response.data.data.login_token,
-              mobile: telPhoneValueNumber,
-            }),
-          );
-          props.setLoginState("otp_number");
-          setSliderShowState(false);
-        }
+        props.setLoginState("otp_number");
+        setSliderShowState(false);
+        dispatch(
+          getLoginOtpData({
+            mobile: telPhoneValueNumber,
+            loginOtpState: true,
+          }),
+        );
+
+        // if (response.data.data.status.login === "exists") {
+        //   dispatch(
+        //     getLoginOtpData({
+        //       login_token: response.data.data.login_token,
+        //       mobile: telPhoneValueNumber,
+        //       loginOtpState: true,
+        //     }),
+        //   );
+        //   if (response.data.data.status.step === "register_user") {
+        //     props.setLoginState("register_user");
+        //   } else {
+        //     props.setLoginState("user_passwordNumber");
+        //   }
+        //   setSliderShowState(false);
+        // } else if (response.data.data.status.login === "new") {
+        //   dispatch(
+        //     getLoginOtpData({
+        //       login_token: response.data.data.login_token,
+        //       mobile: telPhoneValueNumber,
+        //     }),
+        //   );
+        //   props.setLoginState("otp_number");
+        //   setSliderShowState(false);
+        // }
       } else {
         setSliderShowState(false);
         if (response.response.status === 422) {
@@ -75,24 +85,29 @@ export default function PhoneNumberLogin(props) {
   return (
     <div className="max-w-[660px] m-auto my-[80px] mt-40">
       <div className="bg-[#383838ad] overflow-hidden rounded-2xl p-6 flex flex-col items-center gap-8">
-        <span className="text-2xl font-medium text-center text-[#FEFEFE]">ورود به کارچک</span>
-        <Image src={loginImage} className="w-[360px] aspect-auto" width={360} height={244}/>
+        <span className="text-2xl font-medium text-center text-[#FEFEFE]">
+          ورود به کارچک
+        </span>
+        <Image
+          src={loginImage}
+          className="w-[360px] aspect-auto"
+          width={360}
+          height={244}
+        />
         <div className="flex flex-col items-start gap-2 w-full max-w-[360px]">
           <h1 className="font-bold text-[#FEFEFE]">شماره موبایل:</h1>
           <Input
             type={"tel"}
             placeholder={"09129273836"}
-            className={
-              "bg-[#FEFEFE] rounded-lg w-full p-3 text-right"
-            }
+            className={"bg-[#FEFEFE] rounded-lg w-full p-3 text-right"}
             maxlength="11"
             on_change={telPhoneNumberChangeHandler}
             onKeyDown={clickTelNumberBtn}
           />
-        <p className={"text-12 text-red-500 mb-[10px] mr-[20px]"}>
-          {phoneNumberError}
-        </p>
-        <Button
+          <p className={"text-12 text-red-500 mb-[10px] mr-[20px]"}>
+            {phoneNumberError}
+          </p>
+          <Button
             type={"button"}
             disabled_btn={sliderShowState}
             class_name={
