@@ -44,6 +44,12 @@ const Page = (props) => {
     getTimeData();
   }, []);
 
+  useEffect(() => {
+    const batteriesCart = JSON.parse(sessionStorage.getItem("batteriesCart"));
+    batteriesCart.timeSelect = data[0]?.day;
+    sessionStorage.setItem("batteriesCart", JSON.stringify(batteriesCart));
+  }, [data]);
+
   function onclick() {
     setQuery.updateQueryParams(
       { time_id: selectedTime, type: searchParams.get("type") },
@@ -113,6 +119,14 @@ const Page = (props) => {
             onClick={() => {
               setDate(index);
               setTab(index);
+              const batteriesCart = JSON.parse(
+                sessionStorage.getItem("batteriesCart"),
+              );
+              batteriesCart.timeSelect = item["day"];
+              sessionStorage.setItem(
+                "batteriesCart",
+                JSON.stringify(batteriesCart),
+              );
             }}
           >
             <p>{persianDate(item["day"], "dddd")}</p>

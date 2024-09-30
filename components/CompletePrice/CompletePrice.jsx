@@ -10,19 +10,20 @@ const CompletePrice = (props) => {
       <div className={"font-medium lg:hidden block"}>
         <span>جمع سفارش:</span>
         <div className={"flex gap-2 items-center text-[#518DD5]"}>
-          {props.type === "product_key"
-            ? numberWithCommas(
-                Number(props.faktorData?.product?.discounted_price) -
-                  props.discount
-              )
-            : numberWithCommas(
-                props.faktorData?.swing_type === "INCREASE"
-                  ? Number(props.faktorData?.service?.discounted_price) +
-                      Number(props.faktorData?.diff_price)
-                  : Number(props.faktorData?.service?.discounted_price) -
-                      Number(props.faktorData?.diff_price)
-              )}
-          تومان
+          {/*{props.type === "product_key"*/}
+          {/*  ? numberWithCommas(*/}
+          {/*      Number(props.faktorData?.product?.discounted_price) -*/}
+          {/*        props.discount*/}
+          {/*    )*/}
+          {/*  : numberWithCommas(*/}
+          {/*      props.faktorData?.swing_type === "INCREASE"*/}
+          {/*        ? Number(props.faktorData?.service?.discounted_price) +*/}
+          {/*            Number(props.faktorData?.diff_price)*/}
+          {/*        : Number(props.faktorData?.service?.discounted_price) -*/}
+          {/*            Number(props.faktorData?.diff_price)*/}
+          {/*    )}*/}
+          <span>{numberWithCommas(props.price)}</span>
+          <span>تومان</span>
         </div>
       </div>
       <button

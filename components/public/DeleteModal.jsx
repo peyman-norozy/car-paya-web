@@ -24,7 +24,7 @@ const DeleteModal = (props) => {
 
   function deleteHandler() {
     axios
-      .delete(process.env.BASE_API + "/user-panel/user-address/" + id, {
+      .delete(process.env.BASE_API + "/user/user-address/" + id, {
         headers: {
           Authorization: "Bearer " + getCookie("Authorization"),
         },

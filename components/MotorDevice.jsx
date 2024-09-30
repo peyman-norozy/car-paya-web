@@ -341,7 +341,7 @@ const MotorDevice = (props) => {
       editFormData.set("_method", "PUT");
       const response = await putData(
         process.env.BASE_API +
-          "/user-panel" +
+          "/user" +
           API_PATHS.MOTORS +
           "/" +
           searchParams.get("product"),
@@ -385,7 +385,7 @@ const MotorDevice = (props) => {
       );
       setButtonDisabledState(true);
       const response = await postData(
-        process.env.BASE_API + "/user-panel" + API_PATHS.MOTORS,
+        process.env.BASE_API + "/user" + API_PATHS.MOTORS,
         fd,
         '"Content-Type": "application/json"',
       );

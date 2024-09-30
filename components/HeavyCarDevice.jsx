@@ -341,7 +341,7 @@ const HeavyCarDevice = (props) => {
       editFormData.set("_method", "PUT");
       const response = await putData(
         process.env.BASE_API +
-          "/user-panel" +
+          "/user" +
           API_PATHS.HEAVYCARS +
           "/" +
           searchParams.get("product"),
@@ -385,7 +385,7 @@ const HeavyCarDevice = (props) => {
       );
       setButtonDisabledState(true);
       const response = await postData(
-        process.env.BASE_API + "/user-panel" + API_PATHS.HEAVYCARS,
+        process.env.BASE_API + "/user" + API_PATHS.HEAVYCARS,
         fd,
         '"Content-Type": "application/json"',
       );

@@ -19,7 +19,7 @@ import { useSelector } from "react-redux";
 import SelectCarModal from "@/components/modal/SelectCarModal";
 import PrivateRoute from "@/routes/private-route";
 import nProgress from "nprogress";
-import machinTag from "@/public/assets/images/machinTag.svg"
+import machinTag from "@/public/assets/images/machinTag.svg";
 const CarDevice = (props) => {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -68,38 +68,43 @@ const CarDevice = (props) => {
   const [newEditData, setNewEditData] = useState({});
   const [buttonDisabledState, setButtonDisabledState] = useState(false);
 
-
-
   const colorData = [
     {
       title: "قرمز",
-      value: "red"
-    },{
-      title: "سبز",
-      value: "green"
-    },{
-      title: "آبی",
-      value: "blue"
-    },{
-      title: "زرد",
-      value: "yellow"
-    },{
-      title: "مشکی",
-      value: "black"
-    },{
-      title: "سفید",
-      value: "white"
-    },{
-      title: "نوک مدادی",
-      value: "stone"
-    },{
-      title: "خاکستری",
-      value: "gray"
+      value: "red",
     },
-  ]
+    {
+      title: "سبز",
+      value: "green",
+    },
+    {
+      title: "آبی",
+      value: "blue",
+    },
+    {
+      title: "زرد",
+      value: "yellow",
+    },
+    {
+      title: "مشکی",
+      value: "black",
+    },
+    {
+      title: "سفید",
+      value: "white",
+    },
+    {
+      title: "نوک مدادی",
+      value: "stone",
+    },
+    {
+      title: "خاکستری",
+      value: "gray",
+    },
+  ];
   const [optionState, setOptionState] = useState(false);
-  const [serchedColor , setSearchedColor] = useState(colorData)
-  const [selectedColor , setSelectedColor] = useState({})
+  const [serchedColor, setSearchedColor] = useState(colorData);
+  const [selectedColor, setSelectedColor] = useState({});
   const optionRef = useRef(null);
   const inputRef = useRef(null);
   function inputChangeHandler(value) {
@@ -116,8 +121,6 @@ const CarDevice = (props) => {
       }
     });
   }, []);
-
-
 
   const selectVehicleData = useSelector(
     (vehicleData) => vehicleData.todo.selectVehicle,
@@ -318,17 +321,26 @@ const CarDevice = (props) => {
     event.preventDefault();
     if (props.pageType === "edit" && Object.keys(newEditData).length > 0) {
       const fd = {
-        "vehicle_brand_id": newBrandOptionId ? newBrandOptionId : newEditData.vehicle_brand_id,
-        "vehicle_model_id": newModelOptionId ? newModelOptionId : newEditData.vehicle_model_id,
-        "vehicle_tip_id": newTipOptionId ? newTipOptionId : newEditData.vehicle_tip_id,
-        "year": newYearOptionId ? newYearOptionId : newEditData.yearId,
-        "color": selectedColor,
-        "plaque": newEditData.type === "MOTOR"?[motorPlaque_0,motorPlaque_1]:[newPlaque_0,newPlaque_1,newPlaque_2,newPlaque_3],
-        "title": newMyCarValue,
-        "kind": "force_store",
-        "type": newEditData.type,
-        "_method": "PUT"
-      }
+        vehicle_brand_id: newBrandOptionId
+          ? newBrandOptionId
+          : newEditData.vehicle_brand_id,
+        vehicle_model_id: newModelOptionId
+          ? newModelOptionId
+          : newEditData.vehicle_model_id,
+        vehicle_tip_id: newTipOptionId
+          ? newTipOptionId
+          : newEditData.vehicle_tip_id,
+        year: newYearOptionId ? newYearOptionId : newEditData.yearId,
+        color: selectedColor,
+        plaque:
+          newEditData.type === "MOTOR"
+            ? [motorPlaque_0, motorPlaque_1]
+            : [newPlaque_0, newPlaque_1, newPlaque_2, newPlaque_3],
+        title: newMyCarValue,
+        kind: "force_store",
+        type: newEditData.type,
+        _method: "PUT",
+      };
       // editFormData.set(
       //   "vehicle_brand_id",
       //   newBrandOptionId ? newBrandOptionId : newEditData.vehicle_brand_id,
@@ -409,10 +421,8 @@ const CarDevice = (props) => {
       // // editFormData.set("information[fine_price]", newFinePrice);
       // editFormData.set("_method", "PUT");
       const response = await putData(
-        process.env.BASE_API +
-          "/user-panel/vehicles/" +
-          searchParams.get("product"),
-          fd,
+        process.env.BASE_API + "/user/vehicles/" + searchParams.get("product"),
+        fd,
         '"Content-Type": "application/json"',
       );
       if (response.status === 200) {
@@ -425,17 +435,25 @@ const CarDevice = (props) => {
         }
       }
     } else {
-    const fd = {
-      "vehicle_brand_id": newBrandOptionId,
-      "vehicle_model_id": newModelOptionId,
-      "vehicle_tip_id": newTipOptionId,
-      "year": newYearOptionId,
-      "color": selectedColor,
-      "plaque": searchParams.get("type") === "MOTOR"?[motorPlaque_0,motorPlaque_1]:[event.target.plaque_0.value,newPlaque_1,event.target.plaque_2.value,event.target.plaque_3.value],
-      "title": event.target.carName.value,
-      "kind": "force_store",
-      "type": searchParams.get("type")
-    }
+      const fd = {
+        vehicle_brand_id: newBrandOptionId,
+        vehicle_model_id: newModelOptionId,
+        vehicle_tip_id: newTipOptionId,
+        year: newYearOptionId,
+        color: selectedColor,
+        plaque:
+          searchParams.get("type") === "MOTOR"
+            ? [motorPlaque_0, motorPlaque_1]
+            : [
+                event.target.plaque_0.value,
+                newPlaque_1,
+                event.target.plaque_2.value,
+                event.target.plaque_3.value,
+              ],
+        title: event.target.carName.value,
+        kind: "force_store",
+        type: searchParams.get("type"),
+      };
       // const fd = carFormData(
       //   newBrandOptionId,
       //   newModelOptionId,
@@ -466,7 +484,7 @@ const CarDevice = (props) => {
       // );
       setButtonDisabledState(true);
       const response = await postData(
-        process.env.BASE_API + "/user-panel/vehicles",
+        process.env.BASE_API + "/user/vehicles",
         fd,
         '"Content-Type": "application/json"',
       );
@@ -579,13 +597,12 @@ const CarDevice = (props) => {
         )
         .then((res) => {
           res.data.data.yearId = res.data.data.year;
-          setNewEditData(res.data.data);  
-          colorData.map((item)=>{
-            if(item.value === res.data.data.info.color.value){
-              setSelectedColor(item)
+          setNewEditData(res.data.data);
+          colorData.map((item) => {
+            if (item.value === res.data.data.info.color.value) {
+              setSelectedColor(item);
             }
-          })
-          
+          });
         })
         .catch((err) => {
           console.log(err);
@@ -687,7 +704,14 @@ const CarDevice = (props) => {
       setNewFinePrice(newEditData.info ? newEditData.info.fine_price : "");
       setMotorPlaque_0(newEditData.info ? newEditData.info.plaque[0] : "");
       setMotorPlaque_1(newEditData.info ? newEditData.info.plaque[1] : "");
-      newEditData.image_id&&setNewImage(process.env.BASE_API+"/web"+API_PATHS.FILE+"/"+newEditData.image_id);
+      newEditData.image_id &&
+        setNewImage(
+          process.env.BASE_API +
+            "/web" +
+            API_PATHS.FILE +
+            "/" +
+            newEditData.image_id,
+        );
     }
   }, [newEditData]);
 
@@ -840,9 +864,7 @@ const CarDevice = (props) => {
             lable={"سال ساخت"}
           />
           <div className="flex flex-col gap-4">
-            <label
-              className={"px-2 text-16 font-bold text-[#FEFEFE]"}
-            >
+            <label className={"px-2 text-16 font-bold text-[#FEFEFE]"}>
               رنگ خودرو
             </label>
             <div className="relative">
@@ -883,7 +905,7 @@ const CarDevice = (props) => {
                       value={item.value}
                       onClick={(e) => {
                         // props.timeData({ area_id: item.id });
-                        setSelectedColor(item)
+                        setSelectedColor(item);
                         setOptionState(false);
                       }}
                       key={index}
@@ -897,27 +919,53 @@ const CarDevice = (props) => {
           </div>
           <div className="flex flex-col gap-4">
             <label className={"font-bold text-[#FEFEFE]"}>پلاک</label>
-            {(searchParams.get("type") === "MOTOR" || newEditData.type === "MOTOR")?
-            <div className="bg-[#FEFEFE] text-[#0E0E0E] flex-col w-32 rounded-md overflow-hidden">
-              <div className="flex">
-                <input className="w-full tracking-[16px] text-center h-10 pl-2" type="number" maxLength={3} placeholder="000" onChange={(e)=>{e.target.value.length <4 ?setMotorPlaque_0(e.target.value):""}} value={motorPlaque_0} dir="ltr"/>
-                <Image className="" src={machinTag} width={20} height={40}/>
+            {searchParams.get("type") === "MOTOR" ||
+            newEditData.type === "MOTOR" ? (
+              <div className="bg-[#FEFEFE] text-[#0E0E0E] flex-col w-32 rounded-md overflow-hidden">
+                <div className="flex">
+                  <input
+                    className="w-full tracking-[16px] text-center h-10 pl-2"
+                    type="number"
+                    maxLength={3}
+                    placeholder="000"
+                    onChange={(e) => {
+                      e.target.value.length < 4
+                        ? setMotorPlaque_0(e.target.value)
+                        : "";
+                    }}
+                    value={motorPlaque_0}
+                    dir="ltr"
+                  />
+                  <Image className="" src={machinTag} width={20} height={40} />
+                </div>
+                <input
+                  className="w-full tracking-[12px] h-10 text-center pl-2"
+                  type="number"
+                  maxLength={5}
+                  placeholder="00000"
+                  onChange={(e) => {
+                    e.target.value.length < 6
+                      ? setMotorPlaque_1(e.target.value)
+                      : "";
+                  }}
+                  value={motorPlaque_1}
+                  dir="ltr"
+                />
               </div>
-              <input className="w-full tracking-[12px] h-10 text-center pl-2" type="number" maxLength={5} placeholder="00000" onChange={(e)=>{e.target.value.length <6 ?setMotorPlaque_1(e.target.value):""}} value={motorPlaque_1} dir="ltr"/>
-            </div>
-            :
-            <MachinTagInput
-              setNewPlaque_0={setNewPlaque_0}
-              setNewPlaque_1={setNewPlaque_1}
-              setNewPlaque_2={setNewPlaque_2}
-              setNewPlaque_3={setNewPlaque_3}
-              newPlaque_0={newPlaque_0}
-              newPlaque_1={newPlaque_1}
-              newPlaque_2={newPlaque_2}
-              newPlaque_3={newPlaque_3}
-              pageType={props.pageType}
-              editPlaqueData={newEditData.info && newEditData.info.plaque}
-            />}
+            ) : (
+              <MachinTagInput
+                setNewPlaque_0={setNewPlaque_0}
+                setNewPlaque_1={setNewPlaque_1}
+                setNewPlaque_2={setNewPlaque_2}
+                setNewPlaque_3={setNewPlaque_3}
+                newPlaque_0={newPlaque_0}
+                newPlaque_1={newPlaque_1}
+                newPlaque_2={newPlaque_2}
+                newPlaque_3={newPlaque_3}
+                pageType={props.pageType}
+                editPlaqueData={newEditData.info && newEditData.info.plaque}
+              />
+            )}
           </div>
           {/* <div className="flex flex-col gap-4">
             <label
@@ -1042,7 +1090,6 @@ const CarDevice = (props) => {
             />
           </div>
         }
-        
       </form>
     </PrivateRoute>
   );

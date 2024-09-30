@@ -26,6 +26,11 @@ const NewAddressCard = ({
   const clickRadioButtonHandler = () => {
     console.log(item.id);
     setLocationId(item.id);
+    sessionStorage.setItem(
+      "batteriesCart",
+      JSON.stringify({ address: item.address }),
+    );
+    console.log(item);
   };
 
   return (

@@ -157,7 +157,7 @@ const PurchaseBatteryModal = (props) => {
     // }
     nProgress.start();
     router.push(
-      `/batteries/products/newSelectLocation?attribute_slug=${attributeSlug}&attribute_value=${attributeValue}&city_id=${JSON.parse(localStorage.getItem("city")).cityId}&type=MOVING&vehicle_tip_id=${JSON.parse(localStorage.getItem("selectedVehicle"))?.id}&amper=${searchParams.get("amper")}&type_service=${searchParams.get("type_service")}`,
+      `/batteries/products/newSelectLocation?attribute_slug=${attributeSlug}&attribute_value=${attributeValue}&city_id=${JSON.parse(localStorage.getItem("city")).cityId}&type=MOVING&vehicle_tip_id=${JSON.parse(localStorage.getItem("selectedVehicle"))?.id}&amper=${searchParams.get("amper")}&type_service=${searchParams.get("type_service")}&item_id=${batteriesData.id}`,
     );
 
     // const cartData = await postData("/web/cart/add", {

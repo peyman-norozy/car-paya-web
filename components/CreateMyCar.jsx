@@ -21,7 +21,7 @@ const CreateMyCar = () => {
   // const [newTotal, setNewTotal] = useState(0);
   const searchParams = useSearchParams();
   const [modalState, setModalState] = useState(false);
-  const router = useRouter()
+  const router = useRouter();
   // const innerWidth = useSelector(
   //   (widthData) => widthData.todo.windowInnerWidth,
   // );
@@ -30,14 +30,12 @@ const CreateMyCar = () => {
   const page = searchParams.get("page");
 
   useEffect(() => {
-    fetchData()
+    fetchData();
   }, [searchParams, perPage, page]);
 
   const fetchData = async () => {
     const response = await getData(
-      process.env.BASE_API +
-        API_PATHS.USERPANEL +
-        "/vehicles"
+      process.env.BASE_API + API_PATHS.USERPANEL + "/vehicles",
     );
     if (response.status === 200) {
       setMyCareData(response.data.data);
@@ -50,7 +48,7 @@ const CreateMyCar = () => {
       notFound();
     }
   };
-  
+
   const closeCarModalHandler = (event) => {
     if (event.target.id === "ChoseCar") {
       setModalState(false);
@@ -62,7 +60,7 @@ const CreateMyCar = () => {
   };
 
   const deleteClickHandler = async () => {
-    await deleteData(`${process.env.BASE_API}/user-panel/vehicles/${deleteModalId}`);
+    await deleteData(`${process.env.BASE_API}/user/vehicles/${deleteModalId}`);
     await fetchData();
   };
 
@@ -73,11 +71,13 @@ const CreateMyCar = () => {
 
   function filterChangeHandler(e) {
     if (e.target.value === "ALL") {
-      setSearchedMyCareData(myCareData)
-    }else{
-      setSearchedMyCareData(myCareData.filter((item)=>{
-        return item.type === e.target.value;
-      }))
+      setSearchedMyCareData(myCareData);
+    } else {
+      setSearchedMyCareData(
+        myCareData.filter((item) => {
+          return item.type === e.target.value;
+        }),
+      );
     }
   }
 
@@ -94,18 +94,23 @@ const CreateMyCar = () => {
               width={34}
               height={34}
             />
-              <button
-                type={"button"}
-                className="flex items-center justify-center gap-2 bg-[#F66B34] text-[#FEFEFE] h-[48px] rounded-lg px-4"
-                onClick={openCarModalHandler}
-              >
-                <span className="text-20 size-5 rounded-full flex items-center justify-center">
-                  +
-                </span>
-                <span className="text-14 lg:text-16 font-medium">افزودن وسیله نقلیه</span>
-              </button>
+            <button
+              type={"button"}
+              className="flex items-center justify-center gap-2 bg-[#F66B34] text-[#FEFEFE] h-[48px] rounded-lg px-4"
+              onClick={openCarModalHandler}
+            >
+              <span className="text-20 size-5 rounded-full flex items-center justify-center">
+                +
+              </span>
+              <span className="text-14 lg:text-16 font-medium">
+                افزودن وسیله نقلیه
+              </span>
+            </button>
           </div>
-          <select className="bg-[#5d697a] w-32 sm:w-40 text-[#FEFEFE] p-2 rounded-lg text-12 sm:text-16" onChange={filterChangeHandler}>
+          <select
+            className="bg-[#5d697a] w-32 sm:w-40 text-[#FEFEFE] p-2 rounded-lg text-12 sm:text-16"
+            onChange={filterChangeHandler}
+          >
             <option value="ALL">همه وسایل نقلیه</option>
             <option value="CAR">ماشین</option>
             <option value="MOTOR">موتور</option>
@@ -156,8 +161,14 @@ const CreateMyCar = () => {
 
         </div> */}
         <div className="grid grid-cols-1 size830:grid-cols-2 gap-6">
-          {searchedMyCareData.map((item,index)=>(
-            <CertificateCard data={item} key={index} fetchData={fetchData} setDeleteModalState={setDeleteModalState} setDeleteModalId={setDeleteModalId}/>
+          {searchedMyCareData.map((item, index) => (
+            <CertificateCard
+              data={item}
+              key={index}
+              fetchData={fetchData}
+              setDeleteModalState={setDeleteModalState}
+              setDeleteModalId={setDeleteModalId}
+            />
           ))}
         </div>
         {/* <Pagination newTotal={newTotal} perPage={perPage} /> */}
@@ -171,19 +182,36 @@ const CreateMyCar = () => {
           </div>
         }
       </div>
-      {deleteModalState&&<><div
-        className={`fixed inset-0 h-full w-full bg-[#4c4c4caa] z-[20000] transition-all`}
-        onClick={() => setDeleteModalState(false)}
-      ></div>
-      <div
-        className={`bg-[#eee] fixed inset-0 m-auto w-fit h-fit transition-all duration-500 z-[200000] overflow-hidden rounded-2xl flex flex-col items-start p-4 gap-4`}
-      >
-        <span className="text-18">آیا از حذف این مورد اطمینان دارید؟</span>
-        <div className="flex justify-end w-full gap-2">
-          <button className="flex items-center justify-center gap-2 bg-[#F66B34] text-[#FEFEFE] rounded-lg py-2 px-4 text-14 font-medium" onClick={()=>{deleteClickHandler();setDeleteModalState(false)}}>تائید</button>
-          <button className="flex items-center justify-center gap-2 border border-[#F66B34] text-[#F66B34] rounded-lg py-2 px-4 text-14 font-medium" onClick={()=>setDeleteModalState(false)}>لغو</button>
-        </div>
-      </div></>}
+      {deleteModalState && (
+        <>
+          <div
+            className={`fixed inset-0 h-full w-full bg-[#4c4c4caa] z-[20000] transition-all`}
+            onClick={() => setDeleteModalState(false)}
+          ></div>
+          <div
+            className={`bg-[#eee] fixed inset-0 m-auto w-fit h-fit transition-all duration-500 z-[200000] overflow-hidden rounded-2xl flex flex-col items-start p-4 gap-4`}
+          >
+            <span className="text-18">آیا از حذف این مورد اطمینان دارید؟</span>
+            <div className="flex justify-end w-full gap-2">
+              <button
+                className="flex items-center justify-center gap-2 bg-[#F66B34] text-[#FEFEFE] rounded-lg py-2 px-4 text-14 font-medium"
+                onClick={() => {
+                  deleteClickHandler();
+                  setDeleteModalState(false);
+                }}
+              >
+                تائید
+              </button>
+              <button
+                className="flex items-center justify-center gap-2 border border-[#F66B34] text-[#F66B34] rounded-lg py-2 px-4 text-14 font-medium"
+                onClick={() => setDeleteModalState(false)}
+              >
+                لغو
+              </button>
+            </div>
+          </div>
+        </>
+      )}
     </PrivateRoute>
   );
 };
