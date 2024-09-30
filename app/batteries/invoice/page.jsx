@@ -82,7 +82,7 @@ const InvoicePage = () => {
   }
 
   const cartTipImage = JSON.parse(localStorage.getItem("selectedVehicle"));
-  const userMobile = JSON.parse(localStorage.getItem("user-profile")).mobile;
+  const userMobile = JSON.parse(localStorage.getItem("user-profile"))?.mobile;
   const locationServiceAddress = JSON.parse(
     sessionStorage.getItem("batteriesCart"),
   )?.address;
@@ -188,6 +188,7 @@ const InvoicePage = () => {
                   price={price}
                   discountPrice={discountPrice}
                   setDiscountPrice={setDiscountPrice}
+                  totalPrice={JSON.parse(localStorage.getItem("batteryTotalPrice"))?.price || 0}
                   coupon={coupon}
                   setCoupon={setCoupon}
                   type={"product_key"}
