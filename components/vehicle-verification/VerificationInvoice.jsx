@@ -73,8 +73,18 @@ const VerificationInvoice = () => {
   function registerClickHandler() {
     axios
       .post(
-        process.env.BASE_API + "/web/order/register/master",
-        { registration_id: faktorData.id },
+        process.env.BASE_API + "/web/order/register",
+        {
+          item_id: searchParams.get("package_id"),
+          type: "master",
+          address_id: searchParams.get("registrationable_id"),
+          vehicle_tip_id: searchParams.get("vehicle_tip"),
+          reservation_time_slice_id: searchParams.get(
+            "reservation_time_slice_id"
+          ),
+          coupon_code: searchParams.get(coupon),
+          shipped_time: searchParams.get("exact_time"),
+        },
         {
           headers: {
             Authorization: "Bearer " + getCookie("Authorization"),
@@ -82,7 +92,7 @@ const VerificationInvoice = () => {
         }
       )
       .then((res) => {
-        router.push(res?.data?.data?.url);
+        router.push(res?.data?.action);
       });
   }
   return (
@@ -193,6 +203,9 @@ const VerificationInvoice = () => {
               id={faktorData?.id}
               type={"MASTER"}
               setDiscount={setDiscount}
+              coupon={coupon}
+              setCoupon={setCoupon}
+              setDiscountPrice={setDiscountPrice}
             />
           </div>
           <section className={"lg:flex lg:flex-col-reverse"}>
