@@ -19,6 +19,7 @@ const PackageStep = () => {
   const [message, setMessage] = useState("");
   const [isSelected, setIsSelected] = useState(null);
   const [title, setTitle] = useState(null);
+  const [price, setPrice] = useState(null);
   const dispatch = useDispatch();
   const Length = useSelector(
     (state) => state.todo.vehicleVerificationBasketLength
@@ -28,10 +29,11 @@ const PackageStep = () => {
   const backStepHandler = () => {
     router.replace(pathname);
   };
-  const selectPackageHandler = (id, title) => {
+  const selectPackageHandler = (id, title , price) => {
     if (isSelected !== id) {
       setIsSelected(id);
       setTitle(title);
+      setPrice(price)
     } else {
       setIsSelected(null);
       setTitle(null);
@@ -85,7 +87,7 @@ const PackageStep = () => {
     //   vehicle_tip_id: selectedItem,
     //   step: "5",
     // });
-    sessionStorage.setItem("verificationCart", JSON.stringify({ package_id: isSelected, package_title:title}));
+    sessionStorage.setItem("verificationCart", JSON.stringify({ package_id: isSelected, package_title:title,price:price}));
     setQuery.setMultiQuery([
       { key: "step", value: "step-2" },
       { key: "city_id", value: city_id },
@@ -156,7 +158,7 @@ const PackageStep = () => {
                       title={item.title}
                       price={item.price}
                       discounted_price={item.discounted_price}
-                      onClick={() => selectPackageHandler(item.id,item.title)}
+                      onClick={() => selectPackageHandler(item.id,item.title,item.discounted_price)}
                     />
                   </li>
                 ))}
