@@ -29,6 +29,7 @@ const VerificationSecondStep = (props) => {
   const [timeIsSelected, setTimeIsSelected] = useState(null);
   const [buttonIsdisabled, setButtonIsdisabled] = useState(false);
   const [data, setData] = useState([]);
+  const [timeStamp, setTimeStamp] = useState(null);
   const setQuery = useSetQuery();
   const router = useRouter();
   const dispatch = useDispatch();
@@ -42,6 +43,11 @@ const VerificationSecondStep = (props) => {
     } else {
       setButtonIsdisabled(false);
       // if (loginState) {
+      let cart = JSON.parse(sessionStorage.getItem("verificationCart"));
+      cart.time_id = timeIsSelected.split("/")[0];
+      cart.exact_time = timeIsSelected.split("/")[1];
+      cart.time_stamp = timeStamp;
+      sessionStorage.setItem("verificationCart", JSON.stringify(cart));
       setQuery.setMultiQuery([
         { key: "step", value: "step-4" },
         { key: "city_id", value: city_id },
@@ -175,6 +181,7 @@ const VerificationSecondStep = (props) => {
           <div className={"flex flex-col gap-[2rem]"}>
             <ReserveTimeVerification
               data={data[date]}
+              setTimeStamp={setTimeStamp}
               packagePrice={packagePrice}
               timeIsSelected={timeIsSelected}
               setTimeIsSelected={setTimeIsSelected}

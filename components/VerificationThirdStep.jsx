@@ -31,6 +31,7 @@ const VerificationThirdStep = (props) => {
   const [type, setType] = useState("MOVING");
   const [isLoading, setIsLoading] = useState(false);
   const [selectedAddress, setSelectedAddress] = useState("");
+  const [selectedAddressText, setSelectedAddressText] = useState("");
   const [areaModal, setAreaModal] = useState();
   const city_id = searchParams.get("city_id");
   const selectedItem = searchParams.get("vehicle_tip");
@@ -139,6 +140,9 @@ const VerificationThirdStep = (props) => {
       window.scroll({ top: 0, left: 0, behavior: "smooth" });
     } else {
       // setButtonIsdisabled(false);
+      let cart = JSON.parse(sessionStorage.getItem("verificationCart"));
+      cart.selectedAddressText = selectedAddressText;
+      sessionStorage.setItem("verificationCart", JSON.stringify(cart));
       setQuery.setMultiQuery([
         { key: "step", value: "step-5" },
         { key: "city_id", value: city_id },
@@ -290,6 +294,7 @@ const VerificationThirdStep = (props) => {
                   setIsLoading={setIsLoading}
                   editModalIsOpen={editModalIsOpen}
                   setEditModalIsOpen={setEditModalIsOpen}
+                  setSelectedAddressText={setSelectedAddressText}
                 />
               ))
             : searchedAgentData?.map((item, index) => (
@@ -298,6 +303,7 @@ const VerificationThirdStep = (props) => {
                   data={item}
                   selectedAddress={selectedAddress}
                   setSelectedAddress={setSelectedAddress}
+                  setSelectedAddressText={setSelectedAddressText}
                 />
               ))}
         </div>
