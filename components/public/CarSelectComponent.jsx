@@ -255,7 +255,7 @@ const CarSelectComponent = (props) => {
 
   function getBrandData(model) {
     axios
-      .get(process.env.BASE_API + "/web/vehicle-brands?type="+model)
+      .get(process.env.BASE_API + "/web/vehicle-brands?type=" + model)
       .then((res) => {
         setData(res.data.data);
         setSearchedData(res.data.data);
@@ -273,7 +273,7 @@ const CarSelectComponent = (props) => {
       setBackurl(array);
       const route = level2 === 2 ? "-models/" : "-tips/";
       axios
-        .get(process.env.BASE_API + "/web/" + vehicleType + route + id)
+        .get(process.env.BASE_API + "/web/vehicle" + route + id + "?type=" + vehicleType)
         .then((res) => {
           setData(res.data.data);
           if (level2 === 2) {
@@ -486,23 +486,23 @@ const CarSelectComponent = (props) => {
                                   <span>
                                     {pathname.startsWith("/batteries")
                                       ? item.item.item?.id ===
-                                          JSON.parse(
-                                            localStorage.getItem(
-                                              "batteryTotalPrice",
-                                            ),
-                                          )?.productId &&
-                                        numberWithCommas(
-                                          JSON.parse(
-                                            localStorage.getItem(
-                                              "batteryTotalPrice",
-                                            ),
-                                          ).price,
-                                        )
+                                      JSON.parse(
+                                        localStorage.getItem(
+                                          "batteryTotalPrice",
+                                        ),
+                                      )?.productId &&
+                                      numberWithCommas(
+                                        JSON.parse(
+                                          localStorage.getItem(
+                                            "batteryTotalPrice",
+                                          ),
+                                        ).price,
+                                      )
                                       : numberWithCommas(
-                                          item.item.item?.discounted_price
-                                            ? item.item.item?.discounted_price
-                                            : item.item.item?.price,
-                                        )}
+                                        item.item.item?.discounted_price
+                                          ? item.item.item?.discounted_price
+                                          : item.item.item?.price,
+                                      )}
                                   </span>
                                   <span>تومان</span>
                                 </div>
@@ -520,10 +520,10 @@ const CarSelectComponent = (props) => {
                         <span>
                           {pathname.startsWith("/batteries")
                             ? numberWithCommas(
-                                JSON.parse(
-                                  localStorage.getItem("batteryTotalPrice"),
-                                )?.price,
-                              )
+                              JSON.parse(
+                                localStorage.getItem("batteryTotalPrice"),
+                              )?.price,
+                            )
                             : numberWithCommas(invoiceData.totalPrice)}
                         </span>
                         <span>تومان</span>
