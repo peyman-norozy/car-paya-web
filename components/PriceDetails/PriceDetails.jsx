@@ -15,8 +15,8 @@ const PriceDetails = (props) => {
 
   useEffect(() => {
     if (client) {
-      const localPrice =
-        JSON.parse(localStorage.getItem("batteryTotalPrice"))?.price || 0;
+      const localPrice = props.totalPrice
+        
       if (props.discountPrice?.amount) {
         props.setPrice(localPrice - props.discountPrice.amount);
       } else if (props.discountPrice?.percentage) {
@@ -43,9 +43,7 @@ const PriceDetails = (props) => {
         <span className="text-sm">قیمت سرویس:</span>
         <div className={"flex items-center gap-1"}>
           <span className="text-[#454545] text-sm">
-            {numberWithCommas(
-              JSON.parse(localStorage.getItem("batteryTotalPrice"))?.price || 0,
-            )}
+            {numberWithCommas(props.totalPrice)}
           </span>
           <span>تومان</span>
         </div>

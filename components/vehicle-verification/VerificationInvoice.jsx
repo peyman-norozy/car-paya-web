@@ -21,9 +21,12 @@ import { getCookie } from "cookies-next";
 const VerificationInvoice = () => {
   const [faktorData, setFaktorData] = useState({});
   const [roleChecked, setRoleChecked] = useState(false);
+  const [discountPrice, setDiscountPrice] = useState({});
   const [discount, setDiscount] = useState(0);
-  const [cart , setCart] = useState({})
-  const [vehicle , setVehicle] = useState({})
+  const [cart, setCart] = useState({});
+  const [vehicle, setVehicle] = useState({});
+  const [price, setPrice] = useState(0);
+  const [coupon, setCoupon] = useState("");
   const innerWidth = useSelector((item) => item.todo.windowInnerWidth);
   //   const orderProduct = useRef();
   //   const { events } = useDraggable(orderProduct);
@@ -34,7 +37,7 @@ const VerificationInvoice = () => {
   const package_id = searchParams.get("package_id");
   const exact_time = searchParams.get("exact_time");
   const reservation_time_slice_id = searchParams.get(
-    "reservation_time_slice_id",
+    "reservation_time_slice_id"
   );
   const registrationable_id = searchParams.get("registrationable_id");
   const router = useRouter();
@@ -49,23 +52,23 @@ const VerificationInvoice = () => {
           package_id: searchParams.get("package_id"),
           exact_time: searchParams.get("exact_time"),
           reservation_time_slice_id: searchParams.get(
-            "reservation_time_slice_id",
+            "reservation_time_slice_id"
           ),
           registrationable_id: searchParams.get("registrationable_id"),
-        },
+        }
       );
       if (response.success) {
         console.log(response);
         setDiscount(
-          response.data.data.coupon_price ? response.data.data.coupon_price : 0,
+          response.data.data.coupon_price ? response.data.data.coupon_price : 0
         );
         setFaktorData(response.data.data);
       } else {
         console.log(response);
       }
     })();
-    setCart(JSON.parse(sessionStorage.getItem("verificationCart")))
-    setVehicle(JSON.parse(localStorage.getItem("selectedVehicle")))
+    setCart(JSON.parse(sessionStorage.getItem("verificationCart")));
+    setVehicle(JSON.parse(localStorage.getItem("selectedVehicle")));
   }, []);
   function registerClickHandler() {
     axios
@@ -76,7 +79,7 @@ const VerificationInvoice = () => {
           headers: {
             Authorization: "Bearer " + getCookie("Authorization"),
           },
-        },
+        }
       )
       .then((res) => {
         router.push(res?.data?.data?.url);
@@ -115,9 +118,7 @@ const VerificationInvoice = () => {
               <span>{vehicle.tip}</span>
             </div>
             <Image
-              src={
-                process.env.BASE_API + "/web/file/" + vehicle.image
-              }
+              src={process.env.BASE_API + "/web/file/" + vehicle.image}
               className={"w-[350px] h-[250px]"}
               alt={"car"}
               width={1000}
@@ -219,8 +220,18 @@ const VerificationInvoice = () => {
                   <PriceDetails
                     faktorData={faktorData}
                     length={1}
-                    discount={discount}
+                    discountPrice={discountPrice}
                     registerClickHandler={registerClickHandler}
+                    setPrice={setPrice}
+                    price={price}
+                    totalPrice={cart.price}
+                    coupon={coupon}
+                    setCoupon={setCoupon}
+                    setRoleChecked={setRoleChecked}
+                    roleChecked={roleChecked}
+                    discount={discount}
+                    setDiscountPrice={setDiscountPrice}
+                    type={"product_key"}
                   />
                 </div>
               )}
@@ -279,10 +290,11 @@ const VerificationInvoice = () => {
               customStyle={
                 "bg-white fixed left-0 flex justify-between shadow-[0_-2px_4px_0_rgba(199,199,199,0.25)] rounded-t-xl"
               }
-              faktorData={faktorData}
+              type={"product_key"}
               roleChecked={roleChecked}
               discount={discount}
               registerClickHandler={registerClickHandler}
+              price={price}
             />
           )}
           {/* <div className="flex justify-start items-center text-xs gap-1 font-medium mt-2 lg:hidden">
@@ -306,11 +318,18 @@ const VerificationInvoice = () => {
           <PriceDetails
             faktorData={faktorData}
             length={1}
-            discount={discount}
-            roleChecked={roleChecked}
-            setRoleChecked={setRoleChecked}
+            discountPrice={discountPrice}
             registerClickHandler={registerClickHandler}
-            setDiscount={setDiscount}
+            setPrice={setPrice}
+            price={price}
+            totalPrice={cart.price}
+            coupon={coupon}
+            setCoupon={setCoupon}
+            setRoleChecked={setRoleChecked}
+            roleChecked={roleChecked}
+            discount={discount}
+            setDiscountPrice={setDiscountPrice}
+            type={"product_key"}
           />
         </div>
       )}
