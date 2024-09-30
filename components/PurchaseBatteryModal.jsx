@@ -198,7 +198,7 @@ const PurchaseBatteryModal = (props) => {
           "/web/reservation/battery?step=step-1",
           {
             product_id: batteriesData.id,
-            type: "SWING_AMP",
+            battery_type: "SWING_AMP",
             amp: cityId,
             city_id: JSON.parse(localStorage.getItem("city"))?.cityId,
             vehicle_tip_id: JSON.parse(localStorage.getItem("selectedVehicle"))
@@ -273,11 +273,11 @@ const PurchaseBatteryModal = (props) => {
           "/web/reservation/battery?step=step-1",
           {
             product_id: batteriesData.id,
-            type: "NO_BATTERY",
+            battery_type: "NO_BATTERY",
             city_id: JSON.parse(localStorage.getItem("city"))?.cityId,
             vehicle_tip_id: JSON.parse(localStorage.getItem("selectedVehicle"))
               ?.id,
-            amp: batteriesData.amp,
+            amp_user: batteriesData.amp,
           },
         );
         console.log(getBatteriesData);
