@@ -72,8 +72,9 @@ const InvoicePage = () => {
       battery_type: searchParams.get("type_service"),
       shipped_time: searchParams.get("time_id")?.split("/")[1],
     });
-    console.log(response);
-    // router.push(response?.data?.data?.url);
+    if (response.status === 200) {
+      router.push(response?.data?.action);
+    }
   }
 
   if (!client) {
