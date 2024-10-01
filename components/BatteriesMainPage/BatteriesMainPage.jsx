@@ -15,46 +15,56 @@ import PointView from "@/components/PointView/PointView";
 import SelectCarAndCity from "@/components/public/SelectCarAndCity";
 import SelectCity from "@/components/public/SelectCity";
 import CarSelect from "@/components/public/CarSelect";
+import CarAndCityContainer from "../public/CarAndCityContainer";
+import { useRouter } from "next/navigation";
 
 const BatteriesMainPage = () => {
-  const [client, setClient] = useState(false);
+  // const [client, setClient] = useState(false);
   const [modalClickState, setModalClickState] = useState(false);
   const [cityId, setCityId] = useState(null);
-  const [toastieDisplay, setToastieDisplay] = useState(false);
-  const [asideStatus, setAsideStatus] = useState("car_city");
 
-  const [preventFirstRender, setPreventFirstRender] = useState(false);
+  const router = useRouter();
   const pathName = usePathname();
-
   const searchParams = useSearchParams();
-
   useEffect(() => {
-    setClient(true);
     if (typeof window !== "undefined") {
       const city = JSON.parse(localStorage.getItem("city"));
       setCityId(city?.cityId);
     }
-  }, [toastieDisplay, searchParams, pathName]);
+  }, [searchParams, pathName]);
+  // const [cityId, setCityId] = useState(null);
+  // const [toastieDisplay, setToastieDisplay] = useState(false);
+  // const [asideStatus, setAsideStatus] = useState("car_city");
 
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      const selectedVehicle = JSON.parse(
-        localStorage.getItem("selectedVehicle"),
-      );
-      const city = JSON.parse(localStorage.getItem("city"));
-      if (preventFirstRender) {
-        if (!city) {
-          error("لطفا شهر خود را انتخاب کنید");
-        } else if (!selectedVehicle) {
-          error("لطفا خودرو خود را انتخاب کنید");
-        }
-      }
-    }
-  }, [preventFirstRender, toastieDisplay]);
+  // const [preventFirstRender, setPreventFirstRender] = useState(false);
 
-  if (!client) {
-    return null;
-  }
+  // useEffect(() => {
+  //   setClient(true);
+  //   if (typeof window !== "undefined") {
+  //     const city = JSON.parse(localStorage.getItem("city"));
+  //     setCityId(city?.cityId);
+  //   }
+  // }, [toastieDisplay, searchParams, pathName]);
+
+  // useEffect(() => {
+  //   if (typeof window !== "undefined") {
+  //     const selectedVehicle = JSON.parse(
+  //       localStorage.getItem("selectedVehicle"),
+  //     );
+  //     const city = JSON.parse(localStorage.getItem("city"));
+  //     if (preventFirstRender) {
+  //       if (!city) {
+  //         error("لطفا شهر خود را انتخاب کنید");
+  //       } else if (!selectedVehicle) {
+  //         error("لطفا خودرو خود را انتخاب کنید");
+  //       }
+  //     }
+  //   }
+  // }, [preventFirstRender, toastieDisplay]);
+
+  // if (!client) {
+  //   return null;
+  // }
 
   // <div className="bg-[#383838A3] rounded-3xl flex size900:flex-row-reverse flex-col-reverse gap-6 p-6 items-center">
   //   <div className="flex flex-col gap-2 items-start flex-1">
@@ -94,9 +104,21 @@ const BatteriesMainPage = () => {
   //   />
   // </div>
 
+  function RegisterBatteryRequestHandler() {
+    router.push(
+      JSON.parse(localStorage.getItem("selectedVehicle"))?.id && cityId
+        ? `batteries/products?attribute_slug=type_vehicle&attribute_value=${searchParams.get("attribute_value")}${
+            JSON.parse(localStorage.getItem("selectedVehicle"))?.id
+              ? `&selectTipState=true,${JSON.parse(localStorage.getItem("selectedVehicle")).id.toString()}`
+              : ""
+          }`
+        : ""
+    );
+  }
+
   return (
     <div className={"relative"}>
-      <div
+      {/* <div
         className={`lg:absolute fixed transition-all duration-500 ${modalClickState ? "bottom-0 right-0 left-0" : "bottom-[-500px]"} w-full lg:top-0 lg:right-0.5 lg:h-full lg:z-0 z-[10000]`}
       >
         {(() => {
@@ -129,7 +151,13 @@ const BatteriesMainPage = () => {
               return null;
           }
         })()}
-      </div>
+      </div> */}
+      <CarAndCityContainer
+        title={"ثبت درخواست باتری"}
+        onClick={RegisterBatteryRequestHandler}
+        setModalClickState={setModalClickState}
+        modalClickState={modalClickState}
+      />
       <div
         className={
           "bg-[#cff9ff] rounded-[16px] mt-6 w-full h-auto aspect-[full/612]"
