@@ -73,7 +73,7 @@ const CarSelect = (props) => {
     },
     [
       // carSelected
-    ],
+    ]
   );
 
   useEffect(() => {
@@ -82,11 +82,11 @@ const CarSelect = (props) => {
         attribute_slug: "type_vehicle",
         attribute_value: "car",
       },
-      "",
+      ""
     );
     (async () => {
       const data = await getDataWithFullErrorRes(
-        process.env.BASE_API + "/web/my-vehicles",
+        process.env.BASE_API + "/web/my-vehicles"
       );
       if (data.status && data.status === "success") {
         setMyVehicleData(data.data);
@@ -98,7 +98,7 @@ const CarSelect = (props) => {
     setSearchedData(
       data.filter((item) => {
         return item.title.includes(value);
-      }),
+      })
     );
   }
 
@@ -229,7 +229,7 @@ const CarSelect = (props) => {
         attribute_slug: "type_vehicle",
         attribute_value: model === "heavy-car" ? "heavy_car" : model,
       },
-      "",
+      ""
     );
   }
 
@@ -261,7 +261,7 @@ const CarSelect = (props) => {
             route +
             id +
             "?type=" +
-            vehicleType,
+            vehicleType
           // vehicleType +
           // route +
         )
@@ -287,7 +287,7 @@ const CarSelect = (props) => {
           model: item.title_model,
           image: item.image,
           type: searchParams.get("attribute_value"),
-        }),
+        })
       );
       // setCarSelected(true);
       props.setAsideStatus("car_city");
@@ -302,7 +302,7 @@ const CarSelect = (props) => {
     if (JSON.parse(localStorage.getItem("batteryTotalPrice"))?.productId) {
       await removeClickHandler(
         JSON.parse(localStorage.getItem("batteryTotalPrice")).productId,
-        "BATTERIES",
+        "BATTERIES"
       );
       // setCarSelected(false);
       localStorage.removeItem("batteryTotalPrice");
@@ -314,7 +314,7 @@ const CarSelect = (props) => {
     } else if (pathname.startsWith("/batteries")) {
       if (JSON.parse(localStorage.getItem("batteryTotalPrice"))?.productId) {
         await removeClickHandler(
-          JSON.parse(localStorage.getItem("batteryTotalPrice")).productId,
+          JSON.parse(localStorage.getItem("batteryTotalPrice")).productId
         );
       } else {
         // setCarSelected(false);
@@ -328,13 +328,13 @@ const CarSelect = (props) => {
       localStorage.removeItem("selectedVehicle");
       nProgress.start();
       router.push(
-        `/detailing?attribute_slug=type_vehicle&attribute_value=${attributeValue ? attributeValue : "car"}`,
+        `/detailing?attribute_slug=type_vehicle&attribute_value=${attributeValue ? attributeValue : "car"}`
       );
     } else if (pathname.startsWith("/periodic-service")) {
       localStorage.removeItem("selectedVehicle");
       nProgress.start();
       router.push(
-        `/periodic-service?attribute_slug=type_vehicle&attribute_value=${attributeValue ? attributeValue : "car"}`,
+        `/periodic-service?attribute_slug=type_vehicle&attribute_value=${attributeValue ? attributeValue : "car"}`
       );
     } else if (pathname.startsWith("/")) {
       localStorage.removeItem("selectedVehicle");
@@ -355,20 +355,29 @@ const CarSelect = (props) => {
   return (
     <section
       className={
-        "bg-[#FDFDFD] lg:w-[409px] w-full h-[485px] sticky right-2 top-32 rounded-[16px] pt-6 flex flex-col justify-between overflow-hidden gap-4 shadow-[0_0_6px_6px_rgba(125,125,125,0.5)] z-50"
+        "bg-[#FDFDFD] lg:w-[409px] w-full h-screen lg:h-[485px] lg:pt-6 lg:rounded-2xl sticky right-2 top-32 flex flex-col justify-start overflow-hidden gap-4 shadow-[0_0_6px_6px_rgba(125,125,125,0.2)] z-50"
       }
     >
-      <div className={"pt-6 pb-4 px-8"}>
+      <div className="shadow-[0_2px_8px_0_rgba(148,148,148,0.25)] flex items-center justify-between h-14 px-4 lg:hidden">
+        <span className="text-sm font-medium">انتخاب وسیله نقلیه</span>
+        <i
+          className="cc-arrow-right rotate-180 text-20 z-[10001]"
+          onClick={() => {
+            props.setAsideStatus("car_city");
+          }}
+        />
+      </div>
+      <div className={"pt-6 pb-4 px-4"}>
         <div className={"flex items-center justify-between mb-4"}>
           <span className="inline-block text-[#4F4F4F] text-14 font-medium lg:font-bold">
             انتخاب وسیله نقلیه
           </span>
-          <button
+          {/* <button
             onClick={() => props.setAsideStatus("car_city")}
             className={"text-14 font-bold text-red-500"}
           >
             بازگشت
-          </button>
+          </button> */}
         </div>
         <div className="rounded-lg border border-[#cfcfcf] flex flex-wrap justify-between gap-1 p-1 mb-[12px]">
           <button
@@ -437,7 +446,7 @@ const CarSelect = (props) => {
               }}
             />
           </div>
-          <div className={`h-[260px] overflow-y-scroll mt-2 overflow-x-hidden`}>
+          <div className={`h-[calc(100vh-300px)] lg:h-[260px] overflow-y-scroll mt-2 overflow-x-hidden`}>
             <div className={`grid grid-cols-3 gap-x-7 gap-y-2`}>
               {searchedData.map((item, index) => (
                 <div
