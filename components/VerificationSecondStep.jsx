@@ -135,12 +135,12 @@ const VerificationSecondStep = (props) => {
         <div className=" flex flex-col gap-4 lg:mr-8">
           <div className="flex gap-2 items-center w-full bg-[#FFFFFF] text-[#D1D1D1] border border-[#F2F2F2] rounded-full px-2">
             <i
-              className="cc-car-o text-2xl text-[#1E67BF]"
+              className="cc-car-o text-2xl text-[#1E67BF] cursor-pointer"
               onClick={() => router.push(`/vehicle-verification`)}
             />
             <div className="border-b-4 border-dotted border-[#1E67BF] w-full"></div>
             <i
-              className="cc-search text-2xl text-[#1E67BF]"
+              className="cc-search text-2xl text-[#1E67BF] cursor-pointer"
               onClick={() =>
                 router.push(
                   `/vehicle-verification?step=step-1&city_id=${city_id}&vehicle_tip=${selectedItem}`

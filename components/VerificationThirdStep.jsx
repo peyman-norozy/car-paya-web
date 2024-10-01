@@ -199,12 +199,12 @@ const VerificationThirdStep = (props) => {
       <div className=" flex flex-col gap-4 lg:mr-8">
         <div className="flex gap-2 items-center w-full bg-[#FFFFFF] text-[#D1D1D1]">
           <i
-            className="cc-car-o text-2xl text-[#518DD5]"
+            className="cc-car-o text-2xl text-[#518DD5] cursor-pointer"
             onClick={() => router.push(`/vehicle-verification`)}
           />
           <div className="border-b-4 border-dotted border-[#518DD5] w-full"></div>
           <i
-            className="cc-search text-2xl text-[#518DD5]"
+            className="cc-search text-2xl text-[#518DD5] cursor-pointer"
             onClick={() =>
               router.push(
                 `/vehicle-verification?step=step-1&city_id=${city_id}&vehicle_tip=${selectedItem}`
@@ -213,7 +213,7 @@ const VerificationThirdStep = (props) => {
           />
           <div className="border-b-4 border-dotted border-[#518DD5] w-full"></div>
           <i
-            className="cc-timer text-2xl text-[#518DD5]"
+            className="cc-timer text-2xl text-[#518DD5] cursor-pointer"
             onClick={() =>
               router.push(
                 `/vehicle-verification?city_id=${city_id}&vehicle_tip=${selectedItem}&step=step-2&package_id=${package_id}`
