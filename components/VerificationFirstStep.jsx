@@ -16,6 +16,7 @@ import lines from "@/public/assets/images/lines.png";
 import { useRouter } from "next/navigation";
 import { error } from "@/utils/function-utils";
 import { useSelector } from "react-redux";
+import CarAndCityContainer from "./public/CarAndCityContainer";
 
 const VerificationFirstStep = (props) => {
   const { on_click, verificationData, setStep, step } = props;
@@ -26,7 +27,10 @@ const VerificationFirstStep = (props) => {
   const [message, setMessage] = useState("");
   const [data, setData] = useState([]);
   const [modalIsOpen, setModalIsOpen] = useState(false);
-  const vehicleVerificationBasket = useSelector((state) => state.todo.vehicleVerificationBasketLength);
+  const [modalClickState, setModalClickState] = useState(false);
+  const vehicleVerificationBasket = useSelector(
+    (state) => state.todo.vehicleVerificationBasketLength
+  );
   const router = useRouter();
   const setQuery = useSetQuery();
   const cityName = [{ name: "تهران" }];
@@ -119,9 +123,12 @@ const VerificationFirstStep = (props) => {
           </div>
           <button
             className="bg-[#F66B34] rounded-md py-2 px-1 text-[#FEFEFE] w-fit text-xs mt-4 font-medium"
-            onClick={PackageStepHandler}
+            onClick={() => {
+              setModalClickState(true);
+            }}
+            // onClick={PackageStepHandler}
           >
-            {vehicleVerificationBasket.length?"ادامه ":""}درخواست کارشناسی
+            {vehicleVerificationBasket.length ? "ادامه " : ""}درخواست کارشناسی
           </button>
         </div>
         <div className="relative overflow-hidden">
@@ -134,12 +141,12 @@ const VerificationFirstStep = (props) => {
               <i className={"cc-calling"} />
             </button>
           </div>
-            <Image
-              className="-top-5 absolute w-full h-[180px]"
-              src={lines}
-              width={430}
-              height={179}
-            />
+          <Image
+            className="-top-5 absolute w-full h-[180px]"
+            src={lines}
+            width={430}
+            height={179}
+          />
         </div>
         <div className="flex flex-col items-center gap-3 text-[#000000]">
           <h2 className="font-bold">چرا کار پایا !</h2>
@@ -186,6 +193,12 @@ const VerificationFirstStep = (props) => {
         <CostumerSatisfaction />
         <FrequentQuestions /> */}
         <ToastContainer rtl={true} />
+        <CarAndCityContainer
+          title={"ثبت درخواست کارشناسی"}
+          onClick={PackageStepHandler}
+          setModalClickState={setModalClickState}
+          modalClickState={modalClickState}
+        />
       </div>
     </div>
   );
