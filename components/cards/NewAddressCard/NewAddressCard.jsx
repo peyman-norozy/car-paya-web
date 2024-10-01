@@ -24,12 +24,10 @@ const NewAddressCard = ({
   };
 
   const clickRadioButtonHandler = () => {
+    const batteriesCart = JSON.parse(sessionStorage.getItem("batteriesCart"));
+    batteriesCart.address = item.address;
     setLocationId(item.address_id);
-    sessionStorage.setItem(
-      "batteriesCart",
-      JSON.stringify({ address: item.address }),
-    );
-    console.log(item);
+    sessionStorage.setItem("batteriesCart", JSON.stringify(batteriesCart));
   };
 
   return (
