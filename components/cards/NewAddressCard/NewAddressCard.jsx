@@ -24,8 +24,7 @@ const NewAddressCard = ({
   };
 
   const clickRadioButtonHandler = () => {
-    console.log(item.id);
-    setLocationId(item.id);
+    setLocationId(item.address_id);
     sessionStorage.setItem(
       "batteriesCart",
       JSON.stringify({ address: item.address }),
@@ -43,7 +42,7 @@ const NewAddressCard = ({
             className={"flex gap-2 items-center cursor-pointer"}
             onClick={clickRadioButtonHandler}
           >
-            <AddressCheckInput id={item.id} locationId={locationId} />
+            <AddressCheckInput id={item.address_id} locationId={locationId} />
             <span className={"font-semibold lg:text-18 text-14"}>
               {item.title}
             </span>
@@ -67,14 +66,14 @@ const NewAddressCard = ({
               <i
                 className={`cc-edit text-2xl absolute ${openMenu ? "left-12" : "left-0"} top-0 transition-all text-[#22A137] cursor-pointer`}
                 onClick={() => {
-                  clickEditHandler(item.id);
+                  clickEditHandler(item.address_id);
                 }}
               />
               <i
                 className={`cc-filter text-2xl absolute ${openMenu ? "left-24" : "left-0"} transition-all top-0 text-[#DB3737] cursor-pointer`}
                 onClick={() => {
                   dispatch(setDeleteModal(true));
-                  dispatch(setDeleteModalId(item.id));
+                  dispatch(setDeleteModalId(item.address_id));
                 }}
               />
             </div>
