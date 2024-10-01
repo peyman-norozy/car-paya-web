@@ -17,6 +17,7 @@ import SelectCity from "@/components/public/SelectCity";
 import CarSelect from "@/components/public/CarSelect";
 import CarAndCityContainer from "../public/CarAndCityContainer";
 import { useRouter } from "next/navigation";
+import nProgress from "nprogress";
 
 const BatteriesMainPage = () => {
   // const [client, setClient] = useState(false);
@@ -105,6 +106,7 @@ const BatteriesMainPage = () => {
   // </div>
 
   function RegisterBatteryRequestHandler() {
+    nProgress.start()
     router.push(
       JSON.parse(localStorage.getItem("selectedVehicle"))?.id && cityId
         ? `batteries/products?attribute_slug=type_vehicle&attribute_value=${searchParams.get("attribute_value")}${
