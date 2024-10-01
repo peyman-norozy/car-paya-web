@@ -94,20 +94,20 @@ const VerificationFirstStep = (props) => {
   const active = data.length > 0;
 
   return (
-    <div className="lg:flex items-start gap-8 mt-1 lg:mt-10 max-w-[1772px] m-auto py-4 relative">
+    <div className="lg:flex items-start gap-8 mt-1 lg:mt-10 max-w-[1772px] m-auto pb-4 relative">
       <div
         className={"w-full lg:w-[calc(100%-424px)] mr-auto gap-8 flex flex-col"}
       >
-        <div className="sm:rounded-3xl flex p-4 flex-col size1400:flex-row items-center">
-          <div className="flex flex-col gap-2 items-start self-start">
-            <h1 className="text-lg font-medium text-[#000000]">
+        <div className="sm:rounded-3xl flex p-4 flex-col items-center bg-[#EBF5FF] lg:h-[500px] lg:p-10 xl:p-16 lg:gap-16">
+          <div className="flex flex-col gap-2 items-start self-start lg:gap-11">
+            <h1 className="text-lg lg:text-2xl font-medium lg:font-bold text-[#000000]">
               کارشناسی وسیله نقلیه
             </h1>
-            <p className="text-sm lg:text-base text-[#000000] font-medium">
+            <p className="text-sm lg:text-2xl text-[#000000] font-medium lg:font-bold">
               کارشناسی مطمئن با تیم کار پایا
             </p>
           </div>
-          <div className="relative self-end">
+          <div className="relative self-end lg:scale-125 xl:scale-150">
             <Image
               className="w-[287px] h-[164px]"
               src={carshenasi}
@@ -122,7 +122,7 @@ const VerificationFirstStep = (props) => {
             />
           </div>
           <button
-            className="bg-[#F66B34] rounded-md py-2 px-1 text-[#FEFEFE] w-fit text-xs mt-4 font-medium"
+            className="bg-[#F66B34] rounded-md py-2 px-1 text-[#FEFEFE] w-fit text-xs mt-4 font-medium lg:hidden"
             onClick={() => {
               setModalClickState(true);
             }}
