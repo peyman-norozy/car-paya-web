@@ -14,6 +14,8 @@ const CustomSearchInput = (props) => {
     options,
     onClick,
     deleteInputValueHandler,
+    disabled,
+    inputMode,
   } = props;
   const [optionAccordionState, setOptionAccordionState] = useState(false);
   const [preventFirstRender, setPreventFirstRender] = useState(false);
@@ -69,6 +71,8 @@ const CustomSearchInput = (props) => {
           value={searchInputValue}
           className={inputStyle}
           placeholder={placeHolder}
+          disabled={disabled}
+          inputMode={inputMode}
           onClick={inputClickHandler}
         />
         <i
