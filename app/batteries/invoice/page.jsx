@@ -188,7 +188,10 @@ const InvoicePage = () => {
                   price={price}
                   discountPrice={discountPrice}
                   setDiscountPrice={setDiscountPrice}
-                  totalPrice={JSON.parse(localStorage.getItem("batteryTotalPrice"))?.price || 0}
+                  totalPrice={
+                    JSON.parse(localStorage.getItem("batteryTotalPrice"))
+                      ?.price || 0
+                  }
                   coupon={coupon}
                   setCoupon={setCoupon}
                   type={"product_key"}
@@ -284,6 +287,9 @@ const InvoicePage = () => {
             roleChecked={roleChecked}
             discountPrice={discountPrice}
             setDiscountPrice={setDiscountPrice}
+            totalPrice={
+              JSON.parse(localStorage.getItem("batteryTotalPrice"))?.price || 0
+            }
             type={"product_key"}
             registerClickHandler={registerClickHandler}
             coupon={coupon}
