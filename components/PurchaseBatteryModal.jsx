@@ -137,9 +137,11 @@ const PurchaseBatteryModal = (props) => {
   };
 
   const clickSelectTimeHandler = async () => {
-    console.log(batteriesData.id);
-    console.log(allParams.get("provience_city_id"));
-
+    console.log(batteriesData);
+    sessionStorage.setItem(
+      "batteriesCart",
+      JSON.stringify({ batteryName: batteriesData.name }),
+    );
     // const data = await postData("/web/cart/remove", {
     //   cartable_id: JSON.parse(localStorage.getItem("batteryTotalPrice"))
     //     ?.productId,
