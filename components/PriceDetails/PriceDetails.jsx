@@ -15,8 +15,8 @@ const PriceDetails = (props) => {
 
   useEffect(() => {
     if (client) {
-      const localPrice = props.totalPrice
-        
+      const localPrice = props.totalPrice;
+
       if (props.discountPrice?.amount) {
         props.setPrice(localPrice - props.discountPrice.amount);
       } else if (props.discountPrice?.percentage) {
@@ -34,15 +34,17 @@ const PriceDetails = (props) => {
   return (
     <>
       <div className="flex justify-between">
-        <span className="text-[#454545] font-medium text-sm">
-          جزئیات قیمت سرویس:
+        <span className="text-[#000000] lg:text-16 text-14 font-medium">
+          جزئیات قیمت:
         </span>
         {/*<span className="text-gray-900">۱۵۳۰۰۰۰ تومان</span>*/}
       </div>
       <div className="flex justify-between">
-        <span className="text-sm">قیمت سرویس:</span>
+        <span className="text-[#454545] font-medium lg:text-16 text-14">
+          قیمت سرویس:
+        </span>
         <div className={"flex items-center gap-1"}>
-          <span className="text-[#454545] text-sm">
+          <span className="text-[#454545] text-14">
             {numberWithCommas(props.totalPrice)}
           </span>
           <span>تومان</span>
@@ -61,10 +63,12 @@ const PriceDetails = (props) => {
         </div>
       )}
       <div className="flex justify-between">
-        <span className="text-sm">مبلغ تخفیف:</span>
+        <span className="text-[#454545] font-medium lg:text-16 text-14">
+          مبلغ تخفیف:
+        </span>
         {/* <span className="text-[#22A137] text-sm">{numberWithCommas(faktorData?.service?.price - faktorData?.service?.discounted_price)}</span> */}
         <div className={"flex items-center gap-1"}>
-          <span className="text-[#22A137] text-sm">
+          <span className="text-[#22A137] text-14">
             {/*{discount ? discount : "--"}*/}
             {props.discountPrice.amount
               ? numberWithCommas(Number(props.discountPrice.amount))
@@ -76,7 +80,7 @@ const PriceDetails = (props) => {
                   )
                 : 0}
           </span>
-          <span className={"text-[#22A137] text-sm"}>تومان</span>
+          <span className={"text-[#22A137] text-14"}>تومان</span>
         </div>
       </div>
       <div className={"mt-4 hidden lg:inline-block w-full"}>
