@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { usePathname, useSearchParams } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { error } from "@/utils/function-utils";
 import SelectCarAndCity from "@/components/public/SelectCarAndCity";
 import SelectCity from "@/components/public/SelectCity";
@@ -11,46 +11,49 @@ import { batteryPurchaseProcessData, serviceData } from "@/staticData/data";
 import BatteryPurchaseProcess from "@/components/cards/BatteryPurchaseProcess";
 import PointView from "@/components/PointView/PointView";
 import BatteryFaq from "@/components/BatteryFaq/BatteryFaq";
+import CarAndCityContainer from "../public/CarAndCityContainer";
+import nProgress from "nprogress";
 
 const DetailingIndex = () => {
-  const [client, setClient] = useState(false);
+  // const [client, setClient] = useState(false);
   const [modalClickState, setModalClickState] = useState(false);
   const [cityId, setCityId] = useState(null);
-  const [toastieDisplay, setToastieDisplay] = useState(false);
-  const [asideStatus, setAsideStatus] = useState("car_city");
+  // const [toastieDisplay, setToastieDisplay] = useState(false);
+  // const [asideStatus, setAsideStatus] = useState("car_city");
 
-  const [preventFirstRender, setPreventFirstRender] = useState(false);
+  // const [preventFirstRender, setPreventFirstRender] = useState(false);
+  const router = useRouter()
   const pathName = usePathname();
 
   const searchParams = useSearchParams();
 
   useEffect(() => {
-    setClient(true);
+    // setClient(true);
     if (typeof window !== "undefined") {
       const city = JSON.parse(localStorage.getItem("city"));
       setCityId(city?.cityId);
     }
-  }, [toastieDisplay, searchParams, pathName]);
+  }, [ searchParams, pathName]);
 
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      const selectedVehicle = JSON.parse(
-        localStorage.getItem("selectedVehicle"),
-      );
-      const city = JSON.parse(localStorage.getItem("city"));
-      if (preventFirstRender) {
-        if (!city) {
-          error("لطفا شهر خود را انتخاب کنید");
-        } else if (!selectedVehicle) {
-          error("لطفا خودرو خود را انتخاب کنید");
-        }
-      }
-    }
-  }, [preventFirstRender, toastieDisplay]);
+  // useEffect(() => {
+  //   if (typeof window !== "undefined") {
+  //     const selectedVehicle = JSON.parse(
+  //       localStorage.getItem("selectedVehicle")
+  //     );
+  //     const city = JSON.parse(localStorage.getItem("city"));
+  //     if (preventFirstRender) {
+  //       if (!city) {
+  //         error("لطفا شهر خود را انتخاب کنید");
+  //       } else if (!selectedVehicle) {
+  //         error("لطفا خودرو خود را انتخاب کنید");
+  //       }
+  //     }
+  //   }
+  // }, [preventFirstRender, toastieDisplay]);
 
-  if (!client) {
-    return null;
-  }
+  // if (!client) {
+  //   return null;
+  // }
 
   // <div className="bg-[#383838A3] rounded-3xl flex size900:flex-row-reverse flex-col-reverse gap-6 p-6 items-center">
   //   <div className="flex flex-col gap-2 items-start flex-1">
@@ -89,10 +92,27 @@ const DetailingIndex = () => {
   //       height={195}
   //   />
   // </div>
-
+  function RegisterBatteryRequestHandler() {
+    nProgress.start()
+    router.push(
+      JSON.parse(localStorage.getItem("selectedVehicle"))?.id &&
+      cityId
+        ? `/detailing/selectLocation?type=${"FIXED"}&attribute_slug=${searchParams.get("attribute_slug")}&attribute_value=${searchParams.get("attribute_value")}${
+            JSON.parse(localStorage.getItem("selectedVehicle"))
+              ?.id
+              ? `&selectTipState=true,${
+                  JSON.parse(
+                    localStorage.getItem("selectedVehicle"),
+                  )?.id
+                }`
+              : ""
+          }&city_id=${JSON.parse(localStorage.getItem("city"))?.cityId}`
+        : ""
+    );
+  }
   return (
     <div className={"relative"}>
-      <div
+      {/* <div
         className={`lg:absolute fixed transition-all duration-500 ${modalClickState ? "bottom-0 right-0 left-0" : "bottom-[-500px] right-0 left-0"} w-full lg:top-0 lg:right-0.5 lg:h-full lg:z-0 z-[10000]`}
       >
         {modalClickState && (
@@ -136,7 +156,13 @@ const DetailingIndex = () => {
               return null;
           }
         })()}
-      </div>
+      </div> */}
+      <CarAndCityContainer
+        title={"ثبت درخواست دیتیلینگ"}
+        onClick={RegisterBatteryRequestHandler}
+        setModalClickState={setModalClickState}
+        modalClickState={modalClickState}
+      />
       <div
         className={
           "bg-[#cff9ff] rounded-[16px] mt-6 w-full h-auto aspect-[full/612]"
