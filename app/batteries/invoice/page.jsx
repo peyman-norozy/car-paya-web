@@ -98,7 +98,7 @@ const InvoicePage = () => {
   return (
     <div
       className={
-        "bg-white py-6 pt-[20px] px-14 lg:flex lg:gap-6 mb-8 lg:shadow-[0_0_6px_0_rgba(125,125,125,0.5)] lg:mt-6 rounded-[16px]"
+        "bg-white py-6 pt-[20px] lg:px-14 px-4 lg:flex lg:gap-6 mb-8 lg:shadow-[0_0_6px_0_rgba(125,125,125,0.5)] lg:mt-6 rounded-[16px]"
       }
     >
       <div className={"lg:w-[calc(100%-424px)]"}>
