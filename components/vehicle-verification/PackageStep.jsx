@@ -63,14 +63,13 @@ const PackageStep = () => {
       });
   }, [searchParams]);
   const nextStepHandler = async () => {
-    console.log(Length);
-    // axios
-    //   .get(process.env.BASE_API + "/check-authorization", {
-    //     headers: {
-    //       Authorization: "Bearer " + getCookies("Authorization").Authorization,
-    //     },
-    //   })
-    //   .then(async () => {
+    axios
+      .get(process.env.BASE_API + "/web/checkAuth", {
+        headers: {
+          Authorization: "Bearer " + getCookies("Authorization").Authorization,
+        },
+      })
+      .then(async () => {
     if (Length.length) {
       await postData("/web/cart/remove", {
         cartable_id: Length[0].item.item.id,
@@ -97,10 +96,10 @@ const PackageStep = () => {
       },
       { key: "package_id", value: isSelected },
     ]);
-    // })
-    // .catch((err) => {
-    //   dispatch(setLoginModal(true));
-    // });
+    })
+    .catch((err) => {
+      dispatch(setLoginModal(true));
+    });
   };
   return (
     <>
@@ -122,7 +121,7 @@ const PackageStep = () => {
           <div className=" flex flex-col gap-4 lg:mr-8">
             <div className="flex gap-2 items-center w-full bg-[#FFFFFF] text-[#D1D1D1] rounded-full border border-[#F2F2F2] px-2 shadow-[0_0_4px_0_rgba(207,207,207,0.7)]">
               <i
-                className="cc-car-o text-2xl text-[#518DD5]"
+                className="cc-car-o text-2xl text-[#518DD5] cursor-pointer"
                 onClick={() => router.push(`/vehicle-verification`)}
               />
               <div className="border-b-4 border-dotted border-[#518DD5] w-full"></div>
