@@ -49,7 +49,8 @@ const DiscountPercent = (props) => {
         value={props.coupon}
       />
       <button
-        className={"bg-[#518DD5] h-full w-[96px] text-white rounded-[8px]"}
+        className={`${!props.coupon ? "bg-[#C3D6ED]" : "bg-[#518DD5]"} h-full w-[96px] text-white rounded-[8px]`}
+        disabled={!props.coupon}
         onClick={sendCopon}
       >
         تایید
