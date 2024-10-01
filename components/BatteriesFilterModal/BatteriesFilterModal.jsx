@@ -107,6 +107,27 @@ const BatteriesFilterModal = ({ isOpen, onClose, options }) => {
             onClick={() => onClose()}
           />
         </div>
+
+        <div className={"py-4 px-[18.5px] flex flex-col gap-2 mt-6"}>
+          {filterData.map((item, index) => (
+            <div key={index}>
+              <CustomSearchInput
+                title={item.name}
+                placeHolder={item.placeHolder}
+                labelStyle={item.labelStyle}
+                iconStyle={item.iconStyle}
+                inputStyle={item.inputStyle}
+                optionContainerStyle={item.optionContainerStyle}
+                optionStyle={item.optionStyle}
+                value={item.value}
+                inputMode={"none"}
+                options={options[item?.value]}
+                onClick={(value) => filterClickHandler(value, item.value)}
+                deleteInputValueHandler={(slug) => deleteQueryHandler(slug)}
+              />
+            </div>
+          ))}
+        </div>
         <div>
           <span
             className={
@@ -129,25 +150,6 @@ const BatteriesFilterModal = ({ isOpen, onClose, options }) => {
             className="w-[60%] aspect-auto mx-auto"
           />
           <div className={"h-[1px] bg-[#BBBBBB] mx-[18.5px]"}></div>
-        </div>
-        <div className={"py-4 px-[18.5px] flex flex-col gap-2 mt-6"}>
-          {filterData.map((item, index) => (
-            <div key={index}>
-              <CustomSearchInput
-                title={item.name}
-                placeHolder={item.placeHolder}
-                labelStyle={item.labelStyle}
-                iconStyle={item.iconStyle}
-                inputStyle={item.inputStyle}
-                optionContainerStyle={item.optionContainerStyle}
-                optionStyle={item.optionStyle}
-                value={item.value}
-                options={options[item?.value]}
-                onClick={(value) => filterClickHandler(value, item.value)}
-                deleteInputValueHandler={(slug) => deleteQueryHandler(slug)}
-              />
-            </div>
-          ))}
         </div>
         <div
           className={
