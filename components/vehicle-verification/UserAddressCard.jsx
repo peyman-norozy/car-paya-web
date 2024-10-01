@@ -12,7 +12,7 @@ const UserAddressCard = (props) => {
       onClick={() => {
         props.selectedAddress === props.data.id
           ? props.setSelectedAddress("")
-          : props.setSelectedAddress(props.data.id);
+          : props.setSelectedAddress(props.data.address_id);
       }}
     >
       <div className="flex items-center justify-between">

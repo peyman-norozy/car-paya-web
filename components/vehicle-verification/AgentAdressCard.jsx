@@ -6,7 +6,7 @@ const AgentAdressCard = (props) => {
         props.setSelectedAddressText(props.data.address)
         props.selectedAddress === props.data.id
           ? props.setSelectedAddress("")
-          : props.setSelectedAddress(props.data.id);
+          : props.setSelectedAddress(props.data.address_id);
       }}
     >
       <div className="flex justify-start gap-2 items-center">
