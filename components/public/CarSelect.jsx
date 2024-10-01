@@ -355,10 +355,10 @@ const CarSelect = (props) => {
   return (
     <section
       className={
-        "bg-[#FDFDFD] lg:w-[409px] w-full h-screen sticky right-2 top-32 flex flex-col justify-start overflow-hidden gap-4 shadow-[0_0_6px_6px_rgba(125,125,125,0.5)] z-50"
+        "bg-[#FDFDFD] lg:w-[409px] w-full h-screen lg:h-[485px] lg:pt-6 lg:rounded-2xl sticky right-2 top-32 flex flex-col justify-start overflow-hidden gap-4 shadow-[0_0_6px_6px_rgba(125,125,125,0.2)] z-50"
       }
     >
-      <div className="shadow-[0_2px_8px_0_rgba(148,148,148,0.25)] flex items-center justify-between h-14 px-4 ">
+      <div className="shadow-[0_2px_8px_0_rgba(148,148,148,0.25)] flex items-center justify-between h-14 px-4 lg:hidden">
         <span className="text-sm font-medium">انتخاب وسیله نقلیه</span>
         <i
           className="cc-arrow-right rotate-180 text-20 z-[10001]"
@@ -446,7 +446,7 @@ const CarSelect = (props) => {
               }}
             />
           </div>
-          <div className={`h-[260px] overflow-y-scroll mt-2 overflow-x-hidden`}>
+          <div className={`h-[calc(100vh-300px)] lg:h-[260px] overflow-y-scroll mt-2 overflow-x-hidden`}>
             <div className={`grid grid-cols-3 gap-x-7 gap-y-2`}>
               {searchedData.map((item, index) => (
                 <div

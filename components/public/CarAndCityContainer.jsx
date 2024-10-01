@@ -6,7 +6,7 @@ import CarSelect from "./CarSelect";
 import { error } from "@/utils/function-utils";
 
 const CarAndCityContainer = (props) => {
-  // const [client, setClient] = useState(false);
+  const [client, setClient] = useState(false);
   const [asideStatus, setAsideStatus] = useState("car_city");
   const [toastieDisplay, setToastieDisplay] = useState(false);
   const [preventFirstRender, setPreventFirstRender] = useState(false);
@@ -24,6 +24,7 @@ const CarAndCityContainer = (props) => {
   // }, [toastieDisplay, searchParams, pathName]);
 
   useEffect(() => {
+    setClient(true)
     if (typeof window !== "undefined") {
       const selectedVehicle = JSON.parse(
         localStorage.getItem("selectedVehicle")
@@ -39,9 +40,9 @@ const CarAndCityContainer = (props) => {
     }
   }, [preventFirstRender, toastieDisplay]);
 
-  // if (!client) {
-  //   return null;
-  // }
+  if (!client) {
+    return null;
+  }
   return (
     <div
       className={`lg:absolute fixed transition-all duration-500 ${props.modalClickState ? "bottom-0 right-0 left-0" : "-bottom-[100vh]"} w-full lg:top-0 lg:right-0.5 lg:h-full lg:z-0 z-[10000] flex flex-col`}
