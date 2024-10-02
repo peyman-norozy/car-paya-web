@@ -95,6 +95,7 @@ const ReserveTimeVerification = (props) => {
                       ? props.setFluctuation({
                           type: item.swing_type,
                           price: (packagePrice * item.diff_percent) / 100,
+                          description :item.diff_percent_description
                         })
                       : "";
                     setTimeStamp(data[0]);
@@ -125,6 +126,7 @@ const ReserveTimeVerification = (props) => {
                       ? props.setFluctuation({
                           type: item.swing_type,
                           price: (packagePrice * item.diff_percent) / 100,
+                          description :item.diff_percent_description
                         })
                       : "";
                     setTimeStamp(data[0]);
@@ -156,6 +158,7 @@ const ReserveTimeVerification = (props) => {
                       ? props.setFluctuation({
                           type: item.swing_type,
                           price: (packagePrice * item.diff_percent) / 100,
+                          description :item.diff_percent_description
                         })
                       : "";
                     setTimeStamp(data[0]);
@@ -186,6 +189,7 @@ const ReserveTimeVerification = (props) => {
                       ? props.setFluctuation({
                           type: item.swing_type,
                           price: (packagePrice * item.diff_percent) / 100,
+                          description :item.diff_percent_description
                         })
                       : "";
                     setTimeStamp(data[0]);
