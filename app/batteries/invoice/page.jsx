@@ -206,7 +206,7 @@ const InvoicePage = () => {
                   }
                   coupon={coupon}
                   setCoupon={setCoupon}
-                  type={"product_key"}
+                  type={"battery"}
                 />
               </div>
             )}
@@ -334,7 +334,7 @@ const InvoicePage = () => {
             totalPrice={
               JSON.parse(localStorage.getItem("batteryTotalPrice"))?.price || 0
             }
-            type={"product_key"}
+            type={"battery"}
             registerClickHandler={registerClickHandler}
             coupon={coupon}
             setCoupon={setCoupon}
