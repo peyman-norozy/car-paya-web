@@ -1,11 +1,12 @@
+'use client'
 import React, { useEffect, useState } from "react";
-import ChangeServiceTime from "./ChangeServiceTime";
-import SelectVerificationPlace from "./SelectVerificationPlace";
+// import ChangeServiceTime from "./ChangeServiceTime";
+// import SelectVerificationPlace from "./SelectVerificationPlace";
 import useSetQuery from "@/hook/useSetQuery";
 import AddAddressModal from "@/components/vehicle-verification/AddAddressModal";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import UserAddressCard from "./vehicle-verification/UserAddressCard";
-import AgentAdressCard from "./vehicle-verification/AgentAdressCard";
+// import UserAddressCard from "./vehicle-verification/UserAddressCard";
+// import AgentAdressCard from "./vehicle-verification/AgentAdressCard";
 import axios from "axios";
 import { getCookie } from "cookies-next";
 import { error } from "@/utils/function-utils";
@@ -13,8 +14,13 @@ import { ToastContainer } from "react-toastify";
 import { postData } from "@/utils/client-api-function-utils";
 import { useDispatch, useSelector } from "react-redux";
 import { setAreaeModalState, setLoginModal } from "@/store/todoSlice";
-import DeleteModal from "./public/DeleteModal";
-import AreaModal from "./vehicle-verification/AreaModal";
+// import DeleteModal from "./public/DeleteModal";
+// import AreaModal from "./vehicle-verification/AreaModal";
+import UserAddressCard from "@/components/vehicle-verification/UserAddressCard";
+import AgentAdressCard from "@/components/vehicle-verification/AgentAdressCard";
+import AreaModal from "@/components/vehicle-verification/AreaModal";
+import DeleteModal from "@/components/public/DeleteModal";
+import nProgress from "nprogress";
 
 const VerificationThirdStep = (props) => {
   // const [isSelected, setIsSelected] = useState(0);
@@ -119,18 +125,18 @@ const VerificationThirdStep = (props) => {
     },
   ];
 
-  const backstopHandler = () => {
-    setQuery.deleteSingleQuery(
-      [
-        {
-          key: "reservation_time_slice_id",
-          value: reservation_time_slice_id,
-        },
-      ],
-      params
-    );
-    setQuery.updateMultiQuery([{ key: "step", value: "step-2" }], params);
-  };
+  // const backstopHandler = () => {
+  //   setQuery.deleteSingleQuery(
+  //     [
+  //       {
+  //         key: "reservation_time_slice_id",
+  //         value: reservation_time_slice_id,
+  //       },
+  //     ],
+  //     params
+  //   );
+  //   setQuery.updateMultiQuery([{ key: "step", value: "step-2" }], params);
+  // };
 
   const continueSecondStepHandler = () => {
     // setButtonIsdisabled(true);
@@ -143,16 +149,20 @@ const VerificationThirdStep = (props) => {
       let cart = JSON.parse(sessionStorage.getItem("verificationCart"));
       cart.selectedAddressText = selectedAddressText;
       sessionStorage.setItem("verificationCart", JSON.stringify(cart));
-      setQuery.setMultiQuery([
-        { key: "step", value: "step-5" },
-        { key: "city_id", value: city_id },
-        { key: "vehicle_tip", value: selectedItem },
-        { key: "package_id", value: package_id },
-        { key: "reservation_time_slice_id", value: reservation_time_slice_id },
-        { key: "exact_time", value: exact_time },
-        { key: "type_service", value: type },
-        { key: "registrationable_id", value: selectedAddress },
-      ]);
+      nProgress.start()
+      router.push(
+        `/vehicle-verification/invoice?city_id=${city_id}&vehicle_tip=${selectedItem}&package_id=${package_id}&reservation_time_slice_id=${reservation_time_slice_id}&exact_time=${exact_time}&type_service=${type}&registrationable_id=${selectedAddress}&step=step-4`
+      );
+    //   setQuery.setMultiQuery([
+    //     { key: "step", value: "step-5" },
+    //     { key: "city_id", value: city_id },
+    //     { key: "vehicle_tip", value: selectedItem },
+    //     { key: "package_id", value: package_id },
+    //     { key: "reservation_time_slice_id", value: reservation_time_slice_id },
+    //     { key: "exact_time", value: exact_time },
+    //     { key: "type_service", value: type },
+    //     { key: "registrationable_id", value: selectedAddress },
+    //   ]);
     }
   };
 
@@ -190,7 +200,7 @@ const VerificationThirdStep = (props) => {
       >
         <i
           className={"cc-arrow-right text-24 cursor-pointer"}
-          onClick={backstopHandler}
+          onClick={()=>{router.back()}}
         />
         <p className={"text-14 size752:text-16 w-full font-medium"}>
           انتخاب مکان
@@ -207,7 +217,7 @@ const VerificationThirdStep = (props) => {
             className="cc-search text-2xl text-[#518DD5] cursor-pointer"
             onClick={() =>
               router.push(
-                `/vehicle-verification?step=step-1&city_id=${city_id}&vehicle_tip=${selectedItem}`
+                `/vehicle-verification/service-selection?step=step-1&city_id=${city_id}&vehicle_tip=${selectedItem}`
               )
             }
           />
@@ -216,7 +226,7 @@ const VerificationThirdStep = (props) => {
             className="cc-timer text-2xl text-[#518DD5] cursor-pointer"
             onClick={() =>
               router.push(
-                `/vehicle-verification?city_id=${city_id}&vehicle_tip=${selectedItem}&step=step-2&package_id=${package_id}`
+                `/vehicle-verification/time-selection?city_id=${city_id}&vehicle_tip=${selectedItem}&step=step-2&package_id=${package_id}`
               )
             }
           />

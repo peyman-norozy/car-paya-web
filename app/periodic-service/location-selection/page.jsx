@@ -93,6 +93,7 @@ import AgentAdressCard from "@/components/vehicle-verification/AgentAdressCard";
 import AreaModal from "@/components/vehicle-verification/AreaModal";
 import DeleteModal from "@/components/public/DeleteModal";
 import ServicesModal from "@/components/periodic-service-components/ServicesModal";
+import nProgress from "nprogress";
 
 const Dealership = (props) => {
   // const [isSelected, setIsSelected] = useState(0);
@@ -194,6 +195,7 @@ const Dealership = (props) => {
   ];
 
   const backstopHandler = () => {
+    nProgress.start()
     router.push("/periodic-service");
   };
 

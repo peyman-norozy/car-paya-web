@@ -81,7 +81,7 @@ const LoginModal = () => {
 
   function resendOtpHandler() {
     axios
-      .post(process.env.BASE_API + "/resend-otp", {
+      .post(process.env.BASE_API + "/admin/get-otp", {
         mobile: phone,
         login_token: loginToken,
       })

@@ -8,9 +8,9 @@ const UserAddressCard = (props) => {
   const dispatch = useDispatch();
   return (
     <div
-      className={`flex flex-col gap-4 p-4 rounded-lg bg-white cursor-pointer shadow-[0_0_4px_0_rgba(207,207,207,0.7)] ${props.selectedAddress === props.data.id ? "border border-[#F58052]" : ""}`}
+      className={`flex flex-col gap-4 p-4 rounded-lg bg-white cursor-pointer shadow-[0_0_4px_0_rgba(207,207,207,0.7)] ${props.selectedAddress === props.data.address_id ? "border border-[#F58052]" : ""}`}
       onClick={() => {
-        props.selectedAddress === props.data.id
+        props.selectedAddress === props.data.address_id
           ? props.setSelectedAddress("")
           : props.setSelectedAddress(props.data.address_id);
       }}
@@ -23,7 +23,7 @@ const UserAddressCard = (props) => {
             }
           >
             <div
-              className={`rounded-[50%] bg-[#F58052] size-[10px] transition-all duration-500 ${props.selectedAddress === props.data.id ? "scale-1" : "scale-0"}`}
+              className={`rounded-[50%] bg-[#F58052] size-[10px] transition-all duration-500 ${props.selectedAddress === props.data.address_id ? "scale-1" : "scale-0"}`}
             ></div>
           </div>
           <span className="text-[#000000] text-sm">{props.data.title}</span>
@@ -50,7 +50,7 @@ const UserAddressCard = (props) => {
             className={`cc-filter text-2xl absolute ${openMenu ? "left-24" : "left-0"} transition-all top-0 text-[#DB3737]`}
             onClick={() => {
               dispatch(setDeleteModal(true));
-              dispatch(setDeleteModalId(props.data.id));
+              dispatch(setDeleteModalId(props.data.address_id));
             }}
           />
         </div>
@@ -82,7 +82,7 @@ const UserAddressCard = (props) => {
                 pageType={"edite"}
                 setModalIsOpen={props.setEditModalIsOpen}
                 setIsLoading={props.setIsLoading}
-                addressEditId={props.data.id}
+                addressEditId={props.data.address_id}
               />
             </div>
             {/* <div

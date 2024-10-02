@@ -12,16 +12,18 @@ import { persianDateCovertor, persianStringDay } from "@/utils/function-utils";
 import Link from "next/link";
 import DiscountPercent from "@/components/DiscountPercent/DiscountPercent";
 import { postData } from "@/utils/client-api-function-utils";
+import nProgress from "nprogress";
 
 const InvoicePage = () => {
   const router = useRouter();
   const [client, setClient] = useState(false);
   const [faktorData, setFaktorData] = useState({});
   const [roleChecked, setRoleChecked] = useState(false);
-  const [price, setPrice] = useState(0);
   const [discountPrice, setDiscountPrice] = useState({});
   const [coupon, setCoupon] = useState("");
-
+  const [finalPrice, setFinalPrice] = useState(0);
+  const [discountedprice, setDiscountedPrice] = useState(0);
+  const [fluctuatingPrice, setFluctuatingPrice] = useState(0);
   const [discount, setDiscount] = useState(0);
   const innerWidth = useSelector((item) => item.todo.windowInnerWidth);
   // const orderProduct = useRef();
@@ -74,6 +76,7 @@ const InvoicePage = () => {
       shipped_time: searchParams.get("time_id")?.split("/")[1],
     });
     if (response.status === 200) {
+      nProgress.start()
       router.push(response?.data?.action);
     }
   }
@@ -195,8 +198,6 @@ const InvoicePage = () => {
                   roleChecked={roleChecked}
                   length={1}
                   discount={discount}
-                  setPrice={setPrice}
-                  price={price}
                   discountPrice={discountPrice}
                   setDiscountPrice={setDiscountPrice}
                   totalPrice={
@@ -205,7 +206,13 @@ const InvoicePage = () => {
                   }
                   coupon={coupon}
                   setCoupon={setCoupon}
-                  type={"product_key"}
+                  type={"battery"}
+                  finalPrice={finalPrice}
+                  setFinalPrice={setFinalPrice}
+                  discountedprice={discountedprice}
+                  setDiscountedPrice={setDiscountedPrice}
+                  fluctuatingPrice={fluctuatingPrice}
+                  setFluctuatingPrice={setFluctuatingPrice}
                 />
               </div>
             )}
@@ -314,7 +321,9 @@ const InvoicePage = () => {
             roleChecked={roleChecked}
             discount={discount}
             registerClickHandler={registerClickHandler}
-            price={price}
+            finalPrice={finalPrice}
+            discountedprice={discountedprice}
+            fluctuatingPrice={fluctuatingPrice}
           />
         )}
       </div>
@@ -324,8 +333,6 @@ const InvoicePage = () => {
             faktorData={faktorData}
             length={1}
             discount={discount}
-            setPrice={setPrice}
-            price={price}
             setRoleChecked={setRoleChecked}
             roleChecked={roleChecked}
             discountPrice={discountPrice}
@@ -333,10 +340,16 @@ const InvoicePage = () => {
             totalPrice={
               JSON.parse(localStorage.getItem("batteryTotalPrice"))?.price || 0
             }
-            type={"product_key"}
+            type={"battery"}
             registerClickHandler={registerClickHandler}
             coupon={coupon}
             setCoupon={setCoupon}
+            finalPrice={finalPrice}
+            setFinalPrice={setFinalPrice}
+            discountedprice={discountedprice}
+            setDiscountedPrice={setDiscountedPrice}
+            fluctuatingPrice={fluctuatingPrice}
+            setFluctuatingPrice={setFluctuatingPrice}
           />
           {/*<div className={"mt-4 hidden lg:block"}>*/}
           {/*  <DiscountPercent*/}

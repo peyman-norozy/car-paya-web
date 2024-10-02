@@ -1,3 +1,4 @@
+'use client'
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import PackageCard from "@/components/vehicle-verification/PackageCard";
@@ -11,6 +12,7 @@ import { ToastContainer } from "react-toastify";
 import search from "@/public/assets/images/search.png";
 import { getCookies } from "cookies-next";
 import { setLoginModal } from "@/store/todoSlice";
+import nProgress from "nprogress";
 const PackageStep = () => {
   const router = useRouter();
   const pathname = usePathname();
@@ -26,9 +28,6 @@ const PackageStep = () => {
   );
   const setQuery = useSetQuery();
 
-  const backStepHandler = () => {
-    router.replace(pathname);
-  };
   const selectPackageHandler = (id, title , price) => {
     if (isSelected !== id) {
       setIsSelected(id);
@@ -87,15 +86,19 @@ const PackageStep = () => {
     //   step: "5",
     // });
     sessionStorage.setItem("verificationCart", JSON.stringify({ package_id: isSelected, package_title:title,price:price}));
-    setQuery.setMultiQuery([
-      { key: "step", value: "step-2" },
-      { key: "city_id", value: city_id },
-      {
-        key: "vehicle_tip",
-        value: selectedItem,
-      },
-      { key: "package_id", value: isSelected },
-    ]);
+    // setQuery.setMultiQuery([
+    //   { key: "step", value: "step-2" },
+    //   { key: "city_id", value: city_id },
+    //   {
+    //     key: "vehicle_tip",
+    //     value: selectedItem,
+    //   },
+    //   { key: "package_id", value: isSelected },
+    // ]);
+    nProgress.start()
+    router.push(
+        `/vehicle-verification/time-selection?city_id=${city_id}&vehicle_tip=${selectedItem}&package_id=${isSelected}&step=step-2`
+      );
     })
     .catch((err) => {
       dispatch(setLoginModal(true));
@@ -112,7 +115,7 @@ const PackageStep = () => {
           <div className={"flex items-center gap-2 text-[#0E0E0E] w-full"}>
             <i
               className={"cc-arrow-right text-24 cursor-pointer"}
-              onClick={backStepHandler}
+              onClick={()=>{router.back()}}
             />
             <p className={"text-14 size752:text-16 w-full font-medium"}>
               انتخاب سرویس
