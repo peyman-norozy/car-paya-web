@@ -252,7 +252,7 @@ const InvoicePage = () => {
 
               {/* Date and Time Section */}
               <div className="mt-4 space-y-2 flex flex-col gap-2">
-                <div className="flex justify-between lg:justify-start gap-1">
+                <div className="flex justify-start gap-1">
                   <span className="text-[#000000] text-14">
                     تاریخ دریافت خدمات:
                   </span>
@@ -269,7 +269,7 @@ const InvoicePage = () => {
                     </span>
                   </div>
                 </div>
-                <div className="flex justify-between lg:justify-start gap-1">
+                <div className="flex justify-start gap-1">
                   <span className="text-[#000000] text-14">
                     ساعت دریافت خدمات:
                   </span>
