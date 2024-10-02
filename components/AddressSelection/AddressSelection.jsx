@@ -130,7 +130,7 @@ const AddressSelection = (props) => {
           {props.myLocationData &&
             props.myLocationData?.map((item) => (
               <NewAddressCard
-                key={item.id}
+                key={item.address_id}
                 status={props.status}
                 timeData={props.timeData}
                 item={item}

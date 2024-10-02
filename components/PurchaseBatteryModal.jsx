@@ -37,6 +37,7 @@ const PurchaseBatteryModal = (props) => {
   const setQuery = useSetQuery();
   const attributeSlug = searchParams.get("attribute_slug");
   const attributeValue = searchParams.get("attribute_value");
+  const typeService = searchParams.get("type_service");
   const [purchseOptions, setPurchseOption] = useState([
     {
       title: "باتری سوزوکی 70 آمپر",
@@ -114,7 +115,7 @@ const PurchaseBatteryModal = (props) => {
           localStorage.setItem(
             "batteryTotalPrice",
             JSON.stringify({
-              price: sameAmpBattery.calculation,
+              price: sameAmpBattery.calculation.payment_price,
               productId: batteriesData.id,
               vehicle_tip_id: JSON.parse(
                 localStorage.getItem("selectedVehicle"),
@@ -123,8 +124,9 @@ const PurchaseBatteryModal = (props) => {
           );
         }
       }
+      console.log(sameAmpBattery);
       setTotalPrice({
-        price: sameAmpBattery.calculation,
+        price: sameAmpBattery.calculation?.payment_price,
         productId: batteriesData.id,
         vehicle_tip_id: JSON.parse(localStorage.getItem("selectedVehicle"))?.id,
       });
@@ -135,9 +137,11 @@ const PurchaseBatteryModal = (props) => {
   };
 
   const clickSelectTimeHandler = async () => {
-    console.log(batteriesData.id);
-    console.log(allParams.get("provience_city_id"));
-
+    console.log(batteriesData);
+    sessionStorage.setItem(
+      "batteriesCart",
+      JSON.stringify({ batteryName: batteriesData.name }),
+    );
     // const data = await postData("/web/cart/remove", {
     //   cartable_id: JSON.parse(localStorage.getItem("batteryTotalPrice"))
     //     ?.productId,
@@ -199,7 +203,7 @@ const PurchaseBatteryModal = (props) => {
           {
             product_id: batteriesData.id,
             battery_type: "SWING_AMP",
-            amp: cityId,
+            amp_user: cityId,
             city_id: JSON.parse(localStorage.getItem("city"))?.cityId,
             vehicle_tip_id: JSON.parse(localStorage.getItem("selectedVehicle"))
               ?.id,
@@ -313,6 +317,7 @@ const PurchaseBatteryModal = (props) => {
               ?.id,
           },
         );
+        console.log(getSameAmpBattery);
         setNobatteriesData(getBatteriesData);
         setSameAmpBattery(getSameAmpBattery);
       })();
@@ -359,6 +364,7 @@ const PurchaseBatteryModal = (props) => {
     // );
   };
 
+  console.log(selectOption);
   return (
     <>
       <div
@@ -441,22 +447,35 @@ const PurchaseBatteryModal = (props) => {
               ))}
             </div>
           </div>
+          {console.log(totalPrice)}
           <div className="flex size746:gap-0 gap-4 items-center justify-between py-[1.5rem] shadow-[0_0_5px_0_rgba(0,0,0,0.4)] px-4">
             <div className="flex items-center gap-[0.25rem] size1000:gap-[0.5rem]">
-              <p className={"size746:text-[16px] text-14"}>
-                مبلغ قابل پرداخت:{" "}
-              </p>
+              <p className={"size746:text-[16px] text-14"}>مبلغ قابل پرداخت:</p>
               <div className="flex size1000:mr-[1rem]">
                 <p className="size746:text-[16px] text-14">
-                  <span> {numberWithCommas(totalPrice.price)} </span>
+                  <span>
+                    {numberWithCommas(
+                      typeof totalPrice.price === "number"
+                        ? totalPrice.price
+                        : 0,
+                    )}
+                  </span>
                   <span>تومان </span>
                 </p>
                 {/*<Image src={Toman} alt="" width={20} height={20}/>*/}
               </div>
             </div>
             <Button
-              class_name={`${isSelected === false ? "bg-[#ecb8a3]" : "bg-[#F66B34]"} rounded-10 hover:shadow-[0_0_5px_0_rgba(0,0,0,0.4)] flex items-center justify-center ga-[0.25rem] text-white px-2 py-2 text-12`}
-              disabled_btn={isSelected === false}
+              class_name={`${typeService === "SWING_AMP" ? (selectOption ? "bg-[#F66B34]" : "bg-[#ecb8a3]") : isSelected === false ? "bg-[#ecb8a3]" : "bg-[#F66B34]"} rounded-10 hover:shadow-[0_0_5px_0_rgba(0,0,0,0.4)] flex items-center justify-center ga-[0.25rem] text-white px-2 py-2 text-12`}
+              disabled_btn={
+                typeService === "SWING_AMP"
+                  ? selectOption
+                    ? false
+                    : true
+                  : isSelected === false
+                    ? true
+                    : false
+              }
               on_click={clickSelectTimeHandler}
             >
               <p>اضافه به سبد خرید</p>
