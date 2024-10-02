@@ -24,7 +24,7 @@ const BatteryPriceDitail = (props) => {
     )?.id;
 
     axios
-      .get(process.env.BASE_API + "/user/profile", {
+      .get(process.env.BASE_API + "/web/checkAuth", {
         headers: {
           Authorization: "Bearer " + getCookies("Authorization").Authorization,
         },
