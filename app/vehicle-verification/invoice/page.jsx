@@ -203,7 +203,7 @@ const VerificationInvoice = () => {
           <div className={"mt-4 block lg:hidden"}>
             <DiscountPercent
               id={faktorData?.id}
-              type={"MASTER"}
+              type={"master"}
               setDiscount={setDiscount}
               coupon={coupon}
               setCoupon={setCoupon}
@@ -246,7 +246,7 @@ const VerificationInvoice = () => {
                     roleChecked={roleChecked}
                     discount={discount}
                     setDiscountPrice={setDiscountPrice}
-                    type={"product_key"}
+                    type={"master"}
                   />
                 </div>
               )}
@@ -305,7 +305,7 @@ const VerificationInvoice = () => {
               customStyle={
                 "bg-white fixed left-0 flex justify-between shadow-[0_-2px_4px_0_rgba(199,199,199,0.25)] rounded-t-xl"
               }
-              type={"product_key"}
+              type={"master"}
               roleChecked={roleChecked}
               discount={discount}
               registerClickHandler={registerClickHandler}
@@ -344,7 +344,7 @@ const VerificationInvoice = () => {
             roleChecked={roleChecked}
             discount={discount}
             setDiscountPrice={setDiscountPrice}
-            type={"product_key"}
+            type={"master"}
           />
         </div>
       )}
