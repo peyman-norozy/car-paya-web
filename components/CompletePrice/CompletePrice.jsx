@@ -22,7 +22,7 @@ const CompletePrice = (props) => {
           {/*        : Number(props.faktorData?.service?.discounted_price) -*/}
           {/*            Number(props.faktorData?.diff_price)*/}
           {/*    )}*/}
-          <span>{numberWithCommas(props.price)}</span>
+          <span>{numberWithCommas(props.finalPrice - props.discountedprice + props.fluctuatingPrice)}</span>
           <span>تومان</span>
         </div>
       </div>

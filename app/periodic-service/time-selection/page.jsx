@@ -7,6 +7,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { persianDate, persianDateCovertor } from "@/utils/function-utils";
 import ReserveTimeVerification from "@/components/TimeSelectorCard/TimeSelectorCard";
 import { ToastContainer } from "react-toastify";
+import nProgress from "nprogress";
 const Page = (props) => {
   const [selectedTime, setSelectedTime] = useState();
   const [date, setDate] = useState(0);
@@ -51,6 +52,7 @@ const Page = (props) => {
     } else {
       // setButtonIsdisabled(false);
       // if (loginState) {
+      nProgress.start();
       router.push(
         `/periodic-service/invoice?step=step-4&city_id=${props.searchParams.city_id}&vehicle_tip_id=${props.searchParams.selectTipState}&package_id=${props.searchParams.package_id}&reservation_time_slice_id=${timeIsSelected}&type=${props.searchParams.type}&service_location_id=${props.searchParams.service_location_id}&registrationable_id=${props.searchParams.service_location_id}`
       );

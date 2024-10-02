@@ -28,6 +28,7 @@ const VerificationSecondStep = (props) => {
   const [optionIsOpen, setOptionIsOpen] = useState(false);
   const [timeIsSelected, setTimeIsSelected] = useState(null);
   const [buttonIsdisabled, setButtonIsdisabled] = useState(false);
+  const [fluctuation , setFluctuation] = useState(null)
   const [data, setData] = useState([]);
   const [timeStamp, setTimeStamp] = useState(null);
   const setQuery = useSetQuery();
@@ -47,18 +48,23 @@ const VerificationSecondStep = (props) => {
       cart.time_id = timeIsSelected.split("/")[0];
       cart.exact_time = timeIsSelected.split("/")[1];
       cart.time_stamp = timeStamp;
+      cart.price_fluctuation = fluctuation
       sessionStorage.setItem("verificationCart", JSON.stringify(cart));
-      setQuery.setMultiQuery([
-        { key: "step", value: "step-4" },
-        { key: "city_id", value: city_id },
-        { key: "vehicle_tip", value: selectedItem },
-        { key: "package_id", value: package_id },
-        {
-          key: "reservation_time_slice_id",
-          value: timeIsSelected.split("/")[0],
-        },
-        { key: "exact_time", value: timeIsSelected.split("/")[1] },
-      ]);
+      nProgress.start()
+      router.push(
+        `/vehicle-verification/location-selection?city_id=${city_id}&vehicle_tip=${selectedItem}&package_id=${package_id}&reservation_time_slice_id=${timeIsSelected.split("/")[0]}&exact_time=${timeIsSelected.split("/")[1]}&step=step-4`
+      );
+    //   setQuery.setMultiQuery([
+    //     { key: "step", value: "step-4" },
+    //     { key: "city_id", value: city_id },
+    //     { key: "vehicle_tip", value: selectedItem },
+    //     { key: "package_id", value: package_id },
+    //     {
+    //       key: "reservation_time_slice_id",
+    //       value: timeIsSelected.split("/")[0],
+    //     },
+    //     { key: "exact_time", value: timeIsSelected.split("/")[1] },
+    //   ]);
       // } else {
       //   setQuery.setMultiQuery([
       //     { key: "step", value: "step-3" },
@@ -74,18 +80,18 @@ const VerificationSecondStep = (props) => {
     }
   };
 
-  const backStepHandler = () => {
-    if (props.backUrl === "/batteries") {
-      nProgress.start();
-      router.push(props.backUrl);
-    } else {
-      setQuery.deleteSingleQuery(
-        [{ key: "package_id", value: package_id }],
-        params
-      );
-      setQuery.updateMultiQuery([{ key: "step", value: "step-1" }], params);
-    }
-  };
+  // const backStepHandler = () => {
+  //   if (props.backUrl === "/batteries") {
+  //     nProgress.start();
+  //     router.push(props.backUrl);
+  //   } else {
+  //     setQuery.deleteSingleQuery(
+  //       [{ key: "package_id", value: package_id }],
+  //       params
+  //     );
+  //     setQuery.updateMultiQuery([{ key: "step", value: "step-1" }], params);
+  //   }
+  // };
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -126,7 +132,7 @@ const VerificationSecondStep = (props) => {
         >
           <i
             className={"cc-arrow-right text-24 cursor-pointer"}
-            onClick={backStepHandler}
+            onClick={()=>{router.back()}}
           />
           <p className={"text-14 size752:text-16 w-full font-medium"}>
             انتخاب زمان
@@ -143,7 +149,7 @@ const VerificationSecondStep = (props) => {
               className="cc-search text-2xl text-[#1E67BF] cursor-pointer"
               onClick={() =>
                 router.push(
-                  `/vehicle-verification?step=step-1&city_id=${city_id}&vehicle_tip=${selectedItem}`
+                  `/vehicle-verification/service-selection?step=step-1&city_id=${city_id}&vehicle_tip=${selectedItem}`
                 )
               }
             />
@@ -188,6 +194,7 @@ const VerificationSecondStep = (props) => {
               setOptionIsOpen={setOptionIsOpen}
               optionIsOpen={optionIsOpen}
               accordionState={props.accordionState}
+              setFluctuation={setFluctuation}
             />
           </div>
           <button

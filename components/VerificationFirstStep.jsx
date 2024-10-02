@@ -51,18 +51,21 @@ const VerificationFirstStep = (props) => {
       localStorage.getItem("city") &&
       localStorage.getItem("selectedVehicle")
     ) {
-      setQuery.setMultiQuery([
-        {
-          key: "city_id",
-          value: JSON.parse(localStorage.getItem("city")).cityId,
-        },
-        {
-          key: "vehicle_tip",
-          value: JSON.parse(localStorage.getItem("selectedVehicle")).id,
-        },
-        { key: "step", value: "step-1" },
-      ]);
-      setStep(2);
+      // setQuery.setMultiQuery([
+      //   {
+      //     key: "city_id",
+      //     value: JSON.parse(localStorage.getItem("city")).cityId,
+      //   },
+      //   {
+      //     key: "vehicle_tip",
+      //     value: JSON.parse(localStorage.getItem("selectedVehicle")).id,
+      //   },
+      //   { key: "step", value: "step-1" },
+      // ]);
+      // setStep(2);
+      router.push(
+        `/vehicle-verification/service-selection?city_id=${JSON.parse(localStorage.getItem("city")).cityId}&vehicle_tip=${JSON.parse(localStorage.getItem("selectedVehicle")).id}&step=step-1`
+      );
     }
     // setModalIsOpen(true);
     // router.push(
