@@ -119,10 +119,10 @@ const BatteriesAssisantPage = (props) => {
             >
               <li
                 className={
-                  "flex-1 border-l border-l-[#CECECE] p-2 bg-white relative"
+                  "flex-1 border-l border-l-[#CECECE] p-2 bg-white relative flex justify-start items-center"
                 }
               >
-                <div className={"flex justify-start w-full"}>
+                <div className={"flex justify-start gap-1 w-full"}>
                   <div className="checkbox-wrapper-37 flex justify-center items-center h-full">
                     <GreenCheckInput
                       isSelected={isSelected === index}
@@ -141,8 +141,11 @@ const BatteriesAssisantPage = (props) => {
               <li className="lg:flex-1 sm:w-[150px] w-[90px] border-l border-l-[#CECECE] sm:p-2 bg-white flex justify-center items-center">
                 Male
               </li>
-              <li className="flex-1 sm:p-2 bg-white flex justify-center items-center">
-                {numberWithCommas(item["same_amp"])}
+              <li className="flex-1 sm:p-2 bg-white flex flex-col justify-center items-center gap-1">
+                <span className="flex items-center gap-[0.25rem] line-through text-center text-[#B4BCC5] ">
+                  {numberWithCommas(item.price)}
+                </span>
+                <span>{numberWithCommas(item["discounted_price"])}</span>
               </li>
             </ul>
           ))}

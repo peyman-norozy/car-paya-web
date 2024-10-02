@@ -15,6 +15,7 @@ import { postData } from "@/utils/client-api-function-utils";
 import nProgress from "nprogress";
 
 const InvoicePage = () => {
+  const router = useRouter();
   const [client, setClient] = useState(false);
   const [faktorData, setFaktorData] = useState({});
   const [roleChecked, setRoleChecked] = useState(false);
@@ -35,7 +36,6 @@ const InvoicePage = () => {
   const typeService = searchParams.get("type_service");
   const serviceLocationId = searchParams.get("service_location_id");
   const time = searchParams.get("time_id");
-  const router = useRouter();
   const timestamp = Math.floor(Date.now() / 1000);
 
   useEffect(() => {
@@ -72,6 +72,7 @@ const InvoicePage = () => {
       coupon_code: coupon,
       amp_user: searchParams.get("amper"),
       battery_type: searchParams.get("type_service"),
+      quantity: JSON.parse(sessionStorage.getItem("batteriesCart")).quantity,
       shipped_time: searchParams.get("time_id")?.split("/")[1],
     });
     if (response.status === 200) {
@@ -259,7 +260,7 @@ const InvoicePage = () => {
 
               {/* Date and Time Section */}
               <div className="mt-4 space-y-2 flex flex-col gap-2">
-                <div className="flex justify-between lg:justify-start gap-1">
+                <div className="flex justify-start gap-1">
                   <span className="text-[#000000] text-14">
                     تاریخ دریافت خدمات:
                   </span>
@@ -276,7 +277,7 @@ const InvoicePage = () => {
                     </span>
                   </div>
                 </div>
-                <div className="flex justify-between lg:justify-start gap-1">
+                <div className="flex justify-start gap-1">
                   <span className="text-[#000000] text-14">
                     ساعت دریافت خدمات:
                   </span>

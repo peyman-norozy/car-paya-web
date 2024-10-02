@@ -32,6 +32,7 @@ const PurchaseBatteryModal = (props) => {
   const [nobatteriesData, setNobatteriesData] = useState({});
   const [sameAmpBattery, setSameAmpBattery] = useState({});
   const [amperSelectData, setAmperSelectData] = useState([]);
+  const [count, setCount] = useState(1);
   const router = useRouter();
   const pathName = usePathname();
   const setQuery = useSetQuery();
@@ -63,6 +64,7 @@ const PurchaseBatteryModal = (props) => {
 
   const selectOptionHandler = (index, totalPrice, productId, id) => {
     setIsSelected(index);
+    setCount(1);
     console.log(totalPrice, productId, id);
     if (id === "noneOldBattery") {
       if (pathName.startsWith("/batteries")) {
@@ -140,7 +142,7 @@ const PurchaseBatteryModal = (props) => {
     console.log(batteriesData);
     sessionStorage.setItem(
       "batteriesCart",
-      JSON.stringify({ batteryName: batteriesData.name }),
+      JSON.stringify({ batteryName: batteriesData.name, quantity: count }),
     );
     // const data = await postData("/web/cart/remove", {
     //   cartable_id: JSON.parse(localStorage.getItem("batteryTotalPrice"))
@@ -245,6 +247,7 @@ const PurchaseBatteryModal = (props) => {
         if (option.id === "oldSameAmperBattery") {
           option.title = ` باتری ${sameAmpBattery.product_name} آمپر (با باتری فرسوده هم آمپر) `;
           option.productId = batteriesData.id;
+          option.price = nobatteriesData.calculation.difference_same_amp;
           console.log(sameAmpBattery, batteriesData);
           setTotalPrice({
             price: sameAmpBattery.calculation,
@@ -260,7 +263,7 @@ const PurchaseBatteryModal = (props) => {
         } else if (option.id === "noneOldBattery") {
           option.title = ` باتری ${nobatteriesData["product_name"]} آمپر (بدون باتری فرسوده) `;
           option.productId = batteriesData.id;
-          option.price = nobatteriesData.calculation.difference_same_amp;
+          option.price = 0;
           return option;
         }
       });
@@ -364,7 +367,14 @@ const PurchaseBatteryModal = (props) => {
     // );
   };
 
-  console.log(selectOption);
+  const countHandler = (number) => {
+    if (count + number > 0) {
+      setCount((prev) => prev + number);
+    }
+  };
+
+  console.log(count);
+
   return (
     <>
       <div
@@ -413,7 +423,7 @@ const PurchaseBatteryModal = (props) => {
                             icon={"cc-edit"}
                             title={"انتخاب آمپر"}
                             data={amperSelectData}
-                            height={"h-[200px]"}
+                            height={"h-[150px]"}
                             inputHeight={"h-[40px]"}
                             iconSize={"text-[18px]"}
                             disabled={isSelected !== 1}
@@ -434,20 +444,54 @@ const PurchaseBatteryModal = (props) => {
                       )}
                     </h3>
                   </div>
+                  {console.log(item)}
                   <div className="flex justify-end w-full">
                     <p className="flex items-center gap-2 text-16">
-                      {item.price.toString().split("")[0] === "-"
-                        ? numberWithCommas(item.price)
-                        : "+" + numberWithCommas(item.price)}
-                      <span>تومان</span>
+                      {item.price.toString().split("")[0] === "-" ? (
+                        <>
+                          <span>{numberWithCommas(item.price)}</span>
+                          <span>تومان</span>
+                        </>
+                      ) : item.id === "noneOldBattery" ? (
+                        ""
+                      ) : (
+                        <>
+                          <span>{"+" + numberWithCommas(item.price)}</span>
+                          <span>تومان</span>
+                        </>
+                      )}
                     </p>
                     {/*<Image src={Toman} alt="" width={20} height={20} />*/}
                   </div>
+                  {item.id === "noneOldBattery" && (
+                    <div className={"flex items-center gap-2 self-end"}>
+                      <button
+                        className={`border ${!(isSelected === index) ? "border-[#FCCAAC] text-[#FCCAAC]" : "border-[#F66B34] text-[#F66B34]"} w-10 h-9 rounded-8 flex justify-center items-center`}
+                        disabled={!(isSelected === index)}
+                        onClick={() => countHandler(1)}
+                      >
+                        <span className={"inline-block pt-[3px]"}>+</span>
+                      </button>
+                      <span
+                        className={`${!(isSelected === index) ? "text-[#888888]" : "text-[#0F0F0F] "} border-b border-b-[#BBBBBB] w-[29px] h-[23px] flex justify-center items-center`}
+                      >
+                        {count}
+                      </span>
+                      <button
+                        className={`border ${!(isSelected === index) ? "border-[#FCCAAC]" : "border-[#F66B34]"} w-10 h-9 rounded-8 flex justify-center items-center`}
+                        disabled={!(isSelected === index)}
+                        onClick={() => countHandler(-1)}
+                      >
+                        <span
+                          className={`inline-block w-[11px] h-[2px] ${!(isSelected === index) ? "bg-[#FCCAAC]" : "bg-[#F66B34]"}`}
+                        ></span>
+                      </button>
+                    </div>
+                  )}
                 </div>
               ))}
             </div>
           </div>
-          {console.log(totalPrice)}
           <div className="flex size746:gap-0 gap-4 items-center justify-between py-[1.5rem] shadow-[0_0_5px_0_rgba(0,0,0,0.4)] px-4">
             <div className="flex items-center gap-[0.25rem] size1000:gap-[0.5rem]">
               <p className={"size746:text-[16px] text-14"}>مبلغ قابل پرداخت:</p>
@@ -456,7 +500,7 @@ const PurchaseBatteryModal = (props) => {
                   <span>
                     {numberWithCommas(
                       typeof totalPrice.price === "number"
-                        ? totalPrice.price
+                        ? count * totalPrice.price
                         : 0,
                     )}
                   </span>
