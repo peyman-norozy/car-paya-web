@@ -28,6 +28,7 @@ const VerificationSecondStep = (props) => {
   const [optionIsOpen, setOptionIsOpen] = useState(false);
   const [timeIsSelected, setTimeIsSelected] = useState(null);
   const [buttonIsdisabled, setButtonIsdisabled] = useState(false);
+  const [fluctuation , setFluctuation] = useState(null)
   const [data, setData] = useState([]);
   const [timeStamp, setTimeStamp] = useState(null);
   const setQuery = useSetQuery();
@@ -47,7 +48,9 @@ const VerificationSecondStep = (props) => {
       cart.time_id = timeIsSelected.split("/")[0];
       cart.exact_time = timeIsSelected.split("/")[1];
       cart.time_stamp = timeStamp;
+      cart.price_fluctuation = fluctuation
       sessionStorage.setItem("verificationCart", JSON.stringify(cart));
+      nProgress.start()
       router.push(
         `/vehicle-verification/location-selection?city_id=${city_id}&vehicle_tip=${selectedItem}&package_id=${package_id}&reservation_time_slice_id=${timeIsSelected.split("/")[0]}&exact_time=${timeIsSelected.split("/")[1]}&step=step-4`
       );
@@ -191,6 +194,7 @@ const VerificationSecondStep = (props) => {
               setOptionIsOpen={setOptionIsOpen}
               optionIsOpen={optionIsOpen}
               accordionState={props.accordionState}
+              setFluctuation={setFluctuation}
             />
           </div>
           <button

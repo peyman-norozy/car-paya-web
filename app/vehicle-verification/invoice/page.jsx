@@ -17,6 +17,7 @@ import Link from "next/link";
 import DiscountPercent from "@/components/DiscountPercent/DiscountPercent";
 import axios from "axios";
 import { getCookie } from "cookies-next";
+import nProgress from "nprogress";
 
 const VerificationInvoice = () => {
   const [faktorData, setFaktorData] = useState({});
@@ -92,6 +93,7 @@ const VerificationInvoice = () => {
         }
       )
       .then((res) => {
+        nProgress.start()
         router.push(res?.data?.action);
       });
   }

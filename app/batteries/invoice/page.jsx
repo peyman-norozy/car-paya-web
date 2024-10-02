@@ -12,6 +12,7 @@ import { persianDateCovertor, persianStringDay } from "@/utils/function-utils";
 import Link from "next/link";
 import DiscountPercent from "@/components/DiscountPercent/DiscountPercent";
 import { postData } from "@/utils/client-api-function-utils";
+import nProgress from "nprogress";
 
 const InvoicePage = () => {
   const [client, setClient] = useState(false);
@@ -73,6 +74,7 @@ const InvoicePage = () => {
       shipped_time: searchParams.get("time_id")?.split("/")[1],
     });
     if (response.status === 200) {
+      nProgress.start()
       router.push(response?.data?.action);
     }
   }

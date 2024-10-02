@@ -61,6 +61,7 @@ import { useRouter } from "next/navigation";
 import { error } from "@/utils/function-utils";
 import { useSelector } from "react-redux";
 import CarAndCityContainer from "@/components/public/CarAndCityContainer";
+import nProgress from "nprogress";
 // import CarAndCityContainer from "./public/CarAndCityContainer";
 
 const VerificationFirstStep = (props) => {
@@ -108,6 +109,7 @@ const VerificationFirstStep = (props) => {
       //   { key: "step", value: "step-1" },
       // ]);
       // setStep(2);
+      nProgress.start()
       router.push(
         `/vehicle-verification/service-selection?city_id=${JSON.parse(localStorage.getItem("city")).cityId}&vehicle_tip=${JSON.parse(localStorage.getItem("selectedVehicle")).id}&step=step-1`
       );

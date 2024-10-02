@@ -12,6 +12,7 @@ import { ToastContainer } from "react-toastify";
 import search from "@/public/assets/images/search.png";
 import { getCookies } from "cookies-next";
 import { setLoginModal } from "@/store/todoSlice";
+import nProgress from "nprogress";
 const PackageStep = () => {
   const router = useRouter();
   const pathname = usePathname();
@@ -94,6 +95,7 @@ const PackageStep = () => {
     //   },
     //   { key: "package_id", value: isSelected },
     // ]);
+    nProgress.start()
     router.push(
         `/vehicle-verification/time-selection?city_id=${city_id}&vehicle_tip=${selectedItem}&package_id=${isSelected}&step=step-2`
       );

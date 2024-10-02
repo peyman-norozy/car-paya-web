@@ -91,6 +91,12 @@ const ReserveTimeVerification = (props) => {
                   key={index}
                   className={`flex items-center p-2 ${timeIsSelected === item.id + "/" + +item.start_time + ":00" ? "border-b border-b-[#F66B34]" : ""} gap-6`}
                   onClick={(e) => {
+                    item.swing_type
+                      ? props.setFluctuation({
+                          type: item.swing_type,
+                          price: (packagePrice * item.diff_percent) / 100,
+                        })
+                      : "";
                     setTimeStamp(data[0]);
                     timeIsSelected === item.id + "/" + item.start_time + ":00"
                       ? setTimeIsSelected(null)
@@ -115,6 +121,12 @@ const ReserveTimeVerification = (props) => {
                   key={index}
                   className={`flex items-center p-2 ${timeIsSelected === item.id + "/" + (+item.start_time + 1) + ":00" ? "border-b border-b-[#F66B34]" : ""} gap-6`}
                   onClick={(e) => {
+                    item.swing_type
+                      ? props.setFluctuation({
+                          type: item.swing_type,
+                          price: (packagePrice * item.diff_percent) / 100,
+                        })
+                      : "";
                     setTimeStamp(data[0]);
                     timeIsSelected ===
                     item.id + "/" + (+item.start_time + 1) + ":00"
@@ -140,6 +152,12 @@ const ReserveTimeVerification = (props) => {
                   key={index}
                   className={`flex items-center p-2 ${timeIsSelected === item.id + "/" + +item.start_time + ":30" ? "border-b border-b-[#F66B34]" : ""} gap-6`}
                   onClick={(e) => {
+                    item.swing_type
+                      ? props.setFluctuation({
+                          type: item.swing_type,
+                          price: (packagePrice * item.diff_percent) / 100,
+                        })
+                      : "";
                     setTimeStamp(data[0]);
                     timeIsSelected === item.id + "/" + item.start_time + ":30"
                       ? setTimeIsSelected(null)
@@ -164,6 +182,12 @@ const ReserveTimeVerification = (props) => {
                   key={index}
                   className={`flex items-center p-2 ${timeIsSelected === item.id + "/" + (+item.start_time + 1) + ":30" ? "border-b border-b-[#F66B34]" : ""} gap-6`}
                   onClick={(e) => {
+                    item.swing_type
+                      ? props.setFluctuation({
+                          type: item.swing_type,
+                          price: (packagePrice * item.diff_percent) / 100,
+                        })
+                      : "";
                     setTimeStamp(data[0]);
                     timeIsSelected ===
                     item.id + "/" + (+item.start_time + 1) + ":30"

@@ -20,6 +20,7 @@ import UserAddressCard from "@/components/vehicle-verification/UserAddressCard";
 import AgentAdressCard from "@/components/vehicle-verification/AgentAdressCard";
 import AreaModal from "@/components/vehicle-verification/AreaModal";
 import DeleteModal from "@/components/public/DeleteModal";
+import nProgress from "nprogress";
 
 const VerificationThirdStep = (props) => {
   // const [isSelected, setIsSelected] = useState(0);
@@ -148,6 +149,7 @@ const VerificationThirdStep = (props) => {
       let cart = JSON.parse(sessionStorage.getItem("verificationCart"));
       cart.selectedAddressText = selectedAddressText;
       sessionStorage.setItem("verificationCart", JSON.stringify(cart));
+      nProgress.start()
       router.push(
         `/vehicle-verification/invoice?city_id=${city_id}&vehicle_tip=${selectedItem}&package_id=${package_id}&reservation_time_slice_id=${reservation_time_slice_id}&exact_time=${exact_time}&type_service=${type}&registrationable_id=${selectedAddress}&step=step-4`
       );
