@@ -245,6 +245,7 @@ const PurchaseBatteryModal = (props) => {
         if (option.id === "oldSameAmperBattery") {
           option.title = ` باتری ${sameAmpBattery.product_name} آمپر (با باتری فرسوده هم آمپر) `;
           option.productId = batteriesData.id;
+          option.price = nobatteriesData.calculation.difference_same_amp;
           console.log(sameAmpBattery, batteriesData);
           setTotalPrice({
             price: sameAmpBattery.calculation,
@@ -260,7 +261,7 @@ const PurchaseBatteryModal = (props) => {
         } else if (option.id === "noneOldBattery") {
           option.title = ` باتری ${nobatteriesData["product_name"]} آمپر (بدون باتری فرسوده) `;
           option.productId = batteriesData.id;
-          option.price = nobatteriesData.calculation.difference_same_amp;
+          option.price = 0;
           return option;
         }
       });
@@ -413,7 +414,7 @@ const PurchaseBatteryModal = (props) => {
                             icon={"cc-edit"}
                             title={"انتخاب آمپر"}
                             data={amperSelectData}
-                            height={"h-[200px]"}
+                            height={"h-[150px]"}
                             inputHeight={"h-[40px]"}
                             iconSize={"text-[18px]"}
                             disabled={isSelected !== 1}
@@ -434,12 +435,22 @@ const PurchaseBatteryModal = (props) => {
                       )}
                     </h3>
                   </div>
+                  {console.log(item)}
                   <div className="flex justify-end w-full">
                     <p className="flex items-center gap-2 text-16">
-                      {item.price.toString().split("")[0] === "-"
-                        ? numberWithCommas(item.price)
-                        : "+" + numberWithCommas(item.price)}
-                      <span>تومان</span>
+                      {item.price.toString().split("")[0] === "-" ? (
+                        <div>
+                          <span>{numberWithCommas(item.price)}</span>
+                          <span>تومان</span>
+                        </div>
+                      ) : item.id === "noneOldBattery" ? (
+                        ""
+                      ) : (
+                        <div>
+                          <span>{"+" + numberWithCommas(item.price)}</span>
+                          <span>تومان</span>
+                        </div>
+                      )}
                     </p>
                     {/*<Image src={Toman} alt="" width={20} height={20} />*/}
                   </div>
