@@ -14,6 +14,7 @@ import DiscountPercent from "@/components/DiscountPercent/DiscountPercent";
 import { postData } from "@/utils/client-api-function-utils";
 
 const InvoicePage = () => {
+  const router = useRouter();
   const [client, setClient] = useState(false);
   const [faktorData, setFaktorData] = useState({});
   const [roleChecked, setRoleChecked] = useState(false);
@@ -33,7 +34,6 @@ const InvoicePage = () => {
   const typeService = searchParams.get("type_service");
   const serviceLocationId = searchParams.get("service_location_id");
   const time = searchParams.get("time_id");
-  const router = useRouter();
   const timestamp = Math.floor(Date.now() / 1000);
 
   useEffect(() => {
@@ -70,6 +70,7 @@ const InvoicePage = () => {
       coupon_code: coupon,
       amp_user: searchParams.get("amper"),
       battery_type: searchParams.get("type_service"),
+      quantity: JSON.parse(sessionStorage.getItem("batteriesCart")).quantity,
       shipped_time: searchParams.get("time_id")?.split("/")[1],
     });
     if (response.status === 200) {
