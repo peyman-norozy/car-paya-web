@@ -53,7 +53,7 @@ const DiscountPercent = (props) => {
   return (
     <>
       <div
-        className={`h-[48px] border ${validationState ? "border-red-600" : "border-[#B0B0B0]"} rounded-[8px] flex items-center justify-between pr-3 relative`}
+        className={`h-[40px] border ${validationState ? "border-red-600" : "border-[#B0B0B0]"} rounded-[8px] flex items-center justify-between pr-3 relative`}
       >
         <i
           className={
