@@ -23,10 +23,12 @@ const VerificationInvoice = () => {
   const [faktorData, setFaktorData] = useState({});
   const [roleChecked, setRoleChecked] = useState(false);
   const [discountPrice, setDiscountPrice] = useState({});
+  const [finalPrice, setFinalPrice] = useState(0);
+  const [discountedprice, setDiscountedPrice] = useState(0);
+  const [fluctuatingPrice, setFluctuatingPrice] = useState(0);
   const [discount, setDiscount] = useState(0);
   const [cart, setCart] = useState({});
   const [vehicle, setVehicle] = useState({});
-  const [price, setPrice] = useState(0);
   const [coupon, setCoupon] = useState("");
   const innerWidth = useSelector((item) => item.todo.windowInnerWidth);
   //   const orderProduct = useRef();
@@ -93,7 +95,7 @@ const VerificationInvoice = () => {
         }
       )
       .then((res) => {
-        nProgress.start()
+        nProgress.start();
         router.push(res?.data?.action);
       });
   }
@@ -237,8 +239,7 @@ const VerificationInvoice = () => {
                     length={1}
                     discountPrice={discountPrice}
                     registerClickHandler={registerClickHandler}
-                    setPrice={setPrice}
-                    price={price}
+                    price_fluctuation={cart?.price_fluctuation}
                     totalPrice={cart.price}
                     coupon={coupon}
                     setCoupon={setCoupon}
@@ -247,6 +248,12 @@ const VerificationInvoice = () => {
                     discount={discount}
                     setDiscountPrice={setDiscountPrice}
                     type={"master"}
+                    finalPrice={finalPrice}
+                    setFinalPrice={setFinalPrice}
+                    discountedprice={discountedprice}
+                    setDiscountedPrice={setDiscountedPrice}
+                    fluctuatingPrice={fluctuatingPrice}
+                    setFluctuatingPrice={setFluctuatingPrice}
                   />
                 </div>
               )}
@@ -309,7 +316,9 @@ const VerificationInvoice = () => {
               roleChecked={roleChecked}
               discount={discount}
               registerClickHandler={registerClickHandler}
-              price={price}
+              finalPrice={finalPrice}
+              discountedprice={discountedprice}
+              fluctuatingPrice={fluctuatingPrice}
             />
           )}
           {/* <div className="flex justify-start items-center text-xs gap-1 font-medium mt-2 lg:hidden">
@@ -335,9 +344,8 @@ const VerificationInvoice = () => {
             length={1}
             discountPrice={discountPrice}
             registerClickHandler={registerClickHandler}
-            setPrice={setPrice}
-            price={price}
             totalPrice={cart.price}
+            price_fluctuation={cart?.price_fluctuation}
             coupon={coupon}
             setCoupon={setCoupon}
             setRoleChecked={setRoleChecked}
@@ -345,6 +353,12 @@ const VerificationInvoice = () => {
             discount={discount}
             setDiscountPrice={setDiscountPrice}
             type={"master"}
+            finalPrice={finalPrice}
+            setFinalPrice={setFinalPrice}
+            discountedprice={discountedprice}
+            setDiscountedPrice={setDiscountedPrice}
+            fluctuatingPrice={fluctuatingPrice}
+            setFluctuatingPrice={setFluctuatingPrice}
           />
         </div>
       )}
