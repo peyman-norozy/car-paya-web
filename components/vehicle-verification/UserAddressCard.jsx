@@ -50,7 +50,7 @@ const UserAddressCard = (props) => {
             className={`cc-filter text-2xl absolute ${openMenu ? "left-24" : "left-0"} transition-all top-0 text-[#DB3737]`}
             onClick={() => {
               dispatch(setDeleteModal(true));
-              dispatch(setDeleteModalId(props.data.id));
+              dispatch(setDeleteModalId(props.data.address_id));
             }}
           />
         </div>
@@ -82,7 +82,7 @@ const UserAddressCard = (props) => {
                 pageType={"edite"}
                 setModalIsOpen={props.setEditModalIsOpen}
                 setIsLoading={props.setIsLoading}
-                addressEditId={props.data.id}
+                addressEditId={props.data.address_id}
               />
             </div>
             {/* <div
