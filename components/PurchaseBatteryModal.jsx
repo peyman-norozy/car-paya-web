@@ -30,6 +30,7 @@ const PurchaseBatteryModal = (props) => {
   });
   const batteriesData = useSelector((data) => data.todo.batteriesData);
   const [nobatteriesData, setNobatteriesData] = useState({});
+  const [client, setClient] = useState(false);
   const [sameAmpBattery, setSameAmpBattery] = useState({});
   const [amperSelectData, setAmperSelectData] = useState([]);
   const [count, setCount] = useState(1);
@@ -191,7 +192,7 @@ const PurchaseBatteryModal = (props) => {
 
   useEffect(() => {
     if (!cityId && batteriesData?.amp) {
-      setQuery.updateQueryParams({ amper: batteriesData.amp });
+      setQuery.updateQueryParams({ amper: batteriesData.amp }, null, false);
     } else if (cityId) {
       setQuery.updateQueryParams({ amper: cityId });
     }
@@ -357,6 +358,10 @@ const PurchaseBatteryModal = (props) => {
     }
   }, [totalPrice]);
 
+  useEffect(() => {
+    setClient(true);
+  }, []);
+
   const closeClickHandler = () => {
     props.setBatteryIsSelected(false);
     setIsSelected(false);
@@ -414,7 +419,7 @@ const PurchaseBatteryModal = (props) => {
                       }
                       class_name="rounded-[50%] cursor-pointer self-start"
                     />
-                    <h3 className={`text-12 size1000:text-14`}>
+                    <h3 className={`text-12 size1000:text-14 w-full`}>
                       <span className={""}> {item.title}</span>
                       {item.id === "selectAmper" ? (
                         <div className={"mt-4"}>
@@ -444,48 +449,77 @@ const PurchaseBatteryModal = (props) => {
                       )}
                     </h3>
                   </div>
-                  {console.log(item)}
                   <div className="flex justify-end w-full">
-                    <p className="flex items-center gap-2 text-16">
+                    <p className="flex items-center gap-1 text-16">
                       {item.price.toString().split("")[0] === "-" ? (
                         <>
-                          <span>{numberWithCommas(item.price)}</span>
-                          <span>تومان</span>
+                          <span
+                            className={"inline-block w-2 h-[2px] bg-[#1E67BF]"}
+                          ></span>
+                          <span className={"text-[#1E67BF]"}>
+                            {numberWithCommas(
+                              item.price
+                                .toString()
+                                .split("")
+                                .filter((item) => item !== "-")
+                                .join(""),
+                            )}
+                          </span>
+                          <span className={"text-[#1E67BF]"}>تومان</span>
                         </>
                       ) : item.id === "noneOldBattery" ? (
                         ""
                       ) : (
                         <>
-                          <span>{"+" + numberWithCommas(item.price)}</span>
-                          <span>تومان</span>
+                          <span
+                            className={"inline-block w-2 h-[2px] bg-[#1E67BF]"}
+                          ></span>
+                          <span className={"text-[#1E67BF]"}>
+                            {numberWithCommas(item.price)}
+                          </span>
+                          <span className={"text-[#1E67BF]"}>تومان</span>
                         </>
                       )}
                     </p>
                     {/*<Image src={Toman} alt="" width={20} height={20} />*/}
                   </div>
                   {item.id === "noneOldBattery" && (
-                    <div className={"flex items-center gap-2 self-end"}>
-                      <button
-                        className={`border ${!(isSelected === index) ? "border-[#FCCAAC] text-[#FCCAAC]" : "border-[#F66B34] text-[#F66B34]"} w-10 h-9 rounded-8 flex justify-center items-center`}
-                        disabled={!(isSelected === index)}
-                        onClick={() => countHandler(1)}
-                      >
-                        <span className={"inline-block pt-[3px]"}>+</span>
-                      </button>
-                      <span
-                        className={`${!(isSelected === index) ? "text-[#888888]" : "text-[#0F0F0F] "} border-b border-b-[#BBBBBB] w-[29px] h-[23px] flex justify-center items-center`}
-                      >
-                        {count}
-                      </span>
-                      <button
-                        className={`border ${!(isSelected === index) ? "border-[#FCCAAC]" : "border-[#F66B34]"} w-10 h-9 rounded-8 flex justify-center items-center`}
-                        disabled={!(isSelected === index)}
-                        onClick={() => countHandler(-1)}
-                      >
+                    <div className={"flex justify-between w-full"}>
+                      <div className={"flex items-center gap-2 self-start"}>
+                        <button
+                          className={`border ${!(isSelected === index) ? "border-[#FCCAAC] text-[#FCCAAC]" : "border-[#F66B34] text-[#F66B34]"} w-10 h-9 rounded-8 flex justify-center items-center`}
+                          disabled={!(isSelected === index)}
+                          onClick={() => countHandler(1)}
+                        >
+                          <span className={"inline-block pt-[3px]"}>+</span>
+                        </button>
                         <span
-                          className={`inline-block w-[11px] h-[2px] ${!(isSelected === index) ? "bg-[#FCCAAC]" : "bg-[#F66B34]"}`}
-                        ></span>
-                      </button>
+                          className={`${!(isSelected === index) ? "text-[#888888]" : "text-[#0F0F0F] "} border-b border-b-[#BBBBBB] w-[29px] h-[23px] flex justify-center items-center`}
+                        >
+                          {count}
+                        </span>
+                        <button
+                          className={`border ${!(isSelected === index) ? "border-[#FCCAAC]" : "border-[#F66B34]"} w-10 h-9 rounded-8 flex justify-center items-center`}
+                          disabled={!(isSelected === index)}
+                          onClick={() => countHandler(-1)}
+                        >
+                          <span
+                            className={`inline-block w-[11px] h-[2px] ${!(isSelected === index) ? "bg-[#FCCAAC]" : "bg-[#F66B34]"}`}
+                          ></span>
+                        </button>
+                      </div>
+                      <div className={"flex items-center gap-1"}>
+                        <span className={"inline-block text-[#1E67BF]"}>+</span>
+                        <span className={"text-[#1E67BF]"}>
+                          {client &&
+                            numberWithCommas(
+                              sessionStorage.getItem(
+                                "batteriesDiscountedPrice",
+                              ),
+                            )}
+                        </span>
+                        <span className={"text-[#1E67BF]"}>تومان</span>
+                      </div>
                     </div>
                   )}
                 </div>

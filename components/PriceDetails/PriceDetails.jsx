@@ -20,7 +20,7 @@ const PriceDetails = (props) => {
       props.setDiscountedPrice(Number(props.discountPrice.amount));
     } else if (props.discountPrice?.percentage) {
       props.setDiscountedPrice(
-        Number(props.totalPrice * props.discountPrice.percentage) / 100
+        Number(props.totalPrice * props.discountPrice.percentage) / 100,
       );
     } else {
       props.setDiscountedPrice(0);
@@ -83,33 +83,34 @@ const PriceDetails = (props) => {
                     Number((props.price * props.discountPrice.percentage) / 100)
                   )
                 : 0} */}
-            {props.discountedprice}
+            {numberWithCommas(props?.discountedprice)}
           </span>
           <span className={"text-[#22A137] text-14"}>تومان</span>
         </div>
       </div>
-      {(props.price_fluctuation&&props.price_fluctuation?.description !== "") && (
-        <div className="flex justify-between">
-          <span className="text-[#454545] font-medium lg:text-16 text-14">
-            {props?.price_fluctuation?.description}
-          </span>
-          {props?.price_fluctuation?.type === "DECREASE" ? (
-            <div className={"flex items-center gap-1"}>
-              <span className="text-[#DB3737] text-14">
-                {numberWithCommas(props?.price_fluctuation?.price)}
-              </span>
-              <span className={"text-[#DB3737] text-14"}>تومان</span>
-            </div>
-          ) : (
-            <div className={"flex items-center gap-1"}>
-              <span className="text-[#22A137] text-14">
-                {numberWithCommas(props?.price_fluctuation?.price)}
-              </span>
-              <span className={"text-[#22A137] text-14"}>تومان</span>
-            </div>
-          )}
-        </div>
-      )}
+      {props.price_fluctuation &&
+        props.price_fluctuation?.description !== "" && (
+          <div className="flex justify-between">
+            <span className="text-[#454545] font-medium lg:text-16 text-14">
+              {props?.price_fluctuation?.description}
+            </span>
+            {props?.price_fluctuation?.type === "DECREASE" ? (
+              <div className={"flex items-center gap-1"}>
+                <span className="text-[#DB3737] text-14">
+                  {numberWithCommas(props?.price_fluctuation?.price)}
+                </span>
+                <span className={"text-[#DB3737] text-14"}>تومان</span>
+              </div>
+            ) : (
+              <div className={"flex items-center gap-1"}>
+                <span className="text-[#22A137] text-14">
+                  {numberWithCommas(props?.price_fluctuation?.price)}
+                </span>
+                <span className={"text-[#22A137] text-14"}>تومان</span>
+              </div>
+            )}
+          </div>
+        )}
       <div className="justify-between items-center hidden lg:flex">
         <div className="flex gap-1 items-center">
           <span className="text-[#3C3C3C] font-medium">جمع قابل پرداخت:</span>
@@ -128,7 +129,9 @@ const PriceDetails = (props) => {
             {/*            discount,*/}
             {/*    )}*/}
             {/* {numberWithCommas(props.price)} */}
-            {numberWithCommas(props.finalPrice - props.discountedprice + props.fluctuatingPrice)}
+            {numberWithCommas(
+              props.finalPrice - props.discountedprice + props.fluctuatingPrice,
+            )}
             تومان
           </span>
         </div>
@@ -147,7 +150,9 @@ const PriceDetails = (props) => {
       <div className="flex justify-between font-semibold lg:hidden">
         <span className="text-[#F58052]">جمع قابل پرداخت:</span>
         <span className="text-[#F58052]">
-          {numberWithCommas(props.finalPrice - props.discountedprice + props.fluctuatingPrice)}
+          {numberWithCommas(
+            props.finalPrice - props.discountedprice + props.fluctuatingPrice,
+          )}
           تومان
         </span>
       </div>

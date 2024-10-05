@@ -18,6 +18,10 @@ const BatteryPriceDitail = (props) => {
   const dispatch = useDispatch();
 
   const basketClickHandler = async () => {
+    sessionStorage.setItem(
+      "batteriesDiscountedPrice",
+      props.item.discounted_price,
+    );
     const CityId = JSON.parse(localStorage.getItem("city"))?.cityId;
     const selectedVehicleId = JSON.parse(
       localStorage.getItem("selectedVehicle"),

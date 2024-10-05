@@ -36,6 +36,8 @@ const InvoicePage = () => {
   const typeService = searchParams.get("type_service");
   const serviceLocationId = searchParams.get("service_location_id");
   const time = searchParams.get("time_id");
+  const attributeSlug = searchParams.get("attribute_slug");
+  const attributeValue = searchParams.get("attribute_value");
   const timestamp = Math.floor(Date.now() / 1000);
 
   useEffect(() => {
@@ -76,7 +78,7 @@ const InvoicePage = () => {
       shipped_time: searchParams.get("time_id")?.split("/")[1],
     });
     if (response.status === 200) {
-      nProgress.start()
+      nProgress.start();
       router.push(response?.data?.action);
     }
   }
@@ -112,7 +114,7 @@ const InvoicePage = () => {
           }
         >
           <Link
-            href={`/batteries/products/newTimeSelector?city_id=${cityId}&type=${type}&vehicle_tip_id=${vehicleTipId}&amper=${amper}&type_service=${typeService}&service_location_id=${serviceLocationId}`}
+            href={`/batteries/products/newTimeSelector?attribute_slug=${attributeSlug}&attribute_value=${attributeValue}&city_id=${cityId}&type=${type}&vehicle_tip_id=${vehicleTipId}&amper=${amper}&type_service=${typeService}&service_location_id=${serviceLocationId}`}
             className={"flex items-center"}
           >
             <i className={"cc-arrow-right text-24"} />
