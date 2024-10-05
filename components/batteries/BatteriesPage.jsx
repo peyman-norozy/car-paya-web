@@ -33,7 +33,6 @@ const BatteriesPage = (props) => {
   const attributeSlug = searchParams.get("attribute_slug");
   const attributeValue = searchParams.get("attribute_value");
   const selectTipState = searchParams.get("selectTipState");
-  const queryPage = searchParams.get("page");
   let page = useRef(1);
 
   console.log(props);
@@ -117,6 +116,12 @@ const BatteriesPage = (props) => {
     setBatteriesData((prev) => [...prev, ...props.data?.data]);
   }, [props.searchParams.page]);
 
+  useEffect(() => {
+    if (isMounted) {
+      setBatteriesData(props.data?.data);
+    }
+  }, [props.searchParams.amp]);
+
   const closeModal = () => {
     setModalState(false);
   };
@@ -127,7 +132,7 @@ const BatteriesPage = (props) => {
 
   return (
     <div className={"relative"}>
-      <FilterAndSelectedCar options={props.data.filter} />
+      <FilterAndSelectedCar options={props.data.filter} page={page} />
       <div
         className={
           "flex flex-col relative py-4 max-w-[1772px] lg:w-[calc(100%-424px)] mr-auto bg-[#FDFDFD] lg:shadow-[0_0_6px_0_rgba(125,125,125,0.5)] lg:p-6 rounded-2xl min-h-[605px] mb-4 lg:mt-7"
