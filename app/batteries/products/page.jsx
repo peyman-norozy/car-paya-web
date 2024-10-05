@@ -33,7 +33,7 @@ export const metadata = {
 const BatteriesData = async (props) => {
   const fetchState = props.filter.selectTipState?.split(",")[1];
 
-  console.log(props.filter.attribute_value);
+  console.log(props.filter);
   await revalidatePath("/batteries/products");
   const fetchData = await getData(
     "/web/batteries",
@@ -42,6 +42,8 @@ const BatteriesData = async (props) => {
       amp: props.filter.amp,
       brand: props.filter.brand,
       tip_id: fetchState,
+      per_page: 2,
+      page: props.filter.page ? props.filter.page : 1,
       attribute_slug: props.filter.attribute_slug,
       attribute_value: props.filter.attribute_value,
     },
