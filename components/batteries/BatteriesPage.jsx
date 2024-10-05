@@ -16,15 +16,15 @@ import FilterAndSelectedCar from "@/components/FilterAndSelectedCar/FilterAndSel
 
 const BatteriesPage = (props) => {
   const query = useSetQuery();
+  const [batteriesData, setBatteriesData] = useState([]);
   const [batteryIsSelected, setBatteryIsSelected] = useState(false);
   const [filterModalState, setFilterModalState] = useState(false);
   const [modalState, setModalState] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
+  const [isAtBottom, setIsAtBottom] = useState(false);
   const [filterId, setFilterId] = useState("");
   const dispatch = useDispatch();
-  const filterRef = useRef(null);
   const router = useRouter();
-  const filterTitleRef = useRef(null);
   const searchParams = useSearchParams();
   const batteryBasketLength = useSelector(
     (item) => item.todo.batteriesBasketLength,
@@ -33,6 +33,8 @@ const BatteriesPage = (props) => {
   const attributeSlug = searchParams.get("attribute_slug");
   const attributeValue = searchParams.get("attribute_value");
   const selectTipState = searchParams.get("selectTipState");
+  const queryPage = searchParams.get("page");
+  let page = useRef(1);
 
   console.log(props);
   useEffect(() => {
@@ -72,10 +74,33 @@ const BatteriesPage = (props) => {
     }
   }, [dispatch, router, searchParams]);
 
-  const filterClickHandler = (event, id) => {
-    setFilterModalState(true);
-    setFilterId(id);
-  };
+  useEffect(() => {
+    const handleScroll = () => {
+      // محاسبه اینکه آیا به انتهای صفحه رسیده‌ایم یا نه
+      const scrollTop = window.scrollY;
+      const windowHeight = window.innerHeight;
+      const fullHeight = document.documentElement.scrollHeight;
+
+      if (scrollTop + windowHeight >= fullHeight) {
+        setIsAtBottom(true);
+        console.log("شما به انتهای صفحه رسیده‌اید!");
+        page.current = page.current + 1;
+        if (props.data?.meta["last_page"] >= page.current) {
+          query.updateQueryParams({ page: page.current }, null, false);
+        }
+      } else {
+        setIsAtBottom(false);
+      }
+    };
+
+    // اضافه کردن event listener برای اسکرول
+    window.addEventListener("scroll", handleScroll);
+
+    // پاکسازی event listener هنگام unmount شدن کامپوننت
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   const closeFilterHandler = (event) => {
     if (!event.target.offsetParent?.classList.contains("filterModal")) {
@@ -87,6 +112,10 @@ const BatteriesPage = (props) => {
     window.addEventListener("click", closeFilterHandler);
     return () => window.removeEventListener("click", closeFilterHandler);
   }, []);
+
+  useEffect(() => {
+    setBatteriesData((prev) => [...prev, ...props.data?.data]);
+  }, [props.searchParams.page]);
 
   const closeModal = () => {
     setModalState(false);
@@ -181,7 +210,7 @@ const BatteriesPage = (props) => {
             </div>
           </div>
           <ul className={"mt-4 flex flex-col gap-[32px]"}>
-            {props.data?.data?.map((item, index) => (
+            {batteriesData?.map((item, index) => (
               <BatteriesCard
                 key={index}
                 item={item}
