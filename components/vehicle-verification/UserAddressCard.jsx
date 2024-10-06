@@ -6,10 +6,12 @@ import AddAddressModal from "@/components/vehicle-verification/AddAddressModal";
 const UserAddressCard = (props) => {
   const [openMenu, setOpenMenu] = useState(false);
   const dispatch = useDispatch();
+
   return (
     <div
       className={`flex flex-col gap-4 p-4 rounded-lg bg-white cursor-pointer shadow-[0_0_4px_0_rgba(207,207,207,0.7)] ${props.selectedAddress === props.data.address_id ? "border border-[#F58052]" : ""}`}
       onClick={() => {
+        console.log(props.selectedAddress === props.data.address_id)
         props.selectedAddress === props.data.address_id
           ? props.setSelectedAddress("")
           : props.setSelectedAddress(props.data.address_id);
@@ -42,7 +44,7 @@ const UserAddressCard = (props) => {
           />
           <i
             className={`cc-edit text-2xl absolute ${openMenu ? "left-12" : "left-0"} top-0 transition-all text-[#22A137]`}
-            onClick={()=>{
+            onClick={() => {
               props.setEditModalIsOpen(true);
             }}
           />
@@ -73,19 +75,19 @@ const UserAddressCard = (props) => {
         <span className="text-[#3C3C3C] text-xs">{props.data.address}</span>
       </div>
       {props.editModalIsOpen && (
-          <>
-            <div className={"fixed m-auto inset-0 z-[10000000000] bg-[#0000002d]"} onClick={() => {
-                props.setEditModalIsOpen(false);
-              }}>
-              <AddAddressModal
-                getDataFetch={props.getDataFetch}
-                pageType={"edite"}
-                setModalIsOpen={props.setEditModalIsOpen}
-                setIsLoading={props.setIsLoading}
-                addressEditId={props.data.address_id}
-              />
-            </div>
-            {/* <div
+        <>
+          <div className={"fixed m-auto inset-0 z-[10000000000] bg-[#0000002d]"} onClick={() => {
+            props.setEditModalIsOpen(false);
+          }}>
+            <AddAddressModal
+              getDataFetch={props.getDataFetch}
+              pageType={"edite"}
+              setModalIsOpen={props.setEditModalIsOpen}
+              setIsLoading={props.setIsLoading}
+              addressEditId={props.data.address_id}
+            />
+          </div>
+          {/* <div
               onClick={() => {
                 props.setEditModalIsOpen(false);
               }}
@@ -93,7 +95,7 @@ const UserAddressCard = (props) => {
                 "w-full h-[100vh] fixed top-0 right-0 bg-black opacity-[0.7] z-[100000000]"
               }
             ></div> */}
-          </>
+        </>
       )}
     </div>
   );
