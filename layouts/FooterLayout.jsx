@@ -10,6 +10,7 @@ import youtube from "@/public/assets/images/youtube.png";
 import instagram from "@/public/assets/images/instagram.png";
 import linkedin from "@/public/assets/images/linkedin.png";
 import { useEffect, useState } from "react";
+import Link from "next/link";
 
 const Footer = (props) => {
   const [footerState, setFooterState] = useState(true);
@@ -35,12 +36,12 @@ const Footer = (props) => {
 
   return (
     <footer
-      className={`${props.className} bg-white absolute right-0 left-0 py-6 ${innerWidthNumber > 1025 || footerState ? "pb-24" : "pb-16"} sm:pb-6 rounded-t-2xl flex flex-col lg:flex-row gap-6 text-[#3C3C3C] justify-around ${footerState ? "shadow-[0_-5px_8px_0_rgba(164,164,164,0.25)]" : ""}`}
+      className={`${props.className} bg-white absolute right-0 left-0 lg:pt-6 lg:pb-0 pt-6 pb-6 lg:px-[65px] px-0 ${innerWidthNumber > 1025 || footerState ? "pb-24" : "pb-16"} sm:pb-6 rounded-t-2xl grid lg:grid-cols-12 grid-cols-2 gap-6 text-[#3C3C3C] justify-around ${footerState ? "shadow-[0_-5px_8px_0_rgba(164,164,164,0.25)]" : ""}`}
     >
       {innerWidthNumber > 1025 || footerState ? (
         <>
-          <div className="flex flex-col w-full gap-4 max-w-[620px] m-auto lg:m-0 px-6">
-            <div className="flex gap-3 flex-row justify-start">
+          <div className="flex flex-col lg:flex-row w-full lg:gap-[99px] gap-4 max-w-[620px] m-auto lg:m-0 px-6 size1470:col-span-6 size1228:col-span-7 size1090:col-span-8 lg:col-span-9 col-span-2">
+            <div className="flex gap-3 flex-row lg:flex-col justify-start">
               <Image
                 className="w-16 h-4"
                 src={carpaya}
@@ -52,12 +53,15 @@ const Footer = (props) => {
                 <span className="font-bold text-[#F66B34] text-sm">58919</span>
                 <i className="cc-call text-sm" />
               </a>
+              <p className={"text-12 lg:block hidden"}>
+                پشتیبانی هر روز هفته از ساعت 8 الی 20
+              </p>
             </div>
             <div className="flex flex-col gap-4">
               <span className="font-bold text-sm lg:text-base text-[#1E67BF]">
                 دسترسی سریع
               </span>
-              <ul className="list-disc grid grid-cols-2 pr-4 gap-4 text-[#3C3C3C] text-xs font-medium">
+              <ul className="list-disc grid lg:grid-cols-1 grid-cols-2 pr-4 gap-4 text-[#3C3C3C] text-xs font-medium">
                 <li className="w-fit">درباره ما</li>
                 <li className="w-fit">مجله ها</li>
                 <li className="w-fit">تماس با ما</li>
@@ -66,73 +70,112 @@ const Footer = (props) => {
                 <li className="w-fit">سوالات متداول</li>
               </ul>
             </div>
-          </div>
-          <div className="w-full flex flex-col gap-2 max-w-[620px] m-auto lg:m-0 px-6">
-            <span className="text-[#1E67BF] text-sm font-bold">
-              ارتباط با ما
-            </span>
-            <div className="flex gap-1 items-start">
-              <i className="cc-calling text-xl text-[#F58052]" />
-              <span className="text-sm lg:text-base leading-6">
-                میدان جهاد ، خیابان اسدآبادی ، نبش کوچه انصاری ، پلاک 134 ، واحد
-                10
+            <div className="lg:flex hidden flex-col gap-4 ">
+              <span className="font-bold text-sm lg:text-base text-[#1E67BF]">
+                خدمات کارپایا
               </span>
+              <ul className="list-disc grid lg:grid-cols-1 grid-cols-2 pr-4 gap-4 text-[#3C3C3C] text-xs font-medium">
+                <li className="w-fit">
+                  <Link href={"/vehicle-verification"}>کارشناسی خودرو</Link>
+                </li>
+                <li className="w-fit">
+                  <Link href={"#"}>بیمه</Link>
+                </li>
+                <li className="w-fit">
+                  <Link href={"/periodic-service"}>سرویس دوره ای</Link>
+                </li>
+                <li className="w-fit">
+                  <Link
+                    href={
+                      "/batteries?attribute_slug=type_vehicle&attribute_value=car"
+                    }
+                  >
+                    باتری
+                  </Link>
+                </li>
+                <li className="w-fit">
+                  <Link href={"/detailing"}>دیتیلینگ</Link>
+                </li>
+                <li className="w-fit">
+                  <Link href={"#"}>خرید و فروش</Link>
+                </li>
+              </ul>
             </div>
-            <div className="flex items-center gap-4 w-full justify-center">
-              <Image
-                className="size-8"
-                src={telegram}
-                alt="carcheck"
-                width={32}
-                height={32}
-              />
-              <Image
-                className="size-8"
-                src={x}
-                alt="carcheck"
-                width={32}
-                height={32}
-              />
-              <Image
-                className="size-8"
-                src={youtube}
-                alt="carcheck"
-                width={32}
-                height={32}
-              />
-              <Image
-                className="size-8"
-                src={instagram}
-                alt="carcheck"
-                width={32}
-                height={32}
-              />
-              <Image
-                className="size-8"
-                src={linkedin}
-                alt="carcheck"
-                width={32}
-                height={32}
-              />
-            </div>
-            <div className="flex gap-6 justify-center w-full">
-              <a
-                referrerpolicy="origin"
-                target="_blank"
-                href="https://trustseal.enamad.ir/?id=525362&Code=BHIlG5lcIDB6bsGDp8LzoME3yAXovE8d"
+          </div>
+          <div className="w-full flex flex-col items-center gap-[48px] max-w-[420px] m-auto lg:m-0 px-6 size1470:col-span-6 size1228:col-span-5 size1090:col-span-4 lg:col-span-3 col-span-2">
+            <div className={"flex flex-col items gap-6"}>
+              <span
+                className={
+                  "text-16 font-bold text-[#1E67BF] lg:inline-block hidden"
+                }
               >
-                <img
-                  className="bg-gray-300 size-[60px]"
-                  referrerpolicy="origin"
-                  src="https://trustseal.enamad.ir/logo.aspx?id=525362&Code=BHIlG5lcIDB6bsGDp8LzoME3yAXovE8d"
-                  alt=""
-                  style={{ cursor: "pointer" }}
-                  code="BHIlG5lcIDB6bsGDp8LzoME3yAXovE8d"
+                شبکه اجتماعی کارپایا
+              </span>
+              <div className="flex items-center gap-4 w-full justify-start">
+                <Image
+                  className="size-8"
+                  src={telegram}
+                  alt="carcheck"
+                  width={32}
+                  height={32}
                 />
-              </a>
-              <div className="bg-gray-300 size-[60px]"></div>
-              <div className="bg-gray-300 size-[60px]"></div>
-              {/* <Image
+                <Image
+                  className="size-8"
+                  src={x}
+                  alt="carcheck"
+                  width={32}
+                  height={32}
+                />
+                <Image
+                  className="size-8"
+                  src={youtube}
+                  alt="carcheck"
+                  width={32}
+                  height={32}
+                />
+                <Image
+                  className="size-8"
+                  src={instagram}
+                  alt="carcheck"
+                  width={32}
+                  height={32}
+                />
+                <Image
+                  className="size-8"
+                  src={linkedin}
+                  alt="carcheck"
+                  width={32}
+                  height={32}
+                />
+              </div>
+            </div>
+
+            <div className={"flex flex-col gap-6"}>
+              <span
+                className={
+                  "text-16 font-bold text-[#1E67BF] lg:inline-block hidden"
+                }
+              >
+                نمادها و نشانه ها
+              </span>
+              <div className="flex gap-6 justify-start w-full">
+                <a
+                  referrerPolicy="origin"
+                  target="_blank"
+                  href="https://trustseal.enamad.ir/?id=525362&Code=BHIlG5lcIDB6bsGDp8LzoME3yAXovE8d"
+                >
+                  <img
+                    className="bg-gray-300 size-[60px]"
+                    referrerPolicy="origin"
+                    src="https://trustseal.enamad.ir/logo.aspx?id=525362&Code=BHIlG5lcIDB6bsGDp8LzoME3yAXovE8d"
+                    alt=""
+                    style={{ cursor: "pointer" }}
+                    code="BHIlG5lcIDB6bsGDp8LzoME3yAXovE8d"
+                  />
+                </a>
+                <div className="bg-gray-300 size-[60px]"></div>
+                <div className="bg-gray-300 size-[60px]"></div>
+                {/* <Image
               src="/assets/icons/Enemad.svg"
               alt="enamd"
               width={60}
@@ -146,10 +189,11 @@ const Footer = (props) => {
               height={60}
               className="m-0"
             />     */}
+              </div>
             </div>
           </div>
-          <div className="border-t border-[#BBBBBB] w-full px-4 pt-2 pb-4">
-            <p className="text-[#888888] text-xs font-medium text-center">
+          <div className="border-t border-[#BBBBBB] w-full px-4 pt-4 pb-4 lg:col-span-12 col-span-2 lg:mb-0 mb-20 flex justify-center items-center">
+            <p className="text-[#888888] text-xs font-medium text-center h-full">
               کلیه حقوق مادی و معنوی این وب سایت متعلق به شرکت آسان خودرو می
               باشد.
             </p>
@@ -158,7 +202,6 @@ const Footer = (props) => {
       ) : (
         ""
       )}
-
       {innerWidthNumber < 1025 && <MobileBottomNav />}
     </footer>
   );
