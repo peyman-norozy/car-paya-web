@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import Navlink from "@/components/Navlink";
 import UserPanelAttribute from "@/components/UserPanelAttribute";
 import CategoryModal from "@/components/CategoryModal";
@@ -51,13 +51,13 @@ const NavigationBar = React.forwardRef((props, ref) => {
 
   return (
     <nav className="relative">
-      <ul className={`${props.class_name} size868:text-14 text-12`}>
+      <ul className={`${props.class_name} size868:text-14 text-12 mt-4`}>
         {(innerWidthNumber >= 1000 ? navBarItems : navBarItemsResponsive).map(
           (item, index) =>
             item.href && item.href.length > 0 ? (
               <li
                 key={item.id + index}
-                className="cursor-pointer text-[#fefefe] font-medium"
+                className="cursor-pointer text-[#0F0F0F] font-medium"
               >
                 <Navlink href={item.href} styleState={props.styleState}>
                   {item.title}
@@ -68,7 +68,7 @@ const NavigationBar = React.forwardRef((props, ref) => {
                 {innerWidthNumber >= 1000 ? (
                   <li
                     key={item.id + index}
-                    className="cursor-pointer text-[#fefefe] font-medium"
+                    className="cursor-pointer text-[#0F0F0F] font-medium"
                     onMouseEnter={categoryPoppupDisplay}
                     onMouseLeave={categoryPoppupHidden}
                   >
