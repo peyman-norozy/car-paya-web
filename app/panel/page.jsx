@@ -3,7 +3,7 @@ import dynamic from "next/dynamic";
 import TitleDescription from "@/components/TitleDescription";
 import { useEffect, useState } from "react";
 import PersonalFile from "@/components/PersonalFile";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import UserSpecifications from "@/components/UserSpecifications";
 import UserTabsCard from "@/components/cards/UserTabsCard";
 import LogoutModal from "@/components/modal/LogoutModal";
@@ -11,6 +11,7 @@ import { panelTabData } from "@/staticData/data";
 import { useRouter } from "next/navigation";
 import { getCookie } from "cookies-next";
 import nProgress from "nprogress";
+import { setLoginState } from "@/store/todoSlice";
 const PrivateRoute = dynamic(() => import("@/routes/private-route"), {
   ssr: false,
 });
@@ -23,16 +24,18 @@ const UserPanel = () => {
   );
 
   const router = useRouter();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const authCookie = getCookie("Authorization");
     if (!authCookie) {
       nProgress.start();
-      router.push("/login");
+      router.push("/");
+      dispatch(setLoginState(true));
     } else {
       setIsAuthenticated(true);
     }
-  }, [router]);
+  }, [dispatch, router]);
 
   if (!isAuthenticated) {
     return <div>... loading</div>;

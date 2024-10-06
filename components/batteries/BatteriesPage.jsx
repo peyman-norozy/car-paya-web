@@ -179,13 +179,13 @@ const BatteriesPage = (props) => {
           <div className="flex items-center justify-between lg:justify-end">
             <div
               className={
-                "flex items-center gap-4 relative filterModal lg:hidden"
+                "flex items-center gap-4 relative filterModal lg:hidden h-[40px]"
               }
             >
-              <div>
+              <div className={"h-full"}>
                 <button
                   className={
-                    "shadow-lg rounded-[8px] bg-[#FBFBFB] w-[116px] h-[32px] text-right pr-[16px] flex items-center gap-2"
+                    "shadow-lg rounded-[8px] bg-[#FBFBFB] w-[116px] h-full text-right flex items-center justify-center gap-2"
                   }
                   onClick={openModal}
                 >

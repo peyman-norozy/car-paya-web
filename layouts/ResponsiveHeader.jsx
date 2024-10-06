@@ -7,7 +7,7 @@ import { useEffect, useRef, useState } from "react";
 import ResponsiveMenu from "@/components/ResponsiveMenu";
 import CardPay from "@/components/CardPay";
 import CityModal from "@/components/CityModal/CityModal";
-import { setCityModalState } from "@/store/todoSlice";
+import { setCityModalState, setLoginModal } from "@/store/todoSlice";
 
 const ResponsiveHeader = (props) => {
   const params = useParams();
@@ -42,6 +42,11 @@ const ResponsiveHeader = (props) => {
       setLastScrollY(window.scrollY);
     }
   };
+
+  const clickLoginHandler = () => {
+    dispatch(setLoginModal(true));
+  };
+
   useEffect(() => {
     if (typeof window !== "undefined") {
       window.addEventListener("scroll", controlHeader);
@@ -90,15 +95,53 @@ const ResponsiveHeader = (props) => {
           <div className="gap-4 flex items-center">
             <div
               className={
-                "py-[4px] px-2 cursor-pointer flex items-center justify-between gap-1 bg-white border-[1px] border-[#5D5D5D] text-[#5D5D5D] rounded-lg"
+                "shadow-[0_0_4px_0_rgba(238,134,38,0.5)] p-2 flex justify-center items-center rounded-[4px] relative"
               }
-              onClick={toggleModal}
             >
-              <span className={"inline-block w-fit text-12 font-medium"}>
-                تهران
+              <i className={"cc-wallet text-[#F58052] text-24"} />
+              <span
+                className={
+                  "bg-[#F58052] w-[18px] h-[18px] text-white flex justify-center items-center text-12 font-medium rounded-full absolute -top-[10px] -right-[10px]"
+                }
+              >
+                3
               </span>
-              <i className={"cc-location"} />
             </div>
+            {loginState ? (
+              <div
+                className={
+                  "shadow-[0_0_4px_0_rgba(238,134,38,0.5)] p-2 flex justify-center items-center rounded-[4px] "
+                }
+                onClick={clickLoginHandler}
+              >
+                <i className={"cc-user text-[#F58052] text-24"} />
+              </div>
+            ) : (
+              <div
+                className={
+                  "shadow-[0_0_4px_0_rgba(238,134,38,0.5)] p-2 flex justify-center items-center rounded-[4px] relative"
+                }
+              >
+                <i className={"cc-user text-[#F58052] text-24"} />
+                <i
+                  className={
+                    "cc-tick text-[#22A137] text-14 absolute right-[2px] bottom-[2px]"
+                  }
+                />
+              </div>
+            )}
+
+            {/*<div*/}
+            {/*  className={*/}
+            {/*    "py-[4px] px-2 cursor-pointer flex items-center justify-between gap-1 bg-white border-[1px] border-[#5D5D5D] text-[#5D5D5D] rounded-lg"*/}
+            {/*  }*/}
+            {/*  onClick={toggleModal}*/}
+            {/*>*/}
+            {/*  <span className={"inline-block w-fit text-12 font-medium"}>*/}
+            {/*    تهران*/}
+            {/*  </span>*/}
+            {/*  <i className={"cc-location"} />*/}
+            {/*</div>*/}
           </div>
         </div>
         {/* <i className="cc-search text-[#fefefe] text-2xl"/> */}
