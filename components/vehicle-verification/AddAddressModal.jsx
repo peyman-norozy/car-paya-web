@@ -90,7 +90,7 @@ const AddressModal = (props) => {
         if (pathName === "/panel/productAddress") {
           props.setAddressModalState(false);
           props.getAddressFetchData();
-        } else if (pathName === "/vehicle-verification") {
+        } else if (pathName === "/vehicle-verification/location-selection") {
           props.getDataFetch((prev) => [...prev, post.data.data]);
           props.setModalIsOpen(false);
         } else if (pathName === "/batteries/products/newSelectLocation") {
@@ -242,7 +242,7 @@ const AddressModal = (props) => {
             star={true}
             name={"address"}
             id={"address"}
-            // profileData={""}
+          // profileData={""}
           />
           {errroData.address && (
             <span
@@ -269,7 +269,7 @@ const AddressModal = (props) => {
             setProvincesId={setProvincesId}
             name={"province"}
             id={"province"}
-            // profileData={""}
+          // profileData={""}
           />
           {errroData.province_id && (
             <span
@@ -292,7 +292,7 @@ const AddressModal = (props) => {
             setCityId={setCityId}
             name={"city"}
             id={"city"}
-            // profileData={""}
+          // profileData={""}
           />
           {errroData.city_id && (
             <span
@@ -312,7 +312,7 @@ const AddressModal = (props) => {
             icon={"cc-document-align-right"}
             title={"عنوان"}
             star={true}
-            // profileData={""}
+          // profileData={""}
           />
           {errroData.city_id && (
             <span
@@ -332,7 +332,7 @@ const AddressModal = (props) => {
             id={"postalCode"}
             name={"postalCode"}
             star={false}
-            // profileData={""}
+          // profileData={""}
           />
           {errroData.postal_code && (
             <span
@@ -366,8 +366,8 @@ const AddressModal = (props) => {
               star={true}
               name={"fullName"}
               id={"fullName"}
-              // onChange={nameChangeHandler}
-              // profileData={""}
+            // onChange={nameChangeHandler}
+            // profileData={""}
             />
           </div>
           <div>
@@ -380,7 +380,7 @@ const AddressModal = (props) => {
               star={true}
               name={"phoneNumber"}
               id={"phoneNumber"}
-              // profileData={""}
+            // profileData={""}
             />
           </div>
         </div>
