@@ -11,10 +11,9 @@ const UserAddressCard = (props) => {
     <div
       className={`flex flex-col gap-4 p-4 rounded-lg bg-white cursor-pointer shadow-[0_0_4px_0_rgba(207,207,207,0.7)] ${props.selectedAddress === props.data.address_id ? "border border-[#F58052]" : ""}`}
       onClick={() => {
-        console.log(props.selectedAddress === props.data.address_id)
         props.selectedAddress === props.data.address_id
           ? props.setSelectedAddress("")
-          : props.setSelectedAddress(props.data.address_id);
+          : props.setSelectedAddress(props.data.address_id); props.setSelectedAddressText(props.data.address)
       }}
     >
       <div className="flex items-center justify-between">
