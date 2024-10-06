@@ -33,13 +33,13 @@ const PurchaseBatteryModal = (props) => {
   const [client, setClient] = useState(false);
   const [sameAmpBattery, setSameAmpBattery] = useState({});
   const [amperSelectData, setAmperSelectData] = useState([]);
+  const [typeService, setTypeService] = useState("");
   const [count, setCount] = useState(1);
   const router = useRouter();
   const pathName = usePathname();
   const setQuery = useSetQuery();
   const attributeSlug = searchParams.get("attribute_slug");
   const attributeValue = searchParams.get("attribute_value");
-  const typeService = searchParams.get("type_service");
   const [purchseOptions, setPurchseOption] = useState([
     {
       title: "باتری سوزوکی 70 آمپر",
@@ -192,9 +192,13 @@ const PurchaseBatteryModal = (props) => {
 
   useEffect(() => {
     if (!cityId && batteriesData?.amp) {
-      setQuery.updateQueryParams({ amper: batteriesData.amp }, null, false);
+      setQuery.updateQueryParams(
+        { amper: batteriesData.amp, type_service: "NO_BATTERY" },
+        null,
+        false,
+      );
     } else if (cityId) {
-      setQuery.updateQueryParams({ amper: cityId });
+      // setQuery.updateQueryParams({ amper: cityId });
     }
   }, [cityId, batteriesData]);
 
@@ -378,7 +382,9 @@ const PurchaseBatteryModal = (props) => {
     }
   };
 
-  console.log(count);
+  useEffect(() => {
+    setTypeService(searchParams.get("type_service"));
+  }, [searchParams]);
 
   return (
     <>
@@ -543,6 +549,7 @@ const PurchaseBatteryModal = (props) => {
                 {/*<Image src={Toman} alt="" width={20} height={20}/>*/}
               </div>
             </div>
+            {console.log(typeService, isSelected)}
             <Button
               class_name={`${typeService === "SWING_AMP" ? (selectOption ? "bg-[#F66B34]" : "bg-[#ecb8a3]") : isSelected === false ? "bg-[#ecb8a3]" : "bg-[#F66B34]"} rounded-10 hover:shadow-[0_0_5px_0_rgba(0,0,0,0.4)] flex items-center justify-center ga-[0.25rem] text-white px-2 py-2 text-12`}
               disabled_btn={
