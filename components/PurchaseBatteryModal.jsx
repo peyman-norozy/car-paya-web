@@ -422,7 +422,7 @@ const PurchaseBatteryModal = (props) => {
                     <h3 className={`text-12 size1000:text-14 w-full`}>
                       <span className={""}> {item.title}</span>
                       {item.id === "selectAmper" ? (
-                        <div className={"mt-4"}>
+                        <div className={"mt-4 lg:w-full w-[220px]"}>
                           <ProfileEditeSelectInput
                             type={"text"}
                             icon={"cc-edit"}
@@ -450,7 +450,7 @@ const PurchaseBatteryModal = (props) => {
                     </h3>
                   </div>
                   <div className="flex justify-end w-full">
-                    <p className="flex items-center gap-1 text-16">
+                    <p className="flex items-center gap-1 text-16 mb-4 sm:mb-0">
                       {item.price.toString().split("")[0] === "-" ? (
                         <>
                           <span
