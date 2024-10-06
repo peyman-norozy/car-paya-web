@@ -2,12 +2,17 @@ import Link from "next/link";
 import { Fragment } from "react";
 import { usePathname } from "next/navigation";
 import axios from "axios";
-import { deleteCookie, getCookie } from "cookies-next";
+import { deleteCookie, getCookie, getCookies } from "cookies-next";
 import { useRouter } from "next/navigation";
 import { API_PATHS } from "@/configs/routes.config";
 import { useDispatch } from "react-redux";
-import { setLoginState } from "@/store/todoSlice";
+import {
+  setBatteriesData,
+  setLoginModal,
+  setLoginState,
+} from "@/store/todoSlice";
 import nProgress from "nprogress";
+import { error } from "@/utils/function-utils";
 
 const UserPanelAttribute = (props) => {
   const pathname = usePathname();
@@ -35,16 +40,33 @@ const UserPanelAttribute = (props) => {
       });
   };
 
+  const panelClickHandler = () => {
+    axios
+      .get(process.env.BASE_API + "/web/checkAuth", {
+        headers: {
+          Authorization: "Bearer " + getCookies("Authorization").Authorization,
+        },
+      })
+      .then(async () => {
+        router.push("/panel");
+      })
+      .catch((err) => {
+        dispatch(setLoginModal(true));
+      });
+  };
+
   return (
     <Fragment>
-      <Link
-        href={"/panel"}
+      {/*href={"/panel"}*/}
+
+      <button
+        onClick={panelClickHandler}
         className={`cursor-pointer hover:bg-[#0004] ${
           firstPath === "panel" ? "bg-[#0004]" : ""
         } flex items-center h-[40px] px-2`}
       >
         پنل کاربری
-      </Link>
+      </button>
       <span
         className="cursor-pointer hover:bg-[#0004] flex items-center h-[40px] px-2"
         onClick={exitLogin}
