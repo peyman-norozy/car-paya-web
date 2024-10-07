@@ -91,8 +91,7 @@ function MobileBottomNav(props) {
 
   useEffect(() => {
     if (
-      pathName.includes("/vehicle-verification") &&
-      searchParams.toString().includes("step=")
+      pathName.startsWith("/vehicle-verification/")
     ) {
       setFooterState(false);
     } else if (
