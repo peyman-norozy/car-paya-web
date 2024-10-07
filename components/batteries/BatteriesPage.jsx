@@ -119,7 +119,7 @@ const BatteriesPage = (props) => {
     if (isMounted) {
       setBatteriesData(props.data?.data);
     }
-  }, [props.searchParams.amp]);
+  }, [props.searchParams.amp, props.searchParams.brand]);
 
   useEffect(() => {
     // Parse the current URL and query parameters
