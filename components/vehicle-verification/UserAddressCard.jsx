@@ -5,6 +5,7 @@ import AddAddressModal from "@/components/vehicle-verification/AddAddressModal";
 
 const UserAddressCard = (props) => {
   const [openMenu, setOpenMenu] = useState(false);
+  const [editModalIsOpen, setEditModalIsOpen] = useState(false);
   const dispatch = useDispatch();
 
   return (
@@ -13,7 +14,8 @@ const UserAddressCard = (props) => {
       onClick={() => {
         props.selectedAddress === props.data.address_id
           ? props.setSelectedAddress("")
-          : props.setSelectedAddress(props.data.address_id); props.setSelectedAddressText(props.data.address)
+          : props.setSelectedAddress(props.data.address_id);
+        props.setSelectedAddressText(props.data.address);
       }}
     >
       <div className="flex items-center justify-between">
@@ -44,7 +46,7 @@ const UserAddressCard = (props) => {
           <i
             className={`cc-edit text-2xl absolute ${openMenu ? "left-12" : "left-0"} top-0 transition-all text-[#22A137]`}
             onClick={() => {
-              props.setEditModalIsOpen(true);
+              setEditModalIsOpen(true);
             }}
           />
           <i
@@ -73,15 +75,18 @@ const UserAddressCard = (props) => {
         </div>
         <span className="text-[#3C3C3C] text-xs">{props.data.address}</span>
       </div>
-      {props.editModalIsOpen && (
+      {editModalIsOpen && (
         <>
-          <div className={"fixed m-auto inset-0 z-[10000000000] bg-[#0000002d]"} onClick={() => {
-            props.setEditModalIsOpen(false);
-          }}>
+          <div
+            className={"fixed m-auto inset-0 z-[10000000000] bg-[#0000002d]"}
+            onClick={() => {
+              setEditModalIsOpen(false);
+            }}
+          >
             <AddAddressModal
               getDataFetch={props.getDataFetch}
               pageType={"edite"}
-              setModalIsOpen={props.setEditModalIsOpen}
+              setModalIsOpen={setEditModalIsOpen}
               setIsLoading={props.setIsLoading}
               addressEditId={props.data.address_id}
             />
