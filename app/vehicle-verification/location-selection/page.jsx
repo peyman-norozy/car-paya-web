@@ -33,7 +33,6 @@ const VerificationThirdStep = (props) => {
   const [checkedArea, setCheckedArea] = useState([]);
   const [userAdressData, setUserAdressData] = useState([]);
   const [modalIsOpen, setModalIsOpen] = useState(false);
-  const [editModalIsOpen, setEditModalIsOpen] = useState(false);
   const [type, setType] = useState("MOVING");
   const [isLoading, setIsLoading] = useState(false);
   const [selectedAddress, setSelectedAddress] = useState("");
@@ -112,7 +111,7 @@ const VerificationThirdStep = (props) => {
         // setChosenTime(res.data.time);
       })
       .catch((err) => console.log(err));
-  }, [modalIsOpen, renderUserAddrressState, editModalIsOpen]);
+  }, [modalIsOpen, renderUserAddrressState]);
 
   const placeData = [
     {
@@ -302,8 +301,6 @@ const VerificationThirdStep = (props) => {
                 getDataFetch={setUserAdressData}
                 setModalIsOpen={setModalIsOpen}
                 setIsLoading={setIsLoading}
-                editModalIsOpen={editModalIsOpen}
-                setEditModalIsOpen={setEditModalIsOpen}
                 setSelectedAddressText={setSelectedAddressText}
               />
             ))
