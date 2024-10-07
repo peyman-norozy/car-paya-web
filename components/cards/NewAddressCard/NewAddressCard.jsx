@@ -4,6 +4,7 @@ import AddressCheckInput from "@/components/AddressCheckInput/AddressCheckInput"
 import { setDeleteModal, setDeleteModalId } from "@/store/todoSlice";
 import DeleteModal from "@/components/public/DeleteModal";
 import { useDispatch } from "react-redux";
+import { usePathname } from "next/navigation";
 
 const NewAddressCard = ({
   status,
@@ -16,6 +17,7 @@ const NewAddressCard = ({
 }) => {
   const [openMenu, setOpenMenu] = useState(false);
   const dispatch = useDispatch();
+  const pathName = usePathname();
 
   const clickEditHandler = (id) => {
     setPageType("edite");
@@ -24,10 +26,18 @@ const NewAddressCard = ({
   };
 
   const clickRadioButtonHandler = () => {
-    const batteriesCart = JSON.parse(sessionStorage.getItem("batteriesCart"));
-    batteriesCart.address = item.address;
-    setLocationId(item.address_id);
-    sessionStorage.setItem("batteriesCart", JSON.stringify(batteriesCart));
+    if (pathName.startsWith("/batteries")) {
+      const batteriesCart = JSON.parse(sessionStorage.getItem("batteriesCart"));
+      batteriesCart.address = item.address;
+      setLocationId(item.address_id);
+      sessionStorage.setItem("batteriesCart", JSON.stringify(batteriesCart));
+    } else if (pathName.startsWith("/detailing")) {
+      sessionStorage.setItem(
+        "ditailingCart",
+        JSON.stringify({ address: item.address }),
+      );
+      setLocationId(item.address_id);
+    }
   };
 
   return (
