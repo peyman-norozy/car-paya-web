@@ -61,12 +61,12 @@ const VerificationThirdStep = (props) => {
     axios
       .get(
         process.env.BASE_API +
-          "/web/expert/reservation?step=step-5&type=DELEGATE&city_id=" +
-          city_id +
-          "&reservation_time_slice_id=" +
-          reservation_time_slice_id +
-          "&package_id=" +
-          package_id,
+        "/web/expert/reservation?step=step-5&type=DELEGATE&city_id=" +
+        city_id +
+        "&reservation_time_slice_id=" +
+        reservation_time_slice_id +
+        "&package_id=" +
+        package_id,
         {
           headers: {
             Authorization: "Bearer " + getCookie("Authorization"),
@@ -92,12 +92,12 @@ const VerificationThirdStep = (props) => {
     axios
       .get(
         process.env.BASE_API +
-          "/web/expert/reservation?step=step-5&type=EXPERT&city_id=" +
-          city_id +
-          "&reservation_time_slice_id=" +
-          reservation_time_slice_id +
-          "&package_id=" +
-          package_id,
+        "/web/expert/reservation?step=step-5&type=EXPERT&city_id=" +
+        city_id +
+        "&reservation_time_slice_id=" +
+        reservation_time_slice_id +
+        "&package_id=" +
+        package_id,
         {
           headers: {
             Authorization: "Bearer " + getCookie("Authorization"),
@@ -153,16 +153,16 @@ const VerificationThirdStep = (props) => {
       router.push(
         `/vehicle-verification/invoice?city_id=${city_id}&vehicle_tip=${selectedItem}&package_id=${package_id}&reservation_time_slice_id=${reservation_time_slice_id}&exact_time=${exact_time}&type_service=${type}&registrationable_id=${selectedAddress}&step=step-4`
       );
-    //   setQuery.setMultiQuery([
-    //     { key: "step", value: "step-5" },
-    //     { key: "city_id", value: city_id },
-    //     { key: "vehicle_tip", value: selectedItem },
-    //     { key: "package_id", value: package_id },
-    //     { key: "reservation_time_slice_id", value: reservation_time_slice_id },
-    //     { key: "exact_time", value: exact_time },
-    //     { key: "type_service", value: type },
-    //     { key: "registrationable_id", value: selectedAddress },
-    //   ]);
+      //   setQuery.setMultiQuery([
+      //     { key: "step", value: "step-5" },
+      //     { key: "city_id", value: city_id },
+      //     { key: "vehicle_tip", value: selectedItem },
+      //     { key: "package_id", value: package_id },
+      //     { key: "reservation_time_slice_id", value: reservation_time_slice_id },
+      //     { key: "exact_time", value: exact_time },
+      //     { key: "type_service", value: type },
+      //     { key: "registrationable_id", value: selectedAddress },
+      //   ]);
     }
   };
 
@@ -200,7 +200,7 @@ const VerificationThirdStep = (props) => {
       >
         <i
           className={"cc-arrow-right text-24 cursor-pointer"}
-          onClick={()=>{router.back()}}
+          onClick={() => { router.back() }}
         />
         <p className={"text-14 size752:text-16 w-full font-medium"}>
           انتخاب مکان
@@ -294,28 +294,28 @@ const VerificationThirdStep = (props) => {
         <div className="flex flex-col gap-2 pb-2">
           {tab
             ? userAdressData.map((item, index) => (
-                <UserAddressCard
-                  key={index}
-                  data={item}
-                  selectedAddress={selectedAddress}
-                  setSelectedAddress={setSelectedAddress}
-                  getDataFetch={setUserAdressData}
-                  setModalIsOpen={setModalIsOpen}
-                  setIsLoading={setIsLoading}
-                  editModalIsOpen={editModalIsOpen}
-                  setEditModalIsOpen={setEditModalIsOpen}
-                  setSelectedAddressText={setSelectedAddressText}
-                />
-              ))
+              <UserAddressCard
+                key={index}
+                data={item}
+                selectedAddress={selectedAddress}
+                setSelectedAddress={setSelectedAddress}
+                getDataFetch={setUserAdressData}
+                setModalIsOpen={setModalIsOpen}
+                setIsLoading={setIsLoading}
+                editModalIsOpen={editModalIsOpen}
+                setEditModalIsOpen={setEditModalIsOpen}
+                setSelectedAddressText={setSelectedAddressText}
+              />
+            ))
             : searchedAgentData?.map((item, index) => (
-                <AgentAdressCard
-                  key={index}
-                  data={item}
-                  selectedAddress={selectedAddress}
-                  setSelectedAddress={setSelectedAddress}
-                  setSelectedAddressText={setSelectedAddressText}
-                />
-              ))}
+              <AgentAdressCard
+                key={index}
+                data={item}
+                selectedAddress={selectedAddress}
+                setSelectedAddress={setSelectedAddress}
+                setSelectedAddressText={setSelectedAddressText}
+              />
+            ))}
         </div>
         <button
           onClick={continueSecondStepHandler}
@@ -358,7 +358,15 @@ const VerificationThirdStep = (props) => {
         </div>
       </div> */}
         {modalIsOpen && (
-          <div>
+
+          <div
+            onClick={() => {
+              setModalIsOpen(false);
+            }}
+            className={
+              "w-full h-[100vh] fixed top-0 right-0 bg-[#000000b0] z-[100000000]"
+            }
+          >
             <div className={"fixed m-auto inset-0 z-[10000000000]"}>
               <AddAddressModal
                 getDataFetch={setUserAdressData}
@@ -367,14 +375,6 @@ const VerificationThirdStep = (props) => {
                 setIsLoading={setIsLoading}
               />
             </div>
-            <div
-              onClick={() => {
-                setModalIsOpen(false);
-              }}
-              className={
-                "w-full h-[100vh] fixed top-0 right-0 bg-black opacity-[0.7] z-[100000000]"
-              }
-            ></div>
           </div>
         )}
       </div>

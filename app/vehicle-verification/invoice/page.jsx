@@ -111,11 +111,7 @@ const VerificationInvoice = () => {
             "flex items-center gap-2 sticky lg:top-[97px] top-[74px] right-0 bg-white py-2 z-[1000]"
           }
         >
-          <Link
-            href={`/vehicle-verification?step=step-4&city_id=${cityId}&package_id=${package_id}&vehicle_tip=${vehicleTipId}&exact_time=${exact_time}&type_service=${typeService}&reservation_time_slice_id=${reservation_time_slice_id}`}
-          >
-            <i className={"cc-arrow-right text-24"} />
-          </Link>{" "}
+          <i className={"cc-arrow-right text-24"} onClick={() => { router.back() }} />
           <span className={"text-14 font-semibold"}>
             جزئیات درخواست کارشناسی
           </span>
@@ -169,7 +165,7 @@ const VerificationInvoice = () => {
               </span>
             </div>
             <Link
-              href={`/vehicle-verification?step=step-4&city_id=${cityId}&package_id=${package_id}&vehicle_tip=${vehicleTipId}&exact_time=${exact_time}&type_service=${typeService}&reservation_time_slice_id=${reservation_time_slice_id}`}
+              href={`/vehicle-verification/location-selection?city_id=${cityId}&package_id=${package_id}&vehicle_tip=${vehicleTipId}&exact_time=${exact_time}&type_service=${typeService}&reservation_time_slice_id=${reservation_time_slice_id}`}
               className="text-[#518dd5] flex items-center gap-1 self-end border-b border-b-[#518dd5] pb-2 cursor-pointer"
             >
               <i className={"cc-edit text-20"} />
@@ -195,7 +191,7 @@ const VerificationInvoice = () => {
               <span className={"font-medium"}>{cart.exact_time}</span>
             </div>
             <Link
-              href={`/vehicle-verification?step=step-2&city_id=${cityId}&package_id=${package_id}&vehicle_tip=${vehicleTipId}&exact_time=${exact_time}&type_service=${typeService}&reservation_time_slice_id=${reservation_time_slice_id}&registrationable_id=${registrationable_id}`}
+              href={`/vehicle-verification/time-selection?city_id=${cityId}&package_id=${package_id}&vehicle_tip=${vehicleTipId}&exact_time=${exact_time}&type_service=${typeService}&reservation_time_slice_id=${reservation_time_slice_id}&registrationable_id=${registrationable_id}`}
               className="text-[#518dd5] flex items-center gap-1 mt-2 self-end border-b-2 border-b-[#518dd5] pb-2 cursor-pointer"
             >
               <i className={"cc-edit text-20"} />

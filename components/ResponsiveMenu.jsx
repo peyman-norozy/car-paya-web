@@ -5,16 +5,21 @@ import React from "react";
 const ResponsiveMenu = React.forwardRef((props, ref) => {
   return (
     <div
-      className={`bg-[#0002] fixed top-[74px] right-0 h-screen z-50 ${
+      className={`bg-[#0002] fixed top-0 right-0 h-screen z-50 ${
         props.newMenueState ? "w-0" : "w-full"
       }`}
     >
       <div
-        className={`fixed top-[74px] right-0 flex flex-col justify-between w-[240px] h-[calc(100vh-74px)] bg-[#383838] transition-all ${
-          props.newMenueState ? "translate-x-[250px]" : "translate-x-0"
+        className={`fixed top-0 right-0 flex flex-col justify-between w-full h-[calc(100vh-74px)] bg-white transition-all p-8 ${
+          props.newMenueState ? "translate-x-[700px]" : "translate-x-0"
         }`}
         ref={ref}
       >
+        <i
+          className={
+            "cc-close-circle text-[30px] absolute top-2 left-8 cursor-pointer"
+          }
+        />
         <NavigationBar
           class_name={"flex flex-col"}
           styleState={"habmergerMenue"}

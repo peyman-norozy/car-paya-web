@@ -23,7 +23,7 @@ const BatteriesCard = (props) => {
     >
       <div className={"flex flex-col justify-end gap-[8px]"}>
         <h1 className="lg:text-[16px] text-[14px] text-start font-bold text-[#303030] border-r border-r-[#F66B34] pr-2">
-          {props.item.filters.brand} {props.item.name}
+          {props?.item?.filters?.brand} {props?.item?.name}
         </h1>
       </div>
       <div className={"flex lg:gap-16 gap-4"}>

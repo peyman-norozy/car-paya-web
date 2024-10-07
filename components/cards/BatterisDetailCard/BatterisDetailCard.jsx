@@ -22,7 +22,7 @@ const BatterisDetailCard = (props) => {
         />
         <p className={"text-[12px] lg:text-[14px] font-medium"}>تکنولوژی:</p>
         <p className={"text-[12px] lg:text-[14px] font-medium"}>
-          {props.item.filters.technology}
+          {props?.item?.filters?.technology}
         </p>
       </li>
 
@@ -34,7 +34,7 @@ const BatterisDetailCard = (props) => {
         />
         <p className={"text-[12px] lg:text-[14px] font-medium"}>گارانتی:</p>
         <p className={"text-[12px] lg:text-[14px] font-medium"}>
-          {props.item.filters.warranty}
+          {props?.item?.filters?.warranty}
         </p>
       </li>
       <li className={"flex items-center gap-[8px] w-full max-w-[100px]"}>
@@ -45,7 +45,7 @@ const BatterisDetailCard = (props) => {
         />
         <p className={"text-[12px] lg:text-[14px] font-medium"}>قطب:</p>
         <p className={"text-[12px] lg:text-[14px] font-medium"}>
-          {props.item.filters.pole}
+          {props?.item?.filters?.pole}
         </p>
       </li>
       <li className={"flex items-center gap-[8px] w-full max-w-[100px]"}>
@@ -56,7 +56,7 @@ const BatterisDetailCard = (props) => {
         />
         <p className={"text-[12px] lg:text-[14px] font-medium"}>ولتاژ:</p>
         <p className={"text-[12px] lg:text-[14px] font-medium"}>
-          {props.item.filters.voltage}
+          {props?.item?.filters?.voltage}
         </p>
       </li>
 
@@ -68,7 +68,7 @@ const BatterisDetailCard = (props) => {
         />
         <p className={"text-[12px] lg:text-[14px] font-medium"}>نوع:</p>
         <p className={"text-[12px] lg:text-[14px] font-medium"}>
-          {props.item.filters.type}
+          {props?.item?.filters?.type}
         </p>
       </li>
     </>

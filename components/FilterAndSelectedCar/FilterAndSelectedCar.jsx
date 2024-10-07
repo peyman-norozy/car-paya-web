@@ -36,7 +36,7 @@ const filterData = [
   },
 ];
 
-const FilterAndSelectedCar = ({ options }) => {
+const FilterAndSelectedCar = ({ options, page }) => {
   const [client, setClient] = useState(false);
   const searchParams = useSearchParams();
   const params = new URLSearchParams(searchParams.toString());
@@ -65,6 +65,7 @@ const FilterAndSelectedCar = ({ options }) => {
 
   const deleteQueryHandler = (slug) => {
     console.log(slug, searchParams.get("brand"), params.toString());
+    page.current = 1;
     if (slug === "brand") {
       setQuery.deleteSingleQuery(
         [{ key: "brand", value: searchParams.get("brand") }],

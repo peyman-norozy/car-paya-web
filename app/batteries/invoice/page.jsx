@@ -36,6 +36,8 @@ const InvoicePage = () => {
   const typeService = searchParams.get("type_service");
   const serviceLocationId = searchParams.get("service_location_id");
   const time = searchParams.get("time_id");
+  const attributeSlug = searchParams.get("attribute_slug");
+  const attributeValue = searchParams.get("attribute_value");
   const timestamp = Math.floor(Date.now() / 1000);
 
   useEffect(() => {
@@ -72,11 +74,11 @@ const InvoicePage = () => {
       coupon_code: coupon,
       amp_user: searchParams.get("amper"),
       battery_type: searchParams.get("type_service"),
-      quantity: JSON.parse(sessionStorage.getItem("batteriesCart")).quantity,
+      quantity: JSON.parse(sessionStorage.getItem("batteriesCart"))?.quantity,
       shipped_time: searchParams.get("time_id")?.split("/")[1],
     });
     if (response.status === 200) {
-      nProgress.start()
+      nProgress.start();
       router.push(response?.data?.action);
     }
   }
@@ -96,6 +98,9 @@ const InvoicePage = () => {
   const batteryName = JSON.parse(
     sessionStorage.getItem("batteriesCart"),
   )?.batteryName;
+  const quantity = JSON.parse(
+    sessionStorage.getItem("batteriesCart"),
+  )?.quantity;
 
   console.log(dateServiceAddress);
 
@@ -112,7 +117,7 @@ const InvoicePage = () => {
           }
         >
           <Link
-            href={`/batteries/products/newTimeSelector?city_id=${cityId}&type=${type}&vehicle_tip_id=${vehicleTipId}&amper=${amper}&type_service=${typeService}&service_location_id=${serviceLocationId}`}
+            href={`/batteries/products/newTimeSelector?attribute_slug=${attributeSlug}&attribute_value=${attributeValue}&city_id=${cityId}&type=${type}&vehicle_tip_id=${vehicleTipId}&amper=${amper}&type_service=${typeService}&service_location_id=${serviceLocationId}`}
             className={"flex items-center"}
           >
             <i className={"cc-arrow-right text-24"} />
@@ -201,8 +206,8 @@ const InvoicePage = () => {
                   discountPrice={discountPrice}
                   setDiscountPrice={setDiscountPrice}
                   totalPrice={
-                    JSON.parse(localStorage.getItem("batteryTotalPrice"))
-                      ?.price || 0
+                    (JSON.parse(localStorage.getItem("batteryTotalPrice"))
+                      ?.price || 0) * quantity
                   }
                   coupon={coupon}
                   setCoupon={setCoupon}
@@ -248,7 +253,7 @@ const InvoicePage = () => {
                   </div>
                   <div className={"flex justify-end"}>
                     <Link
-                      href={`/batteries/products/newSelectLocation?city_id=${cityId}&type=${type}&vehicle_tip_id=${vehicleTipId}&amper=${amper}&type_service=${typeService}`}
+                      href={`/batteries/products/newSelectLocation?attribute_slug=${attributeSlug}&attribute_value=${attributeValue}&city_id=${cityId}&type=${type}&vehicle_tip_id=${vehicleTipId}&amper=${amper}&type_service=${typeService}`}
                       className="text-[#518dd5] flex items-center gap-1 mt-2 border-b-2 border-b-[#518dd5] pb-2 cursor-pointer"
                     >
                       <i className={"cc-edit text-20"} />
@@ -287,7 +292,7 @@ const InvoicePage = () => {
                   </span>
                 </div>
                 <Link
-                  href={`/batteries/products/newTimeSelector?city_id=${cityId}&type=${type}&vehicle_tip_id=${vehicleTipId}&amper=${amper}&type_service=${typeService}&service_location_id=${serviceLocationId}`}
+                  href={`/batteries/products/newTimeSelector?attribute_slug=${attributeSlug}&attribute_value=${attributeValue}&city_id=${cityId}&type=${type}&vehicle_tip_id=${vehicleTipId}&amper=${amper}&type_service=${typeService}&service_location_id=${serviceLocationId}`}
                   className="text-[#518dd5] flex items-center gap-1 mt-2 self-end border-b-2 border-b-[#518dd5] pb-2 cursor-pointer"
                 >
                   <i className={"cc-edit text-20"} />
@@ -338,7 +343,8 @@ const InvoicePage = () => {
             discountPrice={discountPrice}
             setDiscountPrice={setDiscountPrice}
             totalPrice={
-              JSON.parse(localStorage.getItem("batteryTotalPrice"))?.price || 0
+              JSON.parse(localStorage.getItem("batteryTotalPrice"))?.price ||
+              0 * quantity
             }
             type={"battery"}
             registerClickHandler={registerClickHandler}

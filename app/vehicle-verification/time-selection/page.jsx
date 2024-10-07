@@ -28,7 +28,7 @@ const VerificationSecondStep = (props) => {
   const [optionIsOpen, setOptionIsOpen] = useState(false);
   const [timeIsSelected, setTimeIsSelected] = useState(null);
   const [buttonIsdisabled, setButtonIsdisabled] = useState(false);
-  const [fluctuation , setFluctuation] = useState(null)
+  const [fluctuation, setFluctuation] = useState(null)
   const [data, setData] = useState([]);
   const [timeStamp, setTimeStamp] = useState(null);
   const setQuery = useSetQuery();
@@ -54,17 +54,17 @@ const VerificationSecondStep = (props) => {
       router.push(
         `/vehicle-verification/location-selection?city_id=${city_id}&vehicle_tip=${selectedItem}&package_id=${package_id}&reservation_time_slice_id=${timeIsSelected.split("/")[0]}&exact_time=${timeIsSelected.split("/")[1]}&step=step-4`
       );
-    //   setQuery.setMultiQuery([
-    //     { key: "step", value: "step-4" },
-    //     { key: "city_id", value: city_id },
-    //     { key: "vehicle_tip", value: selectedItem },
-    //     { key: "package_id", value: package_id },
-    //     {
-    //       key: "reservation_time_slice_id",
-    //       value: timeIsSelected.split("/")[0],
-    //     },
-    //     { key: "exact_time", value: timeIsSelected.split("/")[1] },
-    //   ]);
+      //   setQuery.setMultiQuery([
+      //     { key: "step", value: "step-4" },
+      //     { key: "city_id", value: city_id },
+      //     { key: "vehicle_tip", value: selectedItem },
+      //     { key: "package_id", value: package_id },
+      //     {
+      //       key: "reservation_time_slice_id",
+      //       value: timeIsSelected.split("/")[0],
+      //     },
+      //     { key: "exact_time", value: timeIsSelected.split("/")[1] },
+      //   ]);
       // } else {
       //   setQuery.setMultiQuery([
       //     { key: "step", value: "step-3" },
@@ -98,7 +98,7 @@ const VerificationSecondStep = (props) => {
     axios
       .get(
         process.env.BASE_API +
-          `${props.fetchUrl ? props.fetchUrl : `/web/expert/reservation?step=step-2&city_id=${city_id}&vehicle_tip_id=${selectedItem}&package_id=${package_id}`}`,
+        `${props.fetchUrl ? props.fetchUrl : `/web/expert/reservation?step=step-2&city_id=${city_id}&vehicle_tip_id=${selectedItem}&package_id=${package_id}`}`,
         {
           headers: {
             Authorization: "Bearer " + getCookie("Authorization"),
@@ -121,7 +121,7 @@ const VerificationSecondStep = (props) => {
   return (
     <div
       className={
-        "flex items-start justify-between lg:w-[calc(100%-424px)] mr-auto mb-4 mt-[28px] bg-[#FDFDFD] lg:shadow-[0_0_6px_0_rgba(125,125,125,0.5)] lg:p-6 rounded-2xl min-h-[605px]"
+        "flex items-start justify-between lg:w-[calc(100%-424px)] mr-auto mb-12 lg:mb-4 mt-[28px] bg-[#FDFDFD] lg:shadow-[0_0_6px_0_rgba(125,125,125,0.5)] lg:p-6 rounded-2xl min-h-[605px]"
       }
     >
       <div className={"w-full flex flex-col px-4 sm:px-0 gap-4"}>
@@ -132,7 +132,7 @@ const VerificationSecondStep = (props) => {
         >
           <i
             className={"cc-arrow-right text-24 cursor-pointer"}
-            onClick={()=>{router.back()}}
+            onClick={() => { router.back() }}
           />
           <p className={"text-14 size752:text-16 w-full font-medium"}>
             انتخاب زمان

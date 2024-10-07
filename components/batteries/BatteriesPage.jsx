@@ -16,15 +16,15 @@ import FilterAndSelectedCar from "@/components/FilterAndSelectedCar/FilterAndSel
 
 const BatteriesPage = (props) => {
   const query = useSetQuery();
+  const [batteriesData, setBatteriesData] = useState([]);
   const [batteryIsSelected, setBatteryIsSelected] = useState(false);
   const [filterModalState, setFilterModalState] = useState(false);
   const [modalState, setModalState] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
+  const [isAtBottom, setIsAtBottom] = useState(false);
   const [filterId, setFilterId] = useState("");
   const dispatch = useDispatch();
-  const filterRef = useRef(null);
   const router = useRouter();
-  const filterTitleRef = useRef(null);
   const searchParams = useSearchParams();
   const batteryBasketLength = useSelector(
     (item) => item.todo.batteriesBasketLength,
@@ -33,6 +33,7 @@ const BatteriesPage = (props) => {
   const attributeSlug = searchParams.get("attribute_slug");
   const attributeValue = searchParams.get("attribute_value");
   const selectTipState = searchParams.get("selectTipState");
+  let page = useRef(1);
 
   console.log(props);
   useEffect(() => {
@@ -72,10 +73,33 @@ const BatteriesPage = (props) => {
     }
   }, [dispatch, router, searchParams]);
 
-  const filterClickHandler = (event, id) => {
-    setFilterModalState(true);
-    setFilterId(id);
-  };
+  useEffect(() => {
+    const handleScroll = () => {
+      // محاسبه اینکه آیا به انتهای صفحه رسیده‌ایم یا نه
+      const scrollTop = window.scrollY;
+      const windowHeight = window.innerHeight;
+      const fullHeight = document.documentElement.scrollHeight;
+
+      if (scrollTop + windowHeight >= fullHeight) {
+        setIsAtBottom(true);
+        console.log("شما به انتهای صفحه رسیده‌اید!");
+        page.current = page.current + 1;
+        if (props.data?.meta["last_page"] >= page.current) {
+          query.updateQueryParams({ page: page.current }, null, false);
+        }
+      } else {
+        setIsAtBottom(false);
+      }
+    };
+
+    // اضافه کردن event listener برای اسکرول
+    window.addEventListener("scroll", handleScroll);
+
+    // پاکسازی event listener هنگام unmount شدن کامپوننت
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   const closeFilterHandler = (event) => {
     if (!event.target.offsetParent?.classList.contains("filterModal")) {
@@ -88,6 +112,16 @@ const BatteriesPage = (props) => {
     return () => window.removeEventListener("click", closeFilterHandler);
   }, []);
 
+  useEffect(() => {
+    setBatteriesData((prev) => [...prev, ...props.data?.data]);
+  }, [props.searchParams.page]);
+
+  useEffect(() => {
+    if (isMounted) {
+      setBatteriesData(props.data?.data);
+    }
+  }, [props.searchParams.amp]);
+
   const closeModal = () => {
     setModalState(false);
   };
@@ -98,7 +132,7 @@ const BatteriesPage = (props) => {
 
   return (
     <div className={"relative"}>
-      <FilterAndSelectedCar options={props.data.filter} />
+      <FilterAndSelectedCar options={props.data.filter} page={page} />
       <div
         className={
           "flex flex-col relative py-4 max-w-[1772px] lg:w-[calc(100%-424px)] mr-auto bg-[#FDFDFD] lg:shadow-[0_0_6px_0_rgba(125,125,125,0.5)] lg:p-6 rounded-2xl min-h-[605px] mb-4 lg:mt-7"
@@ -145,13 +179,13 @@ const BatteriesPage = (props) => {
           <div className="flex items-center justify-between lg:justify-end">
             <div
               className={
-                "flex items-center gap-4 relative filterModal lg:hidden"
+                "flex items-center gap-4 relative filterModal lg:hidden h-[40px]"
               }
             >
-              <div>
+              <div className={"h-full"}>
                 <button
                   className={
-                    "shadow-lg rounded-[8px] bg-[#FBFBFB] w-[116px] h-[32px] text-right pr-[16px] flex items-center gap-2"
+                    "shadow-lg rounded-[8px] bg-[#FBFBFB] w-[116px] h-full text-right flex items-center justify-center gap-2"
                   }
                   onClick={openModal}
                 >
@@ -181,7 +215,7 @@ const BatteriesPage = (props) => {
             </div>
           </div>
           <ul className={"mt-4 flex flex-col gap-[32px]"}>
-            {props.data?.data?.map((item, index) => (
+            {batteriesData?.map((item, index) => (
               <BatteriesCard
                 key={index}
                 item={item}

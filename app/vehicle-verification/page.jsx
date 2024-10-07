@@ -127,9 +127,9 @@ const VerificationFirstStep = (props) => {
     axios
       .get(
         process.env.BASE_API +
-          "/web/expert/reservation?step=step-1" +
-          vehicle_tip +
-          city
+        "/web/expert/reservation?step=step-1" +
+        vehicle_tip +
+        city
       )
       .then((res) => {
         console.log(res);
@@ -176,7 +176,7 @@ const VerificationFirstStep = (props) => {
             onClick={() => {
               setModalClickState(true);
             }}
-            // onClick={PackageStepHandler}
+          // onClick={PackageStepHandler}
           >
             {vehicleVerificationBasket.length ? "ادامه " : ""}درخواست کارشناسی
           </button>
@@ -186,10 +186,10 @@ const VerificationFirstStep = (props) => {
             <span className="text-[#000000] text-sm font-medium">
               مشاور و ثبت درخواست تلفنی
             </span>
-            <button className="border border-[#F58052] text-[#F58052] justify-center items-center flex gap-1 py-[6px] px-6 rounded-md font-medium">
+            <a href="tel:02158919" className="border border-[#F58052] text-[#F58052] justify-center items-center flex gap-1 py-[6px] px-6 rounded-md font-medium">
               <p>58919</p>
               <i className={"cc-calling"} />
-            </button>
+            </a>
           </div>
           <Image
             className="-top-5 absolute w-full h-[180px]"

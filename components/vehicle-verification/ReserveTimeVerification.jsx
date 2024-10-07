@@ -18,10 +18,12 @@ const ReserveTimeVerification = (props) => {
 
   const openOptionHandler = (index) => {
     if (optionIsOpen !== index) {
-      window.scrollTo({
-        top: 200, // مقدار به پیکسل، 500 پیکسل به پایین اسکرول می‌کند
-        behavior: "smooth", // اسکرول آرام
-      });
+      setTimeout(() => {
+        window.scrollTo({
+          top: 200, // مقدار به پیکسل، 200 پیکسل به پایین اسکرول می‌کند
+          behavior: "smooth", // اسکرول آرام
+        });
+      }, 200)
     }
     setOptionIsOpen((prevState) => (prevState === index ? null : index));
   };
@@ -81,139 +83,139 @@ const ReserveTimeVerification = (props) => {
             {(props.accordionState === undefined
               ? optionIsOpen === item.id
               : props.accordionState) && (
-              <div
-                className={
-                  "grid grid-cols-2 place-content-center w-[85%] m-auto justify-items-center py-3 gap-y-4"
-                }
-              >
-                {/*first time*/}
                 <div
-                  key={index}
-                  className={`flex items-center p-2 ${timeIsSelected === item.id + "/" + +item.start_time + ":00" ? "border-b border-b-[#F66B34]" : ""} gap-6`}
-                  onClick={(e) => {
-                    item.swing_type
-                      ? props.setFluctuation({
+                  className={
+                    "grid grid-cols-2 place-content-center w-[85%] m-auto justify-items-center py-3 gap-y-4"
+                  }
+                >
+                  {/*first time*/}
+                  <div
+                    key={index}
+                    className={`flex items-center p-2 ${timeIsSelected === item.id + "/" + +item.start_time + ":00" ? "border-b border-b-[#F66B34]" : ""} gap-6`}
+                    onClick={(e) => {
+                      item.swing_type
+                        ? props.setFluctuation({
                           type: item.swing_type,
                           price: (packagePrice * item.diff_percent) / 100,
-                          description :item.diff_percent_description
+                          description: item.diff_percent_description
                         })
-                      : "";
-                    setTimeStamp(data[0]);
-                    timeIsSelected === item.id + "/" + item.start_time + ":00"
-                      ? setTimeIsSelected(null)
-                      : setTimeIsSelected(
+                        : "";
+                      setTimeStamp(data[0]);
+                      timeIsSelected === item.id + "/" + item.start_time + ":00"
+                        ? setTimeIsSelected(null)
+                        : setTimeIsSelected(
                           item.id + "/" + item.start_time + ":00"
                         );
-                  }}
-                >
-                  <p>{item.start_time + ":00"}</p>
-                  <div
-                    className={
-                      "rounded-[50%] border-2 border-[#F66B34] size-5 flex item-center justify-center cursor-pointer"
-                    }
+                    }}
                   >
+                    <p>{item.start_time + ":00"}</p>
                     <div
-                      className={`size-[10px] m-auto rounded-[50%] transition-all duration-500 ease-out  ${timeIsSelected === item.id + "/" + +item.start_time + ":00" ? "bg-[#F66B34]" : ""}`}
-                    ></div>
+                      className={
+                        "rounded-[50%] border-2 border-[#F66B34] size-5 flex item-center justify-center cursor-pointer"
+                      }
+                    >
+                      <div
+                        className={`size-[10px] m-auto rounded-[50%] transition-all duration-500 ease-out  ${timeIsSelected === item.id + "/" + +item.start_time + ":00" ? "bg-[#F66B34]" : ""}`}
+                      ></div>
+                    </div>
                   </div>
-                </div>
-                {/*    second time*/}
-                <div
-                  key={index}
-                  className={`flex items-center p-2 ${timeIsSelected === item.id + "/" + (+item.start_time + 1) + ":00" ? "border-b border-b-[#F66B34]" : ""} gap-6`}
-                  onClick={(e) => {
-                    item.swing_type
-                      ? props.setFluctuation({
+                  {/*    second time*/}
+                  <div
+                    key={index}
+                    className={`flex items-center p-2 ${timeIsSelected === item.id + "/" + (+item.start_time + 1) + ":00" ? "border-b border-b-[#F66B34]" : ""} gap-6`}
+                    onClick={(e) => {
+                      item.swing_type
+                        ? props.setFluctuation({
                           type: item.swing_type,
                           price: (packagePrice * item.diff_percent) / 100,
-                          description :item.diff_percent_description
+                          description: item.diff_percent_description
                         })
-                      : "";
-                    setTimeStamp(data[0]);
-                    timeIsSelected ===
-                    item.id + "/" + (+item.start_time + 1) + ":00"
-                      ? setTimeIsSelected(null)
-                      : setTimeIsSelected(
+                        : "";
+                      setTimeStamp(data[0]);
+                      timeIsSelected ===
+                        item.id + "/" + (+item.start_time + 1) + ":00"
+                        ? setTimeIsSelected(null)
+                        : setTimeIsSelected(
                           item.id + "/" + (+item.start_time + 1) + ":00"
                         );
-                  }}
-                >
-                  <p>{+item.start_time + 1 + ":00"}</p>
-                  <div
-                    className={
-                      "rounded-[50%] border-2 border-[#F66B34] size-5 flex item-center justify-center cursor-pointer"
-                    }
+                    }}
                   >
+                    <p>{+item.start_time + 1 + ":00"}</p>
                     <div
-                      className={`size-[10px] m-auto rounded-[50%] transition-all duration-500 ease-out ${timeIsSelected === item.id + "/" + (+item.start_time + 1) + ":00" ? "bg-[#F66B34]" : ""}`}
-                    ></div>
+                      className={
+                        "rounded-[50%] border-2 border-[#F66B34] size-5 flex item-center justify-center cursor-pointer"
+                      }
+                    >
+                      <div
+                        className={`size-[10px] m-auto rounded-[50%] transition-all duration-500 ease-out ${timeIsSelected === item.id + "/" + (+item.start_time + 1) + ":00" ? "bg-[#F66B34]" : ""}`}
+                      ></div>
+                    </div>
                   </div>
-                </div>
-                {/*    third time*/}
-                <div
-                  key={index}
-                  className={`flex items-center p-2 ${timeIsSelected === item.id + "/" + +item.start_time + ":30" ? "border-b border-b-[#F66B34]" : ""} gap-6`}
-                  onClick={(e) => {
-                    item.swing_type
-                      ? props.setFluctuation({
+                  {/*    third time*/}
+                  <div
+                    key={index}
+                    className={`flex items-center p-2 ${timeIsSelected === item.id + "/" + +item.start_time + ":30" ? "border-b border-b-[#F66B34]" : ""} gap-6`}
+                    onClick={(e) => {
+                      item.swing_type
+                        ? props.setFluctuation({
                           type: item.swing_type,
                           price: (packagePrice * item.diff_percent) / 100,
-                          description :item.diff_percent_description
+                          description: item.diff_percent_description
                         })
-                      : "";
-                    setTimeStamp(data[0]);
-                    timeIsSelected === item.id + "/" + item.start_time + ":30"
-                      ? setTimeIsSelected(null)
-                      : setTimeIsSelected(
+                        : "";
+                      setTimeStamp(data[0]);
+                      timeIsSelected === item.id + "/" + item.start_time + ":30"
+                        ? setTimeIsSelected(null)
+                        : setTimeIsSelected(
                           item.id + "/" + item.start_time + ":30"
                         );
-                  }}
-                >
-                  <p>{item.start_time + ":30"}</p>
-                  <div
-                    className={
-                      "rounded-[50%] border-2 border-[#F66B34] size-5 flex item-center justify-center cursor-pointer"
-                    }
+                    }}
                   >
+                    <p>{item.start_time + ":30"}</p>
                     <div
-                      className={`size-[10px] m-auto rounded-[50%] transition-all duration-500 ease-out ${timeIsSelected === item.id + "/" + +item.start_time + ":30" ? "bg-[#F66B34]" : ""}`}
-                    ></div>
+                      className={
+                        "rounded-[50%] border-2 border-[#F66B34] size-5 flex item-center justify-center cursor-pointer"
+                      }
+                    >
+                      <div
+                        className={`size-[10px] m-auto rounded-[50%] transition-all duration-500 ease-out ${timeIsSelected === item.id + "/" + +item.start_time + ":30" ? "bg-[#F66B34]" : ""}`}
+                      ></div>
+                    </div>
                   </div>
-                </div>
-                {/*    forth time*/}
-                <div
-                  key={index}
-                  className={`flex items-center p-2 ${timeIsSelected === item.id + "/" + (+item.start_time + 1) + ":30" ? "border-b border-b-[#F66B34]" : ""} gap-6`}
-                  onClick={(e) => {
-                    item.swing_type
-                      ? props.setFluctuation({
+                  {/*    forth time*/}
+                  <div
+                    key={index}
+                    className={`flex items-center p-2 ${timeIsSelected === item.id + "/" + (+item.start_time + 1) + ":30" ? "border-b border-b-[#F66B34]" : ""} gap-6`}
+                    onClick={(e) => {
+                      item.swing_type
+                        ? props.setFluctuation({
                           type: item.swing_type,
                           price: (packagePrice * item.diff_percent) / 100,
-                          description :item.diff_percent_description
+                          description: item.diff_percent_description
                         })
-                      : "";
-                    setTimeStamp(data[0]);
-                    timeIsSelected ===
-                    item.id + "/" + (+item.start_time + 1) + ":30"
-                      ? setTimeIsSelected(null)
-                      : setTimeIsSelected(
+                        : "";
+                      setTimeStamp(data[0]);
+                      timeIsSelected ===
+                        item.id + "/" + (+item.start_time + 1) + ":30"
+                        ? setTimeIsSelected(null)
+                        : setTimeIsSelected(
                           item.id + "/" + (+item.start_time + 1) + ":30"
                         );
-                  }}
-                >
-                  <p>{+item.start_time + 1 + ":30"}</p>
-                  <div
-                    className={
-                      "rounded-[50%] border-2 border-[#F66B34] size-5 flex item-center justify-center cursor-pointer"
-                    }
+                    }}
                   >
+                    <p>{+item.start_time + 1 + ":30"}</p>
                     <div
-                      className={`size-[10px] m-auto rounded-[50%] transition-all duration-500 ease-out ${timeIsSelected === item.id + "/" + (+item.start_time + 1) + ":30" ? "bg-[#F66B34]" : ""}`}
-                    ></div>
+                      className={
+                        "rounded-[50%] border-2 border-[#F66B34] size-5 flex item-center justify-center cursor-pointer"
+                      }
+                    >
+                      <div
+                        className={`size-[10px] m-auto rounded-[50%] transition-all duration-500 ease-out ${timeIsSelected === item.id + "/" + (+item.start_time + 1) + ":30" ? "bg-[#F66B34]" : ""}`}
+                      ></div>
+                    </div>
                   </div>
                 </div>
-              </div>
-            )}
+              )}
           </div>
         ))}
       {/* <div className={"flex items-center gap-2"}>

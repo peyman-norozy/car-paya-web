@@ -95,7 +95,6 @@ const CustomSearchInput = (props) => {
           className={`${optionContainerStyle} ${optionAccordionState ? "h-[300px]" : "h-0"}`}
         >
           {options?.map((item, index) => {
-            console.log(item.value, selectedOption);
             // ${item.value === selectedOption ? "even:bg-green-500 odd:bg-green-500 text-white" : ""}
             return (
               <li
