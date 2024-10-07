@@ -170,7 +170,7 @@ const PackageStep = () => {
               onClick={nextStepHandler}
               disabled={isSelected ? false : true}
               className={
-                "bg-[#F66B34] hidden self-end lg:flex items-center gap-2 mt-1 size690:mt-3 w-fit text-12 size690:text-[16px] p-[8px] text-white rounded-[4px]"
+                `${isSelected ? "bg-[#F66B34]" : "bg-[#FCCAAC]"} hidden self-end lg:flex items-center gap-2 mt-1 size690:mt-3 w-fit text-12 size690:text-[16px] p-[8px] text-white rounded-[4px]`
               }
             >
               <p>تایید و ادامه</p>
