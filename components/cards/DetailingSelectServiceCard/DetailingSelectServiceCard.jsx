@@ -1,52 +1,25 @@
 "use client";
 import { API_PATHS } from "@/configs/routes.config";
-import useSetQuery from "@/hook/useSetQuery";
 import Image from "next/image";
-import { error, numberWithCommas } from "@/utils/function-utils";
-import { postData } from "@/utils/client-api-function-utils";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { ToastContainer } from "react-toastify";
-import { useEffect } from "react";
-import nProgress from "nprogress";
+import { numberWithCommas } from "@/utils/function-utils";
 
 const SelectServiceCard = (props) => {
-  const setQuery = useSetQuery();
-  const pathName = usePathname();
-  const router = useRouter();
-  const searchParams = useSearchParams();
-
   const selectProductHandler = () => {
+    console.log(props.data);
+    const ditailingCart = JSON.parse(sessionStorage.getItem("ditailingCart"));
+
+    if (props.data.discounted_percent) {
+      ditailingCart.servicePrice = props.data.discounted_salary;
+      props.setDitailingPrice(props.data.discounted_salary);
+    } else {
+      ditailingCart.servicePrice = props.data.salary;
+      props.setDitailingPrice(props.data.salary);
+    }
+    sessionStorage.setItem("ditailingCart", JSON.stringify(ditailingCart));
     props.setProductId(props.data.id);
   };
 
   console.log(props.productId);
-
-  async function buttonClickHandler(productId) {
-    const cartData = await postData("/web/cart/add", {
-      cartable_id: productId,
-      cartable_type: pathName.split("/")[1].toUpperCase().split("-").join("_"),
-      vehicle_tip_id: JSON.parse(localStorage.getItem("selectedVehicle"))?.id,
-      step: "step-2",
-    });
-    console.log(cartData);
-    if (cartData.status === 200 || cartData.status === 201) {
-      console.log(cartData.data);
-      setQuery.updateQueryParams(
-        { package_id: productId },
-        "/detailing/timeSelector",
-      );
-    } else if (cartData.response.status === 422) {
-      console.log(cartData.response.data);
-      error(cartData.response.data.message);
-    } else if (cartData.response.status === 401) {
-      nProgress.start();
-      router.push("/login?backurl=" + pathName + "&" + searchParams.toString());
-    }
-  }
-
-  useEffect(() => {
-    props.sendToParent(buttonClickHandler);
-  }, []);
 
   return (
     <div
@@ -83,7 +56,7 @@ const SelectServiceCard = (props) => {
           />
         </div>
       </section>
-      <section>
+      <section className={"flex-1"}>
         <div className={"flex w-full"}>
           <span className="text-14 lg:text-18 font-medium">
             {props.data.selected ? props.data.product : props.data.name}

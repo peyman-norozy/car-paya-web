@@ -22,7 +22,7 @@ const DetailingIndex = () => {
   // const [asideStatus, setAsideStatus] = useState("car_city");
 
   // const [preventFirstRender, setPreventFirstRender] = useState(false);
-  const router = useRouter()
+  const router = useRouter();
   const pathName = usePathname();
 
   const searchParams = useSearchParams();
@@ -33,7 +33,7 @@ const DetailingIndex = () => {
       const city = JSON.parse(localStorage.getItem("city"));
       setCityId(city?.cityId);
     }
-  }, [ searchParams, pathName]);
+  }, [searchParams, pathName]);
 
   // useEffect(() => {
   //   if (typeof window !== "undefined") {
@@ -93,21 +93,17 @@ const DetailingIndex = () => {
   //   />
   // </div>
   function RegisterBatteryRequestHandler() {
-    nProgress.start()
+    nProgress.start();
     router.push(
-      JSON.parse(localStorage.getItem("selectedVehicle"))?.id &&
-      cityId
-        ? `/detailing/selectLocation?type=${"FIXED"}&attribute_slug=${searchParams.get("attribute_slug")}&attribute_value=${searchParams.get("attribute_value")}${
-            JSON.parse(localStorage.getItem("selectedVehicle"))
-              ?.id
+      JSON.parse(localStorage.getItem("selectedVehicle"))?.id && cityId
+        ? `/detailing/selectLocation?type=FIXED&${
+            JSON.parse(localStorage.getItem("selectedVehicle"))?.id
               ? `&selectTipState=true,${
-                  JSON.parse(
-                    localStorage.getItem("selectedVehicle"),
-                  )?.id
+                  JSON.parse(localStorage.getItem("selectedVehicle"))?.id
                 }`
               : ""
           }&city_id=${JSON.parse(localStorage.getItem("city"))?.cityId}`
-        : ""
+        : "",
     );
   }
   return (

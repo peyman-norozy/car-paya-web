@@ -114,7 +114,7 @@ const AddressSelection = (props) => {
         </div>
       )}
       {props.status === "FIXED" ? (
-        <ul className={" grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-6"}>
+        <ul className={"grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-6"}>
           {props.carCheckLocations?.map((item) => (
             <NewAddressCard
               key={item.id}

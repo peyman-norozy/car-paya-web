@@ -3,7 +3,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import PurchaseBatteryModal from "@/components/PurchaseBatteryModal";
 import useSetQuery from "@/hook/useSetQuery";
-import SubFilterCard from "@/components/cards/SubFilterCard";
 import { ToastContainer } from "react-toastify";
 import BatteriesCard from "@/components/cards/BatteriesCard/BatteriesCard";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -121,6 +120,36 @@ const BatteriesPage = (props) => {
       setBatteriesData(props.data?.data);
     }
   }, [props.searchParams.amp]);
+
+  useEffect(() => {
+    // Parse the current URL and query parameters
+    const searchParams = new URLSearchParams(window.location.search);
+
+    // Specify which parameters you want to keep (e.g., 'foo' and 'bar')
+    const allowedParams = [
+      "attribute_slug",
+      "attribute_value",
+      "selectTipState",
+    ];
+
+    // Filter the query params, keeping only the allowed ones
+    const newSearchParams = new URLSearchParams();
+
+    allowedParams.forEach((param) => {
+      const value = searchParams.get(param);
+      if (value) {
+        newSearchParams.set(param, value); // Add the allowed param to the new URLSearchParams object
+      }
+    });
+
+    // If the new query params differ from the current, replace the URL
+    if (newSearchParams.toString() !== searchParams.toString()) {
+      const cleanPath =
+        window.location.pathname +
+        (newSearchParams.toString() ? `?${newSearchParams.toString()}` : "");
+      router.replace(cleanPath);
+    }
+  }, [router]);
 
   const closeModal = () => {
     setModalState(false);

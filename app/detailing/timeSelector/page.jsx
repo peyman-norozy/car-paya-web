@@ -54,6 +54,8 @@ import { useSearchParams } from "next/navigation";
 const Page = (props) => {
   const [selectedTime, setSelectedTime] = useState();
   const [data, setData] = useState([]);
+  const [optionIsOpen, setOptionIsOpen] = useState(false);
+
   const setQuery = useSetQuery();
   const searchParams = useSearchParams();
 
@@ -91,8 +93,12 @@ const Page = (props) => {
           <TimeSelectorCard
             key={index}
             data={item}
-            selectedTime={selectedTime}
+            // selectedTime={selectedTime}
+            timeIsSelected={selectedTime}
             setSelectedTime={setSelectedTime}
+            setOptionIsOpen={setOptionIsOpen}
+            optionIsOpen={optionIsOpen}
+            setTimeIsSelected={setSelectedTime}
           />
         ))}
       </ul>
