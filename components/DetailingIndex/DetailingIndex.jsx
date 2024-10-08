@@ -14,6 +14,9 @@ import BatteryFaq from "@/components/BatteryFaq/BatteryFaq";
 import CarAndCityContainer from "../public/CarAndCityContainer";
 import nProgress from "nprogress";
 import useSetQuery from "@/hook/useSetQuery";
+import { getDataWithFullErrorRes } from "@/utils/api-function-utils";
+import { useDispatch } from "react-redux";
+import { setLoginModal } from "@/store/todoSlice";
 
 const DetailingIndex = () => {
   // const [client, setClient] = useState(false);
@@ -26,6 +29,7 @@ const DetailingIndex = () => {
   const router = useRouter();
   const pathName = usePathname();
   const query = useSetQuery();
+  const dispatch = useDispatch();
 
   const searchParams = useSearchParams();
 
@@ -105,19 +109,24 @@ const DetailingIndex = () => {
       ]);
     }
   }, []);
-  function RegisterBatteryRequestHandler() {
-    nProgress.start();
-    router.push(
-      JSON.parse(localStorage.getItem("selectedVehicle"))?.id && cityId
-        ? `/detailing/selectLocation?type=FIXED&attribute_slug=${attributeSlug}&attribute_value=${attributeValue}${
-            JSON.parse(localStorage.getItem("selectedVehicle"))?.id
-              ? `&selectTipState=true,${
-                  JSON.parse(localStorage.getItem("selectedVehicle"))?.id
-                }`
-              : ""
-          }&city_id=${JSON.parse(localStorage.getItem("city"))?.cityId}`
-        : "",
-    );
+  async function RegisterBatteryRequestHandler() {
+    const response = await getDataWithFullErrorRes("/web/checkAuth");
+    if (response?.response?.status === 401) {
+      dispatch(setLoginModal(true));
+    } else {
+      nProgress.start();
+      router.push(
+        JSON.parse(localStorage.getItem("selectedVehicle"))?.id && cityId
+          ? `/detailing/selectLocation?type=FIXED&attribute_slug=${attributeSlug}&attribute_value=${attributeValue}${
+              JSON.parse(localStorage.getItem("selectedVehicle"))?.id
+                ? `&selectTipState=true,${
+                    JSON.parse(localStorage.getItem("selectedVehicle"))?.id
+                  }`
+                : ""
+            }&city_id=${JSON.parse(localStorage.getItem("city"))?.cityId}`
+          : "",
+      );
+    }
   }
   return (
     <div className={"relative"}>
