@@ -234,50 +234,28 @@ const InvoicePage = () => {
   const searchParams = useSearchParams();
   const cityId = searchParams.get("city_id");
   const type = searchParams.get("type");
-  const vehicleTipId = searchParams.get("vehicle_tip_id");
+  const vehicleTipId = searchParams.get("selectTipState");
   const amper = searchParams.get("amper");
   const typeService = searchParams.get("type_service");
   const serviceLocationId = searchParams.get("service_location_id");
   const time = searchParams.get("time_id");
   const attributeSlug = searchParams.get("attribute_slug");
   const attributeValue = searchParams.get("attribute_value");
+  const packageId = searchParams.get("package_id");
   const timestamp = Math.floor(Date.now() / 1000);
 
   useEffect(() => {
     setClient(true);
-    //   (async () => {
-    //     const response = await getCurrentData(
-    //       "/web/reservation/battery?step=step-4",
-    //       {
-    //         city_id: searchParams.get("city_id"),
-    //         reservation_time_slice_id: searchParams.get("time_id")?.split("/")[0],
-    //         vehicle_tip_id: searchParams.get("vehicle_tip_id"),
-    //         registrationable_id: searchParams.get("service_location_id"),
-    //         exact_time: searchParams.get("time_id")?.split("/")[1],
-    //         amp: searchParams.get("amper"),
-    //         type: searchParams.get("type_service"),
-    //         type_service: searchParams.get("type"),
-    //       },
-    //     );
-    //     if (response.success) {
-    //       setFaktorData(response.data.data);
-    //     } else {
-    //       console.log(response);
-    //     }
-    //   })();
   }, []);
 
   async function registerClickHandler() {
     const response = await postData("/web/order/register", {
       item_id: searchParams.get("item_id"),
-      type: "battery",
+      type: "detailing",
       address_id: searchParams.get("service_location_id"),
       vehicle_tip_id: searchParams.get("vehicle_tip_id"),
       reservation_time_slice_id: searchParams.get("time_id")?.split("/")[0],
       coupon_code: coupon,
-      amp_user: searchParams.get("amper"),
-      battery_type: searchParams.get("type_service"),
-      quantity: JSON.parse(sessionStorage.getItem("batteriesCart"))?.quantity,
       shipped_time: searchParams.get("time_id")?.split("/")[1],
     });
     if (response.status === 200) {
@@ -293,16 +271,16 @@ const InvoicePage = () => {
   const cartTipImage = JSON.parse(localStorage.getItem("selectedVehicle"));
   // const userMobile = JSON.parse(localStorage.getItem("user-profile"))?.mobile;
   const locationServiceAddress = JSON.parse(
-    sessionStorage.getItem("batteriesCart"),
+    sessionStorage.getItem("ditailingCart"),
   )?.address;
   const dateServiceAddress = JSON.parse(
-    sessionStorage.getItem("batteriesCart"),
+    sessionStorage.getItem("ditailingCart"),
   )?.timeSelect;
-  const batteryName = JSON.parse(
-    sessionStorage.getItem("batteriesCart"),
-  )?.batteryName;
+  const serviceName = JSON.parse(
+    sessionStorage.getItem("ditailingCart"),
+  )?.serviceName;
   const quantity = JSON.parse(
-    sessionStorage.getItem("batteriesCart"),
+    sessionStorage.getItem("ditailingCart"),
   )?.quantity;
 
   console.log(dateServiceAddress);
@@ -320,7 +298,7 @@ const InvoicePage = () => {
           }
         >
           <Link
-            href={`/batteries/products/newTimeSelector?attribute_slug=${attributeSlug}&attribute_value=${attributeValue}&city_id=${cityId}&type=${type}&vehicle_tip_id=${vehicleTipId}&amper=${amper}&type_service=${typeService}&service_location_id=${serviceLocationId}`}
+            href={`/detailing/timeSelector?city_id=${cityId}&type=${type}&selectTipState=${vehicleTipId}&service_location_id=${serviceLocationId}&package_id=${packageId}`}
             className={"flex items-center"}
           >
             <i className={"cc-arrow-right text-24"} />
@@ -409,12 +387,12 @@ const InvoicePage = () => {
                   discountPrice={discountPrice}
                   setDiscountPrice={setDiscountPrice}
                   totalPrice={
-                    (JSON.parse(localStorage.getItem("batteryTotalPrice"))
-                      ?.price || 0) * quantity
+                    JSON.parse(sessionStorage.getItem("ditailingCart"))
+                      ?.servicePrice || 0
                   }
                   coupon={coupon}
                   setCoupon={setCoupon}
-                  type={"battery"}
+                  type={"detailing"}
                   finalPrice={finalPrice}
                   setFinalPrice={setFinalPrice}
                   discountedprice={discountedprice}
@@ -432,8 +410,8 @@ const InvoicePage = () => {
                     "flex items-center gap-1 border-b border-b-[#BBBBBB] pb-4"
                   }
                 >
-                  <span>نوع باتری:</span>
-                  <span>{batteryName}</span>
+                  <span>نوع خدمت:</span>
+                  <span>{serviceName}</span>
                 </div>
                 <div className={"border-b border-b-[#BBBBBB] pb-4"}>
                   <div className="flex flex-col">
@@ -456,7 +434,7 @@ const InvoicePage = () => {
                   </div>
                   <div className={"flex justify-end"}>
                     <Link
-                      href={`/batteries/products/newSelectLocation?attribute_slug=${attributeSlug}&attribute_value=${attributeValue}&city_id=${cityId}&type=${type}&vehicle_tip_id=${vehicleTipId}&amper=${amper}&type_service=${typeService}`}
+                      href={`/detailing/selectLocation?city_id=${cityId}&type=${type}&selectTipState=${vehicleTipId}`}
                       className="text-[#518dd5] flex items-center gap-1 mt-2 border-b-2 border-b-[#518dd5] pb-2 cursor-pointer"
                     >
                       <i className={"cc-edit text-20"} />
@@ -495,7 +473,7 @@ const InvoicePage = () => {
                   </span>
                 </div>
                 <Link
-                  href={`/batteries/products/newTimeSelector?attribute_slug=${attributeSlug}&attribute_value=${attributeValue}&city_id=${cityId}&type=${type}&vehicle_tip_id=${vehicleTipId}&amper=${amper}&type_service=${typeService}&service_location_id=${serviceLocationId}`}
+                  href={`/detailing/timeSelector?city_id=${cityId}&type=${type}&selectTipState=${vehicleTipId}&service_location_id=${serviceLocationId}&package_id=${packageId}`}
                   className="text-[#518dd5] flex items-center gap-1 mt-2 self-end border-b-2 border-b-[#518dd5] pb-2 cursor-pointer"
                 >
                   <i className={"cc-edit text-20"} />
@@ -509,7 +487,7 @@ const InvoicePage = () => {
               >
                 <DiscountPercent
                   id={faktorData?.id}
-                  type={"battery"}
+                  type={"detailing"}
                   setDiscountPrice={setDiscountPrice}
                   setDiscount={setDiscount}
                   coupon={coupon}
@@ -546,8 +524,8 @@ const InvoicePage = () => {
             discountPrice={discountPrice}
             setDiscountPrice={setDiscountPrice}
             totalPrice={
-              JSON.parse(localStorage.getItem("batteryTotalPrice"))?.price ||
-              0 * quantity
+              JSON.parse(sessionStorage.getItem("ditailingCart"))
+                ?.servicePrice || 0
             }
             type={"battery"}
             registerClickHandler={registerClickHandler}

@@ -48,7 +48,7 @@ const DetailingSelectService = (props) => {
           className={"cc-arrow-right text-24 cursor-pointer"}
           onClick={() =>
             router.push(
-              `/detailing/selectLocation?type=${type}&selectTipState=${selectTipState}&city_id=${cityId}&service_location_id=${serviceLocationId}`,
+              `/detailing/selectLocation?type=${type}&attribute_slug=${attributeSlug}&attribute_value=${attributeValue}&selectTipState=${selectTipState}&city_id=${cityId}`,
             )
           }
         />

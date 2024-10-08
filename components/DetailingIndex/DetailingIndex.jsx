@@ -13,6 +13,7 @@ import PointView from "@/components/PointView/PointView";
 import BatteryFaq from "@/components/BatteryFaq/BatteryFaq";
 import CarAndCityContainer from "../public/CarAndCityContainer";
 import nProgress from "nprogress";
+import useSetQuery from "@/hook/useSetQuery";
 
 const DetailingIndex = () => {
   // const [client, setClient] = useState(false);
@@ -24,8 +25,12 @@ const DetailingIndex = () => {
   // const [preventFirstRender, setPreventFirstRender] = useState(false);
   const router = useRouter();
   const pathName = usePathname();
+  const query = useSetQuery();
 
   const searchParams = useSearchParams();
+
+  const attributeSlug = searchParams.get("attribute_slug");
+  const attributeValue = searchParams.get("attribute_value");
 
   useEffect(() => {
     // setClient(true);
@@ -92,11 +97,19 @@ const DetailingIndex = () => {
   //       height={195}
   //   />
   // </div>
+  useEffect(() => {
+    if (searchParams.get("attribute_slug") === undefined) {
+      query.setMultiQuery([
+        { key: "attribute_slug", value: "type_vehicle" },
+        { key: "attribute_value", value: "car" },
+      ]);
+    }
+  }, []);
   function RegisterBatteryRequestHandler() {
     nProgress.start();
     router.push(
       JSON.parse(localStorage.getItem("selectedVehicle"))?.id && cityId
-        ? `/detailing/selectLocation?type=FIXED&${
+        ? `/detailing/selectLocation?type=FIXED&attribute_slug=${attributeSlug}&attribute_value=${attributeValue}${
             JSON.parse(localStorage.getItem("selectedVehicle"))?.id
               ? `&selectTipState=true,${
                   JSON.parse(localStorage.getItem("selectedVehicle"))?.id
