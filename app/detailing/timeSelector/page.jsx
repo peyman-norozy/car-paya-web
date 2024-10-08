@@ -138,18 +138,6 @@ const Page = (props) => {
       "/detailing/invoice",
     );
   }
-
-  {
-    /*?type=FIXED&attribute_slug=type_vehicle&attribute_value=car&&selectTipState=true,277&city_id=87*/
-  }
-  {
-    /*?attribute_slug=type_vehicle&attribute_value=car&selectTipState=true,277&city_id=87*/
-  }
-  {
-    /*/detailing/selected-services?type=FIXED&attribute_slug=type_vehicle&attribute_value=car&selectTipState=true%2C277&city_id=87&service_location_id=69*/
-  }
-  // /detailing/selected-services?type=FIXED&attribute_slug=type_vehicle&attribute_value=car&selectTipState=true%2C277&city_id=87&service_location_id=70
-  // detailing/selectLocation?type=FIXED&attribute_slug=type_vehicle&attribute_value=car&selectTipState=true,277&city_id=87
   return (
     <div
       className={
@@ -157,7 +145,7 @@ const Page = (props) => {
       }
     >
       <Link
-        href={`/detailing/selected-services?attribute_slug=${attributeSlug}&attribute_value=${attributeValue}&city_id=${cityId}&type=${type}&selectTipState=true,${vehicleTipId}`}
+        href={`/detailing/selected-services?attribute_slug=${attributeSlug}&attribute_value=${attributeValue}&city_id=${cityId}&type=${type}&selectTipState=true,${vehicleTipId}&service_location_id=${serviceLocationId}`}
         className={
           "flex items-center gap-2 size752:gap-[16px] text-[#0E0E0E] w-full"
         }
