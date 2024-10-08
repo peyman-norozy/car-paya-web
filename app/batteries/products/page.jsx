@@ -41,7 +41,7 @@ const BatteriesData = async (props) => {
       amp: props.filter.amp,
       brand: props.filter.brand,
       tip_id: fetchState,
-      per_page: 2,
+      per_page: 10,
       page: props.filter.page || 1,
       attribute_slug: props.filter.attribute_slug,
       attribute_value: props.filter.attribute_value,
