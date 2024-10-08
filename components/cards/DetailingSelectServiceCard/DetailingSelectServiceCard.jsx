@@ -15,6 +15,9 @@ const SelectServiceCard = (props) => {
       ditailingCart.servicePrice = props.data.salary;
       props.setDitailingPrice(props.data.salary);
     }
+    ditailingCart.serviceName = props.data.selected
+      ? props.data.product
+      : props.data.name;
     sessionStorage.setItem("ditailingCart", JSON.stringify(ditailingCart));
     props.setProductId(props.data.id);
   };

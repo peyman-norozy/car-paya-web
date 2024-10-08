@@ -9,7 +9,7 @@ export const serviceData = [
   {
     title: "دیتیلینگ",
     icon: "/assets/images/service2.png",
-    href: "/detailing",
+    href: "/detailing?attribute_slug=type_vehicle&attribute_value=car",
     id: "detailing",
     description: "کار پایا چه خدماتی ارائه میدهدکار پایا چه خدماتی ارائه میدهد",
   },
