@@ -12,7 +12,6 @@ const HomePageArticleSlider = (props) => {
   if (props?.data?.error?.code === 404) {
     return "";
   }
-  console.log(props);
   return (
     <div className="flex flex-col">
       <span className="text-sm sm:text-xl font-bold text-black text-start px-4 mb-3">
