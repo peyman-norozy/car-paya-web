@@ -21,7 +21,11 @@ const HomePageArticles = (props) => {
         }}
         className="mySwiper ArticleSlider"
         slidesPerView={"auto"}
-        style={{ width: "calc(100% - 32px)", marginRight: "16px" , marginLeft: "16px" }}
+        style={{
+          width: "calc(100% - 32px)",
+          marginRight: "16px",
+          marginLeft: "16px",
+        }}
         centeredSlides={true}
         loop={true}
       >

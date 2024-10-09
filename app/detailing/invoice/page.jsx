@@ -250,10 +250,10 @@ const InvoicePage = () => {
 
   async function registerClickHandler() {
     const response = await postData("/web/order/register", {
-      item_id: searchParams.get("item_id"),
+      item_id: searchParams.get("package_id"),
       type: "detailing",
       address_id: searchParams.get("service_location_id"),
-      vehicle_tip_id: searchParams.get("vehicle_tip_id"),
+      vehicle_tip_id: searchParams.get("selectTipState").split(",")[1],
       reservation_time_slice_id: searchParams.get("time_id")?.split("/")[0],
       coupon_code: coupon,
       shipped_time: searchParams.get("time_id")?.split("/")[1],
@@ -527,7 +527,7 @@ const InvoicePage = () => {
               JSON.parse(sessionStorage.getItem("ditailingCart"))
                 ?.servicePrice || 0
             }
-            type={"battery"}
+            type={"detailing"}
             registerClickHandler={registerClickHandler}
             coupon={coupon}
             setCoupon={setCoupon}

@@ -30,6 +30,29 @@ export async function getCurrentData(apiRoute, params) {
   }
 }
 
+export async function getDataWithRevalidate(apiRoute, params) {
+  try {
+    const response = await fetch(apiRoute, {
+      method: "GET", // می‌توانید این خط را اضافه کنید
+      cache: "no-store", // برای جلوگیری از کش
+    });
+
+    if (!response.ok) {
+      if (response.status === 404) {
+        return { error: { code: 404, message: "404: منبع پیدا نشد" } };
+      }
+      console.log(response, "peymanpe3yman");
+      throw new Error(`HTTP error! status: ${response.status}`); // بررسی وضعیت پاسخ
+    }
+
+    const data = await response.json();
+    return data; // برگرداندن داده
+  } catch (error) {
+    console.log("Error fetching data:", error);
+    return null; // در صورت بروز خطا
+  }
+}
+
 export async function deleteData(apiRoute) {
   try {
     const res = await api.delete(apiRoute);

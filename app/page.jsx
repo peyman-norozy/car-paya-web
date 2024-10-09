@@ -6,20 +6,23 @@ import HomePageServiceIntroduction from "@/components/HomePage/HomePageServiceIn
 import MainPageServices from "@/components/HomePage/MainPageServices";
 import LoginModal from "@/components/login/LoginModal";
 import { API_PATHS } from "@/configs/routes.config";
-import { getData } from "@/utils/api-function-utils";
+import { getData, getDataWithRevalidate } from "@/utils/api-function-utils";
 import { ToastContainer } from "react-toastify";
 
 const HomePage = async () => {
-  const data = await getData(`/web/mags`);
+  const data = await getDataWithRevalidate(
+    "https://carpaya.com/wp-json/api/v1/random-posts/8",
+  );
+
   return (
     <div className="flex flex-col gap-4 lg:gap-9 w-full max-w-[1772px] m-auto lg:mt-6 relative">
       <HomePageMainSlider />
       <div className="flex flex-col gap-4 lg:gap-9 w-full lg:w-[calc(100%-424px)] self-end">
         <MainPageServices />
         {/* <HomePageParallaxSlider /> */}
-        <HomePageServiceIntroduction/>
+        <HomePageServiceIntroduction />
         <HomePageArticleSlider data={data} />
-        <HomePageArticles data={data}/>
+        <HomePageArticles data={data} />
       </div>
       <ToastContainer rtl={true} />
     </div>

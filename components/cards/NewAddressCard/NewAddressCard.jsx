@@ -1,13 +1,14 @@
 "use client";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import AddressCheckInput from "@/components/AddressCheckInput/AddressCheckInput";
 import { setDeleteModal, setDeleteModalId } from "@/store/todoSlice";
 import DeleteModal from "@/components/public/DeleteModal";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { usePathname } from "next/navigation";
 import Image from "next/image";
 import BatterisDetailCard from "@/components/cards/BatterisDetailCard/BatterisDetailCard";
 import BatteryPriceDitail from "@/components/BatteryPriceDitail/BatteryPriceDitail";
+import DitailModal from "@/components/modal/DitailModal";
 
 const NewAddressCard = ({
   status,
@@ -19,8 +20,11 @@ const NewAddressCard = ({
   locationId,
 }) => {
   const [openMenu, setOpenMenu] = useState(false);
+  const [ditailModalIsOpen, setEditModalIsOpen] = useState(false);
+  const innerWidth = useSelector((item) => item.todo.windowInnerWidth);
   const dispatch = useDispatch();
   const pathName = usePathname();
+  const accordionContainer = useRef();
 
   const clickEditHandler = (id) => {
     setPageType("edite");
@@ -43,14 +47,22 @@ const NewAddressCard = ({
     }
   };
 
+  const ditailClickHandler = () => {
+    setEditModalIsOpen(true);
+  };
+
+  const accordionclickHandler = () => {
+    console.log(accordionContainer.current.scrollHeight);
+  };
+
   console.log(item.services);
 
   return (
     <li
-      className={`relative bg-white shadow-[0_0_10px_0_rgba(152,152,152,0.4)] py-4 px-6 rounded-[16px] flex xl:flex-row flex-col lg:gap-6 gap-2 h-fit ${status === "FIXED" && item.address_id === locationId ? " border border-[#F66B34]" : status === "MOVING" && item.address_id === locationId ? "border border-[#F66B34]" : ""}`}
+      className={`relative bg-white shadow-[0_0_10px_0_rgba(152,152,152,0.4)] py-4 px-6 rounded-[16px] flex flex-col lg:gap-6 gap-2 h-fit ${status === "FIXED" && item.address_id === locationId ? " border border-[#F66B34]" : status === "MOVING" && item.address_id === locationId ? "border border-[#F66B34]" : ""}`}
     >
-      <div className={`flex-1 ${status === "FIXED" && "flex justify-between"}`}>
-        <div>
+      <div className={`flex-1 ${status === "FIXED" && "flex"}`}>
+        <div className={"w-full"}>
           <section className={"flex justify-between"}>
             <div
               className={"flex gap-2 items-center cursor-pointer"}
@@ -107,79 +119,115 @@ const NewAddressCard = ({
               <span>{item.area_name}</span>
             </div>
           </section>
-          <section className={"lg:flex hidden"}>
-            <p className={"leading-7 lg:text-16 text-12 mb-4"}>
+          <section className={"flex"}>
+            <p className={"leading-7 lg:text-16 text-12 lg:mb-4 mb-0"}>
               {/*<span className={"font-semibold"}> آدرس دقیق: </span>*/}
               {item.address}
             </p>
           </section>
           <ul
             className={
-              "lg:grid hidden size1330:grid-cols-3 grid-cols-2 size1362:gap-x-16 gap-x-10 gap-y-4"
+              "lg:grid hidden grid-cols-2 size1362:gap-x-16 gap-x-10 gap-y-4 w-full"
             }
           >
             {status === "FIXED" &&
-              item.services.map((item) => (
+              item.services?.slice(2).map((item) => (
                 <li key={item.key} className={"flex items-center gap-2"}>
                   <i
                     className={
-                      "cc-tick text-[#24D34B] bg-[#24D34B40] w-[17px] h-[17px] rounded-full"
+                      "cc-tick text-[#24D34B] bg-[#24D34B40] w-[17px] h-[17px] rounded-full text-14 flex items-center justify-center"
                     }
                   />
-                  <span> {item.label}</span>
+                  <span>{item.label}</span>
                 </li>
               ))}
           </ul>
         </div>
-        {status === "FIXED" && (
-          <div>
-            <Image
-              src={"/assets/images/design-8.png"}
-              alt={"service image"}
-              width={1000}
-              height={1000}
-              className={
-                "lg:w-[230px] lg:h-[204px] w-[140px] h-[87px] rounded-8"
-              }
-            />
-          </div>
-        )}
+        {/*{status === "FIXED" && (*/}
+        {/*  <div>*/}
+        {/*    <Image*/}
+        {/*      src={"/assets/images/design-8.png"}*/}
+        {/*      alt={"service image"}*/}
+        {/*      width={1000}*/}
+        {/*      height={1000}*/}
+        {/*      className={*/}
+        {/*        "lg:w-[230px] lg:h-[204px] w-[140px] h-[87px] rounded-8"*/}
+        {/*      }*/}
+        {/*    />*/}
+        {/*  </div>*/}
+        {/*)}*/}
 
-        {status === "FIXED" && (
-          <div className={`absolute -top-1 -left-1`}>
-            <Image
-              src={"/assets/icons/image85.svg"}
-              alt={"percent"}
-              width={52}
-              height={51}
-            />
-            <span
-              className={
-                "absolute top-[7px] left-[8px] text-12 text-white -rotate-45"
-              }
-            >
-              25%
-              {/*{props.item.discounted_percent}%*/}
-            </span>
-          </div>
-        )}
+        {/*{status === "FIXED" && (*/}
+        {/*  <div className={`absolute -top-1 -left-1`}>*/}
+        {/*    <Image*/}
+        {/*      src={"/assets/icons/image85.svg"}*/}
+        {/*      alt={"percent"}*/}
+        {/*      width={52}*/}
+        {/*      height={51}*/}
+        {/*    />*/}
+        {/*    <span*/}
+        {/*      className={*/}
+        {/*        "absolute top-[7px] left-[8px] text-12 text-white -rotate-45"*/}
+        {/*      }*/}
+        {/*    >*/}
+        {/*      25%*/}
+        {/*      /!*{props.item.discounted_percent}%*!/*/}
+        {/*    </span>*/}
+        {/*  </div>*/}
+        {/*)}*/}
       </div>
-      <section className={"lg:hidden block"}>
-        <p className={"leading-7 lg:text-16 text-12 mb-4"}>
-          {/*<span className={"font-semibold"}> آدرس دقیق: </span>*/}
-          {item.address}
-        </p>
-      </section>
-      {status === "FIXED" && (
+      {/*<section className={""}>*/}
+      {/*  <p className={"leading-7 lg:text-16 text-12 mb-4"}>*/}
+      {/*    /!*<span className={"font-semibold"}> آدرس دقیق: </span>*!/*/}
+      {/*    {item.address}*/}
+      {/*  </p>*/}
+      {/*</section>*/}
+      {status === "FIXED" && innerWidth > 460 && (
         <button
           className={
-            "border border-[#F58052] text-[#F58052] py-[6px] rounded-[4px] lg:hidden block"
+            "border border-[#F58052] text-[#F58052] py-[6px] rounded-[4px]"
           }
+          onClick={ditailClickHandler}
         >
           مشاهده جزئیات
         </button>
       )}
+      {status === "FIXED" && innerWidth < 460 && (
+        <>
+          <ul
+            className={
+              "grid grid-cols-2 size1362:gap-x-16 gap-x-10 gap-y-4 w-full"
+            }
+            ref={accordionContainer}
+          >
+            {status === "FIXED" &&
+              item.services?.map((item) => (
+                <li key={item.key} className={"flex items-center gap-2"}>
+                  <i
+                    className={
+                      "cc-tick text-[#24D34B] bg-[#24D34B40] w-[17px] h-[17px] rounded-full text-14 flex items-center justify-center"
+                    }
+                  />
+                  <span>{item.label}</span>
+                </li>
+              ))}
+          </ul>
+          <div
+            className={"flex items-center justify-center"}
+            onClick={accordionclickHandler}
+          >
+            <span className={"text-12"}>مشاهده بیشتر</span>
+            <i className={"cc-left"} />
+          </div>
+        </>
+      )}
       <DeleteModal />
+      {ditailModalIsOpen && (
+        <DitailModal
+          item={item.services}
+          setEditModalIsOpen={setEditModalIsOpen}
+        />
+      )}
     </li>
   );
 };
