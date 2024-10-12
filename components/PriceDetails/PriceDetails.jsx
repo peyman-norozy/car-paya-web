@@ -34,17 +34,7 @@ const PriceDetails = (props) => {
           جزئیات قیمت:
         </span>
       </div>
-      <div className={"mt-4 hidden lg:inline-block w-full"}>
-        <DiscountPercent
-          id={faktorData?.id}
-          type={props.type}
-          setDiscount={props.setDiscount}
-          setDiscountPrice={props.setDiscountPrice}
-          coupon={props.coupon}
-          setCoupon={props.setCoupon}
-          // setDiscountPercent={setDiscountPercent}
-        />
-      </div>
+
       <div className="flex justify-between">
         <span className="text-[#454545] font-medium lg:text-16 text-14">
           قیمت سرویس:
@@ -88,6 +78,17 @@ const PriceDetails = (props) => {
           <span className={"text-[#22A137] text-14"}>تومان</span>
         </div>
       </div>
+      <div className={"mt-4 hidden lg:inline-block w-full"}>
+        <DiscountPercent
+          id={faktorData?.id}
+          type={props.type}
+          setDiscount={props.setDiscount}
+          setDiscountPrice={props.setDiscountPrice}
+          coupon={props.coupon}
+          setCoupon={props.setCoupon}
+          // setDiscountPercent={setDiscountPercent}
+        />
+      </div>
       {props.price_fluctuation &&
         props.price_fluctuation?.description !== "" && (
           <div className="flex justify-between">
@@ -111,8 +112,8 @@ const PriceDetails = (props) => {
             )}
           </div>
         )}
-      <div className="justify-between items-center hidden lg:flex">
-        <div className="flex gap-1 items-center">
+      <div className="hidden lg:block w-full">
+        <div className="flex justify-between gap-1 items-center">
           <span className="text-[#3C3C3C] font-medium">جمع قابل پرداخت:</span>
           <span className="text-[#1E67BF] font-medium text-lg">
             {/*{props.type === "product_key"*/}
@@ -135,14 +136,14 @@ const PriceDetails = (props) => {
             تومان
           </span>
         </div>
-        <button
-          className={`${props.roleChecked ? "bg-[#F66B34]" : "bg-[#FCCAAC]"} rounded-[8px] text-white text-[16px] font-medium w-40 h-10`}
-          disabled={!props.roleChecked}
-          onClick={props.registerClickHandler}
-        >
-          تایید و تکمیل سفارش
-        </button>
       </div>
+      <button
+        className={`${props.roleChecked ? "bg-[#F66B34]" : "bg-[#FCCAAC]"} rounded-[8px] text-white text-[16px] font-medium w-full h-10`}
+        disabled={!props.roleChecked}
+        onClick={props.registerClickHandler}
+      >
+        تایید و تکمیل سفارش
+      </button>
       {/*<div className="flex justify-between font-semibold">*/}
       {/*  <span className="text-[#137BDB]">سود شما از این خرید:</span>*/}
       {/*  <span className="text-[#137BDB]">۱۵۳۰۰۰۰ تومان</span>*/}
@@ -168,17 +169,17 @@ const PriceDetails = (props) => {
       )} */}
       <div className="flex justify-start items-center text-xs gap-1 font-medium mt-2 border-t border-[#BBBBBB] pt-2">
         <div
-          className={`border-2 border-[#F58052] size-6 rounded-md ml-1 flex justify-center items-center ${props.roleChecked ? "bg-[#f58052]" : ""}`}
+          className={`border-2 border-[#1E67BF] size-6 rounded-md ml-1 flex justify-center items-center ${props.roleChecked ? "bg-[#1E67BF]" : ""}`}
           onClick={() => {
             props.setRoleChecked(!props.roleChecked);
           }}
         >
           <i className="cc-tick text-white text-xl" />
         </div>
-        <span className="text-[#F58052] underline">
+        <span className="text-[#1E67BF] text-14">
           قوانین کار پایا و سیاست‌ نامه حریم‌ خصوصی
         </span>
-        <span className="text-[#3C3C3C]">را می پذیرم</span>
+        <span className="text-[#3C3C3C] text-14">را می پذیرم.</span>
       </div>
     </>
   );
