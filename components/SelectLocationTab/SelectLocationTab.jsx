@@ -11,7 +11,7 @@ const SelectLocationTab = (props) => {
 
   return (
     <div
-      className={`border-b-2 ${props.selectAddressState === props.addressTabState ? "text-[#F58052] border-[#F58052]" : "text-[#FCCAAC] border-[#FCCAAC]"} w-full py-3 px-4 cursor-pointer`}
+      className={`border-b-2 ${props.selectAddressState === props.addressTabState ? "text-[#F66B34] border-[#F66B34]" : "text-[#BBBBBB] border-[#BBBBBB]"} w-full py-3 px-4 cursor-pointer`}
       onClick={clickTabHandler}
     >
       <h1 className={"text-[14px] text-center font-semibold"}>
