@@ -96,7 +96,7 @@ const DetailingSelectService = (props) => {
       </div>
       <div className={"py-4 flex flex-col h-full justify-between relative"}>
         <div className={"lg:h-[calc(100%-100px)] overflow-y-scroll"}>
-          <div className="grid size1570:grid-cols-3 size1275:grid-cols-2 grid-cols-1 sm:gap-2 lg:gap-4 gap-4 h-fit">
+          <div className="grid size1570:grid-cols-3 size1275:grid-cols-2 grid-cols-1 sm:gap-2 lg:gap-4 gap-4 h-fit p-1">
             {props.data?.map((item, index) => (
               <DetailingSelectServiceCard
                 data={item}
