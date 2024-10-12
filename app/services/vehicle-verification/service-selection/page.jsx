@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import PackageCard from "@/components/vehicle-verification/PackageCard";
@@ -24,15 +24,15 @@ const PackageStep = () => {
   const [price, setPrice] = useState(null);
   const dispatch = useDispatch();
   const Length = useSelector(
-    (state) => state.todo.vehicleVerificationBasketLength
+    (state) => state.todo.vehicleVerificationBasketLength,
   );
   const setQuery = useSetQuery();
 
-  const selectPackageHandler = (id, title , price) => {
+  const selectPackageHandler = (id, title, price) => {
     if (isSelected !== id) {
       setIsSelected(id);
       setTitle(title);
-      setPrice(price)
+      setPrice(price);
     } else {
       setIsSelected(null);
       setTitle(null);
@@ -51,7 +51,7 @@ const PackageStep = () => {
         process.env.BASE_API +
           "/web/expert/reservation?step=step-1" +
           vehicle_tip +
-          city
+          city,
       )
       .then((res) => {
         res.data.data.length ? setData(res.data.data) : setData([]);
@@ -69,40 +69,47 @@ const PackageStep = () => {
         },
       })
       .then(async () => {
-    if (Length.length) {
-      await postData("/web/cart/remove", {
-        cartable_id: Length[0].item.item.id,
-        cartable_type: "VEHICLE_VERIFICATION",
-        vehicle_tip_id: Length[0].vehicle_tip_id,
-        step: "5",
+        if (Length.length) {
+          await postData("/web/cart/remove", {
+            cartable_id: Length[0].item.item.id,
+            cartable_type: "VEHICLE_VERIFICATION",
+            vehicle_tip_id: Length[0].vehicle_tip_id,
+            step: "5",
+          });
+        }
+        const city_id = searchParams.get("city_id");
+        const selectedItem = searchParams.get("vehicle_tip");
+        // await postData("/web/cart/add", {
+        //   cartable_id: isSelected,
+        //   cartable_type: "VEHICLE_VERIFICATION",
+        //   vehicle_tip_id: selectedItem,
+        //   step: "5",
+        // });
+        sessionStorage.setItem(
+          "verificationCart",
+          JSON.stringify({
+            package_id: isSelected,
+            package_title: title,
+            price: price,
+          }),
+        );
+        // setQuery.setMultiQuery([
+        //   { key: "step", value: "step-2" },
+        //   { key: "city_id", value: city_id },
+        //   {
+        //     key: "vehicle_tip",
+        //     value: selectedItem,
+        //   },
+        //   { key: "package_id", value: isSelected },
+        // ]);
+        nProgress.start();
+        router.push(
+          `/services/vehicle-verification/time-selection?city_id=${city_id}&vehicle_tip=${selectedItem}&package_id=${isSelected}&step=step-2`,
+        );
+      })
+      .catch((err) => {
+        dispatch(setLoginModal(true));
       });
-    }
-    const city_id = searchParams.get("city_id");
-    const selectedItem = searchParams.get("vehicle_tip");
-    // await postData("/web/cart/add", {
-    //   cartable_id: isSelected,
-    //   cartable_type: "VEHICLE_VERIFICATION",
-    //   vehicle_tip_id: selectedItem,
-    //   step: "5",
-    // });
-    sessionStorage.setItem("verificationCart", JSON.stringify({ package_id: isSelected, package_title:title,price:price}));
-    // setQuery.setMultiQuery([
-    //   { key: "step", value: "step-2" },
-    //   { key: "city_id", value: city_id },
-    //   {
-    //     key: "vehicle_tip",
-    //     value: selectedItem,
-    //   },
-    //   { key: "package_id", value: isSelected },
-    // ]);
-    nProgress.start()
-    router.push(
-        `/vehicle-verification/time-selection?city_id=${city_id}&vehicle_tip=${selectedItem}&package_id=${isSelected}&step=step-2`
-      );
-    })
-    .catch((err) => {
-      dispatch(setLoginModal(true));
-    });
   };
   return (
     <>
@@ -115,7 +122,9 @@ const PackageStep = () => {
           <div className={"flex items-center gap-2 text-[#0E0E0E] w-full"}>
             <i
               className={"cc-arrow-right text-24 cursor-pointer"}
-              onClick={()=>{router.back()}}
+              onClick={() => {
+                router.back();
+              }}
             />
             <p className={"text-14 size752:text-16 w-full font-medium"}>
               انتخاب سرویس
@@ -160,7 +169,13 @@ const PackageStep = () => {
                       title={item.title}
                       price={item.price}
                       discounted_price={item.discounted_price}
-                      onClick={() => selectPackageHandler(item.id,item.title,item.discounted_price)}
+                      onClick={() =>
+                        selectPackageHandler(
+                          item.id,
+                          item.title,
+                          item.discounted_price,
+                        )
+                      }
                     />
                   </li>
                 ))}
@@ -169,9 +184,7 @@ const PackageStep = () => {
             <button
               onClick={nextStepHandler}
               disabled={isSelected ? false : true}
-              className={
-                `${isSelected ? "bg-[#F66B34]" : "bg-[#FCCAAC]"} hidden self-end lg:flex items-center gap-2 mt-1 size690:mt-3 w-fit text-12 size690:text-[16px] p-[8px] text-white rounded-[4px]`
-              }
+              className={`${isSelected ? "bg-[#F66B34]" : "bg-[#FCCAAC]"} hidden self-end lg:flex items-center gap-2 mt-1 size690:mt-3 w-fit text-12 size690:text-[16px] p-[8px] text-white rounded-[4px]`}
             >
               <p>تایید و ادامه</p>
               <i className={"cc-left text-[20px]"} />

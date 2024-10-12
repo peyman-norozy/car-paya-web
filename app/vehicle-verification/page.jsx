@@ -41,7 +41,7 @@
 // };
 
 // export default VehicleVerification;
-'use client'
+"use client";
 import React, { Fragment, useEffect, useState } from "react";
 // import SelectProvinceAndCarBox from "./SelectProvinceAndCarBox";
 import Image from "next/image";
@@ -75,7 +75,7 @@ const VerificationFirstStep = (props) => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [modalClickState, setModalClickState] = useState(false);
   const vehicleVerificationBasket = useSelector(
-    (state) => state.todo.vehicleVerificationBasketLength
+    (state) => state.todo.vehicleVerificationBasketLength,
   );
   const router = useRouter();
   const setQuery = useSetQuery();
@@ -109,9 +109,9 @@ const VerificationFirstStep = (props) => {
       //   { key: "step", value: "step-1" },
       // ]);
       // setStep(2);
-      nProgress.start()
+      nProgress.start();
       router.push(
-        `/vehicle-verification/service-selection?city_id=${JSON.parse(localStorage.getItem("city")).cityId}&vehicle_tip=${JSON.parse(localStorage.getItem("selectedVehicle")).id}&step=step-1`
+        `/services/vehicle-verification/service-selection?city_id=${JSON.parse(localStorage.getItem("city")).cityId}&vehicle_tip=${JSON.parse(localStorage.getItem("selectedVehicle")).id}&step=step-1`,
       );
     }
     // setModalIsOpen(true);
@@ -127,9 +127,9 @@ const VerificationFirstStep = (props) => {
     axios
       .get(
         process.env.BASE_API +
-        "/web/expert/reservation?step=step-1" +
-        vehicle_tip +
-        city
+          "/web/expert/reservation?step=step-1" +
+          vehicle_tip +
+          city,
       )
       .then((res) => {
         console.log(res);
@@ -163,12 +163,14 @@ const VerificationFirstStep = (props) => {
               src={carshenasi}
               width={287}
               height={164}
+              alt={"carshenasi image"}
             />
             <Image
               src={zarebin}
               className="absolute zarebin"
               width={124}
               height={128}
+              alt={"zarebin icon"}
             />
           </div>
           <button
@@ -176,7 +178,7 @@ const VerificationFirstStep = (props) => {
             onClick={() => {
               setModalClickState(true);
             }}
-          // onClick={PackageStepHandler}
+            // onClick={PackageStepHandler}
           >
             {vehicleVerificationBasket.length ? "ادامه " : ""}درخواست کارشناسی
           </button>
@@ -186,7 +188,10 @@ const VerificationFirstStep = (props) => {
             <span className="text-[#000000] text-sm font-medium">
               مشاور و ثبت درخواست تلفنی
             </span>
-            <a href="tel:02158919" className="border border-[#F58052] text-[#F58052] justify-center items-center flex gap-1 py-[6px] px-6 rounded-md font-medium">
+            <a
+              href="tel:02158919"
+              className="border border-[#F58052] text-[#F58052] justify-center items-center flex gap-1 py-[6px] px-6 rounded-md font-medium"
+            >
               <p>58919</p>
               <i className={"cc-calling"} />
             </a>
@@ -196,6 +201,7 @@ const VerificationFirstStep = (props) => {
             src={lines}
             width={430}
             height={179}
+            alt={"line icon"}
           />
         </div>
         <div className="flex flex-col items-center gap-3 text-[#000000]">
@@ -255,4 +261,3 @@ const VerificationFirstStep = (props) => {
 };
 
 export default VerificationFirstStep;
-

@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import React, { useEffect, useState } from "react";
 // import ChangeServiceTime from "./ChangeServiceTime";
 // import SelectVerificationPlace from "./SelectVerificationPlace";
@@ -43,7 +43,7 @@ const VerificationThirdStep = (props) => {
   const package_id = searchParams.get("package_id");
   const vehicle_tip = searchParams.get("vehicle_tip");
   const reservation_time_slice_id = searchParams.get(
-    "reservation_time_slice_id"
+    "reservation_time_slice_id",
   );
   const exact_time = searchParams.get("exact_time");
   const params = new URLSearchParams(searchParams.toString());
@@ -52,7 +52,7 @@ const VerificationThirdStep = (props) => {
   const setQuery = useSetQuery();
   const dispatch = useDispatch();
   const renderUserAddrressState = useSelector(
-    (state) => state.todo.renderUserAddrressState
+    (state) => state.todo.renderUserAddrressState,
   );
 
   useEffect(() => {
@@ -60,17 +60,17 @@ const VerificationThirdStep = (props) => {
     axios
       .get(
         process.env.BASE_API +
-        "/web/expert/reservation?step=step-5&type=DELEGATE&city_id=" +
-        city_id +
-        "&reservation_time_slice_id=" +
-        reservation_time_slice_id +
-        "&package_id=" +
-        package_id,
+          "/web/expert/reservation?step=step-5&type=DELEGATE&city_id=" +
+          city_id +
+          "&reservation_time_slice_id=" +
+          reservation_time_slice_id +
+          "&package_id=" +
+          package_id,
         {
           headers: {
             Authorization: "Bearer " + getCookie("Authorization"),
           },
-        }
+        },
       )
       .then((res) => {
         console.log(res.data.data);
@@ -91,17 +91,17 @@ const VerificationThirdStep = (props) => {
     axios
       .get(
         process.env.BASE_API +
-        "/web/expert/reservation?step=step-5&type=EXPERT&city_id=" +
-        city_id +
-        "&reservation_time_slice_id=" +
-        reservation_time_slice_id +
-        "&package_id=" +
-        package_id,
+          "/web/expert/reservation?step=step-5&type=EXPERT&city_id=" +
+          city_id +
+          "&reservation_time_slice_id=" +
+          reservation_time_slice_id +
+          "&package_id=" +
+          package_id,
         {
           headers: {
             Authorization: "Bearer " + getCookie("Authorization"),
           },
-        }
+        },
       )
       .then((res) => {
         console.log(res.data.data);
@@ -148,9 +148,9 @@ const VerificationThirdStep = (props) => {
       let cart = JSON.parse(sessionStorage.getItem("verificationCart"));
       cart.selectedAddressText = selectedAddressText;
       sessionStorage.setItem("verificationCart", JSON.stringify(cart));
-      nProgress.start()
+      nProgress.start();
       router.push(
-        `/vehicle-verification/invoice?city_id=${city_id}&vehicle_tip=${selectedItem}&package_id=${package_id}&reservation_time_slice_id=${reservation_time_slice_id}&exact_time=${exact_time}&type_service=${type}&registrationable_id=${selectedAddress}&step=step-4`
+        `/services/vehicle-verification/invoice?city_id=${city_id}&vehicle_tip=${selectedItem}&package_id=${package_id}&reservation_time_slice_id=${reservation_time_slice_id}&exact_time=${exact_time}&type_service=${type}&registrationable_id=${selectedAddress}&step=step-4`,
       );
       //   setQuery.setMultiQuery([
       //     { key: "step", value: "step-5" },
@@ -172,7 +172,7 @@ const VerificationThirdStep = (props) => {
       setCheckedArea(
         checkedArea.filter((item) => {
           return item !== id;
-        })
+        }),
       );
     }
   }
@@ -199,7 +199,9 @@ const VerificationThirdStep = (props) => {
       >
         <i
           className={"cc-arrow-right text-24 cursor-pointer"}
-          onClick={() => { router.back() }}
+          onClick={() => {
+            router.back();
+          }}
         />
         <p className={"text-14 size752:text-16 w-full font-medium"}>
           انتخاب مکان
@@ -216,7 +218,7 @@ const VerificationThirdStep = (props) => {
             className="cc-search text-2xl text-[#518DD5] cursor-pointer"
             onClick={() =>
               router.push(
-                `/vehicle-verification/service-selection?step=step-1&city_id=${city_id}&vehicle_tip=${selectedItem}`
+                `/services/vehicle-verification/service-selection?step=step-1&city_id=${city_id}&vehicle_tip=${selectedItem}`,
               )
             }
           />
@@ -225,7 +227,7 @@ const VerificationThirdStep = (props) => {
             className="cc-timer text-2xl text-[#518DD5] cursor-pointer"
             onClick={() =>
               router.push(
-                `/vehicle-verification/time-selection?city_id=${city_id}&vehicle_tip=${selectedItem}&step=step-2&package_id=${package_id}`
+                `/services/vehicle-verification/time-selection?city_id=${city_id}&vehicle_tip=${selectedItem}&step=step-2&package_id=${package_id}`,
               )
             }
           />
@@ -293,26 +295,26 @@ const VerificationThirdStep = (props) => {
         <div className="flex flex-col gap-2 pb-2">
           {tab
             ? userAdressData.map((item, index) => (
-              <UserAddressCard
-                key={index}
-                data={item}
-                selectedAddress={selectedAddress}
-                setSelectedAddress={setSelectedAddress}
-                getDataFetch={setUserAdressData}
-                setModalIsOpen={setModalIsOpen}
-                setIsLoading={setIsLoading}
-                setSelectedAddressText={setSelectedAddressText}
-              />
-            ))
+                <UserAddressCard
+                  key={index}
+                  data={item}
+                  selectedAddress={selectedAddress}
+                  setSelectedAddress={setSelectedAddress}
+                  getDataFetch={setUserAdressData}
+                  setModalIsOpen={setModalIsOpen}
+                  setIsLoading={setIsLoading}
+                  setSelectedAddressText={setSelectedAddressText}
+                />
+              ))
             : searchedAgentData?.map((item, index) => (
-              <AgentAdressCard
-                key={index}
-                data={item}
-                selectedAddress={selectedAddress}
-                setSelectedAddress={setSelectedAddress}
-                setSelectedAddressText={setSelectedAddressText}
-              />
-            ))}
+                <AgentAdressCard
+                  key={index}
+                  data={item}
+                  selectedAddress={selectedAddress}
+                  setSelectedAddress={setSelectedAddress}
+                  setSelectedAddressText={setSelectedAddressText}
+                />
+              ))}
         </div>
         <button
           onClick={continueSecondStepHandler}
@@ -355,7 +357,6 @@ const VerificationThirdStep = (props) => {
         </div>
       </div> */}
         {modalIsOpen && (
-
           <div
             onClick={() => {
               setModalIsOpen(false);
