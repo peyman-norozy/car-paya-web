@@ -21,7 +21,7 @@ function MobileBottomNav(props) {
   const [selectedCarData, setSelectedCarData] = useState(null);
   const [isClicked, setIsClicked] = useState();
   const renderSetCarState = useSelector(
-    (state) => state.todo.renderSetCarState
+    (state) => state.todo.renderSetCarState,
   );
   const pathName = usePathname();
 
@@ -86,13 +86,11 @@ function MobileBottomNav(props) {
     }
   };
   // console.log(pathname.includes("step"));
-  // console.log(pathname.includes("/vehicle-verification"));
-  // console.log(pathname.includes("step")&&pathname.includes("/vehicle-verification"));
+  // console.log(pathname.includes("/vehicle-inspection"));
+  // console.log(pathname.includes("step")&&pathname.includes("/vehicle-inspection"));
 
   useEffect(() => {
-    if (
-      pathName.startsWith("/vehicle-verification/")
-    ) {
+    if (pathName.startsWith("/vehicle-inspection/")) {
       setFooterState(false);
     } else if (
       pathName.startsWith("/batteries/") ||
@@ -143,10 +141,11 @@ function MobileBottomNav(props) {
             ref={modalRef}
             onTouchStart={touchStartHandler}
             onTouchMove={slideDownHandler}
-            className={`fixed right-0 left-0 w-full  bg-[#fff] z-[2001] shadow-[0_0_10px_0_rgba(0,0,0,0.4)] rounded-t-[40px] transition-all duration-1000 ${serviceModalIsOpen
+            className={`fixed right-0 left-0 w-full  bg-[#fff] z-[2001] shadow-[0_0_10px_0_rgba(0,0,0,0.4)] rounded-t-[40px] transition-all duration-1000 ${
+              serviceModalIsOpen
                 ? "h-[100vh] top-[20%] bottom-0"
                 : "h-0 bottom-0 top-[100%]"
-              }`}
+            }`}
           >
             <div className="h-[5px] w-[6rem] rounded-[20px] bg-[#333] absolute top-[2.5%] left-[50%] translate-x-[-50%]"></div>
             <div className="absolute top-[10%] right-[2%] left-[2%] grid grid-cols-3 gap-[1rem]">
@@ -177,8 +176,9 @@ function MobileBottomNav(props) {
           className={`flex flex-col justify-center items-center bg-[#FEFEFE] w-[calc((100%-70px)/4)] h-full rounded-r-2xl shadow-[4px_0_4px_0_rgba(190,190,190,0.20)] overflow-hidden`}
         >
           <i
-            className={`icon-Vector-4 ${isClicked === 0 ? "text-[#F58052]" : "text-[#6D6D6D]"
-              } text-2xl`}
+            className={`icon-Vector-4 ${
+              isClicked === 0 ? "text-[#F58052]" : "text-[#6D6D6D]"
+            } text-2xl`}
           />
           <p
             className={`text-xs font-medium  ${isClicked === 0 ? "text-[#F58052]" : "text-[#6D6D6D]"} mt-1`}
@@ -195,8 +195,9 @@ function MobileBottomNav(props) {
           style={{ borderRadius: "5% 0% 0% 0% / 10% 0% 0% 0%" }}
         >
           <i
-            className={`icon-Vector-1 ${isClicked === 1 ? "text-[#F58052]" : "text-[#6D6D6D]"
-              } text-2xl`}
+            className={`icon-Vector-1 ${
+              isClicked === 1 ? "text-[#F58052]" : "text-[#6D6D6D]"
+            } text-2xl`}
           />
           <p
             className={`text-xs font-medium  ${isClicked === 1 ? "text-[#F58052]" : "text-[#6D6D6D]"} mt-1`}
@@ -260,8 +261,9 @@ function MobileBottomNav(props) {
           style={{ borderRadius: "0% 5% 0% 0% / 0% 10% 0% 0%" }}
         >
           <i
-            className={`cc-buy ${isClicked === 3 ? "text-[#F58052]" : "text-[#6D6D6D]"
-              } text-2xl`}
+            className={`cc-buy ${
+              isClicked === 3 ? "text-[#F58052]" : "text-[#6D6D6D]"
+            } text-2xl`}
           />
           <p
             className={`text-xs font-medium  ${isClicked === 3 ? "text-[#F58052]" : "text-[#6D6D6D]"} mt-1`}
@@ -277,8 +279,9 @@ function MobileBottomNav(props) {
           className={`flex flex-col justify-center items-center bg-[#FEFEFE] w-[calc((100%-70px)/4)] h-full rounded-l-2xl shadow-[-4px_0_4px_0_rgba(190,190,190,0.20)]`}
         >
           <i
-            className={`icon-Vector-3 ${isClicked === 4 ? "text-[#F58052]" : "text-[#6D6D6D]"
-              } text-2xl`}
+            className={`icon-Vector-3 ${
+              isClicked === 4 ? "text-[#F58052]" : "text-[#6D6D6D]"
+            } text-2xl`}
           />
           <p
             className={`text-xs font-medium ${isClicked === 4 ? "text-[#F58052]" : "text-[#6D6D6D]"} mt-1`}

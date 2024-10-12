@@ -27,7 +27,7 @@ const CarServicesSlider = (props) => {
       case "/periodic-service":
         setCarServicesShow(true);
         break;
-      case "/vehicle-verification":
+      case "/vehicle-inspection":
         setCarServicesShow(true);
         break;
       default:
@@ -37,7 +37,7 @@ const CarServicesSlider = (props) => {
   if (
     !(
       searchParams.toString().includes("step") &&
-      pathname.includes("/vehicle-verification")
+      pathname.includes("/vehicle-inspection")
     )
   ) {
     return (

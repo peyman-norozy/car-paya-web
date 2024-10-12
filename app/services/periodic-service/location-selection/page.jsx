@@ -1,12 +1,86 @@
-'use client'
+// "use client";
+// import AddressSelection from "@/components/AddressSelection/AddressSelection";
+// import { getDataWithFullErrorRes } from "@/utils/api-function-utils";
+// import { useSearchParams } from "next/navigation";
+// import { useCallback, useEffect, useState } from "react";
+
+// const Dealership = (props) => {
+//   const [myLocationData, setMyLocationData] = useState([]);
+//   const [carCheckLocations, setCarCheckLocations] = useState([]);
+//   const [filter, setFilter] = useState([]);
+//   const searchParams = useSearchParams();
+//   const timeData = useCallback(
+//     (query) => {
+//       (async () => {
+//         const fetchTimeData = await getDataWithFullErrorRes(
+//           `/web/service-periodical?step=step-1`,
+//           {
+//             city_id: JSON.parse(localStorage.getItem("city"))?.cityId,
+//             type: searchParams.get("type"),
+//             vehicle_tip_id: JSON.parse(localStorage.getItem("selectedVehicle"))
+//               ?.id,
+//             ...query,
+//           },
+//         );
+
+//         if (searchParams.get("type") === "FIXED") {
+//           setFilter(fetchTimeData.filter);
+//           console.log(fetchTimeData);
+//           setCarCheckLocations(fetchTimeData.data);
+//         } else if (searchParams.get("type") === "MOVING") {
+//           setMyLocationData(fetchTimeData.data);
+//         }
+//       })();
+//     },
+//     [
+//       searchParams.get("type"),
+//       searchParams.get("city_id"),
+//       searchParams.get("time_id"),
+//     ],
+//   );
+
+//   useEffect(() => {
+//     timeData();
+//   }, [searchParams.get("type")]);
+
+//   return (
+//     <div className="lg:flex items-start gap-8 mt-4 max-w-[1772px] m-auto pb-4 relative min-h-[calc(100vh-100px)] mx-4 sm:mx-0">
+//       <div
+//         className={
+//           "w-full lg:w-[calc(100%-424px)] md:gap-10 mr-auto flex flex-col gap-6"
+//         }
+//       >
+//         {
+//           {
+//             MOVING: (
+//               <AddressSelection
+//                 setMyLocationData={setMyLocationData}
+//                 timeData={timeData}
+//                 myLocationData={myLocationData}
+//                 status={"MOVING"}
+//               />
+//             ),
+//             FIXED: (
+//               <AddressSelection
+//                 carCheckLocations={carCheckLocations}
+//                 filter={filter}
+//                 status={"FIXED"}
+//                 timeData={timeData}
+//               />
+//             ),
+//           }[searchParams.get("type")]
+//         }
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default Dealership;
+"use client";
 import React, { useEffect, useState } from "react";
-// import ChangeServiceTime from "./ChangeServiceTime";
-// import SelectVerificationPlace from "./SelectVerificationPlace";
 import useSetQuery from "@/hook/useSetQuery";
 import AddAddressModal from "@/components/vehicle-verification/AddAddressModal";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-// import UserAddressCard from "./vehicle-verification/UserAddressCard";
-// import AgentAdressCard from "./vehicle-verification/AgentAdressCard";
 import axios from "axios";
 import { getCookie } from "cookies-next";
 import { error } from "@/utils/function-utils";
@@ -14,15 +88,14 @@ import { ToastContainer } from "react-toastify";
 import { postData } from "@/utils/client-api-function-utils";
 import { useDispatch, useSelector } from "react-redux";
 import { setAreaeModalState, setLoginModal } from "@/store/todoSlice";
-// import DeleteModal from "./public/DeleteModal";
-// import AreaModal from "./vehicle-verification/AreaModal";
 import UserAddressCard from "@/components/vehicle-verification/UserAddressCard";
 import AgentAdressCard from "@/components/vehicle-verification/AgentAdressCard";
 import AreaModal from "@/components/vehicle-verification/AreaModal";
 import DeleteModal from "@/components/public/DeleteModal";
+import ServicesModal from "@/components/periodic-service-components/ServicesModal";
 import nProgress from "nprogress";
 
-const VerificationThirdStep = (props) => {
+const Dealership = (props) => {
   // const [isSelected, setIsSelected] = useState(0);
   // const [chosenTime, setChosenTime] = useState("");
   const [tab, setTab] = useState(1);
@@ -33,11 +106,12 @@ const VerificationThirdStep = (props) => {
   const [checkedArea, setCheckedArea] = useState([]);
   const [userAdressData, setUserAdressData] = useState([]);
   const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [editModalIsOpen, setEditModalIsOpen] = useState(false);
   const [type, setType] = useState("MOVING");
   const [isLoading, setIsLoading] = useState(false);
   const [selectedAddress, setSelectedAddress] = useState("");
-  const [selectedAddressText, setSelectedAddressText] = useState("");
-  const [areaModal, setAreaModal] = useState();
+  const [serviceModal, setServiceModal] = useState(false);
+  const [checkedService,setCheckedService]= useState([])
   const city_id = searchParams.get("city_id");
   const selectedItem = searchParams.get("vehicle_tip");
   const package_id = searchParams.get("package_id");
@@ -60,12 +134,10 @@ const VerificationThirdStep = (props) => {
     axios
       .get(
         process.env.BASE_API +
-        "/web/expert/reservation?step=step-5&type=DELEGATE&city_id=" +
-        city_id +
-        "&reservation_time_slice_id=" +
-        reservation_time_slice_id +
-        "&package_id=" +
-        package_id,
+          `/web/service-periodical?step=step-1&city_id=` +
+          JSON.parse(localStorage.getItem("city"))?.cityId +
+          "&type=FIXED&vehicle_tip_id=" +
+          JSON.parse(localStorage.getItem("selectedVehicle")).id,
         {
           headers: {
             Authorization: "Bearer " + getCookie("Authorization"),
@@ -74,7 +146,7 @@ const VerificationThirdStep = (props) => {
       )
       .then((res) => {
         console.log(res.data.data);
-        setFilter(res?.data?.filter?.area);
+        setFilter(res?.data?.filter);
         setAgentData(res.data.data);
         setSearchedAgentData(res.data.data);
         // setCarCheckLocations(res.data.data);
@@ -91,12 +163,10 @@ const VerificationThirdStep = (props) => {
     axios
       .get(
         process.env.BASE_API +
-        "/web/expert/reservation?step=step-5&type=EXPERT&city_id=" +
-        city_id +
-        "&reservation_time_slice_id=" +
-        reservation_time_slice_id +
-        "&package_id=" +
-        package_id,
+          `/web/service-periodical?step=step-1&city_id=` +
+          JSON.parse(localStorage.getItem("city"))?.cityId +
+          "&type=MOVING&vehicle_tip_id=" +
+          JSON.parse(localStorage.getItem("selectedVehicle")).id,
         {
           headers: {
             Authorization: "Bearer " + getCookie("Authorization"),
@@ -111,7 +181,7 @@ const VerificationThirdStep = (props) => {
         // setChosenTime(res.data.time);
       })
       .catch((err) => console.log(err));
-  }, [modalIsOpen, renderUserAddrressState]);
+  }, [modalIsOpen, renderUserAddrressState, editModalIsOpen]);
 
   const placeData = [
     {
@@ -124,45 +194,36 @@ const VerificationThirdStep = (props) => {
     },
   ];
 
-  // const backstopHandler = () => {
-  //   setQuery.deleteSingleQuery(
-  //     [
-  //       {
-  //         key: "reservation_time_slice_id",
-  //         value: reservation_time_slice_id,
-  //       },
-  //     ],
-  //     params
-  //   );
-  //   setQuery.updateMultiQuery([{ key: "step", value: "step-2" }], params);
-  // };
+  const backstopHandler = () => {
+    nProgress.start()
+    router.push("/periodic-service");
+  };
 
   const continueSecondStepHandler = () => {
-    // setButtonIsdisabled(true);
-    if (selectedAddress === "") {
-      // setButtonIsdisabled(false);
-      error("مکان مورد نظر را انتخاب کنید");
-      window.scroll({ top: 0, left: 0, behavior: "smooth" });
-    } else {
-      // setButtonIsdisabled(false);
-      let cart = JSON.parse(sessionStorage.getItem("verificationCart"));
-      cart.selectedAddressText = selectedAddressText;
-      sessionStorage.setItem("verificationCart", JSON.stringify(cart));
-      nProgress.start()
-      router.push(
-        `/vehicle-verification/invoice?city_id=${city_id}&vehicle_tip=${selectedItem}&package_id=${package_id}&reservation_time_slice_id=${reservation_time_slice_id}&exact_time=${exact_time}&type_service=${type}&registrationable_id=${selectedAddress}&step=step-4`
-      );
-      //   setQuery.setMultiQuery([
-      //     { key: "step", value: "step-5" },
-      //     { key: "city_id", value: city_id },
-      //     { key: "vehicle_tip", value: selectedItem },
-      //     { key: "package_id", value: package_id },
-      //     { key: "reservation_time_slice_id", value: reservation_time_slice_id },
-      //     { key: "exact_time", value: exact_time },
-      //     { key: "type_service", value: type },
-      //     { key: "registrationable_id", value: selectedAddress },
-      //   ]);
-    }
+    // // setButtonIsdisabled(true);
+    // if (selectedAddress === "") {
+    //   // setButtonIsdisabled(false);
+    //   error("مکان مورد نظر را انتخاب کنید");
+    //   window.scroll({ top: 0, left: 0, behavior: "smooth" });
+    // } else {
+    //   // setButtonIsdisabled(false);
+    //   setQuery.setMultiQuery([
+    //     { key: "step", value: "step-5" },
+    //     { key: "city_id", value: city_id },
+    //     { key: "vehicle_tip", value: selectedItem },
+    //     { key: "package_id", value: package_id },
+    //     { key: "reservation_time_slice_id", value: reservation_time_slice_id },
+    //     { key: "exact_time", value: exact_time },
+    //     { key: "type_service", value: type },
+    //     { key: "registrationable_id", value: selectedAddress },
+    //   ]);
+    // }
+    console.log(selectedAddress);
+
+    setQuery.updateQueryParams(
+      { service_location_id: selectedAddress },
+      "/periodic-service/service-selection"
+    );
   };
 
   function checkboxChangeHandler(id, checked) {
@@ -190,6 +251,38 @@ const VerificationThirdStep = (props) => {
     }
   }
 
+  function servicesCheckboxChangeHandler(id, checked) { 
+    if (checked) {
+      setCheckedService([...checkedService, id]);
+    } else {
+      setCheckedService(
+        checkedService.filter((item) => {
+          return item !== id;
+        })
+      );
+    }
+  }
+
+  function serviceFilterHandler() {
+    if (checkedService.length === 0) {
+      setSearchedAgentData(agentData);
+    } else {
+      const array = checkedService.map((item) => {
+        const a = agentData.filter((item2) => {
+          let b = false;
+           item2.services.map((item3)=>{
+            if (item3.key === item && item3.value) {
+              b = true
+            } 
+          });          
+          return b 
+        });
+        return a.flat()
+      });
+      setSearchedAgentData(array.flat());
+    }
+  }
+
   return (
     <div className="mb-[7rem] lg:w-[calc(100%-424px)] mr-auto overflow-hidden flex flex-col gap-4 mt-[28px] bg-[#FDFDFD] lg:shadow-[0_0_6px_0_rgba(125,125,125,0.5)] px-2 lg:p-6 rounded-2xl min-h-[605px]">
       <div
@@ -199,7 +292,7 @@ const VerificationThirdStep = (props) => {
       >
         <i
           className={"cc-arrow-right text-24 cursor-pointer"}
-          onClick={() => { router.back() }}
+          onClick={backstopHandler}
         />
         <p className={"text-14 size752:text-16 w-full font-medium"}>
           انتخاب مکان
@@ -208,29 +301,15 @@ const VerificationThirdStep = (props) => {
       <div className=" flex flex-col gap-4 lg:mr-8">
         <div className="flex gap-2 items-center w-full bg-[#FFFFFF] text-[#D1D1D1]">
           <i
-            className="cc-car-o text-2xl text-[#518DD5] cursor-pointer"
-            onClick={() => router.push(`/vehicle-verification`)}
-          />
-          <div className="border-b-4 border-dotted border-[#518DD5] w-full"></div>
-          <i
-            className="cc-search text-2xl text-[#518DD5] cursor-pointer"
-            onClick={() =>
-              router.push(
-                `/vehicle-verification/service-selection?step=step-1&city_id=${city_id}&vehicle_tip=${selectedItem}`
-              )
-            }
-          />
-          <div className="border-b-4 border-dotted border-[#518DD5] w-full"></div>
-          <i
-            className="cc-timer text-2xl text-[#518DD5] cursor-pointer"
-            onClick={() =>
-              router.push(
-                `/vehicle-verification/time-selection?city_id=${city_id}&vehicle_tip=${selectedItem}&step=step-2&package_id=${package_id}`
-              )
-            }
+            className="cc-car-o text-2xl text-[#518DD5]"
+            onClick={() => router.push(`/periodic-service`)}
           />
           <div className="border-b-4 border-dotted border-[#518DD5] w-full"></div>
           <i className="cc-location text-2xl text-[#D1D1D1]" />
+          <div className="border-b-4 border-dotted border-[#D1D1D1] w-full"></div>
+          <i className="cc-search text-2xl text-[#D1D1D1]" />
+          <div className="border-b-4 border-dotted border-[#D1D1D1] w-full"></div>
+          <i className="cc-timer text-2xl text-[#D1D1D1]" />
         </div>
         <div className="flex justify-between items-center h-10">
           <p
@@ -280,39 +359,50 @@ const VerificationThirdStep = (props) => {
           ></div>
         </div>
         {type === "FIXED" && (
-          <button
-            className="flex w-fit p-2 gap-2 items-center text-xs text-[#3C3C3C] bg-[#FEFEFE] shadow-[0_0_4px_0_rgba(224,222,222,0.7)] rounded-[4px]"
-            onClick={() => {
-              dispatch(setAreaeModalState(true));
-            }}
-          >
-            <i className="cc-filter" />
-            <span>انتخاب محله</span>
-          </button>
+          <div className="justify-between flex">
+            <button
+              className="flex w-fit p-2 gap-2 items-center text-xs text-[#3C3C3C] bg-[#FEFEFE] shadow-[0_0_4px_0_rgba(224,222,222,0.7)] rounded-[4px]"
+              onClick={() => {
+                dispatch(setAreaeModalState(true));
+              }}
+            >
+              <i className="cc-filter" />
+              <span>انتخاب محله</span>
+            </button>
+            <button
+              className="flex w-fit p-2 gap-2 items-center text-xs text-[#3C3C3C] bg-[#FEFEFE] shadow-[0_0_4px_0_rgba(224,222,222,0.7)] rounded-[4px]"
+              onClick={() => {
+                setServiceModal(true);
+              }}
+            >
+              <i className="cc-filter" />
+              <span>انتخاب سرویس</span>
+            </button>
+          </div>
         )}
         <div className="flex flex-col gap-2 pb-2">
           {tab
             ? userAdressData.map((item, index) => (
-              <UserAddressCard
-                key={index}
-                data={item}
-                selectedAddress={selectedAddress}
-                setSelectedAddress={setSelectedAddress}
-                getDataFetch={setUserAdressData}
-                setModalIsOpen={setModalIsOpen}
-                setIsLoading={setIsLoading}
-                setSelectedAddressText={setSelectedAddressText}
-              />
-            ))
+                <UserAddressCard
+                  key={index}
+                  data={item}
+                  selectedAddress={selectedAddress}
+                  setSelectedAddress={setSelectedAddress}
+                  getDataFetch={setUserAdressData}
+                  setModalIsOpen={setModalIsOpen}
+                  setIsLoading={setIsLoading}
+                  editModalIsOpen={editModalIsOpen}
+                  setEditModalIsOpen={setEditModalIsOpen}
+                />
+              ))
             : searchedAgentData?.map((item, index) => (
-              <AgentAdressCard
-                key={index}
-                data={item}
-                selectedAddress={selectedAddress}
-                setSelectedAddress={setSelectedAddress}
-                setSelectedAddressText={setSelectedAddressText}
-              />
-            ))}
+                <AgentAdressCard
+                  key={index}
+                  data={item}
+                  selectedAddress={selectedAddress}
+                  setSelectedAddress={setSelectedAddress}
+                />
+              ))}
         </div>
         <button
           onClick={continueSecondStepHandler}
@@ -355,16 +445,13 @@ const VerificationThirdStep = (props) => {
         </div>
       </div> */}
         {modalIsOpen && (
-
-          <div
-            onClick={() => {
-              setModalIsOpen(false);
-            }}
-            className={
-              "w-full h-[100vh] fixed top-0 right-0 bg-[#000000b0] z-[100000000]"
-            }
-          >
-            <div className={"fixed m-auto inset-0 z-[10000000000]"}>
+          <div>
+            <div
+              className={"fixed m-auto inset-0 z-[10000000000] bg-[#0000009a]"}
+              onClick={() => {
+                setModalIsOpen(false);
+              }}
+            >
               <AddAddressModal
                 getDataFetch={setUserAdressData}
                 pageType={"create"}
@@ -372,13 +459,29 @@ const VerificationThirdStep = (props) => {
                 setIsLoading={setIsLoading}
               />
             </div>
+            {/* <div
+              onClick={() => {
+                setModalIsOpen(false);
+                console.log(modalIsOpen);
+              }}
+              className={
+                "w-full h-[100vh] fixed top-0 right-0 bg-black opacity-[0.7] z-[100000000]"
+              }
+            ></div> */}
           </div>
         )}
       </div>
       <AreaModal
-        data={filter}
+        data={filter?.area}
         checkboxChangeHandler={checkboxChangeHandler}
         areaFilterHandler={areaFilterHandler}
+      />
+      <ServicesModal
+        data={filter?.service}
+        serviceFilterHandler={serviceFilterHandler}
+        servicesCheckboxChangeHandler={servicesCheckboxChangeHandler}
+        setServiceModal={setServiceModal}
+        serviceModal={serviceModal}
       />
       <ToastContainer />
       <DeleteModal />
@@ -386,4 +489,4 @@ const VerificationThirdStep = (props) => {
   );
 };
 
-export default VerificationThirdStep;
+export default Dealership;

@@ -71,7 +71,7 @@ const Page = (props) => {
           className={"cc-arrow-right text-24 cursor-pointer"}
           onClick={() =>
             router.push(
-              `/batteries/products?attribute_slug=${attributeSlug}&attribute_value=${attributeValue}&selectTipState=${selectTipState}&amper=${amper}&type_service=${typeService}`,
+              `/services/batteries/products?attribute_slug=${attributeSlug}&attribute_value=${attributeValue}&selectTipState=${selectTipState}&amper=${amper}&type_service=${typeService}`,
             )
           }
         />
@@ -97,7 +97,7 @@ const Page = (props) => {
           className="cc-search text-2xl text-[#1E67BF]"
           onClick={() =>
             router.push(
-              `/batteries/products?attribute_slug=${attributeSlug}&attribute_value=${attributeValue}&selectTipState=${selectTipState}&amper=${amper}&type_service=${typeService}`,
+              `/services/batteries/products?attribute_slug=${attributeSlug}&attribute_value=${attributeValue}&selectTipState=${selectTipState}&amper=${amper}&type_service=${typeService}`,
             )
           }
         />

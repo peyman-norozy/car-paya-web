@@ -33,12 +33,12 @@ const NewAddressCard = ({
   };
 
   const clickRadioButtonHandler = () => {
-    if (pathName.startsWith("/batteries")) {
+    if (pathName.startsWith("/services/batteries")) {
       const batteriesCart = JSON.parse(sessionStorage.getItem("batteriesCart"));
       batteriesCart.address = item.address;
       setLocationId(item.address_id);
       sessionStorage.setItem("batteriesCart", JSON.stringify(batteriesCart));
-    } else if (pathName.startsWith("/detailing")) {
+    } else if (pathName.startsWith("/services/detailing")) {
       sessionStorage.setItem(
         "ditailingCart",
         JSON.stringify({ address: item.address }),
@@ -55,7 +55,7 @@ const NewAddressCard = ({
     console.log(accordionContainer.current.scrollHeight);
   };
 
-  console.log(item.services);
+  console.log(item, locationId);
 
   return (
     <li

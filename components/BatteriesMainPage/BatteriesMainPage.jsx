@@ -106,15 +106,15 @@ const BatteriesMainPage = () => {
   // </div>
 
   function RegisterBatteryRequestHandler() {
-    nProgress.start()
+    nProgress.start();
     router.push(
       JSON.parse(localStorage.getItem("selectedVehicle"))?.id && cityId
-        ? `batteries/products?attribute_slug=type_vehicle&attribute_value=${searchParams.get("attribute_value")}${
+        ? `services/batteries/products?attribute_slug=type_vehicle&attribute_value=${searchParams.get("attribute_value")}${
             JSON.parse(localStorage.getItem("selectedVehicle"))?.id
               ? `&selectTipState=true,${JSON.parse(localStorage.getItem("selectedVehicle")).id.toString()}`
               : ""
           }`
-        : ""
+        : "",
     );
   }
 

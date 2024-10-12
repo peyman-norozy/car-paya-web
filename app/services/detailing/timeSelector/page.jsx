@@ -1,3 +1,74 @@
+// "use client";
+// import React, { useEffect, useState } from "react";
+// import TimeSelectorCard from "@/components/TimeSelectorCard/TimeSelectorCard";
+// import { getCurrentData } from "@/utils/api-function-utils";
+// import useSetQuery from "@/hook/useSetQuery";
+// import { useSearchParams } from "next/navigation";
+// const Page = (props) => {
+//   const [selectedTime, setSelectedTime] = useState();
+//   const [data, setData] = useState([]);
+//   const [optionIsOpen, setOptionIsOpen] = useState(false);
+//
+//   const setQuery = useSetQuery();
+//   const searchParams = useSearchParams();
+//
+//   console.log(props);
+//   useEffect(() => {
+//     (async () => {
+//       const fetchData = await getCurrentData("/web/detailing?step=step-3", {
+//         vehicle_tip_id: searchParams.get("selectTipState").split(",")[1],
+//         type: searchParams.get("type"),
+//         city_id: searchParams.get("city_id"),
+//         service_location_id: searchParams.get("service_location_id"),
+//         package_id: searchParams.get("package_id"),
+//       });
+//       setData(
+//         Object.keys(fetchData.data["time-reserve"]).map((key) => ({
+//           day: key,
+//           hour: fetchData.data["time-reserve"][key],
+//         })),
+//       );
+//     })();
+//   }, []);
+//
+//   function onclick() {
+//     setQuery.updateQueryParams(
+//       { time_id: selectedTime, type: searchParams.get("type") },
+//       "/detailing/invoice",
+//     );
+//   }
+//
+//   return (
+//     <div className={"lg:mt-[124px] mt-16 min-h-screen lg:mr-[420px] mb-6"}>
+//       <h1 className={"text-center text-[24px]"}>انتخاب زمان دریافت خدمات</h1>
+//       <ul className={"flex flex-col gap-4 mt-9"}>
+//         {data.map((item, index) => (
+//           <TimeSelectorCard
+//             key={index}
+//             data={item}
+//             // selectedTime={selectedTime}
+//             timeIsSelected={selectedTime}
+//             setSelectedTime={setSelectedTime}
+//             setOptionIsOpen={setOptionIsOpen}
+//             optionIsOpen={optionIsOpen}
+//             setTimeIsSelected={setSelectedTime}
+//           />
+//         ))}
+//       </ul>
+//       <button
+//         type={"button"}
+//         disabled={!selectedTime}
+//         className={`lg:w-[204px] w-[130px] h-10 ${!selectedTime ? "bg-stone-400" : "bg-[#F66B34]"} rounded-[8px] text-[#FEFEFE] mt-6 lg:text-14 text-12`}
+//         onClick={onclick}
+//       >
+//         تایید و مرحله بعد
+//       </button>
+//     </div>
+//   );
+// };
+//
+// export default Page;
+
 "use client";
 import React, { useEffect, useState } from "react";
 import TimeSelectorCard from "@/components/TimeSelectorCard/TimeSelectorCard";
@@ -20,15 +91,24 @@ const Page = (props) => {
   const attributeValue = searchParams.get("attribute_value");
   const cityId = searchParams.get("city_id");
   const type = searchParams.get("type");
-  const vehicleTipId = searchParams.get("vehicle_tip_id");
+  const vehicleTipId = searchParams.get("selectTipState").split(",")[1];
   const amper = searchParams.get("amper");
   const typeService = searchParams.get("type_service");
+  const packageId = searchParams.get("package_id");
+  const serviceLocationId = searchParams.get("service_location_id");
 
   useEffect(() => {
     async function getTimeData() {
       try {
         const data = await getDataWithFullErrorRes(
-          "/web/reservation/battery?step=step-3",
+          "/web/detailing?step=step-3",
+          {
+            city_id: cityId,
+            package_id: packageId,
+            service_location_id: serviceLocationId,
+            type: type,
+            vehicle_tip_id: vehicleTipId,
+          },
         );
         setData(
           Object.keys(data["time-reserve"]).map((key) => ({
@@ -45,18 +125,19 @@ const Page = (props) => {
   }, []);
 
   useEffect(() => {
-    const batteriesCart = JSON.parse(sessionStorage.getItem("batteriesCart"));
-    batteriesCart.timeSelect = data[0]?.day;
-    sessionStorage.setItem("batteriesCart", JSON.stringify(batteriesCart));
+    const ditailingCart = JSON.parse(sessionStorage.getItem("ditailingCart"));
+    if (ditailingCart) {
+      ditailingCart.timeSelect = data[0]?.day;
+    }
+    sessionStorage.setItem("ditailingCart", JSON.stringify(ditailingCart));
   }, [data]);
 
   function onclick() {
     setQuery.updateQueryParams(
       { time_id: selectedTime, type: searchParams.get("type") },
-      "/batteries/invoice",
+      "/services/detailing/invoice",
     );
   }
-
   return (
     <div
       className={
@@ -64,7 +145,7 @@ const Page = (props) => {
       }
     >
       <Link
-        href={`/batteries/products/newSelectLocation?attribute_slug=${attributeSlug}&attribute_value=${attributeValue}&city_id=${cityId}&type=${type}&vehicle_tip_id=${vehicleTipId}&amper=${amper}&type_service=${typeService}`}
+        href={`/services/detailing/selected-services?attribute_slug=${attributeSlug}&attribute_value=${attributeValue}&city_id=${cityId}&type=${type}&selectTipState=true,${vehicleTipId}&service_location_id=${serviceLocationId}`}
         className={
           "flex items-center gap-2 size752:gap-[16px] text-[#0E0E0E] w-full"
         }
@@ -79,16 +160,7 @@ const Page = (props) => {
           className="cc-car-o text-2xl text-[#1E67BF]"
           onClick={() =>
             router.push(
-              `/batteries?attribute_slug=${attributeSlug}&attribute_value=${attributeValue}&selectTipState=${vehicleTipId}`,
-            )
-          }
-        />
-        <div className="border-b-4 border-dotted border-[#1E67BF] w-full"></div>
-        <i
-          className="cc-search text-2xl text-[#1E67BF]"
-          onClick={() =>
-            router.push(
-              `/batteries/products?attribute_slug=${attributeSlug}&attribute_value=${attributeValue}&selectTipState=true,${vehicleTipId}&amper=${amper}&type_service=${typeService}`,
+              `/detailing?attribute_slug=${attributeSlug}&attribute_value=${attributeValue}`,
             )
           }
         />
@@ -97,10 +169,20 @@ const Page = (props) => {
           className="cc-location text-2xl text-[#1E67BF]"
           onClick={() =>
             router.push(
-              `/batteries/products/newSelectLocation?attribute_slug=${attributeSlug}&attribute_value=${attributeValue}&city_id=${cityId}&type=${type}&vehicle_tip_id=${vehicleTipId}&amper=${amper}&type_service=${typeService}`,
+              `/services/detailing/selectLocation?attribute_slug=${attributeSlug}&attribute_value=${attributeValue}&city_id=${cityId}&type=${type}&selectTipState=true,${vehicleTipId}`,
             )
           }
         />
+        <div className="border-b-4 border-dotted border-[#1E67BF] w-full"></div>
+        <i
+          className="cc-search text-2xl text-[#1E67BF]"
+          onClick={() =>
+            router.push(
+              `/services/detailing/selected-services?attribute_slug=${attributeSlug}&attribute_value=${attributeValue}&city_id=${cityId}&type=${type}&selectTipState=true,${vehicleTipId}&service_location_id=${serviceLocationId}`,
+            )
+          }
+        />
+
         <div className="border-b-4 border-dotted border-[#1E67BF] w-full"></div>
         <i className="cc-timer text-2xl text-[#D1D1D1]" />
       </div>
@@ -119,13 +201,13 @@ const Page = (props) => {
             onClick={() => {
               setDate(index);
               setTab(index);
-              const batteriesCart = JSON.parse(
-                sessionStorage.getItem("batteriesCart"),
+              const ditailingCart = JSON.parse(
+                sessionStorage.getItem("ditailingCart"),
               );
-              batteriesCart.timeSelect = item["day"];
+              ditailingCart.timeSelect = item["day"];
               sessionStorage.setItem(
-                "batteriesCart",
-                JSON.stringify(batteriesCart),
+                "ditailingCart",
+                JSON.stringify(ditailingCart),
               );
             }}
           >

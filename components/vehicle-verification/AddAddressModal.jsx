@@ -52,14 +52,14 @@ const AddressModal = (props) => {
       props.deliveryPackage &&
         formData.set(
           "receiver_cellphone",
-          event.target.phoneNumber.value.toString()
+          event.target.phoneNumber.value.toString(),
         );
       props.deliveryPackage &&
         formData.set("receiver_name", event.target.fullName.value);
     }
     formData.set(
       "map",
-      `${mapPosition.split(",")[0]},${mapPosition.split(",")[1]}`
+      `${mapPosition.split(",")[0]},${mapPosition.split(",")[1]}`,
     );
 
     if (props.pageType === "edite") {
@@ -67,7 +67,7 @@ const AddressModal = (props) => {
       props.setIsLoading(true);
       const update = await putData(
         API_PATHS.DASHBOARDUSERADDRESS + "/" + props.addressEditId,
-        formData
+        formData,
       );
       if (update.status === 200) {
         props.getDataFetch([]);
@@ -90,7 +90,7 @@ const AddressModal = (props) => {
         if (pathName === "/panel/productAddress") {
           props.setAddressModalState(false);
           props.getAddressFetchData();
-        } else if (pathName === "/vehicle-verification/location-selection") {
+        } else if (pathName === "/vehicle-inspection/location-selection") {
           props.getDataFetch((prev) => [...prev, post.data.data]);
           props.setModalIsOpen(false);
         } else if (pathName === "/batteries/products/newSelectLocation") {
@@ -100,8 +100,7 @@ const AddressModal = (props) => {
         } else if (pathName === "/detailing/selectLocation") {
           props.timeData();
           props.setModalIsOpen(false);
-        }
-        else if (pathName === "/periodic-service/location-selection") {
+        } else if (pathName === "/periodic-service/location-selection") {
           props.setModalIsOpen(false);
         }
 
@@ -130,7 +129,7 @@ const AddressModal = (props) => {
         console.log(getCity.data.error);
       }
     },
-    [router]
+    [router],
   );
 
   useEffect(() => {
@@ -162,7 +161,7 @@ const AddressModal = (props) => {
     if (props.pageType === "edite") {
       (async () => {
         const getEditData = await getData(
-          API_PATHS.DASHBOARDUSERADDRESS + "/" + props.addressEditId + "/edit"
+          API_PATHS.DASHBOARDUSERADDRESS + "/" + props.addressEditId + "/edit",
         );
         if (getEditData.status === "success") {
           setEditData(getEditData.data);
@@ -242,7 +241,7 @@ const AddressModal = (props) => {
             star={true}
             name={"address"}
             id={"address"}
-          // profileData={""}
+            // profileData={""}
           />
           {errroData.address && (
             <span
@@ -269,7 +268,7 @@ const AddressModal = (props) => {
             setProvincesId={setProvincesId}
             name={"province"}
             id={"province"}
-          // profileData={""}
+            // profileData={""}
           />
           {errroData.province_id && (
             <span
@@ -292,7 +291,7 @@ const AddressModal = (props) => {
             setCityId={setCityId}
             name={"city"}
             id={"city"}
-          // profileData={""}
+            // profileData={""}
           />
           {errroData.city_id && (
             <span
@@ -312,7 +311,7 @@ const AddressModal = (props) => {
             icon={"cc-document-align-right"}
             title={"عنوان"}
             star={true}
-          // profileData={""}
+            // profileData={""}
           />
           {errroData.city_id && (
             <span
@@ -332,7 +331,7 @@ const AddressModal = (props) => {
             id={"postalCode"}
             name={"postalCode"}
             star={false}
-          // profileData={""}
+            // profileData={""}
           />
           {errroData.postal_code && (
             <span
@@ -366,8 +365,8 @@ const AddressModal = (props) => {
               star={true}
               name={"fullName"}
               id={"fullName"}
-            // onChange={nameChangeHandler}
-            // profileData={""}
+              // onChange={nameChangeHandler}
+              // profileData={""}
             />
           </div>
           <div>
@@ -380,7 +379,7 @@ const AddressModal = (props) => {
               star={true}
               name={"phoneNumber"}
               id={"phoneNumber"}
-            // profileData={""}
+              // profileData={""}
             />
           </div>
         </div>

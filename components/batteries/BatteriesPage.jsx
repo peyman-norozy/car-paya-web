@@ -233,7 +233,7 @@ const BatteriesPage = (props) => {
               <div className="relative z-10 flex cursor-pointer items-center overflow-hidden rounded-xl p-[3px] w-fit">
                 <div className="animate-rotate absolute inset-0 h-full w-full rounded-full bg-[conic-gradient(#F66B34_20deg,transparent_120deg)]"></div>
                 <Link
-                  href={`/batteries/battery-assistant?selectTipState=${searchParams.get("selectTipState")}`}
+                  href={`/services/batteries/battery-assistant?selectTipState=${searchParams.get("selectTipState")}`}
                   className={
                     "relative z-20 p-2 bg-white text-12 text-[#3C3C3C] w-[146px] h-[36px] rounded-[8px] font-semibold flex justify-center items-center"
                   }

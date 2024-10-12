@@ -81,7 +81,7 @@ const BatteriesAssisantPage = (props) => {
     >
       <section className={"w-full mr-auto"}>
         <Link
-          href={`/batteries/products?attribute_slug=type_vehicle&attribute_value=car&selectTipState=${searchParams.get("selectTipState")}`}
+          href={`/services/batteries/products?attribute_slug=type_vehicle&attribute_value=car&selectTipState=${searchParams.get("selectTipState")}`}
           className={
             "flex items-center gap-2 size752:gap-[16px] text-[#0E0E0E] w-full"
           }

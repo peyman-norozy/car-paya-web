@@ -20,7 +20,7 @@ const Page = async (props) => {
             }
           >
             <Link
-              href={`/detailing/selectLocation?type=${props.searchParams.type}&&selectTipState=${props.searchParams.selectTipState}&city_id=${props.searchParams.city_id}`}
+              href={`/services/detailing/selectLocation?type=${props.searchParams.type}&&selectTipState=${props.searchParams.selectTipState}&city_id=${props.searchParams.city_id}`}
               className={"flex items-center gap-1"}
             >
               <i className={"cc-arrow-right text-24 cursor-pointer"} />

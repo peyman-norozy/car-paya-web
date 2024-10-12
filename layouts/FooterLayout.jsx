@@ -23,7 +23,7 @@ const Footer = (props) => {
 
   useEffect(() => {
     if (
-      pathName.includes("/vehicle-verification") &&
+      pathName.includes("/vehicle-inspection") &&
       searchParams.toString().includes("step=")
     ) {
       setFooterState(false);
@@ -76,7 +76,7 @@ const Footer = (props) => {
               </span>
               <ul className="list-disc grid lg:grid-cols-1 grid-cols-2 pr-4 gap-4 text-[#3C3C3C] text-xs font-medium">
                 <li className="w-fit">
-                  <Link href={"/vehicle-verification"}>کارشناسی خودرو</Link>
+                  <Link href={"/vehicle-inspection"}>کارشناسی خودرو</Link>
                 </li>
                 <li className="w-fit">
                   <Link href={"#"}>بیمه</Link>

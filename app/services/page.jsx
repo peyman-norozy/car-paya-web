@@ -1,7 +1,7 @@
 import React from "react";
 
 const Page = () => {
-  return <div>sdf</div>;
+  return <div>not found</div>;
 };
 
 export default Page;

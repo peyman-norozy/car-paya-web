@@ -32,7 +32,7 @@ const VehicleVerificationPage = (props) => {
 
   useEffect(() => {
     if (!params["city_id"] && !params["vehicle_id"]) {
-      router.replace("/vehicle-verification");
+      router.replace("/vehicle-inspection");
       // router.reload();
       setStep(undefined);
     }
