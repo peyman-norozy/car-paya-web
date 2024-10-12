@@ -1,15 +1,15 @@
 import React from "react";
 
-import PeriodicServiceIndex from "@/components/PeriodicServiceIndex/PeriodicServiceIndex";
+// import PeriodicServiceIndex from "@/components/PeriodicServiceIndex/PeriodicServiceIndex";
 import DetailingIndex from "@/components/DetailingIndex/DetailingIndex";
-const servics = [
-  "پولیش",
-  "صفر شویی",
-  "کاور",
-  "سرامیک ۳ ساله",
-  "سرامیک ۵ ساله",
-  "سرامیک ۷ ساله",
-];
+// const servics = [
+//   "پولیش",
+//   "صفر شویی",
+//   "کاور",
+//   "سرامیک ۳ ساله",
+//   "سرامیک ۵ ساله",
+//   "سرامیک ۷ ساله",
+// ];
 
 const Page = () => {
   return (

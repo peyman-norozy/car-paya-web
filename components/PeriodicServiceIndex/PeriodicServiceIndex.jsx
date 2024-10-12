@@ -22,7 +22,7 @@ const PeriodicServiceIndex = (props) => {
   const [servicesState, setServicesState] = useState("");
   const [cityId, setCityId] = useState(null);
   const searchParams = useSearchParams();
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const router = useRouter();
 
   useEffect(() => {
@@ -55,14 +55,14 @@ const PeriodicServiceIndex = (props) => {
 
   const selectServiceClickHandler = (status) => {
     axios
-    .get(process.env.BASE_API + "/check-authorization", {
-      headers: {
-        Authorization: "Bearer " + getCookies("Authorization").Authorization,
-      },
-    })
-    .then(async () => {
-      setToastieDisplay((prev) => !prev);
-      setPreventFirstRender(true);
+      .get(process.env.BASE_API + "/web" + "/checkAuth", {
+        headers: {
+          Authorization: "Bearer " + getCookies("Authorization").Authorization,
+        },
+      })
+      .then(async () => {
+        setToastieDisplay((prev) => !prev);
+        setPreventFirstRender(true);
         nProgress.start();
         router.push(
           `/periodic-service/location-selection?type=${status}&${
@@ -73,11 +73,10 @@ const PeriodicServiceIndex = (props) => {
               : ""
           }&city_id=${cityId}`,
         );
-    })
-    .catch((err) => {
-      dispatch(setLoginModal(true));
-    });
-    
+      })
+      .catch((err) => {
+        dispatch(setLoginModal(true));
+      });
   };
 
   if (!isClient) {

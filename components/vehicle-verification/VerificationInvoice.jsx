@@ -38,7 +38,7 @@ const VerificationInvoice = () => {
   const package_id = searchParams.get("package_id");
   const exact_time = searchParams.get("exact_time");
   const reservation_time_slice_id = searchParams.get(
-    "reservation_time_slice_id"
+    "reservation_time_slice_id",
   );
   const registrationable_id = searchParams.get("registrationable_id");
   const router = useRouter();
@@ -53,15 +53,15 @@ const VerificationInvoice = () => {
           package_id: searchParams.get("package_id"),
           exact_time: searchParams.get("exact_time"),
           reservation_time_slice_id: searchParams.get(
-            "reservation_time_slice_id"
+            "reservation_time_slice_id",
           ),
           registrationable_id: searchParams.get("registrationable_id"),
-        }
+        },
       );
       if (response.success) {
         console.log(response);
         setDiscount(
-          response.data.data.coupon_price ? response.data.data.coupon_price : 0
+          response.data.data.coupon_price ? response.data.data.coupon_price : 0,
         );
         setFaktorData(response.data.data);
       } else {
@@ -81,7 +81,7 @@ const VerificationInvoice = () => {
           address_id: searchParams.get("registrationable_id"),
           vehicle_tip_id: searchParams.get("vehicle_tip"),
           reservation_time_slice_id: searchParams.get(
-            "reservation_time_slice_id"
+            "reservation_time_slice_id",
           ),
           coupon_code: searchParams.get(coupon),
           shipped_time: searchParams.get("exact_time"),
@@ -90,10 +90,10 @@ const VerificationInvoice = () => {
           headers: {
             Authorization: "Bearer " + getCookie("Authorization"),
           },
-        }
+        },
       )
       .then((res) => {
-        nProgress.start()
+        nProgress.start();
         router.push(res?.data?.action);
       });
   }
@@ -110,7 +110,7 @@ const VerificationInvoice = () => {
           }
         >
           <Link
-            href={`/vehicle-verification?step=step-4&city_id=${cityId}&package_id=${package_id}&vehicle_tip=${vehicleTipId}&exact_time=${exact_time}&type_service=${typeService}&reservation_time_slice_id=${reservation_time_slice_id}`}
+            href={`/vehicle-inspection?step=step-4&city_id=${cityId}&package_id=${package_id}&vehicle_tip=${vehicleTipId}&exact_time=${exact_time}&type_service=${typeService}&reservation_time_slice_id=${reservation_time_slice_id}`}
           >
             <i className={"cc-arrow-right text-24"} />
           </Link>{" "}
@@ -167,7 +167,7 @@ const VerificationInvoice = () => {
               </span>
             </div>
             <Link
-              href={`/vehicle-verification?step=step-4&city_id=${cityId}&package_id=${package_id}&vehicle_tip=${vehicleTipId}&exact_time=${exact_time}&type_service=${typeService}&reservation_time_slice_id=${reservation_time_slice_id}`}
+              href={`/vehicle-inspection?step=step-4&city_id=${cityId}&package_id=${package_id}&vehicle_tip=${vehicleTipId}&exact_time=${exact_time}&type_service=${typeService}&reservation_time_slice_id=${reservation_time_slice_id}`}
               className="text-[#518dd5] flex items-center gap-1 self-end border-b border-b-[#518dd5] pb-2 cursor-pointer"
             >
               <i className={"cc-edit text-20"} />
@@ -193,7 +193,7 @@ const VerificationInvoice = () => {
               <span className={"font-medium"}>{cart.exact_time}</span>
             </div>
             <Link
-              href={`/vehicle-verification?step=step-2&city_id=${cityId}&package_id=${package_id}&vehicle_tip=${vehicleTipId}&exact_time=${exact_time}&type_service=${typeService}&reservation_time_slice_id=${reservation_time_slice_id}&registrationable_id=${registrationable_id}`}
+              href={`/vehicle-inspection?step=step-2&city_id=${cityId}&package_id=${package_id}&vehicle_tip=${vehicleTipId}&exact_time=${exact_time}&type_service=${typeService}&reservation_time_slice_id=${reservation_time_slice_id}&registrationable_id=${registrationable_id}`}
               className="text-[#518dd5] flex items-center gap-1 mt-2 self-end border-b-2 border-b-[#518dd5] pb-2 cursor-pointer"
             >
               <i className={"cc-edit text-20"} />
@@ -259,7 +259,7 @@ const VerificationInvoice = () => {
                 </span>
               </div>
               <Link
-                href={`/vehicle-verification?step=step-4&city_id=${cityId}&package_id=${package_id}&vehicle_tip=${vehicleTipId}&exact_time=${exact_time}&type_service=${typeService}&reservation_time_slice_id=${reservation_time_slice_id}`}
+                href={`/vehicle-inspection?step=step-4&city_id=${cityId}&package_id=${package_id}&vehicle_tip=${vehicleTipId}&exact_time=${exact_time}&type_service=${typeService}&reservation_time_slice_id=${reservation_time_slice_id}`}
                 className="text-[#518dd5] flex items-center gap-1 mt-2 self-end border-b-2 border-b-[#518dd5] pb-2 cursor-pointer"
               >
                 <i className={"cc-edit text-20"} />
@@ -288,7 +288,7 @@ const VerificationInvoice = () => {
                 </span>
               </div>
               <Link
-                href={`/vehicle-verification?step=step-2&city_id=${cityId}&package_id=${package_id}&vehicle_tip=${vehicleTipId}&exact_time=${exact_time}&type_service=${typeService}&reservation_time_slice_id=${reservation_time_slice_id}&registrationable_id=${registrationable_id}`}
+                href={`/vehicle-inspection?step=step-2&city_id=${cityId}&package_id=${package_id}&vehicle_tip=${vehicleTipId}&exact_time=${exact_time}&type_service=${typeService}&reservation_time_slice_id=${reservation_time_slice_id}&registrationable_id=${registrationable_id}`}
                 className="text-[#518dd5] flex items-center gap-1 mt-2 self-end border-b-2 border-b-[#518dd5] pb-2 cursor-pointer"
               >
                 <i className={"cc-edit text-20"} />

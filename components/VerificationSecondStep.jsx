@@ -81,7 +81,7 @@ const VerificationSecondStep = (props) => {
     } else {
       setQuery.deleteSingleQuery(
         [{ key: "package_id", value: package_id }],
-        params
+        params,
       );
       setQuery.updateMultiQuery([{ key: "step", value: "step-1" }], params);
     }
@@ -97,7 +97,7 @@ const VerificationSecondStep = (props) => {
           headers: {
             Authorization: "Bearer " + getCookie("Authorization"),
           },
-        }
+        },
       )
       .then((res) => {
         console.log(res.data["check_auth"]);
@@ -105,7 +105,7 @@ const VerificationSecondStep = (props) => {
           Object.keys(res.data["time-reserve"]).map((key) => [
             key,
             res.data["time-reserve"][key],
-          ])
+          ]),
         );
         setPackagePrice(res?.data?.price_service?.discounted_price);
       })
@@ -136,14 +136,14 @@ const VerificationSecondStep = (props) => {
           <div className="flex gap-2 items-center w-full bg-[#FFFFFF] text-[#D1D1D1] border border-[#F2F2F2] rounded-full px-2">
             <i
               className="cc-car-o text-2xl text-[#1E67BF] cursor-pointer"
-              onClick={() => router.push(`/vehicle-verification`)}
+              onClick={() => router.push(`/vehicle-inspection`)}
             />
             <div className="border-b-4 border-dotted border-[#1E67BF] w-full"></div>
             <i
               className="cc-search text-2xl text-[#1E67BF] cursor-pointer"
               onClick={() =>
                 router.push(
-                  `/vehicle-verification?step=step-1&city_id=${city_id}&vehicle_tip=${selectedItem}`
+                  `/vehicle-inspection?step=step-1&city_id=${city_id}&vehicle_tip=${selectedItem}`,
                 )
               }
             />
