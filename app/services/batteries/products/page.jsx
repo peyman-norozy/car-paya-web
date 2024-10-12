@@ -33,7 +33,7 @@ export const metadata = {
 const BatteriesData = async (props) => {
   const fetchState = props.filter.selectTipState?.split(",")[1];
 
-  await revalidatePath("/batteries/products");
+  await revalidatePath("/services/batteries/products");
   const fetchData = await getData(
     "/web/batteries",
     // + "?order_by=" + props.filter,

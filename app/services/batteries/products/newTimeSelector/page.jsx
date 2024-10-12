@@ -53,7 +53,7 @@ const Page = (props) => {
   function onclick() {
     setQuery.updateQueryParams(
       { time_id: selectedTime, type: searchParams.get("type") },
-      "/batteries/invoice",
+      "/services/batteries/invoice",
     );
   }
 
@@ -88,7 +88,7 @@ const Page = (props) => {
           className="cc-search text-2xl text-[#1E67BF]"
           onClick={() =>
             router.push(
-              `/batteries/products?attribute_slug=${attributeSlug}&attribute_value=${attributeValue}&selectTipState=true,${vehicleTipId}&amper=${amper}&type_service=${typeService}`,
+              `/services/batteries/products?attribute_slug=${attributeSlug}&attribute_value=${attributeValue}&selectTipState=true,${vehicleTipId}&amper=${amper}&type_service=${typeService}`,
             )
           }
         />
@@ -97,7 +97,7 @@ const Page = (props) => {
           className="cc-location text-2xl text-[#1E67BF]"
           onClick={() =>
             router.push(
-              `/batteries/products/newSelectLocation?attribute_slug=${attributeSlug}&attribute_value=${attributeValue}&city_id=${cityId}&type=${type}&vehicle_tip_id=${vehicleTipId}&amper=${amper}&type_service=${typeService}`,
+              `/services/batteries/products/newSelectLocation?attribute_slug=${attributeSlug}&attribute_value=${attributeValue}&city_id=${cityId}&type=${type}&vehicle_tip_id=${vehicleTipId}&amper=${amper}&type_service=${typeService}`,
             )
           }
         />
