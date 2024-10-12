@@ -55,11 +55,9 @@ const NewAddressCard = ({
     console.log(accordionContainer.current.scrollHeight);
   };
 
-  console.log(item, locationId);
-
   return (
     <li
-      className={`relative bg-white shadow-[0_0_10px_0_rgba(152,152,152,0.4)] py-4 px-6 rounded-[16px] flex flex-col lg:gap-6 gap-2 h-fit ${status === "FIXED" && item.address_id === locationId ? " border border-[#F66B34]" : status === "MOVING" && item.address_id === locationId ? "border border-[#F66B34]" : ""}`}
+      className={`relative h-full bg-white shadow-[0_0_10px_0_rgba(152,152,152,0.4)] py-4 px-6 rounded-[16px] flex flex-col lg:gap-6 gap-2 ${status === "FIXED" && item.address_id === locationId ? " border border-[#F66B34]" : status === "MOVING" && item.address_id === locationId ? "border border-[#F66B34]" : ""}`}
     >
       <div className={`flex-1 ${status === "FIXED" && "flex"}`}>
         <div className={"w-full"}>
@@ -105,7 +103,11 @@ const NewAddressCard = ({
               </div>
             )}
           </section>
-          <section className={"flex lg:gap-6 gap-2 mb-4 mt-3"}>
+          <section
+            className={
+              "flex lg:justify-start justify-between lg:gap-6 gap-2 mb-4 mt-3"
+            }
+          >
             {/*<div className={"flex lg:gap-[11px] gap-1 lg:text-16 text-12"}>*/}
             {/*  <span className={"font-semibold"}>استان:</span>*/}
             {/*  <span>{item.province_name}</span>*/}
@@ -131,16 +133,27 @@ const NewAddressCard = ({
             }
           >
             {status === "FIXED" &&
-              item.services?.slice(2).map((item) => (
-                <li key={item.key} className={"flex items-center gap-2"}>
-                  <i
-                    className={
-                      "cc-tick text-[#24D34B] bg-[#24D34B40] w-[17px] h-[17px] rounded-full text-14 flex items-center justify-center"
-                    }
-                  />
-                  <span>{item.label}</span>
-                </li>
-              ))}
+              item.services?.slice(2).map((item) => {
+                return item.value ? (
+                  <li key={item.key} className={"flex items-center gap-2"}>
+                    <i
+                      className={
+                        "cc-tick text-[#24D34B] bg-[#24D34B40] w-[17px] h-[17px] rounded-full text-14 flex items-center justify-center"
+                      }
+                    />
+                    <span>{item.label}</span>
+                  </li>
+                ) : (
+                  <li key={item.key} className={"flex items-center gap-2"}>
+                    <i
+                      className={
+                        "cc-add rotate-45 text-[#DB3737] bg-[#DC2A2A66] w-[17px] h-[17px] rounded-full text-10 flex items-center justify-center"
+                      }
+                    />
+                    <span>{item.label}</span>
+                  </li>
+                );
+              })}
           </ul>
         </div>
         {/*{status === "FIXED" && (*/}
