@@ -23,11 +23,13 @@ const Footer = (props) => {
 
   useEffect(() => {
     if (
-      pathName.includes("/vehicle-inspection") &&
+      pathName.includes("/services/vehicle-inspection") &&
       searchParams.toString().includes("step=")
     ) {
       setFooterState(false);
-    } else if (pathName.startsWith("/batteries/")) {
+    } else if (pathName.startsWith("/services/batteries/")) {
+      setFooterState(false);
+    } else if (pathName.startsWith("/services/detailing/")) {
       setFooterState(false);
     } else {
       setFooterState(true);
