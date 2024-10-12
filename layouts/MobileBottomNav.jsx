@@ -90,14 +90,14 @@ function MobileBottomNav(props) {
   // console.log(pathname.includes("step")&&pathname.includes("/vehicle-inspection"));
 
   useEffect(() => {
-    if (pathName.startsWith("/vehicle-inspection/")) {
+    if (pathName.startsWith("/services/vehicle-inspection/")) {
       setFooterState(false);
     } else if (
-      pathName.startsWith("/batteries/") ||
-      pathName.startsWith("/detailing/")
+      pathName.startsWith("/services/batteries/") ||
+      pathName.startsWith("/services/detailing/")
     ) {
       setFooterState(false);
-    } else if (pathName.startsWith("/periodic-service/")) {
+    } else if (pathName.startsWith("services/periodic-service/")) {
       setFooterState(false);
     } else {
       setFooterState(true);
