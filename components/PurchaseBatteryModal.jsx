@@ -68,7 +68,7 @@ const PurchaseBatteryModal = (props) => {
     setCount(1);
     console.log(totalPrice, productId, id);
     if (id === "noneOldBattery") {
-      if (pathName.startsWith("/batteries")) {
+      if (pathName.startsWith("/services/batteries")) {
         if (props.batteryIsSelected) {
           setQuery.updateQueryParams({ type_service: "NO_BATTERY" });
           localStorage.setItem(
@@ -112,7 +112,7 @@ const PurchaseBatteryModal = (props) => {
       //   vehicle_tip_id: JSON.parse(localStorage.getItem("selectedVehicle"))?.id,
       // });
     } else if (id === "oldSameAmperBattery") {
-      if (pathName.startsWith("/batteries")) {
+      if (pathName.startsWith("/services/batteries")) {
         if (props.batteryIsSelected) {
           setQuery.updateQueryParams({ type_service: "SAME_AMP" });
           localStorage.setItem(
@@ -164,7 +164,7 @@ const PurchaseBatteryModal = (props) => {
     // }
     nProgress.start();
     router.push(
-      `/batteries/products/newSelectLocation?attribute_slug=${attributeSlug}&attribute_value=${attributeValue}&city_id=${JSON.parse(localStorage.getItem("city")).cityId}&type=MOVING&vehicle_tip_id=${JSON.parse(localStorage.getItem("selectedVehicle"))?.id}&amper=${searchParams.get("amper")}&type_service=${searchParams.get("type_service")}&item_id=${batteriesData.id}`,
+      `/services/batteries/products/newSelectLocation?attribute_slug=${attributeSlug}&attribute_value=${attributeValue}&city_id=${JSON.parse(localStorage.getItem("city")).cityId}&type=MOVING&vehicle_tip_id=${JSON.parse(localStorage.getItem("selectedVehicle"))?.id}&amper=${searchParams.get("amper")}&type_service=${searchParams.get("type_service")}&item_id=${batteriesData.id}`,
     );
 
     // const cartData = await postData("/web/cart/add", {
@@ -355,7 +355,7 @@ const PurchaseBatteryModal = (props) => {
   //     }
   //   }
   // }, [totalPrice]);
-
+  console.log(totalPrice);
   useEffect(() => {
     if (isSelected === 1) {
       localStorage.setItem("batteryTotalPrice", JSON.stringify(totalPrice));
@@ -549,7 +549,6 @@ const PurchaseBatteryModal = (props) => {
                 {/*<Image src={Toman} alt="" width={20} height={20}/>*/}
               </div>
             </div>
-            {console.log(typeService, isSelected)}
             <Button
               class_name={`${typeService === "SWING_AMP" ? (selectOption ? "bg-[#F66B34]" : "bg-[#ecb8a3]") : isSelected === false ? "bg-[#ecb8a3]" : "bg-[#F66B34]"} rounded-10 hover:shadow-[0_0_5px_0_rgba(0,0,0,0.4)] flex items-center justify-center ga-[0.25rem] text-white px-2 py-2 text-12`}
               disabled_btn={

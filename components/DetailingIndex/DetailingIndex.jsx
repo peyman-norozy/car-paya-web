@@ -117,7 +117,7 @@ const DetailingIndex = () => {
       nProgress.start();
       router.push(
         JSON.parse(localStorage.getItem("selectedVehicle"))?.id && cityId
-          ? `/detailing/selectLocation?type=FIXED&attribute_slug=${attributeSlug}&attribute_value=${attributeValue}${
+          ? `/services/detailing/selectLocation?type=FIXED&attribute_slug=${attributeSlug}&attribute_value=${attributeValue}${
               JSON.parse(localStorage.getItem("selectedVehicle"))?.id
                 ? `&selectTipState=true,${
                     JSON.parse(localStorage.getItem("selectedVehicle"))?.id

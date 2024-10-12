@@ -26,12 +26,12 @@ const AddressSelection = (props) => {
   const dispatch = useDispatch();
   const setQuery = useSetQuery();
 
-  const nextUrl = pathName.startsWith("/detailing")
-    ? "/detailing/selected-services"
-    : pathName.startsWith("/periodic-service")
-      ? "/periodic-service/service-selection"
-      : pathName.startsWith("/batteries")
-        ? "/batteries/products/newTimeSelector"
+  const nextUrl = pathName.startsWith("/services/detailing")
+    ? "/services/detailing/selected-services"
+    : pathName.startsWith("/services/periodic-service")
+      ? "/services/periodic-service/service-selection"
+      : pathName.startsWith("/services/batteries")
+        ? "/services/batteries/products/newTimeSelector"
         : "";
 
   useEffect(() => {

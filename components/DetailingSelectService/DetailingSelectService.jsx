@@ -20,7 +20,10 @@ const DetailingSelectService = (props) => {
   const searchParams = useSearchParams();
 
   const buttonClickHandler = (id) => {
-    setQuery.updateQueryParams({ package_id: id }, "/detailing/timeSelector");
+    setQuery.updateQueryParams(
+      { package_id: id },
+      "/services/detailing/timeSelector",
+    );
   };
 
   const attributeSlug = searchParams.get("attribute_slug");
@@ -48,7 +51,7 @@ const DetailingSelectService = (props) => {
           className={"cc-arrow-right text-24 cursor-pointer"}
           onClick={() =>
             router.push(
-              `/detailing/selectLocation?type=${type}&attribute_slug=${attributeSlug}&attribute_value=${attributeValue}&selectTipState=${selectTipState}&city_id=${cityId}`,
+              `/services/detailing/selectLocation?type=${type}&attribute_slug=${attributeSlug}&attribute_value=${attributeValue}&selectTipState=${selectTipState}&city_id=${cityId}`,
             )
           }
         />
@@ -74,7 +77,7 @@ const DetailingSelectService = (props) => {
           className="cc-location text-2xl text-[#1E67BF]"
           onClick={() =>
             router.push(
-              `/detailing/selectLocation?type=${type}&attribute_slug=${attributeSlug}&attribute_value=${attributeValue}&selectTipState=${selectTipState}&city_id=${cityId}`,
+              `/services/detailing/selectLocation?type=${type}&attribute_slug=${attributeSlug}&attribute_value=${attributeValue}&selectTipState=${selectTipState}&city_id=${cityId}`,
             )
           }
         />
