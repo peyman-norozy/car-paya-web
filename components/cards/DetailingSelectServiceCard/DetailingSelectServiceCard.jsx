@@ -2,6 +2,7 @@
 import { API_PATHS } from "@/configs/routes.config";
 import Image from "next/image";
 import { numberWithCommas } from "@/utils/function-utils";
+import React from "react";
 
 const SelectServiceCard = (props) => {
   const selectProductHandler = () => {
@@ -65,7 +66,7 @@ const SelectServiceCard = (props) => {
           </div>
         </div>
         <div>
-          <div className={"w-[95px] h-[80px]"}>
+          <div className={"w-[95px] h-[80px] ml-4 mt-2"}>
             <Image
               className="bg-amber-600 rounded-lg size-full"
               src={
@@ -125,6 +126,23 @@ const SelectServiceCard = (props) => {
         {/*  </div>*/}
         {/*)}*/}
       </section>
+      {props.data.discounted_percent && (
+        <div className={`absolute -top-1 -left-1`}>
+          <Image
+            src={"/assets/icons/image85.svg"}
+            alt={"percent"}
+            width={52}
+            height={51}
+          />
+          <span
+            className={
+              "absolute top-[7px] left-[8px] text-12 text-white -rotate-45"
+            }
+          >
+            {props.data.discounted_percent}%
+          </span>
+        </div>
+      )}
     </div>
   );
 };
