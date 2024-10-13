@@ -523,6 +523,7 @@ const InvoicePage = () => {
             roleChecked={roleChecked}
             discountPrice={discountPrice}
             setDiscountPrice={setDiscountPrice}
+            innerWidth={innerWidth}
             totalPrice={
               JSON.parse(sessionStorage.getItem("ditailingCart"))
                 ?.servicePrice || 0
