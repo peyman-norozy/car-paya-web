@@ -305,7 +305,7 @@ const PurchaseBatteryModal = (props) => {
         }
 
         const newAmperOptions = getBatteriesData.amp.map((item) => {
-          return { title: item.label, id: item.value };
+          return { title: item.label, id: item.value, type: item.type };
         });
         const filterAmperOptions = newAmperOptions.filter((item) => {
           if (batteriesData.amp !== Number(item.id)) {
@@ -433,7 +433,9 @@ const PurchaseBatteryModal = (props) => {
                             type={"text"}
                             icon={"cc-edit"}
                             title={"انتخاب آمپر"}
-                            data={amperSelectData}
+                            data={amperSelectData.filter(
+                              (item) => item.type === attributeValue,
+                            )}
                             height={"h-[150px]"}
                             inputHeight={"h-[40px]"}
                             iconSize={"text-[18px]"}
