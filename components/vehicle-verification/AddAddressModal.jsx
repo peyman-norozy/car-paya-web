@@ -90,17 +90,23 @@ const AddressModal = (props) => {
         if (pathName === "/panel/productAddress") {
           props.setAddressModalState(false);
           props.getAddressFetchData();
-        } else if (pathName === "/vehicle-inspection/location-selection") {
+        } else if (
+          pathName === "/services/vehicle-inspection/location-selection"
+        ) {
           props.getDataFetch((prev) => [...prev, post.data.data]);
           props.setModalIsOpen(false);
-        } else if (pathName === "/batteries/products/newSelectLocation") {
+        } else if (
+          pathName === "/services/batteries/products/newSelectLocation"
+        ) {
           console.log(props);
           props.timeData();
           props.setModalIsOpen(false);
-        } else if (pathName === "/detailing/selectLocation") {
+        } else if (pathName === "/services/detailing/selectLocation") {
           props.timeData();
           props.setModalIsOpen(false);
-        } else if (pathName === "/periodic-service/location-selection") {
+        } else if (
+          pathName === "/services/periodic-service/location-selection"
+        ) {
           props.setModalIsOpen(false);
         }
 
@@ -384,11 +390,9 @@ const AddressModal = (props) => {
           </div>
         </div>
       )}
-      <div
-        className="fixed md:static w-full rounded-t-2xl shadow-[0_-2px_4px_0_rgba(199,199,199,0.25)] flex justify-center pt-4 pb-6 items-start bottom-0 right-0 bg-white z-[2000] px-10"
-        type="submit"
-      >
+      <div className="fixed md:static w-full rounded-t-2xl shadow-[0_-2px_4px_0_rgba(199,199,199,0.25)] flex justify-center pt-4 pb-6 items-start bottom-0 right-0 bg-white z-[2000] px-10">
         <button
+          type="submit"
           className={`bg-[#F66B34] rounded-lg w-full sm:max-w-[400px] text-[#FEFEFE] text-sm font-medium py-3`}
         >
           ثبت
