@@ -112,6 +112,7 @@ const DetailingIndex = () => {
   async function RegisterBatteryRequestHandler() {
     const response = await getDataWithFullErrorRes("/web/checkAuth");
     if (response?.response?.status === 401) {
+      setModalClickState(false);
       dispatch(setLoginModal(true));
     } else {
       nProgress.start();
