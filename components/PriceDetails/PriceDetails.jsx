@@ -5,7 +5,7 @@ import { numberWithCommas } from "@/utils/function-utils";
 import DiscountPercent from "../DiscountPercent/DiscountPercent";
 
 const PriceDetails = (props) => {
-  const { faktorData } = props;
+  const { faktorData, innerWidth } = props;
 
   useEffect(() => {
     if (props.price_fluctuation) {
@@ -137,13 +137,15 @@ const PriceDetails = (props) => {
           </span>
         </div>
       </div>
-      <button
-        className={`${props.roleChecked ? "bg-[#F66B34]" : "bg-[#FCCAAC]"} rounded-[8px] text-white text-[16px] font-medium w-full h-10`}
-        disabled={!props.roleChecked}
-        onClick={props.registerClickHandler}
-      >
-        تایید و تکمیل سفارش
-      </button>
+      {innerWidth && (
+        <button
+          className={`${props.roleChecked ? "bg-[#F66B34]" : "bg-[#FCCAAC]"} rounded-[8px] text-white text-[16px] font-medium w-full h-10`}
+          disabled={!props.roleChecked}
+          onClick={props.registerClickHandler}
+        >
+          تایید و تکمیل سفارش
+        </button>
+      )}
       {/*<div className="flex justify-between font-semibold">*/}
       {/*  <span className="text-[#137BDB]">سود شما از این خرید:</span>*/}
       {/*  <span className="text-[#137BDB]">۱۵۳۰۰۰۰ تومان</span>*/}
@@ -169,17 +171,20 @@ const PriceDetails = (props) => {
       )} */}
       <div className="flex justify-start items-center text-xs gap-1 font-medium mt-2 border-t border-[#BBBBBB] pt-2">
         <div
-          className={`border-2 border-[#1E67BF] size-6 rounded-md ml-1 flex justify-center items-center ${props.roleChecked ? "bg-[#1E67BF]" : ""}`}
+          className={`border-2 border-[#1E67BF] lg:size-6 size-5 rounded-md ml-1 flex justify-center items-center ${props.roleChecked ? "bg-[#1E67BF]" : ""}`}
           onClick={() => {
             props.setRoleChecked(!props.roleChecked);
           }}
         >
-          <i className="cc-tick text-white text-xl" />
+          <i className="cc-tick text-white lg:text-xl text-sm" />
         </div>
-        <span className="text-[#1E67BF] text-14">
-          قوانین کار پایا و سیاست‌ نامه حریم‌ خصوصی
-        </span>
-        <span className="text-[#3C3C3C] text-14">را می پذیرم.</span>
+
+        <p>
+          <span className="text-[#1E67BF] lg:text-14 text-12 whitespace-nowrap break-keep">
+            قوانین کار پایا و سیاست‌ نامه حریم‌ خصوصی
+          </span>
+          <span> را می پذیرم.</span>
+        </p>
       </div>
     </>
   );
