@@ -77,7 +77,7 @@ const Page = (props) => {
           className={"cc-arrow-right text-24 cursor-pointer"}
           onClick={() =>
             router.push(
-              `/services/detailing?attribute_slug=${attributeSlug}&attribute_value=${attributeValue}`,
+              `/detailing?attribute_slug=${attributeSlug}&attribute_value=${attributeValue}`,
             )
           }
         />
