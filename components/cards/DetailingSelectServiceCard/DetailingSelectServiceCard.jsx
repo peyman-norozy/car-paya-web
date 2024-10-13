@@ -89,24 +89,29 @@ const SelectServiceCard = (props) => {
           <div className={"flex items-center gap-3"}>
             <div
               className={
-                "flex items-center gap-1 text-12 font-medium lg:text-14 text-12"
+                "flex items-center gap-1 font-medium lg:text-14 text-12"
               }
             >
               <span>قیمت :</span>
               <div className={"flex items-center gap-1 text-12 font-medium"}>
-                <span>{numberWithCommas(props.data?.salary)}</span>
+                <span>{numberWithCommas(props.data?.discounted_salary)}</span>
                 <span className={"text-[12px] font-semibold"}>تومان</span>
               </div>
             </div>
             <div className={"line-through lg:text-14 text-12 text-[#888888]"}>
-              <span>{numberWithCommas(props.data?.discounted_salary)}</span>
+              <span>{numberWithCommas(props.data?.salary)}</span>
               <span className={"text-[12px] font-semibold"}>تومان</span>
             </div>
           </div>
         ) : (
-          <div className={"flex items-center gap-1 text-12 font-medium"}>
-            <span>{numberWithCommas(props.data?.salary)}</span>
-            <span className={"text-[12px] font-semibold"}>تومان</span>
+          <div
+            className={"flex items-center gap-1 font-medium lg:text-14 text-12"}
+          >
+            <span>قیمت :</span>
+            <div className={"flex items-center gap-1 text-12 font-medium"}>
+              <span>{numberWithCommas(props.data?.salary)}</span>
+              <span className={"text-[12px] font-semibold"}>تومان</span>
+            </div>
           </div>
         )}
         {/*{props.data?.discount_salary && props.data?.discounted_percent && (*/}
@@ -126,7 +131,7 @@ const SelectServiceCard = (props) => {
         {/*  </div>*/}
         {/*)}*/}
       </section>
-      {props.data.discounted_percent && (
+      {props.data.discounted_percent ? (
         <div className={`absolute -top-1 -left-1`}>
           <Image
             src={"/assets/icons/image85.svg"}
@@ -142,7 +147,7 @@ const SelectServiceCard = (props) => {
             {props.data.discounted_percent}%
           </span>
         </div>
-      )}
+      ) : null}
     </div>
   );
 };
