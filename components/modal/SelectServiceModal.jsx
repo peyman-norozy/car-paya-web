@@ -58,7 +58,7 @@ const SelectServiceModal = (props) => {
             }
             onClick={props.searchClickHandler}
           >
-            جستجو
+            اعمال فیلتر
           </button>
         </div>
       </div>
