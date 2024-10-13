@@ -410,7 +410,7 @@ const InvoicePage = () => {
                     "flex items-center gap-1 border-b border-b-[#BBBBBB] pb-4"
                   }
                 >
-                  <span>نوع خدمت:</span>
+                  <span>نوع سرویس:</span>
                   <span>{serviceName}</span>
                 </div>
                 <div className={"border-b border-b-[#BBBBBB] pb-4"}>
@@ -469,7 +469,7 @@ const InvoicePage = () => {
                   </span>
                   <span className={"text-[#454545] flex gap-1 items-start"}>
                     {/*{faktorData.reservation_time_slice?.split(",").join(" تا ")}*/}
-                    {time.split("/")[1]}
+                    {time?.split("/")[1]}
                   </span>
                 </div>
                 <Link
