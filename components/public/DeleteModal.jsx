@@ -48,7 +48,7 @@ const DeleteModal = (props) => {
   return (
     <Portal container={modalContainer}>
       <div
-        className={`${!isOpen ? "hidden" : "fixed"} fixed top-0 right-0 w-screen h-screen bg-[#10101069] z-[3000] pb-10`}
+        className={`${!isOpen ? "hidden" : "fixed"} fixed top-0 right-0 w-screen h-screen bg-[#72727217] z-[3000] pb-10`}
         onClick={() => closeModal()}
       >
         <div
