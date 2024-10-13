@@ -73,7 +73,7 @@ const CarSelect = (props) => {
     },
     [
       // carSelected
-    ]
+    ],
   );
 
   useEffect(() => {
@@ -82,11 +82,11 @@ const CarSelect = (props) => {
         attribute_slug: "type_vehicle",
         attribute_value: "car",
       },
-      ""
+      "",
     );
     (async () => {
       const data = await getDataWithFullErrorRes(
-        process.env.BASE_API + "/web/my-vehicles"
+        process.env.BASE_API + "/web/my-vehicles",
       );
       if (data.status && data.status === "success") {
         setMyVehicleData(data.data);
@@ -98,7 +98,7 @@ const CarSelect = (props) => {
     setSearchedData(
       data.filter((item) => {
         return item.title.includes(value);
-      })
+      }),
     );
   }
 
@@ -227,9 +227,9 @@ const CarSelect = (props) => {
     setQuery.updateQueryParams(
       {
         attribute_slug: "type_vehicle",
-        attribute_value: model === "heavy-car" ? "heavy_car" : model,
+        attribute_value: model === "heavy-vehicle" ? "heavy_vehicle" : model,
       },
-      ""
+      "",
     );
   }
 
@@ -261,7 +261,7 @@ const CarSelect = (props) => {
             route +
             id +
             "?type=" +
-            vehicleType
+            vehicleType,
           // vehicleType +
           // route +
         )
@@ -287,7 +287,7 @@ const CarSelect = (props) => {
           model: item.title_model,
           image: item.image,
           type: searchParams.get("attribute_value"),
-        })
+        }),
       );
       // setCarSelected(true);
       props.setAsideStatus("car_city");
@@ -302,7 +302,7 @@ const CarSelect = (props) => {
     if (JSON.parse(localStorage.getItem("batteryTotalPrice"))?.productId) {
       await removeClickHandler(
         JSON.parse(localStorage.getItem("batteryTotalPrice")).productId,
-        "BATTERIES"
+        "BATTERIES",
       );
       // setCarSelected(false);
       localStorage.removeItem("batteryTotalPrice");
@@ -314,7 +314,7 @@ const CarSelect = (props) => {
     } else if (pathname.startsWith("/batteries")) {
       if (JSON.parse(localStorage.getItem("batteryTotalPrice"))?.productId) {
         await removeClickHandler(
-          JSON.parse(localStorage.getItem("batteryTotalPrice")).productId
+          JSON.parse(localStorage.getItem("batteryTotalPrice")).productId,
         );
       } else {
         // setCarSelected(false);
@@ -328,13 +328,13 @@ const CarSelect = (props) => {
       localStorage.removeItem("selectedVehicle");
       nProgress.start();
       router.push(
-        `/detailing?attribute_slug=type_vehicle&attribute_value=${attributeValue ? attributeValue : "car"}`
+        `/detailing?attribute_slug=type_vehicle&attribute_value=${attributeValue ? attributeValue : "car"}`,
       );
     } else if (pathname.startsWith("/periodic-service")) {
       localStorage.removeItem("selectedVehicle");
       nProgress.start();
       router.push(
-        `/periodic-service?attribute_slug=type_vehicle&attribute_value=${attributeValue ? attributeValue : "car"}`
+        `/periodic-service?attribute_slug=type_vehicle&attribute_value=${attributeValue ? attributeValue : "car"}`,
       );
     } else if (pathname.startsWith("/")) {
       localStorage.removeItem("selectedVehicle");
@@ -399,9 +399,9 @@ const CarSelect = (props) => {
           </button>
           <div className="my-2 w-[1px] bg-[#D7DBE0]"></div>
           <button
-            className={`${vehicleType === "heavy-car" ? "bg-[#F58052] text-[#FEFEFE]" : "text-[#888888]"} rounded-[8px] w-[100px] h-8 flex justify-center items-center font-medium text-14`}
+            className={`${vehicleType === "heavy-vehicle" ? "bg-[#F58052] text-[#FEFEFE]" : "text-[#888888]"} rounded-[8px] w-[100px] h-8 flex justify-center items-center font-medium text-14`}
             onClick={() => {
-              vehicleTypeFetch("heavy-car");
+              vehicleTypeFetch("heavy-vehicle");
             }}
           >
             وسیله سنگین
@@ -446,7 +446,9 @@ const CarSelect = (props) => {
               }}
             />
           </div>
-          <div className={`h-[calc(100vh-300px)] lg:h-[260px] overflow-y-scroll mt-2 overflow-x-hidden`}>
+          <div
+            className={`h-[calc(100vh-300px)] lg:h-[260px] overflow-y-scroll mt-2 overflow-x-hidden`}
+          >
             <div className={`grid grid-cols-3 gap-x-7 gap-y-2`}>
               {searchedData.map((item, index) => (
                 <div
