@@ -410,7 +410,7 @@ const InvoicePage = () => {
                     "flex items-center gap-1 border-b border-b-[#BBBBBB] pb-4"
                   }
                 >
-                  <span>نوع سرویس:</span>
+                  <span>نوع خدمات:</span>
                   <span>{serviceName}</span>
                 </div>
                 <div className={"border-b border-b-[#BBBBBB] pb-4"}>
