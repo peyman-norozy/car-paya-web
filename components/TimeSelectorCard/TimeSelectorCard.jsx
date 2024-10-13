@@ -18,10 +18,16 @@ const ReserveTimeVerification = (props) => {
     new Date(data[0] * 1000).toLocaleDateString("fa-IR", { weekday: "long" });
 
   const openOptionHandler = (item) => {
+    if (optionIsOpen !== item.id) {
+      setTimeout(() => {
+        window.scrollTo({
+          top: 200, // مقدار به پیکسل، 200 پیکسل به پایین اسکرول می‌کند
+          behavior: "smooth", // اسکرول آرام
+        });
+      }, 200);
+    }
     setOptionIsOpen((prevState) => (prevState === item.id ? null : item.id));
-    console.log(item);
   };
-  console.log(data);
   return (
     <div className={"grid grid-cols-1 size666:grid-cols-2 gap-4"}>
       {/* <div
