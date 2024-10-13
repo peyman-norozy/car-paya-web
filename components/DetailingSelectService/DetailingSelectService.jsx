@@ -125,7 +125,8 @@ const DetailingSelectService = (props) => {
             </div>
           </div>
           <button
-            className={"bg-[#F66B34] text-white text-16 py-2 px-8 rounded-5"}
+            disabled={!productId}
+            className={`${!productId ? "bg-[#ecb8a3]" : "bg-[#F66B34]"} text-white text-16 py-2 px-8 rounded-5`}
             onClick={() => buttonClickHandler(productId)}
           >
             تایید و تکمیل سفارش
