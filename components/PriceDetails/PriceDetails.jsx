@@ -114,8 +114,8 @@ const PriceDetails = (props) => {
         )}
       <div className="hidden lg:block w-full">
         <div className="flex justify-between gap-1 items-center">
-          <span className="text-[#3C3C3C] font-medium">جمع قابل پرداخت:</span>
-          <span className="text-[#1E67BF] font-medium text-lg">
+          <span className="text-[#0F0F0F] font-medium">جمع قابل پرداخت:</span>
+          <span className="text-[#0F0F0F] font-medium text-lg">
             {/*{props.type === "product_key"*/}
             {/*  ? numberWithCommas(*/}
             {/*      Number(faktorData?.product?.discounted_price) - discount,*/}
@@ -151,8 +151,8 @@ const PriceDetails = (props) => {
       {/*  <span className="text-[#137BDB]">۱۵۳۰۰۰۰ تومان</span>*/}
       {/*</div>*/}
       <div className="flex justify-between font-semibold lg:hidden">
-        <span className="text-[#F58052]">جمع قابل پرداخت:</span>
-        <span className="text-[#F58052]">
+        <span className="text-[#0F0F0F]">جمع قابل پرداخت:</span>
+        <span className="text-[#0F0F0F]">
           {numberWithCommas(
             props.finalPrice - props.discountedprice + props.fluctuatingPrice,
           )}
