@@ -60,6 +60,7 @@ const AddressSelection = (props) => {
 
   function searchClickHandler() {
     props.timeData({ services: srviceQuery.join(",") });
+    setServicesState(false);
   }
 
   const confirmAndContinue = () => {
