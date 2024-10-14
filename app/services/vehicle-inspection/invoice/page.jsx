@@ -347,6 +347,7 @@ const VerificationInvoice = () => {
             registerClickHandler={registerClickHandler}
             totalPrice={cart.price}
             price_fluctuation={cart?.price_fluctuation}
+            innerWidth={innerWidth}
             coupon={coupon}
             setCoupon={setCoupon}
             setRoleChecked={setRoleChecked}

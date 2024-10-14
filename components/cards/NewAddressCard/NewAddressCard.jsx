@@ -24,7 +24,6 @@ const NewAddressCard = ({
   const innerWidth = useSelector((item) => item.todo.windowInnerWidth);
   const dispatch = useDispatch();
   const pathName = usePathname();
-  const accordionContainer = useRef();
 
   const clickEditHandler = (id) => {
     setPageType("edite");
@@ -36,12 +35,13 @@ const NewAddressCard = ({
     if (pathName.startsWith("/services/batteries")) {
       const batteriesCart = JSON.parse(sessionStorage.getItem("batteriesCart"));
       batteriesCart.address = item.address;
+      batteriesCart.title = item.title;
       setLocationId(item.address_id);
       sessionStorage.setItem("batteriesCart", JSON.stringify(batteriesCart));
     } else if (pathName.startsWith("/services/detailing")) {
       sessionStorage.setItem(
         "ditailingCart",
-        JSON.stringify({ address: item.address }),
+        JSON.stringify({ address: item.address, title: item.title }),
       );
       setLocationId(item.address_id);
     }
@@ -51,13 +51,9 @@ const NewAddressCard = ({
     setEditModalIsOpen(true);
   };
 
-  const accordionclickHandler = () => {
-    console.log(accordionContainer.current.scrollHeight);
-  };
-
   return (
     <li
-      className={`relative h-full bg-white shadow-[0_0_10px_0_rgba(152,152,152,0.4)] py-4 px-6 rounded-[16px] flex flex-col lg:gap-6 gap-2 ${status === "FIXED" && item.address_id === locationId ? " border border-[#F66B34]" : status === "MOVING" && item.address_id === locationId ? "border border-[#F66B34]" : ""}`}
+      className={`relative h-full bg-white shadow-[0_0_10px_0_rgba(152,152,152,0.4)] py-4 px-6 rounded-[16px] flex flex-col gap-6  ${status === "FIXED" && item.address_id === locationId ? " border border-[#F66B34]" : status === "MOVING" && item.address_id === locationId ? "border border-[#F66B34]" : ""}`}
     >
       <div className={`flex-1 ${status === "FIXED" && "flex"}`}>
         <div className={"w-full"}>
@@ -122,17 +118,18 @@ const NewAddressCard = ({
             </div>
           </section>
           <section className={"flex"}>
-            <p className={"leading-7 lg:text-16 text-12 lg:mb-4 mb-0"}>
+            <p className={"leading-7 lg:text-16 text-12 mb-4"}>
               {/*<span className={"font-semibold"}> آدرس دقیق: </span>*/}
               {item.address}
             </p>
           </section>
           <ul
             className={
-              "lg:grid hidden grid-cols-2 size1362:gap-x-16 gap-x-10 gap-y-4 w-full"
+              "grid grid-cols-2 size1362:gap-x-16 gap-x-10 gap-y-4 w-full lg:text-14 text-12"
             }
           >
             {status === "FIXED" &&
+              pathName.startsWith("/services/detailing") &&
               item.services?.slice(2).map((item) => {
                 return item.value ? (
                   <li key={item.key} className={"flex items-center gap-2"}>
@@ -195,45 +192,18 @@ const NewAddressCard = ({
       {/*    {item.address}*/}
       {/*  </p>*/}
       {/*</section>*/}
-      {status === "FIXED" && innerWidth > 460 && (
+
+      {status === "FIXED" && pathName.startsWith("/services/detailing") && (
         <button
           className={
-            "border border-[#F58052] text-[#F58052] py-[6px] rounded-[4px]"
+            "border border-[#F58052] text-[#F58052] py-[6px] rounded-[4px] lg:text-14 text-12"
           }
           onClick={ditailClickHandler}
         >
           مشاهده جزئیات
         </button>
       )}
-      {status === "FIXED" && innerWidth < 460 && (
-        <>
-          <ul
-            className={
-              "grid grid-cols-2 size1362:gap-x-16 gap-x-10 gap-y-4 w-full"
-            }
-            ref={accordionContainer}
-          >
-            {status === "FIXED" &&
-              item.services?.map((item) => (
-                <li key={item.key} className={"flex items-center gap-2"}>
-                  <i
-                    className={
-                      "cc-tick text-[#24D34B] bg-[#24D34B40] w-[17px] h-[17px] rounded-full text-14 flex items-center justify-center"
-                    }
-                  />
-                  <span>{item.label}</span>
-                </li>
-              ))}
-          </ul>
-          <div
-            className={"flex items-center justify-center"}
-            onClick={accordionclickHandler}
-          >
-            <span className={"text-12"}>مشاهده بیشتر</span>
-            <i className={"cc-left"} />
-          </div>
-        </>
-      )}
+
       <DeleteModal />
       {ditailModalIsOpen && (
         <DitailModal

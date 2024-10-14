@@ -342,6 +342,7 @@ const InvoicePage = () => {
             roleChecked={roleChecked}
             discountPrice={discountPrice}
             setDiscountPrice={setDiscountPrice}
+            innerWidth={innerWidth}
             totalPrice={
               JSON.parse(localStorage.getItem("batteryTotalPrice"))?.price ||
               0 * quantity
