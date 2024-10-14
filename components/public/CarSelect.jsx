@@ -227,7 +227,7 @@ const CarSelect = (props) => {
     setQuery.updateQueryParams(
       {
         attribute_slug: "type_vehicle",
-        attribute_value: model === "heavy-vehicle" ? "heavy_vehicle" : model,
+        attribute_value: model === "heavy-vehicle" ? "heavy_car" : model,
       },
       "",
     );
