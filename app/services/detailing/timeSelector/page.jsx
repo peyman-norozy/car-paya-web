@@ -82,6 +82,7 @@ import ServiceInformation from "@/components/ServiceInformation/ServiceInformati
 const Page = (props) => {
   const [selectedTime, setSelectedTime] = useState();
   const [optionIsOpen, setOptionIsOpen] = useState(false);
+  const [daySelector, setDaySelector] = useState("");
   const [client, setClient] = useState(false);
   const [tab, setTab] = useState(0);
   const [data, setData] = useState([]);
@@ -129,6 +130,7 @@ const Page = (props) => {
 
   useEffect(() => {
     const ditailingCart = JSON.parse(sessionStorage.getItem("ditailingCart"));
+    setDaySelector(data[0]?.day);
     if (ditailingCart) {
       ditailingCart.timeSelect = data[0]?.day;
     }
@@ -161,6 +163,14 @@ const Page = (props) => {
             key: "نوع خدمات :",
             value: ditailingCart?.serviceName,
             icon: "cc-search",
+          },
+          {
+            key: "زمان دریافت خدمات :",
+            value:
+              persianDate(daySelector, "dddd") +
+              " " +
+              persianDateCovertor(daySelector),
+            icon: "cc-timer",
           },
         ]}
       />
@@ -226,6 +236,7 @@ const Page = (props) => {
               onClick={() => {
                 setDate(index);
                 setTab(index);
+                setDaySelector(item["day"]);
                 const ditailingCart = JSON.parse(
                   sessionStorage.getItem("ditailingCart"),
                 );
