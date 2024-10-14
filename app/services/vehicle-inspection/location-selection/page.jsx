@@ -219,7 +219,7 @@ const VerificationThirdStep = (props) => {
               persianDate(verificationCart?.time_stamp, "dddd") +
               " " +
               persianDate(verificationCart?.time_stamp, "L"),
-            icon: "cc-search",
+            icon: "cc-timer",
           },
         ]}
       />
