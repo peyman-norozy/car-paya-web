@@ -159,7 +159,7 @@ const Page = (props) => {
           },
           {
             key: "نوع خدمات :",
-            value: ditailingCart?.title,
+            value: ditailingCart?.serviceName,
             icon: "cc-search",
           },
         ]}
