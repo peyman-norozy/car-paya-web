@@ -48,9 +48,9 @@ const Page = async (props) => {
   const data = response.data.data;
 
   return (
-    <div className="flex gap-10 max-w-[1676px] w-full px-2 sm:px-4 m-auto mb-10 mt-4 min-h-screen">
-      <DetailingSelectService data={data} />
-    </div>
+    // <div className="flex gap-10 max-w-[1676px] w-full px-2 sm:px-4 m-auto mb-10 mt-4 min-h-screen">
+    <DetailingSelectService data={data} />
+    // </div>
   );
 };
 
