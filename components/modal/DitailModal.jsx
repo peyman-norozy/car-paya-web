@@ -6,7 +6,6 @@ const DitailModal = (props) => {
   const closeModalHandler = () => {
     props.setEditModalIsOpen(false);
   };
-
   return (
     <>
       <div
@@ -33,16 +32,27 @@ const DitailModal = (props) => {
             "grid grid-cols-2 gap-x-[86px] gap-y-4 w-full bg-white px-5 pt-2 pb-3 text-[#47505D] text-14 font-medium"
           }
         >
-          {props.item?.map((item) => (
-            <li key={item.key} className={"flex items-center gap-2"}>
-              <i
-                className={
-                  "cc-tick text-[#24D34B] bg-[#24D34B40] w-[17px] h-[17px] rounded-full text-14 flex items-center justify-center"
-                }
-              />
-              <span>{item.label}</span>
-            </li>
-          ))}
+          {props.item.map((item) => {
+            return item.value ? (
+              <li key={item.key} className={"flex items-center gap-2"}>
+                <i
+                  className={
+                    "cc-tick text-[#24D34B] bg-[#24D34B40] w-[17px] h-[17px] rounded-full text-14 flex items-center justify-center"
+                  }
+                />
+                <span className={"lg:text-14 text-12"}>{item.label}</span>
+              </li>
+            ) : (
+              <li key={item.key} className={"flex items-center gap-2"}>
+                <i
+                  className={
+                    "cc-add rotate-45 text-[#DB3737] bg-[#DC2A2A66] w-[17px] h-[17px] rounded-full text-10 flex items-center justify-center"
+                  }
+                />
+                <span className={"lg:text-14 text-12"}>{item.label}</span>
+              </li>
+            );
+          })}
         </ul>
       </div>
     </>
