@@ -36,7 +36,7 @@ const ServiceInformation = (props) => {
           <li key={index} className={"flex items-center gap-1"}>
             <i className={`${item.icon} text-[24px]`} />
             <span>{item.key}</span>
-            <span> نمایندگی {item.value}</span>
+            <span> {item.value}</span>
           </li>
         ))}
       </ul>
