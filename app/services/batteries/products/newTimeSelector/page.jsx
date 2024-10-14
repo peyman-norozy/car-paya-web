@@ -12,6 +12,7 @@ const Page = (props) => {
   const [client, setClient] = useState(false);
   const [selectedTime, setSelectedTime] = useState();
   const [optionIsOpen, setOptionIsOpen] = useState(false);
+  const [daySelector, setDaySelector] = useState("");
   const [tab, setTab] = useState(0);
   const [data, setData] = useState([]);
   const [date, setDate] = useState(0);
@@ -49,6 +50,7 @@ const Page = (props) => {
 
   useEffect(() => {
     const batteriesCart = JSON.parse(sessionStorage.getItem("batteriesCart"));
+    setDaySelector(data[0]?.day);
     batteriesCart.timeSelect = data[0]?.day;
     sessionStorage.setItem("batteriesCart", JSON.stringify(batteriesCart));
   }, [data]);
@@ -79,6 +81,14 @@ const Page = (props) => {
             key: "محل دریافت خدمات :",
             value: batteriesCart?.title,
             icon: "cc-location",
+          },
+          {
+            key: "زمان دریافت خدمات :",
+            value:
+              persianDate(daySelector, "dddd") +
+              " " +
+              persianDateCovertor(daySelector),
+            icon: "cc-timer",
           },
         ]}
       />
@@ -143,6 +153,7 @@ const Page = (props) => {
               onClick={() => {
                 setDate(index);
                 setTab(index);
+                setDaySelector(item["day"]);
                 const batteriesCart = JSON.parse(
                   sessionStorage.getItem("batteriesCart"),
                 );
