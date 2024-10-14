@@ -9,7 +9,7 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 // import AgentAdressCard from "./vehicle-verification/AgentAdressCard";
 import axios from "axios";
 import { getCookie } from "cookies-next";
-import { error } from "@/utils/function-utils";
+import { error, persianDate } from "@/utils/function-utils";
 import { ToastContainer } from "react-toastify";
 import { postData } from "@/utils/client-api-function-utils";
 import { useDispatch, useSelector } from "react-redux";
@@ -21,6 +21,7 @@ import AgentAdressCard from "@/components/vehicle-verification/AgentAdressCard";
 import AreaModal from "@/components/vehicle-verification/AreaModal";
 import DeleteModal from "@/components/public/DeleteModal";
 import nProgress from "nprogress";
+import ServiceInformation from "@/components/ServiceInformation/ServiceInformation";
 
 const VerificationThirdStep = (props) => {
   // const [isSelected, setIsSelected] = useState(0);
@@ -33,6 +34,7 @@ const VerificationThirdStep = (props) => {
   const [checkedArea, setCheckedArea] = useState([]);
   const [userAdressData, setUserAdressData] = useState([]);
   const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [client, setClient] = useState(false);
   const [type, setType] = useState("MOVING");
   const [isLoading, setIsLoading] = useState(false);
   const [selectedAddress, setSelectedAddress] = useState("");
@@ -124,6 +126,10 @@ const VerificationThirdStep = (props) => {
     },
   ];
 
+  useEffect(() => {
+    setClient(true);
+  }, []);
+
   // const backstopHandler = () => {
   //   setQuery.deleteSingleQuery(
   //     [
@@ -190,152 +196,178 @@ const VerificationThirdStep = (props) => {
     }
   }
 
+  if (!client) {
+    return null;
+  }
+
+  const verificationCart = JSON.parse(
+    sessionStorage.getItem("verificationCart"),
+  );
+
   return (
-    <div className="mb-[7rem] lg:w-[calc(100%-424px)] mr-auto overflow-hidden flex flex-col gap-4 mt-[28px] bg-[#FDFDFD] lg:shadow-[0_0_6px_0_rgba(125,125,125,0.5)] px-2 lg:p-6 rounded-2xl min-h-[605px]">
-      <div
-        className={
-          "flex items-center gap-2 size752:gap-[16px] text-[#0E0E0E] w-full"
-        }
-      >
-        <i
-          className={"cc-arrow-right text-24 cursor-pointer"}
-          onClick={() => {
-            router.back();
-          }}
-        />
-        <p className={"text-14 size752:text-16 w-full font-medium"}>
-          انتخاب مکان
-        </p>
-      </div>
-      <div className=" flex flex-col gap-4 lg:mr-8">
-        <div className="flex gap-2 items-center w-full bg-[#FFFFFF] text-[#D1D1D1]">
+    <div className={"relative"}>
+      <ServiceInformation
+        serviceData={[
+          {
+            key: "نوع خدمات :",
+            value: verificationCart?.package_title,
+            icon: "cc-search",
+          },
+          {
+            key: "زمان دریافت خدمات :",
+            value:
+              persianDate(verificationCart?.time_stamp, "dddd") +
+              " " +
+              persianDate(verificationCart?.time_stamp, "L"),
+            icon: "cc-search",
+          },
+        ]}
+      />
+      <div className="mb-[7rem] lg:w-[calc(100%-424px)] mr-auto overflow-hidden flex flex-col gap-4 mt-[28px] bg-[#FDFDFD] lg:shadow-[0_0_6px_0_rgba(125,125,125,0.5)] px-2 lg:p-6 rounded-2xl min-h-[605px]">
+        <div
+          className={
+            "flex items-center gap-2 size752:gap-[16px] text-[#0E0E0E] w-full"
+          }
+        >
           <i
-            className="cc-car-o text-2xl text-[#518DD5] cursor-pointer"
-            onClick={() => router.push(`/vehicle-inspection`)}
+            className={"cc-arrow-right text-24 cursor-pointer"}
+            onClick={() => {
+              router.back();
+            }}
           />
-          <div className="border-b-4 border-dotted border-[#518DD5] w-full"></div>
-          <i
-            className="cc-search text-2xl text-[#518DD5] cursor-pointer"
-            onClick={() =>
-              router.push(
-                `/services/vehicle-inspection/service-selection?step=step-1&city_id=${city_id}&vehicle_tip=${selectedItem}`,
-              )
-            }
-          />
-          <div className="border-b-4 border-dotted border-[#518DD5] w-full"></div>
-          <i
-            className="cc-timer text-2xl text-[#518DD5] cursor-pointer"
-            onClick={() =>
-              router.push(
-                `/services/vehicle-inspection/time-selection?city_id=${city_id}&vehicle_tip=${selectedItem}&step=step-2&package_id=${package_id}`,
-              )
-            }
-          />
-          <div className="border-b-4 border-dotted border-[#518DD5] w-full"></div>
-          <i className="cc-location text-2xl text-[#D1D1D1]" />
-        </div>
-        <div className="flex justify-between items-center h-10">
-          <p
-            className={
-              "text-14 size752:text-16 w-full font-medium text-[#454545]"
-            }
-          >
-            مکان خود را انتخاب کنید:
+          <p className={"text-14 size752:text-16 w-full font-medium"}>
+            انتخاب مکان
           </p>
-          {tab === 1 && (
+        </div>
+        <div className=" flex flex-col gap-4 lg:mr-8">
+          <div className="flex gap-2 items-center w-full bg-[#FFFFFF] text-[#D1D1D1]">
+            <i
+              className="cc-car-o text-2xl text-[#518DD5] cursor-pointer"
+              onClick={() => router.push(`/vehicle-inspection`)}
+            />
+            <div className="border-b-4 border-dotted border-[#518DD5] w-full"></div>
+            <i
+              className="cc-search text-2xl text-[#518DD5] cursor-pointer"
+              onClick={() =>
+                router.push(
+                  `/services/vehicle-inspection/service-selection?step=step-1&city_id=${city_id}&vehicle_tip=${selectedItem}`,
+                )
+              }
+            />
+            <div className="border-b-4 border-dotted border-[#518DD5] w-full"></div>
+            <i
+              className="cc-timer text-2xl text-[#518DD5] cursor-pointer"
+              onClick={() =>
+                router.push(
+                  `/services/vehicle-inspection/time-selection?city_id=${city_id}&vehicle_tip=${selectedItem}&step=step-2&package_id=${package_id}`,
+                )
+              }
+            />
+            <div className="border-b-4 border-dotted border-[#518DD5] w-full"></div>
+            <i className="cc-location text-2xl text-[#D1D1D1]" />
+          </div>
+          <div className="flex justify-between items-center h-10">
+            <p
+              className={
+                "text-14 size752:text-16 w-full font-medium text-[#454545]"
+              }
+            >
+              مکان خود را انتخاب کنید:
+            </p>
+            {tab === 1 && (
+              <button
+                className="border border-[#F58052] text-[#F58052] flex gap-1 rounded-lg py-3 px-5 items-center"
+                onClick={() => {
+                  setModalIsOpen(true);
+                }}
+              >
+                <i className="cc-add" />
+                <p className="text-xs font-medium w-max">آدرس جدید</p>
+              </button>
+            )}
+          </div>
+          <div className="flex flex-col relative">
+            <div className="flex items-center border-b border-[#D1D1D1]">
+              <div
+                className="w-1/2 flex justify-center items-center text-sm py-3 cursor-pointer"
+                onClick={() => {
+                  setTab(1);
+                  setType("MOVING");
+                  setSelectedAddress("");
+                }}
+              >
+                در محل شما
+              </div>
+              <div
+                className="w-1/2 flex justify-center items-center text-sm py-3 cursor-pointer"
+                onClick={() => {
+                  setTab(0);
+                  setType("FIXED");
+                  setSelectedAddress("");
+                }}
+              >
+                در مراکز کار پایا
+              </div>
+            </div>
+            <div
+              className={`${tab ? "right-0" : "right-1/2"} w-1/2 h-[2px] bg-[#F58052] mt-[-2px] transition-all absolute bottom-0`}
+            ></div>
+          </div>
+          {type === "FIXED" && (
             <button
-              className="border border-[#F58052] text-[#F58052] flex gap-1 rounded-lg py-3 px-5 items-center"
+              className="flex w-fit p-2 gap-2 items-center text-xs text-[#3C3C3C] bg-[#FEFEFE] shadow-[0_0_4px_0_rgba(224,222,222,0.7)] rounded-[4px]"
               onClick={() => {
-                setModalIsOpen(true);
+                dispatch(setAreaeModalState(true));
               }}
             >
-              <i className="cc-add" />
-              <p className="text-xs font-medium w-max">آدرس جدید</p>
+              <i className="cc-filter" />
+              <span>انتخاب محله</span>
             </button>
           )}
-        </div>
-        <div className="flex flex-col relative">
-          <div className="flex items-center border-b border-[#D1D1D1]">
-            <div
-              className="w-1/2 flex justify-center items-center text-sm py-3 cursor-pointer"
-              onClick={() => {
-                setTab(1);
-                setType("MOVING");
-                setSelectedAddress("");
-              }}
-            >
-              در محل شما
-            </div>
-            <div
-              className="w-1/2 flex justify-center items-center text-sm py-3 cursor-pointer"
-              onClick={() => {
-                setTab(0);
-                setType("FIXED");
-                setSelectedAddress("");
-              }}
-            >
-              در مراکز کار پایا
-            </div>
+          <div className="flex flex-col gap-2 pb-2">
+            {tab
+              ? userAdressData.map((item, index) => (
+                  <UserAddressCard
+                    key={index}
+                    data={item}
+                    selectedAddress={selectedAddress}
+                    setSelectedAddress={setSelectedAddress}
+                    getDataFetch={setUserAdressData}
+                    setModalIsOpen={setModalIsOpen}
+                    setIsLoading={setIsLoading}
+                    setSelectedAddressText={setSelectedAddressText}
+                  />
+                ))
+              : searchedAgentData?.map((item, index) => (
+                  <AgentAdressCard
+                    key={index}
+                    data={item}
+                    selectedAddress={selectedAddress}
+                    setSelectedAddress={setSelectedAddress}
+                    setSelectedAddressText={setSelectedAddressText}
+                  />
+                ))}
           </div>
-          <div
-            className={`${tab ? "right-0" : "right-1/2"} w-1/2 h-[2px] bg-[#F58052] mt-[-2px] transition-all absolute bottom-0`}
-          ></div>
-        </div>
-        {type === "FIXED" && (
           <button
-            className="flex w-fit p-2 gap-2 items-center text-xs text-[#3C3C3C] bg-[#FEFEFE] shadow-[0_0_4px_0_rgba(224,222,222,0.7)] rounded-[4px]"
-            onClick={() => {
-              dispatch(setAreaeModalState(true));
-            }}
-          >
-            <i className="cc-filter" />
-            <span>انتخاب محله</span>
-          </button>
-        )}
-        <div className="flex flex-col gap-2 pb-2">
-          {tab
-            ? userAdressData.map((item, index) => (
-                <UserAddressCard
-                  key={index}
-                  data={item}
-                  selectedAddress={selectedAddress}
-                  setSelectedAddress={setSelectedAddress}
-                  getDataFetch={setUserAdressData}
-                  setModalIsOpen={setModalIsOpen}
-                  setIsLoading={setIsLoading}
-                  setSelectedAddressText={setSelectedAddressText}
-                />
-              ))
-            : searchedAgentData?.map((item, index) => (
-                <AgentAdressCard
-                  key={index}
-                  data={item}
-                  selectedAddress={selectedAddress}
-                  setSelectedAddress={setSelectedAddress}
-                  setSelectedAddressText={setSelectedAddressText}
-                />
-              ))}
-        </div>
-        <button
-          onClick={continueSecondStepHandler}
-          className={`${selectedAddress === "" ? "bg-[#FCCAAC]" : "bg-[#F66B34]"} self-end hidden lg:flex items-center gap-2 mt-4 size690:mt-3 w-fit text-12 size690:text-[16px] p-[8px] text-white rounded-[4px]`}
-          disabled={selectedAddress === "" ? true : false}
-        >
-          <p>تایید و ادامه</p>
-          <i className={"cc-left text-[20px]"} />
-        </button>
-        <div
-          className="fixed w-full rounded-t-2xl shadow-[0_-2px_4px_0_rgba(199,199,199,0.25)] flex justify-center pt-4 pb-6 items-start bottom-0 right-0 bg-white z-[2000] px-10 lg:hidden"
-          onClick={continueSecondStepHandler}
-        >
-          <button
-            className={`${selectedAddress === "" ? "bg-[#FCCAAC]" : "bg-[#F66B34]"} rounded-lg w-full sm:max-w-[400px] text-[#FEFEFE] text-sm font-medium py-3`}
+            onClick={continueSecondStepHandler}
+            className={`${selectedAddress === "" ? "bg-[#FCCAAC]" : "bg-[#F66B34]"} self-end hidden lg:flex items-center gap-2 mt-4 size690:mt-3 w-fit text-12 size690:text-[16px] p-[8px] text-white rounded-[4px]`}
             disabled={selectedAddress === "" ? true : false}
           >
-            تایید ادامه
+            <p>تایید و ادامه</p>
+            <i className={"cc-left text-[20px]"} />
           </button>
-        </div>
-        {/* <div className="pb-[3rem] pt-4">
+          <div
+            className="fixed w-full rounded-t-2xl shadow-[0_-2px_4px_0_rgba(199,199,199,0.25)] flex justify-center pt-4 pb-6 items-start bottom-0 right-0 bg-white z-[2000] px-10 lg:hidden"
+            onClick={continueSecondStepHandler}
+          >
+            <button
+              className={`${selectedAddress === "" ? "bg-[#FCCAAC]" : "bg-[#F66B34]"} rounded-lg w-full sm:max-w-[400px] text-[#FEFEFE] text-sm font-medium py-3`}
+              disabled={selectedAddress === "" ? true : false}
+            >
+              تایید ادامه
+            </button>
+          </div>
+          {/* <div className="pb-[3rem] pt-4">
         <ChangeServiceTime
           on_click={backstopHandler}
           exact_time={time_id?.split("/")[1]}
@@ -356,33 +388,34 @@ const VerificationThirdStep = (props) => {
           ))}
         </div>
       </div> */}
-        {modalIsOpen && (
-          <div
-            onClick={() => {
-              setModalIsOpen(false);
-            }}
-            className={
-              "w-full h-[100vh] fixed top-0 right-0 bg-[#000000b0] z-[100000000]"
-            }
-          >
-            <div className={"fixed m-auto inset-0 z-[10000000000]"}>
-              <AddAddressModal
-                getDataFetch={setUserAdressData}
-                pageType={"create"}
-                setModalIsOpen={setModalIsOpen}
-                setIsLoading={setIsLoading}
-              />
+          {modalIsOpen && (
+            <div
+              onClick={() => {
+                setModalIsOpen(false);
+              }}
+              className={
+                "w-full h-[100vh] fixed top-0 right-0 bg-[#000000b0] z-[100000000]"
+              }
+            >
+              <div className={"fixed m-auto inset-0 z-[10000000000]"}>
+                <AddAddressModal
+                  getDataFetch={setUserAdressData}
+                  pageType={"create"}
+                  setModalIsOpen={setModalIsOpen}
+                  setIsLoading={setIsLoading}
+                />
+              </div>
             </div>
-          </div>
-        )}
+          )}
+        </div>
+        <AreaModal
+          data={filter}
+          checkboxChangeHandler={checkboxChangeHandler}
+          areaFilterHandler={areaFilterHandler}
+        />
+        <ToastContainer />
+        <DeleteModal />
       </div>
-      <AreaModal
-        data={filter}
-        checkboxChangeHandler={checkboxChangeHandler}
-        areaFilterHandler={areaFilterHandler}
-      />
-      <ToastContainer />
-      <DeleteModal />
     </div>
   );
 };

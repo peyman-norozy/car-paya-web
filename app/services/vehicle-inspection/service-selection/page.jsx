@@ -13,6 +13,7 @@ import search from "@/public/assets/images/search.png";
 import { getCookies } from "cookies-next";
 import { setLoginModal } from "@/store/todoSlice";
 import nProgress from "nprogress";
+import ServiceInformation from "@/components/ServiceInformation/ServiceInformation";
 const PackageStep = () => {
   const router = useRouter();
   const pathname = usePathname();
@@ -112,7 +113,8 @@ const PackageStep = () => {
       });
   };
   return (
-    <>
+    <div className={"relative"}>
+      <ServiceInformation />
       <div
         className={
           "flex items-start justify-between mt-[28px] lg:p-6 rounded-2xl w-full lg:w-[calc(100%-424px)] mr-auto mb-4 bg-[#FDFDFD] lg:shadow-[0_0_6px_0_rgba(125,125,125,0.5)] min-h-[605px]"
@@ -127,7 +129,7 @@ const PackageStep = () => {
               }}
             />
             <p className={"text-14 size752:text-16 w-full font-medium"}>
-              انتخاب سرویس
+              انتخاب خدمات
             </p>
           </div>
           <div className=" flex flex-col gap-4 lg:mr-8">
@@ -148,13 +150,13 @@ const PackageStep = () => {
                 "text-14 size752:text-16 w-full font-medium text-[#454545]"
               }
             >
-              سرویس خود را انتخاب کنید:
+              خدمات خود را انتخاب کنید:
             </p>
             {data?.length === 0 ? (
               <div className={`flex flex-col items-center m-auto my-10 gap-6`}>
                 <Image className="" src={search} width={175} height={175} />
                 <span className="text-[#454545] font-medium text-sm">
-                  در حال حاضر سرویسی برای این خودرو ثبت نشد
+                  در حال حاضر خدماتی برای این خودرو ثبت نشد
                 </span>
               </div>
             ) : (
@@ -211,7 +213,7 @@ const PackageStep = () => {
         /> */}
       </div>
       <ToastContainer rtl={true} />
-    </>
+    </div>
   );
 };
 
