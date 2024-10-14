@@ -35,6 +35,7 @@ const NewAddressCard = ({
     if (pathName.startsWith("/services/batteries")) {
       const batteriesCart = JSON.parse(sessionStorage.getItem("batteriesCart"));
       batteriesCart.address = item.address;
+      batteriesCart.title = item.title;
       setLocationId(item.address_id);
       sessionStorage.setItem("batteriesCart", JSON.stringify(batteriesCart));
     } else if (pathName.startsWith("/services/detailing")) {
@@ -128,6 +129,7 @@ const NewAddressCard = ({
             }
           >
             {status === "FIXED" &&
+              pathName.startsWith("/services/detailing") &&
               item.services?.slice(2).map((item) => {
                 return item.value ? (
                   <li key={item.key} className={"flex items-center gap-2"}>
@@ -191,7 +193,7 @@ const NewAddressCard = ({
       {/*  </p>*/}
       {/*</section>*/}
 
-      {status === "FIXED" && (
+      {status === "FIXED" && pathName.startsWith("/services/detailing") && (
         <button
           className={
             "border border-[#F58052] text-[#F58052] py-[6px] rounded-[4px] lg:text-14 text-12"
