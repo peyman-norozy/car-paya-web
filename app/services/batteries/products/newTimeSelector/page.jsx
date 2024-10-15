@@ -26,6 +26,7 @@ const Page = (props) => {
   const vehicleTipId = searchParams.get("vehicle_tip_id");
   const amper = searchParams.get("amper");
   const typeService = searchParams.get("type_service");
+  const itemId = searchParams.get("item_id");
 
   useEffect(() => {
     setClient(true);
@@ -131,7 +132,7 @@ const Page = (props) => {
             className="cc-location text-2xl text-[#1E67BF]"
             onClick={() =>
               router.push(
-                `/services/batteries/products/newSelectLocation?attribute_slug=${attributeSlug}&attribute_value=${attributeValue}&city_id=${cityId}&type=${type}&vehicle_tip_id=${vehicleTipId}&amper=${amper}&type_service=${typeService}`,
+                `/services/batteries/products/newSelectLocation?attribute_slug=${attributeSlug}&attribute_value=${attributeValue}&city_id=${cityId}&type=${type}&vehicle_tip_id=${vehicleTipId}&amper=${amper}&type_service=${typeService}&item_id=${itemId}`,
               )
             }
           />
