@@ -38,6 +38,7 @@ const InvoicePage = () => {
   const time = searchParams.get("time_id");
   const attributeSlug = searchParams.get("attribute_slug");
   const attributeValue = searchParams.get("attribute_value");
+  const itemId = searchParams.get("item_id");
   const timestamp = Math.floor(Date.now() / 1000);
 
   useEffect(() => {
@@ -253,7 +254,7 @@ const InvoicePage = () => {
                   </div>
                   <div className={"flex justify-end"}>
                     <Link
-                      href={`/services/batteries/products/newSelectLocation?attribute_slug=${attributeSlug}&attribute_value=${attributeValue}&city_id=${cityId}&type=${type}&vehicle_tip_id=${vehicleTipId}&amper=${amper}&type_service=${typeService}`}
+                      href={`/services/batteries/products/newSelectLocation?attribute_slug=${attributeSlug}&attribute_value=${attributeValue}&city_id=${cityId}&type=${type}&vehicle_tip_id=${vehicleTipId}&amper=${amper}&type_service=${typeService}&item_id=${itemId}`}
                       className="text-[#518dd5] flex items-center gap-1 mt-2 border-b-2 border-b-[#518dd5] pb-2 cursor-pointer"
                     >
                       <i className={"cc-edit text-20"} />
@@ -292,7 +293,7 @@ const InvoicePage = () => {
                   </span>
                 </div>
                 <Link
-                  href={`/services/batteries/products/newTimeSelector?attribute_slug=${attributeSlug}&attribute_value=${attributeValue}&city_id=${cityId}&type=${type}&vehicle_tip_id=${vehicleTipId}&amper=${amper}&type_service=${typeService}&service_location_id=${serviceLocationId}`}
+                  href={`/services/batteries/products/newTimeSelector?attribute_slug=${attributeSlug}&attribute_value=${attributeValue}&city_id=${cityId}&type=${type}&vehicle_tip_id=${vehicleTipId}&amper=${amper}&type_service=${typeService}&service_location_id=${serviceLocationId}&item_id=${itemId}`}
                   className="text-[#518dd5] flex items-center gap-1 mt-2 self-end border-b-2 border-b-[#518dd5] pb-2 cursor-pointer"
                 >
                   <i className={"cc-edit text-20"} />
