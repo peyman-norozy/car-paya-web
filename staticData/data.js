@@ -275,6 +275,25 @@ export const batteryFaqData = [
       "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد.",
   },
 ];
+export const headerNavData = [
+  {
+    title: "خدمات",
+    options: [
+      { label: "کارشناسی", link: "#" },
+      { label: "سرویس دوره ای", link: "#" },
+      { label: "باتری", link: "#" },
+      { label: "دیتیلینگ", link: "#" },
+      { label: "بیمه", link: "#" },
+      { label: "خرید خودرو", link: "#" },
+      { label: "فروش خودرو", link: "#" },
+      { label: "شناسنامه", link: "#" },
+    ],
+  },
+  { title: "سفارش ها", link: "#" },
+  { title: "درباره ما", link: "#" },
+  { title: "تماس با ما", link: "#" },
+  { title: "مجله ها", link: "#" },
+];
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
@@ -285,4 +304,5 @@ export default {
   panelTabData,
   batteryPurchaseProcessData,
   batteryFaqData,
+  headerNavData,
 };
