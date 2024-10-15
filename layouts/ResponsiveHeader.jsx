@@ -3,11 +3,14 @@ import HeaderLogo from "@/components/HeaderLogo";
 import LoginLink from "@/components/LoginLink";
 import BasketLink from "@/components/BasketLink";
 import { usePathname, useParams } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import ResponsiveMenu from "@/components/ResponsiveMenu";
 import CardPay from "@/components/CardPay";
 import CityModal from "@/components/CityModal/CityModal";
 import { setCityModalState, setLoginModal } from "@/store/todoSlice";
+import NavbarAttribute from "@/components/NavbarAttribute/NavbarAttribute";
+import UserPanelAttribute from "@/components/UserPanelAttribute";
+import useClickOutside from "@/hook/useClickOutside";
 
 const ResponsiveHeader = (props) => {
   const params = useParams();
@@ -15,15 +18,26 @@ const ResponsiveHeader = (props) => {
   const [newMenueState, setNewMenueState] = useState(true);
   const [phoneState, setPhoneState] = useState(false);
   const [lastScrollY, setLastScrollY] = useState(0);
+  const [newLoginState, setNewLoginState] = useState(false);
   const loginState = useSelector((state) => state.todo.loginState);
   const hambergerRef = useRef();
   const asideHambergerMenuRef = useRef();
   const asideCategoryMenuRef = useRef();
   const dispatch = useDispatch();
   const cityModalState = useSelector((state) => state.todo.cityModalState);
+  const accontRef = useRef();
+  const close = useCallback(() => setNewLoginState(false), []);
+  useClickOutside(accontRef, close);
+  const accountClickHandler = () => {
+    setNewLoginState((prevState) => !prevState);
+  };
 
   const toggleModal = () => {
     dispatch(setCityModalState(!cityModalState));
+  };
+
+  const loginModalHandler = () => {
+    dispatch(setLoginModal(true));
   };
 
   const asideMenuCloseHandler = () => {
@@ -62,25 +76,25 @@ const ResponsiveHeader = (props) => {
   return (
     <>
       <header
-        className={`${props.className} font-light flex justify-between items-center px-[30px] py-[15px] sticky top-0 right-0 left-0 w-[100wh] bg-[#FEFEFE] z-[3000] h-[74px] drop-shadow-[0_3px_10px_rgba(0,0,0,0.1)] `}
+        className={`${props.className} font-light flex justify-between items-center px-[30px] py-[15px] sticky top-0 right-0 left-0 w-[100wh] bg-[#FEFEFE] z-[3000] h-[74px] drop-shadow-[0_3px_10px_rgba(0,0,0,0.1)] lg:shadow-[0_4px_6px_-1px_rgba(255,255,255,0.1),_0_2px_4px_-1px_rgba(255,255,255,0.06)] lg:pb-[26px] lg:pt-[34px] lg:rounded-b-3xl`}
         onClick={(event) => {
           event.target !== hambergerRef.current && setNewMenueState(true);
-          asideHambergerMenuRef.current === event.target &&
+          asideHambergerMenuRef?.current === event.target &&
             setNewMenueState(false);
-          asideCategoryMenuRef.current === event.target &&
+          asideCategoryMenuRef?.current === event.target &&
             setNewMenueState(false);
-          asideCategoryMenuRef.current.children[0] === event.target &&
+          asideCategoryMenuRef?.current?.children[0] === event.target &&
             setNewMenueState(false);
-          asideCategoryMenuRef.current.children[0].children[0] ===
+          asideCategoryMenuRef?.current?.children[0]?.children[0] ===
             event.target && setNewMenueState(false);
-          asideCategoryMenuRef.current.children[0].children[1] ===
+          asideCategoryMenuRef?.current?.children[0]?.children[1] ===
             event.target && setNewMenueState(false);
         }}
       >
         <div className="flex items-center justify-between w-full">
-          <div className="gap-2 flex items-center">
+          <div className="lg:gap-[32px] gap-2 flex items-center">
             <div
-              className={`cursor-pointer transition-all flex items-center justify-start ${
+              className={`cursor-pointer transition-all lg:hidden flex items-center justify-start ${
                 newMenueState ? "rotate-0" : "rotate-[-90deg]"
               }`}
               onClick={asideMenuCloseHandler}
@@ -91,6 +105,15 @@ const ResponsiveHeader = (props) => {
               />
             </div>
             <HeaderLogo />
+            <ul
+              className={
+                "lg:flex hidden items-center gap-[24px] text-14 font-medium"
+              }
+            >
+              {props.headerData.map((item, index) => (
+                <NavbarAttribute key={index} data={item} />
+              ))}
+            </ul>
           </div>
           <div className="gap-4 flex items-center">
             <div
@@ -98,7 +121,9 @@ const ResponsiveHeader = (props) => {
                 "shadow-[0_0_4px_0_rgba(238,134,38,0.5)] p-2 flex justify-center items-center rounded-[4px] relative"
               }
             >
-              <i className={"cc-wallet text-[#F58052] text-24"} />
+              <i
+                className={"cc-wallet lg:text-[#2D264B] text-[#F58052] text-24"}
+              />
               <span
                 className={
                   "bg-[#F58052] w-[18px] h-[18px] text-white flex justify-center items-center text-12 font-medium rounded-full absolute -top-[10px] -right-[10px]"
@@ -110,7 +135,7 @@ const ResponsiveHeader = (props) => {
             {loginState ? (
               <div
                 className={
-                  "shadow-[0_0_4px_0_rgba(238,134,38,0.5)] p-2 flex justify-center items-center rounded-[4px] "
+                  "shadow-[0_0_4px_0_rgba(238,134,38,0.5)] p-2 lg:hidden flex justify-center items-center rounded-[4px] "
                 }
                 onClick={clickLoginHandler}
               >
@@ -119,7 +144,7 @@ const ResponsiveHeader = (props) => {
             ) : (
               <div
                 className={
-                  "shadow-[0_0_4px_0_rgba(238,134,38,0.5)] p-2 flex justify-center items-center rounded-[4px] relative"
+                  "shadow-[0_0_4px_0_rgba(238,134,38,0.5)] p-2 lg:hidden flex justify-center items-center rounded-[4px] relative"
                 }
               >
                 <i className={"cc-user text-[#F58052] text-24"} />
@@ -128,6 +153,32 @@ const ResponsiveHeader = (props) => {
                     "cc-tick text-[#22A137] text-14 absolute right-[2px] bottom-[2px]"
                   }
                 />
+              </div>
+            )}
+            {loginState ? (
+              <button
+                className={
+                  "lg:flex hidden items-center justify-center gap-2 bg-[#F66B34] text-[#FEFEFE] font-medium text-14 w-[146px] h-[40px] rounded-8"
+                }
+                onClick={loginModalHandler}
+              >
+                <i className={"cc-user text-20"} />
+                <span>ورود و ثبت نام</span>
+              </button>
+            ) : (
+              <div className="relative">
+                <span
+                  className="bg-gray-300 py-1 px-4 rounded-lg cursor-pointer text-14"
+                  onClick={accountClickHandler}
+                  ref={accontRef}
+                >
+                  حساب کاربری
+                </span>
+                {newLoginState && (
+                  <div className="absolute bottom-[-88px] bg-stone-200 w-full rounded-lg flex flex-col overflow-hidden">
+                    <UserPanelAttribute />
+                  </div>
+                )}
               </div>
             )}
 
