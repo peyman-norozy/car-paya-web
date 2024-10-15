@@ -3,6 +3,7 @@ import Header from "@/layouts/HeaderLayout";
 import Footer from "@/layouts/FooterLayout";
 import localFont from "next/font/local";
 import ServicesLayout from "@/layouts/ServicesLayout";
+import { headerNavData } from "@/staticData/data";
 
 const muckUpData = [1, 2, 3, 4];
 
@@ -32,7 +33,7 @@ const muckUpData = [1, 2, 3, 4];
 const MainLayout = (props) => {
   return (
     <Fragment>
-      <Header>
+      <Header headerData={headerNavData}>
         {muckUpData.map((item, index) => (
           <li key={index}>ahmad</li>
         ))}
