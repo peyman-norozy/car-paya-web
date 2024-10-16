@@ -63,16 +63,18 @@ const UserPanelAttribute = (props) => {
         onClick={panelClickHandler}
         className={`cursor-pointer hover:bg-[#0004] ${
           firstPath === "panel" ? "bg-[#0004]" : ""
-        } flex items-center h-[40px] px-2`}
+        } flex items-center gap-2 h-[40px] px-2`}
       >
-        پنل کاربری
+        <i className={"cc-user text-18"} />
+        <span className={"text-[#0F0F0F] font-medium text-14"}>پنل کاربری</span>
       </button>
-      <span
-        className="cursor-pointer hover:bg-[#0004] flex items-center h-[40px] px-2"
+      <button
+        className="cursor-pointer hover:bg-[#0004] flex items-center gap-2 h-[40px] px-2"
         onClick={exitLogin}
       >
-        خروج
-      </span>
+        <i className={"cc-undo text-18"} />
+        <span className={"text-[#0F0F0F] font-medium text-14"}>خروج</span>
+      </button>
     </Fragment>
   );
 };
