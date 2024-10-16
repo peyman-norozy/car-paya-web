@@ -167,15 +167,16 @@ const ResponsiveHeader = (props) => {
               </button>
             ) : (
               <div className="relative">
-                <span
-                  className="bg-gray-300 py-1 px-4 rounded-lg cursor-pointer text-14"
+                <button
+                  className="bg-[#FEFEFE] text-[#F66B34] py-1 px-4 rounded-lg cursor-pointer text-14 flex items-center justify-between gap-1 border border-[#F66B34] h-[40px] w-[146px]"
                   onClick={accountClickHandler}
                   ref={accontRef}
                 >
-                  حساب کاربری
-                </span>
+                  <span className={"text-14 font-medium"}> حساب کاربری</span>
+                  <i className={"cc-arrow-down text-[#BBBBBB] text-18"} />
+                </button>
                 {newLoginState && (
-                  <div className="absolute bottom-[-88px] bg-stone-200 w-full rounded-lg flex flex-col overflow-hidden">
+                  <div className="absolute bottom-[-88px] bg-[#FFFFFF] w-full rounded-lg flex flex-col overflow-hidden">
                     <UserPanelAttribute />
                   </div>
                 )}
