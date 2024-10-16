@@ -30,7 +30,7 @@ export const serviceData = [
   {
     title: "باتری",
     icon: "/assets/images/service5.png",
-    href: "/batteries?attribute_slug=type_vehicle&attribute_value=car",
+    href: "/batteries?attribute_slug=type_vehicle",
     id: "batteries",
     description: "کار پایا چه خدماتی ارائه میدهدکار پایا چه خدماتی ارائه میدهد",
   },
