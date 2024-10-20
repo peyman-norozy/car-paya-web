@@ -74,20 +74,22 @@ const BatteriesPage = (props) => {
 
   useEffect(() => {
     const handleScroll = () => {
-      // محاسبه اینکه آیا به انتهای صفحه رسیده‌ایم یا نه
-      const scrollTop = window.scrollY;
-      const windowHeight = window.innerHeight;
-      const fullHeight = document.documentElement.scrollHeight;
+      if (props.data.meta["current_page"] !== props.data.meta["last_page"]) {
+        // محاسبه اینکه آیا به انتهای صفحه رسیده‌ایم یا نه
+        const scrollTop = window.scrollY;
+        const windowHeight = window.innerHeight;
+        const fullHeight = document.documentElement.scrollHeight;
 
-      if (scrollTop + windowHeight >= fullHeight) {
-        setIsAtBottom(true);
-        console.log("شما به انتهای صفحه رسیده‌اید!");
-        page.current = page.current + 1;
-        if (props.data?.meta["last_page"] >= page.current) {
-          query.updateQueryParams({ page: page.current }, null, false);
+        if (scrollTop + windowHeight >= fullHeight) {
+          setIsAtBottom(true);
+          console.log("شما به انتهای صفحه رسیده‌اید!");
+          page.current = page.current + 1;
+          if (props.data?.meta["last_page"] >= page.current) {
+            query.updateQueryParams({ page: page.current }, null, false);
+          }
+        } else {
+          setIsAtBottom(false);
         }
-      } else {
-        setIsAtBottom(false);
       }
     };
 
@@ -112,6 +114,7 @@ const BatteriesPage = (props) => {
   }, []);
 
   useEffect(() => {
+    console.log(props.searchParams);
     setBatteriesData((prev) => [...prev, ...props.data?.data]);
   }, [props.searchParams.page]);
 
@@ -158,6 +161,9 @@ const BatteriesPage = (props) => {
   const openModal = () => {
     setModalState(true);
   };
+
+  console.log(props);
+  useEffect(() => {}, []);
 
   return (
     <div className={"relative"}>
@@ -233,7 +239,7 @@ const BatteriesPage = (props) => {
               <div className="relative z-10 flex cursor-pointer items-center overflow-hidden rounded-xl p-[3px] w-fit">
                 <div className="animate-rotate absolute inset-0 h-full w-full rounded-full bg-[conic-gradient(#F66B34_20deg,transparent_120deg)]"></div>
                 <Link
-                  href={`/services/batteries/battery-assistant?selectTipState=${searchParams.get("selectTipState")}`}
+                  href={`/services/batteries/battery-assistant?attribute_slug=type_vehicle&attribute_value=${searchParams.get("attribute_value")}&selectTipState=${searchParams.get("selectTipState")}`}
                   className={
                     "relative z-20 p-2 bg-white text-12 text-[#3C3C3C] w-[146px] h-[36px] rounded-[8px] font-semibold flex justify-center items-center"
                   }

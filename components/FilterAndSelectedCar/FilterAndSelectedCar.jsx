@@ -9,19 +9,6 @@ import useSetQuery from "@/hook/useSetQuery";
 
 const filterData = [
   {
-    name: "بر اساس آمپر",
-    value: "getAmp",
-    placeHolder: "آمپر خود را انتخاب کنید",
-    labelStyle: "text-12 font-semibold",
-    iconStyle: "cc-arrow-down absolute top-[12px] left-[10px]",
-    inputStyle:
-      "outline-none border border-[#F58052] rounded-[8px] w-full h-[40px] pr-1 placeholder:text-12",
-    optionContainerStyle:
-      "bg-[#FFFFFF] flex flex-col gap-2 z-[1000000] right-0 left-0 transition-all duration-500 overflow-y-scroll",
-    optionStyle:
-      "even:bg-[#F8F5F5] odd:bg-[#F2F9FE] flex items-center gap-2 py-[6px] px-1 rounded-[4px] text-14 cursor-pointer hover:bg-[#e3e3e3]",
-  },
-  {
     name: "بر اساس برند",
     value: "brand",
     placeHolder: "برند خود را انتخاب کنید",
@@ -32,12 +19,26 @@ const filterData = [
     optionContainerStyle:
       "bg-[#FFFFFF] flex flex-col gap-2 z-[1000000] right-0 left-0 transition-all duration-500 overflow-y-scroll",
     optionStyle:
-      "even:bg-[#F8F5F5] odd:bg-[#F2F9FE] flex items-center gap-2 py-[6px] px-1 rounded-[4px] text-14 cursor-pointer hover:bg-[#e3e3e3]",
+      "border-b pt-5 flex items-center gap-2 py-[6px] px-1 rounded-[4px] text-14 cursor-pointer hover:bg-[#e3e3e3]",
+  },
+  {
+    name: "بر اساس آمپر",
+    value: "getAmp",
+    placeHolder: "آمپر خود را انتخاب کنید",
+    labelStyle: "text-12 font-semibold",
+    iconStyle: "cc-arrow-down absolute top-[12px] left-[10px]",
+    inputStyle:
+      "outline-none border border-[#F58052] rounded-[8px] w-full h-[40px] pr-1 placeholder:text-12",
+    optionContainerStyle:
+      "bg-[#FFFFFF] flex flex-col gap-2 z-[1000000] right-0 left-0 transition-all duration-500 overflow-y-scroll",
+    optionStyle:
+      "border-b pt-5 flex items-center gap-2 py-[6px] px-1 rounded-[4px] text-14 cursor-pointer hover:bg-[#e3e3e3]",
   },
 ];
 
 const FilterAndSelectedCar = ({ options, page }) => {
   const [client, setClient] = useState(false);
+  const [deleteFiltersState, setDeleteFiltersState] = useState(false);
   const searchParams = useSearchParams();
   const params = new URLSearchParams(searchParams.toString());
   const setQuery = useSetQuery();
@@ -51,16 +52,42 @@ const FilterAndSelectedCar = ({ options, page }) => {
   }
 
   const filterClickHandler = (value, inputValueType) => {
-    console.log(value.length, inputValueType);
-
-    setQuery.setQuery(
-      inputValueType === "getAmp"
-        ? "amp"
-        : inputValueType === "brand"
-          ? "brand"
-          : "",
-      value,
+    console.log(value.length, inputValueType, searchParams.get("page"));
+    setQuery.updateQueryParams(
+      { page: 1 },
+      "/services/batteries/products",
+      false,
     );
+    page.current = 1;
+
+    if (inputValueType === "getAmp") {
+      setQuery.setQuery("amp", value);
+    }
+    // else if (inputValueType === "brand") {
+    //   setQuery.setQuery("brand", value);
+    // }
+
+    // setQuery.setQuery(
+    //   inputValueType === "getAmp"
+    //     ? "amp"
+    //     : inputValueType === "brand"
+    //       ? "brand"
+    //       : "",
+    //   value,
+    // );
+  };
+
+  const filterDeleteClickHandler = () => {
+    page.current = 1;
+    setQuery.deleteSingleQuery(
+      [
+        { key: "brand", value: searchParams.get("brand") },
+        { key: "amp", value: searchParams.get("amp") },
+        { key: "page", value: searchParams.get("page") },
+      ],
+      params,
+    );
+    setDeleteFiltersState(false);
   };
 
   const deleteQueryHandler = (slug) => {
@@ -110,10 +137,21 @@ const FilterAndSelectedCar = ({ options, page }) => {
           />
           <div className={"h-[1px] bg-[#BBBBBB] w-full"}></div>
         </div>
-        <div className={"flex items-center gap-2"}>
-          <i className={"cc-filter text-18"} />
-          <span className={"text-16 text-[#0F0F0F] font-medium"}>فیلتر</span>
+        <div className={"flex justify-between items-center"}>
+          <div className={"flex items-center gap-2"}>
+            <i className={"cc-filter text-18"} />
+            <span className={"text-16 text-[#0F0F0F] font-medium"}>فیلتر</span>
+          </div>
+          {deleteFiltersState && (
+            <button
+              className={"border-b border-b-[#DB3737] text-[#DB3737] text-14"}
+              onClick={filterDeleteClickHandler}
+            >
+              حذف فیلتر
+            </button>
+          )}
         </div>
+
         <div className={"flex flex-col gap-2"}>
           {filterData.map((item, index) => (
             <div key={index}>
@@ -124,9 +162,18 @@ const FilterAndSelectedCar = ({ options, page }) => {
                 iconStyle={item.iconStyle}
                 inputStyle={item.inputStyle}
                 optionContainerStyle={item.optionContainerStyle}
+                setDeleteFiltersState={setDeleteFiltersState}
                 optionStyle={item.optionStyle}
                 value={item.value}
-                options={options[item?.value]}
+                options={options[item?.value].filter((item) => {
+                  if (!item?.type) {
+                    return item;
+                  } else if (
+                    item?.type === searchParams.get("attribute_value")
+                  ) {
+                    return item;
+                  }
+                })}
                 onClick={(value) => filterClickHandler(value, item.value)}
                 deleteInputValueHandler={(slug) => deleteQueryHandler(slug)}
               />
