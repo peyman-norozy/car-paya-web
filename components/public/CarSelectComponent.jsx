@@ -72,13 +72,22 @@ const CarSelectComponent = (props) => {
   }, [carSelected]);
 
   useEffect(() => {
-    setQuery.updateQueryParams(
-      {
-        attribute_slug: "type_vehicle",
-        attribute_value: "car",
-      },
-      "",
-    );
+    if (typeof window !== "undefined" || typeof window !== undefined) {
+      const attributValue = JSON.parse(
+        localStorage.getItem("selectedVehicle"),
+      )?.type;
+      let carType = {};
+      if (attributValue) {
+        carType = {
+          attribute_slug: "type_vehicle",
+          attribute_value: attributValue,
+        };
+      } else {
+        carType = { attribute_slug: "type_vehicle" };
+      }
+      setQuery.updateQueryParams(carType, "");
+    }
+
     (async () => {
       const data = await getDataWithFullErrorRes(
         process.env.BASE_API + "/web/my-vehicles",

@@ -18,6 +18,7 @@ import CarSelect from "@/components/public/CarSelect";
 import CarAndCityContainer from "../public/CarAndCityContainer";
 import { useRouter } from "next/navigation";
 import nProgress from "nprogress";
+import useSetQuery from "@/hook/useSetQuery";
 
 const BatteriesMainPage = () => {
   // const [client, setClient] = useState(false);
@@ -27,9 +28,18 @@ const BatteriesMainPage = () => {
   const router = useRouter();
   const pathName = usePathname();
   const searchParams = useSearchParams();
+  const query = useSetQuery();
   useEffect(() => {
     if (typeof window !== "undefined") {
       const city = JSON.parse(localStorage.getItem("city"));
+      const attributValue = JSON.parse(
+        localStorage.getItem("selectedVehicle"),
+      )?.type;
+      if (attributValue) {
+        query.updateQueryParams({
+          attribute_value: attributValue,
+        });
+      }
       setCityId(city?.cityId);
     }
   }, [searchParams, pathName]);

@@ -9,7 +9,7 @@ export const serviceData = [
   {
     title: "دیتیلینگ",
     icon: "/assets/images/service2.png",
-    href: "/detailing?attribute_slug=type_vehicle&attribute_value=car",
+    href: "/detailing?attribute_slug=type_vehicle",
     id: "detailing",
     description: "کار پایا چه خدماتی ارائه میدهدکار پایا چه خدماتی ارائه میدهد",
   },
@@ -30,7 +30,7 @@ export const serviceData = [
   {
     title: "باتری",
     icon: "/assets/images/service5.png",
-    href: "/batteries?attribute_slug=type_vehicle&attribute_value=car",
+    href: "/batteries?attribute_slug=type_vehicle",
     id: "batteries",
     description: "کار پایا چه خدماتی ارائه میدهدکار پایا چه خدماتی ارائه میدهد",
   },
@@ -275,6 +275,25 @@ export const batteryFaqData = [
       "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد.",
   },
 ];
+export const headerNavData = [
+  {
+    title: "خدمات",
+    options: [
+      { label: "کارشناسی", link: "/vehicle-inspection" },
+      { label: "سرویس دوره ای", link: "/periodic-service" },
+      { label: "باتری", link: "/batteries?attribute_slug=type_vehicle" },
+      { label: "دیتیلینگ", link: "/detailing?attribute_slug=type_vehicle" },
+      { label: "بیمه", link: "#" },
+      { label: "خرید خودرو", link: "#" },
+      { label: "فروش خودرو", link: "#" },
+      { label: "شناسنامه", link: "/panel/my-vehicle/my-car" },
+    ],
+  },
+  { title: "سفارش ها", link: "#" },
+  { title: "درباره ما", link: "#" },
+  { title: "تماس با ما", link: "#" },
+  { title: "مجله ها", link: "#" },
+];
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
@@ -285,4 +304,5 @@ export default {
   panelTabData,
   batteryPurchaseProcessData,
   batteryFaqData,
+  headerNavData,
 };

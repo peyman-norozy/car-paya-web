@@ -11,6 +11,7 @@ import { setCityModalState, setShowHeader } from "@/store/todoSlice";
 import CardPay from "@/components/CardPay";
 import Image from "next/image";
 import CityModal from "@/components/CityModal/CityModal";
+import NavbarAttribute from "@/components/NavbarAttribute/NavbarAttribute";
 const DesktopHeader = (props) => {
   const [lastScrollY, setLastScrollY] = useState(0);
   const loginState = useSelector((state) => state.todo.loginState);
@@ -59,8 +60,20 @@ const DesktopHeader = (props) => {
 
   return (
     <header
-      className={`${props.className} flex justify-between items-center w-[100wh] sticky inset-0 z-[1599] pt-[10px] px-12 bg-[#FBFBFB] transition-all`}
+      className={`${props.className} flex justify-between items-center w-[100wh] sticky inset-0 z-[1599] px-[63px] bg-[#FFFFFF] transition-all shadow-[0_4px_6px_-1px_rgba(0,0,0,0.1),_0_2px_4px_-1px_rgba(0,0,0,0.06)] pb-[26px] pt-[34px] rounded-b-3xl`}
     >
+      {/*<div>*/}
+      {/*  <div className={"flex items-center gap-[32px]"}>*/}
+      {/*    <HeaderLogo />*/}
+      {/*    <ul className={"flex items-center gap-[24px] text-14 font-medium"}>*/}
+      {/*      {props.headerData.map((item, index) => (*/}
+      {/*        <NavbarAttribute key={index} data={item} />*/}
+      {/*      ))}*/}
+      {/*    </ul>*/}
+      {/*  </div>*/}
+      {/*  <div></div>*/}
+      {/*</div>*/}
+
       <div
         className={`font-light flex justify-between items-center w-full max-w-[1676px] m-auto bg-[#383838] z-[10000] h-[88px] rounded-2xl py-6 px-8`}
       >

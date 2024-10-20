@@ -377,7 +377,9 @@ const PurchaseBatteryModal = (props) => {
   };
 
   const countHandler = (number) => {
-    if (count + number > 0) {
+    if (number > 0 && batteriesData["maximum_order"] > count) {
+      setCount((prev) => prev + number);
+    } else if (number < 0 && count + number > 0) {
       setCount((prev) => prev + number);
     }
   };

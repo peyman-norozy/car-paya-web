@@ -50,6 +50,7 @@ const CustomSearchInput = (props) => {
     setIsSelected(index);
     setSearchInputValue(innerText);
     setSelectedOption(value);
+    props.setDeleteFiltersState(true);
     // onClick(value);
   };
 
@@ -80,17 +81,17 @@ const CustomSearchInput = (props) => {
           id={value}
           onClick={inputClickHandler}
         />
-        {searchInputValue && (
-          <span
-            className={"absolute top-2.5 left-9 cursor-pointer"}
-            onClick={() => {
-              setSelectedOption("");
-              deleteInputValue(value);
-            }}
-          >
-            X
-          </span>
-        )}
+        {/*{searchInputValue && (*/}
+        {/*  <span*/}
+        {/*    className={"absolute top-2.5 left-9 cursor-pointer"}*/}
+        {/*    onClick={() => {*/}
+        {/*      setSelectedOption("");*/}
+        {/*      deleteInputValue(value);*/}
+        {/*    }}*/}
+        {/*  >*/}
+        {/*    X*/}
+        {/*  </span>*/}
+        {/*)}*/}
         <ul
           className={`${optionContainerStyle} ${optionAccordionState ? "h-[300px]" : "h-0"}`}
         >

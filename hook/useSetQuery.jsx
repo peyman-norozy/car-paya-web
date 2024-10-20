@@ -48,7 +48,7 @@ const useSetQuery = () => {
       });
       const search = params.toString();
       const query = search ? `?${search}` : "";
-      console.log(pathname);
+      console.log(pathname, query);
       nProgress.start();
       router.push(newPathName ? newPathName : pathname + query, options);
     },

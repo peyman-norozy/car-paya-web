@@ -37,9 +37,16 @@ const DetailingIndex = () => {
   const attributeValue = searchParams.get("attribute_value");
 
   useEffect(() => {
-    // setClient(true);
     if (typeof window !== "undefined") {
       const city = JSON.parse(localStorage.getItem("city"));
+      const attributValue = JSON.parse(
+        localStorage.getItem("selectedVehicle"),
+      )?.type;
+      if (attributValue) {
+        query.updateQueryParams({
+          attribute_value: attributValue,
+        });
+      }
       setCityId(city?.cityId);
     }
   }, [searchParams, pathName]);

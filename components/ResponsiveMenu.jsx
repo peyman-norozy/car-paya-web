@@ -5,7 +5,7 @@ import React from "react";
 const ResponsiveMenu = React.forwardRef((props, ref) => {
   return (
     <div
-      className={`bg-[#0002] fixed top-0 right-0 h-screen z-50 ${
+      className={`bg-[#0002] fixed top-0 right-0 h-screen z-50 lg:hidden block ${
         props.newMenueState ? "w-0" : "w-full"
       }`}
     >
