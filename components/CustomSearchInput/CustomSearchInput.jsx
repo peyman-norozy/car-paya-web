@@ -39,7 +39,8 @@ const CustomSearchInput = (props) => {
   useEffect(() => {
     console.log(selectedOption);
     setPreventFirstRender(true);
-    preventFirstRender ? onClick(selectedOption) : null;
+    // preventFirstRender ? onClick(selectedOption) : null;
+    onClick(selectedOption);
   }, [selectedOption]);
 
   const inputClickHandler = () => {
@@ -54,10 +55,17 @@ const CustomSearchInput = (props) => {
     // onClick(value);
   };
 
-  const deleteInputValue = (slug) => {
+  // const deleteInputValue = (slug) => {
+  //   setSearchInputValue("");
+  //   deleteInputValueHandler(slug);
+  // };
+
+  useEffect(() => {
+    setSelectedOption("");
     setSearchInputValue("");
-    deleteInputValueHandler(slug);
-  };
+    deleteInputValueHandler(value);
+    setIsSelected(false);
+  }, [props.handleDeleteFilterInput]);
 
   console.log(value);
 

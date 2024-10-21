@@ -38,6 +38,7 @@ const filterData = [
 
 const FilterAndSelectedCar = ({ options, page }) => {
   const [client, setClient] = useState(false);
+  const [handleDeleteFilterInput, setHandleDeleteFilterInput] = useState(false);
   const [deleteFiltersState, setDeleteFiltersState] = useState(false);
   const searchParams = useSearchParams();
   const params = new URLSearchParams(searchParams.toString());
@@ -53,19 +54,28 @@ const FilterAndSelectedCar = ({ options, page }) => {
 
   const filterClickHandler = (value, inputValueType) => {
     console.log(value.length, inputValueType, searchParams.get("page"));
-    setQuery.updateQueryParams(
-      { page: 1 },
-      "/services/batteries/products",
-      false,
-    );
     page.current = 1;
+    // setQuery.updateQueryParams(
+    //   { page: 1 },
+    //   "/services/batteries/products",
+    //   false,
+    // );
 
     if (inputValueType === "getAmp") {
-      setQuery.setQuery("amp", value);
+      if (value.length) {
+        console.log("peyman amp");
+        setQuery.setQuery("amp", value);
+      } else {
+        setQuery.setQuery("amp", "");
+      }
+    } else if (inputValueType === "brand") {
+      if (value.length) {
+        console.log("peyman brand");
+        setQuery.setQuery("brand", value);
+      } else {
+        setQuery.setQuery("brand", "");
+      }
     }
-    // else if (inputValueType === "brand") {
-    //   setQuery.setQuery("brand", value);
-    // }
 
     // setQuery.setQuery(
     //   inputValueType === "getAmp"
@@ -79,33 +89,34 @@ const FilterAndSelectedCar = ({ options, page }) => {
 
   const filterDeleteClickHandler = () => {
     page.current = 1;
-    setQuery.deleteSingleQuery(
-      [
-        { key: "brand", value: searchParams.get("brand") },
-        { key: "amp", value: searchParams.get("amp") },
-        { key: "page", value: searchParams.get("page") },
-      ],
-      params,
-    );
+    setHandleDeleteFilterInput((prev) => !prev);
+    // setQuery.deleteSingleQuery(
+    //   [
+    //     { key: "brand", value: searchParams.get("brand") },
+    //     { key: "amp", value: searchParams.get("amp") },
+    //     { key: "page", value: searchParams.get("page") },
+    //   ],
+    //   params,
+    // );
     setDeleteFiltersState(false);
   };
 
   const deleteQueryHandler = (slug) => {
-    console.log(slug, searchParams.get("brand"), params.toString());
-    page.current = 1;
-    if (slug === "brand") {
-      setQuery.deleteSingleQuery(
-        [{ key: "brand", value: searchParams.get("brand") }],
-        params,
-        "",
-      );
-    } else if (slug === "getAmp") {
-      setQuery.deleteSingleQuery(
-        [{ key: "amp", value: searchParams.get("amp") }],
-        params,
-        "",
-      );
-    }
+    // console.log(slug, searchParams.get("brand"), params.toString());
+    // page.current = 1;
+    // if (slug === "brand") {
+    //   setQuery.deleteSingleQuery(
+    //     [{ key: "brand", value: searchParams.get("brand") }],
+    //     params,
+    //     "",
+    //   );
+    // } else if (slug === "getAmp") {
+    //   setQuery.deleteSingleQuery(
+    //     [{ key: "amp", value: searchParams.get("amp") }],
+    //     params,
+    //     "",
+    //   );
+    // }
   };
 
   const carBrand = JSON.parse(localStorage.getItem("selectedVehicle"))?.brand;
@@ -151,12 +162,12 @@ const FilterAndSelectedCar = ({ options, page }) => {
             </button>
           )}
         </div>
-
         <div className={"flex flex-col gap-2"}>
           {filterData.map((item, index) => (
             <div key={index}>
               <CustomSearchInput
                 title={item.name}
+                handleDeleteFilterInput={handleDeleteFilterInput}
                 placeHolder={item.placeHolder}
                 labelStyle={item.labelStyle}
                 iconStyle={item.iconStyle}
