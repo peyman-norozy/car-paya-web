@@ -35,8 +35,11 @@ const filterData = [
   },
 ];
 
-const BatteriesFilterModal = ({ isOpen, onClose, options }) => {
+const BatteriesFilterModal = ({ isOpen, onClose, options, page }) => {
   const [isClient, setIsClient] = useState(false);
+  const [handleDeleteFilterInput, setHandleDeleteFilterInput] = useState(false);
+  const [deleteFiltersState, setDeleteFiltersState] = useState(false);
+
   const searchParams = useSearchParams();
   const params = new URLSearchParams(searchParams.toString());
   const setQuery = useSetQuery();
@@ -49,32 +52,61 @@ const BatteriesFilterModal = ({ isOpen, onClose, options }) => {
 
   const filterClickHandler = (value, inputValueType) => {
     console.log(value.length, inputValueType);
+    page.current = 1;
 
-    setQuery.setQuery(
-      inputValueType === "getAmp"
-        ? "amp"
-        : inputValueType === "brand"
-          ? "brand"
-          : "",
-      value,
-    );
+    if (inputValueType === "getAmp") {
+      if (value.length) {
+        setQuery.setQuery("amp", value);
+      } else {
+        setQuery.setQuery("amp", "");
+      }
+    } else if (inputValueType === "brand") {
+      if (value.length) {
+        setQuery.setQuery("brand", value);
+      } else {
+        setQuery.setQuery("brand", "");
+      }
+    }
+
+    // setQuery.setQuery(
+    //   inputValueType === "getAmp"
+    //     ? "amp"
+    //     : inputValueType === "brand"
+    //       ? "brand"
+    //       : "",
+    //   value,
+    // );
+  };
+
+  const filterDeleteClickHandler = () => {
+    page.current = 1;
+    setHandleDeleteFilterInput((prev) => !prev);
+    // setQuery.deleteSingleQuery(
+    //   [
+    //     { key: "brand", value: searchParams.get("brand") },
+    //     { key: "amp", value: searchParams.get("amp") },
+    //     { key: "page", value: searchParams.get("page") },
+    //   ],
+    //   params,
+    // );
+    setDeleteFiltersState(false);
   };
 
   const deleteQueryHandler = (slug) => {
-    console.log(slug, searchParams.get("brand"), params.toString());
-    if (slug === "brand") {
-      setQuery.deleteSingleQuery(
-        [{ key: "brand", value: searchParams.get("brand") }],
-        params,
-        "",
-      );
-    } else if (slug === "getAmp") {
-      setQuery.deleteSingleQuery(
-        [{ key: "amp", value: searchParams.get("amp") }],
-        params,
-        "",
-      );
-    }
+    // console.log(slug, searchParams.get("brand"), params.toString());
+    // if (slug === "brand") {
+    //   setQuery.deleteSingleQuery(
+    //     [{ key: "brand", value: searchParams.get("brand") }],
+    //     params,
+    //     "",
+    //   );
+    // } else if (slug === "getAmp") {
+    //   setQuery.deleteSingleQuery(
+    //     [{ key: "amp", value: searchParams.get("amp") }],
+    //     params,
+    //     "",
+    //   );
+    // }
   };
 
   if (!isClient) return null;
@@ -107,21 +139,40 @@ const BatteriesFilterModal = ({ isOpen, onClose, options }) => {
             onClick={() => onClose()}
           />
         </div>
+        <div className={"flex justify-end m-5"}>
+          {deleteFiltersState && (
+            <button
+              className={"border-b border-b-[#DB3737] text-[#DB3737] text-14"}
+              onClick={filterDeleteClickHandler}
+            >
+              حذف فیلتر
+            </button>
+          )}
+        </div>
 
         <div className={"py-4 px-[18.5px] flex flex-col gap-2 mt-6"}>
           {filterData.map((item, index) => (
             <div key={index}>
               <CustomSearchInput
                 title={item.name}
+                handleDeleteFilterInput={handleDeleteFilterInput}
                 placeHolder={item.placeHolder}
                 labelStyle={item.labelStyle}
                 iconStyle={item.iconStyle}
                 inputStyle={item.inputStyle}
                 optionContainerStyle={item.optionContainerStyle}
+                setDeleteFiltersState={setDeleteFiltersState}
                 optionStyle={item.optionStyle}
                 value={item.value}
-                inputMode={"none"}
-                options={options[item?.value]}
+                options={options[item?.value].filter((item) => {
+                  if (!item?.type) {
+                    return item;
+                  } else if (
+                    item?.type === searchParams.get("attribute_value")
+                  ) {
+                    return item;
+                  }
+                })}
                 onClick={(value) => filterClickHandler(value, item.value)}
                 deleteInputValueHandler={(slug) => deleteQueryHandler(slug)}
               />
