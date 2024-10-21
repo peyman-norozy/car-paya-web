@@ -230,6 +230,7 @@ const BatteriesPage = (props) => {
                   isOpen={modalState}
                   onClose={closeModal}
                   options={props.data.filter}
+                  page={page}
                   selectInputSlug={props.data.filter[filterId]}
                 />
               </div>

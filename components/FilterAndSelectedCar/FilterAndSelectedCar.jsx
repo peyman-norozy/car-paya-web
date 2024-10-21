@@ -63,14 +63,12 @@ const FilterAndSelectedCar = ({ options, page }) => {
 
     if (inputValueType === "getAmp") {
       if (value.length) {
-        console.log("peyman amp");
         setQuery.setQuery("amp", value);
       } else {
         setQuery.setQuery("amp", "");
       }
     } else if (inputValueType === "brand") {
       if (value.length) {
-        console.log("peyman brand");
         setQuery.setQuery("brand", value);
       } else {
         setQuery.setQuery("brand", "");
