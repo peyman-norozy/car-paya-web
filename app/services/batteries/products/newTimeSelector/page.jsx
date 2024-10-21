@@ -83,14 +83,6 @@ const Page = (props) => {
             value: batteriesCart?.title,
             icon: "cc-location",
           },
-          {
-            key: "زمان دریافت خدمات :",
-            value:
-              persianDate(daySelector, "dddd") +
-              " " +
-              persianDateCovertor(daySelector),
-            icon: "cc-timer",
-          },
         ]}
       />
       <div
