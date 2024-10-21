@@ -86,7 +86,7 @@ const AddressSelection = (props) => {
             </button>
           </div>
           <div className="relative">
-            {pathName !== "/batteries/products/newSelectLocation" && (
+            {pathName !== "/services/batteries/products/newSelectLocation" && (
               <button
                 className="flex w-fit p-2 gap-2 items-center lg:text-14 text-12 text-[#3C3C3C] bg-[#FEFEFE] shadow-[0_0_6px_0_rgba(125,125,125,0.5)] rounded-[4px] font-medium"
                 onClick={() => {

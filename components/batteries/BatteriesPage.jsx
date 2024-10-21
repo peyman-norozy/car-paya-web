@@ -100,7 +100,7 @@ const BatteriesPage = (props) => {
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, []);
+  }, [props]);
 
   const closeFilterHandler = (event) => {
     if (!event.target.offsetParent?.classList.contains("filterModal")) {
@@ -163,7 +163,6 @@ const BatteriesPage = (props) => {
   };
 
   console.log(props);
-  useEffect(() => {}, []);
 
   return (
     <div className={"relative"}>
