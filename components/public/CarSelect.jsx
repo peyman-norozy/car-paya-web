@@ -36,6 +36,7 @@ const CarSelect = (props) => {
   const [showInvoice, setShowInvoice] = useState(false);
   const [invoiceData, setInvoiceData] = useState({ data: [], totalPrice: 0 });
   const [backurl, setBackurl] = useState([]);
+  const [searchInputValue, setsearchInputValue] = useState("");
   const showHeaderData = useSelector((state) => state.todo.showHeader);
   const renderInvoice = useSelector((state) => state.todo.renderInvoice);
 
@@ -95,6 +96,7 @@ const CarSelect = (props) => {
   }, []);
 
   function searchChangeHandler(value) {
+    setsearchInputValue(value);
     setSearchedData(
       data.filter((item) => {
         return item.title.includes(value);
@@ -247,6 +249,7 @@ const CarSelect = (props) => {
 
   function optionClickHandler(id, item, state) {
     const level2 = state ? state : level;
+    setsearchInputValue("");
     console.log(vehicleType, id);
     if (level2 <= 3) {
       let array = [...backurl];
@@ -441,6 +444,7 @@ const CarSelect = (props) => {
             <input
               className="outline-none text-14 font-medium w-full"
               placeholder="جستجو..."
+              value={searchInputValue}
               onChange={(e) => {
                 searchChangeHandler(e.target.value);
               }}
