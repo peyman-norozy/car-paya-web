@@ -85,7 +85,7 @@ const VerificationInvoice = () => {
           reservation_time_slice_id: searchParams.get(
             "reservation_time_slice_id",
           ),
-          coupon_code: searchParams.get(coupon),
+          coupon_code: coupon,
           shipped_time: searchParams.get("exact_time"),
         },
         {
