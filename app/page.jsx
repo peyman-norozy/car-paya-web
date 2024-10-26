@@ -17,7 +17,7 @@ const HomePage = async () => {
   return (
     <div className="flex flex-col gap-4 lg:gap-9 w-full max-w-[1772px] m-auto lg:mt-6 relative">
       <HomePageMainSlider />
-      <div className="flex flex-col gap-4 lg:gap-9 w-full lg:w-[calc(100%-424px)] self-end">
+      <div className="flex flex-col gap-4 lg:gap-9 w-full self-end">
         <MainPageServices />
         {/* <HomePageParallaxSlider /> */}
         <HomePageServiceIntroduction />
