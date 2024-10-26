@@ -17,7 +17,7 @@ const HomPeriodicService = () => {
   return (
     <div
       className={
-        "sm:shadow-[0_0_8px_0_rgba(162,162,162,0.25)] bg-[#F7FAFD] rounded-8 py-[34px] flex lg:flex-row flex-col justify-between lg:items-end items-center"
+        "shadow-[0_0_8px_0_rgba(162,162,162,0.25)] bg-[#F7FAFD] rounded-8 py-[34px] flex lg:flex-row flex-col justify-between lg:items-end items-center"
       }
     >
       <section>
