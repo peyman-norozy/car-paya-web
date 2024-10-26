@@ -12,7 +12,7 @@ const MainPageServices = (props) => {
   return (
     <div
       className={
-        "shadow-[0_0_8px_0_rgba(162,162,162,0.25)] bg-[#FEFEFE] rounded-[16px] pt-7 sm:pb-5 pb-0"
+        "sm:shadow-[0_0_8px_0_rgba(162,162,162,0.25)] bg-[#FEFEFE] sm:rounded-[16px] pt-7 sm:pb-5 pb-0"
       }
     >
       <div
