@@ -56,12 +56,12 @@ import CustomersComment from "@/components/vehicle-verification/CustomersComment
 import { ToastContainer } from "react-toastify";
 import carshenasi from "@/public/assets/images/carshenasi.png";
 import zarebin from "@/public/assets/images/zarebin.png";
-import lines from "@/public/assets/images/lines.png";
 import { useRouter } from "next/navigation";
 import { error } from "@/utils/function-utils";
 import { useSelector } from "react-redux";
 import CarAndCityContainer from "@/components/public/CarAndCityContainer";
 import nProgress from "nprogress";
+import Counseling from "@/components/Counseling";
 // import CarAndCityContainer from "./public/CarAndCityContainer";
 
 const VerificationFirstStep = (props) => {
@@ -183,27 +183,7 @@ const VerificationFirstStep = (props) => {
             {vehicleVerificationBasket.length ? "ادامه " : ""}درخواست کارشناسی
           </button>
         </div>
-        <div className="relative overflow-hidden">
-          <div className="w-[210px] flex flex-col items-center bg-white gap-5 py-5 px-6 m-auto relative z-[2] shadow-[0_0_4px_0_rgba(171,171,171,0.25)]">
-            <span className="text-[#000000] text-sm font-medium">
-              مشاور و ثبت درخواست تلفنی
-            </span>
-            <a
-              href="tel:02158919"
-              className="border border-[#F58052] text-[#F58052] justify-center items-center flex gap-1 py-[6px] px-6 rounded-md font-medium"
-            >
-              <p>58919</p>
-              <i className={"cc-calling"} />
-            </a>
-          </div>
-          <Image
-            className="-top-5 absolute w-full h-[180px]"
-            src={lines}
-            width={430}
-            height={179}
-            alt={"line icon"}
-          />
-        </div>
+        <Counseling />
         <div className="flex flex-col items-center gap-3 text-[#000000]">
           <h2 className="font-bold">چرا کار پایا !</h2>
           <div className="grid grid-cols-2 gap-4 w-full px-4">

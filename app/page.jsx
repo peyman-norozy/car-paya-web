@@ -8,6 +8,11 @@ import LoginModal from "@/components/login/LoginModal";
 import { API_PATHS } from "@/configs/routes.config";
 import { getData, getDataWithRevalidate } from "@/utils/api-function-utils";
 import { ToastContainer } from "react-toastify";
+import HomeInspection from "@/components/HomeInspection";
+import Counseling from "@/components/Counseling";
+import HomPeriodicService from "@/components/HomPeriodicService";
+import Benefits from "@/components/‌‌Benefits";
+import HomeBatteries from "@/components/HomeBatteries";
 
 const HomePage = async () => {
   const data = await getDataWithRevalidate(
@@ -15,14 +20,19 @@ const HomePage = async () => {
   );
 
   return (
-    <div className="flex flex-col gap-4 lg:gap-9 w-full max-w-[1772px] m-auto lg:mt-6 relative">
+    <div className="flex flex-col gap-4 lg:gap-[48px] w-full max-w-[1772px] m-auto lg:mt-6 relative">
       <HomePageMainSlider />
-      <div className="flex flex-col gap-4 lg:gap-9 w-full lg:w-[calc(100%-424px)] self-end">
+      <div className="flex flex-col gap-4 lg:gap-9 w-full self-end">
         <MainPageServices />
+        <HomeInspection />
+        <Counseling />
+        <HomPeriodicService />
+        <Benefits />
+        <HomeBatteries />
         {/* <HomePageParallaxSlider /> */}
-        <HomePageServiceIntroduction />
+        {/*<HomePageServiceIntroduction />*/}
         <HomePageArticleSlider data={data} />
-        <HomePageArticles data={data} />
+        {/*<HomePageArticles data={data} />*/}
       </div>
       <ToastContainer rtl={true} />
     </div>
