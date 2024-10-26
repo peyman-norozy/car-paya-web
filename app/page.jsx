@@ -9,6 +9,7 @@ import { API_PATHS } from "@/configs/routes.config";
 import { getData, getDataWithRevalidate } from "@/utils/api-function-utils";
 import { ToastContainer } from "react-toastify";
 import HomeInspection from "@/components/HomeInspection";
+import Counseling from "@/components/Counseling";
 
 const HomePage = async () => {
   const data = await getDataWithRevalidate(
@@ -16,11 +17,12 @@ const HomePage = async () => {
   );
 
   return (
-    <div className="flex flex-col gap-4 lg:gap-9 w-full max-w-[1772px] m-auto lg:mt-6 relative">
+    <div className="flex flex-col gap-4 lg:gap-[48px] w-full max-w-[1772px] m-auto lg:mt-6 relative">
       <HomePageMainSlider />
       <div className="flex flex-col gap-4 lg:gap-9 w-full self-end">
         <MainPageServices />
         <HomeInspection />
+        <Counseling />
         {/* <HomePageParallaxSlider /> */}
         <HomePageServiceIntroduction />
         <HomePageArticleSlider data={data} />
