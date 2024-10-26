@@ -5,18 +5,17 @@ import { API_PATHS } from "@/configs/routes.config";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
+import { functions } from "lodash";
 
 const VehiclePriceModal = (props) => {
   const [carSelectInputState, setCarSelectInputState] = useState(false);
   const [disabledInput, setDisabledInput] = useState(true);
+  const [validation, setValidation] = useState([]);
+
   const carBrand = JSON.parse(localStorage.getItem("selectedVehicle"))?.brand;
   const carModel = JSON.parse(localStorage.getItem("selectedVehicle"))?.model;
   const carTitle = JSON.parse(localStorage.getItem("selectedVehicle"))?.title;
   const cityLabel = JSON.parse(localStorage.getItem("city"))?.label;
-
-  const cityAsidHandler = () => {
-    props.setAsideStatus("citySelection");
-  };
 
   const carAndCityHandler = () => {
     props.setAsideStatus("carSelection");
@@ -29,20 +28,27 @@ const VehiclePriceModal = (props) => {
     }
   }, []);
 
+  function inputChangeHandler(e) {
+    props.setCarData({ ...props.carData, [e.target.id]: e.target.value });
+  }
+
+  function onClick() {
+    let array = [];
+    [, "color", "operation", "year"].map((item) => {
+      props.carData[item] ? "" : array.push(item);
+    });
+    setValidation(array);
+    if (array.length === 0) {
+      props.setDispaly(true);
+    }
+  }
+
   return (
     <section
       className={
-        "bg-[#FDFDFD] lg:w-[409px] w-full h-screen lg:h-[600px] lg:pt-6 lg:rounded-2xl sticky right-2 top-32 flex flex-col justify-between overflow-hidden gap-4 shadow-[0_0_6px_6px_rgba(125,125,125,0.2)] z-50"
+        "bg-[#FDFDFD] lg:w-[409px] w-full h-[550px] lg:h-[600px] pt-4 lg:pt-6 rounded-xl lg:rounded-2xl sticky right-2 top-32 flex flex-col justify-between overflow-hidden gap-4 shadow-[0_0_6px_6px_rgba(125,125,125,0.2)] z-50 "
       }
     >
-      <div className="shadow-[0_2px_8px_0_rgba(148,148,148,0.25)] flex items-center justify-end h-14 px-4 lg:hidden">
-        <i
-          className="cc-add rotate-45 text-20 z-[10001]"
-          onClick={() => {
-            props.setModalClickState(false);
-          }}
-        />
-      </div>
       <div className={"px-4 flex flex-col gap-4"}>
         <span>اطلاعات زیر را کامل کنید:</span>
         {/* <CarAndCityInput
@@ -61,7 +67,11 @@ const VehiclePriceModal = (props) => {
           value={carTitle ? `${carBrand} ${carModel} (${carTitle})` : ""}
         />
         <div className={"relative"}>
-          <select className="outline-none border appearance-none bg-[#fdfdfd] border-[#B0B0B0] rounded-8 flex justify-between h-[48px] w-full text-14 pr-2 caret-transparent text-[#757575]">
+          <select
+            className={`${validation.includes("year") ? "border-red-500" : "border-[#B0B0B0]"} outline-none border appearance-none bg-[#fdfdfd] border-[#B0B0B0] rounded-8 flex justify-between h-[48px] w-full text-14 pr-2 caret-transparent text-[#757575]"`}
+            id="year"
+            onChange={inputChangeHandler}
+          >
             <option value={null}>سال ساخت خودرو</option>
             <option value={"2024"}>2024</option>
             <option value={"2023"}>2023</option>
@@ -96,7 +106,11 @@ const VehiclePriceModal = (props) => {
           />
         </div>
         <div className={"relative"}>
-          <select className="outline-none border appearance-none bg-[#fdfdfd] border-[#B0B0B0] rounded-8 flex justify-between h-[48px] w-full text-14 pr-2 caret-transparent text-[#757575]">
+          <select
+            className={`${validation.includes("color") ? "border-red-500" : "border-[#B0B0B0]"} outline-none border appearance-none bg-[#fdfdfd] border-[#B0B0B0] rounded-8 flex justify-between h-[48px] w-full text-14 pr-2 caret-transparent text-[#757575]`}
+            id="color"
+            onChange={inputChangeHandler}
+          >
             <option value={null}>رنگ خودرو</option>
             <option value={"2024"}>سفید</option>
             <option value={"2023"}>مشکی</option>
@@ -114,8 +128,10 @@ const VehiclePriceModal = (props) => {
           />
         </div>
         <input
-          className="outline-none border appearance-none bg-[#fdfdfd] border-[#B0B0B0] rounded-8 flex justify-between h-[48px] w-full text-14 pr-2 caret-transparent text-[#757575]"
+          className={`${validation.includes("operation") ? "border-red-500" : "border-[#B0B0B0]"} outline-none border bg-[#fdfdfd] border-[#B0B0B0] rounded-8 flex justify-between h-[48px] w-full text-14 pr-2 text-[#757575]`}
           placeholder="کیلومتر خودرو"
+          id="operation"
+          onChange={inputChangeHandler}
         />
       </div>
       {JSON.parse(localStorage.getItem("selectedVehicle"))?.image ? (
@@ -150,11 +166,11 @@ const VehiclePriceModal = (props) => {
           onClick={() => {
             props.setToastieDisplay((prev) => !prev);
             props.setPreventFirstRender(true);
-            props.onClick();
+            onClick();
           }}
           className={`w-[269px] h-[40px] ${carSelectInputState ? "bg-[#F66B34]" : "bg-[#F66B3433]"} text-[#FEFEFE] flex justify-center items-center font-medium rounded-[8px]`}
         >
-          {props.buttonTitle}
+          تکمیل اطلاعات
         </button>
       </div>
     </section>
