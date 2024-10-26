@@ -11,6 +11,7 @@ import { ToastContainer } from "react-toastify";
 import HomeInspection from "@/components/HomeInspection";
 import Counseling from "@/components/Counseling";
 import HomPeriodicService from "@/components/HomPeriodicService";
+import Benefits from "@/components/‌‌Benefits";
 
 const HomePage = async () => {
   const data = await getDataWithRevalidate(
@@ -25,6 +26,7 @@ const HomePage = async () => {
         <HomeInspection />
         <Counseling />
         <HomPeriodicService />
+        <Benefits />
         {/* <HomePageParallaxSlider /> */}
         <HomePageServiceIntroduction />
         <HomePageArticleSlider data={data} />
