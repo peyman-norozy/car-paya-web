@@ -32,10 +32,16 @@ const HomeInspection = () => {
         "sm:shadow-[0_0_8px_0_rgba(162,162,162,0.25)] bg-[#F7FAFD] rounded-8 p-[34px]"
       }
     >
-      <div className={"flex justify-between"}>
+      <p className={"lg:hidden block text-16 font-medium"}>
+        کارشناسی خودرو با <span className={"text-[#1C74D1]"}>کار</span>
+        <span className={"text-[#F66B34]"}> پایا </span>
+      </p>
+      <div className={"flex lg:flex-row flex-col-reverse justify-between"}>
         <section>
-          <span className={"text-20 font-medium"}>خدمات کارشناسی کارپایا</span>
-          <ul className={"grid grid-cols-2 gap-[24px] mt-[39px]"}>
+          <span className={"text-20 font-medium lg:inline hidden"}>
+            خدمات کارشناسی کارپایا
+          </span>
+          <ul className={"hidden lg:grid grid-cols-2 gap-[24px] mt-[39px] "}>
             {staticData.map((item, index) => (
               <li
                 key={"index"}
@@ -61,7 +67,8 @@ const HomeInspection = () => {
                 "bg-[#F66B34] text-16 text-[#FEFEFE] rounded-8 w-[166px] h-[36px] flex justify-center items-center"
               }
             >
-              کارشناسی
+              <span className={"lg:inline hidden"}>کارشناسی</span>
+              <span className={"lg:hidden inline"}>درخواست کارشناسی</span>
             </Link>
           </div>
         </section>
