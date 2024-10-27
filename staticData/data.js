@@ -290,6 +290,7 @@ export const headerNavData = [
     ],
   },
   { title: "سفارش ها", link: "#" },
+  { title: "تخمین قیمت", link: "#" },
   { title: "درباره ما", link: "#" },
   { title: "تماس با ما", link: "#" },
   { title: "مجله ها", link: "#" },
