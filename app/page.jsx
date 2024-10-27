@@ -13,6 +13,8 @@ import Counseling from "@/components/Counseling";
 import HomPeriodicService from "@/components/HomPeriodicService";
 import Benefits from "@/components/‌‌Benefits";
 import HomeBatteries from "@/components/HomeBatteries";
+import PriceEstimate from "@/components/PriceEstimate";
+import QuestionMark from "@/components/QuestionMark";
 
 const HomePage = async () => {
   const data = await getDataWithRevalidate(
@@ -29,10 +31,12 @@ const HomePage = async () => {
         <HomPeriodicService />
         <Benefits />
         <HomeBatteries />
+        <PriceEstimate />
+        <HomePageArticles data={data} />
+        <QuestionMark />
         {/* <HomePageParallaxSlider /> */}
         {/*<HomePageServiceIntroduction />*/}
         <HomePageArticleSlider data={data} />
-        {/*<HomePageArticles data={data} />*/}
       </div>
       <ToastContainer rtl={true} />
     </div>
