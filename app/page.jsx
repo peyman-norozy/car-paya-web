@@ -24,7 +24,7 @@ const HomePage = async () => {
   return (
     <div className="flex flex-col gap-4 lg:gap-[48px] w-full max-w-[1772px] m-auto lg:mt-6 relative">
       <HomePageMainSlider />
-      <div className="flex flex-col gap-4 lg:gap-9 w-full self-end">
+      <div className="flex flex-col gap-6 lg:gap-9 w-full self-end">
         <MainPageServices />
         <HomeInspection />
         <Counseling />

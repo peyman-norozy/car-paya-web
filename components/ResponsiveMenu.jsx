@@ -27,9 +27,9 @@ const ResponsiveMenu = React.forwardRef((props, ref) => {
           ref={props.refCategory}
           childrenProps={props.childrenProps}
         />
-        <div className="flex gap-2 pb-4 pr-2">
-          <SupportContact />
-        </div>
+        {/*<div className="flex gap-2 pb-4 pr-2">*/}
+        {/*  <SupportContact />*/}
+        {/*</div>*/}
       </div>
     </div>
   );

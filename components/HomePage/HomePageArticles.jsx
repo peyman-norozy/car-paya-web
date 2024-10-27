@@ -24,11 +24,11 @@ const HomePageArticles = (props) => {
         slidesPerView={"auto"}
         style={{
           width: "calc(100% - 32px)",
-          marginRight: "16px",
+          marginRight: "4px",
           marginLeft: "16px",
         }}
-        centeredSlides={true}
-        loop={true}
+        // centeredSlides={true}
+        // loop={true}
       >
         {props?.data?.map((item) => (
           <SwiperSlide style={{ width: "fit-content" }} key={item.id}>

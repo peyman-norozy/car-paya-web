@@ -21,7 +21,7 @@ const HomePageArticleSlider = (props) => {
       </span>
       <Swiper
         spaceBetween={8}
-        centeredSlides={true}
+        // centeredSlides={true}
         breakpoints={{
           768: {
             spaceBetween: 16,
@@ -37,13 +37,13 @@ const HomePageArticleSlider = (props) => {
         //   slideShadows: false,
         //   scale: 0.85,
         // }}
-        loop={true}
+        // loop={true}
         modules={[EffectCoverflow]}
         className="mySwiper ArticleSlider"
         slidesPerView={"auto"}
         style={{
           width: "calc(100% - 32px)",
-          marginRight: "16px",
+          marginRight: "4px",
           marginLeft: "16px",
         }}
       >

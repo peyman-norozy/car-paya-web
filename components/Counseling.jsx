@@ -11,10 +11,10 @@ const Counseling = () => {
         </span>
         <a
           href="tel:02158919"
-          className="text-[#F58052] justify-center items-center flex gap-1 py-[6px] px-6 rounded-md font-medium relative"
+          className="text-[#F58052] justify-center items-center flex gap-1 py-[6px] px-6 rounded-md font-medium "
         >
           <p className={"lg:text-20 text-14"}>021-58919</p>
-          <i className={"cc-calling text-20 absolute -top-[4px] left-0"} />
+          <i className={"cc-calling lg:text-[30px] text-[20px]"} />
         </a>
         <p className={"lg:text-18 text-14 font-medium"}>
           کار پایا در تمامی هفته پاسخگو شماست.

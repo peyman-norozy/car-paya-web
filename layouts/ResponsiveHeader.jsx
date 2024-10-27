@@ -166,7 +166,7 @@ const ResponsiveHeader = (props) => {
                 <span>ورود و ثبت نام</span>
               </button>
             ) : (
-              <div className="relative">
+              <div className="lg:block hidden relative">
                 <button
                   className="bg-[#FEFEFE] text-[#F66B34] py-1 px-4 rounded-lg cursor-pointer text-14 flex items-center justify-between gap-1 border border-[#F66B34] h-[40px] w-[146px]"
                   onClick={accountClickHandler}

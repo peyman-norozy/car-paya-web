@@ -15,12 +15,27 @@ const navBarItems = [
   { title: "مقالات", href: "/mags", id: "mags" },
 ];
 const navBarItemsResponsive = [
-  { title: "خانه", href: "/", id: "home" },
-  { title: "خدمات", href: "/services", id: "services" },
-  { title: "درباره ما", href: "/about-us", id: "about_us" },
-  { title: "تماس با ما", href: "/contact-us", id: "contact_us" },
-  { title: "مقالات", href: "/mags", id: "mags" },
-  { title: "دسته بندی", id: "category" },
+  { title: "کیف پول", href: "/", id: "home", icon: "cc-wallet" },
+  { title: "خدمات", id: "category", icon: "cc-vector-stroke" },
+  { title: "پروفایل", href: "/services", id: "services", icon: "cc-sms" },
+  {
+    title: "مجله ها",
+    href: "/mags",
+    id: "mags",
+    icon: "cc-document-align-right",
+  },
+  {
+    title: "تماس با ما",
+    href: "/contact-us",
+    id: "contact_us",
+    icon: "cc-calling",
+  },
+  {
+    title: "درباره ی ما",
+    href: "/about-us",
+    id: "about_us",
+    icon: "cc-discount-shape-o",
+  },
 ];
 
 const NavigationBar = React.forwardRef((props, ref) => {
@@ -57,10 +72,13 @@ const NavigationBar = React.forwardRef((props, ref) => {
             item.href && item.href.length > 0 ? (
               <li
                 key={item.id + index}
-                className="cursor-pointer text-[#0F0F0F] font-medium"
+                className="cursor-pointer text-[#0F0F0F] font-medium text-14 py-[10px]"
               >
                 <Navlink href={item.href} styleState={props.styleState}>
-                  {item.title}
+                  <div className={"flex items-center gap-1"}>
+                    <i className={`${item.icon} text-24`} />
+                    <span> {item.title}</span>
+                  </div>
                 </Navlink>
               </li>
             ) : (
@@ -68,7 +86,7 @@ const NavigationBar = React.forwardRef((props, ref) => {
                 {innerWidthNumber >= 1000 ? (
                   <li
                     key={item.id + index}
-                    className="cursor-pointer text-[#0F0F0F] font-medium"
+                    className="cursor-pointer text-[#0F0F0F] font-medium text-14"
                     onMouseEnter={categoryPoppupDisplay}
                     onMouseLeave={categoryPoppupHidden}
                   >
@@ -81,7 +99,15 @@ const NavigationBar = React.forwardRef((props, ref) => {
                       ref={ref}
                       onClick={categoryDisplayHandler}
                     >
-                      <span ref={ref}>{item.title}</span>
+                      <div
+                        ref={ref}
+                        className={"text-[#0F0F0F] font-medium text-14"}
+                      >
+                        <div className={"flex items-center gap-1"}>
+                          <i className={`${item.icon} text-24`} />
+                          <span> {item.title}</span>
+                        </div>
+                      </div>
                       <Image
                         src="/assets/icons/angle-left.svg"
                         alt={"left icon"}

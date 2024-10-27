@@ -10,11 +10,11 @@ const BatteryFaqCard = ({ title, description }) => {
   };
   return (
     <li
-      className={`bg-white p-4 flex flex-col ${accordionHeightState ? "gap-4" : "gap-0"} rounded-[8px] overflow-y-hidden transition-all duration-500 shadow-[0_0_4px_0_rgba(152,152,152,0.4)]`}
+      className={`bg-white lg:p-4 p-2 flex flex-col ${accordionHeightState ? "gap-4" : "gap-0"} rounded-[8px] overflow-y-hidden transition-all duration-500 shadow-[0_0_4px_0_rgba(152,152,152,0.4)]`}
     >
       <div
         className={
-          "flex items-center justify-between text-[14px] font-semibold cursor-pointer"
+          "flex items-center justify-between gap-[12px] text-[14px] font-semibold cursor-pointer"
         }
         onClick={accordionClickHandler}
       >
@@ -25,7 +25,7 @@ const BatteryFaqCard = ({ title, description }) => {
             width={38}
             height={45}
           />
-          <span> {title}</span>
+          <span className={"lg:text-14 text-12"}> {title}</span>
         </div>
         <i
           className={`${accordionHeightState ? "rotate-180" : "rotate-0"}  cc-arrow-down transition-all duration-500`}

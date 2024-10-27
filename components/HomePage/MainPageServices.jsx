@@ -53,7 +53,7 @@ const MainPageServices = (props) => {
         </div>
       </div>
       <button
-        className="text-[#4F4F4F] flex flex-col items-center gap-2 mx-auto mt-[8px]"
+        className="text-[#757575] flex flex-col items-center gap-2 mx-auto mt-[8px]"
         onClick={() => {
           setOpenService(!openService);
         }}
