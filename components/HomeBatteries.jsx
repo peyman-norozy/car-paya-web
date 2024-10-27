@@ -10,31 +10,42 @@ const HomeBatteries = () => {
       }
     >
       <section className={"lg:pb-[90px] pb-[14px]"}>
-        <p className={"text-20 font-medium"}>
+        <p className={"lg:text-[22px] text-14 font-medium"}>
           با
           <span className={"text-[#1C74D1]"}> کار </span>
           <span className={"text-[#F66B34]"}> پایا </span>
           راحت و آسون باتری ماشینتو بگیر
         </p>
-        <p className={"mt-[21px]"}>باتری ماشینتو آنلاین انتخاب کن</p>
-        <div className={"flex justify-start mt-[53px]"}>
+        <p className={"mt-[21px] lg:text-[22px] text-14"}>
+          باتری ماشینتو آنلاین انتخاب کن
+        </p>
+        <div className={"flex justify-start lg:mt-[53px] mt-[20px]"}>
           <Link
-            href={"/vehicle-inspection"}
+            href={"/batteries?attribute_slug=type_vehicle"}
             className={
-              "bg-[#F66B34] text-16 text-[#FEFEFE] rounded-8 w-[166px] h-[36px] flex justify-center items-center"
+              "bg-[#F66B34] lg:text-16 text-14 text-[#FEFEFE] rounded-8 lg:w-[166px] lg:h-[36px] w-[140px] h-[30px] flex justify-center items-center"
             }
           >
             خرید باتری
           </Link>
         </div>
       </section>
-      <section className={"w-[626px] h-[132px] self-end"}>
+      <section
+        className={"lg:w-[626px] lg:h-[132px] w-[350px] h-[90px] self-end"}
+      >
         <Image
-          src={"/assets/images/carBattery.png"}
+          src={`/assets/images/carBattery.png`}
           alt={"carBattery"}
           width={626}
           height={132}
+          // className={"lg:w-[626px] lg:h-[132px] w-[350px] h-[90px]"}
         />
+        {/*<Image*/}
+        {/*  src={"/assets/images/carBatterie.png"}*/}
+        {/*  alt={"carBatterie"}*/}
+        {/*  width={350}*/}
+        {/*  height={90}*/}
+        {/*/>*/}
       </section>
     </div>
   );
