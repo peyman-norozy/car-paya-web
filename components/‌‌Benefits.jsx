@@ -29,14 +29,14 @@ const Benefits = () => {
     <div className={"bg-[#FFC5AE] sm:-rotate-1 rounded-8"}>
       <div
         className={
-          "shadow-[0_0_8px_0_rgba(162,162,162,0.25)] bg-[#F7FAFD] rounded-8 sm:p-[34px] p-[25px] flex flex-col items-center sm:gap-[48px] gap-[13px] sm:rotate-1"
+          "shadow-[0_0_8px_0_rgba(162,162,162,0.25)] bg-[#FFFFFF] rounded-8 sm:p-[34px] p-[16px] flex flex-col items-center sm:gap-[48px] gap-[13px] sm:rotate-1"
         }
       >
-        <p className={"text-20 font-medium"}>
+        <p className={"lg:text-20 text-14 font-medium"}>
           مزایای استفاده از <span className={"text-[#1C74D1]"}>کار</span>
           <span className={"text-[#F66B34]"}> پایا </span>
         </p>
-        <p className={"text-16 font-medium"}>
+        <p className={"lg:text-16 text-14 text-center"}>
           کارپایا یه تیم پویا و مشاور وسیله نقلیه شما با پشتیان وضمانت برای
           خدمات وسیله نقلیه کارپایا یه تیم پویا و مشاور وسیله نقلیه شما با
           پشتیان و

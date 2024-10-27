@@ -74,10 +74,18 @@ const HomeInspection = () => {
         </section>
         <section>
           <Image
-            src={"/assets/images/inceptorMainPage.png"}
+            src={`/assets/images/inceptorMainPage.png`}
             alt={"inspection"}
             width={630}
             height={515}
+            className={"lg:block hidden"}
+          />
+          <Image
+            src={`/assets/images/carshenasiNew.png`}
+            alt={"inspection"}
+            width={630}
+            height={515}
+            className={"lg:hidden block"}
           />
         </section>
       </div>
