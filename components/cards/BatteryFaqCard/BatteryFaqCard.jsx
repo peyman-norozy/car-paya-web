@@ -27,12 +27,8 @@ const BatteryFaqCard = ({ title, description }) => {
           />
           <span> {title}</span>
         </div>
-        <Image
-          src={"/assets/icons/arrow-up.svg"}
-          className={`${accordionHeightState ? "rotate-0" : "rotate-180"} transition-all duration-500 lg:w-[36px] w-[26px]`}
-          alt={"arrow"}
-          width={36}
-          height={36}
+        <i
+          className={`${accordionHeightState ? "rotate-180" : "rotate-0"}  cc-arrow-down transition-all duration-500`}
         />
       </div>
       <p

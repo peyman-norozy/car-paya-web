@@ -23,7 +23,7 @@ const HomeBatteries = () => {
           <Link
             href={"/batteries?attribute_slug=type_vehicle"}
             className={
-              "bg-[#F66B34] lg:text-16 text-14 text-[#FEFEFE] rounded-8 lg:w-[166px] lg:h-[36px] w-[140px] h-[30px] flex justify-center items-center"
+              "bg-[#F66B34] lg:text-16 text-14 text-[#FEFEFE] rounded-8 lg:w-[166px] lg:h-[36px] w-[140px] h-[30px] lg:flex hidden justify-center items-center"
             }
           >
             خرید باتری
@@ -38,14 +38,21 @@ const HomeBatteries = () => {
           alt={"carBattery"}
           width={626}
           height={132}
-          // className={"lg:w-[626px] lg:h-[132px] w-[350px] h-[90px]"}
         />
-        {/*<Image*/}
-        {/*  src={"/assets/images/carBatterie.png"}*/}
-        {/*  alt={"carBatterie"}*/}
-        {/*  width={350}*/}
-        {/*  height={90}*/}
-        {/*/>*/}
+      </section>
+      <section
+        className={
+          "lg:hidden flex justify-start lg:mt-[53px] self-center mb-[20px]"
+        }
+      >
+        <Link
+          href={"/batteries?attribute_slug=type_vehicle"}
+          className={
+            "bg-[#F66B34] lg:text-16 text-14 text-[#FEFEFE] rounded-8 lg:w-[166px] lg:h-[36px] w-[140px] h-[30px] flex justify-center items-center"
+          }
+        >
+          خرید باتری
+        </Link>
       </section>
     </div>
   );

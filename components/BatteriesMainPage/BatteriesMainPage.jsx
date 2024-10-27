@@ -235,7 +235,15 @@ const BatteriesMainPage = () => {
         <PointView />
 
         {/*<BatteryAdvice />*/}
-        <BatteryFaq />
+        <div
+          className={
+            "mt-16 flex flex-col gap-8 bg-[#F4F4F4] rounded-8 px-6 py-4"
+          }
+        >
+          <BatteryFaq
+            titleClassName={"text-center text-[16px] font-semibold"}
+          />
+        </div>
         {/*{preventFirstRender && <ToastContainer rtl={true} />}*/}
       </div>
     </div>

@@ -7,10 +7,11 @@ import { API_PATHS } from "@/configs/routes.config";
 import moment from "jalali-moment";
 
 const HomePageArticles = (props) => {
+  console.log(props);
   return (
     <div className="flex flex-col gap-4">
       <span className="text-sm sm:text-xl font-bold text-black text-start px-4">
-        کار پایا چه خدماتی ارائه میدهد
+        مجله ها
       </span>
       <Swiper
         spaceBetween={16}
@@ -29,11 +30,11 @@ const HomePageArticles = (props) => {
         centeredSlides={true}
         loop={true}
       >
-        {props?.data?.data?.map((item, index) => (
+        {props?.data?.map((item) => (
           <SwiperSlide style={{ width: "fit-content" }} key={item.id}>
-            <div className="w-[190px] sm:w-[380px] h-[226px] sm:h-[400px] rounded-2xl md:rounded-[32px] overflow-hidden flex flex-col items-center gap-[10px] bg-[#F6F6F6] shadow-[0_1px_4px_0_rgba(188,188,188,0.25)] p-2 sm:p-4">
+            <div className="w-[190px] sm:w-[380px] h-[226px] sm:h-[400px] rounded-2xl md:rounded-[32px] overflow-hidden flex flex-col items-center gap-[10px] bg-[#FFFFFF] shadow-[0_0_8px_0_rgba(162,162,162,0.25)] p-2 sm:p-4">
               <Image
-                src={`${process.env.BASE_API}/web${API_PATHS.FILE}/${item.image_id}`}
+                src={item["featured_image"]}
                 className="w-full aspect-[174/135] rounded-lg"
                 width={174}
                 height={135}
@@ -43,9 +44,10 @@ const HomePageArticles = (props) => {
                 {item.title}
               </span>
               <div className="flex justify-between items-center w-full ">
-                <p className="text-[#6D6D6D] text-xs md:text-sm">
-                  {moment(item.created_at * 1000).format("L")}
-                </p>
+                {/*<p className="text-[#6D6D6D] text-xs md:text-sm">*/}
+                {/*  {moment(item.created_at * 1000).format("L")}*/}
+                {/*</p>*/}
+                <p className="text-[#6D6D6D] text-xs md:text-sm">{item.date}</p>
                 <button className="text-[#F66B34] flex items-center gap-1">
                   <span className="font-medium text-xs sm:text-base">
                     ادامه
