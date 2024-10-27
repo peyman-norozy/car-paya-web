@@ -54,7 +54,7 @@ const PriceEstimate = () => {
       </section>
       <section
         className={
-          "lg:hidden flex justify-start lg:mt-[53px] self-center mb-[20px]"
+          "lg:hidden flex justify-start lg:mt-[53px] mt-[20px] self-center mb-[20px]"
         }
       >
         <Link
