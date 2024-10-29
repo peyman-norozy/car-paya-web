@@ -11,6 +11,7 @@ import instagram from "@/public/assets/images/instagram.png";
 import linkedin from "@/public/assets/images/linkedin.png";
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import ScrollTop from "@/components/ScrollTop";
 
 const Footer = (props) => {
   const [footerState, setFooterState] = useState(true);
@@ -205,6 +206,11 @@ const Footer = (props) => {
         ""
       )}
       {innerWidthNumber < 1025 && <MobileBottomNav />}
+      <div
+        className={"bg-[#F4F4F4] p-1 absolute -top-[33px] left-10 rounded-full"}
+      >
+        <ScrollTop />
+      </div>
     </footer>
   );
 };
