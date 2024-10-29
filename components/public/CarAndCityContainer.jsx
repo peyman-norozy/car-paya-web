@@ -24,10 +24,10 @@ const CarAndCityContainer = (props) => {
   // }, [toastieDisplay, searchParams, pathName]);
 
   useEffect(() => {
-    setClient(true)
+    setClient(true);
     if (typeof window !== "undefined") {
       const selectedVehicle = JSON.parse(
-        localStorage.getItem("selectedVehicle")
+        localStorage.getItem("selectedVehicle"),
       );
       const city = JSON.parse(localStorage.getItem("city"));
       if (preventFirstRender) {
@@ -45,16 +45,16 @@ const CarAndCityContainer = (props) => {
   }
   return (
     <div
-      className={`lg:absolute fixed transition-all duration-500 ${props.modalClickState ? "bottom-0 right-0 left-0" : "-bottom-[100vh]"} w-full lg:top-0 lg:right-0.5 lg:h-full lg:z-0 z-[10000] flex flex-col`}
+      className={`lg:absolute fixed transition-all duration-500 ${props.modalClickState ? "bottom-0 right-0 left-0" : "-bottom-[100vh]"} w-full lg:top-2 lg:right-1 lg:h-full lg:z-0 z-[10000] flex flex-col`}
     >
       {(() => {
         switch (asideStatus) {
           case "car_city":
             return (
               <SelectCarAndCity
-              buttonTitle={props.title}
-              onClick={props.onClick}
-              // href={props.href}
+                buttonTitle={props.title}
+                onClick={props.onClick}
+                // href={props.href}
                 // buttonTitle={"درخواست باتری"}
                 // href={
                 //   JSON.parse(localStorage.getItem("selectedVehicle"))?.id &&

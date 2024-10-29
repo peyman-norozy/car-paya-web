@@ -56,26 +56,36 @@ const UserPanelAttribute = (props) => {
   };
 
   return (
-    <Fragment>
+    <ul className={"flex flex-col"}>
       {/*href={"/panel"}*/}
 
-      <button
+      <li
         onClick={panelClickHandler}
-        className={`cursor-pointer hover:bg-[#0004] ${
-          firstPath === "panel" ? "bg-[#0004]" : ""
-        } flex items-center gap-2 h-[40px] px-2`}
+        className={`cursor-pointer border-b flex items-center gap-2 py-[10px]`}
       >
-        <i className={"cc-user text-24"} />
-        <span className={"text-[#0F0F0F] font-medium text-14"}>پنل کاربری</span>
-      </button>
-      <button
-        className="cursor-pointer hover:bg-[#0004] flex items-center gap-2 h-[40px] px-2"
+        <span
+          className={`flex w-full items-center hover:bg-[#FDE7DE] gap-1 py-2 pr-2 rounded-8 ${firstPath === "panel" ? "bg-[#FDE7DE]" : ""}`}
+        >
+          <i className={"cc-user text-24"} />
+          <span className={"text-[#0F0F0F] font-medium text-14"}>
+            پنل کاربری
+          </span>
+        </span>
+      </li>
+      <li
+        className="cursor-pointer flex items-center gap-2 py-[10px]"
         onClick={exitLogin}
       >
-        <i className={"cc-undo text-24"} />
-        <span className={"text-[#0F0F0F] font-medium text-14"}>خروج</span>
-      </button>
-    </Fragment>
+        <span
+          className={
+            "flex w-full items-center hover:bg-[#FDE7DE] gap-1 py-2 pr-2 rounded-8"
+          }
+        >
+          <i className={"cc-undo text-24"} />
+          <span className={"text-[#0F0F0F] font-medium text-14"}>خروج</span>
+        </span>
+      </li>
+    </ul>
   );
 };
 

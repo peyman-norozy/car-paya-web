@@ -62,6 +62,7 @@ import { useSelector } from "react-redux";
 import CarAndCityContainer from "@/components/public/CarAndCityContainer";
 import nProgress from "nprogress";
 import Counseling from "@/components/Counseling";
+import BachelorSteps from "@/components/BachelorSteps";
 // import CarAndCityContainer from "./public/CarAndCityContainer";
 
 const VerificationFirstStep = (props) => {
@@ -144,45 +145,52 @@ const VerificationFirstStep = (props) => {
   const active = data.length > 0;
 
   return (
-    <div className="lg:flex items-start gap-8 mt-1 lg:mt-10 max-w-[1772px] m-auto pb-4 relative">
+    <div className={"relative"}>
+      <CarAndCityContainer
+        title={"ثبت درخواست کارشناسی"}
+        onClick={PackageStepHandler}
+        setModalClickState={setModalClickState}
+        modalClickState={modalClickState}
+      />
+      <div className="sm:rounded-3xl flex p-4 flex-col items-center bg-[#EBF5FF] lg:h-[500px] lg:p-10 xl:p-16 lg:gap-16 mt-[25px]">
+        <div className="flex flex-col gap-2 items-start self-start lg:gap-11">
+          <h1 className="text-lg lg:text-2xl font-medium lg:font-bold text-[#000000]">
+            کارشناسی وسیله نقلیه
+          </h1>
+          <p className="text-sm lg:text-2xl text-[#000000] font-medium lg:font-bold">
+            کارشناسی مطمئن با تیم کار پایا
+          </p>
+        </div>
+        <div className="relative self-end lg:scale-125 xl:scale-150">
+          <Image
+            className="w-[287px] h-[164px]"
+            src={carshenasi}
+            width={287}
+            height={164}
+            alt={"carshenasi image"}
+          />
+          <Image
+            src={zarebin}
+            className="absolute zarebin"
+            width={124}
+            height={128}
+            alt={"zarebin icon"}
+          />
+        </div>
+        <button
+          className="bg-[#F66B34] rounded-md py-2 px-1 text-[#FEFEFE] w-fit text-xs mt-4 font-medium lg:hidden"
+          onClick={() => {
+            setModalClickState(true);
+          }}
+          // onClick={PackageStepHandler}
+        >
+          {vehicleVerificationBasket.length ? "ادامه " : ""}درخواست کارشناسی
+        </button>
+      </div>
       <div
         className={"w-full lg:w-[calc(100%-424px)] mr-auto gap-8 flex flex-col"}
       >
-        <div className="sm:rounded-3xl flex p-4 flex-col items-center bg-[#EBF5FF] lg:h-[500px] lg:p-10 xl:p-16 lg:gap-16">
-          <div className="flex flex-col gap-2 items-start self-start lg:gap-11">
-            <h1 className="text-lg lg:text-2xl font-medium lg:font-bold text-[#000000]">
-              کارشناسی وسیله نقلیه
-            </h1>
-            <p className="text-sm lg:text-2xl text-[#000000] font-medium lg:font-bold">
-              کارشناسی مطمئن با تیم کار پایا
-            </p>
-          </div>
-          <div className="relative self-end lg:scale-125 xl:scale-150">
-            <Image
-              className="w-[287px] h-[164px]"
-              src={carshenasi}
-              width={287}
-              height={164}
-              alt={"carshenasi image"}
-            />
-            <Image
-              src={zarebin}
-              className="absolute zarebin"
-              width={124}
-              height={128}
-              alt={"zarebin icon"}
-            />
-          </div>
-          <button
-            className="bg-[#F66B34] rounded-md py-2 px-1 text-[#FEFEFE] w-fit text-xs mt-4 font-medium lg:hidden"
-            onClick={() => {
-              setModalClickState(true);
-            }}
-            // onClick={PackageStepHandler}
-          >
-            {vehicleVerificationBasket.length ? "ادامه " : ""}درخواست کارشناسی
-          </button>
-        </div>
+        <BachelorSteps />
         <Counseling />
         <div className="flex flex-col items-center gap-3 text-[#000000]">
           <h2 className="font-bold">چرا کار پایا !</h2>
@@ -229,12 +237,6 @@ const VerificationFirstStep = (props) => {
         <CostumerSatisfaction />
         <FrequentQuestions /> */}
         <ToastContainer rtl={true} />
-        <CarAndCityContainer
-          title={"ثبت درخواست کارشناسی"}
-          onClick={PackageStepHandler}
-          setModalClickState={setModalClickState}
-          modalClickState={modalClickState}
-        />
       </div>
     </div>
   );

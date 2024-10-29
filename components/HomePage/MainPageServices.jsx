@@ -22,7 +22,7 @@ const MainPageServices = (props) => {
         }}
       >
         <div
-          className="grid grid-cols-3 xl:grid-cols-4 gap-y-[24px] gap-5 sm:gap-6 p-1 justify-items-center"
+          className="grid grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6 p-1 justify-items-center"
           ref={serviceRef}
         >
           {serviceData.map((item, index) => (
@@ -30,11 +30,11 @@ const MainPageServices = (props) => {
               href={item.href}
               key={index}
               className={
-                "inline-block sm:w-[220px] sm:h-[102px] w-[96px] h-[79px] shadow-[0_0_5px_0_rgba(162,162,162,0.25)] rounded-8"
+                "inline-block sm:w-[220px] w-[96px] shadow-[0_0_5px_0_rgba(162,162,162,0.25)] rounded-8"
               }
             >
               <div
-                className="w-full h-full flex flex-col items-center gap-2 sm:gap-3 rounded-lg"
+                className="w-full h-full flex flex-col items-center justify-around py-2 gap-2 sm:gap-3 rounded-lg"
                 key={index}
               >
                 <Image

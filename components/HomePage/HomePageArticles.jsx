@@ -26,6 +26,8 @@ const HomePageArticles = (props) => {
           width: "calc(100% - 32px)",
           marginRight: "4px",
           marginLeft: "16px",
+          paddingTop: "4px",
+          paddingBottom: "4px",
         }}
         // centeredSlides={true}
         // loop={true}

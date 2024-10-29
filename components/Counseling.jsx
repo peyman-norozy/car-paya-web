@@ -1,6 +1,8 @@
+"use client";
 import React from "react";
 import Image from "next/image";
-import lines from "@/public/assets/images/lines.png";
+import lines from "@/public/assets/images/animationscrol.png";
+import { motion } from "framer-motion";
 
 const Counseling = () => {
   return (
@@ -20,13 +22,21 @@ const Counseling = () => {
           کار پایا در تمامی هفته پاسخگو شماست.
         </p>
       </div>
-      <Image
-        className="top-6 absolute w-full h-[180px]"
-        src={lines}
-        width={430}
-        height={179}
-        alt={"line icon"}
-      />
+      <div className="top-6 relative h-[91px] w-[3127px] overflow-visible">
+        {/* تغییر overflow به visible */}
+        <div
+          className={
+            "bg-[url('/assets/images/animationscrol.png')] h-[91px] w-[3127px] bg-cover bg-center bg-no-repeat absolute top-[-180px] left-[1000px] moving-image"
+          }
+        ></div>
+        {/*<Image*/}
+        {/*  src={lines}*/}
+        {/*  width={3127}*/}
+        {/*  height={93}*/}
+        {/*  alt={"line icon"}*/}
+        {/*  className="top-14 absolute h-[91px] w-[3127px] moving-image"*/}
+        {/*/>*/}
+      </div>
     </div>
   );
 };
