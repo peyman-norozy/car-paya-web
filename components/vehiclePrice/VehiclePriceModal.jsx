@@ -112,14 +112,14 @@ const VehiclePriceModal = (props) => {
             onChange={inputChangeHandler}
           >
             <option value={null}>رنگ خودرو</option>
-            <option value={"2024"}>سفید</option>
-            <option value={"2023"}>مشکی</option>
-            <option value={"2022"}>نوک مدادی</option>
-            <option value={"2021"}>خاکستری</option>
-            <option value={"2020"}>قرمز</option>
-            <option value={"2019"}>آبی</option>
-            <option value={"2018"}>سبز</option>
-            <option value={"2017"}>زرد</option>
+            <option value={"سفید"}>سفید</option>
+            <option value={"مشکی"}>مشکی</option>
+            <option value={"نوک مدادی"}>نوک مدادی</option>
+            <option value={"خاکستری"}>خاکستری</option>
+            <option value={"قرمز"}>قرمز</option>
+            <option value={"ابی"}>آبی</option>
+            <option value={"سبز"}>سبز</option>
+            <option value={"زرد"}>زرد</option>
           </select>
           <i
             className={
