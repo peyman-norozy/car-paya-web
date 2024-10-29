@@ -32,7 +32,7 @@ const SelectCarAndCity = (props) => {
   return (
     <section
       className={
-        "bg-[#FDFDFD] lg:w-[409px] w-full h-screen lg:h-[485px] lg:pt-6 lg:rounded-2xl sticky right-2 top-32 flex flex-col justify-between overflow-hidden gap-4 shadow-[0_0_6px_6px_rgba(125,125,125,0.2)] z-50"
+        "bg-[#FDFDFD] lg:w-[409px] w-full h-screen lg:h-[485px] lg:pt-6 lg:rounded-2xl sticky right-0 top-0 flex flex-col justify-between overflow-hidden gap-4 shadow-[0_0_6px_6px_rgba(125,125,125,0.2)] z-50"
       }
     >
       <div className="shadow-[0_2px_8px_0_rgba(148,148,148,0.25)] flex items-center justify-end h-14 px-4 lg:hidden">
@@ -93,7 +93,7 @@ const SelectCarAndCity = (props) => {
           onClick={() => {
             props.setToastieDisplay((prev) => !prev);
             props.setPreventFirstRender(true);
-            props.onClick()
+            props.onClick();
           }}
           className={`w-[269px] h-[40px] ${carSelectInputState ? "bg-[#F66B34]" : "bg-[#F66B3433]"} text-[#FEFEFE] flex justify-center items-center font-medium rounded-[8px]`}
         >
