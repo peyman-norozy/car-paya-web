@@ -63,6 +63,7 @@ const HomePageMainSlider = () => {
               }
               width={1600}
               height={400}
+              alt={"slider"}
               className="w-full aspect-[1344/750] sm:aspect-[4/1]"
             />
             {item.description && (
