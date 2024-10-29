@@ -1,6 +1,6 @@
-import SupportContact from "@/components/SupportContact";
 import NavigationBar from "@/components/NavigationBar";
 import React from "react";
+import HeaderLogo from "@/components/HeaderLogo";
 
 const ResponsiveMenu = React.forwardRef((props, ref) => {
   return (
@@ -10,16 +10,15 @@ const ResponsiveMenu = React.forwardRef((props, ref) => {
       }`}
     >
       <div
-        className={`fixed top-0 right-0 flex flex-col justify-between w-full h-screen bg-white transition-all duration-500 p-8 ${
+        className={`fixed top-0 right-0 flex flex-col w-full h-screen bg-white transition-all duration-500 p-8 ${
           props.newMenueState ? "translate-x-[1000px]" : "translate-x-0"
         }`}
         ref={ref}
       >
-        <i
-          className={
-            "cc-close-circle text-[30px] absolute top-2 left-8 cursor-pointer"
-          }
-        />
+        <div className={"flex items-center justify-between"}>
+          <HeaderLogo />
+          <i className={"cc-close-circle text-[30px] cursor-pointer"} />
+        </div>
         <NavigationBar
           class_name={"flex flex-col"}
           styleState={"habmergerMenue"}
@@ -27,9 +26,6 @@ const ResponsiveMenu = React.forwardRef((props, ref) => {
           ref={props.refCategory}
           childrenProps={props.childrenProps}
         />
-        {/*<div className="flex gap-2 pb-4 pr-2">*/}
-        {/*  <SupportContact />*/}
-        {/*</div>*/}
       </div>
     </div>
   );
