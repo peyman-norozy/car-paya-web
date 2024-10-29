@@ -20,6 +20,7 @@ const RadioInput = (props) => {
         <div className="flex w-full h-full items-center relative z-[3]">
           {props.options?.map((item, index) => (
             <span
+              key={index}
               className={`h-full flex justify-center items-center transition-colors duration-150 ${checked === index ? "text-white" : ""}`}
               style={{
                 width: `${Math.floor((1 / props.options.length) * 100)}%`,
