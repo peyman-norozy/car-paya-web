@@ -1,6 +1,5 @@
+"use client";
 import React from "react";
-import Image from "next/image";
-import lines from "@/public/assets/images/lines.png";
 
 const Counseling = () => {
   return (
@@ -20,13 +19,14 @@ const Counseling = () => {
           کار پایا در تمامی هفته پاسخگو شماست.
         </p>
       </div>
-      <Image
-        className="top-6 absolute w-full h-[180px]"
-        src={lines}
-        width={430}
-        height={179}
-        alt={"line icon"}
-      />
+      {/* تغییر overflow به visible */}
+      <div className="top-6 relative h-[91px] w-[3127px] overflow-visible">
+        <div
+          className={
+            "bg-[url('/assets/images/animationscrol.png')] h-[91px] w-[3127px] bg-cover bg-center bg-no-repeat absolute top-[-180px] left-[1000px] moving-image"
+          }
+        ></div>
+      </div>
     </div>
   );
 };

@@ -283,16 +283,31 @@ li {
 }
 
 .home_banner_slider .swiper-pagination{
-    background-color: #FBFBFB;
     width: 140px !important;
     height: 30px !important;
     margin: auto !important;
-    padding-top: 2px !important;
+    padding-top: 10px !important;
     right: 0 !important;
     bottom: 0 !important;
     border-top-right-radius: 15px;
     border-top-left-radius: 15px;
 }
+.home_banner_slider .swiper-pagination::before {
+    content: ""; /* محتوای خالی */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    bottom: 0;
+    transform: translate(-50%, -50%);
+    width: 200px;
+    height: 50px;
+    background-image: url('/assets/icons/Rectangle.svg'); /* مسیر تصویر */
+    background-size: 200px 60px; /* تنظیم اندازه تصویر */
+    background-position: 0 0 0 0 ; /* موقعیت‌دهی تصویر */
+    background-repeat: no-repeat; /* عدم تکرار تصویر */
+    z-index: -1; /* ارسال به پشت عنصر اصلی */
+}
+
 
 .home_banner_slider .swiper-pagination-bullet {
     background-color: #D9D9D9;
@@ -301,8 +316,12 @@ li {
     height: 7px;
     border-radius: 50px !important;
     transition: all .3s ease-in;
-
+    position: relative !important;
+    z-index: 10 !important;
 }
+
+
+
 
 .home_banner_slider .swiper-pagination-bullet.swiper-pagination-bullet-active {
     background-color: #F66B34;
@@ -705,3 +724,19 @@ li {
       transform: scale(1, 1);
     }
   }
+
+@keyframes move {
+    0% {
+        transform: translateX(0px);
+    }
+    50% {
+        transform: translateX(-1000px);
+    }
+    100% {
+        transform: translateX(0px);
+    }
+}
+
+.moving-image {
+    animation: move 10s ease-in-out infinite;
+}
