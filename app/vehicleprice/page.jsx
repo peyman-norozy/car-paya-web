@@ -6,6 +6,7 @@ import CarSelect from "@/components/public/CarSelect";
 import { car_parts } from "@/staticData/car_parts";
 import RadioInput from "@/components/vehiclePrice/RadioInput";
 import { postData } from "@/utils/client-api-function-utils";
+import { useRouter } from "next/navigation";
 
 const vehicleprice = (props) => {
   const [client, setClient] = useState(false);
@@ -15,6 +16,7 @@ const vehicleprice = (props) => {
   const [carData, setCarData] = useState({});
   const [partsData, setPartsData] = useState({});
   const [display, setDispaly] = useState(false);
+  const router = useRouter();
   useEffect(() => {
     setClient(true);
     if (typeof window !== "undefined") {
@@ -41,9 +43,14 @@ const vehicleprice = (props) => {
       brand: JSON.parse(localStorage.getItem("selectedVehicle"))?.brand,
       items: Object.values(partsData),
     };
-    const res = await postData("/web/pricing/calculations", data);
-    console.log(res);
+    console.log(JSON.stringify(data));
+    router.push(
+      `/vehicleprice/result?year=${data.year}&year=${data.year}&color=${data.color}&operation=${data.operation}&model=${data.model}&tip=${data.tip}&brand=${data.brand}&items=${data.items.join(",")}`
+    );
+    // const res = await postData("/web/pricing/calculations", data);
+    // console.log(res);
   }
+  //{"color":"2023","year":"2022","operation":"10000","model":"Q5","tip":"آئودی Q5","brand":"آئودی","items":["RightFrontChassisMinorDamaged","TrunkPartialColored","RightFrontDoorChanged"]}
 
   if (!client) {
     return null;
