@@ -12,15 +12,14 @@ const navBarItems = [
   { title: "خدمات", href: "/services", id: "services" },
   { title: "درباره ما", href: "/about-us", id: "about_us" },
   { title: "تماس با ما", href: "/contact-us", id: "contact_us" },
-  { title: "مقالات", href: "/mags", id: "mags" },
+  { title: "مقالات", href: "#", id: "mags" },
 ];
 const navBarItemsResponsive = [
-  { title: "کیف پول", href: "/", id: "home", icon: "cc-wallet" },
+  { title: "کیف پول", href: "#", id: "home", icon: "cc-wallet" },
   { title: "خدمات", id: "category", icon: "cc-vector-stroke" },
-  { title: "پروفایل", href: "/services", id: "services", icon: "cc-sms" },
   {
     title: "مجله ها",
-    href: "/mags",
+    href: "#",
     id: "mags",
     icon: "cc-document-align-right",
   },
@@ -72,7 +71,7 @@ const NavigationBar = React.forwardRef((props, ref) => {
             item.href && item.href.length > 0 ? (
               <li
                 key={item.id + index}
-                className="cursor-pointer text-[#0F0F0F] font-medium text-14 py-[10px]"
+                className="cursor-pointer text-[#0F0F0F] font-medium text-14 py-[10px] border-b"
               >
                 <Navlink href={item.href} styleState={props.styleState}>
                   <div className={"flex items-center gap-1"}>
@@ -86,14 +85,14 @@ const NavigationBar = React.forwardRef((props, ref) => {
                 {innerWidthNumber >= 1000 ? (
                   <li
                     key={item.id + index}
-                    className="cursor-pointer text-[#0F0F0F] font-medium text-14"
+                    className="cursor-pointer text-[#0F0F0F] font-medium text-14 py-[10px] border-b"
                     onMouseEnter={categoryPoppupDisplay}
                     onMouseLeave={categoryPoppupHidden}
                   >
                     {item.title}
                   </li>
                 ) : (
-                  <li ref={ref}>
+                  <li ref={ref} className={"border-b py-[10px]"}>
                     <div
                       className={`flex justify-between items-center py-[8px] pr-[8px] cursor-pointer`}
                       ref={ref}
@@ -122,7 +121,7 @@ const NavigationBar = React.forwardRef((props, ref) => {
                       />
                     </div>
                     <ul
-                      className={`transition-all duration-700 overflow-hidden pr-[20px]`}
+                      className={`flex flex-col gap-1 text-12 font-medium transition-all duration-700 overflow-hidden pr-[35px]`}
                       style={
                         newCategoryHeightState
                           ? { height: "0px" }
