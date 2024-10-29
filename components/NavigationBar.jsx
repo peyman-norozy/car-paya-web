@@ -103,8 +103,11 @@ const NavigationBar = React.forwardRef((props, ref) => {
                         className={"text-[#0F0F0F] font-medium text-14"}
                       >
                         <div className={"flex items-center gap-1"}>
-                          <i className={`${item.icon} text-24`} />
-                          <span> {item.title}</span>
+                          <i
+                            slug={"serviceSlug"}
+                            className={`${item.icon} text-24`}
+                          />
+                          <span slug={"serviceSlug"}> {item.title}</span>
                         </div>
                       </div>
                       <Image
