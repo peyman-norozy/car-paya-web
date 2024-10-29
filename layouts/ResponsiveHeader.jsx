@@ -78,6 +78,9 @@ const ResponsiveHeader = (props) => {
       <header
         className={`${props.className} font-light flex justify-between items-center px-[30px] py-[15px] sticky top-0 right-0 left-0 w-[100wh] bg-[#FEFEFE] z-[3000] h-[74px] drop-shadow-[0_3px_10px_rgba(0,0,0,0.1)] lg:shadow-[0_4px_6px_-1px_rgba(255,255,255,0.1),_0_2px_4px_-1px_rgba(255,255,255,0.06)] lg:pb-[26px] lg:pt-[34px] lg:rounded-b-3xl`}
         onClick={(event) => {
+          if (event.target.getAttribute("slug") === "serviceSlug") {
+            return null;
+          }
           event.target !== hambergerRef.current && setNewMenueState(true);
           asideHambergerMenuRef?.current === event.target &&
             setNewMenueState(false);
