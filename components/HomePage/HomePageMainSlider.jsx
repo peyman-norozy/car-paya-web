@@ -40,7 +40,7 @@ const HomePageMainSlider = () => {
       .catch((error) => console.log(error));
   }, []);
   return (
-    <div className="w-full home_banner_slider overflow-hidden md:rounded-[32px]">
+    <div className="w-full home_banner_slider overflow-hidden md:rounded-[32px] relative">
       <Swiper
         cssMode={true}
         autoplay={true}
@@ -89,6 +89,15 @@ const HomePageMainSlider = () => {
                     </div>
                 </SwiperSlide>  */}
       </Swiper>
+      {/*<Image*/}
+      {/*  src={"/assets/icons/Rectangle.svg"}*/}
+      {/*  alt={"bullet background"}*/}
+      {/*  width={200}*/}
+      {/*  height={13}*/}
+      {/*  className={*/}
+      {/*    "absolute bottom-0 left-1/2 transform -translate-x-1/2 w-[200px] h-[20px] z-[10]"*/}
+      {/*  }*/}
+      {/*/>*/}
     </div>
   );
 };
