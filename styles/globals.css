@@ -724,3 +724,19 @@ li {
       transform: scale(1, 1);
     }
   }
+
+@keyframes move {
+    0% {
+        transform: translateX(0px);
+    }
+    50% {
+        transform: translateX(-1000px);
+    }
+    100% {
+        transform: translateX(0px);
+    }
+}
+
+.moving-image {
+    animation: move 10s ease-in-out infinite;
+}
