@@ -8,7 +8,7 @@ import RadioInput from "@/components/vehiclePrice/RadioInput";
 import { postData } from "@/utils/client-api-function-utils";
 import { useRouter } from "next/navigation";
 
-const vehicleprice = (props) => {
+const Vehicleprice = (props) => {
   const [client, setClient] = useState(false);
   const [asideStatus, setAsideStatus] = useState("car_city");
   const [toastieDisplay, setToastieDisplay] = useState(false);
@@ -21,7 +21,7 @@ const vehicleprice = (props) => {
     setClient(true);
     if (typeof window !== "undefined") {
       const selectedVehicle = JSON.parse(
-        localStorage.getItem("selectedVehicle")
+        localStorage.getItem("selectedVehicle"),
       );
       if (preventFirstRender) {
         if (!selectedVehicle) {
@@ -45,7 +45,7 @@ const vehicleprice = (props) => {
     };
     console.log(JSON.stringify(data));
     router.push(
-      `/vehicleprice/result?year=${data.year}&year=${data.year}&color=${data.color}&operation=${data.operation}&model=${data.model}&tip=${data.tip}&brand=${data.brand}&items=${data.items.join(",")}`
+      `/vehicleprice/result?year=${data.year}&year=${data.year}&color=${data.color}&operation=${data.operation}&model=${data.model}&tip=${data.tip}&brand=${data.brand}&items=${data.items.join(",")}`,
     );
     // const res = await postData("/web/pricing/calculations", data);
     // console.log(res);
@@ -90,8 +90,9 @@ const vehicleprice = (props) => {
           <div className="w-full h-full bg-[#cfcfcf75] absolute top-0 right-0 rounded-2xl z-10 cursor-not-allowed hidden lg:block"></div>
         )}
         <div className=" grid sm:grid-cols-2 size1400:grid-cols-3 size1770:grid-cols-4 gap-4 ">
-          {car_parts.map((item) => (
+          {car_parts.map((item, index) => (
             <RadioInput
+              key={index}
               options={item.options}
               name={item.persian_name}
               tabClickHandler={tabClickHandler}
@@ -111,4 +112,4 @@ const vehicleprice = (props) => {
   );
 };
 
-export default vehicleprice;
+export default Vehicleprice;
