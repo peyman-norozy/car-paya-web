@@ -31,7 +31,7 @@ const ResultPage = () => {
   }
 
   return (
-    <div className="p-10 flex items-center gap-12 justify-center ">
+    <div className="p-10 flex md:flex-row flex-col items-center gap-12 justify-center ">
       <div className="flex flex-col gap-2 shadow-[0_0_6px_6px_rgba(125,125,125,0.2)] p-4 rounded-xl w-[310px]">
         <Image
           src={process.env.BASE_API + "/web/file/" + data.image}
