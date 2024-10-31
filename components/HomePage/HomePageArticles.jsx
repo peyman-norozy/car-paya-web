@@ -5,9 +5,13 @@ import "swiper/css";
 import Image from "next/image";
 import { API_PATHS } from "@/configs/routes.config";
 import moment from "jalali-moment";
+import { notFound } from "next/navigation";
 
 const HomePageArticles = (props) => {
   console.log(props);
+  if (props?.data?.error?.code === 404) {
+    return <div>اطلاعاتی یافت نشد ۴۰۴</div>;
+  }
   return (
     <div className="flex flex-col gap-4">
       <span className="text-sm sm:text-xl font-bold text-black text-start px-4">
