@@ -34,7 +34,18 @@ export default function RootLayout({ children }) {
     <Providers>
       <html lang="fa" dir="rtl">
         <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"/>
+          <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
+          />
+          <script
+            id="goftino-widget"
+            dangerouslySetInnerHTML={{
+              __html: `
+        !function(){var i="Cv2fey",a=window,d=document;function g(){var g=d.createElement("script"),s="https://www.goftino.com/widget/"+i,l=localStorage.getItem("goftino_"+i);g.async=!0,g.src=l?s+"?o="+l:s;d.getElementsByTagName("head")[0].appendChild(g);}"complete"===d.readyState?g():a.attachEvent?a.attachEvent("onload",g):a.addEventListener("load",g,!1);}();
+      `,
+            }}
+          />
         </head>
         <body className="bg-[#FBFBFB]">
           <NextTopLoader
@@ -47,7 +58,7 @@ export default function RootLayout({ children }) {
             easing="ease"
             speed={2000}
           />
-          <LoginModal/>
+          <LoginModal />
           <ToastContainer rtl={true} />
           <Suspense>
             <MainLayout>{children}</MainLayout>
