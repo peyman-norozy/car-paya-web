@@ -12,41 +12,39 @@ import { getCurrentData } from "@/utils/api-function-utils";
 import { numberWithCommas } from "@/utils/function-utils";
 
 const SelectService = (props) => {
-  const [productModalState,setProductModalState] = useState(false)
-  const [invoiceModalState,setInvoiceModalState] = useState(false)
-  const [selectedServic , setSelectedService] = useState("")
+  const [productModalState, setProductModalState] = useState(false);
+  const [invoiceModalState, setInvoiceModalState] = useState(false);
+  const [selectedServic, setSelectedService] = useState("");
   const [invoiceData, setInvoiceData] = useState({ data: [], totalPrice: 0 });
 
   const setQuery = useSetQuery();
   const router = useRouter();
-  const renderInvoice = useSelector(
-    (item) => item.todo.renderInvoice
-  );
-  useEffect(() => {
-    getInvoiceData()
-  }, [renderInvoice]);
+  const renderInvoice = useSelector((item) => item.todo.renderInvoice);
+  // useEffect(() => {
+  //   getInvoiceData()
+  // }, [renderInvoice]);
 
-  async function getInvoiceData() {
-    const data = await getCurrentData("/web/segmentation/cart", {
-      cartable_type: "PERIODIC_SERVICE",
-      vehicle_tip_id: JSON.parse(localStorage.getItem("selectedVehicle"))?.id,
-    });
-    if (data.data?.status === "success") {
-      let totalPrice = 0;
-      for (let item of data.data.data) {
-        totalPrice =
-          totalPrice + item.item.item?.discounted_price
-            ? item.item.item?.discounted_price
-            : item.item.item?.price;
-      }
-      setInvoiceData({ data: data.data.data, totalPrice: totalPrice });
-    }
-  }
+  // async function getInvoiceData() {
+  //   const data = await getCurrentData("/web/segmentation/cart", {
+  //     cartable_type: "PERIODIC_SERVICE",
+  //     vehicle_tip_id: JSON.parse(localStorage.getItem("selectedVehicle"))?.id,
+  //   });
+  //   if (data.data?.status === "success") {
+  //     let totalPrice = 0;
+  //     for (let item of data.data.data) {
+  //       totalPrice =
+  //         totalPrice + item.item.item?.discounted_price
+  //           ? item.item.item?.discounted_price
+  //           : item.item.item?.price;
+  //     }
+  //     setInvoiceData({ data: data.data.data, totalPrice: totalPrice });
+  //   }
+  // }
 
   function nextButtonClickHandler() {
     setQuery.updateQueryParams(
       { package_id: 1 },
-      "/periodic-service/time-selection"
+      "/periodic-service/time-selection",
     );
   }
 
@@ -106,14 +104,30 @@ const SelectService = (props) => {
         </div>
         <div className="w-full p-[10px] shadow-[0_0_6px_0_rgba(125,125,125,0.5)] flex justify-between rounded-lg items-center">
           <span className="font-medium text-sm">نمایندگی ایران خودرو</span>
-          <div className="relative flex justify-center items-center shadow-[0_0_6px_0_rgba(125,125,125,0.5)] size-[36px] rounded-[4px]" onClick={()=>{setInvoiceModalState(true)}}>
-            <i className="cc-wallet text-xl"/>
-            <span className={`rounded-full bg-[#F66B34] text-[#FEFEFE] size-[18px] flex items-center justify-center absolute -top-[9px] -right-[9px] text-xs pt-1 ${invoiceData.data.length?"":"hidden"}`}>{invoiceData.data.length}</span>
+          <div
+            className="relative flex justify-center items-center shadow-[0_0_6px_0_rgba(125,125,125,0.5)] size-[36px] rounded-[4px]"
+            onClick={() => {
+              setInvoiceModalState(true);
+            }}
+          >
+            <i className="cc-wallet text-xl" />
+            <span
+              className={`rounded-full bg-[#F66B34] text-[#FEFEFE] size-[18px] flex items-center justify-center absolute -top-[9px] -right-[9px] text-xs pt-1 ${invoiceData.data.length ? "" : "hidden"}`}
+            >
+              {invoiceData.data.length}
+            </span>
           </div>
         </div>
         <div className="grid grid-cols-3 gap-x-3 gap-y-6">
-          {props.data.map((item , index) => (
-            <div className="bg-white shadow-[0_0_6px_0_rgba(125,125,125,0.5)] rounded-lg flex flex-col items-center w-full p-2 pb-1 gap-1" onClick={()=>{setSelectedService(item.id);setProductModalState(true)}} key={index}>
+          {props.data.map((item, index) => (
+            <div
+              className="bg-white shadow-[0_0_6px_0_rgba(125,125,125,0.5)] rounded-lg flex flex-col items-center w-full p-2 pb-1 gap-1"
+              onClick={() => {
+                setSelectedService(item.id);
+                setProductModalState(true);
+              }}
+              key={index}
+            >
               <Image
                 className="w-full rounded-lg aspect-[67/50]"
                 src={
@@ -136,14 +150,29 @@ const SelectService = (props) => {
       <div className="fixed bottom-0 right-0 w-full flex justify-between p-4 bg-white shadow-[0_-2px_8px_0_rgba(176,176,176,0.25)] rounded-t-2xl z-[3000]">
         <div className="flex-col flex items-start text-sm gap-1">
           <span>جمع سفارش:</span>
-          <span className="font-medium text-[#518DD5]">{numberWithCommas(invoiceData.totalPrice)} تومان</span>
+          <span className="font-medium text-[#518DD5]">
+            {numberWithCommas(invoiceData.totalPrice)} تومان
+          </span>
         </div>
-        <button className={`${invoiceData.totalPrice?"bg-[#F66B34]":"bg-[#FCCAAC]"} rounded-lg text-[#FEFEFE] font-medium py-2 px-3`} disabled={invoiceData.totalPrice?false:true} onClick={nextButtonClickHandler}>
+        <button
+          className={`${invoiceData.totalPrice ? "bg-[#F66B34]" : "bg-[#FCCAAC]"} rounded-lg text-[#FEFEFE] font-medium py-2 px-3`}
+          disabled={invoiceData.totalPrice ? false : true}
+          onClick={nextButtonClickHandler}
+        >
           تایید و تکمیل سفارش
         </button>
       </div>
-      <SelectProductModal params={props.params} productModalState={productModalState} setProductModalState={setProductModalState} selectedServic={selectedServic}/>
-      <InvoiceModal invoiceModalState={invoiceModalState} setInvoiceModalState={setInvoiceModalState} invoiceData={invoiceData}/>
+      <SelectProductModal
+        params={props.params}
+        productModalState={productModalState}
+        setProductModalState={setProductModalState}
+        selectedServic={selectedServic}
+      />
+      <InvoiceModal
+        invoiceModalState={invoiceModalState}
+        setInvoiceModalState={setInvoiceModalState}
+        invoiceData={invoiceData}
+      />
     </div>
   );
 };

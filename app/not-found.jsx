@@ -1,14 +1,17 @@
-import Link from 'next/link'
+import Link from "next/link";
+import Image from "next/image";
 
-export default async function NotFound() {
-
-    return (
-        <div>
-            <h2>Not Found</h2>
-            <p>Could not find requested resource</p>
-            <p>
-                View <Link href="/blog">all posts</Link>
-            </p>
-        </div>
-    )
+export default function NotFound() {
+  return (
+    <div
+      className={"bg-[#FFd83B] w-full flex justify-center items-center p-20"}
+    >
+      <Image
+        src={"/assets/images/not-found.png"}
+        alt={"not found"}
+        width={794}
+        height={399}
+      />
+    </div>
+  );
 }

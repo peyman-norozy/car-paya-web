@@ -276,24 +276,32 @@ export const batteryFaqData = [
   },
 ];
 export const headerNavData = [
-  {
-    title: "خدمات",
-    options: [
-      { label: "کارشناسی", link: "/vehicle-inspection" },
-      { label: "سرویس دوره ای", link: "/periodic-service" },
-      { label: "باتری", link: "/batteries?attribute_slug=type_vehicle" },
-      { label: "دیتیلینگ", link: "/detailing?attribute_slug=type_vehicle" },
-      { label: "بیمه", link: "#" },
-      { label: "خرید خودرو", link: "#" },
-      { label: "فروش خودرو", link: "#" },
-      { label: "شناسنامه", link: "/panel/my-vehicle/my-car" },
-    ],
-  },
-  { title: "سفارش ها", link: "#" },
-  { title: "تخمین قیمت", link: "#" },
-  { title: "درباره ما", link: "#" },
-  { title: "تماس با ما", link: "#" },
-  { title: "مجله ها", link: "#" },
+  // {
+  //   title: "خدمات",
+  //   options: [
+  //     { label: "کارشناسی", link: "/vehicle-inspection" },
+  //     { label: "سرویس دوره ای", link: "/periodic-service" },
+  //     { label: "باتری", link: "/batteries?attribute_slug=type_vehicle" },
+  //     { label: "دیتیلینگ", link: "/detailing?attribute_slug=type_vehicle" },
+  //     { label: "فروشگاه", link: "https://carpaya.shop" },
+  //
+  //     // { label: "بیمه", link: "#" },
+  //     // { label: "خرید خودرو", link: "#" },
+  //     // { label: "فروش خودرو", link: "#" },
+  //     // { label: "شناسنامه", link: "/panel/my-vehicle/my-car" },
+  //   ],
+  // },
+  { title: "صفحه اصلی", link: "/" },
+  { title: "کارشناسی", link: "/vehicle-inspection" },
+  { title: "سرویس دوره ای", link: "/periodic-service" },
+  { title: "باتری", link: "/batteries?attribute_slug=type_vehicle" },
+  { title: "دیتیلینگ", link: "/detailing?attribute_slug=type_vehicle" },
+  { title: "فروشگاه", link: "https://carpaya.shop" },
+  // { title: "سفارش ها", link: "#" },
+  { title: "تخمین قیمت", link: "/vehicleprice" },
+  { title: "درباره ما", link: "https://carpaya.com/blog/about-us/" },
+  { title: "تماس با ما", link: "https://carpaya.com/blog/contact-us/" },
+  { title: "مجله ها", link: "https://carpaya.com/blog" },
 ];
 
 // eslint-disable-next-line import/no-anonymous-default-export

@@ -51,9 +51,9 @@ const CarSelect = (props) => {
 
   const attributeValue = searchParams.get("attribute_value");
 
-  useEffect(() => {
-    getInvoiceData();
-  }, [renderInvoice, pathname, searchParams]);
+  // useEffect(() => {
+  //   getInvoiceData();
+  // }, [renderInvoice, pathname, searchParams]);
 
   useEffect(() => {
     if (pathname === "/" || pathname === "/periodic-service") {
@@ -104,34 +104,34 @@ const CarSelect = (props) => {
     );
   }
 
-  async function getInvoiceData() {
-    const cartableType = pathname
-      .split("/")[1]
-      .toUpperCase()
-      .split("-")
-      .join("_");
-    const data = await getCurrentData("/web/segmentation/cart", {
-      cartable_type: cartableType,
-      vehicle_tip_id: JSON.parse(localStorage.getItem("selectedVehicle"))?.id,
-    });
-    if (data.data?.status === "success") {
-      let totalPrice = 0;
-      for (let item of data.data.data) {
-        totalPrice =
-          totalPrice + item.item.item?.discounted_price
-            ? item.item.item?.discounted_price
-            : item.item.item?.price;
-      }
-      setInvoiceData({ data: data.data.data, totalPrice: totalPrice });
-      if (cartableType === "BATTERIES") {
-        dispatch(setBatteriesBasketLength(data.data.data.length));
-      } else if (cartableType === "PERIODIC_SERVICE") {
-        dispatch(setPeriodicServiceBasketLength(data.data.data.length));
-      } else if (cartableType === "VEHICLE_VERIFICATION") {
-        dispatch(setVehicleVerificationBasketLength(data.data.data));
-      }
-    }
-  }
+  // async function getInvoiceData() {
+  //   const cartableType = pathname
+  //     .split("/")[1]
+  //     .toUpperCase()
+  //     .split("-")
+  //     .join("_");
+  //   const data = await getCurrentData("/web/segmentation/cart", {
+  //     cartable_type: cartableType,
+  //     vehicle_tip_id: JSON.parse(localStorage.getItem("selectedVehicle"))?.id,
+  //   });
+  //   if (data.data?.status === "success") {
+  //     let totalPrice = 0;
+  //     for (let item of data.data.data) {
+  //       totalPrice =
+  //         totalPrice + item.item.item?.discounted_price
+  //           ? item.item.item?.discounted_price
+  //           : item.item.item?.price;
+  //     }
+  //     setInvoiceData({ data: data.data.data, totalPrice: totalPrice });
+  //     if (cartableType === "BATTERIES") {
+  //       dispatch(setBatteriesBasketLength(data.data.data.length));
+  //     } else if (cartableType === "PERIODIC_SERVICE") {
+  //       dispatch(setPeriodicServiceBasketLength(data.data.data.length));
+  //     } else if (cartableType === "VEHICLE_VERIFICATION") {
+  //       dispatch(setVehicleVerificationBasketLength(data.data.data));
+  //     }
+  //   }
+  // }
 
   async function removeClickHandler(id, serviceType) {
     const carTableType = pathname
