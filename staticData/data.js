@@ -299,9 +299,9 @@ export const headerNavData = [
   { title: "فروشگاه", link: "https://carpaya.shop" },
   // { title: "سفارش ها", link: "#" },
   { title: "تخمین قیمت", link: "/vehicleprice" },
+  { title: "مجله ها", link: "https://carpaya.com/blog" },
   { title: "درباره ما", link: "https://carpaya.com/blog/about-us/" },
   { title: "تماس با ما", link: "https://carpaya.com/blog/contact-us/" },
-  { title: "مجله ها", link: "https://carpaya.com/blog" },
 ];
 
 // eslint-disable-next-line import/no-anonymous-default-export
