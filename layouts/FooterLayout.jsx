@@ -53,7 +53,9 @@ const Footer = (props) => {
                 height={18}
               />
               <a href="tel:02158919" className="flex gap-1 items-center">
-                <span className="font-bold text-[#F66B34] text-sm">58919</span>
+                <span className="font-bold text-[#F66B34] text-sm">
+                  021-58919
+                </span>
                 <i className="cc-call text-sm" />
               </a>
               <p className={"text-12 lg:block hidden"}>
@@ -65,12 +67,34 @@ const Footer = (props) => {
                 دسترسی سریع
               </span>
               <ul className="list-disc grid lg:grid-cols-1 grid-cols-2 pr-4 gap-4 text-[#3C3C3C] text-xs font-medium">
-                <li className="w-fit">درباره ما</li>
-                <li className="w-fit">مجله ها</li>
-                <li className="w-fit">تماس با ما</li>
-                <li className="w-fit">ارتباط پشتیبانی</li>
-                <li className="w-fit">قوانین و مقررات</li>
-                <li className="w-fit">سوالات متداول</li>
+                <li className="w-fit">
+                  <Link href={"https://carpaya.com/blog/about-us/"}>
+                    درباره ما
+                  </Link>
+                </li>
+                <li className="w-fit">
+                  <Link href={"https://carpaya.com/blog/contact-us/"}>
+                    تماس با ما
+                  </Link>
+                </li>
+                <li className="w-fit">
+                  <Link href={"https://carpaya.com/blog/"}>مجله ها</Link>
+                </li>
+                <li className="w-fit">
+                  <Link href={"tel:02158919"}>ارتباط پشتیبانی</Link>
+                </li>
+                <li
+                  className="w-fit cursor-pointer"
+                  onClick={() => alert("به زودی")}
+                >
+                  قوانین و مقررات
+                </li>
+                <li
+                  className="w-fit cursor-pointer"
+                  onClick={() => alert("به زودی")}
+                >
+                  سوالات متداول
+                </li>
               </ul>
             </div>
             <div className="lg:flex hidden flex-col gap-4 ">
@@ -81,9 +105,9 @@ const Footer = (props) => {
                 <li className="w-fit">
                   <Link href={"/vehicle-inspection"}>کارشناسی خودرو</Link>
                 </li>
-                <li className="w-fit">
-                  <Link href={"#"}>بیمه</Link>
-                </li>
+                {/*<li className="w-fit">*/}
+                {/*  <Link href={"#"}>بیمه</Link>*/}
+                {/*</li>*/}
                 <li className="w-fit">
                   <Link href={"/periodic-service"}>سرویس دوره ای</Link>
                 </li>
@@ -99,8 +123,11 @@ const Footer = (props) => {
                 <li className="w-fit">
                   <Link href={"/detailing"}>دیتیلینگ</Link>
                 </li>
+                {/*<li className="w-fit">*/}
+                {/*  <Link href={"#"}>خرید و فروش</Link>*/}
+                {/*</li>*/}
                 <li className="w-fit">
-                  <Link href={"#"}>خرید و فروش</Link>
+                  <Link href={"https://carpaya.shop"}>فروشگاه</Link>
                 </li>
               </ul>
             </div>
@@ -129,13 +156,13 @@ const Footer = (props) => {
                   width={32}
                   height={32}
                 />
-                <Image
-                  className="size-8"
-                  src={youtube}
-                  alt="carcheck"
-                  width={32}
-                  height={32}
-                />
+                {/*<Image*/}
+                {/*  className="size-8"*/}
+                {/*  src={youtube}*/}
+                {/*  alt="carcheck"*/}
+                {/*  width={32}*/}
+                {/*  height={32}*/}
+                {/*/>*/}
                 <Image
                   className="size-8"
                   src={instagram}
@@ -176,8 +203,8 @@ const Footer = (props) => {
                     code="BHIlG5lcIDB6bsGDp8LzoME3yAXovE8d"
                   />
                 </a>
-                <div className="bg-gray-300 size-[60px]"></div>
-                <div className="bg-gray-300 size-[60px]"></div>
+                {/*<div className="bg-gray-300 size-[60px]"></div>*/}
+                {/*<div className="bg-gray-300 size-[60px]"></div>*/}
                 {/* <Image
               src="/assets/icons/Enemad.svg"
               alt="enamd"
