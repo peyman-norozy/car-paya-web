@@ -74,12 +74,12 @@ const SelectProductModal = (props) => {
         }}
       >
         <div className="flex items-center justify-between">
-          <span className="text-[#3C3C3C] font-medium">انتخاب روغن موتور</span>
+          <span className="text-[#3C3C3C] font-medium">انتخاب محصول</span>
           <i className="cc-twitter text-xl" onClick={closeModal} />
         </div>
         <div className="overflow-y-scroll h-[300px]">
           <div className="px-2 h-fit gap-4 flex flex-col py-1">
-            {/* {productData.map((item, index) => (
+            {productData.map((item, index) => (
               <div
                 className={`w-full rounded-[4px] shadow-[0_0_6px_0_rgba(125,125,125,0.5)] flex flex-col gap-3 px-[6px] py-4 transition-all duration-500 ${selectedProduct === item.id ? "border border-[#F58052]" : ""}`}
                 onClick={() => {
@@ -114,7 +114,7 @@ const SelectProductModal = (props) => {
                   </div>
                 </div>
               </div>
-            ))} */}
+            ))}
           </div>
         </div>
         <div className="fixed sm:static w-full rounded-t-2xl shadow-[0_-2px_4px_0_rgba(199,199,199,0.25)] flex justify-center pt-4 pb-6 items-start bottom-0 right-0 bg-white z-[2000] px-10">
