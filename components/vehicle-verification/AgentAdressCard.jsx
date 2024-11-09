@@ -3,7 +3,7 @@ const AgentAdressCard = (props) => {
     <div
       className={`p-4 flex flex-col gap-3 bg-white shadow-[0_0_4px_0_rgba(207,207,207,0.7)] rounded-lg cursor-pointer ${props.selectedAddress === props.data.address_id ? "border border-[#F58052]" : ""} `}
       onClick={() => {
-        props.setSelectedAddressText(props.data.address)
+        props.setSelectedAddressText(props.data.address);
         props.selectedAddress === props.data.address_id
           ? props.setSelectedAddress("")
           : props.setSelectedAddress(props.data.address_id);
