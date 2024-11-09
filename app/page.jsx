@@ -18,7 +18,7 @@ import QuestionMark from "@/components/QuestionMark";
 
 const HomePage = async () => {
   const data = await getDataWithRevalidate(
-    "https://carpaya.com/wp-json/api/v1/random-posts/8",
+    "https://carpaya.com/wp-json/api/v1/random-posts/8"
   );
 
   return (
@@ -32,7 +32,7 @@ const HomePage = async () => {
         <Benefits />
         <HomeBatteries />
         <PriceEstimate />
-        <HomePageArticles data={data} />
+        {/* <HomePageArticles data={data} /> */}
         <QuestionMark />
         {/* <HomePageParallaxSlider /> */}
         {/*<HomePageServiceIntroduction />*/}
