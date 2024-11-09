@@ -7,7 +7,8 @@ import { car_parts } from "@/staticData/car_parts";
 import RadioInput from "@/components/vehiclePrice/RadioInput";
 import { postData } from "@/utils/client-api-function-utils";
 import { useRouter } from "next/navigation";
-
+import periodicLanding from "@/public/assets/images/periodicLanding.png";
+import Image from "next/image";
 const Vehicleprice = (props) => {
   const [client, setClient] = useState(false);
   const [asideStatus, setAsideStatus] = useState("car_city");
@@ -58,11 +59,11 @@ const Vehicleprice = (props) => {
   return (
     <>
       <div
-        className={`w-full min-h-screen ${!display ? "hidden" : "flex"} flex-col`}
+        className={`w-full min-h-screen ${display ? "hidden" : "flex"} flex-col`}
       >
-        <div className="flex">
+        <div className="flex bg-white p-4 justify-between">
           <div
-            className={` flex mt-10 transition-all duration-500 w-full lg:top-0 lg:right-0.5 lg:h-full lg:z-0`}
+            className={` flex mt-10 transition-all duration-500 w-fit lg:top-0 lg:right-0.5 lg:h-full lg:z-0`}
           >
             {(() => {
               switch (asideStatus) {
@@ -87,9 +88,14 @@ const Vehicleprice = (props) => {
               }
             })()}
           </div>
+          <div className="flex flex-col gap-4 items-center text-[#0f0f0f] font-medium text-20 mt-20">
+            <span className="whitespace-nowrap">تخمین قیمت ماشین شما</span>
+            <span className="whitespace-nowrap">با کار پایا</span>
+          </div>
+          <Image src={periodicLanding} width={460} height={360} />
         </div>
       </div>
-      <div className={`w-full min-h-screen ${display ? "hidden" : "flex"}`}>
+      <div className={`w-full min-h-screen ${!display ? "hidden" : "flex"}`}>
         <div
           className={`flex flex-col gap-6 w-full lg:w-[calc(100%-410px)] shadow-[0_0_6px_0_rgba(125,125,125,0.5)] mt-[52px] rounded-2xl h-fit p-4 relative bg-white mr-auto`}
         >
