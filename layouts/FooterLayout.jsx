@@ -43,8 +43,8 @@ const Footer = (props) => {
     >
       {innerWidthNumber > 1025 || footerState ? (
         <>
-          <div className="flex flex-col lg:flex-row w-full lg:gap-[99px] gap-4 max-w-[620px] m-auto lg:m-0 px-6 size1470:col-span-6 size1228:col-span-7 size1090:col-span-8 lg:col-span-9 col-span-2">
-            <div className="flex gap-3 flex-row lg:flex-col justify-start">
+          <div className="flex flex-col lg:flex-row w-full lg:gap-[99px] gap-4 max-w-[620px] m-auto lg:m-0 px-6 size1470:col-span-10 size1228:col-span-7 size1090:col-span-8 lg:col-span-9 col-span-2">
+            <div className="min-w-[350px] flex gap-3 flex-row lg:flex-col justify-start">
               <Image
                 className="w-16 h-4"
                 src={carpaya}
@@ -53,27 +53,59 @@ const Footer = (props) => {
                 height={18}
               />
               <a href="tel:02158919" className="flex gap-1 items-center">
-                <span className="font-bold text-[#F66B34] text-sm">58919</span>
+                <span className="font-bold text-[#F66B34] text-sm">
+                  021-58919
+                </span>
                 <i className="cc-call text-sm" />
               </a>
-              <p className={"text-12 lg:block hidden"}>
+              <p className={"text-12 lg:block hidden "}>
                 پشتیبانی هر روز هفته از ساعت 8 الی 20
               </p>
+              <p className="text-12 hidden lg:block leading-6 text-justify">
+                در کارپایا، ما به ارائه خدمات جامع و حرفه‌ای در زمینه خودرو
+                متعهد هستیم. هدف ما ایجاد تجربه‌ای آسان و مطمئن برای خرید و فروش
+                خودرو، تأمین بیمه، انجام خدمات دوره‌ای و معاینه فنی خودرو است.
+                با تیمی متخصص و تجربه‌ای گسترده در صنعت خودرو، ما به مشتریان خود
+                کمک می‌کنیم تا بهترین تصمیمات را با اطلاعات کافی بگیرند. به ما
+                بپیوندید تا سفری مطمئن و بی‌دغدغه را در دنیای خودرو تجربه کنید.
+              </p>
             </div>
-            <div className="flex flex-col gap-4">
+            <div className="min-w-[100px] flex flex-col gap-4">
               <span className="font-bold text-sm lg:text-base text-[#1E67BF]">
                 دسترسی سریع
               </span>
               <ul className="list-disc grid lg:grid-cols-1 grid-cols-2 pr-4 gap-4 text-[#3C3C3C] text-xs font-medium">
-                <li className="w-fit">درباره ما</li>
-                <li className="w-fit">مجله ها</li>
-                <li className="w-fit">تماس با ما</li>
-                <li className="w-fit">ارتباط پشتیبانی</li>
-                <li className="w-fit">قوانین و مقررات</li>
-                <li className="w-fit">سوالات متداول</li>
+                <li className="w-fit">
+                  <Link href={"https://carpaya.com/blog/about-us/"}>
+                    درباره ما
+                  </Link>
+                </li>
+                <li className="w-fit">
+                  <Link href={"https://carpaya.com/blog/contact-us/"}>
+                    تماس با ما
+                  </Link>
+                </li>
+                <li className="w-fit">
+                  <Link href={"https://carpaya.com/blog/"}>مجله ها</Link>
+                </li>
+                <li className="w-fit">
+                  <Link href={"tel:02158919"}>ارتباط پشتیبانی</Link>
+                </li>
+                <li
+                  className="w-fit cursor-pointer"
+                  onClick={() => alert("به زودی")}
+                >
+                  قوانین و مقررات
+                </li>
+                <li
+                  className="w-fit cursor-pointer"
+                  onClick={() => alert("به زودی")}
+                >
+                  سوالات متداول
+                </li>
               </ul>
             </div>
-            <div className="lg:flex hidden flex-col gap-4 ">
+            <div className="min-w-[100px] lg:flex hidden flex-col gap-4 ">
               <span className="font-bold text-sm lg:text-base text-[#1E67BF]">
                 خدمات کارپایا
               </span>
@@ -81,9 +113,9 @@ const Footer = (props) => {
                 <li className="w-fit">
                   <Link href={"/vehicle-inspection"}>کارشناسی خودرو</Link>
                 </li>
-                <li className="w-fit">
-                  <Link href={"#"}>بیمه</Link>
-                </li>
+                {/*<li className="w-fit">*/}
+                {/*  <Link href={"#"}>بیمه</Link>*/}
+                {/*</li>*/}
                 <li className="w-fit">
                   <Link href={"/periodic-service"}>سرویس دوره ای</Link>
                 </li>
@@ -99,13 +131,16 @@ const Footer = (props) => {
                 <li className="w-fit">
                   <Link href={"/detailing"}>دیتیلینگ</Link>
                 </li>
+                {/*<li className="w-fit">*/}
+                {/*  <Link href={"#"}>خرید و فروش</Link>*/}
+                {/*</li>*/}
                 <li className="w-fit">
-                  <Link href={"#"}>خرید و فروش</Link>
+                  <Link href={"https://carpaya.shop"}>فروشگاه</Link>
                 </li>
               </ul>
             </div>
           </div>
-          <div className="w-full flex flex-col items-center gap-[48px] max-w-[420px] m-auto lg:m-0 px-6 size1470:col-span-6 size1228:col-span-5 size1090:col-span-4 lg:col-span-3 col-span-2">
+          <div className="w-full flex flex-col items-center gap-[48px] max-w-[420px] m-auto lg:m-0 px-6 size1470:col-span-2 size1228:col-span-5 size1090:col-span-4 lg:col-span-3 col-span-2">
             <div className={"flex flex-col items gap-6"}>
               <span
                 className={
@@ -115,13 +150,16 @@ const Footer = (props) => {
                 شبکه اجتماعی کارپایا
               </span>
               <div className="flex items-center gap-4 w-full justify-start">
-                <Image
-                  className="size-8"
-                  src={telegram}
-                  alt="carcheck"
-                  width={32}
-                  height={32}
-                />
+                <Link href={"https://t.me/+CBBIuxwxqBhYTRk"} target={"_blank"}>
+                  <Image
+                    className="size-8"
+                    src={telegram}
+                    alt="carcheck"
+                    width={32}
+                    height={32}
+                  />
+                </Link>
+
                 <Image
                   className="size-8"
                   src={x}
@@ -129,13 +167,13 @@ const Footer = (props) => {
                   width={32}
                   height={32}
                 />
-                <Image
-                  className="size-8"
-                  src={youtube}
-                  alt="carcheck"
-                  width={32}
-                  height={32}
-                />
+                {/*<Image*/}
+                {/*  className="size-8"*/}
+                {/*  src={youtube}*/}
+                {/*  alt="carcheck"*/}
+                {/*  width={32}*/}
+                {/*  height={32}*/}
+                {/*/>*/}
                 <Image
                   className="size-8"
                   src={instagram}
@@ -161,7 +199,7 @@ const Footer = (props) => {
               >
                 نمادها و نشانه ها
               </span>
-              <div className="flex gap-6 justify-start w-full">
+              <div className="flex gap-6 justify-center w-full">
                 <a
                   referrerPolicy="origin"
                   target="_blank"
@@ -176,8 +214,8 @@ const Footer = (props) => {
                     code="BHIlG5lcIDB6bsGDp8LzoME3yAXovE8d"
                   />
                 </a>
-                <div className="bg-gray-300 size-[60px]"></div>
-                <div className="bg-gray-300 size-[60px]"></div>
+                {/*<div className="bg-gray-300 size-[60px]"></div>*/}
+                {/*<div className="bg-gray-300 size-[60px]"></div>*/}
                 {/* <Image
               src="/assets/icons/Enemad.svg"
               alt="enamd"

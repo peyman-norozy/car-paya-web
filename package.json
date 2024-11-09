@@ -4,8 +4,9 @@
   "private": true,
   "scripts": {
     "dev": "next dev --port 3001",
+    "ed": "next dev -H 0.0.0.0",
     "build": "next build",
-    "start": "next start --port 3002",
+    "start": "next start --port 3006",
     "lint": "next lint"
   },
   "dependencies": {
@@ -15,7 +16,6 @@
     "@types/nprogress": "^0.2.3",
     "axios": "^1.6.8",
     "cookies-next": "^4.1.1",
-    "framer-motion": "^11.11.10",
     "jalali-moment": "^3.3.11",
     "leaflet-defaulticon-compatibility": "^0.1.2",
     "lodash": "^4.17.21",
