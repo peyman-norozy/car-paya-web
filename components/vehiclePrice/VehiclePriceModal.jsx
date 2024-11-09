@@ -50,7 +50,7 @@ const VehiclePriceModal = (props) => {
       }
     >
       <div className={"px-4 flex flex-col gap-4"}>
-        <span>اطلاعات زیر را کامل کنید:</span>
+        <span>برای تخمین قیمت خودرو اطلاعات زیر را کامل کنید</span>
         {/* <CarAndCityInput
           placeHolder={"شهر خود را انتخاب کنید"}
           setAsideStatus={props.setAsideStatus}

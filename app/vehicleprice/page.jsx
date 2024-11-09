@@ -21,7 +21,7 @@ const Vehicleprice = (props) => {
     setClient(true);
     if (typeof window !== "undefined") {
       const selectedVehicle = JSON.parse(
-        localStorage.getItem("selectedVehicle"),
+        localStorage.getItem("selectedVehicle")
       );
       if (preventFirstRender) {
         if (!selectedVehicle) {
@@ -45,7 +45,7 @@ const Vehicleprice = (props) => {
     };
     console.log(JSON.stringify(data));
     router.push(
-      `/vehicleprice/result?year=${data.year}&year=${data.year}&color=${data.color}&operation=${data.operation}&model=${data.model}&tip=${data.tip}&brand=${data.brand}&items=${data.items.join(",")}`,
+      `/vehicleprice/result?year=${data.year}&year=${data.year}&color=${data.color}&operation=${data.operation}&model=${data.model}&tip=${data.tip}&brand=${data.brand}&items=${data.items.join(",")}`
     );
     // const res = await postData("/web/pricing/calculations", data);
     // console.log(res);
@@ -56,59 +56,67 @@ const Vehicleprice = (props) => {
     return null;
   }
   return (
-    <div className="w-full min-h-screen flex">
+    <>
       <div
-        className={` ${display ? "hidden lg:flex" : "flex"} mt-10 lg:mt-0 lg:absolute transition-all duration-500 ${props.modalClickState ? "bottom-0 right-0 left-0" : "-bottom-[100vh]"} w-full lg:top-0 lg:right-0.5 lg:h-full lg:z-0`}
+        className={`w-full min-h-screen ${!display ? "hidden" : "flex"} flex-col`}
       >
-        {(() => {
-          switch (asideStatus) {
-            case "car_city":
-              return (
-                <VehiclePriceModal
-                  buttonTitle={"تخمین قیمت"}
-                  onClick={() => setDispaly(true)}
-                  setAsideStatus={setAsideStatus}
-                  setToastieDisplay={setToastieDisplay}
-                  setPreventFirstRender={setPreventFirstRender}
-                  setModalClickState={props.setModalClickState}
-                  setCarData={setCarData}
-                  carData={carData}
-                  setDispaly={setDispaly}
-                />
-              );
-            case "carSelection":
-              return <CarSelect setAsideStatus={setAsideStatus} />;
-            default:
-              return null;
-          }
-        })()}
-      </div>
-      <div
-        className={`${!display ? "hidden lg:flex" : "flex"} flex-col gap-6 w-full lg:w-[calc(100%-410px)] shadow-[0_0_6px_0_rgba(125,125,125,0.5)] mt-[52px] rounded-2xl h-fit p-4 relative bg-white mr-auto`}
-      >
-        {!display && (
-          <div className="w-full h-full bg-[#cfcfcf75] absolute top-0 right-0 rounded-2xl z-10 cursor-not-allowed hidden lg:block"></div>
-        )}
-        <div className=" grid sm:grid-cols-2 size1400:grid-cols-3 size1770:grid-cols-4 gap-4 ">
-          {car_parts.map((item, index) => (
-            <RadioInput
-              key={index}
-              options={item.options}
-              name={item.persian_name}
-              tabClickHandler={tabClickHandler}
-            />
-          ))}
+        <div className="flex">
+          <div
+            className={` flex mt-10 transition-all duration-500 w-full lg:top-0 lg:right-0.5 lg:h-full lg:z-0`}
+          >
+            {(() => {
+              switch (asideStatus) {
+                case "car_city":
+                  return (
+                    <VehiclePriceModal
+                      buttonTitle={"تخمین قیمت"}
+                      onClick={() => setDispaly(true)}
+                      setAsideStatus={setAsideStatus}
+                      setToastieDisplay={setToastieDisplay}
+                      setPreventFirstRender={setPreventFirstRender}
+                      setModalClickState={props.setModalClickState}
+                      setCarData={setCarData}
+                      carData={carData}
+                      setDispaly={setDispaly}
+                    />
+                  );
+                case "carSelection":
+                  return <CarSelect setAsideStatus={setAsideStatus} />;
+                default:
+                  return null;
+              }
+            })()}
+          </div>
         </div>
-        <button
-          className="px-4 py-2 text-[#fefefe] bg-[#F66B34] w-fit h-fit rounded-lg"
-          onClick={() => {
-            calculate();
-          }}
-        >
-          تخمین قیمت خودرو
-        </button>
       </div>
-    </div>
+      <div className={`w-full min-h-screen ${display ? "hidden" : "flex"}`}>
+        <div
+          className={`flex flex-col gap-6 w-full lg:w-[calc(100%-410px)] shadow-[0_0_6px_0_rgba(125,125,125,0.5)] mt-[52px] rounded-2xl h-fit p-4 relative bg-white mr-auto`}
+        >
+          {!display && (
+            <div className="w-full h-full bg-[#cfcfcf75] absolute top-0 right-0 rounded-2xl z-10 cursor-not-allowed hidden lg:block"></div>
+          )}
+          <div className=" grid sm:grid-cols-2 size1400:grid-cols-3 size1770:grid-cols-4 gap-4 ">
+            {car_parts.map((item, index) => (
+              <RadioInput
+                key={index}
+                options={item.options}
+                name={item.persian_name}
+                tabClickHandler={tabClickHandler}
+              />
+            ))}
+          </div>
+          <button
+            className="px-4 py-2 text-[#fefefe] bg-[#F66B34] w-fit h-fit rounded-lg"
+            onClick={() => {
+              calculate();
+            }}
+          >
+            تخمین قیمت خودرو
+          </button>
+        </div>
+      </div>
+    </>
   );
 };
 
