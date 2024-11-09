@@ -25,7 +25,7 @@ const SelectProductModal = (props) => {
       axios
         .get(
           process.env.BASE_API +
-            `/web/service-periodical?step=step-3&type=${props.params.type}&city_id=${props.params.city_id}&vehicle_tip_id=${props.params.selectTipState.split(",")[1]}&service_location_id=${props.params.service_location_id}&package_id=${props.selectedServic}`
+            `/web/service-periodical?step=step-2&type=${props.params.type}&city_id=${props.params.city_id}&vehicle_tip_id=${props.params.selectTipState.split(",")[1]}&service_location_id=${props.params.service_location_id}&package_id=${props.selectedServic}`
         )
         .then((res) => {
           console.log(res?.data?.data);
@@ -59,7 +59,7 @@ const SelectProductModal = (props) => {
 
   function closeModal() {
     props.setProductModalState(false);
-    setSelectedProduct("")
+    setSelectedProduct("");
   }
 
   return (
