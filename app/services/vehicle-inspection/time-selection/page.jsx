@@ -5,11 +5,7 @@ import axios from "axios";
 import { useRouter, useSearchParams } from "next/navigation";
 import ReserveTimeVerification from "@/components/vehicle-verification/ReserveTimeVerification";
 import useSetQuery from "@/hook/useSetQuery";
-import {
-  error,
-  persianDate,
-  persianDateCovertor,
-} from "@/utils/function-utils";
+import { error } from "@/utils/function-utils";
 import { ToastContainer } from "react-toastify";
 import { getCookie, getCookies } from "cookies-next";
 import nProgress from "nprogress";
@@ -33,9 +29,10 @@ const VerificationSecondStep = (props) => {
   const [fluctuation, setFluctuation] = useState(null);
   const [data, setData] = useState([]);
   const [timeStamp, setTimeStamp] = useState(null);
-  const setQuery = useSetQuery();
+  const [uniqueTitle, setUniqueTitle] = useState([]);
+  const [dayTitleTab, setDayTitleTab] = useState("");
+
   const router = useRouter();
-  const dispatch = useDispatch();
 
   const continueSecondStepHandler = () => {
     setButtonIsdisabled(true);
@@ -109,12 +106,18 @@ const VerificationSecondStep = (props) => {
         },
       )
       .then((res) => {
-        setData(
-          Object.keys(res.data["time-reserve"]).map((key) => [
-            key,
-            res.data["time-reserve"][key],
-          ]),
+        setData(res?.data?.data);
+        const uniqueTitles = Array.from(
+          new Set(res?.data?.data?.map((item) => item.title)),
         );
+        setUniqueTitle(uniqueTitles);
+        setDayTitleTab(uniqueTitles[0]);
+        // setData(
+        //   Object.keys(res.data["time-reserve"]).map((key) => [
+        //     key,
+        //     res.data["time-reserve"][key],
+        //   ]),
+        // );
         setPackagePrice(res?.data?.price_service?.discounted_price);
       })
       .catch((err) => console.log(err));
@@ -189,17 +192,17 @@ const VerificationSecondStep = (props) => {
             </p>
 
             <div className="w-fit flex justify-around items-center gap-6 min-w-full relative border-b border-[#FCCAAC] pb-2">
-              {data.slice(0, 2).map((item, index) => (
+              {uniqueTitle?.map((item, index) => (
                 <div
-                  key={index}
-                  className={`flex items-end gap-2 text-sm font-medium cursor-pointer ${date === index ? "text-[#F58052]" : "text-[#FCCAAC]"}`}
+                  key={item}
+                  className={`flex items-end gap-2 text-sm font-medium cursor-pointer ${dayTitleTab === item ? "text-[#F58052]" : "text-[#FCCAAC]"}`}
                   onClick={() => {
-                    setDate(index);
+                    // setDate(index);
                     setTab(index);
+                    setDayTitleTab(item);
                   }}
                 >
-                  <p>{persianDate(item[0], "dddd")}</p>
-                  <p>{persianDateCovertor(item[0])}</p>
+                  <p>{item}</p>
                 </div>
               ))}
               <div
@@ -208,7 +211,7 @@ const VerificationSecondStep = (props) => {
             </div>
             <div className={"flex flex-col gap-[2rem]"}>
               <ReserveTimeVerification
-                data={data[date]}
+                data={data}
                 setTimeStamp={setTimeStamp}
                 packagePrice={packagePrice}
                 timeIsSelected={timeIsSelected}
@@ -217,6 +220,7 @@ const VerificationSecondStep = (props) => {
                 optionIsOpen={optionIsOpen}
                 accordionState={props.accordionState}
                 setFluctuation={setFluctuation}
+                dayTitleTab={dayTitleTab}
               />
             </div>
             <button
