@@ -16,6 +16,8 @@ const Page = (props) => {
   const [tab, setTab] = useState(0);
   const [data, setData] = useState([]);
   const [date, setDate] = useState(0);
+  const [uniqueTitle, setUniqueTitle] = useState([]);
+  const [dayTitleTab, setDayTitleTab] = useState("");
   const setQuery = useSetQuery();
   const searchParams = useSearchParams();
   const router = useRouter();
@@ -32,15 +34,21 @@ const Page = (props) => {
     setClient(true);
     async function getTimeData() {
       try {
-        const data = await getDataWithFullErrorRes(
+        const res = await getDataWithFullErrorRes(
           "/web/reservation/battery?step=step-3",
         );
-        setData(
-          Object.keys(data["time-reserve"]).map((key) => ({
-            day: key,
-            hour: data["time-reserve"][key],
-          })),
+        setData(res?.data);
+        const uniqueTitles = Array.from(
+          new Set(res?.data?.map((item) => item.title)),
         );
+        setUniqueTitle(uniqueTitles);
+        setDayTitleTab(uniqueTitles[0]);
+        // setData(
+        //   Object.keys(data["time-reserve"]).map((key) => ({
+        //     day: key,
+        //     hour: data["time-reserve"][key],
+        //   })),
+        // );
       } catch (error) {
         console.error("Error fetching time data", error);
       }
@@ -51,10 +59,11 @@ const Page = (props) => {
 
   useEffect(() => {
     const batteriesCart = JSON.parse(sessionStorage.getItem("batteriesCart"));
-    setDaySelector(data[0]?.day);
-    batteriesCart.timeSelect = data[0]?.day;
+    const newData = data.filter((item) => item.title === dayTitleTab);
+    setDaySelector(newData[0]?.start_timestamp);
+    batteriesCart.timeSelect = newData[0]?.start_timestamp;
     sessionStorage.setItem("batteriesCart", JSON.stringify(batteriesCart));
-  }, [data]);
+  }, [data, dayTitleTab]);
 
   function onclick() {
     setQuery.updateQueryParams(
@@ -139,13 +148,14 @@ const Page = (props) => {
           زمان خود را انتخاب کنید:
         </p>
         <div className="w-fit flex justify-around items-center gap-6 min-w-full relative border-b border-[#FCCAAC] pb-2">
-          {data.slice(0, 2).map((item, index) => (
+          {uniqueTitle?.map((item, index) => (
             <div
               key={index}
-              className={`flex items-end gap-2 text-sm font-medium ${date === index ? "text-[#F58052]" : "text-[#FCCAAC]"}`}
+              className={`flex items-end gap-2 text-sm font-medium ${dayTitleTab === item ? "text-[#F58052]" : "text-[#FCCAAC]"}`}
               onClick={() => {
-                setDate(index);
+                // setDate(index);
                 setTab(index);
+                setDayTitleTab(item);
                 setDaySelector(item["day"]);
                 const batteriesCart = JSON.parse(
                   sessionStorage.getItem("batteriesCart"),
@@ -157,8 +167,7 @@ const Page = (props) => {
                 );
               }}
             >
-              <p>{persianDate(item["day"], "dddd")}</p>
-              <p>{persianDateCovertor(item["day"])}</p>
+              <p>{item}</p>
             </div>
           ))}
           <div
@@ -180,12 +189,13 @@ const Page = (props) => {
             // data={item}
             // selectedTime={selectedTime}
             // setSelectedTime={setSelectedTime}
-            data={data[date]}
+            data={data}
             timeIsSelected={selectedTime}
             setTimeIsSelected={setSelectedTime}
             setOptionIsOpen={setOptionIsOpen}
             optionIsOpen={optionIsOpen}
             accordionState={props.accordionState}
+            dayTitleTab={dayTitleTab}
           />
         </ul>
         <div
