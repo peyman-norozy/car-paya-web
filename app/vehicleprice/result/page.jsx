@@ -5,6 +5,7 @@ import { numberWithCommas } from "@/utils/function-utils";
 import Image from "next/image";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
+import carParts from "@/public/assets/images/carParts.png"
 
 const ResultPage = () => {
   const [data, setData] = useState({});
@@ -24,22 +25,18 @@ const ResultPage = () => {
       brand: params.get("brand"),
       items: params.get("items").split(","),
       image: JSON.parse(localStorage.getItem("selectedVehicle")).image,
+      dots: JSON.parse(sessionStorage.getItem("dotsData"))
     };
+    console.log(data);
+
     setData(data);
-    const res = await postData("/web/pricing/calculations", data);
-    setPrice(res.data.carpaya_price);
+    // const res = await postData("/web/pricing/calculations", data);
+    // setPrice(res.data.carpaya_price);
   }
 
   return (
-    <div className="p-10 flex md:flex-row flex-col items-center gap-12 justify-center ">
-      <div className="flex flex-col gap-2 shadow-[0_0_6px_6px_rgba(125,125,125,0.2)] p-4 rounded-xl w-[310px]">
-        <Image
-          src={process.env.BASE_API + "/web/file/" + data.image}
-          className="h-52 w-auto rounded-md m-auto"
-          width={300}
-          height={128}
-          alt=""
-        />
+    <div className="py-10 px-4 grid grid-cols-4 items-start gap-4 justify-center ">
+      <div className="flex flex-col gap-4 shadow-[0_0_6px_6px_rgba(125,125,125,0.2)] p-4 rounded-xl w-full col-span-1">
         <div className="flex items-center gap-1">
           <span className="text-sm text-dark-500">خودرو:</span>
           <span className="text-sm font-medium">{data.tip}</span>
@@ -59,52 +56,55 @@ const ResultPage = () => {
             <span className="font-normal">km</span>
           </span>
         </div>
+        <div className="w-full h-px bg-[#bbbbbb] mt-4"></div>
+        <Image
+          src={process.env.BASE_API + "/web/file/" + data.image}
+          className="h-52 w-auto rounded-md m-auto"
+          width={300}
+          height={128}
+          alt=""
+        />
       </div>
-      <div className="w-[500px] shadow-[0_0_6px_6px_rgba(125,125,125,0.2)] flex flex-col gap-6 p-4 rounded-xl h-[352px]">
-        <div className="flex flex-col">
-          <div className="flex items-center justify-around text-sm">
-            <span>{numberWithCommas(price.max_price)} تومان</span>
-            <span>{numberWithCommas(price.min_price)} تومان</span>
-          </div>
-          <div className="flex items-center justify-around text-sm">
-            <div className="w-px h-4 bg-[#88B153]"></div>
-            <div className="w-px h-4 bg-[#88B153]"></div>
-          </div>
-          <div className="flex items-center text-sm rounded-full overflow-hidden">
-            <div className="w-1/4 p-2 bg-[#F3C14F] text-white text-center">
-              گران
-            </div>
-            <div className="w-2/4 p-2 bg-[#88B153] text-white text-center">
-              منصفانه
-            </div>
-            <div className="w-1/4 p-2 bg-[#467D3D] text-white text-center">
-              ارزان
+      <div className="w-full shadow-[0_0_6px_6px_rgba(125,125,125,0.2)] flex flex-col gap-6 p-4 rounded-xl h-fit col-span-3">
+        <div className="flex flex-col gap-12">
+          <span className="text-[#0f0f0f] font-medium">براورد قیمت خودرو شما</span>
+          <div className="flex flex-col items-center gap-2">
+            <div className="bg-gradient-to-r from-[#10adf9] via-[#15f851] to-[#ff7d37] h-6 w-4/5  rounded-xl"></div>
+            <div className="flex items-center justify-between text-sm w-10/12">
+              <span>{numberWithCommas(price.max_price)} تومان</span>
+              <span>{numberWithCommas(price.min_price)} تومان</span>
             </div>
           </div>
+          <div className="flex justify-between">
+            <span className="font-medium text-[#0f0f0f]">کارشناسی خودرو شمکارشناسی خودروکارشناسی خودرو شما شماا</span>
+            <button className="rounded-lg border border-[#F66B34] text-[#F66B34] flex items-center justify-center py-2 px-8">کارشناسی خودرو</button>
+          </div>
         </div>
-        <div className="flex items-center justify-between mt-4">
-          <span className="text-sm font-medium text-gray-700">
-            حداکثر قیمت منصفانه
-          </span>
-          <span className="text-sm">
-            {numberWithCommas(price.max_price)} تومان
-          </span>
-        </div>
-        <div className="h-px bg-slate-300 w-full"></div>
-        <div className="flex items-center justify-between">
-          <span className="text-sm font-medium text-gray-700">
-            حداقل قیمت منصفانه
-          </span>
-          <span className="text-sm">
-            {numberWithCommas(price.min_price)} تومان
-          </span>
-        </div>
-        <div className="h-px bg-slate-300 w-full"></div>
-        <div className="flex items-center justify-between text-[#F66B34] mt-auto">
-          <span className="font-medium">میانگین قیمت خودروی شما</span>
-          <span className="font-bold">
-            {numberWithCommas(price.min_price)} تومان
-          </span>
+        <div className="w-full h-px bg-[#bbbbbb]"></div>
+        <span className="text-[#0f0f0f] font-medium">وضعیت خودرو شما</span>
+        <div className="flex justify-between">
+          <div className="grid grid-cols-3 gap-x-8 gap-y-2">
+            {data.dots?.map((item, index) => (
+              <div className="flex gap-1">
+                <div className="size-4 rounded-full" style={{ background: item.color }}></div>
+                <span>{item.name}</span>
+              </div>
+            ))}
+          </div>
+          <div className="relative w-[360px] h-auto self-end">
+            <Image src={carParts} />
+            {data.dots?.map((item, index) => (
+              <div
+                key={item.name + index}
+                style={{
+                  backgroundColor: item.color,
+                  top: `${item.top}%`,
+                  right: `${item.right}%`,
+                }}
+                className="size-3 rounded-full absolute z-[2]"
+              ></div>
+            ))}
+          </div>
         </div>
       </div>
     </div>
