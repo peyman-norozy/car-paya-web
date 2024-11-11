@@ -17,9 +17,8 @@ import { postData } from "@/utils/client-api-function-utils";
 
 const SelectProductModal = (props) => {
   const [productData, setProductData] = useState([]);
-  const [selectedProduct, setSelectedProduct] = useState("");
+  const [selectedProduct, setSelectedProduct] = useState({});
   const dispatch = useDispatch();
-
   useEffect(() => {
     (async () => {
       axios
@@ -38,23 +37,36 @@ const SelectProductModal = (props) => {
   }, [props.productModalState]);
 
   async function buttonClickHandler() {
-    const cartData = await postData("/web/cart/add", {
-      cartable_id: selectedProduct,
-      cartable_type: "PERIODIC_SERVICE",
-      vehicle_tip_id: JSON.parse(localStorage.getItem("selectedVehicle"))?.id,
-      step: "step-3",
-    });
-
-    if (cartData.status === 200 || cartData.status === 201) {
-      console.log(cartData.data);
-      dispatch(renderInvoice());
-      closeModal();
-    } else if (cartData.response.status === 422) {
-      console.log(cartData.response.data);
-      error(cartData.response.data.message);
-    } else if (cartData.response.status === 401) {
-      dispatch(setLoginModal(true));
+    const sessionsData = JSON.parse(sessionStorage.getItem("periodicCart"));
+    if (sessionsData.products === undefined) {
+      sessionsData.products = [];
     }
+    const sessionsProducts = sessionsData.products;
+    const repetitive = sessionsProducts?.findIndex((item) => {
+      return item.category_id === selectedProduct.category_id;
+    });
+    if (repetitive === -1) {
+      sessionsData.products.push({
+        id: selectedProduct.id,
+        name: selectedProduct.name,
+        discount_price: selectedProduct.discount_price,
+        price: selectedProduct.price,
+        image_ids: selectedProduct.image_ids[0],
+        category_id: selectedProduct.category_id,
+      });
+    } else {
+      sessionsData.products[repetitive] = {
+        id: selectedProduct.id,
+        name: selectedProduct.name,
+        discount_price: selectedProduct.discount_price,
+        price: selectedProduct.price,
+        image_ids: selectedProduct.image_ids[0],
+        category_id: selectedProduct.category_id,
+      };
+    }
+    props.setInvoiceData(sessionsData.products);
+    sessionStorage.setItem("periodicCart", JSON.stringify(sessionsData));
+    closeModal();
   }
 
   function closeModal() {
@@ -81,11 +93,11 @@ const SelectProductModal = (props) => {
           <div className="px-2 h-fit gap-4 flex flex-col py-1">
             {productData.map((item, index) => (
               <div
-                className={`w-full rounded-[4px] shadow-[0_0_6px_0_rgba(125,125,125,0.5)] flex flex-col gap-3 px-[6px] py-4 transition-all duration-500 ${selectedProduct === item.id ? "border border-[#F58052]" : ""}`}
+                className={`w-full rounded-[4px] shadow-[0_0_6px_0_rgba(125,125,125,0.5)] flex flex-col gap-3 px-[6px] py-4 transition-all duration-300 ${selectedProduct.id === item.id ? "border border-[#F58052]" : ""}`}
                 onClick={() => {
-                  selectedProduct === item.id
-                    ? setSelectedProduct("")
-                    : setSelectedProduct(item.id);
+                  selectedProduct.id === item.id
+                    ? setSelectedProduct({})
+                    : setSelectedProduct(item);
                 }}
                 key={index}
               >
@@ -97,7 +109,7 @@ const SelectProductModal = (props) => {
                       }
                     >
                       <div
-                        className={`rounded-[50%] bg-[#F58052] size-[10px] transition-all duration-500 ${selectedProduct === item.id ? "scale-1" : "scale-0"}`}
+                        className={`rounded-[50%] bg-[#F58052] size-[10px] transition-all duration-300 ${selectedProduct.id === item.id ? "scale-1" : "scale-0"}`}
                       ></div>
                     </div>
                     <span className="font-medium text-xs text-[#010101]">
@@ -106,10 +118,10 @@ const SelectProductModal = (props) => {
                   </div>
                   <div className="flex items-center gap-1">
                     <span className="text-[#60ABEC] line-through font-medium text-xs">
-                      {numberWithCommas(item.discounted_price)} تومان
+                      {numberWithCommas(item.price)} تومان
                     </span>
                     <span className="text-[#1E67BF] font-medium text-sm">
-                      {numberWithCommas(item.price)} تومان
+                      {numberWithCommas(item.discount_price)} تومان
                     </span>
                   </div>
                 </div>

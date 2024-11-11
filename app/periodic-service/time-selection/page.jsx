@@ -22,7 +22,7 @@ const Page = (props) => {
   useEffect(() => {
     async function getTimeData() {
       const data = await getDataWithFullErrorRes(
-        `/web/service-periodical?step=step-4&type=${props.searchParams.type}&city_id=${props.searchParams.city_id}&vehicle_tip_id=${props.searchParams.selectTipState.split(",")[1]}&service_location_id=${props.searchParams.service_location_id}&package_id=${props.searchParams.package_id}`,
+        `/web/service-periodical?step=step-3&type=${props.searchParams.type}&city_id=${props.searchParams.city_id}&vehicle_tip_id=${props.searchParams.selectTipState.split(",")[1]}&service_location_id=${props.searchParams.service_location_id}&package_id=${props.searchParams.package_id}`
       );
       setData(
         Object.keys(data["time-reserve"]).map((key) => {
@@ -30,7 +30,7 @@ const Page = (props) => {
             day: key,
             hour: data["time-reserve"][key],
           };
-        }),
+        })
       );
     }
     getTimeData();
@@ -39,7 +39,7 @@ const Page = (props) => {
   function onclick() {
     setQuery.updateQueryParams(
       { time_id: selectedTime },
-      "/periodic-service/invoice",
+      "/periodic-service/invoice"
     );
   }
 
@@ -54,7 +54,7 @@ const Page = (props) => {
       // if (loginState) {
       nProgress.start();
       router.push(
-        `/periodic-service/invoice?step=step-4&city_id=${props.searchParams.city_id}&vehicle_tip_id=${props.searchParams.selectTipState}&package_id=${props.searchParams.package_id}&reservation_time_slice_id=${timeIsSelected}&type=${props.searchParams.type}&service_location_id=${props.searchParams.service_location_id}&registrationable_id=${props.searchParams.service_location_id}`,
+        `/periodic-service/invoice?step=step-4&city_id=${props.searchParams.city_id}&vehicle_tip_id=${props.searchParams.selectTipState}&package_id=${props.searchParams.package_id}&reservation_time_slice_id=${timeIsSelected}&type=${props.searchParams.type}&service_location_id=${props.searchParams.service_location_id}&registrationable_id=${props.searchParams.service_location_id}`
       );
       // setQuery.setMultiQuery([
       //   { key: "step", value: "step-4" },
@@ -216,7 +216,7 @@ const Page = (props) => {
                           <span className="text-red-600">*</span>
                           <span className="text-[#010101]">
                             {numberWithCommas(
-                              (packagePrice * item.diff_percent) / 100,
+                              (packagePrice * item.diff_percent) / 100
                             )}{" "}
                             تومان افزایش قیمت به دلیل پیک درخواست
                           </span>
@@ -226,7 +226,7 @@ const Page = (props) => {
                           <span className="text-red-600">*</span>
                           <span className="text-[#010101]">
                             {numberWithCommas(
-                              (packagePrice * item.diff_percent) / 100,
+                              (packagePrice * item.diff_percent) / 100
                             )}{" "}
                             تومان تخفیف کارچک
                           </span>
