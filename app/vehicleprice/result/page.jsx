@@ -98,7 +98,7 @@ const ResultPage = () => {
         <div className="flex justify-between">
           <div className="grid grid-cols-3 gap-x-12 gap-y-2">
             {data.dots?.map((item, index) => (
-              <div className="flex gap-1">
+              <div className="flex gap-1" key={index}>
                 <div
                   className="size-4 rounded-full"
                   style={{ background: item.color }}
