@@ -214,7 +214,16 @@ const Footer = (props) => {
                     code="BHIlG5lcIDB6bsGDp8LzoME3yAXovE8d"
                   />
                 </a>
-                {/*<div className="bg-gray-300 size-[60px]"></div>*/}
+                <div className="size-[60px]">
+                  <Link href={"https://qr.mojavez.ir/track/13358573"}>
+                    <Image
+                      src={"/assets/icons/national-union.webp"}
+                      alt={"mojavez kasbo kar"}
+                      width={100}
+                      height={100}
+                    />
+                  </Link>
+                </div>
                 {/*<div className="bg-gray-300 size-[60px]"></div>*/}
                 {/* <Image
               src="/assets/icons/Enemad.svg"
