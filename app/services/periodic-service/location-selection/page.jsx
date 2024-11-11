@@ -110,8 +110,9 @@ const Dealership = (props) => {
   const [type, setType] = useState("MOVING");
   const [isLoading, setIsLoading] = useState(false);
   const [selectedAddress, setSelectedAddress] = useState("");
+  const [selectedAddressText, setSelectedAddressText] = useState("");
   const [serviceModal, setServiceModal] = useState(false);
-  const [checkedService,setCheckedService]= useState([])
+  const [checkedService, setCheckedService] = useState([]);
   const city_id = searchParams.get("city_id");
   const selectedItem = searchParams.get("vehicle_tip");
   const package_id = searchParams.get("package_id");
@@ -195,7 +196,7 @@ const Dealership = (props) => {
   ];
 
   const backstopHandler = () => {
-    nProgress.start()
+    nProgress.start();
     router.push("/periodic-service");
   };
 
@@ -219,7 +220,6 @@ const Dealership = (props) => {
     //   ]);
     // }
     console.log(selectedAddress);
-
     setQuery.updateQueryParams(
       { service_location_id: selectedAddress },
       "/periodic-service/service-selection"
@@ -251,7 +251,7 @@ const Dealership = (props) => {
     }
   }
 
-  function servicesCheckboxChangeHandler(id, checked) { 
+  function servicesCheckboxChangeHandler(id, checked) {
     if (checked) {
       setCheckedService([...checkedService, id]);
     } else {
@@ -270,14 +270,14 @@ const Dealership = (props) => {
       const array = checkedService.map((item) => {
         const a = agentData.filter((item2) => {
           let b = false;
-           item2.services.map((item3)=>{
+          item2.services.map((item3) => {
             if (item3.key === item && item3.value) {
-              b = true
-            } 
-          });          
-          return b 
+              b = true;
+            }
+          });
+          return b;
         });
-        return a.flat()
+        return a.flat();
       });
       setSearchedAgentData(array.flat());
     }
@@ -393,6 +393,7 @@ const Dealership = (props) => {
                   setIsLoading={setIsLoading}
                   editModalIsOpen={editModalIsOpen}
                   setEditModalIsOpen={setEditModalIsOpen}
+                  setSelectedAddressText={setSelectedAddressText}
                 />
               ))
             : searchedAgentData?.map((item, index) => (
@@ -401,6 +402,7 @@ const Dealership = (props) => {
                   data={item}
                   selectedAddress={selectedAddress}
                   setSelectedAddress={setSelectedAddress}
+                  setSelectedAddressText={setSelectedAddressText}
                 />
               ))}
         </div>

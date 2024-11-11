@@ -26,7 +26,7 @@ const RadioInput = (props) => {
                 width: `${Math.floor((1 / props.options.length) * 100)}%`,
               }}
               onClick={() => {
-                props.tabClickHandler(props.name, item.input_id);
+                props.tabClickHandler(props.name, item.input_id, item.color, props.top, props.right);
                 setChecked(index);
               }}
             >

@@ -20,6 +20,9 @@ const SelectService = (props) => {
   const setQuery = useSetQuery();
   const router = useRouter();
   const renderInvoice = useSelector((item) => item.todo.renderInvoice);
+  useEffect(() => {
+    console.log(props.data);
+  }, []);
   // useEffect(() => {
   //   getInvoiceData()
   // }, [renderInvoice]);
@@ -44,7 +47,7 @@ const SelectService = (props) => {
   function nextButtonClickHandler() {
     setQuery.updateQueryParams(
       { package_id: 1 },
-      "/periodic-service/time-selection",
+      "/periodic-service/time-selection"
     );
   }
 
@@ -118,7 +121,7 @@ const SelectService = (props) => {
             </span>
           </div>
         </div>
-        <div className="grid grid-cols-3 gap-x-3 gap-y-6">
+        <div className="grid grid-cols-5 gap-x-3 gap-y-6">
           {props.data.map((item, index) => (
             <div
               className="bg-white shadow-[0_0_6px_0_rgba(125,125,125,0.5)] rounded-lg flex flex-col items-center w-full p-2 pb-1 gap-1"
@@ -141,7 +144,7 @@ const SelectService = (props) => {
                 height={50}
               />
               <span className="text-xs lg:text-18 h-8 line-clamp-2 flex items-center justify-center font-medium text-center">
-                {item.name}
+                {item.title}
               </span>
             </div>
           ))}
