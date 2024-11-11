@@ -5,7 +5,7 @@ import { numberWithCommas } from "@/utils/function-utils";
 import Image from "next/image";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import carParts from "@/public/assets/images/carParts.png"
+import carParts from "@/public/assets/images/carParts.png";
 
 const ResultPage = () => {
   const [data, setData] = useState({});
@@ -19,19 +19,20 @@ const ResultPage = () => {
     const data = {
       color: params.get("color"),
       year: params.get("year"),
-      operation: params.get("operation"),
+      kilometers: params.get("operation"),
       model: params.get("model"),
       tip: params.get("tip"),
       brand: params.get("brand"),
       items: params.get("items").split(","),
       image: JSON.parse(localStorage.getItem("selectedVehicle")).image,
-      dots: JSON.parse(sessionStorage.getItem("dotsData"))
+      dots: JSON.parse(sessionStorage.getItem("dotsData")),
+      vehicle_tip_id: JSON.parse(localStorage.getItem("selectedVehicle")).id,
     };
     console.log(data);
 
     setData(data);
-    // const res = await postData("/web/pricing/calculations", data);
-    // setPrice(res.data.carpaya_price);
+    const res = await postData("/web/pricing/calculations", data);
+    setPrice(res.data.carpaya_price);
   }
 
   return (
@@ -67,7 +68,9 @@ const ResultPage = () => {
       </div>
       <div className="w-full shadow-[0_0_6px_6px_rgba(125,125,125,0.2)] flex flex-col gap-6 p-4 rounded-xl h-fit col-span-3">
         <div className="flex flex-col gap-12">
-          <span className="text-[#0f0f0f] font-medium">براورد قیمت خودرو شما</span>
+          <span className="text-[#0f0f0f] font-medium">
+            براورد قیمت خودرو شما
+          </span>
           <div className="flex flex-col items-center gap-2">
             <div className="bg-gradient-to-r from-[#10adf9] via-[#15f851] to-[#ff7d37] h-6 w-4/5  rounded-xl"></div>
             <div className="flex items-center justify-between text-sm w-10/12">
@@ -76,8 +79,12 @@ const ResultPage = () => {
             </div>
           </div>
           <div className="flex justify-between">
-            <span className="font-medium text-[#0f0f0f]">کارشناسی خودرو شمکارشناسی خودروکارشناسی خودرو شما شماا</span>
-            <button className="rounded-lg border border-[#F66B34] text-[#F66B34] flex items-center justify-center py-2 px-8">کارشناسی خودرو</button>
+            <span className="font-medium text-[#0f0f0f]">
+              کارشناسی خودرو شمکارشناسی خودروکارشناسی خودرو شما شماا
+            </span>
+            <button className="rounded-lg border border-[#F66B34] text-[#F66B34] flex items-center justify-center py-2 px-8">
+              کارشناسی خودرو
+            </button>
           </div>
         </div>
         <div className="w-full h-px bg-[#bbbbbb]"></div>
@@ -86,7 +93,10 @@ const ResultPage = () => {
           <div className="grid grid-cols-3 gap-x-8 gap-y-2">
             {data.dots?.map((item, index) => (
               <div className="flex gap-1">
-                <div className="size-4 rounded-full" style={{ background: item.color }}></div>
+                <div
+                  className="size-4 rounded-full"
+                  style={{ background: item.color }}
+                ></div>
                 <span>{item.name}</span>
               </div>
             ))}
