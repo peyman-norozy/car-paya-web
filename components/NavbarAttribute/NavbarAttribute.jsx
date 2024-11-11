@@ -3,7 +3,7 @@ import Link from "next/link";
 import useClickOutside from "@/hook/useClickOutside";
 
 const NavbarAttribute = ({ data }) => {
-  console.log(data);
+  // console.log(data);
   const [newHeight, setNewHeight] = React.useState(0);
   const [optionHeightHandler, setOptionHeightHandler] = useState(false);
   const ulRef = useRef(null);

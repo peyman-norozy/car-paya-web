@@ -77,7 +77,7 @@ export const metadata = {
 
 const HomePage = async () => {
   const data = await getDataWithRevalidate(
-    "https://carpaya.com/blog/wp-json/api/v1/random-posts/8",
+    "https://carpaya.com/blog/wp-json/api/v1/random-posts/8"
   );
 
   return (
