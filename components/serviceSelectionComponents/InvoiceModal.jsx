@@ -14,15 +14,13 @@ const InvoiceModal = (props) => {
   }
 
   async function removeClickHandler(id) {
-    const data = await postData("/web/cart/remove", {
-      cartable_id: id,
-      cartable_type: "PERIODIC_SERVICE",
-      vehicle_tip_id: JSON.parse(localStorage.getItem("selectedVehicle"))?.id,
+    const sessionData = JSON.parse(sessionStorage.getItem("periodicCart"));
+    const newData = props.invoiceData.filter((item) => {
+      item.id !== id;
     });
-    if (data.status === 200) {
-      console.log(data);
-      dispatch(renderInvoice());
-    }
+    sessionData.products = newData;
+    props.setInvoiceData(newData);
+    sessionStorage.setItem("periodicCart", JSON.stringify(sessionData));
   }
   return (
     <div
@@ -76,22 +74,25 @@ const InvoiceModal = (props) => {
                   </div>
                 </div>
               ))} */}
-            {props.invoiceData.data.map((item , index) => (
-              <div className="flex items-center gap-2 py-2 shadow-[0_0_8px_0_rgba(176,176,176,0.25)] relative" key={index}>
+            {props.invoiceData.map((item, index) => (
+              <div
+                className="flex items-center gap-2 py-2 shadow-[0_0_8px_0_rgba(176,176,176,0.25)] relative"
+                key={index}
+              >
                 <Image
                   src={
                     process.env.BASE_API +
                     "/web" +
                     API_PATHS.FILE +
                     "/" +
-                    item.item.item.image_id
+                    item.image_ids
                   }
                   width={92}
                   height={98}
                 />
                 <div className="flex flex-col gap-2">
                   <span className="text-[#0F0F0F] font-medium text-sm">
-                    {item.item.item.name}
+                    {item.name}
                   </span>
                   <ul className="list-disc gap-1 flex flex-col pr-2">
                     <li className="flex items-center gap-1 text-xs text-[#5D5D5D]">
@@ -110,9 +111,11 @@ const InvoiceModal = (props) => {
                   <div className="flex items-center gap-1">
                     <span className="text-sm font-medium">قیمت :</span>
                     <span className="text-xs font-medium text-[#1E67BF]">
-                      {numberWithCommas(item.item.item.discounted_price
-                        ? item.item.item.discounted_price
-                        : item.item.item.price)}{" "}
+                      {numberWithCommas(
+                        item.discounted_price
+                          ? item.discounted_price
+                          : item.price
+                      )}{" "}
                       تومان
                     </span>
                   </div>
@@ -120,7 +123,7 @@ const InvoiceModal = (props) => {
                 <div
                   className="size-9 rounded-lg bg-[#FDF1F1] flex items-center justify-center absolute bottom-3 left-3"
                   onClick={() => {
-                    removeClickHandler(item.item.item.id);
+                    removeClickHandler(item.id);
                   }}
                 >
                   <i className="cc-filter text-[#888888] text-2xl" />

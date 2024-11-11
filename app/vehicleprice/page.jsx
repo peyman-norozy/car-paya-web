@@ -9,7 +9,7 @@ import { postData } from "@/utils/client-api-function-utils";
 import { useRouter } from "next/navigation";
 import periodicLanding from "@/public/assets/images/periodicLanding.png";
 import Image from "next/image";
-import carParts from "@/public/assets/images/carParts.png"
+import carParts from "@/public/assets/images/carParts.png";
 const Vehicleprice = (props) => {
   const [client, setClient] = useState(false);
   const [asideStatus, setAsideStatus] = useState("car_city");
@@ -18,7 +18,7 @@ const Vehicleprice = (props) => {
   const [carData, setCarData] = useState({});
   const [partsData, setPartsData] = useState({});
   const [display, setDispaly] = useState(false);
-  const [dotsArray, setDotsArray] = useState([])
+  const [dotsArray, setDotsArray] = useState([]);
   const router = useRouter();
   useEffect(() => {
     setClient(true);
@@ -41,7 +41,7 @@ const Vehicleprice = (props) => {
 
   function tabClickHandler(key, value, color, top, right) {
     setDotsArray((prevDotsArray) => {
-      const index = prevDotsArray.findIndex(dot => dot.name === key);
+      const index = prevDotsArray.findIndex((dot) => dot.name === key);
 
       if (index !== -1) {
         // اگر `name` تکراری باشد، آن شیء را به‌روزرسانی می‌کنیم
@@ -69,7 +69,7 @@ const Vehicleprice = (props) => {
       items: Object.values(partsData),
     };
     console.log(JSON.stringify(data));
-    sessionStorage.setItem("dotsData", JSON.stringify(dotsArray))
+    sessionStorage.setItem("dotsData", JSON.stringify(dotsArray));
     router.push(
       `/vehicleprice/result?year=${data.year}&year=${data.year}&color=${data.color}&operation=${data.operation}&model=${data.model}&tip=${data.tip}&brand=${data.brand}&items=${data.items.join(",")}`
     );
@@ -120,9 +120,14 @@ const Vehicleprice = (props) => {
           <Image src={periodicLanding} width={460} height={360} />
         </div>
       </div>
-      <div className={`w-full h-fit ${!display ? "hidden" : "grid"} grid-cols-8 gap-4 mt-12 mb-4`}>
+      <div
+        className={`w-full h-fit ${!display ? "hidden" : "grid"} grid-cols-8 gap-4 mt-12 mb-4`}
+      >
         <div className="shadow-[0_0_6px_0_rgba(125,125,125,0.5)] rounded-2xl p-4 bg-white w-full col-span-2 h-auto flex flex-col gap-5 text-[#0F0F0F] font-medium">
-          <span>براورد قیمت خودرو {JSON.parse(localStorage.getItem("selectedVehicle"))?.title}</span>
+          <span>
+            براورد قیمت خودرو{" "}
+            {JSON.parse(localStorage.getItem("selectedVehicle"))?.title}
+          </span>
           <span>سال ساخت خودرو: {carData.year}</span>
           <span>رنگ خودرو: {carData.color}</span>
           <span>کیلومتر خودرو: {carData.operation}</span>
@@ -140,7 +145,7 @@ const Vehicleprice = (props) => {
                   }}
                   className="size-3 rounded-full absolute z-[2]"
                 ></div>
-              )
+              );
             })}
           </div>
         </div>

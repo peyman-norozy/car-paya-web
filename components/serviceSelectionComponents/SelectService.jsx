@@ -15,13 +15,17 @@ const SelectService = (props) => {
   const [productModalState, setProductModalState] = useState(false);
   const [invoiceModalState, setInvoiceModalState] = useState(false);
   const [selectedServic, setSelectedService] = useState("");
-  const [invoiceData, setInvoiceData] = useState({ data: [], totalPrice: 0 });
+  const [invoiceData, setInvoiceData] = useState([]);
 
   const setQuery = useSetQuery();
   const router = useRouter();
   const renderInvoice = useSelector((item) => item.todo.renderInvoice);
   useEffect(() => {
-    console.log(props.data);
+    const sessionsData = JSON.parse(sessionStorage.getItem("periodicCart"));
+    console.log(sessionsData.products);
+    if (sessionsData.products !== undefined) {
+      setInvoiceData(sessionsData.products);
+    }
   }, []);
   // useEffect(() => {
   //   getInvoiceData()
@@ -115,13 +119,13 @@ const SelectService = (props) => {
           >
             <i className="cc-wallet text-xl" />
             <span
-              className={`rounded-full bg-[#F66B34] text-[#FEFEFE] size-[18px] flex items-center justify-center absolute -top-[9px] -right-[9px] text-xs pt-1 ${invoiceData.data.length ? "" : "hidden"}`}
+              className={`rounded-full bg-[#F66B34] text-[#FEFEFE] size-[18px] flex items-center justify-center absolute -top-[9px] -right-[9px] text-xs pt-1 ${invoiceData.length ? "" : "hidden"}`}
             >
-              {invoiceData.data.length}
+              {invoiceData.length}
             </span>
           </div>
         </div>
-        <div className="grid grid-cols-5 gap-x-3 gap-y-6">
+        <div className="grid grid-cols-3 sm:grid-cols-5 gap-x-3 gap-y-6">
           {props.data.map((item, index) => (
             <div
               className="bg-white shadow-[0_0_6px_0_rgba(125,125,125,0.5)] rounded-lg flex flex-col items-center w-full p-2 pb-1 gap-1"
@@ -157,9 +161,10 @@ const SelectService = (props) => {
             {numberWithCommas(invoiceData.totalPrice)} تومان
           </span>
         </div>
+        {console.log(invoiceData)}
         <button
-          className={`${invoiceData.totalPrice ? "bg-[#F66B34]" : "bg-[#FCCAAC]"} rounded-lg text-[#FEFEFE] font-medium py-2 px-3`}
-          disabled={invoiceData.totalPrice ? false : true}
+          className={`${invoiceData.length ? "bg-[#F66B34]" : "bg-[#FCCAAC]"} rounded-lg text-[#FEFEFE] font-medium py-2 px-3`}
+          disabled={invoiceData.length ? false : true}
           onClick={nextButtonClickHandler}
         >
           تایید و تکمیل سفارش
@@ -170,11 +175,13 @@ const SelectService = (props) => {
         productModalState={productModalState}
         setProductModalState={setProductModalState}
         selectedServic={selectedServic}
+        setInvoiceData={setInvoiceData}
       />
       <InvoiceModal
         invoiceModalState={invoiceModalState}
         setInvoiceModalState={setInvoiceModalState}
         invoiceData={invoiceData}
+        setInvoiceData={setInvoiceData}
       />
     </div>
   );
