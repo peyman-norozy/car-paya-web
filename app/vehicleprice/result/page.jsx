@@ -53,7 +53,7 @@ const ResultPage = () => {
         <div className="flex items-center gap-1">
           <span className="text-sm text-dark-500">کیلومتر مصرفی:</span>
           <span className="text-sm font-medium flex gap-1 flex-row-reverse">
-            {numberWithCommas(data.operation)}
+            {numberWithCommas(data.kilometers)}
             <span className="font-normal">km</span>
           </span>
         </div>
@@ -71,11 +71,17 @@ const ResultPage = () => {
           <span className="text-[#0f0f0f] font-medium">
             براورد قیمت خودرو شما
           </span>
-          <div className="flex flex-col items-center gap-2">
-            <div className="bg-gradient-to-r from-[#10adf9] via-[#15f851] to-[#ff7d37] h-6 w-4/5  rounded-xl"></div>
-            <div className="flex items-center justify-between text-sm w-10/12">
-              <span>{numberWithCommas(price.max_price)} تومان</span>
-              <span>{numberWithCommas(price.min_price)} تومان</span>
+          <div className="flex flex-col items-center gap-1">
+            <div className="bg-gradient-to-r from-[#10adf9] from-15% via-[#15f851] via-50% to-[#ff7d37] to-85% h-6 w-4/5 rounded-xl"></div>
+            <div className="flex items-center justify-around text-sm w-10/12">
+              <span className="w-px h-6 bg-green-950"></span>
+              <span className="w-px h-6 bg-green-950"></span>
+            </div>
+            <div className="flex items-center justify-around text-sm w-10/12">
+              <span>
+                حداکثر قیمت: {numberWithCommas(price.max_price)} تومان
+              </span>
+              <span>حداقل قیمت: {numberWithCommas(price.min_price)} تومان</span>
             </div>
           </div>
           <div className="flex justify-between">
@@ -90,7 +96,7 @@ const ResultPage = () => {
         <div className="w-full h-px bg-[#bbbbbb]"></div>
         <span className="text-[#0f0f0f] font-medium">وضعیت خودرو شما</span>
         <div className="flex justify-between">
-          <div className="grid grid-cols-3 gap-x-8 gap-y-2">
+          <div className="grid grid-cols-3 gap-x-12 gap-y-2">
             {data.dots?.map((item, index) => (
               <div className="flex gap-1">
                 <div

@@ -73,16 +73,16 @@ const VehiclePriceModal = (props) => {
             onChange={inputChangeHandler}
           >
             <option value={null}>سال ساخت خودرو</option>
-            <option value={"2024"}>2024</option>
-            <option value={"2023"}>2023</option>
-            <option value={"2022"}>2022</option>
-            <option value={"2021"}>2021</option>
-            <option value={"2020"}>2020</option>
-            <option value={"2019"}>2019</option>
-            <option value={"2018"}>2018</option>
-            <option value={"2017"}>2017</option>
-            <option value={"2016"}>2016</option>
-            <option value={"2015"}>2015</option>
+            <option value={"1403-2024"}>1403-2024</option>
+            <option value={"1402-2023"}>1402-2023</option>
+            <option value={"1401-2022"}>1401-2022</option>
+            <option value={"1400-2021"}>1400-2021</option>
+            <option value={"1399-2020"}>1399-2020</option>
+            <option value={"1398-2019"}>1398-2019</option>
+            <option value={"1397-2018"}>1397-2018</option>
+            <option value={"1396-2017"}>1396-2017</option>
+            <option value={"1395-2016"}>1395-2016</option>
+            <option value={"1394-2015"}>1394-2015</option>
             {/* <option value={"2014"}>2014</option>
             <option value={"2013"}>2013</option>
             <option value={"2012"}>2012</option>
