@@ -7,7 +7,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { persianDate, persianDateCovertor } from "@/utils/function-utils";
 import ReserveTimeVerification from "@/components/TimeSelectorCard/TimeSelectorCard";
 import { ToastContainer } from "react-toastify";
-import nProgress from "nprogress";
+import nProgress, { start } from "nprogress";
 const Page = (props) => {
   const [selectedTime, setSelectedTime] = useState();
   const [date, setDate] = useState(0);
@@ -15,6 +15,8 @@ const Page = (props) => {
   const [data, setData] = useState([]);
   const [packagePrice, setPackagePrice] = useState(0);
   const [timeIsSelected, setTimeIsSelected] = useState(null);
+  const [uniqueTitle, setUniqueTitle] = useState([]);
+  const [dayTitleTab, setDayTitleTab] = useState("");
 
   const setQuery = useSetQuery();
   const router = useRouter();
@@ -24,14 +26,23 @@ const Page = (props) => {
       const data = await getDataWithFullErrorRes(
         `/web/service-periodical?step=step-3&type=${props.searchParams.type}&city_id=${props.searchParams.city_id}&vehicle_tip_id=${props.searchParams.selectTipState.split(",")[1]}&service_location_id=${props.searchParams.service_location_id}&package_id=${props.searchParams.package_id}`
       );
-      setData(
-        Object.keys(data["time-reserve"]).map((key) => {
-          return {
-            day: key,
-            hour: data["time-reserve"][key],
-          };
-        })
+      console.log(data.data);
+      setData(data?.data);
+      const uniqueTitles = Array.from(
+        new Set(data?.data?.map((item) => item.title))
       );
+      console.log(uniqueTitles);
+
+      setUniqueTitle(uniqueTitles);
+      setDayTitleTab(uniqueTitles[0]);
+      // setData(
+      //   Object.keys(data["time-reserve"]).map((key) => {
+      //     return {
+      //       day: key,
+      //       hour: data["time-reserve"][key],
+      //     };
+      //   })
+      // );
     }
     getTimeData();
   }, []);
@@ -54,8 +65,18 @@ const Page = (props) => {
       // if (loginState) {
       nProgress.start();
       router.push(
-        `/periodic-service/invoice?step=step-4&city_id=${props.searchParams.city_id}&vehicle_tip_id=${props.searchParams.selectTipState}&package_id=${props.searchParams.package_id}&reservation_time_slice_id=${timeIsSelected}&type=${props.searchParams.type}&service_location_id=${props.searchParams.service_location_id}&registrationable_id=${props.searchParams.service_location_id}`
+        `/periodic-service/invoice?step=step-4&city_id=${props.searchParams.city_id}&vehicle_tip_id=${props.searchParams.selectTipState}&package_id=${props.searchParams.package_id}&reservation_time_slice_id=${timeIsSelected?.id}&type=${props.searchParams.type}&service_location_id=${props.searchParams.service_location_id}&registrationable_id=${props.searchParams.service_location_id}`
       );
+      console.log(timeIsSelected);
+
+      const sessionData = JSON.parse(sessionStorage.getItem("periodicCart"));
+      sessionData.time = {
+        id: timeIsSelected.id,
+        title: timeIsSelected.title,
+        start: timeIsSelected.start,
+        end: timeIsSelected.end,
+      };
+      sessionStorage.setItem("periodicCart", JSON.stringify(sessionData));
       // setQuery.setMultiQuery([
       //   { key: "step", value: "step-4" },
       //   { key: "city_id", value: props.searchParams.city_id },
@@ -142,21 +163,22 @@ const Page = (props) => {
           </p>
           {console.log(data)}
           <div className="w-fit flex justify-around items-center gap-6 min-w-full relative border-b border-[#FCCAAC] pb-2">
-            {data.slice(0, 2).map((item, index) => (
+            {uniqueTitle.map((item, index) => (
               <div
-                key={index}
-                className={`flex items-end gap-2 text-sm font-medium cursor-pointer ${date === index ? "text-[#F58052]" : "text-[#FCCAAC]"}`}
+                key={item}
+                className={`flex items-end gap-2 text-sm font-medium cursor-pointer ${dayTitleTab === item ? "text-[#F58052]" : "text-[#FCCAAC]"}`}
                 onClick={() => {
                   setDate(index);
-                  setTab(index);
+                  setDayTitleTab(item);
                 }}
               >
-                <p>{persianDate(item.day, "dddd")}</p>
-                <p>{persianDateCovertor(item.day)}</p>
+                {/* <p>{persianDate(item.day, "dddd")}</p>
+                <p>{persianDateCovertor(item.day)}</p> */}
+                <p>{item}</p>
               </div>
             ))}
             <div
-              className={`${tab ? "right-1/2" : "right-0"} w-1/2 h-[2px] bg-[#F58052] mt-[-2px] transition-all absolute bottom-0`}
+              className={`${dayTitleTab === uniqueTitle[1] ? "right-1/2" : "right-0"} w-1/2 h-[2px] bg-[#F58052] mt-[-2px] transition-all absolute bottom-0`}
             ></div>
           </div>
           <div className={"flex flex-col gap-[2rem]"}>
@@ -180,16 +202,19 @@ const Page = (props) => {
           <p>{persianDateCovertor(data[0])}</p>
         </div>
       </div> */}
-              {data[date] &&
-                data[date]["hour"].map((item, index) => (
+              {data
+                .filter((item) => {
+                  return item.title === dayTitleTab;
+                })
+                .map((item, index) => (
                   <div
-                    className={`shadow-[0_0_4px_0_rgba(152,152,152,0.4)] rounded-lg h-fit border transition-all duration-500 ${timeIsSelected === item.id ? "border-[#F58052]" : ""}`}
+                    className={`shadow-[0_0_4px_0_rgba(152,152,152,0.4)] rounded-lg h-fit border transition-all cursor-pointer duration-500 ${timeIsSelected?.id === item.id ? "border-[#F58052]" : ""}`}
                     key={index}
                   >
                     <div
                       onClick={() =>
                         // openOptionHandler(item.id)
-                        setTimeIsSelected(item.id)
+                        setTimeIsSelected(item)
                       }
                       className={
                         "flex flex-col items-start px-4 py-5 gap-1 border-b border-[#F2F2F2]"
@@ -199,7 +224,7 @@ const Page = (props) => {
                         className={"flex items-center justify-between w-full"}
                       >
                         <p className={"text-sm text-[#1E67BF] font-medium"}>
-                          {item.start_time}:00 تا {item.end_time}:00
+                          {item.start}:00 تا {item.end}:00
                         </p>
                         <div
                           className={
@@ -207,7 +232,7 @@ const Page = (props) => {
                           }
                         >
                           <div
-                            className={`rounded-[50%] bg-[#F58052] size-[10px] transition-all duration-500 ${timeIsSelected === item.id ? "scale-1" : "scale-0"}`}
+                            className={`rounded-[50%] bg-[#F58052] size-[10px] transition-all duration-500 ${timeIsSelected?.id === item.id ? "scale-1" : "scale-0"}`}
                           ></div>
                         </div>
                       </div>

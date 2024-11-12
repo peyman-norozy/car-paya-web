@@ -110,6 +110,7 @@ const Dealership = (props) => {
   const [type, setType] = useState("MOVING");
   const [isLoading, setIsLoading] = useState(false);
   const [selectedAddress, setSelectedAddress] = useState("");
+  const [selectedAddressId, setSelectedAddressId] = useState("");
   const [selectedAddressText, setSelectedAddressText] = useState("");
   const [serviceModal, setServiceModal] = useState(false);
   const [checkedService, setCheckedService] = useState([]);
@@ -222,12 +223,13 @@ const Dealership = (props) => {
     sessionStorage.setItem(
       "periodicCart",
       JSON.stringify({
-        location_id: selectedAddress,
+        location_id: selectedAddressId,
+        location_address_id: selectedAddress,
         location_title: selectedAddressText,
       })
     );
     setQuery.updateQueryParams(
-      { service_location_id: selectedAddress },
+      { service_location_id: selectedAddressId },
       "/periodic-service/service-selection"
     );
   };
@@ -400,10 +402,12 @@ const Dealership = (props) => {
                   editModalIsOpen={editModalIsOpen}
                   setEditModalIsOpen={setEditModalIsOpen}
                   setSelectedAddressText={setSelectedAddressText}
+                  setSelectedAddressId={setSelectedAddressId}
                 />
               ))
             : searchedAgentData?.map((item, index) => (
                 <AgentAdressCard
+                  setSelectedAddressId={setSelectedAddressId}
                   key={index}
                   data={item}
                   selectedAddress={selectedAddress}

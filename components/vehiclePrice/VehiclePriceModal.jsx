@@ -68,7 +68,7 @@ const VehiclePriceModal = (props) => {
         />
         <div className={"relative"}>
           <select
-            className={`${validation.includes("year") ? "border-red-500" : "border-[#B0B0B0]"} outline-none border appearance-none bg-[#fdfdfd] border-[#B0B0B0] rounded-8 flex justify-between h-[48px] w-full text-14 pr-2 caret-transparent text-[#757575]"`}
+            className={`${validation.includes("year") ? "border-red-500" : "border-[#B0B0B0]"} outline-none border appearance-none bg-[#fdfdfd] border-[#B0B0B0] rounded-8 flex justify-between h-[48px] w-full text-14 pr-2 caret-transparent text-[#757575]`}
             id="year"
             onChange={inputChangeHandler}
           >

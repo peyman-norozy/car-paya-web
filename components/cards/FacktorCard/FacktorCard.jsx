@@ -8,15 +8,11 @@ import { usePathname } from "next/navigation";
 const FacktorCard = ({ item }) => {
   const pathName = usePathname();
   return (
-    <li
-      className={
-        "p-2 shadow-custom1 rounded-lg min-w-[197px]  relative"
-      }
-    >
+    <li className={"p-2 shadow-custom1 rounded-lg min-w-[197px]  relative"}>
       <section className={"flex flex-row lg:flex-col items-center gap-4"}>
         <div>
           <Image
-            src={process.env.BASE_API + "/web/file/" + item?.image_id}
+            src={process.env.BASE_API + "/web/file/" + item?.image_ids}
             className={"w-[120px] h-[114px] bg-slate-200 rounded"}
             alt={"service product"}
             width={120}
@@ -40,7 +36,7 @@ const FacktorCard = ({ item }) => {
           >
             {item?.discounted_salary || item?.discounted_price
               ? numberWithCommas(
-                  pathName.includes("/detailing") ? item?.salary : item?.price,
+                  pathName.includes("/detailing") ? item?.salary : item?.price
                 ) + " تومان "
               : ""}
           </div>
@@ -55,7 +51,7 @@ const FacktorCard = ({ item }) => {
                       : item?.salary
                     : item?.discounted_price
                       ? item?.discounted_price
-                      : item?.price,
+                      : item?.price
                 ) + " تومان "}
               </span>
             </div>
