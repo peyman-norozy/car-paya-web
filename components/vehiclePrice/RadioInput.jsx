@@ -26,14 +26,27 @@ const RadioInput = (props) => {
                 width: `${Math.floor((1 / props.options.length) * 100)}%`,
               }}
               onClick={() => {
-                props.tabClickHandler(
-                  props.name,
-                  item.input_id,
-                  item.color,
-                  props.top,
-                  props.right
-                );
-                checked === index ? setChecked(null) : setChecked(index);
+                if (checked === index) {
+                  props.tabClickHandler(
+                    props.name,
+                    item.input_id,
+                    item.color,
+                    props.top,
+                    props.right,
+                    true
+                  );
+                  setChecked(null);
+                } else {
+                  props.tabClickHandler(
+                    props.name,
+                    item.input_id,
+                    item.color,
+                    props.top,
+                    props.right,
+                    false
+                  );
+                  setChecked(index);
+                }
               }}
             >
               {item.persian_option}

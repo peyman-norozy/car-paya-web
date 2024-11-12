@@ -40,18 +40,18 @@ const Vehicleprice = (props) => {
   //   setPartsData({ ...partsData, [key]: value });
   // }
 
-  function tabClickHandler(key, value, color, top, right) {
+  function tabClickHandler(key, value, color, top, right, remove) {
     setDotsArray((prevDotsArray) => {
       const index = prevDotsArray.findIndex((dot) => dot.name === key);
-
+      if (remove) {
+        const updatedArray = [...prevDotsArray];
+        updatedArray.splice(index, 1);
+        return updatedArray;
+      }
       if (index !== -1) {
         // اگر `name` تکراری باشد، آن شیء را به‌روزرسانی می‌کنیم
         const updatedArray = [...prevDotsArray];
-        if ((updatedArray[index].value = value)) {
-          updatedArray.splice(index, 1);
-        } else {
-          updatedArray[index] = { ...updatedArray[index], color, top, right };
-        }
+        updatedArray[index] = { ...updatedArray[index], color, top, right };
         return updatedArray;
       } else {
         // اگر `name` جدید باشد، آن را به آرایه اضافه می‌کنیم
