@@ -20,7 +20,7 @@ const PriceDetails = (props) => {
       props.setDiscountedPrice(Number(props.discountPrice.amount));
     } else if (props.discountPrice?.percentage) {
       props.setDiscountedPrice(
-        Number(props.totalPrice * props.discountPrice.percentage) / 100,
+        Number(props.totalPrice * props.discountPrice.percentage) / 100
       );
     } else {
       props.setDiscountedPrice(0);
@@ -131,7 +131,7 @@ const PriceDetails = (props) => {
             {/*    )}*/}
             {/* {numberWithCommas(props.price)} */}
             {numberWithCommas(
-              props.finalPrice - props.discountedprice + props.fluctuatingPrice,
+              props.finalPrice - props.discountedprice + props.fluctuatingPrice
             )}
             تومان
           </span>
@@ -154,7 +154,7 @@ const PriceDetails = (props) => {
         <span className="text-[#0F0F0F]">جمع قابل پرداخت:</span>
         <span className="text-[#0F0F0F]">
           {numberWithCommas(
-            props.finalPrice - props.discountedprice + props.fluctuatingPrice,
+            props.finalPrice - props.discountedprice + props.fluctuatingPrice
           )}
           تومان
         </span>
