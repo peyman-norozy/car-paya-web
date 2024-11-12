@@ -18,7 +18,7 @@ const Vehicleprice = (props) => {
   const [preventFirstRender, setPreventFirstRender] = useState(false);
   const [carData, setCarData] = useState({});
   const [partsData, setPartsData] = useState({});
-  const [display, setDispaly] = useState(true);
+  const [display, setDispaly] = useState(false);
   const [dotsArray, setDotsArray] = useState([]);
   const router = useRouter();
   useEffect(() => {
