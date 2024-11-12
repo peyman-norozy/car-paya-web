@@ -33,7 +33,7 @@ const RadioInput = (props) => {
                   props.top,
                   props.right
                 );
-                setChecked(index);
+                checked === index ? setChecked(null) : setChecked(index);
               }}
             >
               {item.persian_option}

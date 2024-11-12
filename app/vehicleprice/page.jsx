@@ -47,7 +47,11 @@ const Vehicleprice = (props) => {
       if (index !== -1) {
         // اگر `name` تکراری باشد، آن شیء را به‌روزرسانی می‌کنیم
         const updatedArray = [...prevDotsArray];
-        updatedArray[index] = { ...updatedArray[index], color, top, right };
+        if ((updatedArray[index].value = value)) {
+          updatedArray.splice(index, 1);
+        } else {
+          updatedArray[index] = { ...updatedArray[index], color, top, right };
+        }
         return updatedArray;
       } else {
         // اگر `name` جدید باشد، آن را به آرایه اضافه می‌کنیم
