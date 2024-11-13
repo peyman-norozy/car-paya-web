@@ -108,7 +108,7 @@ const VehicleInspection = () => {
         modalClickState={modalClickState}
       />
       <div className="sm:rounded-3xl flex p-4 flex-col items-center bg-[#EBF5FF] lg:h-[500px] lg:p-10 xl:p-16 lg:gap-16 mt-[25px]">
-        <div className="flex flex-col gap-2 items-start self-start lg:gap-11">
+        <div className="flex flex-col gap-2 items-start self-center lg:gap-11">
           <h1 className="text-lg lg:text-2xl font-medium lg:font-bold text-[#000000]">
             کارشناسی وسیله نقلیه
           </h1>
