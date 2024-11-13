@@ -20,6 +20,8 @@ import CarAndCityContainer from "@/components/public/CarAndCityContainer";
 import nProgress from "nprogress";
 import Counseling from "@/components/Counseling";
 import BachelorSteps from "@/components/BachelorSteps";
+import WhyInspection from "@/components/WhyInspection";
+import InLocation from "@/components/InLocation";
 // import CarAndCityContainer from "./public/CarAndCityContainer";
 const VehicleInspection = () => {
   // const { on_click, verificationData, setStep, step } = props;
@@ -142,10 +144,10 @@ const VehicleInspection = () => {
           {vehicleVerificationBasket.length ? "ادامه " : ""}درخواست کارشناسی
         </button>
       </div>
-      <div
-        className={"w-full lg:w-[calc(100%-424px)] mr-auto gap-8 flex flex-col"}
-      >
+      <div className={"max-w-[1294px] mx-auto gap-8 flex flex-col"}>
         <BachelorSteps />
+        <WhyInspection />
+        <InLocation />
         <Counseling />
         <div className="flex flex-col items-center gap-3 text-[#000000]">
           <h2 className="font-bold">چرا کار پایا !</h2>
