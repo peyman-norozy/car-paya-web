@@ -76,7 +76,7 @@ const ResponsiveHeader = (props) => {
   return (
     <>
       <header
-        className={`${props.className} font-light flex justify-between items-center px-[30px] py-[15px] sticky top-0 right-0 left-0 w-[100wh] bg-[#FEFEFE] z-[3000] h-[74px] drop-shadow-[0_3px_10px_rgba(0,0,0,0.1)] lg:shadow-[0_4px_6px_-1px_rgba(255,255,255,0.1),_0_2px_4px_-1px_rgba(255,255,255,0.06)] lg:pb-[26px] lg:pt-[34px] lg:rounded-b-3xl`}
+        className={`${props.className} font-light flex justify-between items-center px-[30px] py-[15px] sticky top-0 right-0 left-0 w-[100wh] bg-[#FEFEFE] z-[3000] h-[74px] drop-shadow-[0_3px_10px_rgba(0,0,0,0.1)] lg:shadow-[0_4px_6px_-1px_rgba(255,255,255,0.1),0_2px_4px_-1px_rgba(255,255,255,0.06)] lg:pb-[26px] lg:pt-[34px] lg:rounded-b-3xl`}
         onClick={(event) => {
           if (event.target.getAttribute("slug") === "serviceSlug") {
             return null;
@@ -94,7 +94,7 @@ const ResponsiveHeader = (props) => {
             event.target && setNewMenueState(false);
         }}
       >
-        <div className="flex items-center justify-between w-full">
+        <div className="flex items-center justify-between w-full max-w-[1676px] mx-auto">
           <div className="lg:gap-[32px] gap-2 flex items-center">
             <div
               className={`cursor-pointer transition-all lg:hidden flex items-center justify-start ${

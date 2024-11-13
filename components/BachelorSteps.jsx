@@ -26,13 +26,13 @@ const bachelorData = [
 
 const BachelorSteps = () => {
   return (
-    <div className={"py-[48px] px-[25px] mt-[40px]"}>
+    <div className={"py-[48px] px-6 w-full"}>
       <p className={"lg:hidden block text-16 font-medium mb-[44px]"}>
         مراحل ثبت کارشناسی
         <span className={"text-[#1C74D1]"}> کار </span>
         <span className={"text-[#F66B34]"}> پایا </span>
       </p>
-      <section className={"flex gap-[144px]"}>
+      <section className={"flex flex-col md:flex-row justify-between"}>
         <ul className={""}>
           {bachelorData.map((item, index) => (
             <li
@@ -57,14 +57,13 @@ const BachelorSteps = () => {
             </li>
           ))}
         </ul>
-        <section>
-          <Image
-            src={"/assets/images/MobileRectangle.png"}
-            alt={"mobile"}
-            width={176}
-            height={324}
-          />
-        </section>
+        <Image
+          src={"/assets/images/MobileRectangle.png"}
+          alt={"mobile"}
+          width={200}
+          height={337}
+          className="aspect-[200/337] w-[250px] h-auto m-auto"
+        />
       </section>
     </div>
   );
