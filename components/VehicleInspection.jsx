@@ -20,6 +20,8 @@ import CarAndCityContainer from "@/components/public/CarAndCityContainer";
 import nProgress from "nprogress";
 import Counseling from "@/components/Counseling";
 import BachelorSteps from "@/components/BachelorSteps";
+import WhyInspection from "@/components/WhyInspection";
+import InLocation from "@/components/InLocation";
 // import CarAndCityContainer from "./public/CarAndCityContainer";
 const VehicleInspection = () => {
   // const { on_click, verificationData, setStep, step } = props;
@@ -32,7 +34,7 @@ const VehicleInspection = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [modalClickState, setModalClickState] = useState(false);
   const vehicleVerificationBasket = useSelector(
-    (state) => state.todo.vehicleVerificationBasketLength,
+    (state) => state.todo.vehicleVerificationBasketLength
   );
   const router = useRouter();
   const setQuery = useSetQuery();
@@ -68,7 +70,7 @@ const VehicleInspection = () => {
       // setStep(2);
       nProgress.start();
       router.push(
-        `/services/vehicle-inspection/service-selection?city_id=${JSON.parse(localStorage.getItem("city")).cityId}&vehicle_tip=${JSON.parse(localStorage.getItem("selectedVehicle")).id}&step=step-1`,
+        `/services/vehicle-inspection/service-selection?city_id=${JSON.parse(localStorage.getItem("city")).cityId}&vehicle_tip=${JSON.parse(localStorage.getItem("selectedVehicle")).id}&step=step-1`
       );
     }
     // setModalIsOpen(true);
@@ -86,7 +88,7 @@ const VehicleInspection = () => {
         process.env.BASE_API +
           "/web/expert/reservation?step=step-1" +
           vehicle_tip +
-          city,
+          city
       )
       .then((res) => {
         console.log(res);
@@ -108,7 +110,7 @@ const VehicleInspection = () => {
         modalClickState={modalClickState}
       />
       <div className="sm:rounded-3xl flex p-4 flex-col items-center bg-[#EBF5FF] lg:h-[500px] lg:p-10 xl:p-16 lg:gap-16 mt-[25px]">
-        <div className="flex flex-col gap-2 items-start self-start lg:gap-11">
+        <div className="flex flex-col gap-2 items-start self-center lg:gap-11">
           <h1 className="text-lg lg:text-2xl font-medium lg:font-bold text-[#000000]">
             کارشناسی وسیله نقلیه
           </h1>
@@ -142,10 +144,10 @@ const VehicleInspection = () => {
           {vehicleVerificationBasket.length ? "ادامه " : ""}درخواست کارشناسی
         </button>
       </div>
-      <div
-        className={"w-full lg:w-[calc(100%-424px)] mr-auto gap-8 flex flex-col"}
-      >
+      <div className={"max-w-[1294px] mx-auto gap-8 flex flex-col"}>
         <BachelorSteps />
+        <WhyInspection />
+        <InLocation />
         <Counseling />
         <div className="flex flex-col items-center gap-3 text-[#000000]">
           <h2 className="font-bold">چرا کار پایا !</h2>
