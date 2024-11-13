@@ -75,11 +75,11 @@ const BachelorSteps = () => {
   return (
     <div className="py-[48px] px-[25px] mt-[40px] max-w-[1294px] shadow-sm rounded-8 overflow-hidden">
       <p className="lg:hidden block text-16 font-medium mb-[44px]">
-        مراحل ثبت کارشناسی
+        مراحل ثبت سرویس دوره ای
         <span className="text-[#1C74D1]"> کار </span>
         <span className="text-[#F66B34]"> پایا </span>
       </p>
-      <section className="flex justify-between gap-[144px] max-w-[1294px]">
+      <section className="flex flex-col lg:flex-row justify-between gap-4 lg:gap-[144px] max-w-[1294px]">
         <ul>
           {bachelorData.map((item, index) => (
             <li
@@ -146,7 +146,7 @@ const BachelorSteps = () => {
                   alt="mobile"
                   width={238}
                   height={401}
-                  className={`transition-all duration-500 ${bachloreNumber === index + 1 ? "block" : "hidden"} ${
+                  className={`transition-all duration-500 ${bachloreNumber === index + 1 ? "block" : "hidden"} m-auto ${
                     animated ? "opacity-80" : "opacity-100"
                   }`}
                 />
