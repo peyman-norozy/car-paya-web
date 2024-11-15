@@ -191,7 +191,7 @@ import periodic_landing from "@/public/assets/images/periodic_landing.png";
 import zarebin from "@/public/assets/images/zarebin.png";
 import { useRouter } from "next/navigation";
 import { error } from "@/utils/function-utils";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import CarAndCityContainer from "@/components/public/CarAndCityContainer";
 import nProgress from "nprogress";
 import Counseling from "@/components/Counseling";
@@ -201,37 +201,73 @@ import QuestionMark from "../QuestionMark";
 import PeriodicLandingServices from "../periodic-service-components/PeriodicLandingServices";
 import PeriodicOptions from "../periodic-service-components/PeriodicOptions";
 import CommentsSlider from "../periodic-service-components/CommentsSlider";
+import { getCookies } from "cookies-next";
+import { setLoginModal } from "@/store/todoSlice";
 
 const PeriodicServiceIndex = () => {
   const [selectedItem, setSelectedItem] = useState(null);
   const [city_id, setCity_id] = useState();
   const [data, setData] = useState([]);
   const [modalClickState, setModalClickState] = useState(false);
+  const dispatch = useDispatch();
+  const [toastieDisplay, setToastieDisplay] = useState(false);
+  const [preventFirstRender, setPreventFirstRender] = useState(false);
   const vehicleVerificationBasket = useSelector(
     (state) => state.todo.vehicleVerificationBasketLength
   );
   const router = useRouter();
 
-  const PackageStepHandler = () => {
+  // const PackageStepHandler = () => {
+  //   if (!localStorage.getItem("selectedVehicle")) {
+  //     error("ابتدا وسیله نقلیه را انتخاب کنید");
+  //   }
+  //   // if (!localStorage.getItem("city")) {
+  //   //   error("ابتدا شهر خود را انتخاب کنید");
+  //   // }
+  //   if (
+  //     // localStorage.getItem("city") &&
+  //     localStorage.getItem("selectedVehicle")
+  //   ) {
+  //     nProgress.start();
+  //     router.push(
+  //       `/periodic-service/location-selection?city_id=87&vehicle_tip=${JSON.parse(localStorage.getItem("selectedVehicle")).id}&step=step-1`
+  //     );
+  //   }
+  // };
+
+  const PackageStepHandler = (status) => {
     if (!localStorage.getItem("selectedVehicle")) {
       error("ابتدا وسیله نقلیه را انتخاب کنید");
-    }
-    // if (!localStorage.getItem("city")) {
-    //   error("ابتدا شهر خود را انتخاب کنید");
-    // }
-    if (
-      // localStorage.getItem("city") &&
-      localStorage.getItem("selectedVehicle")
-    ) {
-      nProgress.start();
-      router.push(
-        `/services/vehicle-inspection/service-selection?city_id=87&vehicle_tip=${JSON.parse(localStorage.getItem("selectedVehicle")).id}&step=step-1`
-      );
+    } else {
+      axios
+        .get(process.env.BASE_API + "/web" + "/checkAuth", {
+          headers: {
+            Authorization: "Bearer " + getCookies("Authorization").Authorization,
+          },
+        })
+        .then(async () => {
+          setToastieDisplay((prev) => !prev);
+          setPreventFirstRender(true);
+          nProgress.start();
+          router.push(
+            `/periodic-service/location-selection?type=${status}&${JSON.parse(localStorage.getItem("selectedVehicle"))?.id
+              ? `&selectTipState=true,${JSON.parse(localStorage.getItem("selectedVehicle"))?.id
+              }`
+              : ""
+            }&city_id=87`,
+          );
+        })
+        .catch((err) => {
+          console.log(err);
+
+          dispatch(setLoginModal(true));
+        });
     }
   };
 
   useEffect(() => {
-    const city = city_id === undefined ? "" : "&city_id=" + city_id;
+    localStorage.setItem("city", JSON.stringify({ "label": "تهران", "cityId": 87 }))
+    const city = "&city_id=87"
     const vehicle_tip =
       selectedItem === null ? "" : "&vehicle_tip_id=" + selectedItem;
     axios
