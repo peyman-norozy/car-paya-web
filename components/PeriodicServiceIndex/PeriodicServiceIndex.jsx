@@ -216,16 +216,16 @@ const PeriodicServiceIndex = () => {
     if (!localStorage.getItem("selectedVehicle")) {
       error("ابتدا وسیله نقلیه را انتخاب کنید");
     }
-    if (!localStorage.getItem("city")) {
-      error("ابتدا شهر خود را انتخاب کنید");
-    }
+    // if (!localStorage.getItem("city")) {
+    //   error("ابتدا شهر خود را انتخاب کنید");
+    // }
     if (
-      localStorage.getItem("city") &&
+      // localStorage.getItem("city") &&
       localStorage.getItem("selectedVehicle")
     ) {
       nProgress.start();
       router.push(
-        `/services/vehicle-inspection/service-selection?city_id=${JSON.parse(localStorage.getItem("city")).cityId}&vehicle_tip=${JSON.parse(localStorage.getItem("selectedVehicle")).id}&step=step-1`
+        `/services/vehicle-inspection/service-selection?city_id=87&vehicle_tip=${JSON.parse(localStorage.getItem("selectedVehicle")).id}&step=step-1`
       );
     }
   };
@@ -237,9 +237,9 @@ const PeriodicServiceIndex = () => {
     axios
       .get(
         process.env.BASE_API +
-          "/web/expert/reservation?step=step-1" +
-          vehicle_tip +
-          city
+        "/web/expert/reservation?step=step-1" +
+        vehicle_tip +
+        city
       )
       .then((res) => {
         console.log(res);
@@ -253,9 +253,9 @@ const PeriodicServiceIndex = () => {
   return (
     <div className={"relative flex flex-col gap-12"}>
       <div className="flex w-full bg-[#EBF5FF] mt-10 sm:rounded-3xl gap-6">
-        <div className="hidden lg:w-[410px] relative">
+        <div className="hidden lg:inline-block w-[410px] relative">
           <CarAndCityContainer
-            title={"ثبت درخواست کارشناسی"}
+            title={"ثبت درخواست سرویس دوره ای"}
             onClick={PackageStepHandler}
             setModalClickState={setModalClickState}
             modalClickState={modalClickState}
@@ -289,6 +289,7 @@ const PeriodicServiceIndex = () => {
           <button
             className="bg-[#F66B34] rounded-md py-[10px] px-9 text-[#FEFEFE] w-fit text-xs mt-4 font-medium lg:hidden"
             onClick={() => {
+              PackageStepHandler()
               setModalClickState(true);
             }}
           >
