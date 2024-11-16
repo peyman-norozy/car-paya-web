@@ -26,14 +26,18 @@ const InLocationData = [
 
 const InLocation = () => {
   return (
-    <div className={"px-[36px] bg-[#ffffff]"}>
+    <div className={"px-[36px] pt-[41px] bg-[#ffffff]"}>
       <p className="text-18 font-medium mb-[24px]">
         کارشناسی
         <span className="text-[#1C74D1]"> کار </span>
         <span className="text-[#F66B34]"> پایا </span>
         در محل انتخابی شما
       </p>
-      <div className={"flex items-center gap-[30px] py-[41px] rounded-8"}>
+      <div
+        className={
+          "flex lg:flex-row flex-col items-center gap-[30px] py-[41px] rounded-8"
+        }
+      >
         <div className={"w-fit"}>
           <Image
             src={"/assets/images/technicalCar.png"}
@@ -42,7 +46,7 @@ const InLocation = () => {
             height={381}
           />
         </div>
-        <ul className={"flex-1 grid grid-cols-2 gap-[24px]"}>
+        <ul className={"flex-1 grid lg:grid-cols-2 grid-cols-1 gap-[24px]"}>
           {InLocationData.map((item) => (
             <li key={item.title} className={"shadow-custom1 p-4 rounded-8"}>
               <span className={"text-[#1F497B] font-bold text-14"}>

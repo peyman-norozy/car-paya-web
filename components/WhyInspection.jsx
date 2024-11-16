@@ -37,19 +37,23 @@ const WhyInspectionData = [
 
 const WhyInspection = () => {
   return (
-    <div className="py-[48px] px-[25px] mt-[40px] max-w-[1294px] shadow-sm rounded-8 overflow-hidden bg-[#F7F8FB]">
+    <div className="py-[48px] mt-[40px] max-w-[1294px] shadow-sm rounded-8 overflow-hidden bg-[#F7F8FB]">
       <p className="text-18 font-medium mb-[44px] text-center">
         چرا کارشناسی
         <span className="text-[#1C74D1]"> کار </span>
         <span className="text-[#F66B34]"> پایا </span>
         خوبه !
       </p>
-      <ul className={"flex items-center justify-center gap-[27px] py-2"}>
+      <ul
+        className={
+          "grid lg:grid-cols-4 grid-cols-2 lg:gap-[27px] gap-2 py-2 lg:w-[822px] w-[340px] m-auto"
+        }
+      >
         {WhyInspectionData.map((item, index) => (
           <li
             key={item.icon}
             className={
-              "flex flex-col items-center gap-2 w-[178px] min-h-[187px] bg-[#FEFEFE] rounded-8 px-[13px] py-[16px] shadow-[0_0_14px_0_rgba(230, 232, 253, 0.7)] shadow-lg"
+              "flex flex-col items-center gap-2 bg-[#FEFEFE] rounded-8 px-[13px] py-[16px] shadow-[0_0_14px_0_rgba(230, 232, 253, 0.7)] shadow-lg"
             }
           >
             <Image

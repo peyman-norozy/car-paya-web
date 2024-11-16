@@ -19,7 +19,7 @@ const bachelorData = [
     height: 29,
   },
   {
-    title: "انتخاب مکان و زمان دریافت خدمات",
+    title: "انتخاب مکان دریافت خدمات",
     description: "انتخاب زمان و مکان انتخابی شما در کارپایا",
     icon: "/assets/icons/bachelorSteps/time-vector.svg",
     iconAnimation: "/assets/icons/bachelorSteps/time-vector(1).svg",
@@ -27,7 +27,7 @@ const bachelorData = [
     height: 32,
   },
   {
-    title: "دریافت خدمات",
+    title: "انتخاب زمان دریافت خدمات",
     description: "دریافت خدمات کارشناسی کارپایا در محل و زمان انتخابی شما",
     icon: "/assets/icons/bachelorSteps/tick-vector.svg",
     iconAnimation: "/assets/icons/bachelorSteps/tick-vector(1).svg",
@@ -38,8 +38,8 @@ const bachelorData = [
 const ImageArray = [
   { image: "/assets/images/car-selection.png" },
   { image: "/assets/images/car-inspection.png" },
-  { image: "/assets/images/product-selection.png" },
-  { image: "/assets/images/submit-phone.png" },
+  { image: "/assets/images/time-selection.png" },
+  { image: "/assets/images/get-service.png" },
 ];
 
 const BachelorSteps = () => {
@@ -74,8 +74,8 @@ const BachelorSteps = () => {
 
   return (
     <div className="py-[48px] px-[25px] mt-[40px] max-w-[1294px] shadow-sm rounded-8 overflow-hidden">
-      <p className="lg:hidden block text-16 font-medium mb-[44px]">
-        مراحل ثبت سرویس دوره ای
+      <p className="text-16 font-medium mb-[44px]">
+        مراحل ثبت کارشناسی
         <span className="text-[#1C74D1]"> کار </span>
         <span className="text-[#F66B34]"> پایا </span>
       </p>
@@ -139,14 +139,14 @@ const BachelorSteps = () => {
         </ul>
         <ul>
           {ImageArray.map((item, index) => (
-            <li key={item.image}>
+            <li key={item.image} className={"flex justify-center items-center"}>
               {bachloreNumber === index + 1 && (
                 <Image
                   src={item.image}
                   alt="mobile"
                   width={238}
                   height={401}
-                  className={`transition-all duration-500 ${bachloreNumber === index + 1 ? "block" : "hidden"} m-auto ${
+                  className={`transition-all duration-500 ${bachloreNumber === index + 1 ? "block" : "hidden"} ${
                     animated ? "opacity-80" : "opacity-100"
                   }`}
                 />

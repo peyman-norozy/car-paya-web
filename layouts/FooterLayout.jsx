@@ -44,7 +44,7 @@ const Footer = (props) => {
       {innerWidthNumber > 1025 || footerState ? (
         <>
           <div className="flex flex-col lg:flex-row w-full lg:gap-[99px] gap-4 max-w-[620px] m-auto lg:m-0 px-6 size1470:col-span-10 size1228:col-span-7 size1090:col-span-8 lg:col-span-9 col-span-2">
-            <div className="min-w-[350px] flex gap-3 flex-row lg:flex-col justify-start">
+            <div className="lg:min-w-[350px] min-w-[300px] flex gap-3 flex-row lg:flex-col justify-start">
               <Image
                 className="w-16 h-4"
                 src={carpaya}
