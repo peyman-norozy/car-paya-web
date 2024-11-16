@@ -43,7 +43,7 @@ const PriceEstimate = () => {
         </p>
         <div className={"flex justify-start lg:mt-[53px] mt-[20px]"}>
           <Link
-            href={"#"}
+            href={"/vehicleprice"}
             className={
               "bg-[#F66B34] lg:text-16 text-14 text-[#FEFEFE] rounded-8 lg:w-[166px] lg:h-[36px] w-[140px] h-[30px] lg:flex hidden justify-center items-center"
             }
@@ -58,7 +58,7 @@ const PriceEstimate = () => {
         }
       >
         <Link
-          href={"#"}
+          href={"/vehicleprice"}
           className={
             "bg-[#F66B34] lg:text-16 text-14 text-[#FEFEFE] rounded-8 lg:w-[166px] lg:h-[36px] w-[140px] h-[30px] flex justify-center items-center"
           }

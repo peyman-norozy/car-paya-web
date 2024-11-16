@@ -744,24 +744,44 @@ li {
   animation: move 30s linear infinite;
 }
 
-@keyframes infinite-scroll-1 {
-  from {
-    left: 0px;
+@media (min-width: 1024px) {
+  @keyframes infinite-scroll-1 {
+    from {
+      left: 0px;
+    }
+    to {
+      left: -2912px;
+    }
   }
-  to {
-    left: -2912px;
+
+  @keyframes infinite-scroll-2 {
+    from {
+      left: 2912px;
+    }
+    to {
+      left: 0px;
+    }
   }
 }
-
-@keyframes infinite-scroll-2 {
-  from {
-    left: 2912px;
+@media (max-width: 1024px) {
+  @keyframes infinite-scroll-1 {
+    from {
+      left: 0px;
+    }
+    to {
+      left: -2440px;
+    }
   }
-  to {
-    left: 0px;
+
+  @keyframes infinite-scroll-2 {
+    from {
+      left: 2440px;
+    }
+    to {
+      left: 0px;
+    }
   }
 }
-
 .scroll-item-1 {
   animation: infinite-scroll-1 20s linear infinite;
 }

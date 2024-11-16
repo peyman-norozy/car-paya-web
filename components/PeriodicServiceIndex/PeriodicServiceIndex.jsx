@@ -205,8 +205,6 @@ import { getCookies } from "cookies-next";
 import { setLoginModal } from "@/store/todoSlice";
 
 const PeriodicServiceIndex = () => {
-  const [selectedItem, setSelectedItem] = useState(null);
-  const [city_id, setCity_id] = useState();
   const [data, setData] = useState([]);
   const [modalClickState, setModalClickState] = useState(false);
   const dispatch = useDispatch();
@@ -242,7 +240,8 @@ const PeriodicServiceIndex = () => {
       axios
         .get(process.env.BASE_API + "/web" + "/checkAuth", {
           headers: {
-            Authorization: "Bearer " + getCookies("Authorization").Authorization,
+            Authorization:
+              "Bearer " + getCookies("Authorization").Authorization,
           },
         })
         .then(async () => {
@@ -250,11 +249,13 @@ const PeriodicServiceIndex = () => {
           setPreventFirstRender(true);
           nProgress.start();
           router.push(
-            `/periodic-service/location-selection?type=${status}&${JSON.parse(localStorage.getItem("selectedVehicle"))?.id
-              ? `&selectTipState=true,${JSON.parse(localStorage.getItem("selectedVehicle"))?.id
-              }`
-              : ""
-            }&city_id=87`,
+            `/periodic-service/location-selection?type=${status}&${
+              JSON.parse(localStorage.getItem("selectedVehicle"))?.id
+                ? `&selectTipState=true,${
+                    JSON.parse(localStorage.getItem("selectedVehicle"))?.id
+                  }`
+                : ""
+            }&city_id=${JSON.parse(localStorage.getItem("city"))?.cityId}`
           );
         })
         .catch((err) => {
@@ -266,17 +267,8 @@ const PeriodicServiceIndex = () => {
   };
 
   useEffect(() => {
-    localStorage.setItem("city", JSON.stringify({ "label": "تهران", "cityId": 87 }))
-    const city = "&city_id=87"
-    const vehicle_tip =
-      selectedItem === null ? "" : "&vehicle_tip_id=" + selectedItem;
     axios
-      .get(
-        process.env.BASE_API +
-        "/web/expert/reservation?step=step-1" +
-        vehicle_tip +
-        city
-      )
+      .get(process.env.BASE_API + "/web/expert/reservation?step=step-1")
       .then((res) => {
         console.log(res);
         setData(res.data.data);
@@ -284,12 +276,12 @@ const PeriodicServiceIndex = () => {
       .catch((err) => {
         console.log(err);
       });
-  }, [selectedItem, city_id]);
+  }, []);
 
   return (
     <div className={"relative flex flex-col gap-12"}>
       <div className="flex w-full bg-[#EBF5FF] mt-10 sm:rounded-3xl gap-6">
-        <div className="hidden lg:inline-block w-[410px] relative">
+        <div className="w-0 lg:w-[410px] relative">
           <CarAndCityContainer
             title={"ثبت درخواست سرویس دوره ای"}
             onClick={PackageStepHandler}
@@ -297,16 +289,16 @@ const PeriodicServiceIndex = () => {
             modalClickState={modalClickState}
           />
         </div>
-        <div className=" flex p-4 flex-col items-center lg:h-[500px] lg:gap-20 w-full lg:w-[calc(100%-434px)] pt-14 lg:pl-20">
-          <div className="flex flex-col gap-2 items-center self-start lg:gap-11">
-            <h1 className="text-lg lg:text-2xl font-medium lg:font-bold text-[#000000]">
+        <div className=" flex p-4 flex-col items-center lg:h-[500px] gap-2 lg:gap-20 w-full lg:w-[calc(100%-434px)] pt-8 lg:pl-20">
+          <div className="flex flex-col gap-4 items-center self-start lg:gap-11">
+            <h1 className="text-sm lg:text-2xl font-medium lg:font-bold text-[#000000]">
               با سرویس دوره‌ای کارپایا، سلامت خودرو خود را تضمین کنید!
             </h1>
-            <p className="text-sm lg:text-2xl text-[#292929] font-medium">
+            <p className="text-xs lg:text-2xl text-[#292929] font-medium">
               خدمات سیار در محل شما یا مراکز تخصصی کارپایا
             </p>
           </div>
-          <div className="relative self-end lg:scale-125 xl:scale-150">
+          <div className="relative self-center lg:self-end lg:scale-125 xl:scale-150">
             <Image
               className="w-[287px] h-[164px]"
               src={periodic_landing}
@@ -325,7 +317,6 @@ const PeriodicServiceIndex = () => {
           <button
             className="bg-[#F66B34] rounded-md py-[10px] px-9 text-[#FEFEFE] w-fit text-xs mt-4 font-medium lg:hidden"
             onClick={() => {
-              PackageStepHandler()
               setModalClickState(true);
             }}
           >

@@ -53,7 +53,7 @@ const Invoice = () => {
         <div className="relative h-full hidden lg:inline-block">
             <div className="w-[400px] p-4 flex flex-col gap-4 shadow-[0_0_10px_5px_rgba(0,0,0,0.15)] rounded-lg">
                     <span className="text-[#303030]">فاکتور فروش</span>
-                    <Image src={car} width={200} height={150} className="w-[60%] aspect-auto m-auto"/>
+                    <Image src={car} width={200} height={150} className="w-[60%] aspect-auto m-auto" alt=""/>
                     <div className="flex justify-between items-center">
                         <span className="text-[#303030] text-18 border-r-[5px] border-[#303030] leading-6 pr-1">فورد موستانگ</span>
                         <Link className="text-red-500 text-16 cursor-pointer" href={"/periodic-service"}>تغییر وسیله نقلیه</Link>

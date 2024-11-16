@@ -71,6 +71,7 @@ const SelectCarAndCity = (props) => {
               "/" +
               JSON.parse(localStorage.getItem("selectedVehicle"))?.image
             }
+            alt=""
             width={200}
             height={150}
             className="lg:w-[60%] aspect-auto mx-auto"
@@ -81,6 +82,7 @@ const SelectCarAndCity = (props) => {
           src={"/assets/icons/Doorstep-Pick-up.png"}
           width={120}
           height={120}
+          alt=""
           className="aspect-auto mx-auto"
         />
       )}

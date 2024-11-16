@@ -126,6 +126,7 @@ const Vehicleprice = (props) => {
             src={periodicLanding}
             width={460}
             height={360}
+            alt="ماشین"
             className="hidden xl:inline-block"
           />
         </div>
@@ -194,7 +195,7 @@ const Vehicleprice = (props) => {
           <span>کیلومتر خودرو: {carData.operation}</span>
           <div className="w-full h-px bg-[#BBBBBB]"></div>
           <div className="relative max-w-80 m-auto">
-            <Image src={carParts} />
+            <Image src={carParts} alt="نقشه ماشین" />
             {dotsArray.map((item, index) => {
               return (
                 <div

@@ -108,7 +108,7 @@ const ResultPage = () => {
             ))}
           </div>
           <div className="relative w-[360px] h-auto self-end m-auto">
-            <Image src={carParts} />
+            <Image src={carParts} alt="نقشه ماشین"/>
             {data.dots?.map((item, index) => (
               <div
                 key={item.name + index}

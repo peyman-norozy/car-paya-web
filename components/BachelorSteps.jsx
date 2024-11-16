@@ -54,7 +54,7 @@ const BachelorSteps = () => {
         setVisitedSteps((prevSteps) =>
           !prevSteps.includes(bachloreNumber)
             ? [...prevSteps, bachloreNumber]
-            : prevSteps,
+            : prevSteps
         );
       } else if (bachloreNumber >= 4) {
         setBachloreNumber(1);

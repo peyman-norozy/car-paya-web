@@ -229,7 +229,7 @@ const Dealership = (props) => {
       })
     );
     setQuery.updateQueryParams(
-      { service_location_id: selectedAddressId },
+      { service_location_id: selectedAddressId, type: type },
       "/periodic-service/service-selection"
     );
   };
