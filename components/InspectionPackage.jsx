@@ -1,4 +1,7 @@
 import React from "react";
+import { error } from "@/utils/function-utils";
+import nProgress from "nprogress";
+import { useRouter } from "next/navigation";
 
 const InspectionPackageData = [
   {
@@ -30,6 +33,26 @@ const InspectionPackageData = [
   },
 ];
 const InspectionPackage = () => {
+  const router = useRouter();
+
+  const PackageStepHandler = () => {
+    if (!localStorage.getItem("selectedVehicle")) {
+      error("ابتدا وسیله نقلیه را انتخاب کنید");
+    }
+    if (!localStorage.getItem("city")) {
+      error("ابتدا شهر خود را انتخاب کنید");
+    }
+    if (
+      localStorage.getItem("city") &&
+      localStorage.getItem("selectedVehicle")
+    ) {
+      nProgress.start();
+      router.push(
+        `/services/vehicle-inspection/service-selection?city_id=${JSON.parse(localStorage.getItem("city")).cityId}&vehicle_tip=${JSON.parse(localStorage.getItem("selectedVehicle")).id}&step=step-1`,
+      );
+    }
+  };
+
   return (
     <div className={"mt-[72px] z-50"}>
       <p className="text-18 font-medium mb-[24px] text-center">
@@ -76,6 +99,7 @@ const InspectionPackage = () => {
                   className={
                     "text-12 text-[#F66B34] border border-[#F66B34] rounded-8 py-2 px-[30px] hover:bg-[#F66B34] hover:text-white"
                   }
+                  onClick={PackageStepHandler}
                 >
                   درخواست کارشناسی
                 </button>
