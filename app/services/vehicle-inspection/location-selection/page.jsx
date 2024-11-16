@@ -62,7 +62,7 @@ const VerificationThirdStep = (props) => {
     axios
       .get(
         process.env.BASE_API +
-          "/web/expert/reservation?step=step-5&type=DELEGATE&city_id=" +
+          "/web/expert/reservation?step=step-5&type=FIXED&city_id=" +
           city_id +
           "&reservation_time_slice_id=" +
           reservation_time_slice_id +
@@ -93,7 +93,7 @@ const VerificationThirdStep = (props) => {
     axios
       .get(
         process.env.BASE_API +
-          "/web/expert/reservation?step=step-5&type=EXPERT&city_id=" +
+          "/web/expert/reservation?step=step-5&type=MOVING&city_id=" +
           city_id +
           "&reservation_time_slice_id=" +
           reservation_time_slice_id +
