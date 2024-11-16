@@ -19,7 +19,7 @@ const Footer = (props) => {
   const pathName = usePathname();
   const searchParams = useSearchParams();
   const innerWidthNumber = useSelector(
-    (number) => number.todo.windowInnerWidth,
+    (number) => number.todo.windowInnerWidth
   );
 
   useEffect(() => {
@@ -150,7 +150,7 @@ const Footer = (props) => {
                 شبکه اجتماعی کارپایا
               </span>
               <div className="flex items-center gap-4 w-full justify-start">
-                <Link href={"https://t.me/+CBBIuxwxqBhYTRk"} target={"_blank"}>
+                <Link href={"https://t.me/carpaya"} target={"_blank"}>
                   <Image
                     className="size-8"
                     src={telegram}
@@ -174,20 +174,27 @@ const Footer = (props) => {
                 {/*  width={32}*/}
                 {/*  height={32}*/}
                 {/*/>*/}
-                <Image
-                  className="size-8"
-                  src={instagram}
-                  alt="carcheck"
-                  width={32}
-                  height={32}
-                />
-                <Image
-                  className="size-8"
-                  src={linkedin}
-                  alt="carcheck"
-                  width={32}
-                  height={32}
-                />
+                <a
+                  href={"https://www.instagram.com/carpaya.ir"}
+                  target={"_blank"}
+                >
+                  <Image
+                    className="size-8"
+                    src={instagram}
+                    alt="carcheck"
+                    width={32}
+                    height={32}
+                  />
+                </a>
+                <a href="https://www.linkedin.com/in/hesam-nejadhassan-51180419a?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app">
+                  <Image
+                    className="size-8"
+                    src={linkedin}
+                    alt="carcheck"
+                    width={32}
+                    height={32}
+                  />
+                </a>
               </div>
             </div>
 

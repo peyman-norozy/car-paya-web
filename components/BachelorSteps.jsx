@@ -79,7 +79,7 @@ const BachelorSteps = () => {
         <span className="text-[#1C74D1]"> کار </span>
         <span className="text-[#F66B34]"> پایا </span>
       </p>
-      <section className="flex lg:flex-row flex-col justify-between lg:gap-[144px] max-w-[1294px]">
+      <section className="flex flex-col lg:flex-row justify-between gap-4 lg:gap-[144px] max-w-[1294px]">
         <ul>
           {bachelorData.map((item, index) => (
             <li

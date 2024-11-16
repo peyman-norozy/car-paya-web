@@ -27,7 +27,7 @@ const CarAndCityContainer = (props) => {
     setClient(true);
     if (typeof window !== "undefined") {
       const selectedVehicle = JSON.parse(
-        localStorage.getItem("selectedVehicle"),
+        localStorage.getItem("selectedVehicle")
       );
       const city = JSON.parse(localStorage.getItem("city"));
       if (preventFirstRender) {

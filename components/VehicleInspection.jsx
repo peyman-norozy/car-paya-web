@@ -28,7 +28,7 @@ const VehicleInspection = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [modalClickState, setModalClickState] = useState(false);
   const vehicleVerificationBasket = useSelector(
-    (state) => state.todo.vehicleVerificationBasketLength,
+    (state) => state.todo.vehicleVerificationBasketLength
   );
   const router = useRouter();
   const setQuery = useSetQuery();
@@ -64,7 +64,7 @@ const VehicleInspection = () => {
       // setStep(2);
       nProgress.start();
       router.push(
-        `/services/vehicle-inspection/service-selection?city_id=${JSON.parse(localStorage.getItem("city")).cityId}&vehicle_tip=${JSON.parse(localStorage.getItem("selectedVehicle")).id}&step=step-1`,
+        `/services/vehicle-inspection/service-selection?city_id=${JSON.parse(localStorage.getItem("city")).cityId}&vehicle_tip=${JSON.parse(localStorage.getItem("selectedVehicle")).id}&step=step-1`
       );
     }
     // setModalIsOpen(true);
@@ -82,7 +82,7 @@ const VehicleInspection = () => {
         process.env.BASE_API +
           "/web/expert/reservation?step=step-1" +
           vehicle_tip +
-          city,
+          city
       )
       .then((res) => {
         console.log(res);
