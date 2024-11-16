@@ -42,8 +42,8 @@ const ProfilePage = () => {
 
   return (
     <PanelContainer>
-      <div className="bg-[#fefefe] rounded-lg shadow-[0_0_8px_0_rgba(143,143,143,0.25)] min-h-[500px] flex flex-col gap-9 p-12">
-        <div className="flex items-center gap-10 ">
+      <div className="bg-[#fefefe] rounded-lg shadow-[0_0_8px_0_rgba(143,143,143,0.25)] min-h-[500px] flex flex-col gap-6 lg:gap-9 p-4 lg:p-12">
+        <div className="flex items-center gap-4 lg:gap-10 ">
           <Image
             src={process.env.BASE_API + "/web/file/" + data.avatar}
             width={112}
@@ -61,7 +61,7 @@ const ProfilePage = () => {
             />
           </div>
         </div>
-        <div className="grid grid-cols-2 gap-y-10 gap-x-16">
+        <div className="grid grid-cols-2 gap-y-6 lg:gap-y-10 gap-x-4 lg:gap-x-16">
           <div className="relative border border-[#B0B0B0] rounded-lg px-3 py-3">
             <input
               className="w-full h-full outline-none text-xs"

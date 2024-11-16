@@ -53,7 +53,7 @@ const PanelContainer = ({ children }) => {
   const [openOptionsState, setOpenOptionsState] = useState(false);
   return (
     <div className="flex gap-8 my-6">
-      <div className="w-[263px] h-full bg-[#fefefe] rounded-lg shadow-[0_0_8px_0_rgba(143,143,143,0.25)] min-h-40 flex flex-col gap-4 px-4 py-7">
+      <div className="w-[263px] h-full bg-[#fefefe] rounded-lg shadow-[0_0_8px_0_rgba(143,143,143,0.25)] min-h-40 hidden lg:flex flex-col gap-4 px-4 py-7">
         <div className="flex flex-col gap-4 self-center">
           <div className="rounded-full bg-stone-500 size-[100px] flex items-center justify-center"></div>
           <span className="text-[#0F0F0F] font-medium text-lg">محمد محمدی</span>
