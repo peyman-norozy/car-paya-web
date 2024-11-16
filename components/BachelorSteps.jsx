@@ -19,7 +19,7 @@ const bachelorData = [
     height: 29,
   },
   {
-    title: "انتخاب مکان و زمان دریافت خدمات",
+    title: "انتخاب مکان دریافت خدمات",
     description: "انتخاب زمان و مکان انتخابی شما در کارپایا",
     icon: "/assets/icons/bachelorSteps/time-vector.svg",
     iconAnimation: "/assets/icons/bachelorSteps/time-vector(1).svg",
@@ -27,7 +27,7 @@ const bachelorData = [
     height: 32,
   },
   {
-    title: "دریافت خدمات",
+    title: "انتخاب زمان دریافت خدمات",
     description: "دریافت خدمات کارشناسی کارپایا در محل و زمان انتخابی شما",
     icon: "/assets/icons/bachelorSteps/tick-vector.svg",
     iconAnimation: "/assets/icons/bachelorSteps/tick-vector(1).svg",
