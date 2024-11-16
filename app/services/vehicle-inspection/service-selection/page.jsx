@@ -25,7 +25,7 @@ const PackageStep = () => {
   const [price, setPrice] = useState(null);
   const dispatch = useDispatch();
   const Length = useSelector(
-    (state) => state.todo.vehicleVerificationBasketLength,
+    (state) => state.todo.vehicleVerificationBasketLength
   );
   const setQuery = useSetQuery();
 
@@ -52,7 +52,7 @@ const PackageStep = () => {
         process.env.BASE_API +
           "/web/expert/reservation?step=step-1" +
           vehicle_tip +
-          city,
+          city
       )
       .then((res) => {
         res.data.data.length ? setData(res.data.data) : setData([]);
@@ -92,7 +92,7 @@ const PackageStep = () => {
             package_id: isSelected,
             package_title: title,
             price: price,
-          }),
+          })
         );
         // setQuery.setMultiQuery([
         //   { key: "step", value: "step-2" },
@@ -105,7 +105,7 @@ const PackageStep = () => {
         // ]);
         nProgress.start();
         router.push(
-          `/services/vehicle-inspection/time-selection?city_id=${city_id}&vehicle_tip=${selectedItem}&package_id=${isSelected}&step=step-2`,
+          `/services/vehicle-inspection/time-selection?city_id=${city_id}&vehicle_tip=${selectedItem}&package_id=${isSelected}&step=step-2`
         );
       })
       .catch((err) => {
@@ -154,7 +154,13 @@ const PackageStep = () => {
             </p>
             {data?.length === 0 ? (
               <div className={`flex flex-col items-center m-auto my-10 gap-6`}>
-                <Image className="" src={search} width={175} height={175} />
+                <Image
+                  className=""
+                  alt="خدمات وجود ندارد"
+                  src={search}
+                  width={175}
+                  height={175}
+                />
                 <span className="text-[#454545] font-medium text-sm">
                   در حال حاضر خدماتی برای این خودرو ثبت نشد
                 </span>
@@ -175,7 +181,7 @@ const PackageStep = () => {
                         selectPackageHandler(
                           item.id,
                           item.title,
-                          item.discounted_price,
+                          item.discounted_price
                         )
                       }
                     />

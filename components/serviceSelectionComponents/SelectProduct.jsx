@@ -32,7 +32,7 @@ const SelectProduct = (props) => {
       console.log(cartData.data);
       setQuery.updateQueryParams(
         { package_id: props.data.id },
-        "/periodic-service/service-selection",
+        "/periodic-service/service-selection"
       );
     } else if (cartData.response.status === 422) {
       console.log(cartData.response.data);
@@ -83,6 +83,7 @@ const SelectProduct = (props) => {
                 id={item.id}
                 name="radioButton"
                 value={item.id}
+                alt=""
                 className="size-5"
                 onChange={() => {
                   setValue(item.id);

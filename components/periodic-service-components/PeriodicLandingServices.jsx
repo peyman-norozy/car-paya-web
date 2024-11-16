@@ -23,10 +23,10 @@ const PeriodicLandingServices = () => {
   return (
     <div className="flex flex-col gap-8">
       <div className="w-full flex flex-col-reverse lg:flex-row justify-around gap-y-4">
-        <Image width={476} height={240} src={periodic2} />
+        <Image width={476} height={240} src={periodic2} alt="" />
         <div className="flex flex-col items-start gap-3 lg:gap-10 px-4 lg:px-0">
           <span className="text-sm lg:text-lg font-medium">
-            در محل شما یا در مرکز تخصصی ما، انتخاب با شماست!"
+            در محل شما یا در مرکز تخصصی ما، انتخاب با شماست!
           </span>
           <span className="text-xs lgg:text-base font-medium max-w-[600px] leading-5 text-[#4B4B4B]">
             ما در کارپایا می‌دانیم که خودرو بخشی از سرمایه و زندگی روزمره شماست.

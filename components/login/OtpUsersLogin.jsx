@@ -151,6 +151,7 @@ export default function OtpUsersLogin(props) {
           className="w-[360px] aspect-auto"
           width={360}
           height={244}
+          alt=""
         />
         <div className="h-full w-full flex flex-col justify-center items-center text-center gap-2">
           <div className="flex flex-col gap-2 items-start">

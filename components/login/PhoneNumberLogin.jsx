@@ -44,7 +44,7 @@ export default function PhoneNumberLogin(props) {
           getLoginOtpData({
             mobile: telPhoneValueNumber,
             loginOtpState: true,
-          }),
+          })
         );
 
         // if (response.data.data.status.login === "exists") {
@@ -93,6 +93,7 @@ export default function PhoneNumberLogin(props) {
           className="w-[360px] aspect-auto"
           width={360}
           height={244}
+          alt=""
         />
         <div className="flex flex-col items-start gap-2 w-full max-w-[360px]">
           <h1 className="font-bold text-[#FEFEFE]">شماره موبایل:</h1>

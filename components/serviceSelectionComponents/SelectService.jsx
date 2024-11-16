@@ -144,6 +144,7 @@ const SelectService = (props) => {
                   "/" +
                   item.image
                 }
+                alt=""
                 width={67}
                 height={50}
               />

@@ -123,7 +123,7 @@ const CarDevice = (props) => {
   }, []);
 
   const selectVehicleData = useSelector(
-    (vehicleData) => vehicleData.todo.selectVehicle,
+    (vehicleData) => vehicleData.todo.selectVehicle
   );
   const carYear = useSelector((year) => year.todo.carYear);
   const editFormData = new FormData();
@@ -146,7 +146,7 @@ const CarDevice = (props) => {
     if (id === "brandOption") {
       setNewBrandOptionId(value);
       const response = await getData(
-        process.env.BASE_API + "/web" + API_PATHS.MODELS + "/" + value,
+        process.env.BASE_API + "/web" + API_PATHS.MODELS + "/" + value
       );
       if (response.status === 200) {
         setNewTip([]);
@@ -176,12 +176,12 @@ const CarDevice = (props) => {
     } else if (id === "modelOption") {
       setNewModelOptionId(value);
       const response = await getData(
-        process.env.BASE_API + "/web" + API_PATHS.TIPS + "/" + value,
+        process.env.BASE_API + "/web" + API_PATHS.TIPS + "/" + value
       );
       if (response.status === 200) {
         setNewYear([]);
         setNewImage(
-          process.env.BASE_API + "/web" + API_PATHS.FILE + "/" + imageid,
+          process.env.BASE_API + "/web" + API_PATHS.FILE + "/" + imageid
         );
         setNewTip(response.data.data);
         if (props.pageType === "edit") {
@@ -202,7 +202,7 @@ const CarDevice = (props) => {
     } else if (id === "tipOption") {
       setNewTipOptionId(value);
       const response = await getData(
-        process.env.BASE_API + "/web" + API_PATHS.YEARS + "/" + value,
+        process.env.BASE_API + "/web" + API_PATHS.YEARS + "/" + value
       );
       if (response.status === 200) {
         console.log(response.data.data);
@@ -423,7 +423,7 @@ const CarDevice = (props) => {
       const response = await putData(
         process.env.BASE_API + "/user/vehicles/" + searchParams.get("product"),
         fd,
-        '"Content-Type": "application/json"',
+        '"Content-Type": "application/json"'
       );
       if (response.status === 200) {
         router.back();
@@ -486,7 +486,7 @@ const CarDevice = (props) => {
       const response = await postData(
         process.env.BASE_API + "/user/vehicles",
         fd,
-        '"Content-Type": "application/json"',
+        '"Content-Type": "application/json"'
       );
       if (response.status === 200 || response.status === 201) {
         setButtonDisabledState(false);
@@ -524,7 +524,7 @@ const CarDevice = (props) => {
   useEffect(() => {
     (async () => {
       const response = await getData(
-        process.env.BASE_API + "/web" + API_PATHS.BRANDS,
+        process.env.BASE_API + "/web" + API_PATHS.BRANDS
       );
       if (response.status === 200) {
         setNewBrand(response.data.data);
@@ -593,7 +593,7 @@ const CarDevice = (props) => {
             headers: {
               Authorization: "Bearer " + getCookie("Authorization"),
             },
-          },
+          }
         )
         .then((res) => {
           res.data.data.yearId = res.data.data.year;
@@ -620,17 +620,17 @@ const CarDevice = (props) => {
             "/web" +
             API_PATHS.FILE +
             "/" +
-            selectVehicleData.carModel.image,
+            selectVehicleData.carModel.image
         );
       }
       setNewBrandOptionId(
-        selectVehicleData.carBrand && selectVehicleData.carBrand.id,
+        selectVehicleData.carBrand && selectVehicleData.carBrand.id
       );
       setNewModelOptionId(
-        selectVehicleData.carModel && selectVehicleData.carModel.id,
+        selectVehicleData.carModel && selectVehicleData.carModel.id
       );
       setNewTipOptionId(
-        selectVehicleData.carTip && selectVehicleData.carTip.id,
+        selectVehicleData.carTip && selectVehicleData.carTip.id
       );
     }
   }, [selectVehicleData]);
@@ -639,67 +639,67 @@ const CarDevice = (props) => {
     if (props.pageType === "edit" && Object.keys(newEditData).length > 0) {
       setNewMyCarValue(newEditData.info.title);
       setNewStartKilometerValue(
-        numberWithCommas(newEditData.info.kilometers_now),
+        numberWithCommas(newEditData.info.kilometers_now)
       );
       setNewStartKilometerState(true);
       setNewEndKilometerValue(
-        numberWithCommas(newEditData.info.kilometers_use),
+        numberWithCommas(newEditData.info.kilometers_use)
       );
       setNewEndKilometerState(true);
       setNewThirdPartyInsuranceStartAt(
         newEditData.insurance_info
           ? newEditData.insurance_info.third_party_insurance_start_at
-          : "",
+          : ""
       );
       setNewThirdPartyInsuranceEndAt(
         newEditData.insurance_info
           ? newEditData.insurance_info.third_party_insurance_end_at
-          : "",
+          : ""
       );
       setNewThirdPartyInsuranceCompany(
         newEditData.insurance_info
           ? newEditData.insurance_info.third_party_insurance_company
-          : "",
+          : ""
       );
       setNewThirdPartyInsuranceRemember(
         newEditData.insurance_info
           ? newEditData.insurance_info.third_party_insurance_remember
-          : "",
+          : ""
       );
       setNewBodyInsuranceStartAt(
         newEditData.insurance_info
           ? newEditData.insurance_info.body_insurance_start_at
-          : "",
+          : ""
       );
       setNewBodyInsuranceEndAt(
         newEditData.insurance_info
           ? newEditData.insurance_info.body_insurance_end_at
-          : "",
+          : ""
       );
       setNewBodyInsuranceCompany(
         newEditData.insurance_info
           ? newEditData.insurance_info.body_insurance_company
-          : "",
+          : ""
       );
       setNewBodyInsuranceRemember(
         newEditData.insurance_info
           ? newEditData.insurance_info.body_insurance_remember
-          : "",
+          : ""
       );
       setNewTechnicalDiagnosisStartAt(
         newEditData.insurance_info
           ? newEditData.insurance_info.technical_diagnosis_start_at
-          : "",
+          : ""
       );
       setNewTechnicalDiagnosisEndAt(
         newEditData.insurance_info
           ? newEditData.insurance_info.technical_diagnosis_end_at
-          : "",
+          : ""
       );
       setNewTechnicalDiagnosisRemember(
         newEditData.insurance_info
           ? newEditData.insurance_info.technical_diagnosis_remember
-          : "",
+          : ""
       );
       setNewFinePrice(newEditData.info ? newEditData.info.fine_price : "");
       setMotorPlaque_0(newEditData.info ? newEditData.info.plaque[0] : "");
@@ -710,7 +710,7 @@ const CarDevice = (props) => {
             "/web" +
             API_PATHS.FILE +
             "/" +
-            newEditData.image_id,
+            newEditData.image_id
         );
     }
   }, [newEditData]);
@@ -936,7 +936,13 @@ const CarDevice = (props) => {
                     value={motorPlaque_0}
                     dir="ltr"
                   />
-                  <Image className="" src={machinTag} width={20} height={40} />
+                  <Image
+                    className=""
+                    alt="پلاک ماشین"
+                    src={machinTag}
+                    width={20}
+                    height={40}
+                  />
                 </div>
                 <input
                   className="w-full tracking-[12px] h-10 text-center pl-2"

@@ -21,7 +21,9 @@ const SelectServiceCard = (props) => {
                 "/web" +
                 API_PATHS.FILE +
                 "/" +
-                props.data.image} width={125} height={125}/>
+                props.data.image} width={125} height={125}
+                alt="service"
+                />
       <span className="text-14 lg:text-18">
         {props.data.selected ? props.data.product : props.data.name}
       </span>

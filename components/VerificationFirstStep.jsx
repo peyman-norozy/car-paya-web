@@ -29,7 +29,7 @@ const VerificationFirstStep = (props) => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [modalClickState, setModalClickState] = useState(false);
   const vehicleVerificationBasket = useSelector(
-    (state) => state.todo.vehicleVerificationBasketLength,
+    (state) => state.todo.vehicleVerificationBasketLength
   );
   const router = useRouter();
   const setQuery = useSetQuery();
@@ -64,7 +64,7 @@ const VerificationFirstStep = (props) => {
       // ]);
       // setStep(2);
       router.push(
-        `/vehicle-inspection/service-selection?city_id=${JSON.parse(localStorage.getItem("city")).cityId}&vehicle_tip=${JSON.parse(localStorage.getItem("selectedVehicle")).id}&step=step-1`,
+        `/vehicle-inspection/service-selection?city_id=${JSON.parse(localStorage.getItem("city")).cityId}&vehicle_tip=${JSON.parse(localStorage.getItem("selectedVehicle")).id}&step=step-1`
       );
     }
     // setModalIsOpen(true);
@@ -82,7 +82,7 @@ const VerificationFirstStep = (props) => {
         process.env.BASE_API +
           "/web/expert/reservation?step=step-1" +
           vehicle_tip +
-          city,
+          city
       )
       .then((res) => {
         console.log(res);
@@ -116,12 +116,14 @@ const VerificationFirstStep = (props) => {
               src={carshenasi}
               width={287}
               height={164}
+              alt="کارشناسی"
             />
             <Image
               src={zarebin}
               className="absolute zarebin"
               width={124}
               height={128}
+              alt="ذره بین"
             />
           </div>
           <button
@@ -149,6 +151,7 @@ const VerificationFirstStep = (props) => {
             src={lines}
             width={430}
             height={179}
+            alt="خطوط"
           />
         </div>
         <div className="flex flex-col items-center gap-3 text-[#000000]">

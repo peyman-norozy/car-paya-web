@@ -101,6 +101,7 @@ const CityModal = ({ isOpen, onClose }) => {
                   width={60}
                   height={60}
                   src={item.image}
+                  alt="شهر"
                 />
                 {item.city}
               </li>

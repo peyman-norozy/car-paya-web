@@ -87,6 +87,7 @@ const InvoiceModal = (props) => {
                     "/" +
                     item.image_ids
                   }
+                  alt=""
                   width={92}
                   height={98}
                 />
