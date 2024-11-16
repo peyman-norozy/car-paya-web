@@ -38,8 +38,8 @@ const bachelorData = [
 const ImageArray = [
   { image: "/assets/images/car-selection.png" },
   { image: "/assets/images/car-inspection.png" },
-  { image: "/assets/images/car-selection.png" },
-  { image: "/assets/images/car-inspection.png" },
+  { image: "/assets/images/product-selection.png" },
+  { image: "/assets/images/submit-phone.png" },
 ];
 
 const BachelorSteps = () => {
@@ -88,16 +88,17 @@ const BachelorSteps = () => {
             >
               <p className="flex items-center gap-[11px] z-10">
                 <span
-                  className={`flex justify-center items-center transition-all duration-500 ${bachloreNumber === index + 1 ||
+                  className={`flex justify-center items-center transition-all duration-500 ${
+                    bachloreNumber === index + 1 ||
                     visitedSteps.includes(index + 1)
-                    ? "bg-[#3C81D4]"
-                    : "bg-[#F6FCFF]"
-                    } w-[45px] h-[45px] shadow-custom1 rounded-10 overflow-hidden`}
+                      ? "bg-[#3C81D4]"
+                      : "bg-[#F6FCFF]"
+                  } w-[45px] h-[45px] shadow-custom1 rounded-10 overflow-hidden`}
                 >
                   <Image
                     src={
                       bachloreNumber === index + 1 ||
-                        visitedSteps.includes(index + 1)
+                      visitedSteps.includes(index + 1)
                         ? item.iconAnimation
                         : item.icon
                     }
@@ -116,13 +117,14 @@ const BachelorSteps = () => {
                 </p>
               </div>
               <span
-                className={`inline-block w-[2px] h-full absolute right-5 z-0 ${index !== bachelorData.length - 1
-                  ? bachloreNumber === index + 1 ||
-                    visitedSteps.includes(index + 1)
-                    ? "bg-gradient-to-b from-[#167DFA] to-[#C9C9C9]"
-                    : "bg-[#C9C9C9]"
-                  : ""
-                  }`}
+                className={`inline-block w-[2px] h-full absolute right-5 z-0 ${
+                  index !== bachelorData.length - 1
+                    ? bachloreNumber === index + 1 ||
+                      visitedSteps.includes(index + 1)
+                      ? "bg-gradient-to-b from-[#167DFA] to-[#C9C9C9]"
+                      : "bg-[#C9C9C9]"
+                    : ""
+                }`}
                 style={{
                   maskImage:
                     "linear-gradient(to bottom, rgba(0, 0, 0, 1) 50%, rgba(0, 0, 0, 0) 0%)",
@@ -144,8 +146,9 @@ const BachelorSteps = () => {
                   alt="mobile"
                   width={238}
                   height={401}
-                  className={`transition-all duration-500 ${bachloreNumber === index + 1 ? "block" : "hidden"} m-auto ${animated ? "opacity-80" : "opacity-100"
-                    }`}
+                  className={`transition-all duration-500 ${bachloreNumber === index + 1 ? "block" : "hidden"} m-auto ${
+                    animated ? "opacity-80" : "opacity-100"
+                  }`}
                 />
               )}
             </li>
