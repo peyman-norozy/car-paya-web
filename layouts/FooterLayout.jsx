@@ -231,6 +231,22 @@ const Footer = (props) => {
                     />
                   </Link>
                 </div>
+                <div className="size-[60px]">
+                  <img
+                    referrerpolicy="origin"
+                    id="rgvjjzpenbqefukzoeukesgt"
+                    style={{ cursor: "pointer" }}
+                    onclick={() => {
+                      window?.open(
+                        "https://logo.samandehi.ir/Verify.aspx?id=372680&p=xlaojyoeuiwkgvkamcsiobpd",
+                        "Popup",
+                        "toolbar=no, scrollbars=no, location=no, statusbar=no, menubar=no, resizable=0, width=450, height=630, top=30"
+                      );
+                    }}
+                    alt="logo-samandehi"
+                    src="https://logo.samandehi.ir/logo.aspx?id=372680&p=qftiyndtodrfwlbqaqgwlyma"
+                  />
+                </div>
                 {/*<div className="bg-gray-300 size-[60px]"></div>*/}
                 {/* <Image
               src="/assets/icons/Enemad.svg"
