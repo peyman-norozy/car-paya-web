@@ -114,7 +114,7 @@ const ResponsiveHeader = (props) => {
               }
             >
               {props.headerData.map((item, index) => (
-                <NavbarAttribute key={index} data={item} />
+                <NavbarAttribute key={index + item.title} data={item} />
               ))}
             </ul>
           </div>

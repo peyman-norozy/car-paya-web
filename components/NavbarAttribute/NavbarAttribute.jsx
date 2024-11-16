@@ -37,7 +37,7 @@ const NavbarAttribute = ({ data }) => {
       >
         {data?.options.map((option, index) => (
           <li
-            key={index}
+            key={index + option.label}
             className={"cursor-pointer hover:text-stone-500 px-4"}
           >
             <Link href={option?.link}>{option?.label}</Link>
