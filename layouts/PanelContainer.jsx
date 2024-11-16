@@ -4,6 +4,10 @@ import { useState } from "react";
 
 const tabs = [
   {
+    title: "پروفایل",
+    link: "/panel/profile",
+  },
+  {
     title: "وسیله من",
     link: "/panel/my_vehicle",
     underline: true,

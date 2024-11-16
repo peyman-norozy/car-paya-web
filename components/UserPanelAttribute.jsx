@@ -29,7 +29,7 @@ const UserPanelAttribute = (props) => {
           headers: {
             Authorization: "Bearer " + getCookie("Authorization"),
           },
-        },
+        }
       )
       .then(() => {
         deleteCookie("Authorization");
@@ -48,7 +48,7 @@ const UserPanelAttribute = (props) => {
         },
       })
       .then(async () => {
-        router.push("/panel");
+        router.push("/panel/profile");
       })
       .catch((err) => {
         dispatch(setLoginModal(true));
