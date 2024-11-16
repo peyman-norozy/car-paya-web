@@ -1,15 +1,9 @@
 "use client";
-import React, { Fragment, useEffect, useState } from "react";
-// import SelectProvinceAndCarBox from "./SelectProvinceAndCarBox";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
-import { serviceData } from "@/staticData/data";
-import CarServicesSlider from "@/components/CarServicesSlider/CarServicesSlider";
 import axios from "axios";
 import useSetQuery from "@/hook/useSetQuery";
-import CallAndConsult from "@/components/CallAndConsult";
-import CostumerSatisfaction from "@/components/vehicle-verification/CostumerSatisfaction";
-import FrequentQuestions from "@/components/vehicle-verification/FrequentQuestions";
-import CustomersComment from "@/components/vehicle-verification/CustomersComment";
+
 import { ToastContainer } from "react-toastify";
 import carshenasi from "@/public/assets/images/carshenasi.png";
 import zarebin from "@/public/assets/images/zarebin.png";
@@ -22,11 +16,11 @@ import Counseling from "@/components/Counseling";
 import BachelorSteps from "@/components/BachelorSteps";
 import WhyInspection from "@/components/WhyInspection";
 import InLocation from "@/components/InLocation";
-// import CarAndCityContainer from "./public/CarAndCityContainer";
+import InspectionCondition from "@/components/InspectionCondition";
+import InspectionPackage from "@/components/InspectionPackage";
+import Opinion from "@/components/Opinion";
+import QuestionMark from "@/components/QuestionMark";
 const VehicleInspection = () => {
-  // const { on_click, verificationData, setStep, step } = props;
-  const [isClicked, setIsClicked] = useState(5);
-  const [isSelected, setIsSelected] = useState(null);
   const [selectedItem, setSelectedItem] = useState(null);
   const [city_id, setCity_id] = useState();
   const [message, setMessage] = useState("");
@@ -139,7 +133,6 @@ const VehicleInspection = () => {
           onClick={() => {
             setModalClickState(true);
           }}
-          // onClick={PackageStepHandler}
         >
           {vehicleVerificationBasket.length ? "ادامه " : ""}درخواست کارشناسی
         </button>
@@ -147,49 +140,13 @@ const VehicleInspection = () => {
       <div className={"max-w-[1294px] mx-auto gap-8 flex flex-col"}>
         <BachelorSteps />
         <WhyInspection />
-        <InLocation />
         <Counseling />
-        <div className="flex flex-col items-center gap-3 text-[#000000]">
-          <h2 className="font-bold">چرا کار پایا !</h2>
-          <div className="grid grid-cols-2 gap-4 w-full px-4">
-            <div className="w-full h-20 flex flex-col gap-2 bg-[#ffffff] shadow-[0_0_4px_0_rgba(204,204,204,0.25)] rounded-lg">
-              <div className="flex justify-between items-center p-2">
-                <span className="font-medium text-xs">محل کارشناسی</span>
-                <span className="bg-slate-400 size-4"></span>
-              </div>
-              <span className="text-[#6D6D6D] text-xs text-center">
-                انجام کارشناسی در مکان و زمان انتخابی شما
-              </span>
-            </div>
-            <div className="w-full h-20 flex flex-col gap-2 bg-[#ffffff] shadow-[0_0_4px_0_rgba(204,204,204,0.25)] rounded-lg">
-              <div className="flex justify-between items-center p-2">
-                <span className="font-medium text-xs">محل کارشناسی</span>
-                <span className="bg-slate-400 size-4"></span>
-              </div>
-              <span className="text-[#6D6D6D] text-xs text-center">
-                انجام کارشناسی در مکان و زمان انتخابی شما
-              </span>
-            </div>
-            <div className="w-full h-20 flex flex-col gap-2 bg-[#ffffff] shadow-[0_0_4px_0_rgba(204,204,204,0.25)] rounded-lg">
-              <div className="flex justify-between items-center p-2">
-                <span className="font-medium text-xs">محل کارشناسی</span>
-                <span className="bg-slate-400 size-4"></span>
-              </div>
-              <span className="text-[#6D6D6D] text-xs text-center">
-                انجام کارشناسی در مکان و زمان انتخابی شما
-              </span>
-            </div>
-            <div className="w-full h-20 flex flex-col gap-2 bg-[#ffffff] shadow-[0_0_4px_0_rgba(204,204,204,0.25)] rounded-lg">
-              <div className="flex justify-between items-center p-2">
-                <span className="font-medium text-xs">محل کارشناسی</span>
-                <span className="bg-slate-400 size-4"></span>
-              </div>
-              <span className="text-[#6D6D6D] text-xs text-center">
-                انجام کارشناسی در مکان و زمان انتخابی شما
-              </span>
-            </div>
-          </div>
-        </div>
+        <InLocation />
+        <InspectionCondition />
+        <InspectionPackage />
+        <Opinion />
+        <QuestionMark />
+
         {/* <CallAndConsult />
         <CostumerSatisfaction />
         <FrequentQuestions /> */}

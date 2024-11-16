@@ -38,8 +38,8 @@ const bachelorData = [
 const ImageArray = [
   { image: "/assets/images/car-selection.png" },
   { image: "/assets/images/car-inspection.png" },
-  { image: "/assets/images/car-selection.png" },
-  { image: "/assets/images/car-inspection.png" },
+  { image: "/assets/images/time-selection.png" },
+  { image: "/assets/images/get-service.png" },
 ];
 
 const BachelorSteps = () => {
@@ -74,12 +74,12 @@ const BachelorSteps = () => {
 
   return (
     <div className="py-[48px] px-[25px] mt-[40px] max-w-[1294px] shadow-sm rounded-8 overflow-hidden">
-      <p className="lg:hidden block text-16 font-medium mb-[44px]">
+      <p className="text-16 font-medium mb-[44px]">
         مراحل ثبت کارشناسی
         <span className="text-[#1C74D1]"> کار </span>
         <span className="text-[#F66B34]"> پایا </span>
       </p>
-      <section className="flex justify-between gap-[144px] max-w-[1294px]">
+      <section className="flex lg:flex-row flex-col justify-between lg:gap-[144px] max-w-[1294px]">
         <ul>
           {bachelorData.map((item, index) => (
             <li
@@ -139,7 +139,7 @@ const BachelorSteps = () => {
         </ul>
         <ul>
           {ImageArray.map((item, index) => (
-            <li key={item.image}>
+            <li key={item.image} className={"flex justify-center items-center"}>
               {bachloreNumber === index + 1 && (
                 <Image
                   src={item.image}
