@@ -1,53 +1,7 @@
 "use client";
+import { tabsData } from "@/staticData/data";
 import Link from "next/link";
 import { useState } from "react";
-
-const tabs = [
-  {
-    title: "پروفایل",
-    link: "/panel/profile",
-  },
-  {
-    title: "وسیله من",
-    link: "/panel/my_vehicle",
-    underline: true,
-  },
-  {
-    title: "تاریخچه سفارشات",
-    underline: true,
-    children: [
-      {
-        title: "کارشناسی",
-        link: "/panel/history/inspection",
-      },
-      {
-        title: "سرویس دوره ای",
-        link: "/panel/history/periodic_service",
-      },
-      {
-        title: "باتری",
-        link: "/panel/history/battery",
-      },
-      {
-        title: "دیتیلینگ",
-        link: "/panel/history/ditaling",
-      },
-    ],
-  },
-  {
-    title: "کیف پول",
-    link: "/panel/wallet",
-  },
-  {
-    title: "ادرس ها",
-    link: "/panel/address",
-  },
-  {
-    title: "تخفیفات و امتیازات",
-    link: "/panel/cupon",
-    underline: true,
-  },
-];
 
 const PanelContainer = ({ children }) => {
   const [openOptionsState, setOpenOptionsState] = useState(false);
@@ -59,7 +13,7 @@ const PanelContainer = ({ children }) => {
           <span className="text-[#0F0F0F] font-medium text-lg">محمد محمدی</span>
         </div>
         <div className="flex flex-col gap-2">
-          {tabs.map((item) => (
+          {tabsData.map((item) => (
             <>
               {item.children ? (
                 <div
