@@ -78,7 +78,7 @@ const PriceDetails = (props) => {
           <span className={"text-[#22A137] text-14"}>تومان</span>
         </div>
       </div>
-      <div className={"mt-4 hidden lg:inline-block w-full"}>
+      <div className={"mt-4 inline-block w-full"}>
         <DiscountPercent
           id={faktorData?.id}
           type={props.type}
@@ -86,7 +86,7 @@ const PriceDetails = (props) => {
           setDiscountPrice={props.setDiscountPrice}
           coupon={props.coupon}
           setCoupon={props.setCoupon}
-          // setDiscountPercent={setDiscountPercent}
+        // setDiscountPercent={setDiscountPercent}
         />
       </div>
       {props.price_fluctuation &&
