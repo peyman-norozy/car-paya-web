@@ -26,10 +26,10 @@ const Page = (props) => {
       const data = await getDataWithFullErrorRes(
         `/web/service-periodical?step=step-3&type=${props.searchParams.type}&city_id=${props.searchParams.city_id}&vehicle_tip_id=${props.searchParams.selectTipState.split(",")[1]}&service_location_id=${props.searchParams.service_location_id}&package_id=${props.searchParams.package_id}`
       );
-      console.log(data.data);
-      setData(data?.data);
+      console.log(data);
+      setData(data);
       const uniqueTitles = Array.from(
-        new Set(data?.data?.map((item) => item.title))
+        new Set(data?.map((item) => item.title))
       );
       console.log(uniqueTitles);
 
@@ -138,16 +138,16 @@ const Page = (props) => {
           <div className="flex gap-2 items-center w-full bg-[#FFFFFF] text-[#D1D1D1] border border-[#F2F2F2] rounded-full px-2">
             <i
               className="cc-car-o text-2xl text-[#1E67BF]"
-              // onClick={() => router.push(`/vehicle-inspection`)}
+            // onClick={() => router.push(`/vehicle-inspection`)}
             />
             <div className="border-b-4 border-dotted border-[#1E67BF] w-full"></div>
             <i
               className="cc-search text-2xl text-[#1E67BF]"
-              // onClick={() =>
-              //   router.push(
-              //     `/vehicle-inspection?step=step-1&city_id=${city_id}&vehicle_tip=${selectedItem}`
-              //   )
-              // }
+            // onClick={() =>
+            //   router.push(
+            //     `/vehicle-inspection?step=step-1&city_id=${city_id}&vehicle_tip=${selectedItem}`
+            //   )
+            // }
             />
             <div className="border-b-4 border-dotted border-[#1E67BF] w-full"></div>
             <i className="cc-timer text-2xl text-[#D1D1D1]" />
@@ -161,7 +161,6 @@ const Page = (props) => {
           >
             زمان خود را انتخاب کنید:
           </p>
-          {console.log(data)}
           <div className="w-fit flex justify-around items-center gap-6 min-w-full relative border-b border-[#FCCAAC] pb-2">
             {uniqueTitle.map((item, index) => (
               <div
@@ -190,22 +189,22 @@ const Page = (props) => {
               setOptionIsOpen={setOptionIsOpen}
               optionIsOpen={optionIsOpen}
               accordionState={props.accordionState}
-            /> */}
+              /> */}
             <div className={"grid grid-cols-1 size666:grid-cols-2 gap-4"}>
               {/* <div
         className={
           "col-span-full py-2 px-3 flex items-center justify-between border-r-2 border-[#F58052]"
-        }
-      >
-        <div className={"flex items-end gap-2 text-sm font-medium"}>
+          }
+          >
+          <div className={"flex items-end gap-2 text-sm font-medium"}>
           <p>{weekDay}</p>
           <p>{persianDateCovertor(data[0])}</p>
-        </div>
-      </div> */}
-              {data
-                .filter((item) => {
-                  return item.title === dayTitleTab;
-                })
+          </div>
+          </div> */}
+              {console.log(data)}
+              {data.filter((item) => {
+                return item.title === dayTitleTab;
+              })
                 .map((item, index) => (
                   <div
                     className={`shadow-[0_0_4px_0_rgba(152,152,152,0.4)] rounded-lg h-fit border transition-all cursor-pointer duration-500 ${timeIsSelected?.id === item.id ? "border-[#F58052]" : ""}`}
