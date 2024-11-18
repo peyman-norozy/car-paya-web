@@ -13,6 +13,7 @@ import Image from "next/image";
 import CertificateCard from "./certificate/CertificateCard";
 import { deleteData } from "@/utils/api-function-utils";
 import nProgress from "nprogress";
+
 const CreateMyCar = () => {
   const [myCareData, setMyCareData] = useState([]);
   const [searchedMyCareData, setSearchedMyCareData] = useState([]);
@@ -35,7 +36,7 @@ const CreateMyCar = () => {
 
   const fetchData = async () => {
     const response = await getData(
-      process.env.BASE_API + API_PATHS.USERPANEL + "/vehicles",
+      process.env.BASE_API + API_PATHS.USERPANEL + "/vehicles"
     );
     if (response.status === 200) {
       setMyCareData(response.data.data);
@@ -76,7 +77,7 @@ const CreateMyCar = () => {
       setSearchedMyCareData(
         myCareData.filter((item) => {
           return item.type === e.target.value;
-        }),
+        })
       );
     }
   }
