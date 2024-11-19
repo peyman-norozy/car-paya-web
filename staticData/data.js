@@ -361,5 +361,5 @@ export default {
   batteryPurchaseProcessData,
   batteryFaqData,
   headerNavData,
-  tabsData
+  tabsData,
 };
