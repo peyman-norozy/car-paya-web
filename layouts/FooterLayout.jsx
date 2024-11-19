@@ -236,7 +236,7 @@ const Footer = (props) => {
                     referrerpolicy="origin"
                     id="rgvjjzpenbqefukzoeukesgt"
                     style={{ cursor: "pointer" }}
-                    onclick={() => {
+                    onClick={() => {
                       window?.open(
                         "https://logo.samandehi.ir/Verify.aspx?id=372680&p=xlaojyoeuiwkgvkamcsiobpd",
                         "Popup",

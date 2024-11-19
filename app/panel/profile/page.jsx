@@ -100,13 +100,16 @@ const ProfilePage = () => {
             </span>
           </div>
           <div className="relative border border-[#B0B0B0] rounded-lg px-3 py-3">
-            <input
-              className="w-full h-full outline-none text-xs"
+            <select
+              className="w-full h-full outline-none text-xs bg-inherit"
               value={data.gender}
               onChange={(e) => {
                 setData({ ...data, gender: e.target.value });
               }}
-            />
+            >
+              <option value={"male"}>مرد</option>
+              <option value={"female"}>زن</option>
+            </select>
             <span className="text-sm font-medium text-[#6D6D6D] absolute bg-white px-px -top-3 right-2">
               جنسیت
             </span>

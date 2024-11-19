@@ -264,7 +264,7 @@ const InvoicePage = () => {
                   roleChecked={roleChecked}
                   discount={discount}
                   setDiscountPrice={setDiscountPrice}
-                  type={"master"}
+                  type={"periodic_service"}
                   finalPrice={finalPrice}
                   setFinalPrice={setFinalPrice}
                   discountedprice={discountedprice}

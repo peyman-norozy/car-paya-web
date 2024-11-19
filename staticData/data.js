@@ -304,6 +304,53 @@ export const headerNavData = [
   { title: "تماس با ما", link: "https://carpaya.com/blog/contact-us/" },
 ];
 
+export const tabsData = [
+  {
+    title: "پروفایل",
+    link: "/panel/profile",
+  },
+  {
+    title: "وسیله من",
+    link: "/panel/my_vehicle",
+    underline: true,
+  },
+  {
+    title: "تاریخچه سفارشات",
+    underline: true,
+    children: [
+      {
+        title: "کارشناسی",
+        link: "/panel/history/inspection",
+      },
+      {
+        title: "سرویس دوره ای",
+        link: "/panel/history/periodic_service",
+      },
+      {
+        title: "باتری",
+        link: "/panel/history/battery",
+      },
+      {
+        title: "دیتیلینگ",
+        link: "/panel/history/ditaling",
+      },
+    ],
+  },
+  {
+    title: "کیف پول",
+    link: "/panel/wallet",
+  },
+  {
+    title: "ادرس ها",
+    link: "/panel/address",
+  },
+  {
+    title: "تخفیفات و امتیازات",
+    link: "/panel/cupon",
+    underline: true,
+  },
+];
+
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
   serviceData,
@@ -314,4 +361,5 @@ export default {
   batteryPurchaseProcessData,
   batteryFaqData,
   headerNavData,
+  tabsData,
 };
