@@ -106,7 +106,7 @@ const History = () => {
           <div className="grid grid-cols-2 gap-4 w-full ">
             <div className="border border-[#B0B0B0] rounded-lg w-full relative flex gap-1 items-center px-3 py-2 col-span-full md:col-span-1 ">
               <span className="text-sm text-[#3D3D3D]">
-                {historyData.userVehicle?.title || "نامشخص"}
+                {historyData.userVehicle?.vehicle_name || "نامشخص"}
               </span>
               <span className="font-medium text-sm text-[#6D6D6D] absolute -top-3 right-1 bg-white px-1">
                 برند/ مدل/ تیپ
