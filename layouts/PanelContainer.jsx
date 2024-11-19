@@ -1,9 +1,13 @@
 "use client";
 import { tabsData } from "@/staticData/data";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useState } from "react";
 
 const PanelContainer = ({ children }) => {
+  const pathName = usePathname();
+  console.log(pathName);
+
   const [openOptionsState, setOpenOptionsState] = useState(false);
   return (
     <div className="flex gap-8 my-6">
@@ -17,7 +21,7 @@ const PanelContainer = ({ children }) => {
             <>
               {item.children ? (
                 <div
-                  className={`flex flex-col gap-2 overflow-hidden ${openOptionsState ? "h-auto" : "h-[44px]"} ${item.underline ? "border-b border-[#bbbbbb]" : ""}`}
+                  className={`flex flex-col gap-2 overflow-hidden ${openOptionsState ? "h-auto" : "h-[44px]"} ${item.underline ? "border-b border-[#bbbbbb]" : ""} `}
                   onClick={() => {
                     setOpenOptionsState(!openOptionsState);
                   }}
@@ -40,7 +44,7 @@ const PanelContainer = ({ children }) => {
               ) : (
                 <Link
                   href={item.link}
-                  className={`py-3 px-2 font-medium text-sm text-[#0f0f0f] cursor-pointer hover:bg-gray-100 ${item.underline ? "border-b border-[#bbbbbb]" : ""}`}
+                  className={`py-3 px-2 font-medium text-sm text-[#0f0f0f] cursor-pointer hover:bg-gray-100 ${pathName === item.link ? "bg-[#fce6dd] border-r-2 border-[#F66B34] text-[#F66B34]" : "bg-inherit text-[#0f0f0f]"}`}
                 >
                   {item.title}
                 </Link>
