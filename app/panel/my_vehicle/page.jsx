@@ -27,7 +27,7 @@ const MyVehicle = () => {
         <span className="text-[#0F0F0F] text-sm font-medium">
           وسیله نقلیه من
         </span>
-        <div className="flex justify-between items-center">
+        {/* <div className="flex justify-between items-center">
           <select
             className="bg-inherit w-32 sm:w-40 text-[#0F0F0F] p-2 rounded-lg text-12 sm:text-16 shadow-[0_0_5px_0_rgba(160,160,160,0.7)] outline-none"
             // onChange={filterChangeHandler}
@@ -37,7 +37,7 @@ const MyVehicle = () => {
             <option value="MOTOR">موتور</option>
             <option value="HEAVY_CAR">ماشین سنگین</option>
           </select>
-        </div>
+        </div> */}
         <div className="grid grid-cols-1 size830:grid-cols-3 gap-6">
           {vehicleData.map((item) => (
             <div className="shadow-[0_0_4px_0_rgba(207,207,207,0.7)] flex flex-col gap-5 rounded-2xl p-4 relative">
