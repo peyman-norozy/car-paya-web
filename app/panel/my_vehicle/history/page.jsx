@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import { getDataWithFullErrorRes } from "@/utils/api-function-utils";
 import { numberWithCommas } from "@/utils/function-utils";
 import moment from "jalali-moment";
+import { useSelector } from "react-redux";
 
 const data = [
   {
@@ -64,6 +65,9 @@ const data = [
 const History = () => {
   const [historyData, setHistoryData] = useState({});
   const params = useSearchParams();
+  const innerWidthNumber = useSelector(
+    (number) => number.todo.windowInnerWidth
+  );
   console.log(params.get("id"));
 
   useEffect(() => {
@@ -85,20 +89,20 @@ const History = () => {
           شناسنامه و سوابق وسیله نقلیه
         </span>
         <div className="shadow-[0_0_4px_0_rgba(207,207,207,0.7)] bg-[#FEFEFE] lg:bg-inherit lg:shadow-none flex flex-col md:flex-row gap-4 rounded-2xl lg:rounded-none relative border-b p-4 lg:p-0 items-center w-full">
-          {/* <Image
+          <Image
             src={
               process.env.BASE_API +
               "/web" +
               API_PATHS.FILE +
               "/" +
               //   data.image_id
-              JSON.parse(localStorage.getItem("selectedVehicle")).image
+              historyData.userVehicle?.image
             }
             className="w-auto h-full max-h-[160px] mx-auto"
             width={200}
             height={150}
             alt="car"
-          /> */}
+          />
           <div className="grid grid-cols-2 gap-4 w-full ">
             <div className="border border-[#B0B0B0] rounded-lg w-full relative flex gap-1 items-center px-3 py-2 col-span-full md:col-span-1 ">
               <span className="text-sm text-[#3D3D3D]">
@@ -265,37 +269,89 @@ const History = () => {
               </div>
             </div>
           </div>
-          <table className="text-center">
-            <thead>
-              <tr className="[&>*]:border [&>*]:border-[#B0B0B0] h-12 text-sm font-medium [&>*]:bg-[#3d5b86] text-white">
-                <th>عنوان</th>
-                <th>کیلومتر تعویض فعلی</th>
-                <th>کیلومتر تعویض بعدی</th>
-                <th>تاریخ تعویض فعلی</th>
-                <th>تاریخ تعویض بعدی</th>
-              </tr>
-            </thead>
-            <tbody>
-              {historyData?.car_id_card?.map((row, index) => (
-                <tr
-                  key={index}
-                  className="[&>*]:border [&>*]:border-[#B0B0B0] h-11 text-sm font-medium text-[#757575]"
-                >
-                  <td>{row.service_name}</td>
-                  <td>{numberWithCommas(row.replacement_km)}</td>
-                  <td>{numberWithCommas(row.next_replacement_km)}</td>
-                  <td>
-                    {moment(row.replacement_time * 1000).format("YYYY/MM/DD")}
-                  </td>
-                  <td>
-                    {moment(row.next_replacement_time * 1000).format(
-                      "YYYY/MM/DD"
-                    )}
-                  </td>
+          {innerWidthNumber > 1024 ? (
+            <table className="text-center">
+              <thead>
+                <tr className="[&>*]:border [&>*]:border-[#B0B0B0] h-12 text-sm font-medium [&>*]:bg-[#3d5b86] text-white">
+                  <th>عنوان</th>
+                  <th>کیلومتر تعویض فعلی</th>
+                  <th>کیلومتر تعویض بعدی</th>
+                  <th>تاریخ تعویض فعلی</th>
+                  <th>تاریخ تعویض بعدی</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {historyData?.car_id_card?.map((row, index) => (
+                  <tr
+                    key={index}
+                    className="[&>*]:border [&>*]:border-[#B0B0B0] h-11 text-sm font-medium text-[#757575]"
+                  >
+                    <td>{row.service_name}</td>
+                    <td>{numberWithCommas(row.replacement_km)}</td>
+                    <td>{numberWithCommas(row.next_replacement_km)}</td>
+                    <td>
+                      {moment(row.replacement_time * 1000).format("YYYY/MM/DD")}
+                    </td>
+                    <td>
+                      {moment(row.next_replacement_time * 1000).format(
+                        "YYYY/MM/DD"
+                      )}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          ) : (
+            historyData?.car_id_card?.map((row, index) => (
+              <div className="flex flex-col gap-6 border-b pb-2">
+                <span className="text-[#0F0F0F] text-sm font-medium border-r-2 border-[#F66B34] pr-1">
+                  {row.service_name}
+                </span>
+                <div className="flex flex-col gap-3">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-1">
+                      <span className="font-medium text-sm text-[#757575]">
+                        تعویض فعلی:
+                      </span>
+                      <span className="font-medium text-xs text-[#B0B0B0]">
+                        {numberWithCommas(row.replacement_km)}
+                      </span>
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <span className="font-medium text-sm text-[#757575]">
+                        تاریخ:
+                      </span>
+                      <span className="font-medium text-xs text-[#B0B0B0]">
+                        {moment(row.replacement_time * 1000).format(
+                          "YYYY/MM/DD"
+                        )}
+                      </span>
+                    </div>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-1">
+                      <span className="font-medium text-sm text-[#757575]">
+                        تعویض بعدی:
+                      </span>
+                      <span className="font-medium text-xs text-[#B0B0B0]">
+                        {numberWithCommas(row.next_replacement_km)}
+                      </span>
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <span className="font-medium text-sm text-[#757575]">
+                        تاریخ:
+                      </span>
+                      <span className="font-medium text-xs text-[#B0B0B0]">
+                        {moment(row.next_replacement_time * 1000).format(
+                          "YYYY/MM/DD"
+                        )}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))
+          )}
         </div>
       </div>
     </PanelContainer>
