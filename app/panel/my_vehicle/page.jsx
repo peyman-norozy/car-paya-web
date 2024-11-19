@@ -16,7 +16,7 @@ const MyVehicle = () => {
   }, []);
 
   async function getMyVehicleData() {
-    const res = await getDataWithFullErrorRes("/web/my-vehicles");
+    const res = await getDataWithFullErrorRes("/user/my-vehicles");
     console.log(res.data);
     setVehicleData(res.data);
   }
@@ -24,9 +24,15 @@ const MyVehicle = () => {
   return (
     <PanelContainer>
       <div className="bg-[#fefefe] rounded-lg shadow-[0_0_8px_0_rgba(143,143,143,0.25)] min-h-[500px] flex flex-col gap-6 lg:gap-9 p-4 lg:p-12">
-        <span className="text-[#0F0F0F] text-sm font-medium">
+        <span className="text-[#0F0F0F] text-sm font-medium hidden lg:inline-block">
           وسیله نقلیه من
         </span>
+        <div className="flex gap-2 items-center lg:hidden">
+          <Link href={"/panel"} className="flex items-center">
+            <i className="cc-arrow-right text-xl leading-3" />
+          </Link>
+          <span className="font-medium text-sm">پروفایل</span>
+        </div>
         {/* <div className="flex justify-between items-center">
           <select
             className="bg-inherit w-32 sm:w-40 text-[#0F0F0F] p-2 rounded-lg text-12 sm:text-16 shadow-[0_0_5px_0_rgba(160,160,160,0.7)] outline-none"
@@ -105,11 +111,11 @@ const MyVehicle = () => {
               ) : (
                 <div className="bg-white flex items-center justify-between border border-[#B0B0B0] font-bold text-14 text-[#3d3d3d] rounded-lg overflow-hidden">
                   <div className="w-full p-2 text-14 font-bold flex justify-around">
-                    <span>{item.plaque[3]}</span>
-                    <span className="h-5 w-px bg-[#000000]"></span>
-                    <span>{item.plaque[2]}</span>
-                    <span>{item.plaque[1]}</span>
                     <span>{item.plaque[0]}</span>
+                    <span className="h-5 w-px bg-[#000000]"></span>
+                    <span>{item.plaque[1]}</span>
+                    <span>{item.plaque[2]}</span>
+                    <span>{item.plaque[3]}</span>
                   </div>
                   <div className="w-16 h-full bg-[#3360FF] flex items-center justify-center py-2">
                     <Image

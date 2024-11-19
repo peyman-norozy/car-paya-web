@@ -149,11 +149,11 @@ const History = () => {
             ) : (
               <div className="bg-white flex items-center justify-between border border-[#B0B0B0] font-bold text-14 text-[#3d3d3d] rounded-lg overflow-hidden col-span-full md:col-span-1">
                 <div className="w-full p-2 text-14 font-bold flex justify-around">
-                  <span>{historyData.userVehicle?.plaque[3]}</span>
-                  <span className="h-5 w-px bg-[#000000]"></span>
-                  <span>{historyData.userVehicle?.plaque[2]}</span>
-                  <span>{historyData.userVehicle?.plaque[1]}</span>
                   <span>{historyData.userVehicle?.plaque[0]}</span>
+                  <span className="h-5 w-px bg-[#000000]"></span>
+                  <span>{historyData.userVehicle?.plaque[1]}</span>
+                  <span>{historyData.userVehicle?.plaque[2]}</span>
+                  <span>{historyData.userVehicle?.plaque[3]}</span>
                 </div>
                 <div className="w-16 h-full bg-[#3360FF] flex items-center justify-center py-2">
                   <Image

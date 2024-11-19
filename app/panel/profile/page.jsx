@@ -1,8 +1,11 @@
 "use client";
+import { API_PATHS } from "@/configs/routes.config";
 import PanelContainer from "@/layouts/PanelContainer";
 import { getDataWithFullErrorRes } from "@/utils/api-function-utils";
 import { postData } from "@/utils/client-api-function-utils";
+import { success } from "@/utils/function-utils";
 import Image from "next/image";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 
 const ProfilePage = () => {
@@ -15,37 +18,60 @@ const ProfilePage = () => {
     const res = await getDataWithFullErrorRes("user/profile");
     console.log(res.data);
     setData({
-      avatar: res.data.profile.avatar,
+      image_id: res.data.image_id,
       first_name: res.data.profile.first_name,
       last_name: res.data.profile.last_name,
       mobile: res.data.mobile,
       gender: res.data.profile.gender,
       national_code: res.data.profile.national_code,
+      email: res.data.email,
     });
   }
 
   async function postProfileData() {
     const res = postData("/user/profile", data);
+    success("اطلاعات با موفقیت ویرایش شد");
     console.log(res);
   }
 
-  function imageChangeHandler(e) {
-    // if (e.target.files && e.target.files.length > 0) {
-    //   const file = e.target.files[0];
-    //   const reader = new FileReader();
-    //   reader.readAsDataURL(file);
-    //   console.log(file);
-    //   const formData = new FormData();
-    //   formData.append("file", file);
-    // }
+  async function imageChangeHandler(e) {
+    if (e.target.files && e.target.files.length > 0) {
+      const file = e.target.files[0];
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      console.log(file);
+      const formData = new FormData();
+      formData.append("file", file);
+      formData.append("type", "USER");
+      // for (let [key, value] of formData.entries()) {
+      //   console.log(`${key}: ${value.name}`);
+      // }
+
+      const response = await fetch(`${process.env.BASE_API}/web/files`, {
+        method: "POST",
+        body: formData,
+      });
+      if (response.ok) {
+        const res = await response.json();
+        setData({ ...data, image_id: res.data.id });
+      } else {
+        console.error("Upload failed");
+      }
+    }
   }
 
   return (
     <PanelContainer>
       <div className="bg-[#fefefe] rounded-lg shadow-[0_0_8px_0_rgba(143,143,143,0.25)] min-h-[500px] flex flex-col gap-6 lg:gap-9 p-4 lg:p-12">
+        <div className="flex gap-2 items-center lg:hidden">
+          <Link href={"/panel"} className="flex items-center">
+            <i className="cc-arrow-right text-xl leading-3" />
+          </Link>
+          <span className="font-medium text-sm">پروفایل</span>
+        </div>
         <div className="flex items-center gap-4 lg:gap-10 ">
           <Image
-            src={process.env.BASE_API + "/web/file/" + data.avatar}
+            src={process.env.BASE_API + "/web/file/" + data.image_id}
             width={112}
             height={112}
             className="rounded-full bg-stone-500"
