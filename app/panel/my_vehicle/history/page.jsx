@@ -3,6 +3,11 @@ import { API_PATHS } from "@/configs/routes.config";
 import PanelContainer from "@/layouts/PanelContainer";
 import Image from "next/image";
 import iransFlag from "@/public/assets/images/iransFlag.png";
+import { useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
+import { getDataWithFullErrorRes } from "@/utils/api-function-utils";
+import { numberWithCommas } from "@/utils/function-utils";
+import moment from "jalali-moment";
 
 const data = [
   {
@@ -57,6 +62,22 @@ const data = [
 ];
 
 const History = () => {
+  const [historyData, setHistoryData] = useState({});
+  const params = useSearchParams();
+  console.log(params.get("id"));
+
+  useEffect(() => {
+    getHestoryData();
+  }, []);
+
+  async function getHestoryData() {
+    const res = await getDataWithFullErrorRes(
+      "/user/car_id_card/" + params.get("id")
+    );
+    console.log(res.data);
+    setHistoryData(res.data);
+  }
+
   return (
     <PanelContainer>
       <div className="lg:bg-[#fefefe] rounded-lg lg:shadow-[0_0_8px_0_rgba(143,143,143,0.25)] min-h-[500px] flex flex-col gap-4 px-4 lg:p-6">
@@ -64,7 +85,7 @@ const History = () => {
           شناسنامه و سوابق وسیله نقلیه
         </span>
         <div className="shadow-[0_0_4px_0_rgba(207,207,207,0.7)] bg-[#FEFEFE] lg:bg-inherit lg:shadow-none flex flex-col md:flex-row gap-4 rounded-2xl lg:rounded-none relative border-b p-4 lg:p-0 items-center w-full">
-          <Image
+          {/* <Image
             src={
               process.env.BASE_API +
               "/web" +
@@ -77,12 +98,11 @@ const History = () => {
             width={200}
             height={150}
             alt="car"
-          />
+          /> */}
           <div className="grid grid-cols-2 gap-4 w-full ">
             <div className="border border-[#B0B0B0] rounded-lg w-full relative flex gap-1 items-center px-3 py-2 col-span-full md:col-span-1 ">
               <span className="text-sm text-[#3D3D3D]">
-                {/* {data.car_model_title} */}
-                آيودی Q5
+                {historyData.userVehicle?.title || "نامشخص"}
               </span>
               <span className="font-medium text-sm text-[#6D6D6D] absolute -top-3 right-1 bg-white px-1">
                 برند/ مدل/ تیپ
@@ -93,8 +113,7 @@ const History = () => {
                 سال ساخت
               </span>
               <span className="text-14 text-[#3D3D3D]">
-                {/* {data.year} */}
-                2018
+                {historyData.userVehicle?.year || "نامشخص"}
               </span>
             </div>
             <div className="border border-[#B0B0B0] relative gap-1 rounded-lg w-full px-3 py-2">
@@ -102,8 +121,7 @@ const History = () => {
                 رنگ
               </span>
               <span className="text-14 text-[#3D3D3D]">
-                {/* {data.info.color.title} */}
-                قرمز
+                {historyData.userVehicle?.color || "نامشخص"}
               </span>
             </div>
             {"CAR" === "MOTOR" ? (
@@ -127,17 +145,11 @@ const History = () => {
             ) : (
               <div className="bg-white flex items-center justify-between border border-[#B0B0B0] font-bold text-14 text-[#3d3d3d] rounded-lg overflow-hidden col-span-full md:col-span-1">
                 <div className="w-full p-2 text-14 font-bold flex justify-around">
-                  <span>
-                    {/* {data.info.plaque[3]} */}
-                    11
-                  </span>
+                  <span>{historyData.userVehicle?.plaque[3]}</span>
                   <span className="h-5 w-px bg-[#000000]"></span>
-                  <span>{/* {data.info.plaque[2]} */}564</span>
-                  <span>{/* {data.info.plaque[1]} */}ب</span>
-                  <span>
-                    {/* {data.info.plaque[0]} */}
-                    54
-                  </span>
+                  <span>{historyData.userVehicle?.plaque[2]}</span>
+                  <span>{historyData.userVehicle?.plaque[1]}</span>
+                  <span>{historyData.userVehicle?.plaque[0]}</span>
                 </div>
                 <div className="w-16 h-full bg-[#3360FF] flex items-center justify-center py-2">
                   <Image
@@ -235,7 +247,10 @@ const History = () => {
                 کیلومتر فعلی
               </span>
               <div className="flex items-center gap-1 h-10 w-full rounded-lg px-3 py-[10px] border border-[#D1D1D1] text-[#B0B0B0] text-sm bg-[#F6F6F6]">
-                <span>120,000</span>
+                <span>
+                  {numberWithCommas(historyData.userVehicle?.kilometers_now) ||
+                    "نامشخص"}
+                </span>
               </div>
             </div>
             <div className="flex flex-col gap-2 items-start">
@@ -243,7 +258,10 @@ const History = () => {
                 کیلو متر مصرفی ماهانه
               </span>
               <div className="flex items-center gap-1 h-10 w-full rounded-lg px-3 py-[10px] border border-[#D1D1D1] text-[#B0B0B0] text-sm bg-[#F6F6F6]">
-                <span>2,500</span>
+                <span>
+                  {numberWithCommas(historyData.userVehicle?.kilometers_use) ||
+                    "نامشخص"}
+                </span>
               </div>
             </div>
           </div>
@@ -258,16 +276,22 @@ const History = () => {
               </tr>
             </thead>
             <tbody>
-              {data.map((row, index) => (
+              {historyData?.car_id_card?.map((row, index) => (
                 <tr
                   key={index}
                   className="[&>*]:border [&>*]:border-[#B0B0B0] h-11 text-sm font-medium text-[#757575]"
                 >
-                  <td>{row.title}</td>
-                  <td>{row.currentKm}</td>
-                  <td>{row.nextKm}</td>
-                  <td>{row.currentDate}</td>
-                  <td>{row.nextDate}</td>
+                  <td>{row.service_name}</td>
+                  <td>{numberWithCommas(row.replacement_km)}</td>
+                  <td>{numberWithCommas(row.next_replacement_km)}</td>
+                  <td>
+                    {moment(row.replacement_time * 1000).format("YYYY/MM/DD")}
+                  </td>
+                  <td>
+                    {moment(row.next_replacement_time * 1000).format(
+                      "YYYY/MM/DD"
+                    )}
+                  </td>
                 </tr>
               ))}
             </tbody>
