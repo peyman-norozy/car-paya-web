@@ -8,6 +8,7 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { numberWithCommas } from "@/utils/function-utils";
 import useSetQuery from "@/hook/useSetQuery";
 import ServiceInformation from "@/components/ServiceInformation/ServiceInformation";
+import nProgress from "nprogress";
 
 const DetailingSelectService = (props) => {
   console.log(props.data);
@@ -28,7 +29,7 @@ const DetailingSelectService = (props) => {
   const buttonClickHandler = (id) => {
     setQuery.updateQueryParams(
       { package_id: id },
-      "/services/detailing/timeSelector",
+      "/services/detailing/timeSelector"
     );
   };
 
@@ -69,11 +70,12 @@ const DetailingSelectService = (props) => {
         >
           <i
             className={"cc-arrow-right text-24 cursor-pointer"}
-            onClick={() =>
+            onClick={() => {
+              nProgress.start();
               router.push(
-                `/services/detailing/selectLocation?type=${type}&attribute_slug=${attributeSlug}&attribute_value=${attributeValue}&selectTipState=${selectTipState}&city_id=${cityId}`,
-              )
-            }
+                `/services/detailing/selectLocation?type=${type}&attribute_slug=${attributeSlug}&attribute_value=${attributeValue}&selectTipState=${selectTipState}&city_id=${cityId}`
+              );
+            }}
           />
           <p className={"text-14 size752:text-16 w-full font-medium"}>
             انتخاب سرویس
@@ -86,20 +88,22 @@ const DetailingSelectService = (props) => {
         >
           <i
             className="cc-car-o text-2xl text-[#1E67BF]"
-            onClick={() =>
+            onClick={() => {
+              nProgress.start();
               router.push(
-                `/detailing?attribute_slug=${attributeSlug}&attribute_value=${attributeValue}&selectTipState=${selectTipState}&city_id=${cityId}`,
-              )
-            }
+                `/detailing?attribute_slug=${attributeSlug}&attribute_value=${attributeValue}&selectTipState=${selectTipState}&city_id=${cityId}`
+              );
+            }}
           />
           <div className="border-b-4 border-dotted border-[#1E67BF] w-full"></div>
           <i
             className="cc-location text-2xl text-[#1E67BF]"
-            onClick={() =>
+            onClick={() => {
+              nProgress.start();
               router.push(
-                `/services/detailing/selectLocation?type=${type}&attribute_slug=${attributeSlug}&attribute_value=${attributeValue}&selectTipState=${selectTipState}&city_id=${cityId}`,
-              )
-            }
+                `/services/detailing/selectLocation?type=${type}&attribute_slug=${attributeSlug}&attribute_value=${attributeValue}&selectTipState=${selectTipState}&city_id=${cityId}`
+              );
+            }}
           />
           <div className="border-b-4 border-dotted border-[#1E67BF] w-full"></div>
           <i className="cc-search text-2xl text-[#D1D1D1]" />

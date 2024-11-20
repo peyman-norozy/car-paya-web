@@ -45,7 +45,7 @@ const VerificationThirdStep = (props) => {
   const package_id = searchParams.get("package_id");
   const vehicle_tip = searchParams.get("vehicle_tip");
   const reservation_time_slice_id = searchParams.get(
-    "reservation_time_slice_id",
+    "reservation_time_slice_id"
   );
   const exact_time = searchParams.get("exact_time");
   const params = new URLSearchParams(searchParams.toString());
@@ -54,7 +54,7 @@ const VerificationThirdStep = (props) => {
   const setQuery = useSetQuery();
   const dispatch = useDispatch();
   const renderUserAddrressState = useSelector(
-    (state) => state.todo.renderUserAddrressState,
+    (state) => state.todo.renderUserAddrressState
   );
 
   useEffect(() => {
@@ -72,7 +72,7 @@ const VerificationThirdStep = (props) => {
           headers: {
             Authorization: "Bearer " + getCookie("Authorization"),
           },
-        },
+        }
       )
       .then((res) => {
         console.log(res.data.data);
@@ -103,7 +103,7 @@ const VerificationThirdStep = (props) => {
           headers: {
             Authorization: "Bearer " + getCookie("Authorization"),
           },
-        },
+        }
       )
       .then((res) => {
         console.log(res.data.data);
@@ -156,7 +156,7 @@ const VerificationThirdStep = (props) => {
       sessionStorage.setItem("verificationCart", JSON.stringify(cart));
       nProgress.start();
       router.push(
-        `/services/vehicle-inspection/invoice?city_id=${city_id}&vehicle_tip=${selectedItem}&package_id=${package_id}&reservation_time_slice_id=${reservation_time_slice_id}&exact_time=${exact_time}&type_service=${type}&registrationable_id=${selectedAddress}&step=step-4`,
+        `/services/vehicle-inspection/invoice?city_id=${city_id}&vehicle_tip=${selectedItem}&package_id=${package_id}&reservation_time_slice_id=${reservation_time_slice_id}&exact_time=${exact_time}&type_service=${type}&registrationable_id=${selectedAddress}&step=step-4`
       );
       //   setQuery.setMultiQuery([
       //     { key: "step", value: "step-5" },
@@ -178,7 +178,7 @@ const VerificationThirdStep = (props) => {
       setCheckedArea(
         checkedArea.filter((item) => {
           return item !== id;
-        }),
+        })
       );
     }
   }
@@ -201,7 +201,7 @@ const VerificationThirdStep = (props) => {
   }
 
   const verificationCart = JSON.parse(
-    sessionStorage.getItem("verificationCart"),
+    sessionStorage.getItem("verificationCart")
   );
 
   return (
@@ -243,25 +243,30 @@ const VerificationThirdStep = (props) => {
           <div className="flex gap-2 items-center w-full bg-[#FFFFFF] text-[#D1D1D1]">
             <i
               className="cc-car-o text-2xl text-[#518DD5] cursor-pointer"
-              onClick={() => router.push(`/vehicle-inspection`)}
+              onClick={() => {
+                nProgress.start();
+                router.push(`/vehicle-inspection`);
+              }}
             />
             <div className="border-b-4 border-dotted border-[#518DD5] w-full"></div>
             <i
               className="cc-search text-2xl text-[#518DD5] cursor-pointer"
-              onClick={() =>
+              onClick={() => {
+                nProgress.start();
                 router.push(
-                  `/services/vehicle-inspection/service-selection?step=step-1&city_id=${city_id}&vehicle_tip=${selectedItem}`,
-                )
-              }
+                  `/services/vehicle-inspection/service-selection?step=step-1&city_id=${city_id}&vehicle_tip=${selectedItem}`
+                );
+              }}
             />
             <div className="border-b-4 border-dotted border-[#518DD5] w-full"></div>
             <i
               className="cc-timer text-2xl text-[#518DD5] cursor-pointer"
-              onClick={() =>
+              onClick={() => {
+                nProgress.start();
                 router.push(
-                  `/services/vehicle-inspection/time-selection?city_id=${city_id}&vehicle_tip=${selectedItem}&step=step-2&package_id=${package_id}`,
-                )
-              }
+                  `/services/vehicle-inspection/time-selection?city_id=${city_id}&vehicle_tip=${selectedItem}&step=step-2&package_id=${package_id}`
+                );
+              }}
             />
             <div className="border-b-4 border-dotted border-[#518DD5] w-full"></div>
             <i className="cc-location text-2xl text-[#D1D1D1]" />

@@ -11,6 +11,7 @@ import periodicLanding from "@/public/assets/images/periodicLanding.png";
 import Image from "next/image";
 import carParts from "@/public/assets/images/carParts.png";
 import QuestionMark from "@/components/QuestionMark";
+import nProgress from "nprogress";
 const Vehicleprice = (props) => {
   const [client, setClient] = useState(false);
   const [asideStatus, setAsideStatus] = useState("car_city");
@@ -75,6 +76,7 @@ const Vehicleprice = (props) => {
     };
     console.log(JSON.stringify(data));
     sessionStorage.setItem("dotsData", JSON.stringify(dotsArray));
+    nProgress.start();
     router.push(
       `/vehicleprice/result?year=${data.year}&year=${data.year}&color=${data.color}&operation=${data.operation}&model=${data.model}&tip=${data.tip}&brand=${data.brand}&items=${data.items.join(",")}`
     );
