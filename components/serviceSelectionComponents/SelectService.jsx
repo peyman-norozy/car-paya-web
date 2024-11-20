@@ -56,7 +56,13 @@ const SelectService = (props) => {
   }
 
   const isInCart = (id) => invoiceData.some((item) => item.category_id === id);
-
+  const calculate = () => {
+    let total = 0;
+    invoiceData.map((item) => {
+      total = total + item.discount_price;
+    });
+    return total;
+  };
   const backstopHandler = () => {
     router.back();
   };
@@ -164,7 +170,7 @@ const SelectService = (props) => {
         <div className="flex-col flex items-start text-sm gap-1">
           <span>جمع سفارش:</span>
           <span className="font-medium text-[#518DD5]">
-            {numberWithCommas(invoiceData.totalPrice)} تومان
+            {numberWithCommas(calculate())} تومان
           </span>
         </div>
         <button
