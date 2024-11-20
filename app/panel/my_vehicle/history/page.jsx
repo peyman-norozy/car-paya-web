@@ -65,7 +65,7 @@ const data = [
 const History = () => {
   const [historyData, setHistoryData] = useState({});
   const [generalDataState, setGeneralDataState] = useState(false);
-  const [itemsataState, setItemsataState] = useState(true);
+  const [itemsataState, setItemsataState] = useState(false);
   const params = useSearchParams();
   const innerWidthNumber = useSelector(
     (number) => number.todo.windowInnerWidth
