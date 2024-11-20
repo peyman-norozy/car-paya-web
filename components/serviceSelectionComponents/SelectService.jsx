@@ -23,7 +23,6 @@ const SelectService = (props) => {
   const renderInvoice = useSelector((item) => item.todo.renderInvoice);
   useEffect(() => {
     const sessionsData = JSON.parse(sessionStorage.getItem("periodicCart"));
-    console.log(sessionsData.products);
     if (sessionsData.products !== undefined) {
       setInvoiceData(sessionsData.products);
     }
@@ -55,6 +54,8 @@ const SelectService = (props) => {
       "/periodic-service/time-selection"
     );
   }
+
+  const isInCart = (id) => invoiceData.some((item) => item.category_id === id);
 
   const backstopHandler = () => {
     router.back();
@@ -132,7 +133,7 @@ const SelectService = (props) => {
         <div className="grid grid-cols-3 sm:grid-cols-5 gap-x-3 gap-y-6">
           {props.data.map((item, index) => (
             <div
-              className="bg-white shadow-[0_0_6px_0_rgba(125,125,125,0.5)] rounded-lg flex flex-col items-center w-full p-2 pb-1 gap-1"
+              className={`${isInCart(item.id) ? "bg-[#FFE1D6]" : "bg-white"} shadow-[0_0_6px_0_rgba(125,125,125,0.5)] rounded-lg flex flex-col items-center w-full p-2 pb-1 gap-1`}
               onClick={() => {
                 setSelectedService(item.id);
                 setProductModalState(true);
@@ -166,7 +167,6 @@ const SelectService = (props) => {
             {numberWithCommas(invoiceData.totalPrice)} تومان
           </span>
         </div>
-        {console.log(invoiceData)}
         <button
           className={`${invoiceData.length ? "bg-[#F66B34]" : "bg-[#FCCAAC]"} rounded-lg text-[#FEFEFE] font-medium py-2 px-3`}
           disabled={invoiceData.length ? false : true}
