@@ -141,7 +141,7 @@ const SelectService = (props) => {
             <div
               className={`${isInCart(item.id) ? "bg-[#FFE1D6]" : "bg-white"} shadow-[0_0_6px_0_rgba(125,125,125,0.5)] rounded-lg flex flex-col items-center w-full p-2 pb-1 gap-1`}
               onClick={() => {
-                setSelectedService(item.id);
+                setSelectedService(item.slug);
                 setProductModalState(true);
               }}
               key={index}

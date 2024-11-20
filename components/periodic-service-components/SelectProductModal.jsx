@@ -47,32 +47,41 @@ const SelectProductModal = (props) => {
   }, [productData]);
 
   async function buttonClickHandler() {
+    console.log(selectedProduct.id);
     const sessionsData = JSON.parse(sessionStorage.getItem("periodicCart"));
     if (sessionsData.products === undefined) {
       sessionsData.products = [];
     }
     const sessionsProducts = sessionsData.products;
-    const repetitive = sessionsProducts?.findIndex((item) => {
-      return item.category_id === selectedProduct.category_id;
-    });
-    if (repetitive === -1) {
-      sessionsData.products.push({
-        id: selectedProduct.id,
-        name: selectedProduct.name,
-        discount_price: selectedProduct.discount_price,
-        price: selectedProduct.price,
-        image_ids: selectedProduct.image_ids[0],
-        category_id: selectedProduct.category_id,
+    if (selectedProduct.id) {
+      const repetitive = sessionsProducts?.findIndex((item) => {
+        return item.category_id === selectedProduct.category_id;
       });
+      if (repetitive === -1) {
+        sessionsData.products.push({
+          id: selectedProduct.id,
+          name: selectedProduct.name,
+          discount_price: selectedProduct.discount_price,
+          price: selectedProduct.price,
+          image_ids: selectedProduct.image_ids[0],
+          category_id: selectedProduct.category_id,
+          category_slug: selectedProduct.category_slug,
+        });
+      } else {
+        sessionsData.products[repetitive] = {
+          id: selectedProduct.id,
+          name: selectedProduct.name,
+          discount_price: selectedProduct.discount_price,
+          price: selectedProduct.price,
+          image_ids: selectedProduct.image_ids[0],
+          category_id: selectedProduct.category_id,
+          category_slug: selectedProduct.category_slug,
+        };
+      }
     } else {
-      sessionsData.products[repetitive] = {
-        id: selectedProduct.id,
-        name: selectedProduct.name,
-        discount_price: selectedProduct.discount_price,
-        price: selectedProduct.price,
-        image_ids: selectedProduct.image_ids[0],
-        category_id: selectedProduct.category_id,
-      };
+      sessionsData.products = sessionsProducts.filter((item) => {
+        return item.category_slug !== props.selectedServic;
+      });
     }
     props.setInvoiceData(sessionsData.products);
     sessionStorage.setItem("periodicCart", JSON.stringify(sessionsData));
@@ -80,8 +89,9 @@ const SelectProductModal = (props) => {
   }
 
   function closeModal() {
+    setSelectedProduct({});
+    setProductData([]);
     props.setProductModalState(false);
-    setSelectedProduct("");
   }
 
   return (
@@ -103,7 +113,7 @@ const SelectProductModal = (props) => {
           <div className="px-2 h-fit gap-4 flex flex-col py-1">
             {productData.map((item, index) => (
               <div
-                className={`w-full rounded-[4px] shadow-[0_0_6px_0_rgba(125,125,125,0.5)] flex flex-col gap-3 px-[6px] py-4 transition-all duration-300 ${selectedProduct.id === item.id ? "border border-[#F58052]" : ""}`}
+                className={`w-full rounded-[4px] shadow-[0_0_6px_0_rgba(125,125,125,0.5)] flex flex-col gap-3 px-[6px] py-4 transition-all duration-150 ${selectedProduct.id === item.id ? "border border-[#F58052]" : ""}`}
                 onClick={() => {
                   selectedProduct.id === item.id
                     ? setSelectedProduct({})
@@ -119,7 +129,7 @@ const SelectProductModal = (props) => {
                       }
                     >
                       <div
-                        className={`rounded-[50%] bg-[#F58052] size-[10px] transition-all duration-300 ${selectedProduct.id === item.id ? "scale-1" : "scale-0"}`}
+                        className={`rounded-[50%] bg-[#F58052] size-[10px] transition-all duration-150 ${selectedProduct.id === item.id ? "scale-1" : "scale-0"}`}
                       ></div>
                     </div>
                     <span className="font-medium text-xs text-[#010101]">
