@@ -181,6 +181,7 @@ const SelectService = (props) => {
         setProductModalState={setProductModalState}
         selectedServic={selectedServic}
         setInvoiceData={setInvoiceData}
+        invoiceData={invoiceData}
       />
       <InvoiceModal
         invoiceModalState={invoiceModalState}

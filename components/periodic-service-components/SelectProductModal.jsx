@@ -36,6 +36,16 @@ const SelectProductModal = (props) => {
     })();
   }, [props.productModalState]);
 
+  useEffect(() => {
+    productData.map((item) => {
+      props.invoiceData.map((item2) => {
+        if (item.id === item2.id) {
+          setSelectedProduct(item);
+        }
+      });
+    });
+  }, [productData]);
+
   async function buttonClickHandler() {
     const sessionsData = JSON.parse(sessionStorage.getItem("periodicCart"));
     if (sessionsData.products === undefined) {
