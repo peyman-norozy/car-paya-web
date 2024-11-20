@@ -233,7 +233,7 @@ const Footer = (props) => {
                 </div>
                 <div className="size-[60px]">
                   <img
-                    referrerpolicy="origin"
+                    referrerPolicy="origin"
                     id="rgvjjzpenbqefukzoeukesgt"
                     style={{ cursor: "pointer" }}
                     onClick={() => {

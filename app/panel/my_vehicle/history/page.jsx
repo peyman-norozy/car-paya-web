@@ -68,9 +68,9 @@ const History = () => {
   const innerWidthNumber = useSelector(
     (number) => number.todo.windowInnerWidth
   );
-  console.log(params.get("id"));
 
   useEffect(() => {
+    moment.locale("fa");
     getHestoryData();
   }, []);
 
