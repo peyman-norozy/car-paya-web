@@ -51,7 +51,7 @@ const VerificationSecondStep = (props) => {
       sessionStorage.setItem("verificationCart", JSON.stringify(cart));
       nProgress.start();
       router.push(
-        `/services/vehicle-inspection/location-selection?city_id=${city_id}&vehicle_tip=${selectedItem}&package_id=${package_id}&reservation_time_slice_id=${timeIsSelected.split("/")[0]}&exact_time=${timeIsSelected.split("/")[1]}&step=step-4`,
+        `/services/vehicle-inspection/location-selection?city_id=${city_id}&vehicle_tip=${selectedItem}&package_id=${package_id}&reservation_time_slice_id=${timeIsSelected.split("/")[0]}&exact_time=${timeIsSelected.split("/")[1]}&step=step-4`
       );
       //   setQuery.setMultiQuery([
       //     { key: "step", value: "step-4" },
@@ -103,12 +103,12 @@ const VerificationSecondStep = (props) => {
           headers: {
             Authorization: "Bearer " + getCookie("Authorization"),
           },
-        },
+        }
       )
       .then((res) => {
         setData(res?.data?.data);
         const uniqueTitles = Array.from(
-          new Set(res?.data?.data?.map((item) => item.title)),
+          new Set(res?.data?.data?.map((item) => item.title))
         );
         setUniqueTitle(uniqueTitles);
         setDayTitleTab(uniqueTitles[0]);
@@ -128,7 +128,7 @@ const VerificationSecondStep = (props) => {
   }
 
   const verificationCart = JSON.parse(
-    sessionStorage.getItem("verificationCart"),
+    sessionStorage.getItem("verificationCart")
   );
 
   return (
@@ -167,16 +167,20 @@ const VerificationSecondStep = (props) => {
             <div className="flex gap-2 items-center w-full bg-[#FFFFFF] text-[#D1D1D1] border border-[#F2F2F2] rounded-full px-2">
               <i
                 className="cc-car-o text-2xl text-[#1E67BF] cursor-pointer"
-                onClick={() => router.push(`/vehicle-inspection`)}
+                onClick={() => {
+                  nProgress.start();
+                  router.push(`/vehicle-inspection`);
+                }}
               />
               <div className="border-b-4 border-dotted border-[#1E67BF] w-full"></div>
               <i
                 className="cc-search text-2xl text-[#1E67BF] cursor-pointer"
-                onClick={() =>
+                onClick={() => {
+                  nProgress.start();
                   router.push(
-                    `/services/vehicle-inspection/service-selection?step=step-1&city_id=${city_id}&vehicle_tip=${selectedItem}`,
-                  )
-                }
+                    `/services/vehicle-inspection/service-selection?step=step-1&city_id=${city_id}&vehicle_tip=${selectedItem}`
+                  );
+                }}
               />
               <div className="border-b-4 border-dotted border-[#1E67BF] w-full"></div>
               <i className="cc-timer text-2xl text-[#D1D1D1]" />

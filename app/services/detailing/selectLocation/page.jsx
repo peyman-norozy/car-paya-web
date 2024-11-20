@@ -8,6 +8,7 @@ import { getDataWithFullErrorRes } from "@/utils/api-function-utils";
 import { useRouter, useSearchParams } from "next/navigation";
 import { setAreaeModalState } from "@/store/todoSlice";
 import ServiceInformation from "@/components/ServiceInformation/ServiceInformation";
+import nProgress from "nprogress";
 
 const Page = (props) => {
   const [selectAddressState, setSelectAddressState] = useState("MOVING"); //FIXED
@@ -27,7 +28,7 @@ const Page = (props) => {
   const dispatch = useDispatch();
 
   const renderUserAddrressState = useSelector(
-    (state) => state.todo.renderUserAddrressState,
+    (state) => state.todo.renderUserAddrressState
   );
 
   useEffect(() => {
@@ -45,7 +46,7 @@ const Page = (props) => {
             vehicle_tip_id: JSON.parse(localStorage.getItem("selectedVehicle"))
               ?.id,
             ...query,
-          },
+          }
         );
         if (searchParams.get("type") === "FIXED") {
           setCarCheckLocations(fetchTimeData.data);
@@ -56,7 +57,7 @@ const Page = (props) => {
         }
       })();
     },
-    [searchParams],
+    [searchParams]
   );
 
   useEffect(() => {
@@ -78,11 +79,12 @@ const Page = (props) => {
         >
           <i
             className={"cc-arrow-right text-24 cursor-pointer"}
-            onClick={() =>
+            onClick={() => {
+              nProgress.start();
               router.push(
-                `/detailing?attribute_slug=${attributeSlug}&attribute_value=${attributeValue}`,
-              )
-            }
+                `/detailing?attribute_slug=${attributeSlug}&attribute_value=${attributeValue}`
+              );
+            }}
           />
           <p className={"text-14 size752:text-16 w-full font-medium"}>
             انتخاب مکان
@@ -95,11 +97,12 @@ const Page = (props) => {
         >
           <i
             className="cc-car-o text-2xl text-[#1E67BF]"
-            onClick={() =>
+            onClick={() => {
+              nProgress.start();
               router.push(
-                `/detailing?attribute_slug=${attributeSlug}&attribute_value=${attributeValue}&selectTipState=${selectTipState}&city_id=${cityId}`,
-              )
-            }
+                `/detailing?attribute_slug=${attributeSlug}&attribute_value=${attributeValue}&selectTipState=${selectTipState}&city_id=${cityId}`
+              );
+            }}
           />
           <div className="border-b-4 border-dotted border-[#1E67BF] w-full"></div>
           <i className="cc-location text-2xl text-[#D1D1D1]" />

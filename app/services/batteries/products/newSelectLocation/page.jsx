@@ -8,6 +8,7 @@ import { getDataWithFullErrorRes } from "@/utils/api-function-utils";
 import { useRouter, useSearchParams } from "next/navigation";
 import { setAreaeModalState } from "@/store/todoSlice";
 import ServiceInformation from "@/components/ServiceInformation/ServiceInformation";
+import nProgress from "nprogress";
 
 const Page = (props) => {
   const [selectAddressState, setSelectAddressState] = useState("MOVING"); //FIXED
@@ -27,7 +28,7 @@ const Page = (props) => {
   const dispatch = useDispatch();
 
   const renderUserAddrressState = useSelector(
-    (state) => state.todo.renderUserAddrressState,
+    (state) => state.todo.renderUserAddrressState
   );
 
   useEffect(() => {
@@ -40,7 +41,7 @@ const Page = (props) => {
         const fetchTimeData = await getDataWithFullErrorRes(
           process.env.BASE_API +
             `/web/reservation/battery?step=step-2&${searchParams.toString()}`,
-          query ? query : "",
+          query ? query : ""
         );
         if (searchParams.get("type") === "FIXED") {
           setCarCheckLocations(fetchTimeData.data);
@@ -51,7 +52,7 @@ const Page = (props) => {
         }
       })();
     },
-    [searchParams],
+    [searchParams]
   );
 
   useEffect(() => {
@@ -91,11 +92,12 @@ const Page = (props) => {
         >
           <i
             className={"cc-arrow-right text-24 cursor-pointer"}
-            onClick={() =>
+            onClick={() => {
+              nProgress.start();
               router.push(
-                `/services/batteries/products?attribute_slug=${attributeSlug}&attribute_value=${attributeValue}&selectTipState=${selectTipState}&amper=${amper}&type_service=${typeService}`,
-              )
-            }
+                `/services/batteries/products?attribute_slug=${attributeSlug}&attribute_value=${attributeValue}&selectTipState=${selectTipState}&amper=${amper}&type_service=${typeService}`
+              );
+            }}
           />
           <p className={"text-14 size752:text-16 w-full font-medium"}>
             انتخاب مکان
@@ -108,20 +110,22 @@ const Page = (props) => {
         >
           <i
             className="cc-car-o text-2xl text-[#1E67BF]"
-            onClick={() =>
+            onClick={() => {
+              nProgress.start();
               router.push(
-                `/batteries?attribute_slug=${attributeSlug}&attribute_value=${attributeValue}&selectTipState=${selectTipState}`,
-              )
-            }
+                `/batteries?attribute_slug=${attributeSlug}&attribute_value=${attributeValue}&selectTipState=${selectTipState}`
+              );
+            }}
           />
           <div className="border-b-4 border-dotted border-[#1E67BF] w-full"></div>
           <i
             className="cc-search text-2xl text-[#1E67BF]"
-            onClick={() =>
+            onClick={() => {
+              nProgress.start();
               router.push(
-                `/services/batteries/products?attribute_slug=${attributeSlug}&attribute_value=${attributeValue}&selectTipState=${selectTipState}&amper=${amper}&type_service=${typeService}`,
-              )
-            }
+                `/services/batteries/products?attribute_slug=${attributeSlug}&attribute_value=${attributeValue}&selectTipState=${selectTipState}&amper=${amper}&type_service=${typeService}`
+              );
+            }}
           />
           <div className="border-b-4 border-dotted border-[#1E67BF] w-full"></div>
           <i className="cc-location text-2xl text-[#D1D1D1]" />

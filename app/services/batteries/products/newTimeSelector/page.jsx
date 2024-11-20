@@ -8,6 +8,7 @@ import Link from "next/link";
 import { persianDate, persianDateCovertor } from "@/utils/function-utils";
 import ReserveTimeVerification from "@/components/vehicle-verification/ReserveTimeVerification";
 import ServiceInformation from "@/components/ServiceInformation/ServiceInformation";
+import nProgress from "nprogress";
 const Page = (props) => {
   const [client, setClient] = useState(false);
   const [selectedTime, setSelectedTime] = useState();
@@ -35,11 +36,11 @@ const Page = (props) => {
     async function getTimeData() {
       try {
         const res = await getDataWithFullErrorRes(
-          "/web/reservation/battery?step=step-3",
+          "/web/reservation/battery?step=step-3"
         );
         setData(res?.data);
         const uniqueTitles = Array.from(
-          new Set(res?.data?.map((item) => item.title)),
+          new Set(res?.data?.map((item) => item.title))
         );
         setUniqueTitle(uniqueTitles);
         setDayTitleTab(uniqueTitles[0]);
@@ -68,7 +69,7 @@ const Page = (props) => {
   function onclick() {
     setQuery.updateQueryParams(
       { time_id: selectedTime, type: searchParams.get("type") },
-      "/services/batteries/invoice",
+      "/services/batteries/invoice"
     );
   }
 
@@ -113,29 +114,32 @@ const Page = (props) => {
         <div className="flex gap-2 items-center w-full bg-[#FFFFFF] text-[#D1D1D1] shadow-[0_0_4px_0_rgba(152,152,152,0.4)] lg:py-2 py-1 rounded-[16px] px-2 my-4">
           <i
             className="cc-car-o text-2xl text-[#1E67BF]"
-            onClick={() =>
+            onClick={() => {
+              nProgress.start();
               router.push(
-                `/batteries?attribute_slug=${attributeSlug}&attribute_value=${attributeValue}&selectTipState=${vehicleTipId}`,
-              )
-            }
+                `/batteries?attribute_slug=${attributeSlug}&attribute_value=${attributeValue}&selectTipState=${vehicleTipId}`
+              );
+            }}
           />
           <div className="border-b-4 border-dotted border-[#1E67BF] w-full"></div>
           <i
             className="cc-search text-2xl text-[#1E67BF]"
-            onClick={() =>
+            onClick={() => {
+              nProgress.start();
               router.push(
-                `/services/batteries/products?attribute_slug=${attributeSlug}&attribute_value=${attributeValue}&selectTipState=true,${vehicleTipId}&amper=${amper}&type_service=${typeService}`,
-              )
-            }
+                `/services/batteries/products?attribute_slug=${attributeSlug}&attribute_value=${attributeValue}&selectTipState=true,${vehicleTipId}&amper=${amper}&type_service=${typeService}`
+              );
+            }}
           />
           <div className="border-b-4 border-dotted border-[#1E67BF] w-full"></div>
           <i
             className="cc-location text-2xl text-[#1E67BF]"
-            onClick={() =>
+            onClick={() => {
+              nProgress.start();
               router.push(
-                `/services/batteries/products/newSelectLocation?attribute_slug=${attributeSlug}&attribute_value=${attributeValue}&city_id=${cityId}&type=${type}&vehicle_tip_id=${vehicleTipId}&amper=${amper}&type_service=${typeService}&item_id=${itemId}`,
-              )
-            }
+                `/services/batteries/products/newSelectLocation?attribute_slug=${attributeSlug}&attribute_value=${attributeValue}&city_id=${cityId}&type=${type}&vehicle_tip_id=${vehicleTipId}&amper=${amper}&type_service=${typeService}&item_id=${itemId}`
+              );
+            }}
           />
           <div className="border-b-4 border-dotted border-[#1E67BF] w-full"></div>
           <i className="cc-timer text-2xl text-[#D1D1D1]" />
@@ -158,12 +162,12 @@ const Page = (props) => {
                 setDayTitleTab(item);
                 setDaySelector(item["day"]);
                 const batteriesCart = JSON.parse(
-                  sessionStorage.getItem("batteriesCart"),
+                  sessionStorage.getItem("batteriesCart")
                 );
                 batteriesCart.timeSelect = item["day"];
                 sessionStorage.setItem(
                   "batteriesCart",
-                  JSON.stringify(batteriesCart),
+                  JSON.stringify(batteriesCart)
                 );
               }}
             >

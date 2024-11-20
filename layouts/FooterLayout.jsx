@@ -23,14 +23,7 @@ const Footer = (props) => {
   );
 
   useEffect(() => {
-    if (
-      pathName.includes("/services/vehicle-inspection") &&
-      searchParams.toString().includes("step=")
-    ) {
-      setFooterState(false);
-    } else if (pathName.startsWith("/services/batteries/")) {
-      setFooterState(false);
-    } else if (pathName.startsWith("/services/detailing/")) {
+    if (pathName.startsWith("/services/") || pathName.startsWith("/panel")) {
       setFooterState(false);
     } else {
       setFooterState(true);
@@ -233,7 +226,7 @@ const Footer = (props) => {
                 </div>
                 <div className="size-[60px]">
                   <img
-                    referrerpolicy="origin"
+                    referrerPolicy="origin"
                     id="rgvjjzpenbqefukzoeukesgt"
                     style={{ cursor: "pointer" }}
                     onClick={() => {

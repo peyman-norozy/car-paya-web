@@ -64,13 +64,15 @@ const data = [
 
 const History = () => {
   const [historyData, setHistoryData] = useState({});
+  const [generalDataState, setGeneralDataState] = useState(false);
+  const [itemsataState, setItemsataState] = useState(false);
   const params = useSearchParams();
   const innerWidthNumber = useSelector(
     (number) => number.todo.windowInnerWidth
   );
-  console.log(params.get("id"));
 
   useEffect(() => {
+    moment.locale("fa");
     getHestoryData();
   }, []);
 
@@ -88,7 +90,9 @@ const History = () => {
         <span className="text-[#0F0F0F] text-sm font-medium">
           شناسنامه و سوابق وسیله نقلیه
         </span>
-        <div className="shadow-[0_0_4px_0_rgba(207,207,207,0.7)] bg-[#FEFEFE] lg:bg-inherit lg:shadow-none flex flex-col md:flex-row gap-4 rounded-2xl lg:rounded-none relative border-b p-4 lg:p-0 items-center w-full">
+        <div
+          className={`shadow-[0_0_4px_0_rgba(207,207,207,0.7)] bg-[#FEFEFE] lg:bg-inherit lg:shadow-none flex flex-col md:flex-row gap-4 rounded-2xl lg:rounded-none relative border-b p-4 lg:p-0 items-center w-full`}
+        >
           <Image
             src={
               process.env.BASE_API +
@@ -168,10 +172,22 @@ const History = () => {
             )}
           </div>
         </div>
-        <div className="flex flex-col gap-y-4 border-b shadow-[0_0_4px_0_rgba(207,207,207,0.7)] bg-[#FEFEFE] lg:bg-inherit lg:shadow-none rounded-2xl lg:rounded-none  pb-4 px-4 pt-4 lg:px-0 lg:pt-4">
-          <span className="h-10 border-r-2 border-[#F66B34] p-[10px] font-medium text-[#0F0F0F]">
-            اطلاعات عمومی خودرو
-          </span>
+        <div
+          className={`flex flex-col gap-y-4 border-b shadow-[0_0_4px_0_rgba(207,207,207,0.7)] bg-[#FEFEFE] lg:bg-inherit lg:shadow-none rounded-2xl lg:rounded-none  pb-4 px-4 pt-4 lg:px-0 lg:pt-4 ${generalDataState ? "" : "h-[72px] overflow-y-hidden"}`}
+        >
+          <div
+            className="flex items-center justify-between"
+            onClick={() => {
+              setGeneralDataState(!generalDataState);
+            }}
+          >
+            <span className="h-10 border-r-2 border-[#F66B34] p-[10px] font-medium text-[#0F0F0F]">
+              اطلاعات عمومی خودرو
+            </span>
+            <i
+              className={`cc-arrow-down text-2xl leading-3 ${generalDataState ? "rotate-180" : ""}`}
+            />
+          </div>
           <div className="flex flex-col gap-2 items-start">
             <span className="text-[#757575] font-medium text-sm">
               بیمه بدنه
@@ -241,10 +257,22 @@ const History = () => {
             </div>
           </div>
         </div>
-        <div className="flex flex-col gap-y-4 shadow-[0_0_4px_0_rgba(207,207,207,0.7)] bg-[#FEFEFE] lg:bg-inherit lg:shadow-none rounded-2xl lg:rounded-none p-4 lg:p-0">
-          <span className="h-10 border-r-2 border-[#F66B34] p-[10px] font-medium text-[#0F0F0F]">
-            اطلاعات اقلام مصرفی
-          </span>
+        <div
+          className={`flex flex-col gap-y-4 shadow-[0_0_4px_0_rgba(207,207,207,0.7)] bg-[#FEFEFE] lg:bg-inherit lg:shadow-none rounded-2xl lg:rounded-none pb-4 px-4 pt-4 lg:px-0 lg:pt-4 ${itemsataState ? "" : "h-[72px] overflow-y-hidden"}`}
+        >
+          <div
+            className="flex items-center justify-between"
+            onClick={() => {
+              setItemsataState(!itemsataState);
+            }}
+          >
+            <span className="h-10 border-r-2 border-[#F66B34] p-[10px] font-medium text-[#0F0F0F]">
+              اطلاعات اقلام مصرفی
+            </span>
+            <i
+              className={`cc-arrow-down text-2xl leading-3 ${itemsataState ? "rotate-180" : ""}`}
+            />
+          </div>
           <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 md:gap-10 w-full">
             <div className="flex flex-col gap-2 items-start">
               <span className="text-[#757575] font-medium text-sm">
@@ -286,7 +314,7 @@ const History = () => {
                     key={index}
                     className="[&>*]:border [&>*]:border-[#B0B0B0] h-11 text-sm font-medium text-[#757575]"
                   >
-                    <td>{row.service_name}</td>
+                    <td>{row.service_fa}</td>
                     <td>{numberWithCommas(row.replacement_km)}</td>
                     <td>{numberWithCommas(row.next_replacement_km)}</td>
                     <td>
@@ -305,7 +333,7 @@ const History = () => {
             historyData?.car_id_card?.map((row, index) => (
               <div className="flex flex-col gap-6 border-b pb-2">
                 <span className="text-[#0F0F0F] text-sm font-medium border-r-2 border-[#F66B34] pr-1">
-                  {row.service_name}
+                  {row.service_fa}
                 </span>
                 <div className="flex flex-col gap-3">
                   <div className="flex items-center justify-between">

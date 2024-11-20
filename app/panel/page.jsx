@@ -92,24 +92,26 @@
 // };
 
 // export default UserPanel;
-'use client'
+"use client";
 import { tabsData } from "@/staticData/data";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
+import nProgress from "nprogress";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
 const UserPanel = () => {
-  const pathName = usePathname()
+  const pathName = usePathname();
 
-  const router = useRouter()
+  const router = useRouter();
   const [openOptionsState, setOpenOptionsState] = useState(false);
 
   useEffect(() => {
     if (window.innerWidth > 1024) {
-      router.push("/panel/profile")
+      nProgress.start();
+      router.push("/panel/profile");
     }
-  }, [])
+  }, []);
 
   return (
     <div className="p-4 flex justify-center">
@@ -163,6 +165,6 @@ const UserPanel = () => {
       </div>
     </div>
   );
-}
+};
 
 export default UserPanel;

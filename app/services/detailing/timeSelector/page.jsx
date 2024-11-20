@@ -79,6 +79,7 @@ import Link from "next/link";
 import { persianDate, persianDateCovertor } from "@/utils/function-utils";
 import ReserveTimeVerification from "@/components/vehicle-verification/ReserveTimeVerification";
 import ServiceInformation from "@/components/ServiceInformation/ServiceInformation";
+import nProgress from "nprogress";
 const Page = (props) => {
   const [selectedTime, setSelectedTime] = useState();
   const [optionIsOpen, setOptionIsOpen] = useState(false);
@@ -114,11 +115,11 @@ const Page = (props) => {
             service_location_id: serviceLocationId,
             type: type,
             vehicle_tip_id: vehicleTipId,
-          },
+          }
         );
         setData(res?.data);
         const uniqueTitles = Array.from(
-          new Set(res?.data?.map((item) => item.title)),
+          new Set(res?.data?.map((item) => item.title))
         );
         setUniqueTitle(uniqueTitles);
         setDayTitleTab(uniqueTitles[0]);
@@ -150,7 +151,7 @@ const Page = (props) => {
   function onclick() {
     setQuery.updateQueryParams(
       { time_id: selectedTime, type: searchParams.get("type") },
-      "/services/detailing/invoice",
+      "/services/detailing/invoice"
     );
   }
 
@@ -203,29 +204,32 @@ const Page = (props) => {
         <div className="flex gap-2 items-center w-full bg-[#FFFFFF] text-[#D1D1D1] shadow-[0_0_4px_0_rgba(152,152,152,0.4)] lg:py-2 py-1 rounded-[16px] px-2 my-4">
           <i
             className="cc-car-o text-2xl text-[#1E67BF]"
-            onClick={() =>
+            onClick={() => {
+              nProgress.start();
               router.push(
-                `/detailing?attribute_slug=${attributeSlug}&attribute_value=${attributeValue}`,
-              )
-            }
+                `/detailing?attribute_slug=${attributeSlug}&attribute_value=${attributeValue}`
+              );
+            }}
           />
           <div className="border-b-4 border-dotted border-[#1E67BF] w-full"></div>
           <i
             className="cc-location text-2xl text-[#1E67BF]"
-            onClick={() =>
+            onClick={() => {
+              nProgress.start();
               router.push(
-                `/services/detailing/selectLocation?attribute_slug=${attributeSlug}&attribute_value=${attributeValue}&city_id=${cityId}&type=${type}&selectTipState=true,${vehicleTipId}`,
-              )
-            }
+                `/services/detailing/selectLocation?attribute_slug=${attributeSlug}&attribute_value=${attributeValue}&city_id=${cityId}&type=${type}&selectTipState=true,${vehicleTipId}`
+              );
+            }}
           />
           <div className="border-b-4 border-dotted border-[#1E67BF] w-full"></div>
           <i
             className="cc-search text-2xl text-[#1E67BF]"
-            onClick={() =>
+            onClick={() => {
+              nProgress.start();
               router.push(
-                `/services/detailing/selected-services?attribute_slug=${attributeSlug}&attribute_value=${attributeValue}&city_id=${cityId}&type=${type}&selectTipState=true,${vehicleTipId}&service_location_id=${serviceLocationId}`,
-              )
-            }
+                `/services/detailing/selected-services?attribute_slug=${attributeSlug}&attribute_value=${attributeValue}&city_id=${cityId}&type=${type}&selectTipState=true,${vehicleTipId}&service_location_id=${serviceLocationId}`
+              );
+            }}
           />
 
           <div className="border-b-4 border-dotted border-[#1E67BF] w-full"></div>
@@ -249,12 +253,12 @@ const Page = (props) => {
                 setDayTitleTab(item);
                 setDaySelector(item["day"]);
                 const ditailingCart = JSON.parse(
-                  sessionStorage.getItem("ditailingCart"),
+                  sessionStorage.getItem("ditailingCart")
                 );
                 ditailingCart.timeSelect = item["day"];
                 sessionStorage.setItem(
                   "ditailingCart",
-                  JSON.stringify(ditailingCart),
+                  JSON.stringify(ditailingCart)
                 );
               }}
             >

@@ -48,6 +48,7 @@ const UserPanelAttribute = (props) => {
         },
       })
       .then(async () => {
+        nProgress.start();
         router.push("/panel/profile");
       })
       .catch((err) => {

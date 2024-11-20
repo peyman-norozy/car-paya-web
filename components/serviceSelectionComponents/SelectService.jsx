@@ -10,6 +10,7 @@ import SelectProductModal from "../periodic-service-components/SelectProductModa
 import InvoiceModal from "./InvoiceModal";
 import { getCurrentData } from "@/utils/api-function-utils";
 import { numberWithCommas } from "@/utils/function-utils";
+import nProgress from "nprogress";
 
 const SelectService = (props) => {
   const [productModalState, setProductModalState] = useState(false);
@@ -22,7 +23,6 @@ const SelectService = (props) => {
   const renderInvoice = useSelector((item) => item.todo.renderInvoice);
   useEffect(() => {
     const sessionsData = JSON.parse(sessionStorage.getItem("periodicCart"));
-    console.log(sessionsData.products);
     if (sessionsData.products !== undefined) {
       setInvoiceData(sessionsData.products);
     }
@@ -55,6 +55,14 @@ const SelectService = (props) => {
     );
   }
 
+  const isInCart = (id) => invoiceData.some((item) => item.category_id === id);
+  const calculate = () => {
+    let total = 0;
+    invoiceData.map((item) => {
+      total = total + item.discount_price;
+    });
+    return total;
+  };
   const backstopHandler = () => {
     router.back();
   };
@@ -100,7 +108,10 @@ const SelectService = (props) => {
         <div className="flex gap-2 items-center w-full bg-[#FFFFFF] text-[#D1D1D1]">
           <i
             className="cc-car-o text-2xl text-[#518DD5]"
-            onClick={() => router.push(`/periodic-service`)}
+            onClick={() => {
+              nProgress.start();
+              router.push(`/periodic-service`);
+            }}
           />
           <div className="border-b-4 border-dotted border-[#518DD5] w-full"></div>
           <i className="cc-location text-2xl text-[#518DD5]" />
@@ -128,9 +139,9 @@ const SelectService = (props) => {
         <div className="grid grid-cols-3 sm:grid-cols-5 gap-x-3 gap-y-6">
           {props.data.map((item, index) => (
             <div
-              className="bg-white shadow-[0_0_6px_0_rgba(125,125,125,0.5)] rounded-lg flex flex-col items-center w-full p-2 pb-1 gap-1"
+              className={`${isInCart(item.id) ? "bg-[#FFE1D6]" : "bg-white"} shadow-[0_0_6px_0_rgba(125,125,125,0.5)] rounded-lg flex flex-col items-center w-full p-2 pb-1 gap-1`}
               onClick={() => {
-                setSelectedService(item.id);
+                setSelectedService(item.slug);
                 setProductModalState(true);
               }}
               key={index}
@@ -159,10 +170,9 @@ const SelectService = (props) => {
         <div className="flex-col flex items-start text-sm gap-1">
           <span>جمع سفارش:</span>
           <span className="font-medium text-[#518DD5]">
-            {numberWithCommas(invoiceData.totalPrice)} تومان
+            {numberWithCommas(calculate())} تومان
           </span>
         </div>
-        {console.log(invoiceData)}
         <button
           className={`${invoiceData.length ? "bg-[#F66B34]" : "bg-[#FCCAAC]"} rounded-lg text-[#FEFEFE] font-medium py-2 px-3`}
           disabled={invoiceData.length ? false : true}
@@ -177,6 +187,7 @@ const SelectService = (props) => {
         setProductModalState={setProductModalState}
         selectedServic={selectedServic}
         setInvoiceData={setInvoiceData}
+        invoiceData={invoiceData}
       />
       <InvoiceModal
         invoiceModalState={invoiceModalState}

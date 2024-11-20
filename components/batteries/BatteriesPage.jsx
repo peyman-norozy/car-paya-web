@@ -26,7 +26,7 @@ const BatteriesPage = (props) => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const batteryBasketLength = useSelector(
-    (item) => item.todo.batteriesBasketLength,
+    (item) => item.todo.batteriesBasketLength
   );
   const innerWidth = useSelector((item) => item.todo.windowInnerWidth);
   const attributeSlug = searchParams.get("attribute_slug");
@@ -179,11 +179,12 @@ const BatteriesPage = (props) => {
         >
           <i
             className={"cc-arrow-right text-24 cursor-pointer"}
-            onClick={() =>
+            onClick={() => {
+              nProgress.start();
               router.push(
-                `/batteries?attribute_slug=${attributeSlug}&attribute_value=${attributeValue}&selectTipState=${selectTipState}`,
-              )
-            }
+                `/batteries?attribute_slug=${attributeSlug}&attribute_value=${attributeValue}&selectTipState=${selectTipState}`
+              );
+            }}
           />
           <p className={"text-14 size752:text-16 w-full font-medium"}>
             انتخاب باتری
@@ -197,11 +198,12 @@ const BatteriesPage = (props) => {
           >
             <i
               className="cc-car-o text-2xl text-[#1E67BF]"
-              onClick={() =>
+              onClick={() => {
+                nProgress.start();
                 router.push(
-                  `/batteries?attribute_slug=${attributeSlug}&attribute_value=${attributeValue}&selectTipState=${selectTipState}`,
-                )
-              }
+                  `/batteries?attribute_slug=${attributeSlug}&attribute_value=${attributeValue}&selectTipState=${selectTipState}`
+                );
+              }}
             />
             <div className="border-b-4 border-dotted border-[#1E67BF] w-full"></div>
             <i className="cc-search text-2xl" />

@@ -49,8 +49,8 @@ const FacktorCard = ({ item }) => {
                     ? item?.discounted_salary
                       ? item?.discounted_salary
                       : item?.salary
-                    : item?.discounted_price
-                      ? item?.discounted_price
+                    : item?.discount_price
+                      ? item?.discount_price
                       : item?.price
                 ) + " تومان "}
               </span>

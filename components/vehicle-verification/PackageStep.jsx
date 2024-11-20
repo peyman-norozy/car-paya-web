@@ -11,6 +11,7 @@ import { ToastContainer } from "react-toastify";
 import search from "@/public/assets/images/search.png";
 import { getCookies } from "cookies-next";
 import { setLoginModal } from "@/store/todoSlice";
+import nProgress from "nprogress";
 const PackageStep = () => {
   const router = useRouter();
   const pathname = usePathname();
@@ -129,7 +130,10 @@ const PackageStep = () => {
             <div className="flex gap-2 items-center w-full bg-[#FFFFFF] text-[#D1D1D1] rounded-full border border-[#F2F2F2] px-2 shadow-[0_0_4px_0_rgba(207,207,207,0.7)]">
               <i
                 className="cc-car-o text-2xl text-[#518DD5] cursor-pointer"
-                onClick={() => router.push(`/vehicle-inspection`)}
+                onClick={() => {
+                  nProgress.start();
+                  router.push(`/vehicle-inspection`);
+                }}
               />
               <div className="border-b-4 border-dotted border-[#518DD5] w-full"></div>
               <i className="cc-search text-2xl text-[#D1D1D1]" />

@@ -104,7 +104,7 @@ const LoginModal = () => {
   return (
     <Portal container={modalContainer}>
       <div
-        className={`${!isOpen ? "hidden" : "fixed"} w-screen h-screen top-0 right-0 z-[3000] bg-[#000000B2]`}
+        className={`${!isOpen ? "hidden" : "fixed"} w-screen h-screen top-0 right-0 z-[30000] bg-[#000000B2]`}
         onClick={() => closeModal()}
       >
         {step === 0 ? (

@@ -11,6 +11,7 @@ import { useEffect, useState } from "react";
 const MyVehicle = () => {
   const [openMenu, setOpenMenu] = useState(false);
   const [vehicleData, setVehicleData] = useState([]);
+  const [filteredVehicleData, srtFilteredVehicleData] = useState([]);
   useEffect(() => {
     getMyVehicleData();
   }, []);
@@ -19,8 +20,20 @@ const MyVehicle = () => {
     const res = await getDataWithFullErrorRes("/user/my-vehicles");
     console.log(res.data);
     setVehicleData(res.data);
+    srtFilteredVehicleData(res.data);
   }
 
+  function filterChangeHandler(e) {
+    if (e.target.value === "ALL") {
+      srtFilteredVehicleData(vehicleData);
+    } else {
+      srtFilteredVehicleData(
+        vehicleData.filter((item) => {
+          return item.type === e.target.value;
+        })
+      );
+    }
+  }
   return (
     <PanelContainer>
       <div className="bg-[#fefefe] rounded-lg shadow-[0_0_8px_0_rgba(143,143,143,0.25)] min-h-[500px] flex flex-col gap-6 lg:gap-9 p-4 lg:p-12">
@@ -33,20 +46,23 @@ const MyVehicle = () => {
           </Link>
           <span className="font-medium text-sm">پروفایل</span>
         </div>
-        {/* <div className="flex justify-between items-center">
+        <div className="flex justify-between items-center">
           <select
             className="bg-inherit w-32 sm:w-40 text-[#0F0F0F] p-2 rounded-lg text-12 sm:text-16 shadow-[0_0_5px_0_rgba(160,160,160,0.7)] outline-none"
-            // onChange={filterChangeHandler}
+            onChange={filterChangeHandler}
           >
             <option value="ALL">همه وسایل نقلیه</option>
             <option value="CAR">ماشین</option>
             <option value="MOTOR">موتور</option>
             <option value="HEAVY_CAR">ماشین سنگین</option>
           </select>
-        </div> */}
-        <div className="grid grid-cols-1 size830:grid-cols-3 gap-6">
-          {vehicleData.map((item) => (
-            <div className="shadow-[0_0_4px_0_rgba(207,207,207,0.7)] flex flex-col gap-5 rounded-2xl p-4 relative">
+        </div>
+        <div className="grid grid-cols-1 size830:grid-cols-2 xl:grid-cols-3 gap-6">
+          {filteredVehicleData.map((item, index) => (
+            <div
+              key={item.id}
+              className="shadow-[0_0_4px_0_rgba(207,207,207,0.7)] flex flex-col gap-5 rounded-2xl p-4 relative"
+            >
               <div className="flex flex-col-reverse gap-4 items-end">
                 <div className="flex flex-col items-start gap-4 w-full ">
                   <div className="border border-[#B0B0B0] rounded-lg w-full relative flex gap-1 items-center px-3 py-2  ">
