@@ -314,7 +314,7 @@ const History = () => {
                     key={index}
                     className="[&>*]:border [&>*]:border-[#B0B0B0] h-11 text-sm font-medium text-[#757575]"
                   >
-                    <td>{row.service_name}</td>
+                    <td>{row.service_fa}</td>
                     <td>{numberWithCommas(row.replacement_km)}</td>
                     <td>{numberWithCommas(row.next_replacement_km)}</td>
                     <td>
@@ -333,7 +333,7 @@ const History = () => {
             historyData?.car_id_card?.map((row, index) => (
               <div className="flex flex-col gap-6 border-b pb-2">
                 <span className="text-[#0F0F0F] text-sm font-medium border-r-2 border-[#F66B34] pr-1">
-                  {row.service_name}
+                  {row.service_fa}
                 </span>
                 <div className="flex flex-col gap-3">
                   <div className="flex items-center justify-between">
