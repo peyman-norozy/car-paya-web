@@ -16,7 +16,7 @@ const InvoiceModal = (props) => {
   async function removeClickHandler(id) {
     const sessionData = JSON.parse(sessionStorage.getItem("periodicCart"));
     const newData = props.invoiceData.filter((item) => {
-      item.id !== id;
+      return item.id !== id;
     });
     sessionData.products = newData;
     props.setInvoiceData(newData);
