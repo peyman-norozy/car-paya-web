@@ -60,7 +60,7 @@ const InvoicePage = () => {
     const cartData = JSON.parse(sessionStorage.getItem("periodicCart"));
     let price = 0;
     cartData.products.map((item) => {
-      price = price + item.price;
+      price = price + item.discount_price;
     });
     setCart({ price: price });
 
