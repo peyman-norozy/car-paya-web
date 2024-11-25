@@ -195,6 +195,7 @@ const Page = (props) => {
           <p>{persianDateCovertor(data[0])}</p>
           </div>
           </div> */}
+              {console.log(JSON.stringify(data))}
               {data
                 .filter((item) => {
                   return item.title === dayTitleTab;
