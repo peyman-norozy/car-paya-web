@@ -24,7 +24,7 @@ const Page = (props) => {
   useEffect(() => {
     async function getTimeData() {
       const data = await getDataWithFullErrorRes(
-        `/web/service-periodical?step=step-3&type=${props.searchParams.type}&city_id=${props.searchParams.city_id}&vehicle_tip_id=${props.searchParams.selectTipState.split(",")[1]}&service_location_id=${props.searchParams.service_location_id}&package_id=${props.searchParams.package_id}`
+        `/web/service-periodical?step=step-3&type=${searchParams.get("type")}&city_id=${searchParams.get("city_id")}&vehicle_tip_id=${searchParams.get("selectTipState").split(",")[1]}&service_location_id=${searchParams.get("service_location_id")}&package_id=${searchParams.get("package_id")}`
       );
       setData(data);
       const uniqueTitles = Array.from(new Set(data?.map((item) => item.title)));
@@ -60,7 +60,7 @@ const Page = (props) => {
       // if (loginState) {
       nProgress.start();
       router.push(
-        `/periodic-service/invoice?step=step-4&city_id=${props.searchParams.city_id}&vehicle_tip_id=${props.searchParams.selectTipState}&package_id=${props.searchParams.package_id}&reservation_time_slice_id=${timeIsSelected?.id}&type=${props.searchParams.type}&service_location_id=${props.searchParams.service_location_id}&registrationable_id=${props.searchParams.service_location_id}`
+        `/periodic-service/invoice?step=step-4&city_id=${searchParams.get("city_id")}&vehicle_tip_id=${searchParams.get("selectTipState")}&package_id=${searchParams.get("package_id")}&reservation_time_slice_id=${timeIsSelected?.id}&type=${searchParams.get("type")}&service_location_id=${searchParams.get("service_location_id")}&registrationable_id=${searchParams.get("service_location_id")}`
       );
 
       const sessionData = JSON.parse(sessionStorage.getItem("periodicCart"));
@@ -195,7 +195,6 @@ const Page = (props) => {
           <p>{persianDateCovertor(data[0])}</p>
           </div>
           </div> */}
-              {console.log(JSON.stringify(data))}
               {data
                 .filter((item) => {
                   return item.title === dayTitleTab;
