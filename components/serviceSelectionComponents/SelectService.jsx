@@ -181,14 +181,16 @@ const SelectService = (props) => {
           تایید و تکمیل سفارش
         </button>
       </div>
-      <SelectProductModal
-        params={props.params}
-        productModalState={productModalState}
-        setProductModalState={setProductModalState}
-        selectedServic={selectedServic}
-        setInvoiceData={setInvoiceData}
-        invoiceData={invoiceData}
-      />
+      {productModalState && (
+        <SelectProductModal
+          params={props.params}
+          productModalState={productModalState}
+          setProductModalState={setProductModalState}
+          selectedServic={selectedServic}
+          setInvoiceData={setInvoiceData}
+          invoiceData={invoiceData}
+        />
+      )}
       <InvoiceModal
         invoiceModalState={invoiceModalState}
         setInvoiceModalState={setInvoiceModalState}
