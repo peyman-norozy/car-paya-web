@@ -7,7 +7,6 @@ import useSetQuery from "@/hook/useSetQuery";
 const SelectVehicleTab = (props) => {
   const setQuery = useSetQuery();
   const selectTabHandler = (index, item) => {
-    console.log(item.attributeSlug);
     setQuery.updateQueryParams({
       attribute_slug: item.attributeSlug,
       attribute_value: item.slug,
@@ -16,7 +15,6 @@ const SelectVehicleTab = (props) => {
     props.setHeavyCarStep("heavy-car-brands");
     props.setStep("car-brands");
   };
-  console.log(props);
   return (
     <div className="w-full overflow-x-scroll pb-1">
       <div className={`${props.className} min-w-[395px] w-full`}>
@@ -26,7 +24,6 @@ const SelectVehicleTab = (props) => {
             key={index}
             className={`flex items-center justify-center gap-[0.25rem] cursor-pointer px-[0.25rem] py-[0.25rem] border-gray_light_border  rounded-5 size870:w-full text-text_gray text-[13px] ${props.searchParams["attribute_value"] === item.slug ? "bg-RED_500 text-white" : "border-gray_light_border border-[1px]"}`}
           >
-            {console.log(props.searchParams["attribute_value"] === item.slug)}
             {props.searchParams["attribute_value"] === item.slug ? (
               <Image src={check} alt="" height={10} width={10} />
             ) : (

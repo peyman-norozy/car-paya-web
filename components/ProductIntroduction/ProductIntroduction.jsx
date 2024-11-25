@@ -5,7 +5,6 @@ const ProductIntroduction = () => {
   const [scollHeight, setScollHeight] = useState(120);
   const descriptionRef = useRef();
   const openAcordionHandler = () => {
-    console.log(descriptionRef.current.scrollHeight);
     setScollHeight(descriptionRef.current.scrollHeight);
   };
 

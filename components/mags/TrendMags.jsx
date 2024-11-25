@@ -7,7 +7,6 @@ const TrendMags = (props) => {
 
   const trend = data.trendOfTheWeek;
 
-  console.log(trend);
   return (
     <div>
       {trend.length < 1 ? (

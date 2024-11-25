@@ -8,7 +8,6 @@ import { setLoginState } from "@/store/todoSlice";
 
 const ProtectedRoute = ({ children }) => {
   const loginResult = useSelector((item) => item.loginChecker);
-  console.log(loginResult);
   const router = useRouter();
   const dispatch = useDispatch();
   useEffect(() => {

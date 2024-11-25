@@ -4,7 +4,6 @@ const AddressInput = (props) => {
   const inputRef = useRef();
 
   useEffect(() => {
-    console.log(props.ItaratedAddress);
     if (props.pageType === "edite") {
       inputRef.current.value = props.editData ? props.editData : "";
       if (props.ItaratedAddress) {

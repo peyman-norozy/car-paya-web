@@ -29,13 +29,11 @@ const SelectProduct = (props) => {
     });
 
     if (cartData.status === 200 || cartData.status === 201) {
-      console.log(cartData.data);
       setQuery.updateQueryParams(
         { package_id: props.data.id },
         "/periodic-service/service-selection"
       );
     } else if (cartData.response.status === 422) {
-      console.log(cartData.response.data);
       error(cartData.response.data.message);
     } else if (cartData.response.status === 401) {
       nProgress.start();

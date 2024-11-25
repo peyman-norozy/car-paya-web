@@ -16,7 +16,7 @@ const CreateMyHeavyCar = () => {
   const [newSkeletonState, setNewSkeletonState] = useState(false);
   const [modalState, setModalState] = useState(false);
   const innerWidth = useSelector(
-    (widthData) => widthData.todo.windowInnerWidth,
+    (widthData) => widthData.todo.windowInnerWidth
   );
 
   let perPage = 4;
@@ -29,7 +29,7 @@ const CreateMyHeavyCar = () => {
         process.env.BASE_API +
           API_PATHS.USERPANEL +
           API_PATHS.HEAVYCARS +
-          `?per_page=${perPage}&page=${page}`,
+          `?per_page=${perPage}&page=${page}`
       );
       if (response.status === 200) {
         setNewMyCareData(response.data.data);
@@ -44,9 +44,7 @@ const CreateMyHeavyCar = () => {
     })();
   }, [searchParams, perPage, page]);
 
-  console.log(newSkeletonState);
   const closeCarModalHandler = (event) => {
-    console.log(event.target.getAttribute("id"));
     if (event.target.id === "ChoseCar") {
       setModalState(false);
     }

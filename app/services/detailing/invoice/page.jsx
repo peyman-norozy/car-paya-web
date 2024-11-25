@@ -271,19 +271,17 @@ const InvoicePage = () => {
   const cartTipImage = JSON.parse(localStorage.getItem("selectedVehicle"));
   // const userMobile = JSON.parse(localStorage.getItem("user-profile"))?.mobile;
   const locationServiceAddress = JSON.parse(
-    sessionStorage.getItem("ditailingCart"),
+    sessionStorage.getItem("ditailingCart")
   )?.address;
   const dateServiceAddress = JSON.parse(
-    sessionStorage.getItem("ditailingCart"),
+    sessionStorage.getItem("ditailingCart")
   )?.timeSelect;
   const serviceName = JSON.parse(
-    sessionStorage.getItem("ditailingCart"),
+    sessionStorage.getItem("ditailingCart")
   )?.serviceName;
   const quantity = JSON.parse(
-    sessionStorage.getItem("ditailingCart"),
+    sessionStorage.getItem("ditailingCart")
   )?.quantity;
-
-  console.log(dateServiceAddress);
 
   return (
     <div

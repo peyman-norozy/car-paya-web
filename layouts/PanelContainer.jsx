@@ -7,7 +7,6 @@ import { useState } from "react";
 
 const PanelContainer = ({ children }) => {
   const pathName = usePathname();
-  console.log(pathName);
 
   const [openOptionsState, setOpenOptionsState] = useState(false);
   return (

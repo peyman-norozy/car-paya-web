@@ -31,14 +31,11 @@ export default function OtpUsersLogin(props) {
     axios
       .post(process.env.BASE_API + API_PATHS.CHECKOTP, fd)
       .then((res) => {
-        console.log(res);
         if (res.status === 200) {
           let now = new Date();
           let time = now.getTime();
           let expireTime = time + res.data.expires_at;
-          console.log(expireTime);
           now.setTime(expireTime);
-          console.log(now.toUTCString());
           document.cookie = `Authorization = ${
             res.data.token
           };expires=${now.toUTCString()};path=/;SameSite=Strict;Secure`;

@@ -83,7 +83,6 @@ const SelectProvinceAndCarBox = (props) => {
           setIsLoading(false);
         })
         .catch((err) => {
-          console.log(err);
           setIsLoading(false);
           if (err.response.status === 401) {
             error("برای نمایش وسیله های من ابتدا وارد حساب کاربری شوید");
@@ -102,20 +101,19 @@ const SelectProvinceAndCarBox = (props) => {
     if (isClicked === 0) {
       setSearchInputValue(e.target.value);
       const result = searchValue.filter((i) =>
-        i.title.includes(e.target.value),
+        i.title.includes(e.target.value)
       );
       setCarBrands(result);
-      console.log(result);
     } else if (isClicked === 1) {
       setSearchInputValue(e.target.value);
       const result = searchValue.filter((i) =>
-        i.title.includes(e.target.value),
+        i.title.includes(e.target.value)
       );
       setMotorBrands(result);
     } else if (isClicked === 2) {
       setSearchInputValue(e.target.value);
       const result = searchValue.filter((i) =>
-        i.title.includes(e.target.value),
+        i.title.includes(e.target.value)
       );
       setHeavyCarBrands(result);
     }
@@ -153,19 +151,16 @@ const SelectProvinceAndCarBox = (props) => {
 
   const packageStepHandler = () => {
     const city = "&city_id=" + cityId;
-    console.log(selectedItem);
     const vehicle_tip =
       selectedItem === null ? "" : "&vehicle_tip_id=" + selectedItem;
-    console.log(vehicle_tip, city);
     axios
       .get(
         process.env.BASE_API +
           "/web/expert/reservation?step=step-1" +
           vehicle_tip +
-          city,
+          city
       )
       .then((res) => {
-        console.log(res.data);
         if (res.data.data.length === 0) {
           error("پکبجی برای این وسیله نقلیه وجود ندارد");
         } else {
@@ -177,17 +172,14 @@ const SelectProvinceAndCarBox = (props) => {
         }
       })
       .catch((err) => {
-        console.log(err.response.status);
         if (err.response.status === 422) {
           for (let key in err.response.data.message) {
-            console.log(err.response.data.message[key][0]);
             error(err.response.data.message[key][0]);
           }
         }
         // if (err.response.status) {
         //   error(err.response.data.message.vehicle_tip_id[0]);
         // }
-        console.log(err);
       });
   };
 
@@ -266,7 +258,7 @@ const SelectProvinceAndCarBox = (props) => {
       } else if (heavyCarStep === "heavy-car-models") {
         axios
           .get(
-            process.env.BASE_API + "/web" + "/heavy-car-models/" + selectedItem,
+            process.env.BASE_API + "/web" + "/heavy-car-models/" + selectedItem
           )
           .then((res) => {
             setHeavyCarBrands(res.data.data);
@@ -278,7 +270,7 @@ const SelectProvinceAndCarBox = (props) => {
       } else if (heavyCarStep === "heavy-car-tips") {
         axios
           .get(
-            process.env.BASE_API + "/web" + "/heavy-car-tips/" + selectedItem,
+            process.env.BASE_API + "/web" + "/heavy-car-tips/" + selectedItem
           )
           .then((res) => {
             setHeavyCarBrands(res.data.data);
@@ -319,8 +311,8 @@ const SelectProvinceAndCarBox = (props) => {
               ? motorBrands
               : isClicked === 2
                 ? heavyCarBrands
-                : "",
-      ),
+                : ""
+      )
     );
   }, [
     dispatch,

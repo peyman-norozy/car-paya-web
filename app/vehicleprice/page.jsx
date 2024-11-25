@@ -74,14 +74,12 @@ const Vehicleprice = (props) => {
       brand: JSON.parse(localStorage.getItem("selectedVehicle"))?.brand,
       items: Object.values(partsData),
     };
-    console.log(JSON.stringify(data));
     sessionStorage.setItem("dotsData", JSON.stringify(dotsArray));
     nProgress.start();
     router.push(
       `/vehicleprice/result?year=${data.year}&year=${data.year}&color=${data.color}&operation=${data.operation}&model=${data.model}&tip=${data.tip}&brand=${data.brand}&items=${data.items.join(",")}`
     );
     // const res = await postData("/web/pricing/calculations", data);
-    // console.log(res);
   }
   //{"color":"2023","year":"2022","operation":"10000","model":"Q5","tip":"آئودی Q5","brand":"آئودی","items":["RightFrontChassisMinorDamaged","TrunkPartialColored","RightFrontDoorChanged"]}
 

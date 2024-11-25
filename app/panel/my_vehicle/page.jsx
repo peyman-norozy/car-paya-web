@@ -18,7 +18,6 @@ const MyVehicle = () => {
 
   async function getMyVehicleData() {
     const res = await getDataWithFullErrorRes("/user/my-vehicles");
-    console.log(res.data);
     setVehicleData(res.data);
     srtFilteredVehicleData(res.data);
   }

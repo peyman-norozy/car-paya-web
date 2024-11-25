@@ -10,12 +10,11 @@ import { ToastContainer } from "react-toastify";
 
 const ProductAddress = () => {
   const [addreesModalState, setAddressModalState] = useState(false);
-  const [addressEditId, setAddressEditId] = useState("")
+  const [addressEditId, setAddressEditId] = useState("");
 
   const [addressData, setAddressData] = useState({});
   const [pageType, setPageType] = useState("");
 
-  console.log(addressData)
   const closeModalHandler = (event) => {
     if (event.target.id === "addressModal") {
       setAddressModalState(false);
@@ -64,17 +63,16 @@ const ProductAddress = () => {
         </div>
         {addressData.data && addressData.data.length > 0 ? (
           <ul className={"flex flex-col gap-4"}>
-            {
-              addressData.data.map((item, index) => (
-                <AddressesCard
-                  key={index}
-                  item={item}
-                  getAddressFetchData={getAddressFetchData}
-                  setAddressModalState={setAddressModalState}
-                  setPageType={setPageType}
-                  setAddressEditId={setAddressEditId}
-                />
-              ))}
+            {addressData.data.map((item, index) => (
+              <AddressesCard
+                key={index}
+                item={item}
+                getAddressFetchData={getAddressFetchData}
+                setAddressModalState={setAddressModalState}
+                setPageType={setPageType}
+                setAddressEditId={setAddressEditId}
+              />
+            ))}
           </ul>
         ) : (
           <div className={"flex-1 flex justify-center items-center"}>
@@ -110,7 +108,6 @@ const ProductAddress = () => {
         )}{" "}
       </div>
       <ToastContainer rtl={true} />
-
     </PrivateRoute>
   );
 };

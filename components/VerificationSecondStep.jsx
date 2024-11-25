@@ -100,7 +100,6 @@ const VerificationSecondStep = (props) => {
         }
       )
       .then((res) => {
-        console.log(res.data["check_auth"]);
         setData(
           Object.keys(res.data["time-reserve"]).map((key) => [
             key,

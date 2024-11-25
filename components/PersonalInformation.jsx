@@ -20,7 +20,6 @@ const PersonalInformation = () => {
   const [mobile, setMobile] = useState("");
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
-  console.log(profileData);
 
   useEffect(() => {
     setName(profileData.name);
@@ -30,11 +29,6 @@ const PersonalInformation = () => {
 
   const formSubmitHandler = async (event) => {
     event.preventDefault();
-    console.log(event.target.name.value);
-    console.log(event.target.mobile.value);
-    console.log(event.target.nationalCode.value);
-    console.log(event.target.email.value);
-    console.log(event.target.gender.value);
     const fd = new FormData();
     fd.set("mobile", event.target.mobile.value);
     fd.set("full_name", event.target.name.value);
@@ -45,7 +39,7 @@ const PersonalInformation = () => {
     setLoading(true);
     const postProfileEdit = await putData(
       API_PATHS.USERPANEL + API_PATHS.PROFILE,
-      fd,
+      fd
     );
 
     const getProfileData = await getData(API_PATHS.DASHBOARDPROFILE);
@@ -65,11 +59,15 @@ const PersonalInformation = () => {
           "bg-[#383838A3] w-full flex-1 rounded-[15px] overflow-hidden"
         }
       >
-          <div className="bg-[#383838] p-4">
-            <h1 className={"text-[#FEFEFE] text-start font-bold"}>اطلاعات حساب</h1>
-          </div>
+        <div className="bg-[#383838] p-4">
+          <h1 className={"text-[#FEFEFE] text-start font-bold"}>
+            اطلاعات حساب
+          </h1>
+        </div>
         <form
-          className={"flex flex-col gap-[43px] size460:py-8 size460:px-16 px-8 py-4"}
+          className={
+            "flex flex-col gap-[43px] size460:py-8 size460:px-16 px-8 py-4"
+          }
           onSubmit={formSubmitHandler}
         >
           <div className={"grid size617:grid-cols-2 grid-cols-1 gap-[58px]"}>

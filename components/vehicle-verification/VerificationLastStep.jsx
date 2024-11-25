@@ -56,13 +56,11 @@ const VerificationLastStep = () => {
     axios
       .post(process.env.BASE_API + "/web/cart/discount-master", fd)
       .then((res) => {
-        console.log(res);
         setPrice(res.data.data.price_total);
         setDiscount(res.data.data.discount_total);
         setDiscountValue("");
       })
       .catch((err) => {
-        console.log(err);
         if (err.response.status === 422) {
           error(err.response.data.message);
         }
@@ -116,8 +114,6 @@ const VerificationLastStep = () => {
         }
       });
   }, []);
-
-  console.log(data.address_info && data.address_info);
 
   return (
     <div className={"lg:w-[calc(100%-424px)] mr-auto pt-[2rem] mb-[90px]"}>

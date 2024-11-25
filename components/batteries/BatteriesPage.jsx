@@ -34,7 +34,6 @@ const BatteriesPage = (props) => {
   const selectTipState = searchParams.get("selectTipState");
   let page = useRef(1);
 
-  console.log(props);
   useEffect(() => {
     setIsMounted(true);
   }, []);
@@ -82,7 +81,6 @@ const BatteriesPage = (props) => {
 
         if (scrollTop + windowHeight >= fullHeight) {
           setIsAtBottom(true);
-          console.log("شما به انتهای صفحه رسیده‌اید!");
           page.current = page.current + 1;
           if (props.data?.meta["last_page"] >= page.current) {
             query.updateQueryParams({ page: page.current }, null, false);
@@ -114,7 +112,6 @@ const BatteriesPage = (props) => {
   }, []);
 
   useEffect(() => {
-    console.log(props.searchParams);
     setBatteriesData((prev) => [...prev, ...props.data?.data]);
   }, [props.searchParams.page]);
 
@@ -161,8 +158,6 @@ const BatteriesPage = (props) => {
   const openModal = () => {
     setModalState(true);
   };
-
-  console.log(props);
 
   return (
     <div className={"relative"}>

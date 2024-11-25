@@ -27,7 +27,7 @@ const HomePageMainSlider = () => {
         process.env.BASE_API +
           "/web" +
           API_PATHS.SLIDERS +
-          `?type=${window.innerWidth > 768 ? "DESKTOP" : "MOBILE"}`,
+          `?type=${window.innerWidth > 768 ? "DESKTOP" : "MOBILE"}`
       )
       .then((res) => {
         // const m = res.data.data;
@@ -35,7 +35,6 @@ const HomePageMainSlider = () => {
         // m.push({});
         setNewSlider(res.data.data);
         // setSliderShowState(true)
-        console.log(res.data.data);
       })
       .catch((error) => console.log(error));
   }, []);

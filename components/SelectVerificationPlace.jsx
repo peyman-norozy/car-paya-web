@@ -82,7 +82,7 @@ const SelectVerificationPlace = (props) => {
           headers: {
             Authorization: "Bearer " + getCookie("Authorization"),
           },
-        },
+        }
       )
       .then((res) => {
         setCarCheckLocations(res.data.data);
@@ -102,18 +102,15 @@ const SelectVerificationPlace = (props) => {
           headers: {
             Authorization: "Bearer " + getCookie("Authorization"),
           },
-        },
+        }
       )
       .then((res) => {
-        console.log(res.data.data);
         setMyLocationData(res.data.data);
         setIsLoading(false);
         setChosenTime(res.data.time);
       })
       .catch((err) => console.log(err));
   }, [fetchData, modalIsOpen]);
-
-  console.log(myLocationData);
 
   return (
     <div className={"w-[95%] m-auto size690:w-full relative"}>

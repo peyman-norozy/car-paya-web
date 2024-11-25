@@ -5,7 +5,6 @@ const BatteryFaqCard = ({ title, description }) => {
   const descriptionRef = useRef();
   const [accordionHeightState, setAccordionHeightState] = React.useState(false);
   const accordionClickHandler = () => {
-    console.log(descriptionRef.current.scrollHeight);
     setAccordionHeightState((prev) => !prev);
   };
   return (

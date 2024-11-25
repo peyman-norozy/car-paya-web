@@ -5,7 +5,6 @@ import ServicesCard from "@/components/cards/ServicesCard/ServicesCard";
 
 const ServicesPage = (props) => {
   const { data } = props;
-  console.log(data);
   return (
     <div className={"flex flex-col relative py-4 max-w-[1772px] m-auto"}>
       <h1 className={"lg:hidden block text-center text-[20px] font-semibold"}>

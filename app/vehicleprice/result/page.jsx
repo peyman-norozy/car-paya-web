@@ -28,7 +28,6 @@ const ResultPage = () => {
       dots: JSON.parse(sessionStorage.getItem("dotsData")),
       vehicle_tip_id: JSON.parse(localStorage.getItem("selectedVehicle")).id,
     };
-    console.log(data);
 
     setData(data);
     const res = await postData("/web/pricing/calculations", data);
