@@ -47,7 +47,7 @@ const CreateVehicleModal = (props) => {
     props.setCarData({ ...props.carData, [e.target.id]: e.target.value });
   }
 
-  function onClick() {
+  async function onClick() {
     const object = {
       ...props.carData,
       vehicle_tip_id: JSON.parse(localStorage.getItem("selectedVehicle"))?.id,
@@ -63,8 +63,9 @@ const CreateVehicleModal = (props) => {
     );
     setValidation(array);
     if (array.length === 0) {
-      postData("/user/my-vehicles", object);
-      props.setDispaly(true);
+      await postData("/user/my-vehicles", object);
+      props.getMyVehicleData();
+      props.setDispaly(false);
     }
   }
 
