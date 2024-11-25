@@ -113,9 +113,7 @@ const InvoiceModal = (props) => {
                     <span className="text-sm font-medium">قیمت :</span>
                     <span className="text-xs font-medium text-[#1E67BF]">
                       {numberWithCommas(
-                        item.discounted_price
-                          ? item.discounted_price
-                          : item.price
+                        item.discount_price ? item.discount_price : item.price
                       )}{" "}
                       تومان
                     </span>
