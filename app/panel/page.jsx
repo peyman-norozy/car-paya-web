@@ -94,31 +94,52 @@
 // export default UserPanel;
 "use client";
 import { tabsData } from "@/staticData/data";
+import { getDataWithFullErrorRes } from "@/utils/api-function-utils";
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import nProgress from "nprogress";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-
+import businessman from "@/public/assets/images/businessman.png";
 const UserPanel = () => {
   const pathName = usePathname();
 
   const router = useRouter();
   const [openOptionsState, setOpenOptionsState] = useState(false);
-
+  const [data, setData] = useState();
   useEffect(() => {
     if (window.innerWidth > 1024) {
       nProgress.start();
       router.push("/panel/profile");
+    } else {
+      getData();
     }
   }, []);
+
+  async function getData() {
+    const res = await getDataWithFullErrorRes("user/profile");
+    console.log(res.data);
+    setData(res.data);
+  }
 
   return (
     <div className="p-4 flex justify-center">
       <div className="w-full max-w-[600px] h-full bg-[#fefefe] rounded-lg shadow-[0_0_8px_0_rgba(143,143,143,0.25)] min-h-40 flex flex-col gap-4 px-4 py-7">
         <div className="flex flex-col gap-4 self-center">
-          <div className="rounded-full bg-stone-500 size-[100px] flex items-center justify-center"></div>
-          <span className="text-[#0F0F0F] font-medium text-lg">محمد محمدی</span>
+          <Image
+            src={
+              data?.image_id
+                ? process.env.BASE_API + "/web/file/" + data.image_id
+                : businessman
+            }
+            width={112}
+            height={112}
+            className="rounded-full size-[100px] flex items-center justify-center"
+          />
+          <span className="text-[#0F0F0F] font-medium text-lg">
+            {data?.profile?.full_name}
+          </span>
         </div>
         <div className="flex flex-col gap-2">
           {tabsData.map((item) => (
