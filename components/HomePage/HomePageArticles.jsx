@@ -9,7 +9,6 @@ import moment from "jalali-moment";
 import { notFound } from "next/navigation";
 
 const HomePageArticles = (props) => {
-  console.log(props);
   if (props?.data?.error?.code === 404) {
     return <div>اطلاعاتی یافت نشد ۴۰۴</div>;
   }

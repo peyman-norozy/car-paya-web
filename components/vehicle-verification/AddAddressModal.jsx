@@ -52,14 +52,14 @@ const AddressModal = (props) => {
       props.deliveryPackage &&
         formData.set(
           "receiver_cellphone",
-          event.target.phoneNumber.value.toString(),
+          event.target.phoneNumber.value.toString()
         );
       props.deliveryPackage &&
         formData.set("receiver_name", event.target.fullName.value);
     }
     formData.set(
       "map",
-      `${mapPosition.split(",")[0]},${mapPosition.split(",")[1]}`,
+      `${mapPosition.split(",")[0]},${mapPosition.split(",")[1]}`
     );
 
     if (props.pageType === "edite") {
@@ -67,7 +67,7 @@ const AddressModal = (props) => {
       props.setIsLoading(true);
       const update = await putData(
         API_PATHS.DASHBOARDUSERADDRESS + "/" + props.addressEditId,
-        formData,
+        formData
       );
       if (update.status === 200) {
         props.getDataFetch([]);
@@ -76,7 +76,6 @@ const AddressModal = (props) => {
         props.timeData && props.timeData();
       } else if (update.status === 422) {
         setErrorData(update.data.errors);
-        console.log(update.data.errors);
       } else if (update.status === 404) {
         console.log(update);
       }
@@ -85,8 +84,6 @@ const AddressModal = (props) => {
       setLoading(true);
       const post = await postData(API_PATHS.DASHBOARDUSERADDRESS, formData);
       if (post.status === 200) {
-        console.log(props);
-        console.log(pathName);
         if (pathName === "/panel/productAddress") {
           props.setAddressModalState(false);
           props.getAddressFetchData();
@@ -98,7 +95,6 @@ const AddressModal = (props) => {
         } else if (
           pathName === "/services/batteries/products/newSelectLocation"
         ) {
-          console.log(props);
           props.timeData();
           props.setModalIsOpen(false);
         } else if (pathName === "/services/detailing/selectLocation") {
@@ -113,7 +109,6 @@ const AddressModal = (props) => {
         // props.setIsLoading(true);
       } else if (post.response.status === 422) {
         setErrorData(post.response.data.errors);
-        console.log(post.response.data.errors);
       } else if (post.status === 404) {
         console.log(post);
       }
@@ -135,7 +130,7 @@ const AddressModal = (props) => {
         console.log(getCity.data.error);
       }
     },
-    [router],
+    [router]
   );
 
   useEffect(() => {
@@ -167,7 +162,7 @@ const AddressModal = (props) => {
     if (props.pageType === "edite") {
       (async () => {
         const getEditData = await getData(
-          API_PATHS.DASHBOARDUSERADDRESS + "/" + props.addressEditId + "/edit",
+          API_PATHS.DASHBOARDUSERADDRESS + "/" + props.addressEditId + "/edit"
         );
         if (getEditData.status === "success") {
           setEditData(getEditData.data);

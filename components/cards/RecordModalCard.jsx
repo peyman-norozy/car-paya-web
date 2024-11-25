@@ -15,7 +15,7 @@ import nProgress from "nprogress";
 
 const RecordModalCard = (props) => {
   const [newToggleClassName, setNewToggleClassName] = useState(
-    "translate-x-[-52px]",
+    "translate-x-[-52px]"
   );
   const [newEnableToggle, setNewEnableToggle] = useState(false);
   const [newSelectOptionState, setNewSelectOptionState] = useState(false);
@@ -23,24 +23,20 @@ const RecordModalCard = (props) => {
   const tipId = props.params[3];
 
   useEffect(() => {
-    console.log(tipId);
-    console.log(props.item.title);
     if (newSelectOptionState) {
       (async () => {
         const productOptionData = await getData(
-          `${API_PATHS.USERPANEL}/history${API_PATHS.GETPRODUCT}?title=${props.item.title}&tip_id=${tipId}`,
+          `${API_PATHS.USERPANEL}/history${API_PATHS.GETPRODUCT}?title=${props.item.title}&tip_id=${tipId}`
         );
         if (
           productOptionData.status === 200 ||
           productOptionData.status === 201
         ) {
-          console.log(productOptionData.data.data);
           const newProductData = productOptionData.data.data.map((item) => {
             return { id: item.id, title: item.name, slug: item.name };
           });
           setNewProductOption(newProductData);
         } else if (productOptionData.response.status === 404) {
-          console.log(productOptionData);
           notFound();
         } else if (productOptionData.response.status === 401) {
           nProgress.start();

@@ -27,7 +27,6 @@ const SelectProductModal = (props) => {
             `/web/service-periodical?step=step-2&type=${props.params.type}&city_id=${props.params.city_id}&vehicle_tip_id=${props.params.selectTipState.split(",")[1]}&service_location_id=${props.params.service_location_id}&category=${props.selectedServic}`
         )
         .then((res) => {
-          console.log(res?.data?.data);
           setProductData(res?.data?.data);
         })
         .catch((err) => {
@@ -47,7 +46,6 @@ const SelectProductModal = (props) => {
   }, [productData]);
 
   async function buttonClickHandler() {
-    console.log(selectedProduct.id);
     const sessionsData = JSON.parse(sessionStorage.getItem("periodicCart"));
     if (sessionsData.products === undefined) {
       sessionsData.products = [];

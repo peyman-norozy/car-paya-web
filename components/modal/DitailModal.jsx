@@ -1,8 +1,6 @@
 import React from "react";
 
 const DitailModal = (props) => {
-  console.log(props);
-
   const closeModalHandler = () => {
     props.setEditModalIsOpen(false);
   };

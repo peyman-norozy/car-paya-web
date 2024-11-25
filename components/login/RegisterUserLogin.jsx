@@ -42,7 +42,6 @@ export default function RegisterUserLogin() {
   };
 
   const ReduxFormData = useSelector((data) => data.todo.loginOtpData);
-  console.log(ReduxFormData);
 
   const passwordClickHnadler = () => {
     passwordEyesState.passwordState
@@ -69,13 +68,11 @@ export default function RegisterUserLogin() {
   };
 
   const genderChooseHandler = (event) => {
-    console.log(event.target.value);
     setGenderValidate(event.target.value);
   };
 
   const formSubmitHandler = async (event) => {
     event.preventDefault();
-    console.log(event);
 
     fd.append("login_token", ReduxFormData.login_token);
     fd.append("mobile", ReduxFormData.mobile);
@@ -83,7 +80,6 @@ export default function RegisterUserLogin() {
 
     for (let item of event.target) {
       const id = item.id;
-      console.log(item.value);
       switch (id) {
         case "register_name":
           fd.set("name", item.value);
@@ -106,11 +102,8 @@ export default function RegisterUserLogin() {
     if (response.status === 200) {
       let now = new Date();
       let time = now.getTime();
-      console.log(response);
       let expireTime = time + response.data.expires_at;
-      console.log(expireTime);
       now.setTime(expireTime);
-      console.log(now.toUTCString());
       document.cookie = `Authorization = ${
         response.data.token
       };expires=${now.toUTCString()};path=/`;
@@ -121,18 +114,16 @@ export default function RegisterUserLogin() {
       dispatch(setLoginState(false));
       refreshFormData();
       const getProfileData = await getData(API_PATHS.DASHBOARDPROFILE);
-      console.log(getProfileData);
       if (getProfileData.status === "success") {
         localStorage.setItem(
           "profileData",
-          JSON.stringify(getProfileData.data),
+          JSON.stringify(getProfileData.data)
         );
       }
     } else {
       setSliderShowState(false);
       if (response.response.status === 422) {
         // error(response.response.data.errors);
-        console.log(response.response.data.errors);
         setNewErrorRegister(response.response.data.errors);
         setTimeout(() => {
           setNewErrorRegister({});

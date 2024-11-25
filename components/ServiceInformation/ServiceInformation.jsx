@@ -12,9 +12,8 @@ const ServiceInformation = (props) => {
     return null;
   }
   const vehicleInformation = JSON.parse(
-    localStorage.getItem("selectedVehicle"),
+    localStorage.getItem("selectedVehicle")
   );
-  console.log(vehicleInformation);
 
   return (
     <div

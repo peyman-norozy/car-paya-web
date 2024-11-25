@@ -7,7 +7,6 @@ const UserAddressCard = (props) => {
   const [openMenu, setOpenMenu] = useState(false);
   const [editModalIsOpen, setEditModalIsOpen] = useState(false);
   const dispatch = useDispatch();
-  console.log(props.data.address);
 
   return (
     <div

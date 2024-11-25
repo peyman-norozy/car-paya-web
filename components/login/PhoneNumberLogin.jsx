@@ -36,7 +36,6 @@ export default function PhoneNumberLogin(props) {
       fd.append("mobile", telPhoneValueNumber);
       setSliderShowState(true);
       const response = await postData(API_PATHS.GETOTP, fd);
-      console.log(response);
       if (response.status === 200) {
         props.setLoginState("otp_number");
         setSliderShowState(false);

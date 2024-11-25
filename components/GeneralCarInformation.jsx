@@ -118,7 +118,6 @@ const GeneralCarInformation = (props) => {
     }, []);
 
     useEffect(() => {
-        console.log(props.editCompany)
         if (
             props.pageType === "edit" &&
             props.editCompany !== undefined &&

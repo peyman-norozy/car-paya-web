@@ -10,11 +10,9 @@ import nProgress from "nprogress";
 const PrivateRoute = ({ children }) => {
   const loginResult = useSelector((item) => item.loginChecker);
   const router = useRouter();
-  console.log(loginResult);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    console.log(getCookie("Authorization"));
     if (getCookie("Authorization")) {
       dispatch(loginUser()).then((res) => console.log(res));
     }

@@ -19,7 +19,6 @@ const MapDirection = (props) => {
   const router = useRouter();
 
   const mapSearchHandler = async () => {
-    console.log("/search/map?text=dsf&lat=32234&lon=234324234");
     const addressData = await getData(API_PATHS.SEARCHMAP);
     if (addressData.status === "success") {
       console.log(addressData);
@@ -86,7 +85,7 @@ const MapDirection = (props) => {
         </MapContainer>
       </div>
     ),
-    [props.status],
+    [props.status]
   );
 
   return (

@@ -115,9 +115,7 @@ const MainMotorSycleTip = (props) => {
           let now = new Date();
           let time = now.getTime();
           let expireTime = time + res.data.data.expires_at;
-          console.log(expireTime);
           now.setTime(expireTime);
-          console.log(now.toUTCString());
           document.cookie = `Authorization = ${
             res.data.data.token
           };expires=${now.toUTCString()};path=/`;

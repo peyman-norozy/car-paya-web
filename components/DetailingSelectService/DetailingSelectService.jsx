@@ -11,7 +11,6 @@ import ServiceInformation from "@/components/ServiceInformation/ServiceInformati
 import nProgress from "nprogress";
 
 const DetailingSelectService = (props) => {
-  console.log(props.data);
   const [client, setClient] = useState(false);
   const [productId, setProductId] = useState(null);
   const [ditailingPrice, setDitailingPrice] = useState(0);
@@ -40,8 +39,6 @@ const DetailingSelectService = (props) => {
   const cityId = searchParams.get("city_id");
   const type = searchParams.get("type");
   const serviceLocationId = searchParams.get("service_location_id");
-
-  console.log(props);
 
   if (!client) {
     return null;

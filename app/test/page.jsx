@@ -13,23 +13,23 @@ import {
 } from "@/staticData/data";
 import PwaModal from "@/components/PwaModal";
 
-const SpecialOffersSliderData = async () => {
-  return <SpecialOffersSlider data={CarProductsMockUpData} />;
-};
+// const SpecialOffersSliderData = async () => {
+//   return <SpecialOffersSlider data={CarProductsMockUpData} />;
+// };
 
-const HowWorksData = async () => {
-  return <HowWorks data={HowWorksMockUpData} />;
-};
+// const HowWorksData = async () => {
+//   return <HowWorks data={HowWorksMockUpData} />;
+// };
 
-const ArticleSliderData = async () => {
-  const ArticleSliderFetchData = await getData(`/web${API_PATHS.MAGSINDEX}`);
-  return <ArticleSlider data={ArticleSliderFetchData} />;
-};
+// const ArticleSliderData = async () => {
+//   const ArticleSliderFetchData = await getData(`/web${API_PATHS.MAGSINDEX}`);
+//   return <ArticleSlider data={ArticleSliderFetchData} />;
+// };
 
 export default function Home() {
   return (
     <div className={"max-w-[1676px] m-auto flex flex-col gap-10 mb-10"}>
-      <MainBanner>
+      {/* <MainBanner>
         {serviceData.map((item, index) => (
           <MainBannerCard
             key={item.title + "-" + index}
@@ -53,7 +53,7 @@ export default function Home() {
           <ArticleSliderData />
         </Suspense>
       </div>
-      <PwaModal />
+      <PwaModal /> */}
     </div>
   );
 }

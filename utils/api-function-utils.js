@@ -41,7 +41,6 @@ export async function getDataWithRevalidate(apiRoute, params) {
       if (response.status === 404) {
         return { error: { code: 404, message: "404: منبع پیدا نشد" } };
       }
-      console.log(response, "peymanpe3yman");
       throw new Error(`HTTP error! status: ${response.status}`); // بررسی وضعیت پاسخ
     }
 

@@ -74,7 +74,7 @@ const CarSelect = (props) => {
     },
     [
       // carSelected
-    ],
+    ]
   );
 
   useEffect(() => {
@@ -83,11 +83,11 @@ const CarSelect = (props) => {
         attribute_slug: "type_vehicle",
         attribute_value: "car",
       },
-      "",
+      ""
     );
     (async () => {
       const data = await getDataWithFullErrorRes(
-        process.env.BASE_API + "/web/my-vehicles",
+        process.env.BASE_API + "/web/my-vehicles"
       );
       if (data.status && data.status === "success") {
         setMyVehicleData(data.data);
@@ -100,7 +100,7 @@ const CarSelect = (props) => {
     setSearchedData(
       data.filter((item) => {
         return item.title.includes(value);
-      }),
+      })
     );
   }
 
@@ -155,7 +155,6 @@ const CarSelect = (props) => {
         //   `/batteries/products?attribute_slug=type_vehicle&attribute_value=${attributeValue ? attributeValue : "car"}`,
         // );
       } else if (carTableType === "PERIODIC_SERVICE") {
-        console.log(data.data.data.cart_items);
         let len = 0;
         for (let item of data.data.data.cart_items) {
           if (item.type === carTableType) {
@@ -202,7 +201,6 @@ const CarSelect = (props) => {
       setData(myVehicleData);
       setSearchedData(myVehicleData);
       setLevel(4);
-      console.log(pathname.includes("/batteries"));
       if (pathname.includes("/batteries")) {
         // setQuery.deleteSingleQuery(
         //   [
@@ -231,7 +229,7 @@ const CarSelect = (props) => {
         attribute_slug: "type_vehicle",
         attribute_value: model === "heavy-vehicle" ? "heavy_car" : model,
       },
-      "",
+      ""
     );
   }
 
@@ -250,7 +248,6 @@ const CarSelect = (props) => {
   function optionClickHandler(id, item, state) {
     const level2 = state ? state : level;
     setsearchInputValue("");
-    console.log(vehicleType, id);
     if (level2 <= 3) {
       let array = [...backurl];
       array[level2 - 1] = id;
@@ -264,7 +261,7 @@ const CarSelect = (props) => {
             route +
             id +
             "?type=" +
-            vehicleType,
+            vehicleType
           // vehicleType +
           // route +
         )
@@ -290,7 +287,7 @@ const CarSelect = (props) => {
           model: item.title_model,
           image: item.image,
           type: searchParams.get("attribute_value"),
-        }),
+        })
       );
       // setCarSelected(true);
       props.setAsideStatus("car_city");
@@ -305,7 +302,7 @@ const CarSelect = (props) => {
     if (JSON.parse(localStorage.getItem("batteryTotalPrice"))?.productId) {
       await removeClickHandler(
         JSON.parse(localStorage.getItem("batteryTotalPrice")).productId,
-        "BATTERIES",
+        "BATTERIES"
       );
       // setCarSelected(false);
       localStorage.removeItem("batteryTotalPrice");
@@ -317,7 +314,7 @@ const CarSelect = (props) => {
     } else if (pathname.startsWith("/batteries")) {
       if (JSON.parse(localStorage.getItem("batteryTotalPrice"))?.productId) {
         await removeClickHandler(
-          JSON.parse(localStorage.getItem("batteryTotalPrice")).productId,
+          JSON.parse(localStorage.getItem("batteryTotalPrice")).productId
         );
       } else {
         // setCarSelected(false);
@@ -331,13 +328,13 @@ const CarSelect = (props) => {
       localStorage.removeItem("selectedVehicle");
       nProgress.start();
       router.push(
-        `/detailing?attribute_slug=type_vehicle&attribute_value=${attributeValue ? attributeValue : "car"}`,
+        `/detailing?attribute_slug=type_vehicle&attribute_value=${attributeValue ? attributeValue : "car"}`
       );
     } else if (pathname.startsWith("/periodic-service")) {
       localStorage.removeItem("selectedVehicle");
       nProgress.start();
       router.push(
-        `/periodic-service?attribute_slug=type_vehicle&attribute_value=${attributeValue ? attributeValue : "car"}`,
+        `/periodic-service?attribute_slug=type_vehicle&attribute_value=${attributeValue ? attributeValue : "car"}`
       );
     } else if (pathname.startsWith("/")) {
       localStorage.removeItem("selectedVehicle");
@@ -346,7 +343,6 @@ const CarSelect = (props) => {
   }
 
   function backClickHandler() {
-    console.log(level);
     if (level === 4) {
       setLevel(2);
       optionClickHandler(backurl[1], {}, 2);

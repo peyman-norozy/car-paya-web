@@ -2,9 +2,7 @@
 
 import ReactStars from "react-stars";
 const StarRating = (props) => {
-  const ratingChanged = (newRating) => {
-    console.log(newRating);
-  };
+  const ratingChanged = (newRating) => {};
   return (
     <ReactStars
       count={5}

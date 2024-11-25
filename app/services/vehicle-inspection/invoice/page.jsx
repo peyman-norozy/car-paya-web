@@ -40,7 +40,7 @@ const VerificationInvoice = () => {
   const package_id = searchParams.get("package_id");
   const exact_time = searchParams.get("exact_time");
   const reservation_time_slice_id = searchParams.get(
-    "reservation_time_slice_id",
+    "reservation_time_slice_id"
   );
   const registrationable_id = searchParams.get("registrationable_id");
   const router = useRouter();
@@ -55,15 +55,14 @@ const VerificationInvoice = () => {
           package_id: searchParams.get("package_id"),
           exact_time: searchParams.get("exact_time"),
           reservation_time_slice_id: searchParams.get(
-            "reservation_time_slice_id",
+            "reservation_time_slice_id"
           ),
           registrationable_id: searchParams.get("registrationable_id"),
-        },
+        }
       );
       if (response.success) {
-        console.log(response);
         setDiscount(
-          response.data.data.coupon_price ? response.data.data.coupon_price : 0,
+          response.data.data.coupon_price ? response.data.data.coupon_price : 0
         );
         setFaktorData(response.data.data);
       } else {
@@ -83,7 +82,7 @@ const VerificationInvoice = () => {
           address_id: searchParams.get("registrationable_id"),
           vehicle_tip_id: searchParams.get("vehicle_tip"),
           reservation_time_slice_id: searchParams.get(
-            "reservation_time_slice_id",
+            "reservation_time_slice_id"
           ),
           coupon_code: coupon,
           shipped_time: searchParams.get("exact_time"),
@@ -92,7 +91,7 @@ const VerificationInvoice = () => {
           headers: {
             Authorization: "Bearer " + getCookie("Authorization"),
           },
-        },
+        }
       )
       .then((res) => {
         nProgress.start();

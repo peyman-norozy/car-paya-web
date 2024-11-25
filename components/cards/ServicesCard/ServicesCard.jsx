@@ -7,7 +7,6 @@ import DetailingDetailCard from "@/components/cards/DetailingDetailCard/Detailin
 // import DetailingResponsiveButton from "@/components/DetailingResponsiveButton/DetailingResponsiveButton";
 
 const ServicesCard = (props) => {
-  console.log(props);
   const { title, services } = props;
   const [morDetail, setMorDetail] = useState(false);
 
@@ -78,7 +77,7 @@ const ServicesCard = (props) => {
                 </li>
               ) : (
                 morDetail && <DetailingDetailCard key={item.key} {...item} />
-              ),
+              )
             )}
           </ul>
           <div className={"mt-[24px] flex justify-between"}>

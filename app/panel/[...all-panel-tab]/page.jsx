@@ -63,7 +63,7 @@ const AllPanelTab = (props) => {
     };
   }, [dispatch]);
 
-  console.log("allUrl");
+  // console.log("allUrl");
 
   return (
     <>
@@ -174,7 +174,7 @@ const AllPanelTab = (props) => {
                 if (allUrl === "/panel/history-orders/verification") {
                   nProgress.start();
                   router.push(
-                    "/panel/history-orders/verification?status=CURRENT",
+                    "/panel/history-orders/verification?status=CURRENT"
                   );
                 } else {
                   return notFound();

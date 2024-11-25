@@ -26,13 +26,8 @@ const Page = (props) => {
       const data = await getDataWithFullErrorRes(
         `/web/service-periodical?step=step-3&type=${props.searchParams.type}&city_id=${props.searchParams.city_id}&vehicle_tip_id=${props.searchParams.selectTipState.split(",")[1]}&service_location_id=${props.searchParams.service_location_id}&package_id=${props.searchParams.package_id}`
       );
-      console.log(data);
       setData(data);
-      const uniqueTitles = Array.from(
-        new Set(data?.map((item) => item.title))
-      );
-      console.log(uniqueTitles);
-
+      const uniqueTitles = Array.from(new Set(data?.map((item) => item.title)));
       setUniqueTitle(uniqueTitles);
       setDayTitleTab(uniqueTitles[0]);
       // setData(
@@ -67,7 +62,6 @@ const Page = (props) => {
       router.push(
         `/periodic-service/invoice?step=step-4&city_id=${props.searchParams.city_id}&vehicle_tip_id=${props.searchParams.selectTipState}&package_id=${props.searchParams.package_id}&reservation_time_slice_id=${timeIsSelected?.id}&type=${props.searchParams.type}&service_location_id=${props.searchParams.service_location_id}&registrationable_id=${props.searchParams.service_location_id}`
       );
-      console.log(timeIsSelected);
 
       const sessionData = JSON.parse(sessionStorage.getItem("periodicCart"));
       sessionData.time = {
@@ -138,16 +132,16 @@ const Page = (props) => {
           <div className="flex gap-2 items-center w-full bg-[#FFFFFF] text-[#D1D1D1] border border-[#F2F2F2] rounded-full px-2">
             <i
               className="cc-car-o text-2xl text-[#1E67BF]"
-            // onClick={() => router.push(`/vehicle-inspection`)}
+              // onClick={() => router.push(`/vehicle-inspection`)}
             />
             <div className="border-b-4 border-dotted border-[#1E67BF] w-full"></div>
             <i
               className="cc-search text-2xl text-[#1E67BF]"
-            // onClick={() =>
-            //   router.push(
-            //     `/vehicle-inspection?step=step-1&city_id=${city_id}&vehicle_tip=${selectedItem}`
-            //   )
-            // }
+              // onClick={() =>
+              //   router.push(
+              //     `/vehicle-inspection?step=step-1&city_id=${city_id}&vehicle_tip=${selectedItem}`
+              //   )
+              // }
             />
             <div className="border-b-4 border-dotted border-[#1E67BF] w-full"></div>
             <i className="cc-timer text-2xl text-[#D1D1D1]" />
@@ -164,7 +158,7 @@ const Page = (props) => {
           <div className="w-fit flex justify-around items-center gap-6 min-w-full relative border-b border-[#FCCAAC] pb-2">
             {uniqueTitle.map((item, index) => (
               <div
-                key={item}
+                key={item + index}
                 className={`flex items-end gap-2 text-sm font-medium cursor-pointer ${dayTitleTab === item ? "text-[#F58052]" : "text-[#FCCAAC]"}`}
                 onClick={() => {
                   setDate(index);
@@ -201,14 +195,15 @@ const Page = (props) => {
           <p>{persianDateCovertor(data[0])}</p>
           </div>
           </div> */}
-              {console.log(data)}
-              {data.filter((item) => {
-                return item.title === dayTitleTab;
-              })
+              {console.log(JSON.stringify(data))}
+              {data
+                .filter((item) => {
+                  return item.title === dayTitleTab;
+                })
                 .map((item, index) => (
                   <div
                     className={`shadow-[0_0_4px_0_rgba(152,152,152,0.4)] rounded-lg h-fit border transition-all cursor-pointer duration-500 ${timeIsSelected?.id === item.id ? "border-[#F58052]" : ""}`}
-                    key={index}
+                    key={index + item.id}
                   >
                     <div
                       onClick={() =>

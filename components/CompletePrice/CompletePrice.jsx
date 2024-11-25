@@ -2,7 +2,6 @@ import React from "react";
 import { numberWithCommas } from "@/utils/function-utils";
 
 const CompletePrice = (props) => {
-  console.log(props);
   return (
     <section
       className={`bottom-0 right-0 z-[1000] bg-white ${props.customStyle} p-4 rounded-t-2xl shadow-[0_-2px_4px_0_rgba(199,199,199,0.25)]`}
@@ -22,7 +21,11 @@ const CompletePrice = (props) => {
           {/*        : Number(props.faktorData?.service?.discounted_price) -*/}
           {/*            Number(props.faktorData?.diff_price)*/}
           {/*    )}*/}
-          <span>{numberWithCommas(props.finalPrice - props.discountedprice + props.fluctuatingPrice)}</span>
+          <span>
+            {numberWithCommas(
+              props.finalPrice - props.discountedprice + props.fluctuatingPrice
+            )}
+          </span>
           <span>تومان</span>
         </div>
       </div>

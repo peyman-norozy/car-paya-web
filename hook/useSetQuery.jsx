@@ -13,10 +13,7 @@ const useSetQuery = () => {
     // const params = new URLSearchParams(searchParams.toString());
     allParams.set(key, value);
     const search = allParams.toString();
-    console.log(search);
     const query = search ? `?${search}` : "";
-    console.log(pathname);
-    console.log(query);
     nProgress.start();
     router.push(pathname + query);
   }, []);
@@ -34,7 +31,6 @@ const useSetQuery = () => {
 
   const deleteQuery = useCallback((data) => {
     const params = new URLSearchParams(searchParams.toString());
-    console.log(params);
     params.delete(data);
     const search = params.toString();
     const query = search ? `?${search}` : "";
@@ -48,11 +44,10 @@ const useSetQuery = () => {
       });
       const search = params.toString();
       const query = search ? `?${search}` : "";
-      console.log(pathname, query);
       nProgress.start();
       router.push(newPathName ? newPathName : pathname + query, options);
     },
-    [],
+    []
   );
 
   const updateMultiQuery = useCallback((data, params, options) => {
@@ -84,7 +79,7 @@ const useSetQuery = () => {
         scroll: scroll,
       });
     },
-    [pathname, router, searchParams],
+    [pathname, router, searchParams]
   );
 
   return {

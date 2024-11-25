@@ -53,7 +53,6 @@ const FilterAndSelectedCar = ({ options, page }) => {
   }
 
   const filterClickHandler = (value, inputValueType) => {
-    console.log(value.length, inputValueType, searchParams.get("page"));
     page.current = 1;
     // setQuery.updateQueryParams(
     //   { page: 1 },

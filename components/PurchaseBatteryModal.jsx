@@ -61,12 +61,9 @@ const PurchaseBatteryModal = (props) => {
     },
   ]);
 
-  console.log(cityId, batteriesData);
-
   const selectOptionHandler = (index, totalPrice, productId, id) => {
     setIsSelected(index);
     setCount(1);
-    console.log(totalPrice, productId, id);
     if (id === "noneOldBattery") {
       if (pathName.startsWith("/services/batteries")) {
         if (props.batteryIsSelected) {
@@ -77,9 +74,9 @@ const PurchaseBatteryModal = (props) => {
               price: nobatteriesData.calculation?.payment_price,
               productId: batteriesData.id,
               vehicle_tip_id: JSON.parse(
-                localStorage.getItem("selectedVehicle"),
+                localStorage.getItem("selectedVehicle")
               )?.id,
-            }),
+            })
           );
         }
       }
@@ -89,7 +86,6 @@ const PurchaseBatteryModal = (props) => {
         vehicle_tip_id: JSON.parse(localStorage.getItem("selectedVehicle"))?.id,
       });
     } else if (id === "selectAmper") {
-      console.log(cityId);
       setQuery.updateQueryParams({ type_service: "SWING_AMP" });
       localStorage.removeItem("batteryTotalPrice");
       // if (pathName.startsWith("/batteries")) {
@@ -121,13 +117,12 @@ const PurchaseBatteryModal = (props) => {
               price: sameAmpBattery.calculation.payment_price,
               productId: batteriesData.id,
               vehicle_tip_id: JSON.parse(
-                localStorage.getItem("selectedVehicle"),
+                localStorage.getItem("selectedVehicle")
               )?.id,
-            }),
+            })
           );
         }
       }
-      console.log(sameAmpBattery);
       setTotalPrice({
         price: sameAmpBattery.calculation?.payment_price,
         productId: batteriesData.id,
@@ -140,10 +135,9 @@ const PurchaseBatteryModal = (props) => {
   };
 
   const clickSelectTimeHandler = async () => {
-    console.log(batteriesData);
     sessionStorage.setItem(
       "batteriesCart",
-      JSON.stringify({ batteryName: batteriesData.name, quantity: count }),
+      JSON.stringify({ batteryName: batteriesData.name, quantity: count })
     );
     // const data = await postData("/web/cart/remove", {
     //   cartable_id: JSON.parse(localStorage.getItem("batteryTotalPrice"))
@@ -164,7 +158,7 @@ const PurchaseBatteryModal = (props) => {
     // }
     nProgress.start();
     router.push(
-      `/services/batteries/products/newSelectLocation?attribute_slug=${attributeSlug}&attribute_value=${attributeValue}&city_id=${JSON.parse(localStorage.getItem("city")).cityId}&type=MOVING&vehicle_tip_id=${JSON.parse(localStorage.getItem("selectedVehicle"))?.id}&amper=${searchParams.get("amper")}&type_service=${searchParams.get("type_service")}&item_id=${batteriesData.id}`,
+      `/services/batteries/products/newSelectLocation?attribute_slug=${attributeSlug}&attribute_value=${attributeValue}&city_id=${JSON.parse(localStorage.getItem("city")).cityId}&type=MOVING&vehicle_tip_id=${JSON.parse(localStorage.getItem("selectedVehicle"))?.id}&amper=${searchParams.get("amper")}&type_service=${searchParams.get("type_service")}&item_id=${batteriesData.id}`
     );
 
     // const cartData = await postData("/web/cart/add", {
@@ -195,7 +189,7 @@ const PurchaseBatteryModal = (props) => {
       setQuery.updateQueryParams(
         { amper: batteriesData.amp, type_service: "NO_BATTERY" },
         null,
-        false,
+        false
       );
     } else if (cityId) {
       // setQuery.updateQueryParams({ amper: cityId });
@@ -214,9 +208,8 @@ const PurchaseBatteryModal = (props) => {
             city_id: JSON.parse(localStorage.getItem("city"))?.cityId,
             vehicle_tip_id: JSON.parse(localStorage.getItem("selectedVehicle"))
               ?.id,
-          },
+          }
         );
-        console.log(selectAmpBatteriesData);
         purchseOptions.map((option) => {
           if (option.id === "selectAmper") {
             return (option.price =
@@ -246,14 +239,11 @@ const PurchaseBatteryModal = (props) => {
       Object.keys(nobatteriesData).length > 0 &&
       Object.keys(sameAmpBattery).length > 0
     ) {
-      console.log(batteriesData);
-      console.log(nobatteriesData);
       const newbatteriesOption = purchseOptions.map((option) => {
         if (option.id === "oldSameAmperBattery") {
           option.title = ` باتری ${sameAmpBattery.product_name} آمپر (با باتری فرسوده هم آمپر) `;
           option.productId = batteriesData.id;
           option.price = nobatteriesData.calculation.difference_same_amp;
-          console.log(sameAmpBattery, batteriesData);
           setTotalPrice({
             price: sameAmpBattery.calculation,
             productId: batteriesData.id,
@@ -278,7 +268,6 @@ const PurchaseBatteryModal = (props) => {
 
   useEffect(() => {
     if (props.batteryIsSelected) {
-      console.log(batteriesData);
       // setIsSelected(0);
       (async () => {
         const getBatteriesData = await getDataWithFullErrorRes(
@@ -290,9 +279,8 @@ const PurchaseBatteryModal = (props) => {
             vehicle_tip_id: JSON.parse(localStorage.getItem("selectedVehicle"))
               ?.id,
             amp_user: batteriesData.amp,
-          },
+          }
         );
-        console.log(getBatteriesData);
 
         if (getBatteriesData.response?.status === 422) {
           return;
@@ -323,9 +311,8 @@ const PurchaseBatteryModal = (props) => {
             city_id: JSON.parse(localStorage.getItem("city"))?.cityId,
             vehicle_tip_id: JSON.parse(localStorage.getItem("selectedVehicle"))
               ?.id,
-          },
+          }
         );
-        console.log(getSameAmpBattery);
         setNobatteriesData(getBatteriesData);
         setSameAmpBattery(getSameAmpBattery);
       })();
@@ -344,7 +331,7 @@ const PurchaseBatteryModal = (props) => {
           item.price = 0;
         }
         return item;
-      }),
+      })
     );
   }, [isSelected]);
 
@@ -355,7 +342,6 @@ const PurchaseBatteryModal = (props) => {
   //     }
   //   }
   // }, [totalPrice]);
-  console.log(totalPrice);
   useEffect(() => {
     if (isSelected === 1) {
       localStorage.setItem("batteryTotalPrice", JSON.stringify(totalPrice));
@@ -422,7 +408,7 @@ const PurchaseBatteryModal = (props) => {
                           index,
                           item.price,
                           item.productId,
-                          item.id,
+                          item.id
                         )
                       }
                       class_name="rounded-[50%] cursor-pointer self-start"
@@ -436,7 +422,7 @@ const PurchaseBatteryModal = (props) => {
                             icon={"cc-edit"}
                             title={"انتخاب آمپر"}
                             data={amperSelectData.filter(
-                              (item) => item.type === attributeValue,
+                              (item) => item.type === attributeValue
                             )}
                             height={"h-[150px]"}
                             inputHeight={"h-[40px]"}
@@ -472,7 +458,7 @@ const PurchaseBatteryModal = (props) => {
                                 .toString()
                                 .split("")
                                 .filter((item) => item !== "-")
-                                .join(""),
+                                .join("")
                             )}
                           </span>
                           <span className={"text-[#1E67BF]"}>تومان</span>
@@ -523,9 +509,7 @@ const PurchaseBatteryModal = (props) => {
                         <span className={"text-[#1E67BF]"}>
                           {client &&
                             numberWithCommas(
-                              sessionStorage.getItem(
-                                "batteriesDiscountedPrice",
-                              ),
+                              sessionStorage.getItem("batteriesDiscountedPrice")
                             )}
                         </span>
                         <span className={"text-[#1E67BF]"}>تومان</span>
@@ -545,7 +529,7 @@ const PurchaseBatteryModal = (props) => {
                     {numberWithCommas(
                       typeof totalPrice.price === "number"
                         ? count * totalPrice.price
-                        : 0,
+                        : 0
                     )}
                   </span>
                   <span>تومان </span>

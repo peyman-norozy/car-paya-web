@@ -140,7 +140,6 @@ const Page = (props) => {
           >
             زمان خود را انتخاب کنید:
           </p>
-          {console.log(data)}
           <div className="w-fit flex justify-around items-center gap-6 min-w-full relative border-b border-[#FCCAAC] pb-2">
             {data.slice(0, 2).map((item, index) => (
               <div
