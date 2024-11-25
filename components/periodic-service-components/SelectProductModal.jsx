@@ -14,10 +14,12 @@ import { getCookie } from "cookies-next";
 import { error, numberWithCommas, success } from "@/utils/function-utils";
 import { getCurrentData } from "@/utils/api-function-utils";
 import { postData } from "@/utils/client-api-function-utils";
+import Spinner from "../Spinner";
 
 const SelectProductModal = (props) => {
   const [productData, setProductData] = useState([]);
   const [selectedProduct, setSelectedProduct] = useState({});
+  const [spinnerState, setSpinnerState] = useState(true);
   const dispatch = useDispatch();
   useEffect(() => {
     (async () => {
@@ -28,9 +30,11 @@ const SelectProductModal = (props) => {
         )
         .then((res) => {
           setProductData(res?.data?.data);
+          setSpinnerState(false);
         })
         .catch((err) => {
           console.log(err);
+          setSpinnerState(false);
         });
     })();
   }, [props.productModalState]);
@@ -108,44 +112,50 @@ const SelectProductModal = (props) => {
           <i className="cc-twitter text-xl" onClick={closeModal} />
         </div>
         <div className="overflow-y-scroll h-[300px]">
-          <div className="px-2 h-fit gap-4 flex flex-col py-1">
-            {productData.map((item, index) => (
-              <div
-                className={`w-full rounded-[4px] shadow-[0_0_6px_0_rgba(125,125,125,0.5)] flex flex-col gap-3 px-[6px] py-4 transition-all duration-150 ${selectedProduct.id === item.id ? "border border-[#F58052]" : ""}`}
-                onClick={() => {
-                  selectedProduct.id === item.id
-                    ? setSelectedProduct({})
-                    : setSelectedProduct(item);
-                }}
-                key={index}
-              >
-                <div className="flex justify-between items-center">
-                  <div className="flex items-center gap-2">
-                    <div
-                      className={
-                        "rounded-[50%] border-2 border-[#F58052] size-5 flex items-center justify-center"
-                      }
-                    >
+          {spinnerState ? (
+            <div className="flex items-center justify-center h-full">
+              <Spinner width="w-[60px]" height="h-[60px]" />
+            </div>
+          ) : (
+            <div className="px-2 h-fit gap-4 flex flex-col py-1">
+              {productData.map((item, index) => (
+                <div
+                  className={`w-full rounded-[4px] shadow-[0_0_6px_0_rgba(125,125,125,0.5)] flex flex-col gap-3 px-[6px] py-4 transition-all duration-150 ${selectedProduct.id === item.id ? "border border-[#F58052]" : ""}`}
+                  onClick={() => {
+                    selectedProduct.id === item.id
+                      ? setSelectedProduct({})
+                      : setSelectedProduct(item);
+                  }}
+                  key={index}
+                >
+                  <div className="flex justify-between items-center">
+                    <div className="flex items-center gap-2">
                       <div
-                        className={`rounded-[50%] bg-[#F58052] size-[10px] transition-all duration-150 ${selectedProduct.id === item.id ? "scale-1" : "scale-0"}`}
-                      ></div>
+                        className={
+                          "rounded-[50%] border-2 border-[#F58052] size-5 flex items-center justify-center"
+                        }
+                      >
+                        <div
+                          className={`rounded-[50%] bg-[#F58052] size-[10px] transition-all duration-150 ${selectedProduct.id === item.id ? "scale-1" : "scale-0"}`}
+                        ></div>
+                      </div>
+                      <span className="font-medium text-xs text-[#010101]">
+                        {item.name}
+                      </span>
                     </div>
-                    <span className="font-medium text-xs text-[#010101]">
-                      {item.name}
-                    </span>
-                  </div>
-                  <div className="flex items-center gap-1">
-                    <span className="text-[#60ABEC] line-through font-medium text-xs">
-                      {numberWithCommas(item.price)} تومان
-                    </span>
-                    <span className="text-[#1E67BF] font-medium text-sm">
-                      {numberWithCommas(item.discount_price)} تومان
-                    </span>
+                    <div className="flex items-center gap-1">
+                      <span className="text-[#60ABEC] line-through font-medium text-xs">
+                        {numberWithCommas(item.price)} تومان
+                      </span>
+                      <span className="text-[#1E67BF] font-medium text-sm">
+                        {numberWithCommas(item.discount_price)} تومان
+                      </span>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          )}
         </div>
         <div className="fixed sm:static w-full rounded-t-2xl shadow-[0_-2px_4px_0_rgba(199,199,199,0.25)] flex justify-center pt-4 pb-6 items-start bottom-0 right-0 bg-white z-[2000] px-10">
           <button

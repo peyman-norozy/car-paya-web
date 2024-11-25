@@ -15,7 +15,7 @@ const UserAddressCard = (props) => {
         props.selectedAddress === props.data.address_id
           ? props.setSelectedAddress("")
           : props.setSelectedAddress(props.data.address_id);
-        // props.setSelectedAddressId(props.data.id);
+        props.setSelectedAddressId(props.data.address_id);
         props.setSelectedAddressText(props.data.address);
       }}
     >
