@@ -1,5 +1,8 @@
 "use client";
 
+import CreateVehicleModal from "@/components/panel/CreateVehicleModal";
+import CarSelect from "@/components/public/CarSelect";
+import VehiclePriceModal from "@/components/vehiclePrice/VehiclePriceModal";
 import { API_PATHS } from "@/configs/routes.config";
 import PanelContainer from "@/layouts/PanelContainer";
 import iransFlag from "@/public/assets/images/iransFlag.png";
@@ -12,6 +15,11 @@ const MyVehicle = () => {
   const [openMenu, setOpenMenu] = useState(false);
   const [vehicleData, setVehicleData] = useState([]);
   const [filteredVehicleData, srtFilteredVehicleData] = useState([]);
+  const [display, setDispaly] = useState(false);
+  const [asideStatus, setAsideStatus] = useState("car_city");
+  const [preventFirstRender, setPreventFirstRender] = useState(false);
+  const [carData, setCarData] = useState({});
+
   useEffect(() => {
     getMyVehicleData();
   }, []);
@@ -55,6 +63,15 @@ const MyVehicle = () => {
             <option value="MOTOR">موتور</option>
             <option value="HEAVY_CAR">ماشین سنگین</option>
           </select>
+          <div
+            className="bg-inherit text-[#0F0F0F] p-2 rounded-lg text-12 sm:text-16 shadow-[0_0_5px_0_rgba(160,160,160,0.7)] flex items-center gap-2 cursor-pointer"
+            onClick={() => {
+              setDispaly(true);
+            }}
+          >
+            <i className="cc-add" />
+            <span>افزودن وسیله نقلیه</span>
+          </div>
         </div>
         <div className="grid grid-cols-1 size830:grid-cols-2 xl:grid-cols-3 gap-6">
           {filteredVehicleData.map((item, index) => (
@@ -202,6 +219,43 @@ const MyVehicle = () => {
             </div>
           ))}
         </div>
+        {display && (
+          <div
+            className="fixed w-screen h-screen flex items-center justify-center top-0 right-0 bg-[#0000004d] z-[10000]"
+            onClick={() => {
+              setDispaly(false);
+            }}
+          >
+            <div
+              onClick={(event) => {
+                event.stopPropagation();
+              }}
+            >
+              {(() => {
+                switch (asideStatus) {
+                  case "car_city":
+                    return (
+                      <CreateVehicleModal
+                        buttonTitle={"تخمین قیمت"}
+                        onClick={() => {
+                          console.log(carData);
+                        }}
+                        setAsideStatus={setAsideStatus}
+                        setModalClickState={() => {}}
+                        setCarData={setCarData}
+                        carData={carData}
+                        setDispaly={setDispaly}
+                      />
+                    );
+                  case "carSelection":
+                    return <CarSelect setAsideStatus={setAsideStatus} />;
+                  default:
+                    return null;
+                }
+              })()}
+            </div>
+          </div>
+        )}
       </div>
     </PanelContainer>
   );
