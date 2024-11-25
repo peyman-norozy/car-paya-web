@@ -18,11 +18,11 @@ const ProfilePage = () => {
     const res = await getDataWithFullErrorRes("user/profile");
     setData({
       image_id: res.data.image_id,
-      first_name: res.data.profile.first_name,
-      last_name: res.data.profile.last_name,
+      first_name: res.data.profile?.first_name,
+      last_name: res.data.profile?.last_name,
       mobile: res.data.mobile,
-      gender: res.data.profile.gender,
-      national_code: res.data.profile.national_code,
+      gender: res.data.profile?.gender,
+      national_code: res.data.profile?.national_code,
       email: res.data.email,
     });
   }
