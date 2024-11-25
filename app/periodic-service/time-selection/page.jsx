@@ -158,7 +158,7 @@ const Page = (props) => {
           <div className="w-fit flex justify-around items-center gap-6 min-w-full relative border-b border-[#FCCAAC] pb-2">
             {uniqueTitle.map((item, index) => (
               <div
-                key={item}
+                key={item + index}
                 className={`flex items-end gap-2 text-sm font-medium cursor-pointer ${dayTitleTab === item ? "text-[#F58052]" : "text-[#FCCAAC]"}`}
                 onClick={() => {
                   setDate(index);
@@ -202,7 +202,7 @@ const Page = (props) => {
                 .map((item, index) => (
                   <div
                     className={`shadow-[0_0_4px_0_rgba(152,152,152,0.4)] rounded-lg h-fit border transition-all cursor-pointer duration-500 ${timeIsSelected?.id === item.id ? "border-[#F58052]" : ""}`}
-                    key={index}
+                    key={index + item.id}
                   >
                     <div
                       onClick={() =>
