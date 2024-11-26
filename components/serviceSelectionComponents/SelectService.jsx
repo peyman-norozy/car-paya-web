@@ -107,14 +107,22 @@ const SelectService = (props) => {
       <div className=" flex flex-col gap-4 lg:mr-8">
         <div className="flex gap-2 items-center w-full bg-[#FFFFFF] text-[#D1D1D1]">
           <i
-            className="cc-car-o text-2xl text-[#518DD5]"
+            className="cc-car-o text-2xl text-[#518DD5] cursor-pointer"
             onClick={() => {
               nProgress.start();
               router.push(`/periodic-service`);
             }}
           />
           <div className="border-b-4 border-dotted border-[#518DD5] w-full"></div>
-          <i className="cc-location text-2xl text-[#518DD5]" />
+          <i
+            className="cc-location text-2xl text-[#518DD5] cursor-pointer"
+            onClick={() => {
+              nProgress.start();
+              router.push(
+                `/periodic-service/location-selection?selectTipState=${props.params.selectTipState}&city_id=${props.params.city_id}&type=${props.params.type}`
+              );
+            }}
+          />
           <div className="border-b-4 border-dotted border-[#518DD5] w-full"></div>
           <i className="cc-search text-2xl text-[#D1D1D1]" />
           <div className="border-b-4 border-dotted border-[#D1D1D1] w-full"></div>
