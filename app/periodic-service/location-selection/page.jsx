@@ -318,33 +318,35 @@ const Dealership = (props) => {
               </button>
             </div>
           )}
-          <div className="flex flex-col gap-2 pb-2">
-            {tab
-              ? userAdressData.map((item, index) => (
-                  <UserAddressCard
-                    key={index}
-                    data={item}
-                    selectedAddress={selectedAddress}
-                    setSelectedAddress={setSelectedAddress}
-                    getDataFetch={setUserAdressData}
-                    setModalIsOpen={setModalIsOpen}
-                    setIsLoading={setIsLoading}
-                    editModalIsOpen={editModalIsOpen}
-                    setEditModalIsOpen={setEditModalIsOpen}
-                    setSelectedAddressText={setSelectedAddressText}
-                    setSelectedAddressId={setSelectedAddressId}
-                  />
-                ))
-              : searchedAgentData?.map((item, index) => (
-                  <AgentAdressCard
-                    setSelectedAddressId={setSelectedAddressId}
-                    key={index}
-                    data={item}
-                    selectedAddress={selectedAddress}
-                    setSelectedAddress={setSelectedAddress}
-                    setSelectedAddressText={setSelectedAddressText}
-                  />
-                ))}
+          <div className="overflow-y-scroll max-h-[calc(100vh-460px)] p-1">
+            <div className="flex flex-col gap-2 pb-2">
+              {tab
+                ? userAdressData.map((item, index) => (
+                    <UserAddressCard
+                      key={index}
+                      data={item}
+                      selectedAddress={selectedAddress}
+                      setSelectedAddress={setSelectedAddress}
+                      getDataFetch={setUserAdressData}
+                      setModalIsOpen={setModalIsOpen}
+                      setIsLoading={setIsLoading}
+                      editModalIsOpen={editModalIsOpen}
+                      setEditModalIsOpen={setEditModalIsOpen}
+                      setSelectedAddressText={setSelectedAddressText}
+                      setSelectedAddressId={setSelectedAddressId}
+                    />
+                  ))
+                : searchedAgentData?.map((item, index) => (
+                    <AgentAdressCard
+                      setSelectedAddressId={setSelectedAddressId}
+                      key={index}
+                      data={item}
+                      selectedAddress={selectedAddress}
+                      setSelectedAddress={setSelectedAddress}
+                      setSelectedAddressText={setSelectedAddressText}
+                    />
+                  ))}
+            </div>
           </div>
           <button
             onClick={continueSecondStepHandler}
