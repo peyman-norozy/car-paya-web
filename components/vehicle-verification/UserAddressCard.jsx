@@ -16,7 +16,10 @@ const UserAddressCard = (props) => {
           ? props.setSelectedAddress("")
           : props.setSelectedAddress(props.data.address_id);
         props.setSelectedAddressId(props.data.address_id);
-        props.setSelectedAddressText(props.data.address);
+        props.setSelectedAddressText({
+          title: props.data.address,
+          name: props.data.title,
+        });
       }}
     >
       <div className="flex items-center justify-between">

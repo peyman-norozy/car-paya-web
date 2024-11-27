@@ -17,6 +17,7 @@ import DeleteModal from "@/components/public/DeleteModal";
 import ServicesModal from "@/components/periodic-service-components/ServicesModal";
 import nProgress from "nprogress";
 import Image from "next/image";
+import PeriodicOrderDataCard from "@/components/periodic-service-components/PeriodicOrderDataCard";
 
 const Dealership = (props) => {
   // const [isSelected, setIsSelected] = useState(0);
@@ -34,7 +35,7 @@ const Dealership = (props) => {
   const [isLoading, setIsLoading] = useState(false);
   const [selectedAddress, setSelectedAddress] = useState("");
   const [selectedAddressId, setSelectedAddressId] = useState("");
-  const [selectedAddressText, setSelectedAddressText] = useState("");
+  const [selectedAddressText, setSelectedAddressText] = useState({});
   const [serviceModal, setServiceModal] = useState(false);
   const [checkedService, setCheckedService] = useState([]);
   const [selectedVehicle, setSelectedVehicle] = useState({});
@@ -148,7 +149,8 @@ const Dealership = (props) => {
       JSON.stringify({
         location_id: selectedAddressId,
         location_address_id: selectedAddress,
-        location_title: selectedAddressText,
+        location_title: selectedAddressText?.title,
+        location_name: selectedAddressText?.name,
       })
     );
     setQuery.updateQueryParams(
@@ -216,21 +218,8 @@ const Dealership = (props) => {
 
   return (
     <div className="flex w-full pt-[28px] items-stretch pb-[6rem]">
-      <div className="w-[400px] relative">
-        <div className="sticky shadow-[0_0_6px_0_rgba(125,125,125,0.5)] p-6 flex flex-col items-start gap-4 rounded-lg">
-          <span className="font-medium text-sm text-[#454545]">
-            {selectedVehicle.title}
-          </span>
-          <Image
-            className="w-auto h-[185px] mx-auto"
-            src={process.env.BASE_API + "/web/file/" + selectedVehicle.image}
-            width={368}
-            height={185}
-            alt="khodro"
-          />
-        </div>
-      </div>
-      <div className="lg:w-[calc(100%-424px)] mr-auto overflow-hidden flex flex-col gap-4 bg-[#FDFDFD] lg:shadow-[0_0_6px_0_rgba(125,125,125,0.5)] px-2 lg:p-6 rounded-2xl min-h-[605px]">
+      <PeriodicOrderDataCard />
+      <div className="w-full lg:w-[calc(100%-424px)] mr-auto overflow-hidden flex flex-col gap-4 bg-[#FDFDFD] lg:shadow-[0_0_6px_0_rgba(125,125,125,0.5)] px-2 lg:p-6 rounded-2xl min-h-[605px]">
         <div
           className={
             "flex items-center gap-2 size752:gap-[16px] text-[#0E0E0E] w-full"
@@ -329,33 +318,35 @@ const Dealership = (props) => {
               </button>
             </div>
           )}
-          <div className="flex flex-col gap-2 pb-2">
-            {tab
-              ? userAdressData.map((item, index) => (
-                  <UserAddressCard
-                    key={index}
-                    data={item}
-                    selectedAddress={selectedAddress}
-                    setSelectedAddress={setSelectedAddress}
-                    getDataFetch={setUserAdressData}
-                    setModalIsOpen={setModalIsOpen}
-                    setIsLoading={setIsLoading}
-                    editModalIsOpen={editModalIsOpen}
-                    setEditModalIsOpen={setEditModalIsOpen}
-                    setSelectedAddressText={setSelectedAddressText}
-                    setSelectedAddressId={setSelectedAddressId}
-                  />
-                ))
-              : searchedAgentData?.map((item, index) => (
-                  <AgentAdressCard
-                    setSelectedAddressId={setSelectedAddressId}
-                    key={index}
-                    data={item}
-                    selectedAddress={selectedAddress}
-                    setSelectedAddress={setSelectedAddress}
-                    setSelectedAddressText={setSelectedAddressText}
-                  />
-                ))}
+          <div className="lg:overflow-y-scroll lg:max-h-[calc(100vh-460px)] p-1">
+            <div className="flex flex-col gap-2 pb-2">
+              {tab
+                ? userAdressData.map((item, index) => (
+                    <UserAddressCard
+                      key={index}
+                      data={item}
+                      selectedAddress={selectedAddress}
+                      setSelectedAddress={setSelectedAddress}
+                      getDataFetch={setUserAdressData}
+                      setModalIsOpen={setModalIsOpen}
+                      setIsLoading={setIsLoading}
+                      editModalIsOpen={editModalIsOpen}
+                      setEditModalIsOpen={setEditModalIsOpen}
+                      setSelectedAddressText={setSelectedAddressText}
+                      setSelectedAddressId={setSelectedAddressId}
+                    />
+                  ))
+                : searchedAgentData?.map((item, index) => (
+                    <AgentAdressCard
+                      setSelectedAddressId={setSelectedAddressId}
+                      key={index}
+                      data={item}
+                      selectedAddress={selectedAddress}
+                      setSelectedAddress={setSelectedAddress}
+                      setSelectedAddressText={setSelectedAddressText}
+                    />
+                  ))}
+            </div>
           </div>
           <button
             onClick={continueSecondStepHandler}

@@ -11,6 +11,7 @@ import InvoiceModal from "./InvoiceModal";
 import { getCurrentData } from "@/utils/api-function-utils";
 import { numberWithCommas } from "@/utils/function-utils";
 import nProgress from "nprogress";
+import PeriodicOrderDataCard from "../periodic-service-components/PeriodicOrderDataCard";
 
 const SelectService = (props) => {
   const [productModalState, setProductModalState] = useState(false);
@@ -90,121 +91,143 @@ const SelectService = (props) => {
     //     تایید و مرحله بعد
     //   </button>
     // </div>
-    <div className="mb-[7rem] w-full lg:w-[calc(100%-424px)] mr-auto overflow-hidden flex flex-col gap-4 mt-[28px] bg-[#FDFDFD] lg:shadow-[0_0_6px_0_rgba(125,125,125,0.5)] px-2 lg:p-6 rounded-2xl lg:min-h-[605px] relative">
-      <div
-        className={
-          "flex items-center gap-2 size752:gap-[16px] text-[#0E0E0E] w-full"
-        }
-      >
-        <i
-          className={"cc-arrow-right text-24 cursor-pointer"}
-          onClick={backstopHandler}
-        />
-        <p className={"text-14 size752:text-16 w-full font-medium"}>
-          خدمات سرویس دوره ایی
-        </p>
-      </div>
-      <div className=" flex flex-col gap-4 lg:mr-8">
-        <div className="flex gap-2 items-center w-full bg-[#FFFFFF] text-[#D1D1D1]">
+    <div className="flex w-full pt-[28px] items-stretch pb-[6rem]">
+      <PeriodicOrderDataCard />
+      <div className="w-full lg:w-[calc(100%-424px)] mr-auto overflow-hidden flex flex-col gap-4 bg-[#FDFDFD] lg:shadow-[0_0_6px_0_rgba(125,125,125,0.5)] px-2 lg:p-6 rounded-2xl lg:min-h-[605px] relative">
+        <div
+          className={
+            "flex items-center gap-2 size752:gap-[16px] text-[#0E0E0E] w-full"
+          }
+        >
           <i
-            className="cc-car-o text-2xl text-[#518DD5] cursor-pointer"
-            onClick={() => {
-              nProgress.start();
-              router.push(`/periodic-service`);
-            }}
+            className={"cc-arrow-right text-24 cursor-pointer"}
+            onClick={backstopHandler}
           />
-          <div className="border-b-4 border-dotted border-[#518DD5] w-full"></div>
-          <i
-            className="cc-location text-2xl text-[#518DD5] cursor-pointer"
-            onClick={() => {
-              nProgress.start();
-              router.push(
-                `/periodic-service/location-selection?selectTipState=${props.params.selectTipState}&city_id=${props.params.city_id}&type=${props.params.type}`
-              );
-            }}
-          />
-          <div className="border-b-4 border-dotted border-[#518DD5] w-full"></div>
-          <i className="cc-search text-2xl text-[#D1D1D1]" />
-          <div className="border-b-4 border-dotted border-[#D1D1D1] w-full"></div>
-          <i className="cc-timer text-2xl text-[#D1D1D1]" />
+          <p className={"text-14 size752:text-16 w-full font-medium"}>
+            خدمات سرویس دوره ایی
+          </p>
         </div>
-        <div className="w-full p-[10px] shadow-[0_0_6px_0_rgba(125,125,125,0.5)] flex justify-between rounded-lg items-center">
-          <span className="font-medium text-sm">نمایندگی ایران خودرو</span>
-          <div
-            className="relative flex justify-center items-center shadow-[0_0_6px_0_rgba(125,125,125,0.5)] size-[36px] rounded-[4px]"
-            onClick={() => {
-              setInvoiceModalState(true);
-            }}
-          >
-            <i className="cc-wallet text-xl" />
-            <span
-              className={`rounded-full bg-[#F66B34] text-[#FEFEFE] size-[18px] flex items-center justify-center absolute -top-[9px] -right-[9px] text-xs pt-1 ${invoiceData.length ? "" : "hidden"}`}
-            >
-              {invoiceData.length}
-            </span>
-          </div>
-        </div>
-        <div className="grid grid-cols-3 sm:grid-cols-5 gap-x-3 gap-y-6">
-          {props.data.map((item, index) => (
-            <div
-              className={`${isInCart(item.id) ? "bg-[#FFE1D6]" : "bg-white"} shadow-[0_0_6px_0_rgba(125,125,125,0.5)] rounded-lg flex flex-col items-center w-full p-2 pb-1 gap-1`}
+        <div className=" flex flex-col gap-4 lg:mr-8">
+          <div className="flex gap-2 items-center w-full bg-[#FFFFFF] text-[#D1D1D1]">
+            <i
+              className="cc-car-o text-2xl text-[#518DD5] cursor-pointer"
               onClick={() => {
-                setSelectedService(item.slug);
-                setProductModalState(true);
+                nProgress.start();
+                router.push(`/periodic-service`);
               }}
-              key={index}
+            />
+            <div className="border-b-4 border-dotted border-[#518DD5] w-full"></div>
+            <i
+              className="cc-location text-2xl text-[#518DD5] cursor-pointer"
+              onClick={() => {
+                nProgress.start();
+                router.push(
+                  `/periodic-service/location-selection?selectTipState=${props.params.selectTipState}&city_id=${props.params.city_id}&type=${props.params.type}`
+                );
+              }}
+            />
+            <div className="border-b-4 border-dotted border-[#518DD5] w-full"></div>
+            <i className="cc-search text-2xl text-[#D1D1D1]" />
+            <div className="border-b-4 border-dotted border-[#D1D1D1] w-full"></div>
+            <i className="cc-timer text-2xl text-[#D1D1D1]" />
+          </div>
+          <div className="w-full p-[10px] shadow-[0_0_6px_0_rgba(125,125,125,0.5)] flex justify-between rounded-lg items-center">
+            <span className="font-medium text-sm">
+              {JSON.parse(sessionStorage.getItem("periodicCart")).location_name}
+            </span>
+            <div
+              className="relative flex justify-center items-center shadow-[0_0_6px_0_rgba(125,125,125,0.5)] size-[36px] rounded-[4px]"
+              onClick={() => {
+                setInvoiceModalState(true);
+              }}
             >
-              <Image
-                className="w-full rounded-lg aspect-[67/50]"
-                src={
-                  process.env.BASE_API +
-                  "/web" +
-                  API_PATHS.FILE +
-                  "/" +
-                  item.image
-                }
-                alt=""
-                width={67}
-                height={50}
-              />
-              <span className="text-xs lg:text-18 h-8 line-clamp-2 flex items-center justify-center font-medium text-center">
-                {item.title}
+              <i className="cc-wallet text-xl" />
+              <span
+                className={`rounded-full bg-[#F66B34] text-[#FEFEFE] size-[18px] flex items-center justify-center absolute -top-[9px] -right-[9px] text-xs pt-1 ${invoiceData.length ? "" : "hidden"}`}
+              >
+                {invoiceData.length}
               </span>
             </div>
-          ))}
+          </div>
+          <div className="lg:overflow-y-scroll lg:max-h-[calc(100vh-400px)] p-1">
+            <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-3 xl:grid-cols-4 size1470:grid-cols-5 gap-x-3 gap-y-6">
+              {props.data.map((item, index) => (
+                <div
+                  className={`${isInCart(item.id) ? "bg-[#FFE1D6]" : "bg-white"} shadow-[0_0_6px_0_rgba(125,125,125,0.5)] rounded-lg flex flex-col items-center w-full p-2 pb-1 gap-1`}
+                  onClick={() => {
+                    setSelectedService(item.slug);
+                    setProductModalState(true);
+                  }}
+                  key={index}
+                >
+                  <Image
+                    className="w-full rounded-lg aspect-[67/50]"
+                    src={
+                      process.env.BASE_API +
+                      "/web" +
+                      API_PATHS.FILE +
+                      "/" +
+                      item.image
+                    }
+                    alt=""
+                    width={67}
+                    height={50}
+                  />
+                  <span className="text-xs lg:text-18 h-8 line-clamp-2 flex items-center justify-center font-medium text-center">
+                    {item.title}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div className="w-full lg:flex hidden justify-between pt-4 px-4 bg-white border-t ">
+            <div className="flex-col flex items-start text-sm gap-1">
+              <span>جمع سفارش:</span>
+              <span className="font-medium text-[#518DD5]">
+                {numberWithCommas(calculate())} تومان
+              </span>
+            </div>
+            <button
+              className={`${invoiceData.length ? "bg-[#F66B34]" : "bg-[#FCCAAC]"} rounded-lg text-[#FEFEFE] font-medium py-2 px-3`}
+              disabled={invoiceData.length ? false : true}
+              onClick={nextButtonClickHandler}
+            >
+              تایید و تکمیل سفارش
+            </button>
+          </div>
         </div>
-      </div>
-      <div className="fixed bottom-0 right-0 w-full flex justify-between p-4 bg-white shadow-[0_-2px_8px_0_rgba(176,176,176,0.25)] rounded-t-2xl z-[3000]">
-        <div className="flex-col flex items-start text-sm gap-1">
-          <span>جمع سفارش:</span>
-          <span className="font-medium text-[#518DD5]">
-            {numberWithCommas(calculate())} تومان
-          </span>
+        <div className="fixed bottom-0 right-0 w-full flex lg:hidden justify-between p-4 bg-white shadow-[0_-2px_8px_0_rgba(176,176,176,0.25)] rounded-t-2xl z-[3000] ">
+          <div className="flex-col flex items-start text-sm gap-1">
+            <span>جمع سفارش:</span>
+            <span className="font-medium text-[#518DD5]">
+              {numberWithCommas(calculate())} تومان
+            </span>
+          </div>
+          <button
+            className={`${invoiceData.length ? "bg-[#F66B34]" : "bg-[#FCCAAC]"} rounded-lg text-[#FEFEFE] font-medium py-2 px-3`}
+            disabled={invoiceData.length ? false : true}
+            onClick={nextButtonClickHandler}
+          >
+            تایید و تکمیل سفارش
+          </button>
         </div>
-        <button
-          className={`${invoiceData.length ? "bg-[#F66B34]" : "bg-[#FCCAAC]"} rounded-lg text-[#FEFEFE] font-medium py-2 px-3`}
-          disabled={invoiceData.length ? false : true}
-          onClick={nextButtonClickHandler}
-        >
-          تایید و تکمیل سفارش
-        </button>
-      </div>
-      {productModalState && (
-        <SelectProductModal
-          params={props.params}
-          productModalState={productModalState}
-          setProductModalState={setProductModalState}
-          selectedServic={selectedServic}
-          setInvoiceData={setInvoiceData}
+        {productModalState && (
+          <SelectProductModal
+            params={props.params}
+            productModalState={productModalState}
+            setProductModalState={setProductModalState}
+            selectedServic={selectedServic}
+            setInvoiceData={setInvoiceData}
+            invoiceData={invoiceData}
+          />
+        )}
+        <InvoiceModal
+          invoiceModalState={invoiceModalState}
+          setInvoiceModalState={setInvoiceModalState}
           invoiceData={invoiceData}
+          setInvoiceData={setInvoiceData}
         />
-      )}
-      <InvoiceModal
-        invoiceModalState={invoiceModalState}
-        setInvoiceModalState={setInvoiceModalState}
-        invoiceData={invoiceData}
-        setInvoiceData={setInvoiceData}
-      />
+      </div>
     </div>
   );
 };
