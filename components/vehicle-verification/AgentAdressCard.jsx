@@ -6,7 +6,10 @@ const AgentAdressCard = (props) => {
         props.selectedAddress === props.data.address_id
           ? props.setSelectedAddress("")
           : props.setSelectedAddress(props.data.address_id);
-        props.setSelectedAddressText(props.data.address);
+        props.setSelectedAddressText({
+          title: props.data.address,
+          name: props.data.title,
+        });
         props.setSelectedAddressId(props.data.id);
       }}
     >
