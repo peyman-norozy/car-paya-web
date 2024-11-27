@@ -61,7 +61,7 @@ const Page = (props) => {
       // if (loginState) {
       nProgress.start();
       router.push(
-        `/periodic-service/invoice?step=step-4&city_id=${searchParams.get("city_id")}&vehicle_tip_id=${searchParams.get("selectTipState")}&package_id=${searchParams.get("package_id")}&reservation_time_slice_id=${timeIsSelected?.id}&type=${searchParams.get("type")}&service_location_id=${searchParams.get("service_location_id")}&registrationable_id=${searchParams.get("service_location_id")}`
+        `/periodic-service/invoice?step=step-4&city_id=${searchParams.get("city_id")}&vehicle_tip_id=${JSON.parse(localStorage.getItem("selectedVehicle")).id}&package_id=${searchParams.get("package_id")}&reservation_time_slice_id=${timeIsSelected?.id}&type=${searchParams.get("type")}&service_location_id=${searchParams.get("service_location_id")}&registrationable_id=${searchParams.get("service_location_id")}`
       );
 
       const sessionData = JSON.parse(sessionStorage.getItem("periodicCart"));
