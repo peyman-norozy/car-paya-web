@@ -18,7 +18,7 @@ const PeriodicOrderDataCard = () => {
     return numberWithCommas(price);
   }
   return (
-    <div className="w-[400px] relative">
+    <div className="w-[400px] relative hidden lg:inline-block">
       <div className="sticky shadow-[0_0_6px_0_rgba(125,125,125,0.5)] p-6 flex flex-col items-start gap-4 rounded-xl top-[102px]">
         <Image
           className="w-auto h-[185px] mx-auto"

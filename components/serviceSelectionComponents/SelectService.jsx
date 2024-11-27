@@ -147,7 +147,7 @@ const SelectService = (props) => {
               </span>
             </div>
           </div>
-          <div className="grid grid-cols-3 sm:grid-cols-5 gap-x-3 gap-y-6">
+          <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-3 xl:grid-cols-4 size1470:grid-cols-5 gap-x-3 gap-y-6">
             {props.data.map((item, index) => (
               <div
                 className={`${isInCart(item.id) ? "bg-[#FFE1D6]" : "bg-white"} shadow-[0_0_6px_0_rgba(125,125,125,0.5)] rounded-lg flex flex-col items-center w-full p-2 pb-1 gap-1`}
