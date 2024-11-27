@@ -219,7 +219,7 @@ const Dealership = (props) => {
   return (
     <div className="flex w-full pt-[28px] items-stretch pb-[6rem]">
       <PeriodicOrderDataCard />
-      <div className="lg:w-[calc(100%-424px)] mr-auto overflow-hidden flex flex-col gap-4 bg-[#FDFDFD] lg:shadow-[0_0_6px_0_rgba(125,125,125,0.5)] px-2 lg:p-6 rounded-2xl min-h-[605px]">
+      <div className="w-full lg:w-[calc(100%-424px)] mr-auto overflow-hidden flex flex-col gap-4 bg-[#FDFDFD] lg:shadow-[0_0_6px_0_rgba(125,125,125,0.5)] px-2 lg:p-6 rounded-2xl min-h-[605px]">
         <div
           className={
             "flex items-center gap-2 size752:gap-[16px] text-[#0E0E0E] w-full"
@@ -318,7 +318,7 @@ const Dealership = (props) => {
               </button>
             </div>
           )}
-          <div className="overflow-y-scroll max-h-[calc(100vh-460px)] p-1">
+          <div className="lg:overflow-y-scroll lg:max-h-[calc(100vh-460px)] p-1">
             <div className="flex flex-col gap-2 pb-2">
               {tab
                 ? userAdressData.map((item, index) => (

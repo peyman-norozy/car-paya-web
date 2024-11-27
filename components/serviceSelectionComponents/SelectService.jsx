@@ -132,7 +132,9 @@ const SelectService = (props) => {
             <i className="cc-timer text-2xl text-[#D1D1D1]" />
           </div>
           <div className="w-full p-[10px] shadow-[0_0_6px_0_rgba(125,125,125,0.5)] flex justify-between rounded-lg items-center">
-            <span className="font-medium text-sm">نمایندگی ایران خودرو</span>
+            <span className="font-medium text-sm">
+              {JSON.parse(sessionStorage.getItem("periodicCart")).location_name}
+            </span>
             <div
               className="relative flex justify-center items-center shadow-[0_0_6px_0_rgba(125,125,125,0.5)] size-[36px] rounded-[4px]"
               onClick={() => {
@@ -147,37 +149,54 @@ const SelectService = (props) => {
               </span>
             </div>
           </div>
-          <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-3 xl:grid-cols-4 size1470:grid-cols-5 gap-x-3 gap-y-6">
-            {props.data.map((item, index) => (
-              <div
-                className={`${isInCart(item.id) ? "bg-[#FFE1D6]" : "bg-white"} shadow-[0_0_6px_0_rgba(125,125,125,0.5)] rounded-lg flex flex-col items-center w-full p-2 pb-1 gap-1`}
-                onClick={() => {
-                  setSelectedService(item.slug);
-                  setProductModalState(true);
-                }}
-                key={index}
-              >
-                <Image
-                  className="w-full rounded-lg aspect-[67/50]"
-                  src={
-                    process.env.BASE_API +
-                    "/web" +
-                    API_PATHS.FILE +
-                    "/" +
-                    item.image
-                  }
-                  alt=""
-                  width={67}
-                  height={50}
-                />
-                <span className="text-xs lg:text-18 h-8 line-clamp-2 flex items-center justify-center font-medium text-center">
-                  {item.title}
-                </span>
-              </div>
-            ))}
+          <div className="lg:overflow-y-scroll lg:max-h-[calc(100vh-400px)] p-1">
+            <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-3 xl:grid-cols-4 size1470:grid-cols-5 gap-x-3 gap-y-6">
+              {props.data.map((item, index) => (
+                <div
+                  className={`${isInCart(item.id) ? "bg-[#FFE1D6]" : "bg-white"} shadow-[0_0_6px_0_rgba(125,125,125,0.5)] rounded-lg flex flex-col items-center w-full p-2 pb-1 gap-1`}
+                  onClick={() => {
+                    setSelectedService(item.slug);
+                    setProductModalState(true);
+                  }}
+                  key={index}
+                >
+                  <Image
+                    className="w-full rounded-lg aspect-[67/50]"
+                    src={
+                      process.env.BASE_API +
+                      "/web" +
+                      API_PATHS.FILE +
+                      "/" +
+                      item.image
+                    }
+                    alt=""
+                    width={67}
+                    height={50}
+                  />
+                  <span className="text-xs lg:text-18 h-8 line-clamp-2 flex items-center justify-center font-medium text-center">
+                    {item.title}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div className="w-full lg:flex hidden justify-between pt-4 px-4 bg-white border-t ">
+            <div className="flex-col flex items-start text-sm gap-1">
+              <span>جمع سفارش:</span>
+              <span className="font-medium text-[#518DD5]">
+                {numberWithCommas(calculate())} تومان
+              </span>
+            </div>
+            <button
+              className={`${invoiceData.length ? "bg-[#F66B34]" : "bg-[#FCCAAC]"} rounded-lg text-[#FEFEFE] font-medium py-2 px-3`}
+              disabled={invoiceData.length ? false : true}
+              onClick={nextButtonClickHandler}
+            >
+              تایید و تکمیل سفارش
+            </button>
           </div>
         </div>
-        <div className="fixed bottom-0 right-0 w-full flex justify-between p-4 bg-white shadow-[0_-2px_8px_0_rgba(176,176,176,0.25)] rounded-t-2xl z-[3000]">
+        <div className="fixed bottom-0 right-0 w-full flex lg:hidden justify-between p-4 bg-white shadow-[0_-2px_8px_0_rgba(176,176,176,0.25)] rounded-t-2xl z-[3000] ">
           <div className="flex-col flex items-start text-sm gap-1">
             <span>جمع سفارش:</span>
             <span className="font-medium text-[#518DD5]">
