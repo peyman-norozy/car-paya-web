@@ -39,6 +39,7 @@ const VerificationThirdStep = (props) => {
   const [isLoading, setIsLoading] = useState(false);
   const [selectedAddress, setSelectedAddress] = useState("");
   const [selectedAddressText, setSelectedAddressText] = useState("");
+  const [selectedAddressId, setSelectedAddressId] = useState("");
   const [areaModal, setAreaModal] = useState();
   const city_id = searchParams.get("city_id");
   const selectedItem = searchParams.get("vehicle_tip");
@@ -151,6 +152,7 @@ const VerificationThirdStep = (props) => {
       // setButtonIsdisabled(false);
       let cart = JSON.parse(sessionStorage.getItem("verificationCart"));
       cart.selectedAddressText = selectedAddressText;
+      cart.selectedAddressId = selectedAddressId;
       sessionStorage.setItem("verificationCart", JSON.stringify(cart));
       nProgress.start();
       router.push(
@@ -339,6 +341,7 @@ const VerificationThirdStep = (props) => {
                     setModalIsOpen={setModalIsOpen}
                     setIsLoading={setIsLoading}
                     setSelectedAddressText={setSelectedAddressText}
+                    setSelectedAddressId={setSelectedAddressId}
                   />
                 ))
               : searchedAgentData?.map((item, index) => (
@@ -348,6 +351,7 @@ const VerificationThirdStep = (props) => {
                     selectedAddress={selectedAddress}
                     setSelectedAddress={setSelectedAddress}
                     setSelectedAddressText={setSelectedAddressText}
+                    setSelectedAddressId={setSelectedAddressId}
                   />
                 ))}
           </div>
