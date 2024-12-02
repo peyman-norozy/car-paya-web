@@ -223,7 +223,7 @@ const VerificationThirdStep = (props) => {
           },
         ]}
       />
-      <div className="mb-[7rem] lg:w-[calc(100%-424px)] mr-auto overflow-hidden flex flex-col gap-4 mt-[28px] bg-[#FDFDFD] lg:shadow-[0_0_6px_0_rgba(125,125,125,0.5)] px-2 lg:p-6 rounded-2xl min-h-[605px]">
+      <div className="mb-[4rem] lg:w-[calc(100%-424px)] mr-auto overflow-hidden flex flex-col gap-4 mt-[28px] bg-[#FDFDFD] lg:shadow-[0_0_6px_0_rgba(125,125,125,0.5)] px-2 lg:p-6 rounded-2xl min-h-[605px]">
         <div
           className={
             "flex items-center gap-2 size752:gap-[16px] text-[#0E0E0E] w-full"
@@ -329,35 +329,37 @@ const VerificationThirdStep = (props) => {
               <span>انتخاب محله</span>
             </button>
           )}
-          <div className="flex flex-col gap-2 pb-2">
-            {tab
-              ? userAdressData.map((item, index) => (
-                  <UserAddressCard
-                    key={index}
-                    data={item}
-                    selectedAddress={selectedAddress}
-                    setSelectedAddress={setSelectedAddress}
-                    getDataFetch={setUserAdressData}
-                    setModalIsOpen={setModalIsOpen}
-                    setIsLoading={setIsLoading}
-                    setSelectedAddressText={setSelectedAddressText}
-                    setSelectedAddressId={setSelectedAddressId}
-                  />
-                ))
-              : searchedAgentData?.map((item, index) => (
-                  <AgentAdressCard
-                    key={index}
-                    data={item}
-                    selectedAddress={selectedAddress}
-                    setSelectedAddress={setSelectedAddress}
-                    setSelectedAddressText={setSelectedAddressText}
-                    setSelectedAddressId={setSelectedAddressId}
-                  />
-                ))}
+          <div className="lg:overflow-y-scroll lg:max-h-[calc(100vh-460px)] p-1">
+            <div className="flex flex-col gap-2 pb-2">
+              {tab
+                ? userAdressData.map((item, index) => (
+                    <UserAddressCard
+                      key={index}
+                      data={item}
+                      selectedAddress={selectedAddress}
+                      setSelectedAddress={setSelectedAddress}
+                      getDataFetch={setUserAdressData}
+                      setModalIsOpen={setModalIsOpen}
+                      setIsLoading={setIsLoading}
+                      setSelectedAddressText={setSelectedAddressText}
+                      setSelectedAddressId={setSelectedAddressId}
+                    />
+                  ))
+                : searchedAgentData?.map((item, index) => (
+                    <AgentAdressCard
+                      key={index}
+                      data={item}
+                      selectedAddress={selectedAddress}
+                      setSelectedAddress={setSelectedAddress}
+                      setSelectedAddressText={setSelectedAddressText}
+                      setSelectedAddressId={setSelectedAddressId}
+                    />
+                  ))}
+            </div>
           </div>
           <button
             onClick={continueSecondStepHandler}
-            className={`${selectedAddress === "" ? "bg-[#FCCAAC]" : "bg-[#F66B34]"} self-end hidden lg:flex items-center gap-2 mt-4 size690:mt-3 w-fit text-12 size690:text-[16px] p-[8px] text-white rounded-[4px]`}
+            className={`${selectedAddress === "" ? "bg-[#FCCAAC]" : "bg-[#F66B34]"} self-end hidden lg:flex items-center gap-2 w-fit text-12 size690:text-[16px] p-[8px] text-white rounded-[4px]`}
             disabled={selectedAddress === "" ? true : false}
           >
             <p>تایید و ادامه</p>
