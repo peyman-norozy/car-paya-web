@@ -112,7 +112,7 @@ const Page = (props) => {
       <PeriodicOrderDataCard />
       <div
         className={
-          "flex items-start justify-between lg:w-[calc(100%-424px)] mr-auto bg-[#FDFDFD] lg:shadow-[0_0_6px_0_rgba(125,125,125,0.5)] lg:p-6 rounded-2xl min-h-[605px]"
+          "flex items-start justify-between w-full lg:w-[calc(100%-424px)] lg:mr-auto bg-[#FDFDFD] lg:shadow-[0_0_6px_0_rgba(125,125,125,0.5)] lg:p-6 rounded-2xl min-h-[605px]"
         }
       >
         <div className={"w-full flex flex-col px-4 sm:px-0 gap-4"}>

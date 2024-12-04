@@ -45,30 +45,30 @@ const VerificationInvoice = () => {
   const registrationable_id = searchParams.get("registrationable_id");
   const router = useRouter();
   useEffect(() => {
-    (async () => {
-      const response = await getCurrentData(
-        "/web/expert/reservation?step=step-6",
-        {
-          city_id: searchParams.get("city_id"),
-          vehicle_tip_id: searchParams.get("vehicle_tip"),
-          type_service: searchParams.get("type_service"),
-          package_id: searchParams.get("package_id"),
-          exact_time: searchParams.get("exact_time"),
-          reservation_time_slice_id: searchParams.get(
-            "reservation_time_slice_id"
-          ),
-          registrationable_id: searchParams.get("registrationable_id"),
-        }
-      );
-      if (response.success) {
-        setDiscount(
-          response.data.data.coupon_price ? response.data.data.coupon_price : 0
-        );
-        setFaktorData(response.data.data);
-      } else {
-        console.log(response);
-      }
-    })();
+    // (async () => {
+    //   const response = await getCurrentData(
+    //     "/web/expert/reservation?step=step-6",
+    //     {
+    //       city_id: searchParams.get("city_id"),
+    //       vehicle_tip_id: searchParams.get("vehicle_tip"),
+    //       type_service: searchParams.get("type_service"),
+    //       package_id: searchParams.get("package_id"),
+    //       exact_time: searchParams.get("exact_time"),
+    //       reservation_time_slice_id: searchParams.get(
+    //         "reservation_time_slice_id"
+    //       ),
+    //       registrationable_id: searchParams.get("registrationable_id"),
+    //     }
+    //   );
+    //   if (response.success) {
+    //     setDiscount(
+    //       response.data.data.coupon_price ? response.data.data.coupon_price : 0
+    //     );
+    //     setFaktorData(response.data.data);
+    //   } else {
+    //     console.log(response);
+    //   }
+    // })();
     setCart(JSON.parse(sessionStorage.getItem("verificationCart")));
     setVehicle(JSON.parse(localStorage.getItem("selectedVehicle")));
   }, []);
@@ -165,7 +165,7 @@ const VerificationInvoice = () => {
                 persianDate(faktorData.reservation_time_day, "dddd")}
             </span> */}
               <span className={"text-[#454545] font-medium text-sm"}>
-                {cart.selectedAddressText}
+                {cart.selectedAddressText?.title}
               </span>
             </div>
             <Link

@@ -104,7 +104,7 @@ const VehicleInspection = () => {
         setModalClickState={setModalClickState}
         modalClickState={modalClickState}
       />
-      {/* <div className="sm:rounded-3xl flex p-4 flex-col items-center bg-[#EBF5FF] lg:h-[500px] lg:p-10 xl:p-16 lg:gap-16 mt-[25px]">
+      <div className="sm:rounded-3xl flex p-4 flex-col items-center bg-[#EBF5FF] lg:h-[500px] lg:p-10 xl:p-16 lg:gap-16 mt-[25px]">
         <div className="flex flex-col gap-2 items-start self-center lg:gap-11">
           <h1 className="text-lg lg:text-2xl font-medium lg:font-bold text-[#000000]">
             کارشناسی وسیله نقلیه
@@ -137,10 +137,10 @@ const VehicleInspection = () => {
         >
           {vehicleVerificationBasket.length ? "ادامه " : ""}درخواست کارشناسی
         </button>
-      </div> */}
-      <div className="overflow-x-hidden mt-4">
-        <Image src={banner3} />
       </div>
+      {/* <div className="overflow-x-hidden mt-4">
+        <Image src={banner3} />
+      </div> */}
       <div className={"max-w-[1294px] mx-auto gap-8 flex flex-col"}>
         <BachelorSteps />
         <WhyInspection />
