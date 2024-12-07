@@ -37,7 +37,6 @@ const CustomSearchInput = (props) => {
   }, []);
 
   useEffect(() => {
-    console.log(selectedOption);
     setPreventFirstRender(true);
     // preventFirstRender ? onClick(selectedOption) : null;
     onClick(selectedOption);
@@ -66,8 +65,6 @@ const CustomSearchInput = (props) => {
     deleteInputValueHandler(value);
     setIsSelected(false);
   }, [props.handleDeleteFilterInput]);
-
-  console.log(value);
 
   return (
     <div className={"flex flex-col gap-2"}>

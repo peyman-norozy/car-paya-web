@@ -7,10 +7,7 @@ import { useEffect } from "react";
 
 const SearchInput = (props) => {
   const data = useSelector((item) => item.todo);
-  console.log(data.vehicleData);
   const searchChangeHandler = (event) => {
-    console.log(event.target.value);
-    console.log(props.step);
     const searchFilterData = props.vehicleData.filter((item) => {
       // return item.title.search(event.target.value) !== -1;
       return item.title

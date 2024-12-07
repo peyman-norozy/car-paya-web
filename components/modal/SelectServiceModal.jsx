@@ -1,7 +1,6 @@
 import React, { useRef } from "react";
 
 const SelectServiceModal = (props) => {
-  console.log(props.servicesData);
   return (
     <>
       <div

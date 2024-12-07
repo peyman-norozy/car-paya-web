@@ -22,7 +22,6 @@ export const loginUser = createAsyncThunk(
         error: null,
         auth: false,
       };
-      console.log(getCookie("Authorization"));
       const response = await fetch(
         process.env.BASE_API + "/user" + API_PATHS.PROFILE,
         {
@@ -38,11 +37,9 @@ export const loginUser = createAsyncThunk(
             Accept: "application/json",
             "Content-Type": "application/json",
           },
-        },
+        }
       );
-      console.log(response);
       const data = await response.json();
-      console.log(data);
       if (data.status && data.status === "success") {
         return data;
       } else {
@@ -51,7 +48,7 @@ export const loginUser = createAsyncThunk(
     } catch (error) {
       return rejectWithValue("error");
     }
-  },
+  }
 );
 
 const loginChecker = createSlice({

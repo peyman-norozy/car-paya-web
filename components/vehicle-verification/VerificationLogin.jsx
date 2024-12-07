@@ -26,8 +26,6 @@ const VerificationLogin = () => {
   const time_id = searchParams.get("time_id");
   const package_id = searchParams.get("package_id");
 
-  console.log(otp);
-
   const nameChangeHandler = (event) => {
     setNameValue(event.target.value);
   };
@@ -48,7 +46,7 @@ const VerificationLogin = () => {
           "/web/expert/reservation?step=step-4&otp=" +
           otp +
           "&mobile=" +
-          mobileValue,
+          mobileValue
       )
       .then((res) => {
         setCookie("Authorization", res.data.token);
@@ -64,7 +62,6 @@ const VerificationLogin = () => {
         ]);
       })
       .catch((err) => {
-        console.log(err);
         if (err.response.status === 422) {
           error(err.response.data.errors.otp[0]);
         }
@@ -79,14 +76,13 @@ const VerificationLogin = () => {
             "/web/expert/reservation?step=step-3&name=" +
             nameValue +
             "&mobile=" +
-            mobileValue,
+            mobileValue
         )
         .then((res) => {
           setLoginState("otp");
         })
         .catch((err) => {
           if (err.response.status === 422) {
-            console.log(err);
             err.response.data.message.mobile &&
               error(err.response.data.message.mobile[0]);
             err.response.data.message.name &&

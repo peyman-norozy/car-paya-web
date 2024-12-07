@@ -146,7 +146,6 @@ const Dealership = (props) => {
         }
       )
       .then((res) => {
-        console.log(res.data.data);
         setFilter(res?.data?.filter);
         setAgentData(res.data.data);
         setSearchedAgentData(res.data.data);
@@ -175,7 +174,6 @@ const Dealership = (props) => {
         }
       )
       .then((res) => {
-        console.log(res.data.data);
         setUserAdressData(res.data.data);
         // setMyLocationData(res.data.data);
         // setIsLoading(false);
@@ -219,7 +217,6 @@ const Dealership = (props) => {
     //     { key: "registrationable_id", value: selectedAddress },
     //   ]);
     // }
-    console.log(selectedAddress);
     setQuery.updateQueryParams(
       { service_location_id: selectedAddress },
       "/periodic-service/service-selection"

@@ -183,7 +183,6 @@ const CarSelectComponent = (props) => {
           `/batteries/products?attribute_slug=type_vehicle&attribute_value=${attributeValue ? attributeValue : "car"}`
         );
       } else if (carTableType === "PERIODIC_SERVICE") {
-        console.log(data.data.data.cart_items);
         let len = 0;
         for (let item of data.data.data.cart_items) {
           if (item.type === carTableType) {
@@ -230,7 +229,6 @@ const CarSelectComponent = (props) => {
       setData(myVehicleData);
       setSearchedData(myVehicleData);
       setLevel(4);
-      console.log(pathname.includes("/batteries"));
       if (pathname.includes("/batteries")) {
         setQuery.deleteSingleQuery(
           [

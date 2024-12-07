@@ -11,16 +11,14 @@ function DisplayPosition(props) {
     const newPosition = map.getCenter();
     // setPosition(newPosition);
     let mapLocation = `${newPosition.lat.toFixed(6)},${newPosition.lng.toFixed(6)}`;
-    console.log(mapLocation.split(","));
     const lat = mapLocation.split(",")[0];
     const lon = mapLocation.split(",")[1];
     const fetchData3 = await getData(`/web${API_PATHS.ADDRESS}`, {
       lat: lat,
       lon: lon,
     });
-    props.setItarateMapData&&props.setItarateMapData(fetchData3.data);
-    console.log(mapLocation);
-    props.setMapPosition&&props.setMapPosition(mapLocation);
+    props.setItarateMapData && props.setItarateMapData(fetchData3.data);
+    props.setMapPosition && props.setMapPosition(mapLocation);
   }, [props, map]);
 
   useEffect(() => {

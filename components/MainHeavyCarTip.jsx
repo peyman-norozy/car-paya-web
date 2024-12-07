@@ -32,15 +32,15 @@ const MainHeavyCarTip = (props) => {
   const clickTipHandler = async (id, event, item) => {
     localStorage.setItem(
       "vehicleImage",
-      event.currentTarget.getAttribute("image"),
+      event.currentTarget.getAttribute("image")
     );
     localStorage.setItem(
       "vehicleName",
-      event.currentTarget.getAttribute("name"),
+      event.currentTarget.getAttribute("name")
     );
     localStorage.setItem("vehicleId", id);
     const response = await getData(
-      process.env.BASE_API + "/web" + API_PATHS.HEAVYCARYEARS + "/" + id,
+      process.env.BASE_API + "/web" + API_PATHS.HEAVYCARYEARS + "/" + id
     );
     if (response.status === 200) {
       setNewTipId(id);
@@ -114,9 +114,7 @@ const MainHeavyCarTip = (props) => {
           let now = new Date();
           let time = now.getTime();
           let expireTime = time + res.data.data.expires_at;
-          console.log(expireTime);
           now.setTime(expireTime);
-          console.log(now.toUTCString());
           document.cookie = `Authorization = ${
             res.data.data.token
           };expires=${now.toUTCString()};path=/`;

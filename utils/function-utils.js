@@ -92,7 +92,6 @@ function persianStringDay(timeStamp) {
 }
 
 function persianDate(timeStamp, format) {
-  console.log(timeStamp, format);
   if (timeStamp) {
     moment.locale("fa");
     return moment(Number(timeStamp) * 1000).format(format);

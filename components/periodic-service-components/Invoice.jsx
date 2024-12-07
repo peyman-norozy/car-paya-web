@@ -12,7 +12,6 @@ const Invoice = () => {
     const startY = useRef(null);
 
     useEffect(()=>{
-        console.log(ref.current.clientHeight);
         setHeight(ref.current.clientHeight);
     },[])
 

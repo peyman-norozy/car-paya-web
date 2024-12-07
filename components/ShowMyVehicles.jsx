@@ -8,7 +8,6 @@ const ShowMyVehicles = (props) => {
   const [selectedVehicle, setSelectedVehicle] = useState(false);
   const [vehicleData, setVehicleData] = useState([]);
   const data = useSelector((item) => item.todo.vehicleData);
-  console.log(data);
   const selectItemHandler = (e, id) => {
     if (e.currentTarget.getAttribute("image") !== null) {
       props.setImage(e.currentTarget.getAttribute("image"));
@@ -57,8 +56,6 @@ const ShowMyVehicles = (props) => {
       props.setSelectedVehicle && props.setSelectedVehicle(e.currentTarget.id);
     }
   };
-
-  console.log(props);
 
   useEffect(() => {
     query.deleteQuery("selectTipState");

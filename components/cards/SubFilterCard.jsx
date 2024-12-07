@@ -9,11 +9,9 @@ const SubFilterCard = (props) => {
 
   const setQuery = useSetQuery();
   const clickAmpFilterHandler = (event) => {
-    console.log(props.filterId);
-
     setQuery.setQuery(
       props.filterId === "getAmp" ? "amp" : "brand",
-      props.item.value,
+      props.item.value
     );
     props.setFilterModalState(false);
   };
@@ -22,7 +20,7 @@ const SubFilterCard = (props) => {
     setQuery.deleteSingleQuery(
       [{ key: "brand", value: searchParams.get("brand") }],
       params,
-      "",
+      ""
     );
   };
 
@@ -30,7 +28,7 @@ const SubFilterCard = (props) => {
     setQuery.deleteSingleQuery(
       [{ key: "amp", value: searchParams.get("amp") }],
       params,
-      "",
+      ""
     );
   };
 

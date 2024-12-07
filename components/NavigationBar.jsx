@@ -43,7 +43,7 @@ const NavigationBar = React.forwardRef((props, ref) => {
   const [newCategoryHeight, setNewCategoryHeight] = useState(0);
   const [newCategoryHeightState, setNewCategoryHeightState] = useState(true);
   const innerWidthNumber = useSelector(
-    (number) => number.todo.windowInnerWidth,
+    (number) => number.todo.windowInnerWidth
   );
 
   const categoryPoppupDisplay = () => {
@@ -70,7 +70,7 @@ const NavigationBar = React.forwardRef((props, ref) => {
           (item, index) =>
             item.href && item.href.length > 0 ? (
               <li
-                key={item.id + index}
+                key={item.id + "*" + index}
                 className="cursor-pointer text-[#0F0F0F] font-medium text-14 py-[10px] border-b"
               >
                 <Navlink href={item.href} styleState={props.styleState}>
@@ -84,7 +84,7 @@ const NavigationBar = React.forwardRef((props, ref) => {
               <>
                 {innerWidthNumber >= 1000 ? (
                   <li
-                    key={item.id + index}
+                    key={item.id + "-" + index}
                     className="cursor-pointer text-[#0F0F0F] font-medium text-14 py-[10px] border-b"
                     onMouseEnter={categoryPoppupDisplay}
                     onMouseLeave={categoryPoppupHidden}
@@ -92,7 +92,11 @@ const NavigationBar = React.forwardRef((props, ref) => {
                     {item.title}
                   </li>
                 ) : (
-                  <li ref={ref} className={"border-b py-[10px]"}>
+                  <li
+                    ref={ref}
+                    className={"border-b py-[10px]"}
+                    key={item.id + "/" + index}
+                  >
                     <div
                       className={`flex justify-between items-center py-[8px] pr-[8px] cursor-pointer`}
                       ref={ref}
@@ -137,7 +141,7 @@ const NavigationBar = React.forwardRef((props, ref) => {
                   </li>
                 )}
               </>
-            ),
+            )
         )}
         {!props.loginState && props.styleState === "habmergerMenue" && (
           <li>

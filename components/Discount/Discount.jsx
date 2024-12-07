@@ -12,7 +12,6 @@ const Discount = () => {
   useEffect(() => {
     (async () => {
       const getCoupons = await getData(API_PATHS.USERPANEL + API_PATHS.COUPONS);
-      console.log(getCoupons);
       if (getCoupons.status === "success") {
         setDiscountData(getCoupons.data);
       } else if (getCoupons.status === 404) {

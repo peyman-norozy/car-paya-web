@@ -35,7 +35,6 @@ const InvoicePage = () => {
   const vehicleTipId = Number(searchParams.get("vehicle_tip_id").split(",")[1]); //ok
   const serviceLocationId = searchParams.get("service_location_id"); //ok
   const router = useRouter();
-  console.log(reservationTimeSlice);
 
   useEffect(() => {
     // (async () => {
@@ -208,13 +207,18 @@ const InvoicePage = () => {
                   {faktorData.address}
                 </span>
               </div>
-              <Link
-                href={`/periodic-service`}
+              <div
                 className="text-[#518dd5] flex items-center gap-1 mt-2 self-end border-b-2 border-b-[#518dd5] pb-2 cursor-pointer"
+                onClick={() => {
+                  nProgress.start();
+                  router.push(
+                    `/periodic-service/location-selection?selectTipState=${vehicleTipId}&city_id=${cityId}&type=${type}`
+                  );
+                }}
               >
                 <i className={"cc-edit text-20"} />
                 <span className={"font-semibold"}>تغییر آدرس</span>
-              </Link>
+              </div>
             </div>
 
             {/* Date and Time Section */}
@@ -240,13 +244,18 @@ const InvoicePage = () => {
                   {/* {faktorData.reservation_time_slice?.split(",").join(" تا ")} */}
                 </span>
               </div>
-              <Link
-                href={`/periodic-service/time-selection?city_id=${cityId}&type=${type}&selectTipState=true,${vehicleTipId}&service_location_id=${serviceLocationId}&package_id=${packageId}`}
+              <div
                 className="text-[#518dd5] flex items-center gap-1 mt-2 self-end border-b-2 border-b-[#518dd5] pb-2 cursor-pointer"
+                onClick={() => {
+                  nProgress.start();
+                  router.push(
+                    `/periodic-service/time-selection?city_id=${cityId}&type=${type}&selectTipState=true,${vehicleTipId}&service_location_id=${serviceLocationId}&package_id=${packageId}`
+                  );
+                }}
               >
                 <i className={"cc-edit text-20"} />
                 <span className={"font-semibold"}>تغییر تاریخ و زمان</span>
-              </Link>
+              </div>
             </div>
             {/* Price Details Section */}
             {innerWidth < 1024 && (

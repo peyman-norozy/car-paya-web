@@ -47,7 +47,6 @@ export default function EnterPasswordLogin(props) {
       })
       .catch((e) => {
         setForgotButtonState(false);
-        console.log(e);
       });
   };
 
@@ -61,14 +60,11 @@ export default function EnterPasswordLogin(props) {
       axios
         .post(process.env.BASE_API + API_PATHS.LOGINPASSWord, fd)
         .then((res) => {
-          console.log(res);
           if (res.status === 200) {
             let now = new Date();
             let time = now.getTime();
             let expireTime = time + res.data.expires_at;
-            console.log(expireTime);
             now.setTime(expireTime);
-            console.log(now.toUTCString());
             if (res.data.token !== undefined) {
               document.cookie = `Authorization=${
                 res.data.token
@@ -76,13 +72,12 @@ export default function EnterPasswordLogin(props) {
               dispatch(loginUser()).then((res) => console.log(res));
               (async () => {
                 const getProfileData = await getData(
-                  API_PATHS.DASHBOARDPROFILE,
+                  API_PATHS.DASHBOARDPROFILE
                 );
-                console.log(getProfileData);
                 if (getProfileData.status === "success") {
                   localStorage.setItem(
                     "profileData",
-                    JSON.stringify(getProfileData.data),
+                    JSON.stringify(getProfileData.data)
                   );
                   if (props.searchParams.backurl) {
                     nProgress.start();

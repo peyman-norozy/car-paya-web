@@ -6,7 +6,6 @@ import React, { Fragment } from "react";
 
 export default function Map(props) {
   const { position, zoom } = props;
-  console.log(position);
   return (
     <Fragment>
       <MapContainer

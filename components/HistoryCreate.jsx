@@ -42,7 +42,6 @@ const HistoryCreate = (props) => {
   const router = useRouter();
   const pathName = usePathname();
   const newRoute = useRef(null);
-  console.log(vehicleId);
   const newDetailArray = [
     { title: "روغن موتور", status: "VISIT", product_id: "" },
     { title: "فیلتر هوا", status: "VISIT", product_id: "" },
@@ -87,9 +86,7 @@ const HistoryCreate = (props) => {
     }
   };
 
-  console.log(props.params);
   const sendClickHandler = async () => {
-    console.log(newDetailArray);
     const formData = new FormData();
     formData.set("date", newAddDateHistory);
     formData.set("kilometers_current", newStartKilometerValue);
@@ -108,21 +105,18 @@ const HistoryCreate = (props) => {
     }
     const fetchData = await postData(
       `${API_PATHS.USERPANEL}${newRoute.current}/store/${vehicleId}`,
-      formData,
+      formData
     );
     if (fetchData.status === 200 || fetchData.status === 201) {
       nProgress.start();
       router.push("/" + pathName.split("/").splice(1, 6).join("/"));
     } else if (fetchData.response.status === 404) {
-      console.log(fetchData);
       notFound();
     } else if (fetchData.response.status === 422) {
       for (let key in fetchData.response.data.errors) {
         error(fetchData.response.data.errors[key][0]);
       }
     }
-    console.log(newAddDateHistory);
-    console.log(newStartKilometerValue);
   };
 
   const backAddHistory = () => {

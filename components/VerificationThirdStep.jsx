@@ -69,7 +69,6 @@ const VerificationThirdStep = (props) => {
         }
       )
       .then((res) => {
-        console.log(res.data.data);
         setFilter(res?.data?.filter?.area);
         setAgentData(res.data.data);
         setSearchedAgentData(res.data.data);
@@ -100,7 +99,6 @@ const VerificationThirdStep = (props) => {
         }
       )
       .then((res) => {
-        console.log(res.data.data);
         setUserAdressData(res.data.data);
         // setMyLocationData(res.data.data);
         // setIsLoading(false);

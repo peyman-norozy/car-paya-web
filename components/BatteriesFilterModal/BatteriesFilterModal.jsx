@@ -48,10 +48,7 @@ const BatteriesFilterModal = ({ isOpen, onClose, options, page }) => {
     setIsClient(true);
   }, []);
 
-  console.log(options);
-
   const filterClickHandler = (value, inputValueType) => {
-    console.log(value.length, inputValueType);
     page.current = 1;
 
     if (inputValueType === "getAmp") {

@@ -249,9 +249,9 @@ const PeriodicServiceIndex = () => {
           setPreventFirstRender(true);
           nProgress.start();
           router.push(
-            `/periodic-service/location-selection?type=${status}&${
+            `/periodic-service/location-selection?${
               JSON.parse(localStorage.getItem("selectedVehicle"))?.id
-                ? `&selectTipState=true,${
+                ? `selectTipState=true,${
                     JSON.parse(localStorage.getItem("selectedVehicle"))?.id
                   }`
                 : ""

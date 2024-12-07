@@ -42,10 +42,9 @@ const MainCarTip = (props) => {
     // );
     // localStorage.setItem("vehicleId", id);
     const response = await getData(
-      process.env.BASE_API + "/web" + API_PATHS.YEARS + "/" + id,
+      process.env.BASE_API + "/web" + API_PATHS.YEARS + "/" + id
     );
     if (response.status === 200) {
-      console.log(response);
       setNewTipId(id);
       dispatch(setSelectCarTip(item));
       setSetPhoneNumberState(true);
@@ -96,7 +95,6 @@ const MainCarTip = (props) => {
         }
       })
       .catch((e) => {
-        console.log(e);
         if (e.response.status === 422) {
           error(e.response.data.message);
         }
@@ -114,13 +112,10 @@ const MainCarTip = (props) => {
       .post(process.env.BASE_API + "/web" + API_PATHS.ADDCARLOGIN, fd)
       .then((res) => {
         if (res.status === 200) {
-          console.log(res.data);
           let now = new Date();
           let time = now.getTime();
           let expireTime = time + res.data.data.expires_at;
-          console.log(expireTime);
           now.setTime(expireTime);
-          console.log(now.toUTCString());
           document.cookie = `Authorization = ${
             res.data.data.token
           };expires=${now.toUTCString()};path=/`;

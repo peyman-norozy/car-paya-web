@@ -6,7 +6,6 @@ import React from "react";
 
 const SelectServiceCard = (props) => {
   const selectProductHandler = () => {
-    console.log(props.data);
     const ditailingCart = JSON.parse(sessionStorage.getItem("ditailingCart"));
 
     if (props.data.discounted_percent) {
@@ -22,8 +21,6 @@ const SelectServiceCard = (props) => {
     sessionStorage.setItem("ditailingCart", JSON.stringify(ditailingCart));
     props.setProductId(props.data.id);
   };
-
-  console.log(props);
 
   return (
     <div

@@ -91,19 +91,17 @@ const InvoicePage = () => {
   const cartTipImage = JSON.parse(localStorage.getItem("selectedVehicle"));
   // const userMobile = JSON.parse(localStorage.getItem("user-profile"))?.mobile;
   const locationServiceAddress = JSON.parse(
-    sessionStorage.getItem("batteriesCart"),
+    sessionStorage.getItem("batteriesCart")
   )?.address;
   const dateServiceAddress = JSON.parse(
-    sessionStorage.getItem("batteriesCart"),
+    sessionStorage.getItem("batteriesCart")
   )?.timeSelect;
   const batteryName = JSON.parse(
-    sessionStorage.getItem("batteriesCart"),
+    sessionStorage.getItem("batteriesCart")
   )?.batteryName;
   const quantity = JSON.parse(
-    sessionStorage.getItem("batteriesCart"),
+    sessionStorage.getItem("batteriesCart")
   )?.quantity;
-
-  console.log(dateServiceAddress);
 
   return (
     <div

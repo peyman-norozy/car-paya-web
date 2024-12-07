@@ -10,7 +10,6 @@ const DetailingPage = (props) => {
   useEffect(() => {
     if (!props.searchParams.selectTipState) {
       error("لطفا خودرو خود را انتخاب کنید");
-      console.log("peyman");
     } else if (!props.searchParams.city_id) {
       error("لطفا شهر خود را انتخاب کنید");
     }

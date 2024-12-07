@@ -66,7 +66,7 @@ const MotorDevice = (props) => {
   const [newEditData, setNewEditData] = useState({});
   const [buttonDisabledState, setButtonDisabledState] = useState(false);
   const selectVehicleData = useSelector(
-    (vehicleData) => vehicleData.todo.selectVehicle,
+    (vehicleData) => vehicleData.todo.selectVehicle
   );
   const carYear = useSelector((year) => year.todo.carYear);
   const editFormData = new FormData();
@@ -89,7 +89,7 @@ const MotorDevice = (props) => {
     if (id === "brandOption") {
       setNewBrandOptionId(value);
       const response = await getData(
-        process.env.BASE_API + "/web" + API_PATHS.MOTORMODELS + "/" + value,
+        process.env.BASE_API + "/web" + API_PATHS.MOTORMODELS + "/" + value
       );
       if (response.status === 200) {
         setNewTip([]);
@@ -119,12 +119,12 @@ const MotorDevice = (props) => {
     } else if (id === "modelOption") {
       setNewModelOptionId(value);
       const response = await getData(
-        process.env.BASE_API + "/web" + API_PATHS.MOTORTIPS + "/" + value,
+        process.env.BASE_API + "/web" + API_PATHS.MOTORTIPS + "/" + value
       );
       if (response.status === 200) {
         setNewYear([]);
         setNewImage(
-          process.env.BASE_API + "/web" + API_PATHS.FILE + "/" + imageid,
+          process.env.BASE_API + "/web" + API_PATHS.FILE + "/" + imageid
         );
         setNewTip(response.data.data);
         if (props.pageType === "edit") {
@@ -145,7 +145,7 @@ const MotorDevice = (props) => {
     } else if (id === "tipOption") {
       setNewTipOptionId(value);
       const response = await getData(
-        process.env.BASE_API + "/web" + API_PATHS.YEARS + "/" + value,
+        process.env.BASE_API + "/web" + API_PATHS.YEARS + "/" + value
       );
       if (response.status === 200) {
         setNewYear(response.data.data);
@@ -264,19 +264,19 @@ const MotorDevice = (props) => {
     if (props.pageType === "edit" && Object.keys(newEditData).length > 0) {
       editFormData.set(
         "car_brand_id",
-        newBrandOptionId ? newBrandOptionId : newEditData.car_brand_id,
+        newBrandOptionId ? newBrandOptionId : newEditData.car_brand_id
       );
       editFormData.set(
         "car_model_id",
-        newModelOptionId ? newModelOptionId : newEditData.car_model_id,
+        newModelOptionId ? newModelOptionId : newEditData.car_model_id
       );
       editFormData.set(
         "car_tip_id",
-        newTipOptionId ? newTipOptionId : newEditData.car_tip_id,
+        newTipOptionId ? newTipOptionId : newEditData.car_tip_id
       );
       editFormData.set(
         "year",
-        newYearOptionId ? newYearOptionId : newEditData.yearId,
+        newYearOptionId ? newYearOptionId : newEditData.yearId
       );
       editFormData.set("plaque[0]", newPlaque_0);
       editFormData.set("plaque[1]", newPlaque_1);
@@ -284,58 +284,56 @@ const MotorDevice = (props) => {
       editFormData.set("plaque[3]", newPlaque_3);
       editFormData.set(
         "kilometers_now",
-        newStartKilometerValue
-          ? newStartKilometerValue.split(",").join("")
-          : "",
+        newStartKilometerValue ? newStartKilometerValue.split(",").join("") : ""
       );
       editFormData.set(
         "kilometers_use",
-        newEndKilometerValue ? newEndKilometerValue.split(",").join("") : "",
+        newEndKilometerValue ? newEndKilometerValue.split(",").join("") : ""
       );
       editFormData.set("title", newMyCarValue);
       editFormData.set(
         "information[third_party_insurance_start_at]",
-        newThirdPartyInsuranceStartAt,
+        newThirdPartyInsuranceStartAt
       );
       editFormData.set(
         "information[third_party_insurance_end_at]",
-        newThirdPartyInsuranceEndAt,
+        newThirdPartyInsuranceEndAt
       );
       editFormData.set(
         "information[body_insurance_start_at]",
-        newBodyInsuranceStartAt,
+        newBodyInsuranceStartAt
       );
       editFormData.set(
         "information[body_insurance_end_at]",
-        newBodyInsuranceEndAt,
+        newBodyInsuranceEndAt
       );
       editFormData.set(
         "information[technical_diagnosis_start_at]",
-        newTechnicalDiagnosisStartAt,
+        newTechnicalDiagnosisStartAt
       );
       editFormData.set(
         "information[technical_diagnosis_end_at]",
-        newTechnicalDiagnosisEndAt,
+        newTechnicalDiagnosisEndAt
       );
       editFormData.set(
         "information[technical_diagnosis_remember]",
-        String(newTechnicalDiagnosisRemember),
+        String(newTechnicalDiagnosisRemember)
       );
       editFormData.set(
         "information[third_party_insurance_remember]",
-        String(newThirdPartyInsuranceRemember),
+        String(newThirdPartyInsuranceRemember)
       );
       editFormData.set(
         "information[body_insurance_remember]",
-        String(newBodyInsuranceRemember),
+        String(newBodyInsuranceRemember)
       );
       editFormData.set(
         "information[body_insurance_company]",
-        newBodyInsuranceCompany,
+        newBodyInsuranceCompany
       );
       editFormData.set(
         "information[third_party_insurance_company]",
-        newThirdPartyInsuranceCompany,
+        newThirdPartyInsuranceCompany
       );
       editFormData.set("information[fine_price]", newFinePrice);
       editFormData.set("_method", "PUT");
@@ -346,7 +344,7 @@ const MotorDevice = (props) => {
           "/" +
           searchParams.get("product"),
         editFormData,
-        '"Content-Type": "application/json"',
+        '"Content-Type": "application/json"'
       );
       if (response.status === 200) {
         router.back();
@@ -381,13 +379,13 @@ const MotorDevice = (props) => {
         newTechnicalDiagnosisStartAt,
         newTechnicalDiagnosisEndAt,
         newTechnicalDiagnosisRemember,
-        event.target.finePrice.value.split(",").join(""),
+        event.target.finePrice.value.split(",").join("")
       );
       setButtonDisabledState(true);
       const response = await postData(
         process.env.BASE_API + "/user" + API_PATHS.MOTORS,
         fd,
-        '"Content-Type": "application/json"',
+        '"Content-Type": "application/json"'
       );
       if (response.status === 200 || response.status === 201) {
         setButtonDisabledState(false);
@@ -416,7 +414,6 @@ const MotorDevice = (props) => {
     setModalState(true);
   };
   const closeCarModalHandler = (event) => {
-    console.log(event.target.getAttribute("id"));
     if (event.target.id === "ChoseCar") {
       setModalState(false);
     }
@@ -425,7 +422,7 @@ const MotorDevice = (props) => {
   useEffect(() => {
     (async () => {
       const response = await getData(
-        process.env.BASE_API + "/web" + API_PATHS.MOTORBRANDS,
+        process.env.BASE_API + "/web" + API_PATHS.MOTORBRANDS
       );
       if (response.status === 200) {
         setNewBrand(response.data.data);
@@ -469,7 +466,7 @@ const MotorDevice = (props) => {
                 "/web" +
                 API_PATHS.FILE +
                 "/" +
-                data[0].data.data[0].image,
+                data[0].data.data[0].image
             );
           }
           setNewModel(data[0].data.data);
@@ -495,7 +492,7 @@ const MotorDevice = (props) => {
             headers: {
               Authorization: "Bearer " + getCookie("Authorization"),
             },
-          },
+          }
         )
         .then((res) => {
           res.data.data.yearId = res.data.data.year;
@@ -508,24 +505,23 @@ const MotorDevice = (props) => {
 
   useEffect(() => {
     if (Object.keys(selectVehicleData).length > 0) {
-      console.log(selectVehicleData.carModel);
       if (selectVehicleData.carModel) {
         setNewImage(
           process.env.BASE_API +
             "/web" +
             API_PATHS.FILE +
             "/" +
-            selectVehicleData.carModel.image,
+            selectVehicleData.carModel.image
         );
       }
       setNewBrandOptionId(
-        selectVehicleData.carBrand && selectVehicleData.carBrand.id,
+        selectVehicleData.carBrand && selectVehicleData.carBrand.id
       );
       setNewModelOptionId(
-        selectVehicleData.carModel && selectVehicleData.carModel.id,
+        selectVehicleData.carModel && selectVehicleData.carModel.id
       );
       setNewTipOptionId(
-        selectVehicleData.carTip && selectVehicleData.carTip.id,
+        selectVehicleData.carTip && selectVehicleData.carTip.id
       );
     }
   }, [selectVehicleData]);
@@ -540,60 +536,60 @@ const MotorDevice = (props) => {
       setNewThirdPartyInsuranceStartAt(
         newEditData.information
           ? newEditData.information.third_party_insurance_start_at
-          : "",
+          : ""
       );
       setNewThirdPartyInsuranceEndAt(
         newEditData.information
           ? newEditData.information.third_party_insurance_end_at
-          : "",
+          : ""
       );
       setNewThirdPartyInsuranceCompany(
         newEditData.information
           ? newEditData.information.third_party_insurance_company
-          : "",
+          : ""
       );
       setNewThirdPartyInsuranceRemember(
         newEditData.information
           ? newEditData.information.third_party_insurance_remember
-          : "",
+          : ""
       );
       setNewBodyInsuranceStartAt(
         newEditData.information
           ? newEditData.information.body_insurance_start_at
-          : "",
+          : ""
       );
       setNewBodyInsuranceEndAt(
         newEditData.information
           ? newEditData.information.body_insurance_end_at
-          : "",
+          : ""
       );
       setNewBodyInsuranceCompany(
         newEditData.information
           ? newEditData.information.body_insurance_company
-          : "",
+          : ""
       );
       setNewBodyInsuranceRemember(
         newEditData.information
           ? newEditData.information.body_insurance_remember
-          : "",
+          : ""
       );
       setNewTechnicalDiagnosisStartAt(
         newEditData.information
           ? newEditData.information.technical_diagnosis_start_at
-          : "",
+          : ""
       );
       setNewTechnicalDiagnosisEndAt(
         newEditData.information
           ? newEditData.information.technical_diagnosis_end_at
-          : "",
+          : ""
       );
       setNewTechnicalDiagnosisRemember(
         newEditData.information
           ? newEditData.information.technical_diagnosis_remember
-          : "",
+          : ""
       );
       setNewFinePrice(
-        newEditData.information ? newEditData.information.fine_price : "",
+        newEditData.information ? newEditData.information.fine_price : ""
       );
     }
   }, [newEditData]);

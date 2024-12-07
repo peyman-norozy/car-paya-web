@@ -5,7 +5,6 @@ import CarBackgroundCard from "@/components/cards/CarBackgroundCard";
 import Button from "@/components/Button";
 
 const MyCarTableCard = (props) => {
-    console.log(props.data.forceComplete)
   return (
     <CarBackgroundCard>
       <span className="flex-1 text-center size1190:text-14 text-12">
@@ -43,7 +42,11 @@ const MyCarTableCard = (props) => {
       <span className="flex-1 text-center size1190:text-14 text-12">
         {props.data.year}
       </span>
-        <EditAndDeleteIcon id={props.data.id} tipId={props.data.car_tip_id} forceComplete={props.data.forceComplete}/>
+      <EditAndDeleteIcon
+        id={props.data.id}
+        tipId={props.data.car_tip_id}
+        forceComplete={props.data.forceComplete}
+      />
     </CarBackgroundCard>
   );
 };

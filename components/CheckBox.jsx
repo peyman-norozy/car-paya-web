@@ -4,7 +4,6 @@ const CheckBox = (props) => {
   const checkBoxRef = useRef();
 
   useEffect(() => {
-    console.log(checkBoxRef);
     if (props.editData === 1 || props.editData === "1") {
       checkBoxRef.current.checked = true;
     } else if (props.editData === 0 || props.editData === "0") {

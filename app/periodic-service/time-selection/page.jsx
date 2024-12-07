@@ -8,6 +8,7 @@ import { persianDate, persianDateCovertor } from "@/utils/function-utils";
 import ReserveTimeVerification from "@/components/TimeSelectorCard/TimeSelectorCard";
 import { ToastContainer } from "react-toastify";
 import nProgress, { start } from "nprogress";
+import PeriodicOrderDataCard from "@/components/periodic-service-components/PeriodicOrderDataCard";
 const Page = (props) => {
   const [selectedTime, setSelectedTime] = useState();
   const [date, setDate] = useState(0);
@@ -24,15 +25,10 @@ const Page = (props) => {
   useEffect(() => {
     async function getTimeData() {
       const data = await getDataWithFullErrorRes(
-        `/web/service-periodical?step=step-3&type=${props.searchParams.type}&city_id=${props.searchParams.city_id}&vehicle_tip_id=${props.searchParams.selectTipState.split(",")[1]}&service_location_id=${props.searchParams.service_location_id}&package_id=${props.searchParams.package_id}`
+        `/web/service-periodical?step=step-3&type=${searchParams.get("type")}&city_id=${searchParams.get("city_id")}&vehicle_tip_id=${JSON.parse(localStorage.getItem("selectedVehicle")).id}&service_location_id=${searchParams.get("service_location_id")}&package_id=${searchParams.get("package_id")}`
       );
-      console.log(data);
       setData(data);
-      const uniqueTitles = Array.from(
-        new Set(data?.map((item) => item.title))
-      );
-      console.log(uniqueTitles);
-
+      const uniqueTitles = Array.from(new Set(data?.map((item) => item.title)));
       setUniqueTitle(uniqueTitles);
       setDayTitleTab(uniqueTitles[0]);
       // setData(
@@ -65,9 +61,8 @@ const Page = (props) => {
       // if (loginState) {
       nProgress.start();
       router.push(
-        `/periodic-service/invoice?step=step-4&city_id=${props.searchParams.city_id}&vehicle_tip_id=${props.searchParams.selectTipState}&package_id=${props.searchParams.package_id}&reservation_time_slice_id=${timeIsSelected?.id}&type=${props.searchParams.type}&service_location_id=${props.searchParams.service_location_id}&registrationable_id=${props.searchParams.service_location_id}`
+        `/periodic-service/invoice?step=step-4&city_id=${searchParams.get("city_id")}&vehicle_tip_id=${searchParams.get("selectTipState")}&package_id=${searchParams.get("package_id")}&reservation_time_slice_id=${timeIsSelected?.id}&type=${searchParams.get("type")}&service_location_id=${searchParams.get("service_location_id")}&registrationable_id=${searchParams.get("service_location_id")}`
       );
-      console.log(timeIsSelected);
 
       const sessionData = JSON.parse(sessionStorage.getItem("periodicCart"));
       sessionData.time = {
@@ -113,75 +108,89 @@ const Page = (props) => {
     //     تایید و مرحله بعد
     //   </button>
     // </div>
-    <div
-      className={
-        "flex items-start justify-between lg:w-[calc(100%-424px)] mr-auto mb-4 mt-[28px] bg-[#FDFDFD] lg:shadow-[0_0_6px_0_rgba(125,125,125,0.5)] lg:p-6 rounded-2xl min-h-[605px]"
-      }
-    >
-      <div className={"w-full flex flex-col px-4 sm:px-0 gap-4"}>
-        <div
-          className={
-            "flex items-center gap-2 size752:gap-[16px] text-[#0E0E0E] w-full"
-          }
-        >
-          <i
-            className={"cc-arrow-right text-24 cursor-pointer"}
-            onClick={() => {
-              router.back();
-            }}
-          />
-          <p className={"text-14 size752:text-16 w-full font-medium"}>
-            انتخاب زمان
-          </p>
-        </div>
-        <div className=" flex flex-col gap-4 lg:mr-8">
-          <div className="flex gap-2 items-center w-full bg-[#FFFFFF] text-[#D1D1D1] border border-[#F2F2F2] rounded-full px-2">
-            <i
-              className="cc-car-o text-2xl text-[#1E67BF]"
-            // onClick={() => router.push(`/vehicle-inspection`)}
-            />
-            <div className="border-b-4 border-dotted border-[#1E67BF] w-full"></div>
-            <i
-              className="cc-search text-2xl text-[#1E67BF]"
-            // onClick={() =>
-            //   router.push(
-            //     `/vehicle-inspection?step=step-1&city_id=${city_id}&vehicle_tip=${selectedItem}`
-            //   )
-            // }
-            />
-            <div className="border-b-4 border-dotted border-[#1E67BF] w-full"></div>
-            <i className="cc-timer text-2xl text-[#D1D1D1]" />
-            <div className="border-b-4 border-dotted border-[#D1D1D1] w-full"></div>
-            <i className="cc-location text-2xl text-[#D1D1D1]" />
-          </div>
-          <p
+    <div className="flex w-full pt-[28px] items-stretch pb-[6rem]">
+      <PeriodicOrderDataCard />
+      <div
+        className={
+          "flex items-start justify-between w-full lg:w-[calc(100%-424px)] lg:mr-auto bg-[#FDFDFD] lg:shadow-[0_0_6px_0_rgba(125,125,125,0.5)] lg:p-6 rounded-2xl min-h-[605px]"
+        }
+      >
+        <div className={"w-full flex flex-col px-4 sm:px-0 gap-4"}>
+          <div
             className={
-              "text-14 size752:text-16 w-full font-medium text-[#454545]"
+              "flex items-center gap-2 size752:gap-[16px] text-[#0E0E0E] w-full"
             }
           >
-            زمان خود را انتخاب کنید:
-          </p>
-          <div className="w-fit flex justify-around items-center gap-6 min-w-full relative border-b border-[#FCCAAC] pb-2">
-            {uniqueTitle.map((item, index) => (
-              <div
-                key={item}
-                className={`flex items-end gap-2 text-sm font-medium cursor-pointer ${dayTitleTab === item ? "text-[#F58052]" : "text-[#FCCAAC]"}`}
-                onClick={() => {
-                  setDate(index);
-                  setDayTitleTab(item);
-                }}
-              >
-                {/* <p>{persianDate(item.day, "dddd")}</p>
-                <p>{persianDateCovertor(item.day)}</p> */}
-                <p>{item}</p>
-              </div>
-            ))}
-            <div
-              className={`${dayTitleTab === uniqueTitle[1] ? "right-1/2" : "right-0"} w-1/2 h-[2px] bg-[#F58052] mt-[-2px] transition-all absolute bottom-0`}
-            ></div>
+            <i
+              className={"cc-arrow-right text-24 cursor-pointer"}
+              onClick={() => {
+                router.back();
+              }}
+            />
+            <p className={"text-14 size752:text-16 w-full font-medium"}>
+              انتخاب زمان
+            </p>
           </div>
-          <div className={"flex flex-col gap-[2rem]"}>
-            {/* <ReserveTimeVerification
+          <div className=" flex flex-col gap-4 lg:mr-8">
+            <div className="flex gap-2 items-center w-full bg-[#FFFFFF] text-[#D1D1D1]">
+              <i
+                className="cc-car-o text-2xl text-[#518DD5] cursor-pointer"
+                onClick={() => {
+                  nProgress.start();
+                  router.push(`/periodic-service`);
+                }}
+              />
+              <div className="border-b-4 border-dotted border-[#518DD5] w-full"></div>
+              <i
+                className="cc-location text-2xl text-[#518DD5] cursor-pointer"
+                onClick={() => {
+                  nProgress.start();
+                  router.push(
+                    `/periodic-service/location-selection?selectTipState=${searchParams.get("selectTipState")}&city_id=${searchParams.get("city_id")}&type=${searchParams.get("type")}`
+                  );
+                }}
+              />
+              <div className="border-b-4 border-dotted border-[#518DD5] w-full"></div>
+              <i
+                className="cc-search text-2xl text-[#518DD5] cursor-pointer"
+                onClick={() => {
+                  nProgress.start();
+                  router.push(
+                    `/periodic-service/service-selection?selectTipState=${searchParams.get("selectTipState")}&city_id=${searchParams.get("city_id")}&service_location_id=${searchParams.get("service_location_id")}&type=${searchParams.get("type")}`
+                  );
+                }}
+              />
+              <div className="border-b-4 border-dotted border-[#518DD5] w-full"></div>
+              <i className="cc-timer text-2xl text-[#D1D1D1]" />
+            </div>
+            <p
+              className={
+                "text-14 size752:text-16 w-full font-medium text-[#454545]"
+              }
+            >
+              زمان خود را انتخاب کنید:
+            </p>
+            <div className="w-fit flex justify-around items-center gap-6 min-w-full relative border-b border-[#FCCAAC] pb-2">
+              {uniqueTitle.map((item, index) => (
+                <div
+                  key={item + index}
+                  className={`flex items-end gap-2 text-sm font-medium cursor-pointer ${dayTitleTab === item ? "text-[#F58052]" : "text-[#FCCAAC]"}`}
+                  onClick={() => {
+                    setDate(index);
+                    setDayTitleTab(item);
+                  }}
+                >
+                  {/* <p>{persianDate(item.day, "dddd")}</p>
+                <p>{persianDateCovertor(item.day)}</p> */}
+                  <p>{item}</p>
+                </div>
+              ))}
+              <div
+                className={`${dayTitleTab === uniqueTitle[1] ? "right-1/2" : "right-0"} w-1/2 h-[2px] bg-[#F58052] mt-[-2px] transition-all absolute bottom-0`}
+              ></div>
+            </div>
+            <div className={"flex flex-col gap-[2rem]"}>
+              {/* <ReserveTimeVerification
               data={data[date]}
               packagePrice={packagePrice}
               timeIsSelected={timeIsSelected}
@@ -190,8 +199,8 @@ const Page = (props) => {
               optionIsOpen={optionIsOpen}
               accordionState={props.accordionState}
               /> */}
-            <div className={"grid grid-cols-1 size666:grid-cols-2 gap-4"}>
-              {/* <div
+              <div className={"grid grid-cols-1 size666:grid-cols-2 gap-4"}>
+                {/* <div
         className={
           "col-span-full py-2 px-3 flex items-center justify-between border-r-2 border-[#F58052]"
           }
@@ -201,90 +210,91 @@ const Page = (props) => {
           <p>{persianDateCovertor(data[0])}</p>
           </div>
           </div> */}
-              {console.log(data)}
-              {data.filter((item) => {
-                return item.title === dayTitleTab;
-              })
-                .map((item, index) => (
-                  <div
-                    className={`shadow-[0_0_4px_0_rgba(152,152,152,0.4)] rounded-lg h-fit border transition-all cursor-pointer duration-500 ${timeIsSelected?.id === item.id ? "border-[#F58052]" : ""}`}
-                    key={index}
-                  >
+                {data
+                  .filter((item) => {
+                    return item.title === dayTitleTab;
+                  })
+                  .map((item, index) => (
                     <div
-                      onClick={() =>
-                        // openOptionHandler(item.id)
-                        setTimeIsSelected(item)
-                      }
-                      className={
-                        "flex flex-col items-start px-4 py-5 gap-1 border-b border-[#F2F2F2]"
-                      }
+                      className={`shadow-[0_0_4px_0_rgba(152,152,152,0.4)] rounded-lg h-fit border transition-all cursor-pointer duration-500 ${timeIsSelected?.id === item.id ? "border-[#F58052]" : ""}`}
+                      key={index + item.id}
                     >
                       <div
-                        className={"flex items-center justify-between w-full"}
+                        onClick={() =>
+                          // openOptionHandler(item.id)
+                          setTimeIsSelected(item)
+                        }
+                        className={
+                          "flex flex-col items-start px-4 py-5 gap-1 border-b border-[#F2F2F2]"
+                        }
                       >
-                        <p className={"text-sm text-[#1E67BF] font-medium"}>
-                          {item.start}:00 تا {item.end}:00
-                        </p>
                         <div
-                          className={
-                            "rounded-[50%] border-2 border-[#F58052] size-5 flex items-center justify-center"
-                          }
+                          className={"flex items-center justify-between w-full"}
                         >
+                          <p className={"text-sm text-[#1E67BF] font-medium"}>
+                            {item.start}:00 تا {item.end}:00
+                          </p>
                           <div
-                            className={`rounded-[50%] bg-[#F58052] size-[10px] transition-all duration-500 ${timeIsSelected?.id === item.id ? "scale-1" : "scale-0"}`}
-                          ></div>
+                            className={
+                              "rounded-[50%] border-2 border-[#F58052] size-5 flex items-center justify-center"
+                            }
+                          >
+                            <div
+                              className={`rounded-[50%] bg-[#F58052] size-[10px] transition-all duration-500 ${timeIsSelected?.id === item.id ? "scale-1" : "scale-0"}`}
+                            ></div>
+                          </div>
                         </div>
+                        {item.swing_type === "INCREASE" ? (
+                          <p className={"text-[12px] flex items-center gap-px"}>
+                            <span className="text-red-600">*</span>
+                            <span className="text-[#010101]">
+                              {numberWithCommas(
+                                (packagePrice * item.diff_percent) / 100
+                              )}{" "}
+                              تومان افزایش قیمت به دلیل پیک درخواست
+                            </span>
+                          </p>
+                        ) : item.swing_type === "DECREASE" ? (
+                          <p className={"text-[12px] flex items-center gap-px"}>
+                            <span className="text-red-600">*</span>
+                            <span className="text-[#010101]">
+                              {numberWithCommas(
+                                (packagePrice * item.diff_percent) / 100
+                              )}{" "}
+                              تومان تخفیف کارچک
+                            </span>
+                          </p>
+                        ) : (
+                          ""
+                        )}
                       </div>
-                      {item.swing_type === "INCREASE" ? (
-                        <p className={"text-[12px] flex items-center gap-px"}>
-                          <span className="text-red-600">*</span>
-                          <span className="text-[#010101]">
-                            {numberWithCommas(
-                              (packagePrice * item.diff_percent) / 100
-                            )}{" "}
-                            تومان افزایش قیمت به دلیل پیک درخواست
-                          </span>
-                        </p>
-                      ) : item.swing_type === "DECREASE" ? (
-                        <p className={"text-[12px] flex items-center gap-px"}>
-                          <span className="text-red-600">*</span>
-                          <span className="text-[#010101]">
-                            {numberWithCommas(
-                              (packagePrice * item.diff_percent) / 100
-                            )}{" "}
-                            تومان تخفیف کارچک
-                          </span>
-                        </p>
-                      ) : (
-                        ""
-                      )}
                     </div>
-                  </div>
-                ))}
+                  ))}
+              </div>
+            </div>
+            <button
+              disabled={timeIsSelected ? false : true}
+              onClick={continueSecondStepHandler}
+              className={`${timeIsSelected ? "bg-[#F66B34]" : "bg-[#FCCAAC]"} self-end hidden lg:flex items-center gap-2 mt-4 size690:mt-3 w-fit text-12 size690:text-[16px] p-[8px] text-white rounded-[4px]`}
+            >
+              <p>تایید و ادامه</p>
+              <i className={"cc-left text-[20px]"} />
+            </button>
+            <div
+              className="fixed w-full rounded-t-2xl shadow-[0_-2px_4px_0_rgba(199,199,199,0.25)] flex justify-center pt-4 pb-6 items-start bottom-0 right-0 bg-white z-[2000] px-10 lg:hidden"
+              onClick={continueSecondStepHandler}
+            >
+              <button
+                className={`${timeIsSelected ? "bg-[#F66B34]" : "bg-[#FCCAAC]"} rounded-lg w-full sm:max-w-[400px] text-[#FEFEFE] text-sm font-medium py-3`}
+                disabled={timeIsSelected ? false : true}
+              >
+                تایید ادامه
+              </button>
             </div>
           </div>
-          <button
-            disabled={timeIsSelected ? false : true}
-            onClick={continueSecondStepHandler}
-            className={`${timeIsSelected ? "bg-[#F66B34]" : "bg-[#FCCAAC]"} self-end hidden lg:flex items-center gap-2 mt-4 size690:mt-3 w-fit text-12 size690:text-[16px] p-[8px] text-white rounded-[4px]`}
-          >
-            <p>تایید و ادامه</p>
-            <i className={"cc-left text-[20px]"} />
-          </button>
-          <div
-            className="fixed w-full rounded-t-2xl shadow-[0_-2px_4px_0_rgba(199,199,199,0.25)] flex justify-center pt-4 pb-6 items-start bottom-0 right-0 bg-white z-[2000] px-10 lg:hidden"
-            onClick={continueSecondStepHandler}
-          >
-            <button
-              className={`${timeIsSelected ? "bg-[#F66B34]" : "bg-[#FCCAAC]"} rounded-lg w-full sm:max-w-[400px] text-[#FEFEFE] text-sm font-medium py-3`}
-              disabled={timeIsSelected ? false : true}
-            >
-              تایید ادامه
-            </button>
-          </div>
         </div>
+        <ToastContainer />
       </div>
-      <ToastContainer />
     </div>
   );
 };

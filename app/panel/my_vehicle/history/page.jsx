@@ -80,7 +80,6 @@ const History = () => {
     const res = await getDataWithFullErrorRes(
       "/user/car_id_card/" + params.get("id")
     );
-    console.log(res.data);
     setHistoryData(res.data);
   }
 

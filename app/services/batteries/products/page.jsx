@@ -32,7 +32,6 @@ export const metadata = {
 
 const BatteriesData = async (props) => {
   const fetchState = props.filter.selectTipState?.split(",")[1];
-  console.log(props.filter.attribute_value);
   await revalidatePath("/services/batteries/products");
   const fetchData = await getData(
     "/web/batteries",
@@ -45,7 +44,7 @@ const BatteriesData = async (props) => {
       page: props.filter.page || 1,
       attribute_slug: props.filter.attribute_slug,
       attribute_value: props.filter.attribute_value,
-    },
+    }
   );
   return <BatteriesPage data={fetchData} searchParams={props.filter} />;
 };

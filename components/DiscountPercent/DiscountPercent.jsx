@@ -11,9 +11,7 @@ const DiscountPercent = (props) => {
       coupon_code: props.coupon,
       type: props.type,
     });
-    console.log(response);
     if (response?.status === "success") {
-      console.log(response.data);
       props.setDiscountPrice({
         amount: response.data["amount"],
         percentage: response.data["percentage"],

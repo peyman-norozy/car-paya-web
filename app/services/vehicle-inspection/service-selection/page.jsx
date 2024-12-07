@@ -169,28 +169,30 @@ const PackageStep = () => {
                 </span>
               </div>
             ) : (
-              <ul className={"flex flex-col gap-2 mb-[2.5rem]"}>
-                {data?.map((item, index) => (
-                  <li key={index}>
-                    <PackageCard
-                      options={item.information}
-                      isSelected={isSelected}
-                      id={item.id}
-                      setIsSelected={setIsSelected}
-                      title={item.title}
-                      price={item.price}
-                      discounted_price={item.discounted_price}
-                      onClick={() =>
-                        selectPackageHandler(
-                          item.id,
-                          item.title,
-                          item.discounted_price
-                        )
-                      }
-                    />
-                  </li>
-                ))}
-              </ul>
+              <div className="lg:overflow-y-scroll lg:max-h-[calc(100vh-380px)] p-1">
+                <ul className={"flex flex-col gap-2 mb-[2.5rem]"}>
+                  {data?.map((item, index) => (
+                    <li key={index}>
+                      <PackageCard
+                        options={item.information}
+                        isSelected={isSelected}
+                        id={item.id}
+                        setIsSelected={setIsSelected}
+                        title={item.title}
+                        price={item.price}
+                        discounted_price={item.discounted_price}
+                        onClick={() =>
+                          selectPackageHandler(
+                            item.id,
+                            item.title,
+                            item.discounted_price
+                          )
+                        }
+                      />
+                    </li>
+                  ))}
+                </ul>
+              </div>
             )}
             <button
               onClick={nextStepHandler}

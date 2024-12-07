@@ -20,6 +20,7 @@ import InspectionCondition from "@/components/InspectionCondition";
 import InspectionPackage from "@/components/InspectionPackage";
 import Opinion from "@/components/Opinion";
 import QuestionMark from "@/components/QuestionMark";
+import banner3 from "@/public/assets/images/banner3.png";
 const VehicleInspection = () => {
   const [selectedItem, setSelectedItem] = useState(null);
   const [city_id, setCity_id] = useState();
@@ -137,6 +138,9 @@ const VehicleInspection = () => {
           {vehicleVerificationBasket.length ? "ادامه " : ""}درخواست کارشناسی
         </button>
       </div>
+      {/* <div className="overflow-x-hidden mt-4">
+        <Image src={banner3} />
+      </div> */}
       <div className={"max-w-[1294px] mx-auto gap-8 flex flex-col"}>
         <BachelorSteps />
         <WhyInspection />

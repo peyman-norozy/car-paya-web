@@ -205,7 +205,6 @@ const CarDevice = (props) => {
         process.env.BASE_API + "/web" + API_PATHS.YEARS + "/" + value
       );
       if (response.status === 200) {
-        console.log(response.data.data);
         setNewYear(response.data.data);
         if (props.pageType === "edit") {
           changesEditData.year = <span className="text-[#aaa]">سال ساخت</span>;
@@ -515,7 +514,6 @@ const CarDevice = (props) => {
     setModalState(true);
   };
   const closeCarModalHandler = (event) => {
-    console.log(event.target.getAttribute("id"));
     if (event.target.id === "ChoseCar") {
       setModalState(false);
     }
@@ -724,7 +722,6 @@ const CarDevice = (props) => {
         <h1 className={"text-[#FEFEFE]"}>خودرو</h1>
         <div className={"grid size800:grid-cols-2 grid-cols-1 gap-[32px]"}>
           <section className="flex justify-center items-center rounded-[10px] flex-[1]">
-            {console.log(newImage)}
             <Image
               src={
                 newImage && newImage !== null

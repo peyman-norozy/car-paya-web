@@ -12,7 +12,7 @@ import GreenCheckInput from "@/components/GreenCheckInput";
 
 const BatteriesAssisantPage = (props) => {
   const batteryBasketLength = useSelector(
-    (item) => item.todo.batteriesBasketLength,
+    (item) => item.todo.batteriesBasketLength
   );
   const [batteryIsSelected, setBatteryIsSelected] = useState(false);
   const [batteryProductId, setBatteryProductId] = useState(null);
@@ -23,7 +23,6 @@ const BatteriesAssisantPage = (props) => {
 
   //when refresh page my batteryTotalPrice remove from localStorage
   useEffect(() => {
-    console.log(batteryBasketLength);
     if (batteryBasketLength === 0) {
       localStorage.removeItem("batteryTotalPrice");
     }
@@ -32,7 +31,7 @@ const BatteriesAssisantPage = (props) => {
   const basketClickHandler = () => {
     const CityId = JSON.parse(localStorage.getItem("city"))?.cityId;
     const selectedVehicleId = JSON.parse(
-      localStorage.getItem("selectedVehicle"),
+      localStorage.getItem("selectedVehicle")
     )?.id;
     if (Object.keys(filterButtery).length > 0) {
       if (batteryBasketLength) {
@@ -57,10 +56,8 @@ const BatteriesAssisantPage = (props) => {
   };
 
   const radioButtonChangeHandler = (id) => {
-    console.log(id);
     setBatteryProductId(id);
     const singleButtery = props.data.data.filter((item) => item.id === id);
-    console.log(singleButtery);
     setFilterButtery(...singleButtery);
   };
 
@@ -70,8 +67,6 @@ const BatteriesAssisantPage = (props) => {
     const singleButtery = props.data.data.filter((item) => item.id === id);
     setFilterButtery(...singleButtery);
   };
-
-  console.log(filterButtery);
 
   return (
     <div

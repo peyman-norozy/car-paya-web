@@ -16,14 +16,13 @@ const ProfilePage = () => {
 
   async function getProfileData() {
     const res = await getDataWithFullErrorRes("user/profile");
-    console.log(res.data);
     setData({
       image_id: res.data.image_id,
-      first_name: res.data.profile.first_name,
-      last_name: res.data.profile.last_name,
+      first_name: res.data.profile?.first_name,
+      last_name: res.data.profile?.last_name,
       mobile: res.data.mobile,
-      gender: res.data.profile.gender,
-      national_code: res.data.profile.national_code,
+      gender: res.data.profile?.gender || "male",
+      national_code: res.data.profile?.national_code,
       email: res.data.email,
     });
   }
@@ -31,7 +30,6 @@ const ProfilePage = () => {
   async function postProfileData() {
     const res = postData("/user/profile", data);
     success("اطلاعات با موفقیت ویرایش شد");
-    console.log(res);
   }
 
   async function imageChangeHandler(e) {
@@ -39,14 +37,9 @@ const ProfilePage = () => {
       const file = e.target.files[0];
       const reader = new FileReader();
       reader.readAsDataURL(file);
-      console.log(file);
       const formData = new FormData();
       formData.append("file", file);
       formData.append("type", "USER");
-      // for (let [key, value] of formData.entries()) {
-      //   console.log(`${key}: ${value.name}`);
-      // }
-
       const response = await fetch(`${process.env.BASE_API}/web/files`, {
         method: "POST",
         body: formData,
