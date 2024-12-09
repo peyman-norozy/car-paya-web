@@ -346,7 +346,7 @@ export const tabsData = [
   },
   {
     title: "تخفیفات و امتیازات",
-    link: "/panel/cupon",
+    link: "/panel/coupon",
     underline: true,
   },
 ];
