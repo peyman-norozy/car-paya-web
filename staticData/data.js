@@ -23,7 +23,7 @@ export const serviceData = [
   {
     title: "شناسنامه",
     icon: "/assets/images/service4.png",
-    href: "/panel/my-vehicle/my-car",
+    href: "/panel/my_vehicle",
     id: "myVehicleMyCar",
     description: "کار پایا چه خدماتی ارائه میدهدکار پایا چه خدماتی ارائه میدهد",
   },
@@ -346,7 +346,7 @@ export const tabsData = [
   },
   {
     title: "تخفیفات و امتیازات",
-    link: "/panel/cupon",
+    link: "/panel/coupon",
     underline: true,
   },
 ];
