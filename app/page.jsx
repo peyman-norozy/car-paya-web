@@ -76,9 +76,9 @@ export const metadata = {
 };
 
 const HomePage = async () => {
-  // const data = await getDataWithRevalidate(
-  //   "https://carpaya.com/blog/wp-json/api/v1/random-posts/8",
-  // );
+  const data = await getDataWithRevalidate(
+    "https://carpaya.com/blog/wp-json/api/v1/random-posts/8",
+  );
 
   return (
     <div className="flex flex-col gap-4 lg:gap-[48px] w-full max-w-[1772px] m-auto lg:mt-6 relative">
@@ -91,11 +91,11 @@ const HomePage = async () => {
         <Benefits />
         <PriceEstimate />
         <HomeBatteries />
-        {/*<HomePageArticles data={data} />*/}
+        <HomePageArticles data={data} />
         <QuestionMark />
         {/* <HomePageParallaxSlider /> */}
         {/*<HomePageServiceIntroduction />*/}
-        {/*<HomePageArticleSlider data={data} />*/}
+        <HomePageArticleSlider data={data} />
       </div>
       <ToastContainer rtl={true} />
     </div>
