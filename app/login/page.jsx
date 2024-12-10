@@ -35,7 +35,7 @@ export default function Login(props) {
 
   return (
     <ProtectedRoute>
-      <div className={"my-20"}>
+      <div className={"my-20 mx-4"}>
         {(() => {
           switch (loginState) {
             case "phone_number":

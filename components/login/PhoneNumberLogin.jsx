@@ -118,7 +118,7 @@ export default function PhoneNumberLogin(props) {
             type={"button"}
             disabled_btn={sliderShowState}
             class_name={
-              "w-[360px] h-[40px] bg-[#F66B34] text-white rounded-5 cursor-pointer"
+              "max-w-[360px] w-full h-[40px] bg-[#F66B34] text-white rounded-5 cursor-pointer"
             }
             on_click={clickTelNumberBtn}
           >
