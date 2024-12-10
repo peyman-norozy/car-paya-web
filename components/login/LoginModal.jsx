@@ -11,7 +11,7 @@ import TextInput from "../public/TextInput";
 const LoginModal = () => {
   const [phone, setPhone] = useState("");
   const [loginToken, setLoginToken] = useState("");
-  const [step, setStep] = useState(1);
+  const [step, setStep] = useState(0);
   const [otp, setOtp] = useState("");
   const [isClient, setIsClient] = useState(false);
   const dispatch = useDispatch();
