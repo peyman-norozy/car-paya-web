@@ -23,7 +23,7 @@ export const serviceData = [
   {
     title: "شناسنامه",
     icon: "/assets/images/service4.png",
-    href: "/login?url=/panel/my_vehicle",
+    href: "/panel/my_vehicle",
     id: "myVehicleMyCar",
     description: "کار پایا چه خدماتی ارائه میدهدکار پایا چه خدماتی ارائه میدهد",
   },
