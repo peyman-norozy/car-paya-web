@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import axios from "axios";
 import Button from "@/components/Button";
 import OTPInput from "react-otp-input";
@@ -13,6 +13,7 @@ import otpImage from "@/public/assets/images/otp.png";
 import Image from "next/image";
 import nProgress from "nprogress";
 import { setLoginState } from "@/store/todoSlice";
+import { setCookie } from "cookies-next";
 
 export default function OtpUsersLogin(props) {
   const [otp, setOtp] = useState("");
@@ -21,6 +22,7 @@ export default function OtpUsersLogin(props) {
   const otpData = useSelector((data) => data.todo.loginOtpData);
   const router = useRouter();
   const dispatch = useDispatch();
+  const searchParams = useSearchParams();
 
   const postOtp = () => {
     let fd = new FormData();
@@ -29,22 +31,17 @@ export default function OtpUsersLogin(props) {
     fd.append("otp", otp);
     setSliderShowState(true);
     axios
-      .post(process.env.BASE_API + API_PATHS.CHECKOTP, fd)
+      .post(process.env.BASE_API + "/admin/check-otp", {
+        mobile: props.phoneNumber,
+        otp: otp,
+      })
       .then((res) => {
-        if (res.status === 200) {
-          let now = new Date();
-          let time = now.getTime();
-          let expireTime = time + res.data.expires_at;
-          now.setTime(expireTime);
-          document.cookie = `Authorization = ${
-            res.data.token
-          };expires=${now.toUTCString()};path=/;SameSite=Strict;Secure`;
-          setSliderShowState(false);
-        }
+        localStorage.setItem("user-profile", JSON.stringify(res.data.user));
+        setCookie("Authorization", res.data.token);
       })
       .then(() => {
         nProgress.start();
-        router.push("/");
+        router.push(searchParams.get("url"));
         dispatch(setLoginState(false));
         // dispatch(loginUser()).then((res) => console.log(res));
         // (async () => {
@@ -60,7 +57,7 @@ export default function OtpUsersLogin(props) {
       })
       .catch((e) => {
         setSliderShowState(false);
-        if (e.response.status === 422) {
+        if (e.response?.status === 422) {
           setNewErrorText(e.response.data.errors.otp[0]);
           setTimeout(() => {
             setNewErrorText("");
@@ -141,71 +138,79 @@ export default function OtpUsersLogin(props) {
   };
 
   return (
-    <div className="max-w-[660px] m-auto my-[80px] w-full">
-      <div className="bg-[#383838ad] overflow-hidden rounded-2xl p-4 flex flex-col items-center gap-6">
-        <Image
+    <div className="max-w-[660px] m-auto w-full">
+      <div className="bg-white overflow-hidden rounded-2xl p-8 flex flex-col items-center gap-6 shadow-[0_0_6px_0_rgba(125,125,125,0.5)]">
+        {/* <Image
           src={otpImage}
           className="w-[360px] aspect-auto"
           width={360}
           height={244}
           alt=""
-        />
+        /> */}
+        <span className="text-2xl text-[#F66B34] font-black">CAR PAYA</span>
+        <span className="text-lg font-medium text-center text-[#0F0F0F]">
+          ورود به کارپایا
+        </span>
         <div className="h-full w-full flex flex-col justify-center items-center text-center gap-2">
           <div className="flex flex-col gap-2 items-start">
-            <h2 className="size460:text-[18px] text-[12px] font-bold text-[#FEFEFE]">
-              کد ارسال شده را وارد کنید:
-            </h2>
-          </div>
-          <form
-            onKeyDown={otpSubmitHandler}
-            className="flex flex-col items-center gap-6"
-          >
-            <div className="OTP_Input">
-              <OTPInput
-                value={otp}
-                onChange={setOtp}
-                inputType={"number"}
-                shouldAutoFocus={true}
-                numInputs={4}
-                renderSeparator={false}
-                renderInput={(props) => <input {...props} />}
-                containerStyle={{
-                  width: "250px",
-                  height: "50px",
-                  direction: "ltr",
-                  marginLeft: "10px",
-                  gap: "10px",
-                }}
-                inputStyle={
-                  "flex-1 h-full bg-[#00000000] outline-none border-b border-[#fefefe] text-[#FEFEFE] text-xl font-medium"
-                }
-              />
-            </div>
-            {newErrorText.length > 0 && (
-              <p className={"text-12 text-red-500"}>{newErrorText}</p>
-            )}
-            <Button
-              type={"button"}
-              disabled_btn={sliderShowState}
-              on_click={sendOtpClickHandler}
-              class_name={
-                "w-full h-[40px] bg-[#F66B34] text-white rounded-5 size460:text-[14px] text-[12px] size460:ml-[20px] ml-0"
-              }
+            <span className="text-xs font-medium w-full text-start">
+              کد تایید برای شماره {props.phoneNumber} پیامک شد
+            </span>
+            <form
+              onKeyDown={otpSubmitHandler}
+              className="flex flex-col items-center gap-6"
             >
-              <div className={"relative"}>
-                <span>ارسال</span>
-                {sliderShowState && (
-                  <div
-                    className={
-                      "flex justify-center items-center h-[20px] absolute left-4 top-[2px]"
-                    }
-                  >
-                    <Spinner width={"w-[24px]"} height={"h-[24px]"} />
-                  </div>
-                )}
+              <div className="OTP_Input">
+                <OTPInput
+                  value={otp}
+                  onChange={setOtp}
+                  inputType={"number"}
+                  shouldAutoFocus={true}
+                  numInputs={4}
+                  renderSeparator={false}
+                  renderInput={(props) => <input {...props} />}
+                  containerStyle={{
+                    width: "300px",
+                    height: "50px",
+                    direction: "ltr",
+                    gap: "24px",
+                  }}
+                  inputStyle={
+                    "flex-1 h-full bg-[#00000000] outline-none border border-[#B0B0B0] text-[#3C3C3C] text-14 font-medium rounded-[4px]"
+                  }
+                />
               </div>
-            </Button>
-          </form>
+              {newErrorText.length > 0 && (
+                <p className={"text-12 text-red-500"}>{newErrorText}</p>
+              )}
+              <Button
+                type={"button"}
+                disabled_btn={sliderShowState}
+                on_click={sendOtpClickHandler}
+                class_name={
+                  "w-full h-[40px] bg-[#F66B34] text-white rounded-5 size460:text-[14px] text-[12px]"
+                }
+              >
+                <div className={"relative"}>
+                  <span>ارسال</span>
+                  {sliderShowState && (
+                    <div
+                      className={
+                        "flex justify-center items-center h-[20px] absolute left-4 top-[2px]"
+                      }
+                    >
+                      <Spinner width={"w-[24px]"} height={"h-[24px]"} />
+                    </div>
+                  )}
+                </div>
+              </Button>
+              <span className="text-10 sm:text-12 flex gap-[2px]">
+                ورود شما به معنای پذیرش
+                <span className="text-[#1E67BF]">شرایط کار پایا</span>و
+                <span className="text-[#1E67BF]">قوانین حریم خصوصی</span>است
+              </span>
+            </form>
+          </div>
         </div>
       </div>
       <ToastContainer rtl={true} />
