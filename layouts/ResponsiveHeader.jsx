@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import HeaderLogo from "@/components/HeaderLogo";
 import LoginLink from "@/components/LoginLink";
 import BasketLink from "@/components/BasketLink";
-import { usePathname, useParams } from "next/navigation";
+import { usePathname, useParams, useRouter } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
 import ResponsiveMenu from "@/components/ResponsiveMenu";
 import CardPay from "@/components/CardPay";
@@ -27,6 +27,7 @@ const ResponsiveHeader = (props) => {
   const cityModalState = useSelector((state) => state.todo.cityModalState);
   const accontRef = useRef();
   const close = useCallback(() => setNewLoginState(false), []);
+  const router = useRouter();
   useClickOutside(accontRef, close);
   const accountClickHandler = () => {
     setNewLoginState((prevState) => !prevState);
@@ -37,7 +38,8 @@ const ResponsiveHeader = (props) => {
   };
 
   const loginModalHandler = () => {
-    dispatch(setLoginModal(true));
+    // dispatch(setLoginModal(true));
+    router.push("/login?url=/panel/profile");
   };
 
   const asideMenuCloseHandler = () => {
