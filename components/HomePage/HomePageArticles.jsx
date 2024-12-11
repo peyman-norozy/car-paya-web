@@ -36,8 +36,11 @@ const HomePageArticles = (props) => {
         // centeredSlides={true}
         // loop={true}
       >
-        {props?.data?.map((item) => (
-          <SwiperSlide style={{ width: "fit-content" }} key={item.id}>
+        {props?.data?.map((item, index) => (
+          <SwiperSlide
+            style={{ width: "fit-content" }}
+            key={`${item.id}-${index}`}
+          >
             <Link href={item.permalink}>
               <div className="w-[190px] sm:w-[380px] h-[226px] sm:h-[400px] rounded-2xl md:rounded-[32px] overflow-hidden flex flex-col items-center gap-[10px] bg-[#FFFFFF] shadow-[0_0_8px_0_rgba(162,162,162,0.25)] p-2 sm:p-4">
                 <Image
