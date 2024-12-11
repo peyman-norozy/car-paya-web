@@ -102,14 +102,15 @@ export default function RootLayout({ children }) {
         </head>
         <body className="bg-[#FBFBFB]">
           <NextTopLoader
-            color={"#000000"}
-            height={4}
+            color={"#F66B34"}
+            height={5}
             crawlSpeed={2000}
             crawl={true}
             initialPosition={0.08}
             showSpinner={false}
             easing="ease"
             speed={2000}
+            zIndex={10000}
           />
           <LoginModal />
           <ToastContainer rtl={true} />

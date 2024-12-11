@@ -4,94 +4,79 @@ import axios from "axios";
 import { getCookie } from "cookies-next";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import AddAddressModal from "@/components/vehicle-verification/AddAddressModal";
+import PanelAddressCard from "@/components/panel/PanelAddressCard";
+import DeleteModal from "@/components/public/DeleteModal";
+import { useSelector } from "react-redux";
 
 const AddressPage = () => {
   const [data, setData] = useState([]);
-  const [openMenu, setOpenMenu] = useState(false);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [modalType, setModalType] = useState("create");
+  const [addressEditId, setAddressEditId] = useState("");
+  const renderUserAddrressState = useSelector(
+    (state) => state.todo.renderUserAddrressState
+  );
   useEffect(() => {
     axios
-      .get(
-        process.env.BASE_API +
-          `/web/service-periodical?step=step-1&city_id=` +
-          JSON.parse(localStorage.getItem("city"))?.cityId +
-          "&type=MOVING&vehicle_tip_id=" +
-          JSON.parse(localStorage.getItem("selectedVehicle")).id,
-        {
-          headers: {
-            Authorization: "Bearer " + getCookie("Authorization"),
-          },
-        }
-      )
+      .get(process.env.BASE_API + `/user/user-address`, {
+        headers: {
+          Authorization: "Bearer " + getCookie("Authorization"),
+        },
+      })
       .then((res) => {
         setData(res.data.data);
       });
-  }, []);
+  }, [renderUserAddrressState]);
   return (
     <PanelContainer>
       <div className="bg-[#fefefe] rounded-lg shadow-[0_0_8px_0_rgba(143,143,143,0.25)] min-h-[500px] flex flex-col gap-6 lg:gap-9 p-4 lg:p-12">
-        <div className="flex gap-2 items-center ">
-          <Link href={"/panel"} className="flex items-center lg:hidden">
-            <i className="cc-arrow-right text-xl leading-3" />
-          </Link>
-          <span className="font-medium text-sm">ادرس ها</span>
+        <div className="flex items-center justify-between w-full">
+          <div className="flex gap-2 items-center ">
+            <Link href={"/panel"} className="flex items-center lg:hidden">
+              <i className="cc-arrow-right text-xl leading-3" />
+            </Link>
+            <span className="font-medium">ادرس ها</span>
+          </div>
+          <div
+            className="bg-inherit text-[#0F0F0F] p-2 rounded-lg text-12 sm:text-sm shadow-[0_0_3px_0_rgba(160,160,160,0.7)] flex items-center gap-2 cursor-pointer"
+            onClick={() => {
+              setModalType("create");
+              setModalIsOpen(true);
+            }}
+          >
+            <i className="cc-add" />
+            <span>افزودن ادرس</span>
+          </div>
         </div>
         <div className="flex flex-col gap-4">
           {data.map((item) => (
-            <div
-              className={`flex flex-col gap-4 p-4 rounded-lg bg-white cursor-pointer shadow-[0_0_4px_0_rgba(207,207,207,0.7)]`}
-            >
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-1">
-                  <i className="cc-location text-lg" />
-                  <span className="text-[#000000] text-sm">{item.title}</span>
-                </div>
-                {/* <div
-                  className="relative"
-                  onClick={(event) => {
-                    event.stopPropagation();
-                  }}
-                >
-                  <i
-                    className="cc-menu-kebab text-2xl bg-white relative z-[2]"
-                    onClick={() => {
-                      setOpenMenu(!openMenu);
-                    }}
-                  />
-                  <i
-                    className={`cc-edit text-2xl absolute ${openMenu ? "left-12" : "left-0"} top-0 transition-all text-[#22A137]`}
-                    //   onClick={() => {
-                    //     setEditModalIsOpen(true);
-                    //   }}
-                  />
-                  <i
-                    className={`cc-filter text-2xl absolute ${openMenu ? "left-24" : "left-0"} transition-all top-0 text-[#DB3737]`}
-                    //   onClick={() => {
-                    //     dispatch(setDeleteModal(true));
-                    //     dispatch(setDeleteModalId(item.address_id));
-                    //   }}
-                  />
-                </div> */}
-              </div>
-              <div className="flex flex-col gap-2">
-                <div className="flex justify-start gap-4">
-                  <div className="flex gap-px items-center">
-                    <span className="text-[#454545] text-sm">استان:</span>
-                    <span className="text-[#3C3C3C] font-medium text-xs">
-                      {item.province_name}
-                    </span>
-                  </div>
-                  <div className="flex gap-px items-center">
-                    <span className="text-[#454545] text-sm">شهر:</span>
-                    <span className="text-[#3C3C3C] font-medium text-xs">
-                      {item.city_name}
-                    </span>
-                  </div>
-                </div>
-                <span className="text-[#3C3C3C] text-xs">{item.address}</span>
-              </div>
-            </div>
+            <PanelAddressCard
+              item={item}
+              setModalType={setModalType}
+              setModalIsOpen={setModalIsOpen}
+              setAddressEditId={setAddressEditId}
+            />
           ))}
         </div>
+        {modalIsOpen && (
+          <div
+            className={"fixed m-auto inset-0 z-[10000000000] bg-[#0000009a]"}
+            onClick={() => {
+              setModalIsOpen(false);
+            }}
+          >
+            <AddAddressModal
+              getDataFetch={setData}
+              pageType={modalType}
+              setModalIsOpen={setModalIsOpen}
+              setIsLoading={setIsLoading}
+              addressEditId={addressEditId}
+            />
+          </div>
+        )}
+        <DeleteModal />
       </div>
     </PanelContainer>
   );

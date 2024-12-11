@@ -200,19 +200,14 @@ const Dealership = (props) => {
     if (checkedService.length === 0) {
       setSearchedAgentData(agentData);
     } else {
-      const array = checkedService.map((item) => {
-        const a = agentData.filter((item2) => {
-          let b = false;
-          item2.services.map((item3) => {
-            if (item3.key === item && item3.value) {
-              b = true;
-            }
-          });
-          return b;
-        });
-        return a.flat();
-      });
-      setSearchedAgentData(array.flat());
+      const filteredData = agentData.filter((agent) =>
+        checkedService.every((key) =>
+          agent.services.some((service) => service.key === key && service.value)
+        )
+      );
+      console.log(filteredData);
+
+      setSearchedAgentData(filteredData);
     }
   }
 
