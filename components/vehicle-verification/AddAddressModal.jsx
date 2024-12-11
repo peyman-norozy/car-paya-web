@@ -100,9 +100,8 @@ const AddressModal = (props) => {
         } else if (pathName === "/services/detailing/selectLocation") {
           props.timeData();
           props.setModalIsOpen(false);
-        } else if (
-          pathName === "/services/periodic-service/location-selection"
-        ) {
+        } else {
+          props.getDataFetch((prev) => [...prev, post.data.data]);
           props.setModalIsOpen(false);
         }
 
