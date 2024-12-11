@@ -91,7 +91,7 @@ const CarSelectComponent = (props) => {
 
     (async () => {
       const data = await getDataWithFullErrorRes(
-        process.env.BASE_API + "/web/my-vehicles"
+        process.env.BASE_API + "/user/my-vehicles"
       );
       if (data.status && data.status === "success") {
         setMyVehicleData(data.data);

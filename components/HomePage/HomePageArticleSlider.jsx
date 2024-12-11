@@ -47,7 +47,10 @@ const HomePageArticleSlider = (props) => {
         }}
       >
         {props?.data?.map((item, index) => (
-          <SwiperSlide style={{ width: "fit-content" }} key={item.id}>
+          <SwiperSlide
+            style={{ width: "fit-content" }}
+            key={`${item.id}-${index}`}
+          >
             <Link href={item.permalink}>
               <div className="rounded-lg md:rounded-[8px] overflow-hidden relative">
                 <Image
