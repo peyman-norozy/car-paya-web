@@ -45,7 +45,7 @@ const AddressPage = () => {
                   <i className="cc-location text-lg" />
                   <span className="text-[#000000] text-sm">{item.title}</span>
                 </div>
-                <div
+                {/* <div
                   className="relative"
                   onClick={(event) => {
                     event.stopPropagation();
@@ -70,7 +70,7 @@ const AddressPage = () => {
                     //     dispatch(setDeleteModalId(item.address_id));
                     //   }}
                   />
-                </div>
+                </div> */}
               </div>
               <div className="flex flex-col gap-2">
                 <div className="flex justify-start gap-4">
