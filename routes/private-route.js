@@ -13,32 +13,38 @@ const PrivateRoute = ({ children }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (getCookie("Authorization")) {
-      dispatch(loginUser()).then((res) => console.log(res));
+    // کد فقط در سمت کلاینت اجرا می‌شود
+    if (typeof window !== "undefined") {
+      if (getCookie("Authorization")) {
+        dispatch(loginUser()).then((res) => console.log(res));
+      } else {
+        dispatch(setLoginState(true));
+        nProgress.start();
+        router.push("/login");
+        deleteCookie("Authorization");
+      }
     }
-  }, []);
-
-  if (!getCookie("Authorization")) {
-    dispatch(setLoginState(true));
-    nProgress.start();
-    router.push("/login");
-    deleteCookie("Authorization");
-    return;
-  }
+  }, [dispatch, router]);
 
   if (loginResult.user === null && loginResult.error === null) {
     return <div style={{ width: "100%", height: "600px" }}>... loading</div>;
   }
 
   if (loginResult.error) {
-    dispatch(setLoginState(true));
-    deleteCookie("Authorization");
-    nProgress.start();
-    router.push("/login");
+    if (typeof window !== "undefined") {
+      dispatch(setLoginState(true));
+      deleteCookie("Authorization");
+      nProgress.start();
+      router.push("/login");
+    }
+    return null;
   }
+
   if (loginResult.user && loginResult.user.status === "success") {
     return children;
   }
+
+  return null; // پیشگیری از رندر شدن بدون کنترل
 };
 
 export default PrivateRoute;
