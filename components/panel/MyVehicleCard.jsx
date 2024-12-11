@@ -11,11 +11,14 @@ const MyVehicleCard = ({ item, getMyVehicleData }) => {
 
   function deleteHandler() {
     axios
-      .delete(process.env.BASE_API + "/user/my-vehicles/" + item.id, {
-        headers: {
-          Authorization: "Bearer " + getCookie("Authorization"),
-        },
-      })
+      .delete(
+        process.env.BASE_API + "/user/my-vehicles/" + item.my_vehicle_tip_id,
+        {
+          headers: {
+            Authorization: "Bearer " + getCookie("Authorization"),
+          },
+        }
+      )
       .then((res) => {
         getMyVehicleData();
       });
@@ -23,7 +26,7 @@ const MyVehicleCard = ({ item, getMyVehicleData }) => {
 
   return (
     <div
-      key={item.id}
+      key={item.my_vehicle_tip_id}
       className="shadow-[0_0_4px_0_rgba(207,207,207,0.7)] flex flex-col gap-5 rounded-2xl p-4 relative"
     >
       <div className="flex flex-col-reverse gap-4 items-end">
@@ -113,7 +116,7 @@ const MyVehicleCard = ({ item, getMyVehicleData }) => {
           ویرایش
         </button> */}
         <Link
-          href={"/panel/my_vehicle/history?id=" + item.id}
+          href={"/panel/my_vehicle/history?id=" + item.my_vehicle_tip_id}
           className="w-full"
         >
           <button

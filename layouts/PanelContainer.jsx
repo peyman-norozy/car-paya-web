@@ -7,6 +7,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import businessman from "@/public/assets/images/businessman.png";
 import { getDataWithFullErrorRes } from "@/utils/api-function-utils";
+import { ToastContainer } from "react-toastify";
 
 const PanelContainer = ({ children }) => {
   const pathName = usePathname();
@@ -86,6 +87,7 @@ const PanelContainer = ({ children }) => {
           </div>
         </div>
         <main className="flex-1">{children}</main>
+        <ToastContainer rtl={true} />
       </div>
     </PrivateRoute>
   );
