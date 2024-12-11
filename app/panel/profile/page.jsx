@@ -28,8 +28,10 @@ const ProfilePage = () => {
   }
 
   async function postProfileData() {
-    const res = postData("/user/profile", data);
-    success("اطلاعات با موفقیت ویرایش شد");
+    const res = await postData("/user/profile", data);
+    if (res.data.status === "success") {
+      success("اطلاعات با موفقیت ویرایش شد");
+    }
   }
 
   async function imageChangeHandler(e) {
