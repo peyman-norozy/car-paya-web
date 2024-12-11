@@ -28,9 +28,11 @@ const PanelAddressCard = (props) => {
           />
           <i
             className={`cc-edit text-2xl absolute ${openMenu ? "left-12" : "left-0"} top-0 transition-all text-[#22A137]`}
-            //   onClick={() => {
-            //     setEditModalIsOpen(true);
-            //   }}
+            onClick={() => {
+              props.setAddressEditId(props.item.address_id);
+              props.setModalType("edite");
+              props.setModalIsOpen(true);
+            }}
           />
           <i
             className={`cc-filter text-2xl absolute ${openMenu ? "left-24" : "left-0"} transition-all top-0 text-[#DB3737]`}

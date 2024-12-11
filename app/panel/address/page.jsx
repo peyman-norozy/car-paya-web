@@ -13,6 +13,8 @@ const AddressPage = () => {
   const [data, setData] = useState([]);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [modalType, setModalType] = useState("create");
+  const [addressEditId, setAddressEditId] = useState("");
   const renderUserAddrressState = useSelector(
     (state) => state.todo.renderUserAddrressState
   );
@@ -40,6 +42,7 @@ const AddressPage = () => {
           <div
             className="bg-inherit text-[#0F0F0F] p-2 rounded-lg text-12 sm:text-sm shadow-[0_0_3px_0_rgba(160,160,160,0.7)] flex items-center gap-2 cursor-pointer"
             onClick={() => {
+              setModalType("create");
               setModalIsOpen(true);
             }}
           >
@@ -49,7 +52,12 @@ const AddressPage = () => {
         </div>
         <div className="flex flex-col gap-4">
           {data.map((item) => (
-            <PanelAddressCard item={item} />
+            <PanelAddressCard
+              item={item}
+              setModalType={setModalType}
+              setModalIsOpen={setModalIsOpen}
+              setAddressEditId={setAddressEditId}
+            />
           ))}
         </div>
         {modalIsOpen && (
@@ -61,9 +69,10 @@ const AddressPage = () => {
           >
             <AddAddressModal
               getDataFetch={setData}
-              pageType={"create"}
+              pageType={modalType}
               setModalIsOpen={setModalIsOpen}
               setIsLoading={setIsLoading}
+              addressEditId={addressEditId}
             />
           </div>
         )}
