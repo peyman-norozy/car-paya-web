@@ -19,6 +19,7 @@ import {
 import { postData } from "@/utils/client-api-function-utils";
 import nProgress from "nprogress";
 import axios from "axios";
+import iransFlag from "@/public/assets/images/iransFlag.png";
 
 const CarSelect = (props) => {
   const [vehicleType, setVehicleType] = useState("car");
@@ -449,15 +450,16 @@ const CarSelect = (props) => {
           <div
             className={`h-[calc(100vh-300px)] lg:h-[260px] overflow-y-scroll mt-2 overflow-x-hidden`}
           >
-            <div className={`grid grid-cols-3 gap-x-7 gap-y-2`}>
+            <div className={`grid grid-cols-6 gap-x-6 gap-y-2 pb-2`}>
               {searchedData.map((item, index) => (
                 <div
-                  className="flex flex-col bg-[#FFFFFF] items-center gap-2 cursor-pointer hover:scale-110 transition-all duration-300 shadow-[0_1px_4px_0_rgba(235,235,235,0.25)] p-2 rounded-[4px]"
+                  className={`flex flex-col bg-[#FFFFFF] items-center gap-2 cursor-pointer hover:scale-110 transition-all duration-300 shadow-[0_1px_4px_0_rgba(235,235,235,0.25)] p-2 rounded-[4px] ${item.plaque ? "col-span-3" : "col-span-2"}`}
                   key={index}
                   onClick={() => {
                     optionClickHandler(item.id, item);
                   }}
                 >
+                  {console.log(item)}
                   <Image
                     src={
                       process.env.BASE_API +
@@ -471,9 +473,32 @@ const CarSelect = (props) => {
                     alt={"car image"}
                     className="w-[88px] h-[66px]"
                   />
-                  <span className="text-[#000000] font-medium text-sm line-clamp-1 text-center">
-                    {item.title}
-                  </span>
+                  {item.plaque ? (
+                    <div className="bg-white flex items-center justify-between border border-[#B0B0B0] font-bold text-14 text-[#3d3d3d] rounded-lg overflow-hidden w-full">
+                      {item.plaque && (
+                        <div className="w-full p-1 text-14 font-bold flex justify-around">
+                          <span>{item.plaque[0]}</span>
+                          <span className="h-5 w-px bg-[#000000]"></span>
+                          <span>{item.plaque[1]}</span>
+                          <span>{item.plaque[2]}</span>
+                          <span>{item.plaque[3]}</span>
+                        </div>
+                      )}
+                      <div className="w-8 h-full bg-[#3360FF] flex items-center justify-center py-2">
+                        <Image
+                          className="w-[15px] h-[10px]"
+                          src={iransFlag}
+                          width={15}
+                          height={10}
+                          alt="پرچم ایران"
+                        />
+                      </div>
+                    </div>
+                  ) : (
+                    <span className="text-[#000000] font-medium text-sm line-clamp-1 text-center">
+                      {item.title}
+                    </span>
+                  )}
                 </div>
               ))}
             </div>
