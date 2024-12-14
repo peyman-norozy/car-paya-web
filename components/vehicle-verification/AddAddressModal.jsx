@@ -70,7 +70,14 @@ const AddressModal = (props) => {
         formData
       );
       if (update.status === 200) {
-        props.getDataFetch([]);
+        props.getDataFetch((prev) => {
+          const array = [...prev];
+          const index = array.findIndex(
+            (item) => props.addressEditId === item.address_id
+          );
+          array[index] = update.data.data;
+          return array;
+        });
         props.setModalIsOpen(false);
         props.setIsLoading(false);
         props.timeData && props.timeData();
