@@ -138,7 +138,7 @@ const VehicleInspection = () => {
           {vehicleVerificationBasket.length ? "ادامه " : ""}درخواست کارشناسی
         </button>
       </div>
-      <div className="overflow-x-hidden mt-4 w-full h-[500px] bg-[url('../public/assets/images/banner5.jpg')] bg-cover hidden lg:flex">
+      <div className="overflow-x-hidden mt-4 w-full h-[500px] bg-[url('../public/assets/images/banner6.jpg')] bg-cover hidden lg:flex">
         {/* <Image src={banner4} className="w-full" /> */}
       </div>
       <div className={"max-w-[1294px] mx-auto gap-8 flex flex-col"}>
