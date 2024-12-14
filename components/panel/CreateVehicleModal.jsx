@@ -30,7 +30,11 @@ const CreateVehicleModal = (props) => {
       data.plaque3,
     ];
     setPlaque(data);
-    props.setCarData({ ...props.carData, plaque: plaqueArray });
+    props.setCarData({
+      ...props.carData,
+      plaque: plaqueArray,
+      title: `${plaqueArray[0]} | ${plaqueArray[1]} ${plaqueArray[2]} ${plaqueArray[3]}`,
+    });
   };
   const carAndCityHandler = () => {
     props.setAsideStatus("carSelection");
@@ -77,12 +81,12 @@ const CreateVehicleModal = (props) => {
     >
       <div className={" flex flex-col gap-4"}>
         <span>برای ثبت خودرو اطلاعات زیر را کامل کنید</span>
-        <input
+        {/* <input
           className={`${validation.includes("title") ? "border-red-500" : "border-[#B0B0B0]"} outline-none border bg-[#fdfdfd] rounded-8 flex justify-between h-[48px] w-full text-14 pr-2 text-[#757575]`}
           placeholder="نام"
           id="title"
           onChange={inputChangeHandler}
-        />
+        /> */}
         {/* <CarAndCityInput
           placeHolder={"شهر خود را انتخاب کنید"}
           setAsideStatus={props.setAsideStatus}
