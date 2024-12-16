@@ -8,12 +8,22 @@ import { useEffect, useState } from "react";
 import businessman from "@/public/assets/images/businessman.png";
 import { getDataWithFullErrorRes } from "@/utils/api-function-utils";
 import { ToastContainer } from "react-toastify";
+import axios from "axios";
+import { API_PATHS } from "@/configs/routes.config";
+import { deleteCookie, getCookie } from "cookies-next";
+import nProgress from "nprogress";
+import { useRouter } from "next/navigation";
+import { useDispatch } from "react-redux";
+import { setLoginState } from "@/store/todoSlice";
 
 const PanelContainer = ({ children }) => {
   const pathName = usePathname();
   const [data, setData] = useState();
   const [openOptionsState, setOpenOptionsState] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
+  const router = useRouter();
+  const dispatch = useDispatch();
   useEffect(() => {
     getData();
   }, []);
@@ -23,6 +33,26 @@ const PanelContainer = ({ children }) => {
     console.log(res.data);
     setData(res.data);
   }
+
+  const exitLogin = () => {
+    axios
+      .post(
+        process.env.BASE_API + "/admin" + API_PATHS.LOGOUT,
+        {},
+        {
+          headers: {
+            Authorization: "Bearer " + getCookie("Authorization"),
+          },
+        }
+      )
+      .then(() => {
+        deleteCookie("Authorization");
+        localStorage.removeItem("profileData");
+        dispatch(setLoginState(true));
+        nProgress.start();
+        router.push("/");
+      });
+  };
 
   return (
     <PrivateRoute>
@@ -80,6 +110,7 @@ const PanelContainer = ({ children }) => {
             ))}
             <div
               className={`py-3 px-2 font-medium text-sm text-[#0f0f0f] cursor-pointer hover:bg-gray-100 flex items-center justify-start gap-1`}
+              onClick={() => setIsOpen(true)}
             >
               <i className="cc-login text-lg leading-3" />
               خروج از پروفایل
@@ -88,6 +119,35 @@ const PanelContainer = ({ children }) => {
         </div>
         <main className="flex-1">{children}</main>
         <ToastContainer rtl={true} />
+        <div
+          className={`${!isOpen ? "hidden" : "fixed"} fixed top-0 right-0 w-screen h-screen bg-[#72727227] z-[3000] pb-10`}
+          onClick={() => setIsOpen(false)}
+        >
+          <div
+            className="absolute bg-white bottom-0 right-0 sm:inset-0 sm:m-auto w-full rounded-t-3xl sm:rounded-3xl py-16 flex flex-col items-center gap-10 px-9 sm:max-w-[560px] h-fit"
+            onClick={(event) => {
+              event.stopPropagation();
+            }}
+          >
+            <span className="text-sm sm:text-base font-medium">
+              آیا می خواهید از حساب خود خارج شوید
+            </span>
+            <div className="flex items-center gap-9 w-full justify-center">
+              <button
+                className="text-[#FEFEFE] text-sm font-medium flex items-center justify-center bg-[#F66B34] rounded-lg py-3 w-32"
+                onClick={() => setIsOpen(false)}
+              >
+                انصراف
+              </button>
+              <button
+                className="text-[#F58052] text-sm font-medium flex items-center justify-center border border-[#F66B34] rounded-lg py-3 w-32"
+                onClick={exitLogin}
+              >
+                تایید
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
     </PrivateRoute>
   );
