@@ -157,10 +157,11 @@ const UserPanel = () => {
                     </span>
                     <i className="cc-arrow-down text-lg leading-3" />
                   </div>
-                  {item.children.map((item2) => (
+                  {item.children.map((item2, index) => (
                     <Link
                       href={item2.link}
                       className={`py-3 pr-5 pl-2 text-sm text-[#0f0f0f] cursor-pointer lg:hover:bg-gray-100`}
+                      key={index}
                     >
                       {item2.title}
                     </Link>

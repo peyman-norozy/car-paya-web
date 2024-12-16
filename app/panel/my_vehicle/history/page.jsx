@@ -330,7 +330,7 @@ const History = () => {
             </table>
           ) : (
             historyData?.car_id_card?.map((row, index) => (
-              <div className="flex flex-col gap-6 border-b pb-2">
+              <div className="flex flex-col gap-6 border-b pb-2" key={index}>
                 <span className="text-[#0F0F0F] text-sm font-medium border-r-2 border-[#F66B34] pr-1">
                   {row.service_fa}
                 </span>
