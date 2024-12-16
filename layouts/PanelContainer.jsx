@@ -58,7 +58,7 @@ const PanelContainer = ({ children }) => {
     <PrivateRoute>
       <div className="flex lg:gap-8 my-6">
         <div className="w-[263px] h-full bg-[#fefefe] rounded-lg shadow-[0_0_8px_0_rgba(143,143,143,0.25)] min-h-40 hidden lg:flex flex-col gap-4 px-4 py-7">
-          <div className="flex flex-col gap-4 self-center">
+          <div className="flex flex-col gap-4 self-center items-center">
             <Image
               src={
                 data?.image_id
@@ -67,7 +67,7 @@ const PanelContainer = ({ children }) => {
               }
               width={112}
               height={112}
-              className="rounded-full size-[100px] flex items-center justify-center"
+              className="rounded-full size-[100px] flex items-center justify-center self-center"
             />
             <span className="text-[#0F0F0F] font-medium text-lg">
               {data?.profile?.full_name}
