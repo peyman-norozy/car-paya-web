@@ -11,6 +11,7 @@ import { setCityModalState, setLoginModal } from "@/store/todoSlice";
 import NavbarAttribute from "@/components/NavbarAttribute/NavbarAttribute";
 import UserPanelAttribute from "@/components/UserPanelAttribute";
 import useClickOutside from "@/hook/useClickOutside";
+import { useRouter } from "next/navigation";
 
 const ResponsiveHeader = (props) => {
   const params = useParams();
