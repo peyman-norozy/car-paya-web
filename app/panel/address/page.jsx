@@ -51,8 +51,9 @@ const AddressPage = () => {
           </div>
         </div>
         <div className="flex flex-col gap-4">
-          {data.map((item) => (
+          {data.map((item, index) => (
             <PanelAddressCard
+              key={index}
               item={item}
               setModalType={setModalType}
               setModalIsOpen={setModalIsOpen}

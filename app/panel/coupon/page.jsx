@@ -24,9 +24,10 @@ const Coupon = () => {
           </Link>
           <span className="font-medium text-sm">تخفیفات و امتیازات</span>
         </div>
-        {data.map((item) => (
+        {data.map((item, index) => (
           <div
             className={`flex flex-col items-center justify-between gap-2 p-4 rounded-lg bg-white cursor-pointer shadow-[0_0_4px_0_rgba(207,207,207,0.7)]`}
+            key={index + item.id}
           >
             <p className="font-medium text-xs sm:text-sm w-fit self-start">
               {item.description}
