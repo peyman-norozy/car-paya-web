@@ -29,8 +29,15 @@ const ResponsiveHeader = (props) => {
   const accontRef2 = useRef();
   const close = useCallback(() => setNewLoginState(false), []);
   const router = useRouter();
-  useClickOutside(accontRef, close);
-  useClickOutside(accontRef2, close);
+
+  if (typeof window !== "undefined") {
+    if (window.innerWidth > 1024) {
+      useClickOutside(accontRef, close);
+    } else {
+      useClickOutside(accontRef2, close);
+    }
+  }
+
   const accountClickHandler = () => {
     setNewLoginState((prevState) => !prevState);
   };
@@ -101,8 +108,9 @@ const ResponsiveHeader = (props) => {
         <div className="flex items-center justify-between w-full max-w-[1676px] mx-auto">
           <div className="lg:gap-[32px] gap-2 flex items-center">
             <div
-              className={`cursor-pointer transition-all lg:hidden flex items-center justify-start ${newMenueState ? "rotate-0" : "rotate-[-90deg]"
-                }`}
+              className={`cursor-pointer transition-all lg:hidden flex items-center justify-start ${
+                newMenueState ? "rotate-0" : "rotate-[-90deg]"
+              }`}
               onClick={asideMenuCloseHandler}
             >
               <i
