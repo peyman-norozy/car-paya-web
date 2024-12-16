@@ -69,7 +69,8 @@ const ResponsiveHeader = (props) => {
   };
 
   const clickLoginHandler = () => {
-    dispatch(setLoginModal(true));
+    // dispatch(setLoginModal(true));
+    router.push("/login?url=/panel/profile");
   };
 
   useEffect(() => {
