@@ -269,11 +269,15 @@ const Footer = (props) => {
         ""
       )}
       {innerWidthNumber < 1025 && <MobileBottomNav />}
-      <div
-        className={"bg-[#FBFBFB] p-1 absolute -top-[33px] left-10 rounded-full"}
-      >
-        <ScrollTop />
-      </div>
+      {footerState && (
+        <div
+          className={
+            "bg-[#FBFBFB] p-1 absolute -top-[33px] left-10 rounded-full"
+          }
+        >
+          <ScrollTop />
+        </div>
+      )}
     </footer>
   );
 };

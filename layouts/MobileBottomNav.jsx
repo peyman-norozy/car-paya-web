@@ -97,6 +97,8 @@ function MobileBottomNav(props) {
       setFooterState(false);
     } else if (pathName.startsWith("/periodic-service/")) {
       setFooterState(false);
+    } else if (pathName.startsWith("/panel")) {
+      setFooterState(false);
     } else {
       setFooterState(true);
     }
