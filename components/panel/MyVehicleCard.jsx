@@ -5,9 +5,11 @@ import iransFlag from "@/public/assets/images/iransFlag.png";
 import Link from "next/link";
 import axios from "axios";
 import { getCookie } from "cookies-next";
+import { success } from "@/utils/function-utils";
 
 const MyVehicleCard = ({ item, getMyVehicleData }) => {
   const [openMenu, setOpenMenu] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
   function deleteHandler() {
     axios
@@ -21,6 +23,7 @@ const MyVehicleCard = ({ item, getMyVehicleData }) => {
       )
       .then((res) => {
         getMyVehicleData();
+        success("خودرو با موفقیت حذف شد");
       });
   }
 
@@ -156,8 +159,37 @@ const MyVehicleCard = ({ item, getMyVehicleData }) => {
         /> */}
         <i
           className={`cc-filter text-2xl absolute ${openMenu ? "left-12" : "left-0"} transition-all top-0 text-[#DB3737]`}
-          onClick={deleteHandler}
+          onClick={() => setIsOpen(true)}
         />
+      </div>
+      <div
+        className={`${!isOpen ? "hidden" : "fixed"} fixed top-0 right-0 w-screen h-screen bg-[#72727227] z-[3000] pb-10`}
+        onClick={() => setIsOpen(false)}
+      >
+        <div
+          className="absolute bg-white bottom-0 right-0 sm:inset-0 sm:m-auto w-full rounded-t-3xl sm:rounded-3xl py-16 flex flex-col items-center gap-10 px-9 sm:max-w-[560px] h-fit"
+          onClick={(event) => {
+            event.stopPropagation();
+          }}
+        >
+          <span className="text-sm sm:text-base font-medium">
+            آیا از حذف این مورد اطمینان دارید ؟
+          </span>
+          <div className="flex items-center gap-9 w-full justify-center">
+            <button
+              className="text-[#FEFEFE] text-sm font-medium flex items-center justify-center bg-[#F66B34] rounded-lg py-3 w-32"
+              onClick={() => setIsOpen(false)}
+            >
+              انصراف
+            </button>
+            <button
+              className="text-[#F58052] text-sm font-medium flex items-center justify-center border border-[#F66B34] rounded-lg py-3 w-32"
+              onClick={deleteHandler}
+            >
+              تایید
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   );
