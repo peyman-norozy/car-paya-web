@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import HeaderLogo from "@/components/HeaderLogo";
 import LoginLink from "@/components/LoginLink";
 import BasketLink from "@/components/BasketLink";
-import { usePathname, useParams } from "next/navigation";
+import { usePathname, useParams, useRouter } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
 import ResponsiveMenu from "@/components/ResponsiveMenu";
 import CardPay from "@/components/CardPay";
@@ -11,7 +11,6 @@ import { setCityModalState, setLoginModal } from "@/store/todoSlice";
 import NavbarAttribute from "@/components/NavbarAttribute/NavbarAttribute";
 import UserPanelAttribute from "@/components/UserPanelAttribute";
 import useClickOutside from "@/hook/useClickOutside";
-import { useRouter } from "next/navigation";
 
 const ResponsiveHeader = (props) => {
   const params = useParams();
@@ -27,18 +26,9 @@ const ResponsiveHeader = (props) => {
   const dispatch = useDispatch();
   const cityModalState = useSelector((state) => state.todo.cityModalState);
   const accontRef = useRef();
-  const accontRef2 = useRef();
   const close = useCallback(() => setNewLoginState(false), []);
   const router = useRouter();
-
-  if (typeof window !== "undefined") {
-    if (window.innerWidth > 1024) {
-      useClickOutside(accontRef, close);
-    } else {
-      useClickOutside(accontRef2, close);
-    }
-  }
-
+  useClickOutside(accontRef, close);
   const accountClickHandler = () => {
     setNewLoginState((prevState) => !prevState);
   };
@@ -48,7 +38,8 @@ const ResponsiveHeader = (props) => {
   };
 
   const loginModalHandler = () => {
-    dispatch(setLoginModal(true));
+    // dispatch(setLoginModal(true));
+    router.push("/login?url=/panel/profile");
   };
 
   const asideMenuCloseHandler = () => {
@@ -69,8 +60,7 @@ const ResponsiveHeader = (props) => {
   };
 
   const clickLoginHandler = () => {
-    // dispatch(setLoginModal(true));
-    router.push("/login?url=/panel/profile");
+    dispatch(setLoginModal(true));
   };
 
   useEffect(() => {
@@ -161,8 +151,6 @@ const ResponsiveHeader = (props) => {
                 className={
                   "shadow-[0_0_4px_0_rgba(238,134,38,0.5)] p-2 lg:hidden flex justify-center items-center rounded-[4px] relative"
                 }
-                onClick={accountClickHandler}
-                ref={accontRef2}
               >
                 <i className={"cc-user text-[#F58052] text-24"} />
                 <i
@@ -170,11 +158,6 @@ const ResponsiveHeader = (props) => {
                     "cc-tick text-[#22A137] text-14 absolute right-[2px] bottom-[2px]"
                   }
                 />
-                {newLoginState && (
-                  <div className="absolute bottom-[-120px] left-0 bg-[#FFFFFF] w-[120px] rounded-lg flex flex-col">
-                    <UserPanelAttribute />
-                  </div>
-                )}
               </div>
             )}
             {loginState ? (
@@ -198,7 +181,7 @@ const ResponsiveHeader = (props) => {
                   <i className={"cc-arrow-down text-[#BBBBBB] text-18"} />
                 </button>
                 {newLoginState && (
-                  <div className="absolute bottom-[-120px] bg-[#FFFFFF] w-full rounded-lg flex flex-col overflow-hidden">
+                  <div className="absolute bottom-[-88px] bg-[#FFFFFF] w-full rounded-lg flex flex-col overflow-hidden">
                     <UserPanelAttribute />
                   </div>
                 )}
