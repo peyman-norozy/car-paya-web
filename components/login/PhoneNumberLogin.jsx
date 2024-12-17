@@ -32,19 +32,21 @@ export default function PhoneNumberLogin(props) {
         }, 5000);
         return null;
       }
-      let fd = new FormData();
-      fd.append("mobile", telPhoneValueNumber);
       setSliderShowState(true);
-      const response = await postData(API_PATHS.GETOTP, fd);
+      const response = await postData(process.env.BASE_API + "/admin/get-otp", {
+        mobile: telPhoneValueNumber,
+      });
       if (response.status === 200) {
         props.setLoginState("otp_number");
         setSliderShowState(false);
-        dispatch(
-          getLoginOtpData({
-            mobile: telPhoneValueNumber,
-            loginOtpState: true,
-          })
-        );
+        props.setPhoneNumber(telPhoneValueNumber);
+        // setLoginToken();
+        // dispatch(
+        //   getLoginOtpData({
+        //     mobile: telPhoneValueNumber,
+        //     loginOtpState: true,
+        //   })
+        // );
 
         // if (response.data.data.status.login === "exists") {
         //   dispatch(
@@ -82,24 +84,29 @@ export default function PhoneNumberLogin(props) {
   };
 
   return (
-    <div className="max-w-[660px] m-auto my-[80px] mt-40">
-      <div className="bg-[#383838ad] overflow-hidden rounded-2xl p-6 flex flex-col items-center gap-8">
-        <span className="text-2xl font-medium text-center text-[#FEFEFE]">
-          ورود به کارچک
+    <div className="max-w-[660px] m-auto">
+      <div className="bg-white overflow-hidden rounded-2xl p-6 flex flex-col items-center gap-8 shadow-[0_0_6px_0_rgba(125,125,125,0.5)]">
+        <span className="text-2xl text-[#F66B34] font-black">CAR PAYA</span>
+        <span className="text-lg font-medium text-center text-[#0F0F0F]">
+          ورود به کارپایا
         </span>
-        <Image
+        {/* <Image
           src={loginImage}
           className="w-[360px] aspect-auto"
           width={360}
           height={244}
           alt=""
-        />
+        /> */}
         <div className="flex flex-col items-start gap-2 w-full max-w-[360px]">
-          <h1 className="font-bold text-[#FEFEFE]">شماره موبایل:</h1>
+          <h1 className="font-medium text-sm text-[#0F0F0F]">
+            لطفا شماره موبایل خود را وارد کنید:
+          </h1>
           <Input
             type={"tel"}
             placeholder={"09129273836"}
-            className={"bg-[#FEFEFE] rounded-lg w-full p-3 text-right"}
+            className={
+              "bg-transparent rounded-lg w-full p-3 text-right shadow-[0_0_3px_0_rgba(125,125,125,0.5)] outline-none"
+            }
             maxlength="11"
             on_change={telPhoneNumberChangeHandler}
             onKeyDown={clickTelNumberBtn}
@@ -116,7 +123,7 @@ export default function PhoneNumberLogin(props) {
             on_click={clickTelNumberBtn}
           >
             <div className={"relative"}>
-              <span>ورود</span>
+              <span>تائید و ادامه</span>
               {sliderShowState && (
                 <div
                   className={
@@ -128,6 +135,11 @@ export default function PhoneNumberLogin(props) {
               )}
             </div>
           </Button>
+          <span className="text-10 sm:text-12 flex gap-[2px]">
+            ورود شما به معنای پذیرش
+            <span className="text-[#1E67BF]">شرایط کار پایا</span>و
+            <span className="text-[#1E67BF]">قوانین حریم خصوصی</span>است
+          </span>
         </div>
       </div>
       <ToastContainer rtl={true} />

@@ -27,7 +27,7 @@ const HomePageMainSlider = () => {
         process.env.BASE_API +
           "/web" +
           API_PATHS.SLIDERS +
-          `?type=${window.innerWidth > 768 ? "DESKTOP" : "MOBILE"}`
+          `?type=${window.innerWidth > 768 ? "DESKTOP" : "MOBILE"}`,
       )
       .then((res) => {
         // const m = res.data.data;
@@ -44,7 +44,7 @@ const HomePageMainSlider = () => {
         cssMode={true}
         autoplay={true}
         pagination={{ clickable: true }}
-        click
+        click={"true"}
         mousewheel={true}
         keyboard={true}
         modules={[Pagination, Mousewheel, Keyboard, Autoplay]}
