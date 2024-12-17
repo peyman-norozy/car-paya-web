@@ -43,7 +43,7 @@ const PanelContainer = ({ children }) => {
           headers: {
             Authorization: "Bearer " + getCookie("Authorization"),
           },
-        }
+        },
       )
       .then(() => {
         deleteCookie("Authorization");
@@ -75,7 +75,7 @@ const PanelContainer = ({ children }) => {
           </div>
           <div className="flex flex-col gap-2">
             {tabsData.map((item) => (
-              <>
+              <div key={item.title}>
                 {item.children ? (
                   <div
                     className={`flex flex-col gap-2 overflow-hidden ${openOptionsState ? "h-auto" : "h-[44px]"} ${item.underline ? "border-b border-[#bbbbbb]" : ""} `}
@@ -91,6 +91,7 @@ const PanelContainer = ({ children }) => {
                     </div>
                     {item.children.map((item2) => (
                       <Link
+                        key={item2.link}
                         href={item2.link}
                         className={`py-3 pr-5 pl-2 text-sm text-[#0f0f0f] cursor-pointer hover:bg-gray-100`}
                       >
@@ -106,7 +107,7 @@ const PanelContainer = ({ children }) => {
                     {item.title}
                   </Link>
                 )}
-              </>
+              </div>
             ))}
             <div
               className={`py-3 px-2 font-medium text-sm text-[#0f0f0f] cursor-pointer hover:bg-gray-100 flex items-center justify-start gap-1`}
