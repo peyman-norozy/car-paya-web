@@ -16,7 +16,7 @@ const AddressPage = () => {
   const [modalType, setModalType] = useState("create");
   const [addressEditId, setAddressEditId] = useState("");
   const renderUserAddrressState = useSelector(
-    (state) => state.todo.renderUserAddrressState
+    (state) => state.todo.renderUserAddrressState,
   );
   useEffect(() => {
     axios
@@ -53,7 +53,7 @@ const AddressPage = () => {
         <div className="flex flex-col gap-4">
           {data.map((item, index) => (
             <PanelAddressCard
-              key={index}
+              key={item.address_id}
               item={item}
               setModalType={setModalType}
               setModalIsOpen={setModalIsOpen}

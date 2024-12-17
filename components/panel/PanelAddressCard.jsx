@@ -8,7 +8,6 @@ const PanelAddressCard = (props) => {
   return (
     <div
       className={`flex flex-col gap-4 p-4 rounded-lg bg-white cursor-pointer shadow-[0_0_4px_0_rgba(207,207,207,0.7)]`}
-      key={props.item.address_id}
     >
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-1">
