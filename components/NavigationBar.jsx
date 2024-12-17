@@ -5,6 +5,7 @@ import CategoryModal from "@/components/CategoryModal";
 import React, { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import Image from "next/image";
+import { v4 as uuidv4 } from "uuid";
 
 const navBarItems = [
   { title: "دسته بندی", href: "", id: "category" },
@@ -43,19 +44,13 @@ const NavigationBar = React.forwardRef((props, ref) => {
   const [newCategoryHeight, setNewCategoryHeight] = useState(0);
   const [newCategoryHeightState, setNewCategoryHeightState] = useState(true);
   const innerWidthNumber = useSelector(
-    (number) => number.todo.windowInnerWidth
+    (number) => number.todo.windowInnerWidth,
   );
 
-  const categoryPoppupDisplay = () => {
-    setNewShowModalState(true);
-  };
-  const categoryPoppupHidden = () => {
-    setNewShowModalState(false);
-  };
-
-  const categoryDisplayHandler = () => {
+  const categoryPoppupDisplay = () => setNewShowModalState(true);
+  const categoryPoppupHidden = () => setNewShowModalState(false);
+  const categoryDisplayHandler = () =>
     setNewCategoryHeightState((prev) => !prev);
-  };
 
   useEffect(() => {
     if (innerWidthNumber < 1000) {
@@ -66,89 +61,80 @@ const NavigationBar = React.forwardRef((props, ref) => {
   return (
     <nav className="relative">
       <ul className={`${props.class_name} size868:text-14 text-12 mt-4`}>
-        {(innerWidthNumber >= 1000 ? navBarItems : navBarItemsResponsive).map(
-          (item, index) =>
-            item.href && item.href.length > 0 ? (
-              <li
-                key={item.id + "*" + index}
-                className="cursor-pointer text-[#0F0F0F] font-medium text-14 py-[10px] border-b"
-              >
-                <Navlink href={item.href} styleState={props.styleState}>
-                  <div className={"flex items-center gap-1"}>
-                    <i className={`${item.icon} text-24`} />
-                    <span> {item.title}</span>
-                  </div>
-                </Navlink>
-              </li>
-            ) : (
-              <>
-                {innerWidthNumber >= 1000 ? (
+        {innerWidthNumber >= 1000
+          ? navBarItems.map((item, index) => {
+              if (item.href && item.href.length > 0) {
+                return (
                   <li
-                    key={item.id + "-" + index}
+                    key={item.id}
+                    className="cursor-pointer text-[#0F0F0F] font-medium text-14 py-[10px] border-b"
+                  >
+                    <Navlink href={item.href} styleState={props.styleState}>
+                      <div className="flex items-center gap-1">
+                        <i className={`${item.icon} text-24`} />
+                        <span>{item.title}</span>
+                      </div>
+                    </Navlink>
+                  </li>
+                );
+              } else {
+                return (
+                  <li
+                    key={index}
                     className="cursor-pointer text-[#0F0F0F] font-medium text-14 py-[10px] border-b"
                     onMouseEnter={categoryPoppupDisplay}
                     onMouseLeave={categoryPoppupHidden}
                   >
                     {item.title}
                   </li>
-                ) : (
-                  <li
-                    ref={ref}
-                    className={"border-b py-[10px]"}
-                    key={item.id + "/" + index}
+                );
+              }
+            })
+          : navBarItemsResponsive.map((item) => {
+              return (
+                <li ref={ref} className="border-b py-[10px]" key={uuidv4()}>
+                  <div
+                    className="flex justify-between items-center py-[8px] pr-[8px] cursor-pointer"
+                    onClick={categoryDisplayHandler}
                   >
-                    <div
-                      className={`flex justify-between items-center py-[8px] pr-[8px] cursor-pointer`}
-                      ref={ref}
-                      onClick={categoryDisplayHandler}
-                    >
-                      <div
-                        ref={ref}
-                        className={"text-[#0F0F0F] font-medium text-14"}
-                      >
-                        <div className={"flex items-center gap-1"}>
-                          <i
-                            slug={"serviceSlug"}
-                            className={`${item.icon} text-24`}
-                          />
-                          <span slug={"serviceSlug"}> {item.title}</span>
-                        </div>
+                    <div className="text-[#0F0F0F] font-medium text-14">
+                      <div className="flex items-center gap-1">
+                        <i className={`${item.icon} text-24`} />
+                        <span>{item.title}</span>
                       </div>
-                      <Image
-                        src="/assets/icons/angle-left.svg"
-                        alt={"left icon"}
-                        className={`${
-                          newCategoryHeightState
-                            ? "rotate-0"
-                            : "rotate-[-90deg]"
-                        } transition-all duration-700`}
-                        ref={ref}
-                        width={20}
-                        height={20}
-                      />
                     </div>
-                    <ul
-                      className={`flex flex-col gap-1 text-12 font-medium transition-all duration-700 overflow-hidden pr-[35px]`}
-                      style={
-                        newCategoryHeightState
-                          ? { height: "0px" }
-                          : { height: `${newCategoryHeight}px` }
-                      }
-                      ref={categoryOptionRef}
-                    >
-                      {props.childrenProps}
-                    </ul>
-                  </li>
-                )}
-              </>
-            )
-        )}
+                    <Image
+                      src="/assets/icons/angle-left.svg"
+                      alt="left icon"
+                      className={`${
+                        newCategoryHeightState ? "rotate-0" : "rotate-[-90deg]"
+                      } transition-all duration-700`}
+                      width={20}
+                      height={20}
+                    />
+                  </div>
+                  <ul
+                    className="flex flex-col gap-1 text-12 font-medium transition-all duration-700 overflow-hidden pr-[35px]"
+                    style={
+                      newCategoryHeightState
+                        ? { height: "0px" }
+                        : { height: `${newCategoryHeight}px` }
+                    }
+                    ref={categoryOptionRef}
+                  >
+                    {props.childrenProps}
+                  </ul>
+                </li>
+              );
+            })}
+
         {!props.loginState && props.styleState === "habmergerMenue" && (
           <li>
             <UserPanelAttribute />
           </li>
         )}
       </ul>
+
       {newShowModalState && (
         <CategoryModal
           onMouseEnter={categoryPoppupDisplay}
