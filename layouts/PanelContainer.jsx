@@ -75,7 +75,7 @@ const PanelContainer = ({ children }) => {
           </div>
           <div className="flex flex-col gap-2">
             {tabsData.map((item) => (
-              <div key={item.title}>
+              <div key={item.title} className="inline-block w-full">
                 {item.children ? (
                   <div
                     className={`flex flex-col w-full gap-2 overflow-hidden ${openOptionsState ? "h-auto" : "h-[44px]"} ${item.underline ? "border-b border-[#bbbbbb]" : ""} `}
@@ -91,22 +91,26 @@ const PanelContainer = ({ children }) => {
                       <i className="cc-arrow-down text-lg leading-3" />
                     </div>
                     {item.children.map((item2) => (
-                      <Link
-                        key={item2.link}
-                        href={item2.link}
-                        className={`py-3 pr-5 pl-2 text-sm text-[#0f0f0f] cursor-pointer hover:bg-gray-100`}
-                      >
-                        {item2.title}
+                      <Link key={item2.link} href={item2.link}>
+                        <span
+                          className={`py-3 pr-5 pl-2 text-sm text-[#0f0f0f] cursor-pointer hover:bg-gray-100 inline-block`}
+                        >
+                          {item2.title}
+                        </span>
                       </Link>
                     ))}
                   </div>
                 ) : (
                   <Link
                     href={item.link}
-                    className={`py-3 px-2 w-full font-medium text-sm text-[#0f0f0f] cursor-pointer hover:bg-gray-100 ${pathName === item.link ? "bg-[#fce6dd] border-r-2 border-[#F66B34] text-[#F66B34]" : "bg-inherit text-[#0f0f0f]"}`}
                     key={item.title}
+                    className="w-full inline-block"
                   >
-                    {item.title}
+                    <span
+                      className={`py-3 px-2 w-full inline-block font-medium text-sm text-[#0f0f0f] cursor-pointer hover:bg-gray-100 ${pathName === item.link ? "bg-[#fce6dd] border-r-2 border-[#F66B34] text-[#F66B34]" : "bg-inherit text-[#0f0f0f]"}`}
+                    >
+                      {item.title}
+                    </span>
                   </Link>
                 )}
               </div>
