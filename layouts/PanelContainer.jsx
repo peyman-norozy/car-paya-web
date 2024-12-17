@@ -75,7 +75,7 @@ const PanelContainer = ({ children }) => {
           </div>
           <div className="flex flex-col gap-2">
             {tabsData.map((item) => (
-              <div key={item.title} className="w-full">
+              <div key={item.title}>
                 {item.children ? (
                   <div
                     className={`flex flex-col w-full gap-2 overflow-hidden ${openOptionsState ? "h-auto" : "h-[44px]"} ${item.underline ? "border-b border-[#bbbbbb]" : ""} `}
