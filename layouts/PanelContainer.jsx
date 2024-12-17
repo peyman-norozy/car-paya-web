@@ -82,6 +82,7 @@ const PanelContainer = ({ children }) => {
                     onClick={() => {
                       setOpenOptionsState(!openOptionsState);
                     }}
+                    key={item.title}
                   >
                     <div className="flex items-center justify-between py-3 px-2 cursor-pointer hover:bg-gray-100">
                       <span className="font-medium text-sm text-[#0f0f0f]">
@@ -103,6 +104,7 @@ const PanelContainer = ({ children }) => {
                   <Link
                     href={item.link}
                     className={`py-3 px-2 w-full font-medium text-sm text-[#0f0f0f] cursor-pointer hover:bg-gray-100 ${pathName === item.link ? "bg-[#fce6dd] border-r-2 border-[#F66B34] text-[#F66B34]" : "bg-inherit text-[#0f0f0f]"}`}
+                    key={item.title}
                   >
                     {item.title}
                   </Link>
