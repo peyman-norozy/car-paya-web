@@ -355,7 +355,7 @@ const CarSelect = (props) => {
   return (
     <section
       className={
-        "bg-[#FDFDFD] lg:w-[409px] w-full h-screen lg:h-[485px] lg:pt-6 lg:rounded-2xl flex flex-col justify-start overflow-hidden gap-4 shadow-[0_0_6px_6px_rgba(125,125,125,0.2)] z-50"
+        "bg-[#FDFDFD] lg:w-[409px] w-full h-screen lg:h-[485px] lg:rounded-2xl flex flex-col justify-start overflow-hidden gap-4 shadow-[0_0_6px_6px_rgba(125,125,125,0.2)] z-50"
       }
     >
       <div className="shadow-[0_2px_8px_0_rgba(148,148,148,0.25)] flex items-center justify-between h-14 px-4 lg:hidden">
@@ -470,7 +470,7 @@ const CarSelect = (props) => {
                     width={88}
                     height={66}
                     alt={"car image"}
-                    className="w-[88px] h-auto"
+                    className="w-[88px] h-[66px]"
                   />
                   {item.plaque ? (
                     <div className="bg-white flex items-center justify-between border border-[#B0B0B0] font-bold text-14 text-[#3d3d3d] rounded-lg overflow-hidden w-full">
