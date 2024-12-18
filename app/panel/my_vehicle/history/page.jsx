@@ -68,7 +68,7 @@ const History = () => {
   const [itemsataState, setItemsataState] = useState(false);
   const params = useSearchParams();
   const innerWidthNumber = useSelector(
-    (number) => number.todo.windowInnerWidth
+    (number) => number.todo.windowInnerWidth,
   );
 
   useEffect(() => {
@@ -78,10 +78,12 @@ const History = () => {
 
   async function getHestoryData() {
     const res = await getDataWithFullErrorRes(
-      "/user/car_id_card/" + params.get("id")
+      "/user/car_id_card/" + params.get("id"),
     );
     setHistoryData(res.data);
   }
+
+  console.log(historyData, "jejejejejjjj");
 
   return (
     <PanelContainer>
@@ -321,7 +323,7 @@ const History = () => {
                     </td>
                     <td>
                       {moment(row.next_replacement_time * 1000).format(
-                        "YYYY/MM/DD"
+                        "YYYY/MM/DD",
                       )}
                     </td>
                   </tr>
@@ -350,7 +352,7 @@ const History = () => {
                       </span>
                       <span className="font-medium text-xs text-[#B0B0B0]">
                         {moment(row.replacement_time * 1000).format(
-                          "YYYY/MM/DD"
+                          "YYYY/MM/DD",
                         )}
                       </span>
                     </div>
@@ -370,7 +372,7 @@ const History = () => {
                       </span>
                       <span className="font-medium text-xs text-[#B0B0B0]">
                         {moment(row.next_replacement_time * 1000).format(
-                          "YYYY/MM/DD"
+                          "YYYY/MM/DD",
                         )}
                       </span>
                     </div>
