@@ -367,7 +367,10 @@ const CarSelect = (props) => {
           }}
         />
       </div>
-      <div className={"pt-6 pb-4 px-4"}>
+      <div className={"py-4 px-4"}>
+        <p className="text-sm font-medium mb-4 hidden lg:inline-block">
+          انتخاب وسیله نقلیه
+        </p>
         <div className="rounded-lg border border-[#cfcfcf] flex flex-wrap justify-between gap-1 p-1 mb-[12px]">
           <button
             className={`${vehicleType === "car" ? "bg-[#F58052] text-[#FEFEFE]" : "text-[#888888]"} rounded-[8px] w-[100px] h-8 flex justify-center items-center font-medium text-14`}
@@ -396,7 +399,6 @@ const CarSelect = (props) => {
             وسیله سنگین
           </button>
         </div>
-
         <div className="flex flex-col gap-2">
           <div className="flex items-center justify-between gap-2">
             <div className={"flex items-center"}>
