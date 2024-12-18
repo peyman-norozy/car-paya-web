@@ -106,7 +106,7 @@ function MobileBottomNav(props) {
 
   if (footerState) {
     return (
-      <div className="fixed bottom-2 right-2 z-[2000] flex items-center w-[calc(100%-16px)] h-[60px] rounded-3xl shadow-[0_4px_4px_0_rgba(160,160,160,0.20)]">
+      <div className="fixed bottom-2 right-2 z-[3002] flex items-center w-[calc(100%-16px)] h-[60px] rounded-3xl shadow-[0_4px_4px_0_rgba(160,160,160,0.20)]">
         {/* <div
           ref={selectVehicleRef}
           onTouchStart={touchStartHandler}
@@ -119,7 +119,7 @@ function MobileBottomNav(props) {
         > */}
         {/* <div className="h-[5px] w-[6rem] rounded-[20px] bg-[#333] absolute top-[2.5%] left-[50%] translate-x-[-50%]"></div> */}
         <div
-          className={`z-[3001] w-screen h-[calc(100vh-72px)] bg-[#FEFEFE] fixed right-0 flex justify-center ${modalIsOpen ? "bottom-0" : "-bottom-[100vh]"}  transition-all duration-700`}
+          className={`z-[3001] w-screen h-screen bg-[#FEFEFE] fixed right-0 flex justify-center ${modalIsOpen ? "bottom-0" : "-bottom-[100vh]"} transition-all duration-700`}
         >
           {/* <VehicleRegistration /> */}
           <CarSelectComponent

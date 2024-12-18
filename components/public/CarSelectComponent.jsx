@@ -414,15 +414,20 @@ const CarSelectComponent = (props) => {
   ) {
     return (
       <div className="absolute h-full top-0 right-auto pb-10 mr-1">
+        <div className="flex flex-row items-center justify-between border-b-2 h-14 absolute top-0 right-0 w-full bg-white px-2 z-[3003]">
+          <span className="text-[#4F4F4F] text-base lg:text-20 font-medium lg:font-bold text-start">
+            انتخاب وسیله نقلیه
+          </span>
+          <i
+            className="cc-add text-2xl rotate-45 text-[#4F4F4F]"
+            onClick={props.closeModalHandler}
+          />
+        </div>
         <div
-          className={`bg-[#fbfbfb] ${props.isMobile ? "h-[calc(100vh-72px)]" : "h-[605px]"} rounded-2xl w-[370px] size411:w-[400px] sticky top-[127px] right-auto z-[3002] backdrop-blur-[16px] p-4 pt-8 ${props.isMobile ? "flex lg:hidden" : "hidden lg:flex"} flex-col gap-4 lg:shadow-[0_0_6px_0_rgba(125,125,125,0.5)] relative`}
+          className={`bg-[#fbfbfb] ${props.isMobile ? "h-screen" : "h-[605px]"} rounded-2xl w-[370px] size411:w-[400px] sticky top-[127px] right-auto z-[3002] backdrop-blur-[16px] p-4 pt-[70px] ${props.isMobile ? "flex lg:hidden" : "hidden lg:flex"} flex-col gap-4 lg:shadow-[0_0_6px_0_rgba(125,125,125,0.5)] relative`}
         >
           {carSelected ? (
             <div className="flex flex-col gap-4">
-              <i
-                className="i-close-circle text-2xl absolute top-5 left-5"
-                onClick={props.closeModalHandler}
-              />
               <Image
                 src={
                   process.env.BASE_API +
@@ -568,13 +573,6 @@ const CarSelectComponent = (props) => {
             </div>
           ) : (
             <>
-              <span className="text-[#4F4F4F] text-base lg:text-20 font-medium lg:font-bold text-center">
-                انتخاب وسیله نقلیه
-              </span>
-              <i
-                className="cc-add text-2xl rotate-45 text-[#4F4F4F] absolute top-7 left-4"
-                onClick={props.closeModalHandler}
-              />
               <div className="rounded-lg border border-[#F5F5F5] flex flex-wrap justify-between gap-1 p-1">
                 <button
                   className={`${vehicleType === "car" ? "bg-[#F58052] text-[#FEFEFE]" : "text-[#888888]"} rounded-[8px] w-[100px] h-8 flex justify-center items-center font-medium text-14`}
