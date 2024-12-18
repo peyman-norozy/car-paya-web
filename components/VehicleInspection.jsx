@@ -137,13 +137,13 @@ const VehicleInspection = () => {
           src={banner_car}
           className="absolute h-auto w-[1200px] top-[58%] size1470:left-0 -left-40 -translate-y-1/2"
         />
-        <CarAndCityContainer
-          title={"ثبت درخواست کارشناسی"}
-          onClick={PackageStepHandler}
-          setModalClickState={setModalClickState}
-          modalClickState={modalClickState}
-        />
       </div>
+      <CarAndCityContainer
+        title={"ثبت درخواست کارشناسی"}
+        onClick={PackageStepHandler}
+        setModalClickState={setModalClickState}
+        modalClickState={modalClickState}
+      />
       <div className={"max-w-[1294px] mx-auto gap-8 flex flex-col"}>
         <BachelorSteps />
         <WhyInspection />
