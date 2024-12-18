@@ -453,13 +453,12 @@ const CarSelect = (props) => {
             <div className={`grid grid-cols-6 gap-x-6 gap-y-2 pb-2`}>
               {searchedData.map((item, index) => (
                 <div
-                  className={`flex flex-col bg-[#FFFFFF] items-center gap-2 cursor-pointer hover:scale-110 transition-all duration-300 p-2 rounded-[4px] ${item.plaque ? "col-span-3" : "col-span-2"}`}
+                  className={`flex flex-col bg-transparent items-center gap-2 cursor-pointer hover:scale-110 transition-all duration-300 p-2 rounded-[4px] ${item.plaque ? "col-span-3" : "col-span-2"}`}
                   key={index}
                   onClick={() => {
                     optionClickHandler(item.id, item);
                   }}
                 >
-                  {console.log(item)}
                   <Image
                     src={
                       process.env.BASE_API +
@@ -471,7 +470,7 @@ const CarSelect = (props) => {
                     width={88}
                     height={66}
                     alt={"car image"}
-                    className="w-[88px] h-[66px]"
+                    className="w-[88px] h-auto"
                   />
                   {item.plaque ? (
                     <div className="bg-white flex items-center justify-between border border-[#B0B0B0] font-bold text-14 text-[#3d3d3d] rounded-lg overflow-hidden w-full">

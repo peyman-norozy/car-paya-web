@@ -415,7 +415,7 @@ const CarSelectComponent = (props) => {
     return (
       <div className="absolute h-full top-0 right-auto pb-10 mr-1">
         <div
-          className={`bg-[#fbfbfb] ${props.isMobile ? "h-[550px]" : "h-[605px]"} rounded-2xl w-[400px] sticky top-[127px] right-auto z-[2] backdrop-blur-[16px] p-4 pt-8 ${props.isMobile ? "flex lg:hidden" : "hidden lg:flex"} flex-col gap-4 lg:shadow-[0_0_6px_0_rgba(125,125,125,0.5)] relative`}
+          className={`bg-[#fbfbfb] ${props.isMobile ? "h-[calc(100vh-74px)]" : "h-[605px]"} rounded-2xl w-[400px] sticky top-[127px] right-auto z-[2] backdrop-blur-[16px] p-4 pt-8 ${props.isMobile ? "flex lg:hidden" : "hidden lg:flex"} flex-col gap-4 lg:shadow-[0_0_6px_0_rgba(125,125,125,0.5)] relative`}
         >
           {carSelected ? (
             <div className="flex flex-col gap-4">
@@ -636,14 +636,14 @@ const CarSelectComponent = (props) => {
                   />
                 </div>
                 <div
-                  className={`${myVehicleData.length ? (props.isMobile ? "h-[270px]" : "h-[320px]") : props.isMobile ? "h-[310px]" : "h-[363px]"} overflow-y-scroll mt-2 overflow-x-hidden`}
+                  className={`${myVehicleData.length ? (props.isMobile ? "h-[calc(100vh-365px)]" : "h-[320px]") : props.isMobile ? "h-[310px]" : "h-[363px]"} overflow-y-scroll mt-2 overflow-x-hidden`}
                 >
                   <div
                     className={`grid grid-cols-3 gap-x-8 ${props.isMobile ? "gap-y-[16px]" : "gap-y-[42px]"}`}
                   >
                     {searchedData.map((item, index) => (
                       <div
-                        className="flex flex-col bg-[#FFFFFF] items-center gap-2 cursor-pointer hover:scale-110 transition-all duration-300 shadow-[0_1px_4px_0_rgba(235,235,235,0.25)] p-2 rounded-[4px]"
+                        className="flex flex-col bg-transparent items-center gap-2 cursor-pointer hover:scale-110 transition-all duration-300 p-2 rounded-[4px]"
                         key={index}
                         onClick={() => {
                           optionClickHandler(item.id, item);
