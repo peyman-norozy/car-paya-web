@@ -176,7 +176,7 @@ function MobileBottomNav(props) {
           className={`flex flex-col justify-center items-center bg-[#FEFEFE] w-[calc((100%-70px)/4)] h-full rounded-r-2xl shadow-[4px_0_4px_0_rgba(190,190,190,0.20)] overflow-hidden`}
         >
           <i
-            className={`icon-Vector-4 ${
+            className={`i-home-2 ${
               isClicked === 0 ? "text-[#F58052]" : "text-[#6D6D6D]"
             } text-2xl`}
           />
@@ -195,7 +195,7 @@ function MobileBottomNav(props) {
           style={{ borderRadius: "5% 0% 0% 0% / 10% 0% 0% 0%" }}
         >
           <i
-            className={`icon-Vector-1 ${
+            className={`i-category ${
               isClicked === 1 ? "text-[#F58052]" : "text-[#6D6D6D]"
             } text-2xl`}
           />
@@ -261,7 +261,7 @@ function MobileBottomNav(props) {
           style={{ borderRadius: "0% 5% 0% 0% / 0% 10% 0% 0%" }}
         >
           <i
-            className={`cc-buy ${
+            className={`i-shopping-cart ${
               isClicked === 3 ? "text-[#F58052]" : "text-[#6D6D6D]"
             } text-2xl`}
           />
@@ -279,7 +279,7 @@ function MobileBottomNav(props) {
           className={`flex flex-col justify-center items-center bg-[#FEFEFE] w-[calc((100%-70px)/4)] h-full rounded-l-2xl shadow-[-4px_0_4px_0_rgba(190,190,190,0.20)]`}
         >
           <i
-            className={`icon-Vector-3 ${
+            className={`i-profile-circle ${
               isClicked === 4 ? "text-[#F58052]" : "text-[#6D6D6D]"
             } text-2xl`}
           />
