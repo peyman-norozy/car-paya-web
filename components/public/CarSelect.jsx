@@ -355,7 +355,7 @@ const CarSelect = (props) => {
   return (
     <section
       className={
-        "bg-[#FDFDFD] lg:w-[409px] w-full h-screen lg:h-[485px] lg:rounded-2xl flex flex-col justify-start overflow-hidden gap-4 shadow-[0_0_6px_6px_rgba(125,125,125,0.2)] z-50"
+        "bg-[#FDFDFD] lg:w-[409px] w-full h-screen lg:h-[485px] lg:rounded-2xl flex flex-col justify-start overflow-hidden shadow-[0_0_6px_6px_rgba(125,125,125,0.2)] z-50"
       }
     >
       <div className="shadow-[0_2px_8px_0_rgba(148,148,148,0.25)] flex items-center justify-between h-14 px-4 lg:hidden">
@@ -425,10 +425,10 @@ const CarSelect = (props) => {
               ""
             )}
           </div>
-          <div className="flex gap-2 py-1 pr-4 pl-1 text-[#B0B0B0] border border-[#BBBBBB] rounded-lg">
+          <div className="flex gap-2 py-1 pr-4 pl-1 text-[#B0B0B0] border border-[#BBBBBB] rounded-lg h-10">
             <i className="cc-search text-xl" />
             <input
-              className="outline-none text-14 font-medium w-full"
+              className="outline-none text-14 font-medium w-full bg-transparent"
               placeholder="جستجو..."
               value={searchInputValue}
               onChange={(e) => {
@@ -437,9 +437,9 @@ const CarSelect = (props) => {
             />
           </div>
           <div
-            className={`h-[calc(100vh-300px)] lg:h-[260px] overflow-y-scroll mt-2 overflow-x-hidden`}
+            className={`h-[calc(100vh-250px)] lg:h-[260px] overflow-y-scroll mt-2 overflow-x-hidden`}
           >
-            <div className={`grid grid-cols-6 gap-x-6 gap-y-2 pb-2`}>
+            <div className={`grid grid-cols-6 gap-x-6 gap-y-6 lg:gap-y-2 pb-2`}>
               {searchedData.map((item, index) => (
                 <div
                   className={`flex flex-col bg-transparent items-center gap-2 cursor-pointer hover:scale-110 transition-all duration-300 p-2 rounded-[4px] ${item.plaque ? "col-span-3" : "col-span-2"}`}
