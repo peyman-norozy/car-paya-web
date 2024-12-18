@@ -453,7 +453,7 @@ const CarSelect = (props) => {
             <div className={`grid grid-cols-6 gap-x-6 gap-y-2 pb-2`}>
               {searchedData.map((item, index) => (
                 <div
-                  className={`flex flex-col bg-[#FFFFFF] items-center gap-2 cursor-pointer hover:scale-110 transition-all duration-300 shadow-[0_1px_4px_0_rgba(235,235,235,0.25)] p-2 rounded-[4px] ${item.plaque ? "col-span-3" : "col-span-2"}`}
+                  className={`flex flex-col bg-[#FFFFFF] items-center gap-2 cursor-pointer hover:scale-110 transition-all duration-300 p-2 rounded-[4px] ${item.plaque ? "col-span-3" : "col-span-2"}`}
                   key={index}
                   onClick={() => {
                     optionClickHandler(item.id, item);
