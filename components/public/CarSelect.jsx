@@ -368,17 +368,6 @@ const CarSelect = (props) => {
         />
       </div>
       <div className={"pt-6 pb-4 px-4"}>
-        <div className={"flex items-center justify-between mb-4"}>
-          <span className="inline-block text-[#4F4F4F] text-14 font-medium lg:font-bold">
-            انتخاب وسیله نقلیه
-          </span>
-          {/* <button
-            onClick={() => props.setAsideStatus("car_city")}
-            className={"text-14 font-bold text-red-500"}
-          >
-            بازگشت
-          </button> */}
-        </div>
         <div className="rounded-lg border border-[#cfcfcf] flex flex-wrap justify-between gap-1 p-1 mb-[12px]">
           <button
             className={`${vehicleType === "car" ? "bg-[#F58052] text-[#FEFEFE]" : "text-[#888888]"} rounded-[8px] w-[100px] h-8 flex justify-center items-center font-medium text-14`}
