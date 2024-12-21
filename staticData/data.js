@@ -351,6 +351,29 @@ export const tabsData = [
   },
 ];
 
+export const text1 = [
+  "5",
+  "0",
+  "2",
+  " ",
+  "B",
+  "a",
+  "d",
+  " ",
+  "G",
+  "a",
+  "t",
+  "e",
+  "a",
+  "w",
+  "a",
+  "y",
+];
+
+export const text2 = ["n", "g", "i", "n", "x"];
+
+export const binaryNumber = "110010100011111010100100101010011110000000000";
+
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
   serviceData,
@@ -362,4 +385,7 @@ export default {
   batteryFaqData,
   headerNavData,
   tabsData,
+  text1,
+  text2,
+  binaryNumber,
 };
