@@ -2,7 +2,13 @@ import { Fragment } from "react";
 import Header from "@/layouts/HeaderLayout";
 import Footer from "@/layouts/FooterLayout";
 import ServicesLayout from "@/layouts/ServicesLayout";
-import { binaryNumber, headerNavData, serviceData } from "@/staticData/data";
+import {
+  binaryNumber,
+  headerNavData,
+  serviceData,
+  text1,
+  text2,
+} from "@/staticData/data";
 import ServicesList from "@/components/ServicesList";
 
 const MainLayout = (props) => {
