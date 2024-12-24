@@ -98,7 +98,7 @@ const VehicleInspection = () => {
   const active = data.length > 0;
   return (
     <div className={"relative"}>
-      <div className="sm:rounded-3xl lg:hidden flex p-4 flex-col items-center bg-[#EBF5FF] lg:h-[500px] lg:p-10 xl:p-16 lg:gap-16 mt-[25px] relative">
+      <div className="sm:rounded-3xl lg:hidden flex p-4 flex-col items-center bg-[#EBF5FF] lg:h-[500px] lg:p-10 xl:p-16 lg:gap-16 mt-[25px] relative bg-[url('../public/assets/images/banner_bg.jpg')] bg-cover">
         <div className="flex flex-col gap-2 items-start self-center lg:gap-11">
           <h1 className="text-lg lg:text-2xl font-medium lg:font-bold text-[#000000]">
             کارشناسی وسیله نقلیه
@@ -132,7 +132,7 @@ const VehicleInspection = () => {
           {vehicleVerificationBasket.length ? "ادامه " : ""}درخواست کارشناسی
         </button>
       </div>
-      <div className="overflow-x-hidden mt-4 w-full h-[500px] bg-[url('../public/assets/images/banner_bg.jpg')] bg-cover hidden lg:flex relative overflow-hidden">
+      <div className="overflow-x-hidden mt-4 w-full h-[500px] lg:bg-[url('../public/assets/images/banner_bg.jpg')] bg-cover hidden lg:flex relative overflow-hidden">
         <Image
           src={banner_car}
           className="absolute h-auto w-[1200px] top-[58%] size1470:left-0 -left-40 -translate-y-1/2"
