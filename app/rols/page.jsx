@@ -740,10 +740,3 @@ const Ruls = () => {
 };
 
 export default Ruls;
-{
-  /* 
-    <span className="font-medium text-[#F66B34]"></span>
-    <p className="text-justify"></p>
-    <p className="text-[#F66B34] text-lg text-center my-6"></p>
-       */
-}
