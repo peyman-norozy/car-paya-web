@@ -18,6 +18,11 @@ import ServicesModal from "@/components/periodic-service-components/ServicesModa
 import nProgress from "nprogress";
 import Image from "next/image";
 import PeriodicOrderDataCard from "@/components/periodic-service-components/PeriodicOrderDataCard";
+import dynamic from "next/dynamic";
+
+const LeafletMarker = dynamic(() => import("@/components/LeafletMarker"), {
+  ssr: false,
+});
 
 const Dealership = (props) => {
   // const [isSelected, setIsSelected] = useState(0);
@@ -425,7 +430,11 @@ const Dealership = (props) => {
           serviceModal={serviceModal}
         />
         <ToastContainer />
+
         <DeleteModal />
+        {/* <div className="fixed top-1/2 right-1/2 translate-x-1/2 -translate-y-1/2 w-[calc(100vw/2)] h-[calc(100vh/2)] bg-[#b4b4b4] address_Map">
+          <LeafletMarker dragging={true} />
+        </div> */}
       </div>
     </div>
   );
