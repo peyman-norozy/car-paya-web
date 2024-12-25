@@ -16,7 +16,6 @@ import AreaModal from "@/components/vehicle-verification/AreaModal";
 import DeleteModal from "@/components/public/DeleteModal";
 import ServicesModal from "@/components/periodic-service-components/ServicesModal";
 import nProgress from "nprogress";
-import Image from "next/image";
 import PeriodicOrderDataCard from "@/components/periodic-service-components/PeriodicOrderDataCard";
 import dynamic from "next/dynamic";
 
@@ -35,6 +34,7 @@ const Dealership = (props) => {
   const [checkedArea, setCheckedArea] = useState([]);
   const [userAdressData, setUserAdressData] = useState([]);
   const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [locationModalIsOpen, setLocationModalIsOpen] = useState(false);
   const [editModalIsOpen, setEditModalIsOpen] = useState(false);
   const [type, setType] = useState("MOVING");
   const [isLoading, setIsLoading] = useState(false);
@@ -261,6 +261,16 @@ const Dealership = (props) => {
               <button
                 className="border border-[#F58052] text-[#F58052] flex gap-1 rounded-lg py-3 px-5 items-center"
                 onClick={() => {
+                  setLocationModalIsOpen(true);
+                }}
+              >
+                <p className="text-xs font-medium w-max">انتخاب از روی نقشه</p>
+              </button>
+            )}
+            {tab === 1 && (
+              <button
+                className="border border-[#F58052] text-[#F58052] flex gap-1 rounded-lg py-3 px-5 items-center"
+                onClick={() => {
                   setModalIsOpen(true);
                 }}
               >
@@ -432,9 +442,20 @@ const Dealership = (props) => {
         <ToastContainer />
 
         <DeleteModal />
-        {/* <div className="fixed top-1/2 right-1/2 translate-x-1/2 -translate-y-1/2 w-[calc(100vw/2)] h-[calc(100vh/2)] bg-[#b4b4b4] address_Map">
-          <LeafletMarker dragging={true} />
-        </div> */}
+        {locationModalIsOpen && (
+          <div
+            onClick={() => {
+              setLocationModalIsOpen(false);
+            }}
+            className={
+              "w-full h-[100vh] fixed top-0 right-0 bg-[#000000b0] z-[100000000]"
+            }
+          >
+            <div className="fixed top-1/2 right-1/2 translate-x-1/2 -translate-y-1/2 w-[calc(100vw/2)] h-[calc(100vh/2)] marker_Map">
+              <LeafletMarker dragging={true} agentData={agentData} />
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

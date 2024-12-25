@@ -358,6 +358,12 @@ li {
   overflow: hidden;
 }
 
+.marker_Map .leaflet-container {
+  width: 100%;
+  height: 400px;
+  overflow: hidden;
+}
+
 /********************** mag_slider ************************/
 
 .mag_slider .swiper-initialized {
