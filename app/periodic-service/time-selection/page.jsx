@@ -27,8 +27,10 @@ const Page = (props) => {
       const data = await getDataWithFullErrorRes(
         `/web/service-periodical?step=step-3&type=${searchParams.get("type")}&city_id=${searchParams.get("city_id")}&vehicle_tip_id=${JSON.parse(localStorage.getItem("selectedVehicle")).id}&service_location_id=${searchParams.get("service_location_id")}&package_id=${searchParams.get("package_id")}`
       );
-      setData(data);
-      const uniqueTitles = Array.from(new Set(data?.map((item) => item.title)));
+      setData(data.data);
+      const uniqueTitles = Array.from(
+        new Set(data.data?.map((item) => item.title))
+      );
       setUniqueTitle(uniqueTitles);
       setDayTitleTab(uniqueTitles[0]);
       // setData(

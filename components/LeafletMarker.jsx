@@ -5,10 +5,10 @@ import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import "leaflet-defaulticon-compatibility";
 import "leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.css";
-
+import pin from "@/public/assets/icons/placeholder.svg";
 // تعریف آیکون سفارشی
 const customIcon = new L.Icon({
-  iconUrl: "/custom-icon.png", // مسیر تصویر آیکون
+  iconUrl: pin, // مسیر تصویر آیکون
   iconSize: [32, 32], // اندازه آیکون
   iconAnchor: [16, 32], // نقطه لنگر
   popupAnchor: [0, -32], // نقطه لنگر پاپ‌آپ
@@ -17,7 +17,7 @@ const customIcon = new L.Icon({
 const LeafletMarker = (props) => {
   const [map, setMap] = useState(null);
   const position = [35.699738185272885, 51.33763714865729];
-
+  const position2 = [35.69969897793565, 51.33531435582413];
   const displayMap = useMemo(
     () => (
       <div
@@ -40,6 +40,9 @@ const LeafletMarker = (props) => {
             url="https://raster.snappmaps.ir/styles/snapp-style/{z}/{x}/{y}.webp"
           />
           <Marker position={position} icon={customIcon}>
+            <Popup>Selected Location</Popup>
+          </Marker>
+          <Marker position={position2} icon={customIcon}>
             <Popup>Selected Location</Popup>
           </Marker>
         </MapContainer>
