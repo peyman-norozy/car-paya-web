@@ -2,12 +2,10 @@
 import React, { useEffect, useState } from "react";
 import useSetQuery from "@/hook/useSetQuery";
 import AddAddressModal from "@/components/vehicle-verification/AddAddressModal";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import axios from "axios";
 import { getCookie } from "cookies-next";
-import { error } from "@/utils/function-utils";
 import { ToastContainer } from "react-toastify";
-import { postData } from "@/utils/client-api-function-utils";
 import { useDispatch, useSelector } from "react-redux";
 import { setAreaeModalState, setLoginModal } from "@/store/todoSlice";
 import UserAddressCard from "@/components/vehicle-verification/UserAddressCard";
@@ -27,7 +25,6 @@ const Dealership = (props) => {
   // const [isSelected, setIsSelected] = useState(0);
   // const [chosenTime, setChosenTime] = useState("");
   const [tab, setTab] = useState(1);
-  const searchParams = useSearchParams();
   const [agentData, setAgentData] = useState([]);
   const [searchedAgentData, setSearchedAgentData] = useState([]);
   const [filter, setFilter] = useState();
@@ -43,17 +40,6 @@ const Dealership = (props) => {
   const [selectedAddressText, setSelectedAddressText] = useState({});
   const [serviceModal, setServiceModal] = useState(false);
   const [checkedService, setCheckedService] = useState([]);
-  const [selectedVehicle, setSelectedVehicle] = useState({});
-  const city_id = searchParams.get("city_id");
-  const selectedItem = searchParams.get("vehicle_tip");
-  const package_id = searchParams.get("package_id");
-  const vehicle_tip = searchParams.get("vehicle_tip");
-  const reservation_time_slice_id = searchParams.get(
-    "reservation_time_slice_id"
-  );
-  const exact_time = searchParams.get("exact_time");
-  const params = new URLSearchParams(searchParams.toString());
-  const pathname = usePathname();
   const router = useRouter();
   const setQuery = useSetQuery();
   const dispatch = useDispatch();
@@ -111,7 +97,7 @@ const Dealership = (props) => {
         // setChosenTime(res.data.time);
       })
       .catch((err) => console.log(err));
-    setSelectedVehicle(JSON.parse(localStorage.getItem("selectedVehicle")));
+    // setSelectedVehicle(JSON.parse(localStorage.getItem("selectedVehicle")));
   }, [modalIsOpen, renderUserAddrressState, editModalIsOpen]);
 
   const placeData = [
@@ -258,25 +244,27 @@ const Dealership = (props) => {
               مکان خود را انتخاب کنید:
             </p>
             {tab === 1 && (
-              <button
-                className="border border-[#F58052] text-[#F58052] flex gap-1 rounded-lg py-3 px-5 items-center"
-                onClick={() => {
-                  setLocationModalIsOpen(true);
-                }}
-              >
-                <p className="text-xs font-medium w-max">انتخاب از روی نقشه</p>
-              </button>
-            )}
-            {tab === 1 && (
-              <button
-                className="border border-[#F58052] text-[#F58052] flex gap-1 rounded-lg py-3 px-5 items-center"
-                onClick={() => {
-                  setModalIsOpen(true);
-                }}
-              >
-                <i className="cc-add" />
-                <p className="text-xs font-medium w-max">آدرس جدید</p>
-              </button>
+              <div className=" flex items-center gap-4">
+                <button
+                  className="border border-[#F58052] text-[#F58052] flex gap-1 rounded-lg py-3 px-5 items-center"
+                  onClick={() => {
+                    setLocationModalIsOpen(true);
+                  }}
+                >
+                  <p className="text-xs font-medium w-max">
+                    انتخاب از روی نقشه
+                  </p>
+                </button>
+                <button
+                  className="border border-[#F58052] text-[#F58052] flex gap-1 rounded-lg py-3 px-5 items-center"
+                  onClick={() => {
+                    setModalIsOpen(true);
+                  }}
+                >
+                  <i className="cc-add" />
+                  <p className="text-xs font-medium w-max">آدرس جدید</p>
+                </button>
+              </div>
             )}
           </div>
           <div className="flex flex-col relative">
@@ -447,11 +435,17 @@ const Dealership = (props) => {
             onClick={() => {
               setLocationModalIsOpen(false);
             }}
+            oncapture
             className={
               "w-full h-[100vh] fixed top-0 right-0 bg-[#000000b0] z-[100000000]"
             }
           >
-            <div className="fixed top-1/2 right-1/2 translate-x-1/2 -translate-y-1/2 w-[calc(100vw/2)] h-[calc(100vh/2)] marker_Map">
+            <div
+              className="fixed top-1/2 right-1/2 translate-x-1/2 -translate-y-1/2 w-3/4 h-3/4 marker_Map"
+              onClick={(event) => {
+                event.stopPropagation();
+              }}
+            >
               <LeafletMarker dragging={true} agentData={agentData} />
             </div>
           </div>
