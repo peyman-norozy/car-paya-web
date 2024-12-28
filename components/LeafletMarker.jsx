@@ -60,7 +60,11 @@ const LeafletMarker = (props) => {
             url="https://raster.snappmaps.ir/styles/snapp-style/{z}/{x}/{y}.webp"
           />
           {props.agentData.map((item) => (
-            <Marker position={item.map.split(",")} icon={customIcon}>
+            <Marker
+              position={item.map.split(",")}
+              icon={customIcon}
+              key={item.title + index}
+            >
               <Popup>
                 <div className="flex flex-col gap-2 items-center">
                   <span>{item.title}</span>
