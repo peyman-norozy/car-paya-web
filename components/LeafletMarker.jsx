@@ -59,7 +59,7 @@ const LeafletMarker = (props) => {
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             url="https://raster.snappmaps.ir/styles/snapp-style/{z}/{x}/{y}.webp"
           />
-          {props.agentData.map((item) => (
+          {props.agentData.map((item, index) => (
             <Marker
               position={item.map.split(",")}
               icon={customIcon}
