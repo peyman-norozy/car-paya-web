@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 // import { useSelector } from "react-redux";
 import { numberWithCommas } from "@/utils/function-utils";
 import DiscountPercent from "../DiscountPercent/DiscountPercent";
+import Link from "next/link";
 
 const PriceDetails = (props) => {
   const { faktorData, innerWidth } = props;
@@ -86,7 +87,7 @@ const PriceDetails = (props) => {
           setDiscountPrice={props.setDiscountPrice}
           coupon={props.coupon}
           setCoupon={props.setCoupon}
-        // setDiscountPercent={setDiscountPercent}
+          // setDiscountPercent={setDiscountPercent}
         />
       </div>
       {props.price_fluctuation &&
@@ -179,10 +180,20 @@ const PriceDetails = (props) => {
           <i className="cc-tick text-white lg:text-xl text-sm" />
         </div>
 
-        <p>
-          <span className="text-[#1E67BF] lg:text-14 text-12 whitespace-nowrap break-keep">
-            قوانین کار پایا و سیاست‌ نامه حریم‌ خصوصی
-          </span>
+        <p className="flex items-center gap-1">
+          <Link
+            href={"/rules"}
+            className="text-[#1E67BF] lg:text-14 text-12 whitespace-nowrap break-keep"
+          >
+            قوانین کار پایا
+          </Link>
+          و
+          <Link
+            href={"/privacy"}
+            className="text-[#1E67BF] lg:text-14 text-12 whitespace-nowrap break-keep"
+          >
+            سیاست‌ نامه حریم‌ خصوصی
+          </Link>
           <span> را می پذیرم.</span>
         </p>
       </div>
