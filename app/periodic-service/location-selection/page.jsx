@@ -243,28 +243,25 @@ const Dealership = (props) => {
             >
               مکان خود را انتخاب کنید:
             </p>
-            {tab === 1 && (
-              <div className=" flex items-center gap-4">
-                <button
-                  className="border border-[#F58052] text-[#F58052] flex gap-1 rounded-lg py-3 px-5 items-center"
-                  onClick={() => {
-                    setLocationModalIsOpen(true);
-                  }}
-                >
-                  <p className="text-xs font-medium w-max">
-                    انتخاب از روی نقشه
-                  </p>
-                </button>
-                <button
-                  className="border border-[#F58052] text-[#F58052] flex gap-1 rounded-lg py-3 px-5 items-center"
-                  onClick={() => {
-                    setModalIsOpen(true);
-                  }}
-                >
-                  <i className="cc-add" />
-                  <p className="text-xs font-medium w-max">آدرس جدید</p>
-                </button>
-              </div>
+            {tab === 0 ? (
+              <button
+                className="border border-[#F58052] text-[#F58052] flex gap-1 rounded-lg py-3 px-5 items-center"
+                onClick={() => {
+                  setLocationModalIsOpen(true);
+                }}
+              >
+                <p className="text-xs font-medium w-max">انتخاب از روی نقشه</p>
+              </button>
+            ) : (
+              <button
+                className="border border-[#F58052] text-[#F58052] flex gap-1 rounded-lg py-3 px-5 items-center"
+                onClick={() => {
+                  setModalIsOpen(true);
+                }}
+              >
+                <i className="cc-add" />
+                <p className="text-xs font-medium w-max">آدرس جدید</p>
+              </button>
             )}
           </div>
           <div className="flex flex-col relative">
