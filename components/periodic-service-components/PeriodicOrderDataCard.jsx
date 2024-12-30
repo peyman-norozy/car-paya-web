@@ -2,7 +2,7 @@ import { numberWithCommas } from "@/utils/function-utils";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
-const PeriodicOrderDataCard = () => {
+const PeriodicOrderDataCard = (props) => {
   const [selectedVehicle, setSelectedVEhicle] = useState({});
   const [periodicCart, setPeriodicCart] = useState({});
   useEffect(() => {
@@ -28,25 +28,25 @@ const PeriodicOrderDataCard = () => {
           alt="khodro"
         />
         <div className="flex flex-col items-start gap-6 font-medium text-[#0f0f0f]">
-          {selectedVehicle?.title && (
+          {props.step > 0 && (
             <div className="flex items-center gap-1">
               <i className="cc-car-o size-6 rounded-[4px] bg-[#3C81D4] text-white shadow-[0_1.22px_1.62px_0_rgba(126,203,251,0.36)] text-xl flex items-center justify-center" />
               <span> نام وسیله نقلیه : {selectedVehicle?.title}</span>
             </div>
           )}
-          {periodicCart?.location_name && (
+          {props.step > 1 && (
             <div className="flex items-center gap-1">
               <i className="cc-location size-6 rounded-[4px] bg-[#3C81D4] text-white shadow-[0_1.22px_1.62px_0_rgba(126,203,251,0.36)] text-xl flex items-center justify-center" />
               <span> محل دریافت خدمات : {periodicCart?.location_name}</span>
             </div>
           )}
-          {periodicCart?.products && (
+          {props.step > 2 && (
             <div className="flex items-center gap-1">
               <i className="cc-search size-6 rounded-[4px] bg-[#3C81D4] text-white shadow-[0_1.22px_1.62px_0_rgba(126,203,251,0.36)] text-xl flex items-center justify-center" />
               <span> نوع خدمات : سرویس دوره ای</span>
             </div>
           )}
-          {periodicCart?.products && (
+          {props.step > 2 && periodicCart?.products && (
             <div className="flex items-center gap-1">
               <span className="cc-dollar size-6 rounded-[4px] bg-[#3C81D4] text-white shadow-[0_1.22px_1.62px_0_rgba(126,203,251,0.36)] pt-1 text-lg flex items-center justify-center">
                 $

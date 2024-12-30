@@ -204,7 +204,7 @@ const Dealership = (props) => {
 
   return (
     <div className="flex w-full pt-[28px] items-stretch pb-[6rem]">
-      <PeriodicOrderDataCard />
+      <PeriodicOrderDataCard step={1} />
       <div className="w-full lg:w-[calc(100%-424px)] mr-auto overflow-hidden flex flex-col gap-4 bg-[#FDFDFD] lg:shadow-[0_0_6px_0_rgba(125,125,125,0.5)] px-2 lg:p-6 rounded-2xl min-h-[605px]">
         <div
           className={

@@ -122,7 +122,7 @@ const InvoicePage = () => {
       <div className={"lg:w-[calc(100%-424px)]"}>
         <section
           className={
-            "flex items-center gap-2 sticky lg:top-[97px] top-[74px] right-0 bg-white py-2 z-[1000]"
+            "flex items-center gap-2 sticky top-[74px] right-0 bg-white py-2 z-[1000]"
           }
         >
           <Link

@@ -234,6 +234,7 @@ const PeriodicServiceIndex = () => {
   // };
 
   const PackageStepHandler = (status) => {
+    sessionStorage.removeItem("periodicCart");
     if (!localStorage.getItem("selectedVehicle")) {
       error("ابتدا وسیله نقلیه را انتخاب کنید");
     } else {

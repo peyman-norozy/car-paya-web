@@ -111,7 +111,7 @@ const Page = (props) => {
     //   </button>
     // </div>
     <div className="flex w-full pt-[28px] items-stretch pb-[6rem]">
-      <PeriodicOrderDataCard />
+      <PeriodicOrderDataCard step={3} />
       <div
         className={
           "flex items-start justify-between w-full lg:w-[calc(100%-424px)] lg:mr-auto bg-[#FDFDFD] lg:shadow-[0_0_6px_0_rgba(125,125,125,0.5)] lg:p-6 rounded-2xl min-h-[605px]"
