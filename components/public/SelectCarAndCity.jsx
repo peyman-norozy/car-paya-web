@@ -58,7 +58,7 @@ const SelectCarAndCity = (props) => {
           disabled={disabledInput}
           inputStatus={"select_car"}
           setCarSelectInputState={setCarSelectInputState}
-          value={carTitle ? `${carBrand} ${carModel} (${carTitle})` : ""}
+          value={carTitle ? carTitle : ""}
         />
       </div>
       {JSON.parse(localStorage.getItem("selectedVehicle"))?.image ? (

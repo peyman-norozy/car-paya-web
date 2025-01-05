@@ -119,7 +119,7 @@ function MobileBottomNav(props) {
         > */}
         {/* <div className="h-[5px] w-[6rem] rounded-[20px] bg-[#333] absolute top-[2.5%] left-[50%] translate-x-[-50%]"></div> */}
         <div
-          className={`z-[3001] w-screen h-screen bg-[#FEFEFE] fixed right-0 flex justify-center ${modalIsOpen ? "bottom-0" : "-bottom-[100vh]"} transition-all duration-700`}
+          className={`z-[3001] w-screen h-screen bg-[#FEFEFE] fixed right-0 flex justify-center ${modalIsOpen ? "top-0" : "top-[100vh]"} transition-all duration-700`}
         >
           {/* <VehicleRegistration /> */}
           <CarSelectComponent
