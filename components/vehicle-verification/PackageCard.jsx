@@ -30,13 +30,13 @@ const PackageCard = (props) => {
           <h6 className={"text-14 size752:text-16 text-[#010101]"}>{title}</h6>
         </div>
         <div className="flex items-center gap-1">
-          <p
+          {/* <p
             className={
               "text-[#60ABEC] font-medium text-xs size752:text-16 line-through"
             }
           >
             {price.toLocaleString()} تومان
-          </p>
+          </p> */}
           <p className={"text-[#1E67BF] text-14 size752:text-16 font-medium"}>
             {discounted_price.toLocaleString()} تومان
           </p>
