@@ -26,7 +26,7 @@ const BatteriesPage = (props) => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const batteryBasketLength = useSelector(
-    (item) => item.todo.batteriesBasketLength
+    (item) => item.todo.batteriesBasketLength,
   );
   const innerWidth = useSelector((item) => item.todo.windowInnerWidth);
   const attributeSlug = searchParams.get("attribute_slug");
@@ -169,7 +169,7 @@ const BatteriesPage = (props) => {
       >
         <div
           className={
-            "flex items-center gap-2 size752:gap-[16px] text-[#0E0E0E] w-full"
+            "flex items-center gap-2 size752:gap-[16px] text-[#0E0E0E] w-full lg:px-0 px-5"
           }
         >
           <i
@@ -177,7 +177,7 @@ const BatteriesPage = (props) => {
             onClick={() => {
               nProgress.start();
               router.push(
-                `/batteries?attribute_slug=${attributeSlug}&attribute_value=${attributeValue}&selectTipState=${selectTipState}`
+                `/batteries?attribute_slug=${attributeSlug}&attribute_value=${attributeValue}&selectTipState=${selectTipState}`,
               );
             }}
           />
@@ -185,7 +185,7 @@ const BatteriesPage = (props) => {
             انتخاب باتری
           </p>
         </div>
-        <section className={"w-full mr-auto lg:mt-4"}>
+        <section className={"w-full mr-auto lg:mt-4 lg:px-0 px-5"}>
           <div
             className={
               "flex gap-2 items-center w-full bg-[#FFFFFF] text-[#D1D1D1] shadow-[0_0_4px_0_rgba(152,152,152,0.4)] lg:py-2 py-1 rounded-[16px] px-2 my-4"
@@ -196,7 +196,7 @@ const BatteriesPage = (props) => {
               onClick={() => {
                 nProgress.start();
                 router.push(
-                  `/batteries?attribute_slug=${attributeSlug}&attribute_value=${attributeValue}&selectTipState=${selectTipState}`
+                  `/batteries?attribute_slug=${attributeSlug}&attribute_value=${attributeValue}&selectTipState=${selectTipState}`,
                 );
               }}
             />
