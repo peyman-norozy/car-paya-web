@@ -107,7 +107,7 @@ const VerificationInvoice = () => {
       <div className={"lg:w-[calc(100%-424px)]"}>
         <section
           className={
-            "flex items-center gap-2 sticky top-[74px] right-0 bg-white py-2 z-[1000]"
+            "flex items-center gap-2 lg:static sticky top-0 lg:top-[74px] right-0 bg-white py-2 z-[1000]"
           }
         >
           <i
@@ -202,7 +202,7 @@ const VerificationInvoice = () => {
               <span className={"font-semibold w-max"}>تغییر تاریخ و زمان</span>
             </Link>
           </section>
-          <div className={"mt-4 block lg:hidden"}>
+          {/* <div className={"mt-4 block lg:hidden"}>
             <DiscountPercent
               id={faktorData?.id}
               type={"master"}
@@ -211,7 +211,7 @@ const VerificationInvoice = () => {
               setCoupon={setCoupon}
               setDiscountPrice={setDiscountPrice}
             />
-          </div>
+          </div> */}
           <section className={"lg:flex lg:flex-col-reverse"}>
             {/* <section>
             <div className={"text-14 flex items-center gap-1 my-4"}>
@@ -338,7 +338,7 @@ const VerificationInvoice = () => {
         </div>
       </div>
       {innerWidth > 1024 && (
-        <div className="space-y-4 p-4 shadow-custom1 rounded-lg lg:w-[458px] lg:h-fit lg:sticky lg:top-[110px] lg:left-0 lg:block">
+        <div className="space-y-4 p-4 shadow-custom1 rounded-lg lg:w-[458px] lg:h-fit lg:sticky lg:top-[54px] lg:left-0 lg:block">
           <PriceDetails
             faktorData={faktorData}
             length={1}
