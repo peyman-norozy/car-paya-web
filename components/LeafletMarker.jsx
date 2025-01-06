@@ -19,24 +19,7 @@ const customIcon = new L.Icon({
 
 const LeafletMarker = (props) => {
   const [map, setMap] = useState(null);
-  const setQuery = useSetQuery();
   const position = [35.699738185272885, 51.33763714865729];
-
-  function agentClickHandler(id, address_id, title, name) {
-    sessionStorage.setItem(
-      "periodicCart",
-      JSON.stringify({
-        location_id: id,
-        location_address_id: address_id,
-        location_title: title,
-        location_name: name,
-      })
-    );
-    setQuery.updateQueryParams(
-      { service_location_id: id, type: "FIXED" },
-      "/periodic-service/service-selection"
-    );
-  }
 
   const displayMap = useMemo(
     () => (
@@ -71,12 +54,7 @@ const LeafletMarker = (props) => {
                   <button
                     className="text-[#F66B34] border border-[#F66B34] bg-transparent w-fit py-1 px-3 text-sm font-bold flex items-center justify-center rounded-lg "
                     onClick={() => {
-                      agentClickHandler(
-                        item.id,
-                        item.address_id,
-                        item.address,
-                        item.title
-                      );
+                      props.agentClickHandler(item);
                     }}
                   >
                     انتخاب

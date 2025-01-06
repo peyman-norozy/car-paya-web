@@ -202,6 +202,22 @@ const Dealership = (props) => {
     }
   }
 
+  function agentClickHandler(item) {
+    sessionStorage.setItem(
+      "periodicCart",
+      JSON.stringify({
+        location_id: item.id,
+        location_address_id: item.address_id,
+        location_title: item.address,
+        location_name: item.title,
+      })
+    );
+    setQuery.updateQueryParams(
+      { service_location_id: item.id, type: "FIXED" },
+      "/periodic-service/service-selection"
+    );
+  }
+
   return (
     <div className="flex w-full pt-[28px] items-stretch pb-[6rem]">
       <PeriodicOrderDataCard step={1} />
@@ -443,7 +459,11 @@ const Dealership = (props) => {
                 event.stopPropagation();
               }}
             >
-              <LeafletMarker dragging={true} agentData={agentData} />
+              <LeafletMarker
+                dragging={true}
+                agentData={agentData}
+                agentClickHandler={agentClickHandler}
+              />
             </div>
           </div>
         )}

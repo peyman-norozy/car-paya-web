@@ -193,13 +193,27 @@ const VerificationThirdStep = (props) => {
     }
   }
 
-  if (!client) {
-    return null;
-  }
-
   const verificationCart = JSON.parse(
     sessionStorage.getItem("verificationCart")
   );
+
+  function agentClickHandler(item) {
+    let cart = JSON.parse(sessionStorage.getItem("verificationCart"));
+    cart.selectedAddressText = {
+      title: item.address,
+      name: item.title,
+    };
+    cart.selectedAddressId = item.id;
+    sessionStorage.setItem("verificationCart", JSON.stringify(cart));
+    nProgress.start();
+    router.push(
+      `/services/vehicle-inspection/invoice?city_id=${city_id}&vehicle_tip=${selectedItem}&package_id=${package_id}&reservation_time_slice_id=${reservation_time_slice_id}&exact_time=${exact_time}&type_service=${type}&registrationable_id=${item.address_id}&step=step-4`
+    );
+  }
+
+  if (!client) {
+    return null;
+  }
 
   return (
     <div className={"relative"}>
@@ -446,7 +460,11 @@ const VerificationThirdStep = (props) => {
                 event.stopPropagation();
               }}
             >
-              <LeafletMarker dragging={true} agentData={agentData} />
+              <LeafletMarker
+                dragging={true}
+                agentData={agentData}
+                agentClickHandler={agentClickHandler}
+              />
             </div>
           </div>
         )}
