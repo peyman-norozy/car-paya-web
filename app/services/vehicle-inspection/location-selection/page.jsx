@@ -22,6 +22,7 @@ import AreaModal from "@/components/vehicle-verification/AreaModal";
 import DeleteModal from "@/components/public/DeleteModal";
 import nProgress from "nprogress";
 import ServiceInformation from "@/components/ServiceInformation/ServiceInformation";
+import LeafletMarker from "@/components/LeafletMarker";
 
 const VerificationThirdStep = (props) => {
   // const [isSelected, setIsSelected] = useState(0);
@@ -40,19 +41,15 @@ const VerificationThirdStep = (props) => {
   const [selectedAddress, setSelectedAddress] = useState("");
   const [selectedAddressText, setSelectedAddressText] = useState("");
   const [selectedAddressId, setSelectedAddressId] = useState("");
-  const [areaModal, setAreaModal] = useState();
+  const [locationModalIsOpen, setLocationModalIsOpen] = useState(false);
   const city_id = searchParams.get("city_id");
   const selectedItem = searchParams.get("vehicle_tip");
   const package_id = searchParams.get("package_id");
-  const vehicle_tip = searchParams.get("vehicle_tip");
   const reservation_time_slice_id = searchParams.get(
     "reservation_time_slice_id"
   );
   const exact_time = searchParams.get("exact_time");
-  const params = new URLSearchParams(searchParams.toString());
-  const pathname = usePathname();
   const router = useRouter();
-  const setQuery = useSetQuery();
   const dispatch = useDispatch();
   const renderUserAddrressState = useSelector(
     (state) => state.todo.renderUserAddrressState
@@ -279,7 +276,16 @@ const VerificationThirdStep = (props) => {
             >
               مکان خود را انتخاب کنید:
             </p>
-            {tab === 1 && (
+            {tab === 0 ? (
+              <button
+                className="border border-[#F58052] text-[#F58052] flex gap-1 rounded-lg py-3 px-5 items-center"
+                onClick={() => {
+                  setLocationModalIsOpen(true);
+                }}
+              >
+                <p className="text-xs font-medium w-max">انتخاب از روی نقشه</p>
+              </button>
+            ) : (
               <button
                 className="border border-[#F58052] text-[#F58052] flex gap-1 rounded-lg py-3 px-5 items-center"
                 onClick={() => {
@@ -424,6 +430,26 @@ const VerificationThirdStep = (props) => {
         />
         <ToastContainer />
         <DeleteModal />
+        {locationModalIsOpen && (
+          <div
+            onClick={() => {
+              setLocationModalIsOpen(false);
+            }}
+            oncapture
+            className={
+              "w-full h-[100vh] fixed top-0 right-0 bg-[#000000b0] z-[100000000]"
+            }
+          >
+            <div
+              className="fixed top-1/2 right-1/2 translate-x-1/2 -translate-y-1/2 w-3/4 h-3/4 marker_Map"
+              onClick={(event) => {
+                event.stopPropagation();
+              }}
+            >
+              <LeafletMarker dragging={true} agentData={agentData} />
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
