@@ -442,12 +442,8 @@ const CarSelectComponent = (props) => {
                 className="w-[60%] aspect-auto m-auto"
               />
               <div className="flex justify-between items-center">
-                <div className="flex gap-1 font-bold text-18 text-[#000000] border-r-[5px] border-[#c0c0c0] leading-6 pr-2 items-start">
-                  <span>{selectedCar.brand}</span>
-                  <span>{selectedCar.model}</span>
-                  <span className="text-12 text-[#747474]">
-                    ( {selectedCar.title} )
-                  </span>
+                <div className="flex gap-1 font-bold text-14 text-[#000000] border-r-[5px] border-[#c0c0c0] leading-6 pr-2 items-start">
+                  {selectedCar.title}
                 </div>
                 <button
                   className="text-[#F58052] text-16 cursor-pointer font-medium"

@@ -143,11 +143,7 @@ const ResponsiveHeader = (props) => {
                   "shadow-[0_0_4px_0_rgba(238,134,38,0.5)] p-2 flex justify-center items-center rounded-[4px] relative"
                 }
               >
-                <i
-                  className={
-                    "cc-calling lg:text-[#2D264B] text-[#F58052] text-24"
-                  }
-                />
+                <i className={"cc-wallet text-[#F58052] text-[22px]"} />
                 {/*<span*/}
                 {/*  className={*/}
                 {/*    "bg-[#F58052] w-[18px] h-[18px] text-white flex justify-center items-center text-12 font-medium rounded-full absolute -top-[10px] -right-[10px]"*/}
