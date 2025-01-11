@@ -14,11 +14,12 @@ import { getCookies } from "cookies-next";
 import { setLoginModal } from "@/store/todoSlice";
 import nProgress from "nprogress";
 import ServiceInformation from "@/components/ServiceInformation/ServiceInformation";
+import no_service from "@/public/assets/images/no_service.png";
 const PackageStep = () => {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const [data, setData] = useState();
+  const [data, setData] = useState([]);
   const [message, setMessage] = useState("");
   const [isSelected, setIsSelected] = useState(null);
   const [title, setTitle] = useState(null);
@@ -156,13 +157,13 @@ const PackageStep = () => {
               خدمات خود را انتخاب کنید:
             </p>
             {data?.length === 0 ? (
-              <div className={`flex flex-col items-center m-auto my-10 gap-6`}>
+              <div className={`flex flex-col items-center m-auto my-10 gap-4`}>
                 <Image
                   className=""
                   alt="خدمات وجود ندارد"
-                  src={search}
-                  width={175}
-                  height={175}
+                  src={no_service}
+                  width={243}
+                  height={197}
                 />
                 <span className="text-[#454545] font-medium text-sm">
                   در حال حاضر خدماتی برای این خودرو ثبت نشد
