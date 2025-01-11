@@ -252,7 +252,7 @@ const VerificationThirdStep = (props) => {
           </p>
         </div>
         <div className=" flex flex-col gap-4 lg:mr-8">
-          <div className="flex gap-2 items-center w-full bg-[#FFFFFF] text-[#D1D1D1]">
+          <div className="flex gap-2 items-center w-full bg-[#FFFFFF] text-[#D1D1D1] border border-[#F2F2F2] rounded-full px-2">
             <i
               className="cc-car-o text-2xl text-[#518DD5] cursor-pointer"
               onClick={() => {
