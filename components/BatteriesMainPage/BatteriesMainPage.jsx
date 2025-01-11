@@ -107,12 +107,6 @@ const BatteriesMainPage = () => {
   //       ثبت درخواست
   //     </Link>
   //   </div>
-  //   <Image
-  //       alt={"buttery description image"}
-  //       src={"/assets/images/batteryIndex.png"}
-  //       width={245}
-  //       height={195}
-  //   />
   // </div>
 
   function RegisterBatteryRequestHandler() {

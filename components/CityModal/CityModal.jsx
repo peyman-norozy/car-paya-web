@@ -5,7 +5,6 @@ import Image from "next/image";
 import useSetQuery from "@/hook/useSetQuery";
 import { useDispatch } from "react-redux";
 import { setCityModalState } from "@/store/todoSlice";
-import azadi from "@/public/assets/images/azadi.png";
 const fakeData = [
   { city: "تهران", id: 87, image: "/assets/images/azadi.png" },
   { city: "آبادان", id: 139, image: "/assets/images/hafez.png" },
