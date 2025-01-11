@@ -41,7 +41,7 @@ const NewAddressCard = ({
     } else if (pathName.startsWith("/services/detailing")) {
       sessionStorage.setItem(
         "ditailingCart",
-        JSON.stringify({ address: item.address, title: item.title }),
+        JSON.stringify({ address: item.address, title: item.title })
       );
       setLocationId(item.address_id);
     }
