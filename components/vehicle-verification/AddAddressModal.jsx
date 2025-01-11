@@ -204,7 +204,7 @@ const AddressModal = (props) => {
   return (
     <form
       className={
-        "absolute bottom-0 md:inset-0 md:m-auto w-full max-w-[768px] min-h-[192px] h-[80%] bg-[#FFFFFF] px-[40px] py-[24px] rounded-t-2xl md: rounded-2xl overflow-hidden flex flex-col gap-6 overflow-y-scroll pb-20 lg:pb-0"
+        "absolute bottom-0 md:inset-0 md:m-auto w-full max-w-[768px] min-h-[192px] h-full bg-[#FFFFFF] px-4 py-[24px] rounded-t-2xl md: rounded-2xl overflow-hidden flex flex-col gap-6 overflow-y-scroll pb-20 lg:pb-0"
       }
       onSubmit={addressFormSubmitHandler}
       onClick={(event) => {
