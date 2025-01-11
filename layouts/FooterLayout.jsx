@@ -23,7 +23,11 @@ const Footer = (props) => {
   );
 
   useEffect(() => {
-    if (pathName.startsWith("/services/") || pathName.startsWith("/panel")) {
+    if (
+      pathName.startsWith("/services/") ||
+      pathName.startsWith("/panel") ||
+      pathName.startsWith("/login")
+    ) {
       setFooterState(false);
     } else {
       setFooterState(true);

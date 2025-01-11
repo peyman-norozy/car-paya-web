@@ -83,7 +83,7 @@ const ResponsiveHeader = (props) => {
   }, [lastScrollY]);
 
   useEffect(() => {
-    if (pathName.startsWith("services")) {
+    if (pathName.startsWith("services") || pathName.startsWith("login")) {
       setHeaderState(false);
     } else {
       setHeaderState(true);
