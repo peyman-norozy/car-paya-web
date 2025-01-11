@@ -349,7 +349,7 @@ const VerificationThirdStep = (props) => {
               <span>انتخاب محله</span>
             </button>
           )}
-          <div className="lg:overflow-y-scroll lg:max-h-[calc(100vh-460px)] p-1">
+          <div className="lg:overflow-y-scroll lg:max-h-[calc(100vh-360px)] p-1">
             <div className="flex flex-col gap-2 pb-2">
               {tab
                 ? userAdressData.map((item, index) => (
@@ -442,7 +442,7 @@ const VerificationThirdStep = (props) => {
           checkboxChangeHandler={checkboxChangeHandler}
           areaFilterHandler={areaFilterHandler}
         />
-        <ToastContainer />
+
         <DeleteModal />
         {locationModalIsOpen && (
           <div
@@ -469,6 +469,7 @@ const VerificationThirdStep = (props) => {
           </div>
         )}
       </div>
+      <ToastContainer />
     </div>
   );
 };
