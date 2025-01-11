@@ -340,13 +340,13 @@ const VerificationThirdStep = (props) => {
           </div>
           {type === "FIXED" && (
             <button
-              className="flex w-fit p-2 gap-2 items-center text-xs text-[#3C3C3C] bg-[#FEFEFE] shadow-[0_0_4px_0_rgba(224,222,222,0.7)] rounded-[4px]"
+              className="flex w-fit p-2 gap-2 items-center text-xs text-[#3C3C3C] bg-[#FEFEFE] shadow-[0_0_4px_0_rgba(207,207,207,0.7)] rounded-[4px]"
               onClick={() => {
                 dispatch(setAreaeModalState(true));
               }}
             >
-              <i className="cc-filter" />
-              <span>انتخاب محله</span>
+              <i className="i-location" />
+              <span className="font-medium">انتخاب محله</span>
             </button>
           )}
           <div className="lg:overflow-y-scroll lg:max-h-[calc(100vh-360px)] p-1">
