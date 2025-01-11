@@ -23,7 +23,8 @@ import DeleteModal from "@/components/public/DeleteModal";
 import nProgress from "nprogress";
 import ServiceInformation from "@/components/ServiceInformation/ServiceInformation";
 import LeafletMarker from "@/components/LeafletMarker";
-
+import no_location from "@/public/assets/images/no_location.png";
+import Image from "next/image";
 const VerificationThirdStep = (props) => {
   // const [isSelected, setIsSelected] = useState(0);
   // const [chosenTime, setChosenTime] = useState("");
@@ -351,8 +352,9 @@ const VerificationThirdStep = (props) => {
           )}
           <div className="lg:overflow-y-scroll lg:max-h-[calc(100vh-360px)] p-1">
             <div className="flex flex-col gap-2 pb-2">
-              {tab
-                ? userAdressData.map((item, index) => (
+              {tab ? (
+                userAdressData.length ? (
+                  userAdressData.map((item, index) => (
                     <UserAddressCard
                       key={index}
                       data={item}
@@ -365,16 +367,26 @@ const VerificationThirdStep = (props) => {
                       setSelectedAddressId={setSelectedAddressId}
                     />
                   ))
-                : searchedAgentData?.map((item, index) => (
-                    <AgentAdressCard
-                      key={index}
-                      data={item}
-                      selectedAddress={selectedAddress}
-                      setSelectedAddress={setSelectedAddress}
-                      setSelectedAddressText={setSelectedAddressText}
-                      setSelectedAddressId={setSelectedAddressId}
-                    />
-                  ))}
+                ) : (
+                  <div className="flex items-center flex-col mt-4">
+                    <Image src={no_location} />
+                    <span className="text-sm lg:text-base">
+                      در حال حاضر ادرسی ثبت نکرده اید
+                    </span>
+                  </div>
+                )
+              ) : (
+                searchedAgentData?.map((item, index) => (
+                  <AgentAdressCard
+                    key={index}
+                    data={item}
+                    selectedAddress={selectedAddress}
+                    setSelectedAddress={setSelectedAddress}
+                    setSelectedAddressText={setSelectedAddressText}
+                    setSelectedAddressId={setSelectedAddressId}
+                  />
+                ))
+              )}
             </div>
           </div>
           <button
