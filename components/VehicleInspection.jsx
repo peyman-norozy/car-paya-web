@@ -109,22 +109,22 @@ const VehicleInspection = () => {
         </div>
         <div className="relative self-end lg:scale-125 xl:scale-150">
           <Image
-            className="w-[287px] h-[164px]"
-            src={carshenasi}
-            width={287}
-            height={164}
+            className="w-full h-auto pt-10"
+            src={banner_car}
+            width={1200}
+            height={377}
             alt={"carshenasi image"}
           />
           <Image
             src={zarebin}
             className="absolute zarebin"
-            width={124}
-            height={128}
+            width={83}
+            height={85}
             alt={"zarebin icon"}
           />
         </div>
         <button
-          className="bg-[#F66B34] rounded-md py-2 px-1 text-[#FEFEFE] w-fit text-xs mt-4 font-medium lg:hidden"
+          className="bg-[#F66B34] rounded-md py-2 px-2 text-[#FEFEFE] w-fit text-xs mt-4 font-medium lg:hidden self-start mx-10 mb-1"
           onClick={() => {
             setModalClickState(true);
           }}
