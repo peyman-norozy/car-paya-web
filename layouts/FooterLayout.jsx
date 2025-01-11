@@ -32,9 +32,9 @@ const Footer = (props) => {
 
   return (
     <footer
-      className={`${props.className} bg-white absolute right-0 left-0 lg:pt-6 lg:pb-0 pt-6 pb-6 lg:px-[65px] px-0 ${innerWidthNumber > 1025 || footerState ? "pb-24" : "pb-16"} sm:pb-6 rounded-t-2xl grid lg:grid-cols-12 grid-cols-2 gap-6 text-[#3C3C3C] justify-around ${footerState ? "shadow-[0_-5px_8px_0_rgba(164,164,164,0.25)]" : ""}`}
+      className={`${props.className} bg-white absolute right-0 left-0 lg:pt-6 lg:pb-0 pt-6 pb-6 lg:px-[65px] px-0 ${footerState ? "pb-24" : "pb-0 lg:pt-0"} sm:pb-6 rounded-t-2xl grid lg:grid-cols-12 grid-cols-2 gap-6 text-[#3C3C3C] justify-around ${footerState ? "shadow-[0_-5px_8px_0_rgba(164,164,164,0.25)]" : ""}`}
     >
-      {innerWidthNumber > 1025 || footerState ? (
+      {footerState ? (
         <>
           <div className="flex flex-col lg:flex-row w-full lg:gap-[99px] gap-4 max-w-[620px] m-auto lg:m-0 px-6 size1470:col-span-10 size1228:col-span-7 size1090:col-span-8 lg:col-span-9 col-span-2">
             <div className="lg:min-w-[350px] min-w-[300px] flex gap-3 flex-row lg:flex-col justify-start">
