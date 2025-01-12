@@ -101,13 +101,13 @@ const VerificationInvoice = () => {
   return (
     <div
       className={
-        "lg:flex lg:gap-6 mb-8 mt-[28px] bg-[#FDFDFD] lg:shadow-[0_0_6px_0_rgba(125,125,125,0.5)] px-2 lg:p-6 rounded-2xl min-h-[605px]"
+        "lg:flex lg:gap-6 mb-8 mt-[28px] bg-[#FDFDFD] lg:shadow-[0_0_6px_0_rgba(125,125,125,0.5)] px-4 lg:p-6 rounded-2xl min-h-[605px] pt-6"
       }
     >
       <div className={"lg:w-[calc(100%-424px)]"}>
         <section
           className={
-            "flex items-center gap-2 lg:static sticky top-0 lg:top-[74px] right-0 bg-white py-2 z-[1000]"
+            "flex items-center gap-2 fixed top-0 lg:top-[74px] right-0 bg-white py-2 z-[1000] w-full px-4"
           }
         >
           <i
