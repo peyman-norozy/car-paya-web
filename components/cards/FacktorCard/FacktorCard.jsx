@@ -55,9 +55,9 @@ const FacktorCard = ({ item }) => {
                 ) + " تومان "}
               </span>
             </div>
-            <section className={"text-left"}>
+            {/* <section className={"text-left"}>
               <span className={"text-red-600 text-12 cursor-pointer"}>حذف</span>
-            </section>
+            </section> */}
           </div>
         </div>
       </section>
