@@ -26,7 +26,8 @@ const Footer = (props) => {
     if (
       pathName.startsWith("/services/") ||
       pathName.startsWith("/panel") ||
-      pathName.startsWith("/login")
+      pathName.startsWith("/login") ||
+      pathName.startsWith("/periodic-service/")
     ) {
       setFooterState(false);
     } else {
