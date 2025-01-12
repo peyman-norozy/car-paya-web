@@ -242,7 +242,7 @@ const AddressModal = (props) => {
             type={"text"}
             icon={"cc-location"}
             editData={editData.address}
-            ItaratedAddress={ItarateMapData.address_compact}
+            ItaratedAddress={ItarateMapData?.address_compact}
             pageType={props.pageType}
             title={"آدرس"}
             star={true}
