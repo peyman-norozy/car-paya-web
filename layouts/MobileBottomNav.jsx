@@ -173,7 +173,7 @@ function MobileBottomNav(props) {
         )}
         <div
           onClick={(event) => navClickHandler(event, 0)}
-          className={`flex flex-col justify-center items-center bg-[#FEFEFE] w-[calc((100%-70px)/4)] h-full rounded-r-2xl shadow-[4px_0_4px_0_rgba(190,190,190,0.20)] overflow-hidden`}
+          className={`flex flex-col justify-center items-center bg-[#FEFEFE] w-[calc((100%-70px)/3)] h-full rounded-r-2xl shadow-[4px_0_4px_0_rgba(190,190,190,0.20)] overflow-hidden`}
         >
           <i
             className={`i-home-2 ${
@@ -191,8 +191,8 @@ function MobileBottomNav(props) {
         </div>
         <div
           onClick={(event) => navClickHandler(event, 1)}
-          className={`flex flex-col justify-center items-center bg-[#FEFEFE] w-[calc((100%-70px)/4)] h-full shadow-[0_-2px_4px_0_rgba(210,210,210,0.20)]`}
-          style={{ borderRadius: "5% 0% 0% 0% / 10% 0% 0% 0%" }}
+          className={`flex flex-col justify-center items-center bg-[#FEFEFE] w-[calc((100%-70px)/3)] h-full shadow-[0_-2px_4px_0_rgba(210,210,210,0.20)]`}
+          // style={{ borderRadius: "5% 0% 0% 0% / 10% 0% 0% 0%" }}
         >
           <i
             className={`i-category ${
@@ -208,8 +208,8 @@ function MobileBottomNav(props) {
             <div className="w-[70px] h-[2px] bg-[#F58052]"></div>
           )}
         </div>
-        <div className="w-[70px]"></div>
-        <div
+        {/* <div className="w-[70px]"></div> */}
+        {/* <div
           onClick={(event) => navClickHandler(event, 2)}
           className={`flex flex-col items-center absolute w-[70px] right-[calc(50%-35px)] h-[90px] bottom-0 overflow-hidden gap-[3px]`}
         >
@@ -242,23 +242,11 @@ function MobileBottomNav(props) {
           >
             {selectedCarData ? selectedCarData.model : "انتخاب خودرو"}
           </p>
-          {/* <>       
-        <i
-        className={`icon-Vector-5 ${
-          isClicked === 2 ? "text-[#F58052]" : "text-[#6D6D6D]"
-        } text-2xl`}
-      />
-      <p
-        className={`text-xs font-medium  ${isClicked === 2 ? "text-[#F58052]" : "text-[#6D6D6D]"} mt-1`}
-      >
-        انتخاب خودرو
-      </p>
-      </> */}
-        </div>
+        </div> */}
         <div
           onClick={(event) => navClickHandler(event, 3)}
-          className={`flex flex-col justify-center items-center bg-[#FEFEFE] w-[calc((100%-70px)/4)] h-full shadow-[0_-2px_4px_0_rgba(210,210,210,0.20)]`}
-          style={{ borderRadius: "0% 5% 0% 0% / 0% 10% 0% 0%" }}
+          className={`flex flex-col justify-center items-center bg-[#FEFEFE] w-[calc((100%-70px)/3)] h-full shadow-[0_-2px_4px_0_rgba(210,210,210,0.20)]`}
+          // style={{ borderRadius: "0% 5% 0% 0% / 0% 10% 0% 0%" }}
         >
           <i
             className={`i-shopping-cart ${
@@ -276,7 +264,7 @@ function MobileBottomNav(props) {
         </div>
         <div
           onClick={(event) => navClickHandler(event, 4)}
-          className={`flex flex-col justify-center items-center bg-[#FEFEFE] w-[calc((100%-70px)/4)] h-full rounded-l-2xl shadow-[-4px_0_4px_0_rgba(190,190,190,0.20)]`}
+          className={`flex flex-col justify-center items-center bg-[#FEFEFE] w-[calc((100%-70px)/3)] h-full rounded-l-2xl shadow-[-4px_0_4px_0_rgba(190,190,190,0.20)]`}
         >
           <i
             className={`i-profile-circle ${
