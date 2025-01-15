@@ -74,7 +74,7 @@ const BachelorSteps = () => {
   }, [bachloreNumber]);
 
   return (
-    <div className="py-[48px] px-[25px] mt-[40px] max-w-[1294px] shadow-sm rounded-8 overflow-hidden">
+    <div className="py-[48px] px-[25px] mt-[40px] shadow-sm rounded-8 overflow-hidden">
       <p className="text-16 font-medium mb-[44px]">
         مراحل ثبت{" "}
         {pathName.startsWith("/periodic-service")
