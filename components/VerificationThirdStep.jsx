@@ -313,7 +313,7 @@ const VerificationThirdStep = (props) => {
         </div>
         <button
           onClick={continueSecondStepHandler}
-          className={`${selectedAddress === "" ? "bg-[#FCCAAC]" : "bg-[#F66B34]"} self-end hidden lg:flex items-center gap-2 mt-4 size690:mt-3 w-fit text-12 size690:text-[16px] p-[8px] text-white rounded-[4px]`}
+          className={`${selectedAddress === "" ? "bg-[#FCCAAC]" : "bg-[#F66B34]"} self-end hidden lg:flex items-center gap-2 mt-4 size690:mt-3 w-fit text-12 size690:text-[16px] p-[8px] text-white rounded-[8px] min-w-[200px] justify-center`}
           disabled={selectedAddress === "" ? true : false}
         >
           <p>تایید و ادامه</p>

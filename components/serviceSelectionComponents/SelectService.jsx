@@ -112,7 +112,7 @@ const SelectService = (props) => {
           </p>
         </div>
         <div className=" flex flex-col gap-4 lg:mr-8">
-          <div className="flex gap-2 items-center w-full bg-[#FFFFFF] text-[#D1D1D1]">
+          <div className="flex gap-2 items-center w-full bg-[#FFFFFF] text-[#D1D1D1] shadow-[0_0_4px_0_rgba(207,207,207,0.7)] py-1 px-2 rounded-full">
             <i
               className="cc-car-o text-2xl text-[#518DD5] cursor-pointer"
               onClick={() => {
@@ -135,7 +135,7 @@ const SelectService = (props) => {
             <div className="border-b-4 border-dotted border-[#D1D1D1] w-full"></div>
             <i className="cc-timer text-2xl text-[#D1D1D1]" />
           </div>
-          <div className="w-full p-[10px] shadow-[0_0_6px_0_rgba(125,125,125,0.5)] flex justify-between rounded-lg items-center">
+          <div className="w-full p-[10px] shadow-[0_0_6px_0_rgba(125,125,125,0.3)] flex justify-between rounded-lg items-center">
             <span className="font-medium text-sm">
               {JSON.parse(sessionStorage.getItem("periodicCart")).location_name}
             </span>

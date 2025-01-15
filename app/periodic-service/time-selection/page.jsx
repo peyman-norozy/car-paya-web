@@ -138,7 +138,7 @@ const Page = (props) => {
             </p>
           </div>
           <div className=" flex flex-col gap-4 lg:mr-8">
-            <div className="flex gap-2 items-center w-full bg-[#FFFFFF] text-[#D1D1D1]">
+            <div className="flex gap-2 items-center w-full bg-[#FFFFFF] text-[#D1D1D1] shadow-[0_0_4px_0_rgba(207,207,207,0.7)] py-1 px-2 rounded-full">
               <i
                 className="cc-car-o text-2xl text-[#518DD5] cursor-pointer"
                 onClick={() => {
@@ -281,7 +281,7 @@ const Page = (props) => {
             <button
               disabled={timeIsSelected ? false : true}
               onClick={continueSecondStepHandler}
-              className={`${timeIsSelected ? "bg-[#F66B34]" : "bg-[#FCCAAC]"} self-end hidden lg:flex items-center gap-2 mt-4 size690:mt-3 w-fit text-12 size690:text-[16px] p-[8px] text-white rounded-[4px]`}
+              className={`${timeIsSelected ? "bg-[#F66B34]" : "bg-[#FCCAAC]"} self-end hidden lg:flex items-center gap-2 mt-4 size690:mt-3 w-fit text-12 size690:text-[16px] p-[8px] text-white rounded-[8px] min-w-[200px] justify-center`}
             >
               <p>تایید و ادامه</p>
               <i className={"cc-left text-[20px]"} />
