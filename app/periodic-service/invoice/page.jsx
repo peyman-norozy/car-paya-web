@@ -37,25 +37,6 @@ const InvoicePage = () => {
   const router = useRouter();
 
   useEffect(() => {
-    // (async () => {
-    //   const response = await getCurrentData(
-    //     "/web/service-periodical?step=step-5",
-    //     {
-    //       city_id: cityId, //ok
-    //       reservation_time_slice_id: reservationTimeSlice, //ok
-    //       vehicle_tip_id: vehicleTipId, //ok
-    //       package_id: packageId, //ok
-    //       registrationable_id: serviceLocationId, //ok
-    //       type_service: type,
-    //     }
-    //   );
-    //   if (response.success) {
-    //     console.log(response);
-    //     setFaktorData(response.data.data);
-    //   } else {
-    //     console.log(response);
-    //   }
-    // })();
     const cartData = JSON.parse(sessionStorage.getItem("periodicCart"));
     let price = 0;
     cartData.products.map((item) => {
@@ -80,7 +61,9 @@ const InvoicePage = () => {
     });
   }, []);
 
-  console.log(faktorData);
+  function removeHandler(item) {
+    setFaktorData({ ...faktorData, product: item });
+  }
 
   function registerClickHandler() {
     axios
@@ -163,19 +146,19 @@ const InvoicePage = () => {
             <span>{faktorData?.user_info?.mobile}</span>
           </div>
         </section>
-        <section
+        {/* <section
           className={
             "mt-4 text-14 flex flex-col lg:flex-row gap-4 border-b-2 border-b-[#F5F5F5] pb-4"
           }
         >
           <div className={"flex items-center gap-1 w-full "}>
             <span>تاریخ ثبت سفارش:</span>
-            {/* <span className={"font-semibold"}>
+            <span className={"font-semibold"}>
               {Object.keys(faktorData).length > 0 &&
                 persianDateCovertor(faktorData.created_at)}
-            </span> */}
+            </span>
           </div>
-        </section>
+        </section> */}
         <section className={"lg:flex lg:flex-col-reverse"}>
           <section>
             <div className={"text-14 flex items-center gap-1 my-4"}>
@@ -193,7 +176,11 @@ const InvoicePage = () => {
                 ref={orderProduct}
               >
                 {faktorData.product?.map((item, index) => (
-                  <FacktorCard key={item.id} item={item} />
+                  <FacktorCard
+                    key={item.id}
+                    item={item}
+                    removeHandler={removeHandler}
+                  />
                 ))}
               </ul>
             </div>
