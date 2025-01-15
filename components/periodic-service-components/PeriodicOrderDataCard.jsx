@@ -37,7 +37,10 @@ const PeriodicOrderDataCard = (props) => {
           {props.step > 1 && (
             <div className="flex items-center gap-1">
               <i className="cc-location size-6 rounded-[4px] bg-[#3C81D4] text-white shadow-[0_1.22px_1.62px_0_rgba(126,203,251,0.36)] text-xl flex items-center justify-center" />
-              <span> محل دریافت خدمات : {periodicCart?.location_name}</span>
+              <span className="line-clamp-1">
+                {" "}
+                محل دریافت خدمات : {periodicCart?.location_name}
+              </span>
             </div>
           )}
           {props.step > 2 && (
