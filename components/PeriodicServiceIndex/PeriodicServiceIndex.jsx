@@ -203,6 +203,7 @@ import PeriodicOptions from "../periodic-service-components/PeriodicOptions";
 import CommentsSlider from "../periodic-service-components/CommentsSlider";
 import { getCookies } from "cookies-next";
 import { setLoginModal } from "@/store/todoSlice";
+import Opinion from "../Opinion";
 
 const PeriodicServiceIndex = () => {
   const [data, setData] = useState([]);
@@ -332,7 +333,8 @@ const PeriodicServiceIndex = () => {
         <Counseling />
         <PeriodicLandingServices />
         <PeriodicOptions />
-        <CommentsSlider />
+        {/* <CommentsSlider /> */}
+        <Opinion />
         <QuestionMark />
         <ToastContainer rtl={true} />
       </div>
