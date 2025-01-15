@@ -105,7 +105,7 @@ const InvoicePage = () => {
       <div className={"lg:w-[calc(100%-424px)] shadow-custom1 p-4 rounded-lg"}>
         <section
           className={
-            "flex items-center gap-2 fixed lg:static top-0 right-0 bg-white py-2 z-[1000]"
+            "flex items-center gap-2 fixed lg:static top-0 right-0 bg-white py-2 z-[1000] w-full px-4 lg:px-0 lg:w-auto"
           }
         >
           <Link
@@ -209,7 +209,7 @@ const InvoicePage = () => {
             </div>
 
             {/* Date and Time Section */}
-            <div className="mt-4 space-y-2 flex flex-col gap-2">
+            <div className="mt-4 space-y-2 flex flex-col gap-2 mb-4">
               <div className="flex justify-between lg:justify-start lg:gap-4">
                 <span className="text-gray-500">تاریخ دریافت خدمات:</span>
                 <div className="text-gray-900 flex gap-2 items-start">
