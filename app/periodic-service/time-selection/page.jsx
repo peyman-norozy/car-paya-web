@@ -126,7 +126,11 @@ const Page = (props) => {
             <i
               className={"cc-arrow-right text-24 cursor-pointer"}
               onClick={() => {
-                router.back();
+                nProgress.start();
+                router.push(
+                  `/periodic-service/service-selection?` +
+                    searchParams.toString()
+                );
               }}
             />
             <p className={"text-14 size752:text-16 w-full font-medium"}>

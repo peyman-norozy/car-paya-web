@@ -3,7 +3,7 @@ import useSetQuery from "@/hook/useSetQuery";
 import SelectServiceCard from "../periodic-service-components/SelectServiceCard";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import Image from "next/image";
 import { API_PATHS } from "@/configs/routes.config";
 import SelectProductModal from "../periodic-service-components/SelectProductModal";
@@ -21,6 +21,7 @@ const SelectService = (props) => {
 
   const setQuery = useSetQuery();
   const router = useRouter();
+  const searchParams = useSearchParams();
   const renderInvoice = useSelector((item) => item.todo.renderInvoice);
   useEffect(() => {
     const sessionsData = JSON.parse(sessionStorage.getItem("periodicCart"));
@@ -65,7 +66,10 @@ const SelectService = (props) => {
     return total;
   };
   const backstopHandler = () => {
-    router.back();
+    nProgress.start();
+    router.push(
+      `/periodic-service/location-selection?` + searchParams.toString()
+    );
   };
   return (
     // <div className="w-full flex flex-col justify-between lg:w-[calc(100%-424px)] mr-auto mt-3 rounded-2xl overflow-hidden border border-[#383838A3]">
