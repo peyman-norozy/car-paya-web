@@ -18,7 +18,7 @@ const UserAddressCard = (props) => {
         props.setSelectedAddressId(props.data.address_id);
         props.setSelectedAddressText({
           title: props.data.address,
-          name: `محل شما (${props.data.title})`,
+          name: props.data.title,
         });
       }}
     >

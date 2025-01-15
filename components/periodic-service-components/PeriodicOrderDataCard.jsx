@@ -1,10 +1,12 @@
 import { numberWithCommas } from "@/utils/function-utils";
 import Image from "next/image";
+import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
 const PeriodicOrderDataCard = (props) => {
   const [selectedVehicle, setSelectedVEhicle] = useState({});
   const [periodicCart, setPeriodicCart] = useState({});
+  const searchParams = useSearchParams();
   useEffect(() => {
     setSelectedVEhicle(JSON.parse(localStorage.getItem("selectedVehicle")));
     setPeriodicCart(JSON.parse(sessionStorage.getItem("periodicCart")));
@@ -36,17 +38,22 @@ const PeriodicOrderDataCard = (props) => {
           )}
           {props.step > 1 && (
             <div className="flex items-center gap-1">
+              <i className="cc-search size-6 rounded-[4px] bg-[#3C81D4] text-white shadow-[0_1.22px_1.62px_0_rgba(126,203,251,0.36)] text-xl flex items-center justify-center" />
+              <span>
+                نوع خدمات :{" "}
+                {searchParams.get("type") === "FIXED"
+                  ? "در نمایندگی کارپایا"
+                  : "در محل"}
+              </span>
+            </div>
+          )}
+          {props.step > 1 && (
+            <div className="flex items-center gap-1">
               <i className="cc-location size-6 rounded-[4px] bg-[#3C81D4] text-white shadow-[0_1.22px_1.62px_0_rgba(126,203,251,0.36)] text-xl flex items-center justify-center" />
               <span className="line-clamp-1">
                 {" "}
                 محل دریافت خدمات : {periodicCart?.location_name}
               </span>
-            </div>
-          )}
-          {props.step > 2 && (
-            <div className="flex items-center gap-1">
-              <i className="cc-search size-6 rounded-[4px] bg-[#3C81D4] text-white shadow-[0_1.22px_1.62px_0_rgba(126,203,251,0.36)] text-xl flex items-center justify-center" />
-              <span> نوع خدمات : سرویس دوره ای</span>
             </div>
           )}
           {props.step > 2 && periodicCart?.products && (

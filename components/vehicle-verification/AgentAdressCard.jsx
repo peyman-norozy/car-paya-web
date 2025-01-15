@@ -8,7 +8,7 @@ const AgentAdressCard = (props) => {
           : props.setSelectedAddress(props.data.address_id);
         props.setSelectedAddressText({
           title: props.data.address,
-          name: `نمایندگی کارپایا (${props.data.title})`,
+          name: props.data.title,
         });
         props.setSelectedAddressId(props.data.id);
       }}
