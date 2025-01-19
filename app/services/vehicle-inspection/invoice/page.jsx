@@ -26,6 +26,7 @@ const VerificationInvoice = () => {
   const [finalPrice, setFinalPrice] = useState(0);
   const [discountedprice, setDiscountedPrice] = useState(0);
   const [fluctuatingPrice, setFluctuatingPrice] = useState(0);
+  const [fetchingState, setFetchingState] = useState(false);
   const [discount, setDiscount] = useState(0);
   const [cart, setCart] = useState({});
   const [vehicle, setVehicle] = useState({});
@@ -73,6 +74,7 @@ const VerificationInvoice = () => {
     setVehicle(JSON.parse(localStorage.getItem("selectedVehicle")));
   }, []);
   function registerClickHandler() {
+    setFetchingState(true);
     axios
       .post(
         process.env.BASE_API + "/web/order/register",
@@ -96,6 +98,7 @@ const VerificationInvoice = () => {
       .then((res) => {
         nProgress.start();
         router.push(res?.data?.action);
+        setFetchingState(false);
       });
   }
   return (
@@ -235,6 +238,7 @@ const VerificationInvoice = () => {
               {innerWidth < 1024 && (
                 <div className="space-y-4 py-4 w-full lg:h-fit border-b border-[#D1D1D1]">
                   <PriceDetails
+                    fetchingState={fetchingState}
                     faktorData={faktorData}
                     length={1}
                     discountPrice={discountPrice}
@@ -340,6 +344,7 @@ const VerificationInvoice = () => {
       {innerWidth > 1024 && (
         <div className="space-y-4 p-4 shadow-custom1 rounded-lg lg:w-[458px] lg:h-fit lg:sticky lg:top-[54px] lg:left-0 lg:block">
           <PriceDetails
+            fetchingState={fetchingState}
             faktorData={faktorData}
             length={1}
             discountPrice={discountPrice}

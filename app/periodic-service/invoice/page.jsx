@@ -25,6 +25,7 @@ const InvoicePage = () => {
   const [finalPrice, setFinalPrice] = useState(0);
   const [discountedprice, setDiscountedPrice] = useState(0);
   const [fluctuatingPrice, setFluctuatingPrice] = useState(0);
+  const [fetchingState, setFetchingState] = useState(false);
   const orderProduct = useRef();
   const { events } = useDraggable(orderProduct);
   const searchParams = useSearchParams();
@@ -66,6 +67,7 @@ const InvoicePage = () => {
   }
 
   function registerClickHandler() {
+    setFetchingState(true);
     axios
       .post(
         process.env.BASE_API + "/web/order/register",
@@ -97,6 +99,7 @@ const InvoicePage = () => {
       .then((res) => {
         nProgress.start();
         router.push(res?.data?.action);
+        setFetchingState(false);
       });
   }
 
@@ -271,6 +274,7 @@ const InvoicePage = () => {
                   setDiscountedPrice={setDiscountedPrice}
                   fluctuatingPrice={fluctuatingPrice}
                   setFluctuatingPrice={setFluctuatingPrice}
+                  fetchingState={fetchingState}
                 />
               </div>
             )}
@@ -314,6 +318,7 @@ const InvoicePage = () => {
             setDiscountedPrice={setDiscountedPrice}
             fluctuatingPrice={fluctuatingPrice}
             setFluctuatingPrice={setFluctuatingPrice}
+            fetchingState={fetchingState}
           />
         </div>
       )}
