@@ -102,7 +102,11 @@ const InvoicePage = () => {
 
   return (
     <div className={"py-6 pt-[20px] px-4 lg:flex lg:gap-6 mb-8"}>
-      <div className={"lg:w-[calc(100%-424px)] shadow-custom1 p-4 rounded-lg"}>
+      <div
+        className={
+          "lg:w-[calc(100%-424px)] shadow-custom1 p-4 rounded-lg bg-white"
+        }
+      >
         <section
           className={
             "flex items-center gap-2 fixed lg:static top-0 right-0 bg-white py-2 z-[1000] w-full px-4 lg:px-0 lg:w-auto"
@@ -288,7 +292,7 @@ const InvoicePage = () => {
         )}
       </div>
       {innerWidth > 1024 && (
-        <div className="space-y-4 p-4 shadow-custom1 rounded-lg lg:w-[400px] lg:h-fit lg:sticky lg:top-[20px] lg:left-0 lg:block">
+        <div className="space-y-4 p-4 shadow-custom1 rounded-lg lg:w-[400px] lg:h-fit lg:sticky lg:top-[20px] lg:left-0 lg:block bg-white">
           <PriceDetails
             faktorData={faktorData}
             length={faktorData?.product?.length}
