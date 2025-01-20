@@ -37,7 +37,7 @@ const Footer = (props) => {
 
   return (
     <footer
-      className={`${props.className} bg-white absolute right-0 left-0 lg:pt-6 lg:pb-0 pt-6 pb-6 lg:px-[65px] px-0 ${footerState ? "pb-24" : "pb-0 lg:pt-0"} sm:pb-6 rounded-t-2xl grid lg:grid-cols-12 grid-cols-2 gap-6 text-[#3C3C3C] justify-around ${footerState ? "shadow-[0_-5px_8px_0_rgba(164,164,164,0.25)]" : ""}`}
+      className={`${props.className} bg-white absolute right-0 left-0 lg:pb-0 pt-6 pb-6 lg:px-[65px] px-0 ${footerState ? "pb-24" : "pb-0 lg:pt-0"} sm:pb-6 rounded-t-2xl grid lg:grid-cols-12 grid-cols-2 gap-6 text-[#3C3C3C] justify-around ${footerState ? "shadow-[0_-5px_8px_0_rgba(164,164,164,0.25)]" : ""}`}
     >
       {footerState ? (
         <>
