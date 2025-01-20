@@ -118,7 +118,10 @@ const VerificationSecondStep = (props) => {
         //     res.data["time-reserve"][key],
         //   ]),
         // );
-        setPackagePrice(res?.data?.price_service?.discounted_price);
+        // setPackagePrice(res?.data?.price_service?.discounted_price);
+        setPackagePrice(
+          JSON.parse(sessionStorage.getItem("verificationCart")).price
+        );
       })
       .catch((err) => console.log(err));
   }, []);

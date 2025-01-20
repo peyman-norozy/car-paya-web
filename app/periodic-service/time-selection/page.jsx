@@ -4,7 +4,11 @@ import TimeSelectorCard from "@/components/TimeSelectorCard/TimeSelectorCard";
 import { getDataWithFullErrorRes } from "@/utils/api-function-utils";
 import useSetQuery from "@/hook/useSetQuery";
 import { useRouter, useSearchParams } from "next/navigation";
-import { persianDate, persianDateCovertor } from "@/utils/function-utils";
+import {
+  numberWithCommas,
+  persianDate,
+  persianDateCovertor,
+} from "@/utils/function-utils";
 import ReserveTimeVerification from "@/components/TimeSelectorCard/TimeSelectorCard";
 import { ToastContainer } from "react-toastify";
 import nProgress, { start } from "nprogress";
@@ -43,6 +47,12 @@ const Page = (props) => {
       // );
     }
     getTimeData();
+    const product = JSON.parse(sessionStorage.getItem("periodicCart")).products;
+    let price = 0;
+    product.map((item) => {
+      price = price + item.discount_price;
+    });
+    setPackagePrice(price);
   }, []);
 
   function onclick() {
@@ -267,7 +277,7 @@ const Page = (props) => {
                               {numberWithCommas(
                                 (packagePrice * item.diff_percent) / 100
                               )}{" "}
-                              تومان تخفیف کارچک
+                              تومان تخفیف کارپایا
                             </span>
                           </p>
                         ) : (
