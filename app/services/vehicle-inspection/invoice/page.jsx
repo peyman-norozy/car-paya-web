@@ -161,14 +161,14 @@ const VerificationInvoice = () => {
           >
             <div className={"flex items-start gap-1 w-full flex-col"}>
               <span className="text-[#3C3C3C] font-medium text-sm">
-                محل دریافت خدمات:
+                محل دریافت خدمات: {cart.selectedAddressText?.name}
               </span>
               {/* <span className={"font-medium"}>
               {Object.keys(faktorData).length > 0 &&
                 persianDate(faktorData.reservation_time_day, "dddd")}
             </span> */}
               <span className={"text-[#454545] font-medium text-sm"}>
-                {cart.selectedAddressText?.title}
+                ادرس: {cart.selectedAddressText?.title}
               </span>
             </div>
             <Link
