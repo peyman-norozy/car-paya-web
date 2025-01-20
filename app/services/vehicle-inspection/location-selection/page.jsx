@@ -1,5 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
+import dynamic from "next/dynamic";
 // import ChangeServiceTime from "./ChangeServiceTime";
 // import SelectVerificationPlace from "./SelectVerificationPlace";
 import useSetQuery from "@/hook/useSetQuery";
@@ -22,9 +23,12 @@ import AreaModal from "@/components/vehicle-verification/AreaModal";
 import DeleteModal from "@/components/public/DeleteModal";
 import nProgress from "nprogress";
 import ServiceInformation from "@/components/ServiceInformation/ServiceInformation";
-import LeafletMarker from "@/components/LeafletMarker";
+// import LeafletMarker from "@/components/LeafletMarker";
 import no_location from "@/public/assets/images/no_location.png";
 import Image from "next/image";
+const LeafletMarker = dynamic(() => import("@/components/LeafletMarker"), {
+  ssr: false,
+});
 const VerificationThirdStep = (props) => {
   // const [isSelected, setIsSelected] = useState(0);
   // const [chosenTime, setChosenTime] = useState("");
