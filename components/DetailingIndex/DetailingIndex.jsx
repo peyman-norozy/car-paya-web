@@ -40,7 +40,7 @@ const DetailingIndex = () => {
     if (typeof window !== "undefined") {
       const city = JSON.parse(localStorage.getItem("city"));
       const attributValue = JSON.parse(
-        localStorage.getItem("selectedVehicle"),
+        localStorage.getItem("selectedVehicle")
       )?.type;
       if (attributValue) {
         query.updateQueryParams({
@@ -101,12 +101,6 @@ const DetailingIndex = () => {
   //       ثبت درخواست
   //     </Link>
   //   </div>
-  //   <Image
-  //       alt={"buttery description image"}
-  //       src={"/assets/images/batteryIndex.png"}
-  //       width={245}
-  //       height={195}
-  //   />
   // </div>
   useEffect(() => {
     if (searchParams.get("attribute_slug") === undefined) {
@@ -132,7 +126,7 @@ const DetailingIndex = () => {
                   }`
                 : ""
             }&city_id=${JSON.parse(localStorage.getItem("city"))?.cityId}`
-          : "",
+          : ""
       );
     }
   }

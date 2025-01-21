@@ -141,7 +141,7 @@ const PriceDetails = (props) => {
       {innerWidth && (
         <button
           className={`${props.roleChecked ? "bg-[#F66B34]" : "bg-[#FCCAAC]"} rounded-[8px] text-white text-[16px] font-medium w-full h-10`}
-          disabled={!props.roleChecked}
+          disabled={!props.roleChecked || props.fetchingState}
           onClick={props.registerClickHandler}
         >
           تایید و تکمیل سفارش

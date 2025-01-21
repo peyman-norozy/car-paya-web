@@ -9,14 +9,29 @@ const SelectCity = (props) => {
   const dispatch = useDispatch();
   const cityId = JSON.parse(localStorage.getItem("city"))?.cityId;
   const fakeData = [
-    { city: "تهران", id: 87, image: "/assets/images/azadi.png" },
-    { city: "آبادان", id: 139, image: "/assets/images/hafez.png" },
-    { city: "نوشهر", id: 309, image: "/assets/images/hafez.png" },
-    { city: "نکا", id: 307, image: "/assets/images/hafez.png" },
-    { city: "قم", id: 211, image: "/assets/images/hafez.png" },
-    { city: "قم", id: 211, image: "/assets/images/hafez.png" },
-    { city: "قم", id: 211, image: "/assets/images/hafez.png" },
-    { city: "قم", id: 211, image: "/assets/images/hafez.png" },
+    {
+      city: "تهران",
+      id: 87,
+      image: "/assets/images/azadi.png",
+      disable: false,
+    },
+    {
+      city: "آبادان",
+      id: 139,
+      image: "/assets/images/hafez.png",
+      disable: true,
+    },
+    {
+      city: "نوشهر",
+      id: 309,
+      image: "/assets/images/hafez.png",
+      disable: true,
+    },
+    { city: "نکا", id: 307, image: "/assets/images/hafez.png", disable: true },
+    { city: "قم", id: 211, image: "/assets/images/hafez.png", disable: true },
+    { city: "قم", id: 211, image: "/assets/images/hafez.png", disable: true },
+    { city: "قم", id: 211, image: "/assets/images/hafez.png", disable: true },
+    { city: "قم", id: 211, image: "/assets/images/hafez.png", disable: true },
   ];
   const cityClickHandler = (id, city) => {
     setQuery.updateQueryParams({ city_id: id }, "");
@@ -45,7 +60,7 @@ const SelectCity = (props) => {
           {fakeData.map((item, index) => (
             <li
               key={index}
-              className={`flex flex-col items-center cursor-pointer font-medium gap-2 ${cityId === item.id ? "bg-stone-200" : ""} py-1 rounded-8`}
+              className={`flex flex-col items-center cursor-pointer font-medium gap-2 relative ${cityId === item.id ? "bg-stone-200" : ""} py-1 rounded-8 ${item.disable ? "opacity-50" : ""}`}
               onClick={() => cityClickHandler(item.id, item.city)}
             >
               <Image
@@ -55,7 +70,7 @@ const SelectCity = (props) => {
                 src={item.image}
                 alt={"city icon"}
               />
-              {item.city}
+              <span>{item.city}</span>
             </li>
           ))}
         </ul>

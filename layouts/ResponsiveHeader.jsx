@@ -19,7 +19,7 @@ import useClickOutside from "@/hook/useClickOutside";
 
 const ResponsiveHeader = (props) => {
   const params = useParams();
-  const pathName = usePathname().split("/")[1];
+  const pathName = usePathname();
   const [newMenueState, setNewMenueState] = useState(true);
   const [phoneState, setPhoneState] = useState(false);
   const [lastScrollY, setLastScrollY] = useState(0);
@@ -83,7 +83,13 @@ const ResponsiveHeader = (props) => {
   }, [lastScrollY]);
 
   useEffect(() => {
-    if (pathName.startsWith("services")) {
+    console.log(pathName);
+
+    if (
+      pathName.startsWith("/services") ||
+      pathName.startsWith("/login") ||
+      pathName.startsWith("/periodic-service/")
+    ) {
       setHeaderState(false);
     } else {
       setHeaderState(true);

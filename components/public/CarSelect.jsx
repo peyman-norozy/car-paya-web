@@ -401,15 +401,19 @@ const CarSelect = (props) => {
         </div>
         <div className="flex flex-col gap-2">
           <div className="flex items-center justify-between gap-2">
-            <div className={"flex items-center"}>
-              <i
-                className={`cc-arrow-right text-2xl text-[#000000] px-2 rounded-md h-7 leading-7 ${level > 2 || !myVehicleData.length ? "" : "hidden"} cursor-pointer hover:bg-[#ffffff20] transition-all duration-200`}
-                onClick={backClickHandler}
-              />
-              <span className="font-medium text-[#000000] text-14">
-                {carSelectedType}
-              </span>
-            </div>
+            {vehicleType !== "my-car" ? (
+              <div className={"flex items-center"}>
+                <i
+                  className={`cc-arrow-right text-2xl text-[#000000] px-2 rounded-md h-7 leading-7 ${level > 2 || !myVehicleData.length ? "" : "hidden"} cursor-pointer hover:bg-[#ffffff20] transition-all duration-200`}
+                  onClick={backClickHandler}
+                />
+                <span className="font-medium text-[#000000] text-14">
+                  {carSelectedType}
+                </span>
+              </div>
+            ) : (
+              <div></div>
+            )}
             {myVehicleData.length ? (
               <div
                 className={`text-left ${vehicleType !== "my-car" && "border border-[#cfcfcf]"} rounded-8`}

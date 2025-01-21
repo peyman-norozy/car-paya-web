@@ -88,6 +88,7 @@ const SelectProductModal = (props) => {
     }
     props.setInvoiceData(sessionsData.products);
     sessionStorage.setItem("periodicCart", JSON.stringify(sessionsData));
+    success("محصول با موفقیت اضافه شد");
     closeModal();
   }
 

@@ -1,12 +1,28 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import { numberWithCommas } from "@/utils/function-utils";
 import { usePathname } from "next/navigation";
 
-const FacktorCard = ({ item }) => {
+const FacktorCard = ({ item, removeHandler }) => {
+  const [modalState, setModalState] = useState(false);
   const pathName = usePathname();
+
+  function removeProduct(id) {
+    if (sessionStorage) {
+      let session = JSON.parse(sessionStorage.getItem("periodicCart"));
+      const newProducts = session.products.filter((item) => {
+        return item.id !== id;
+      });
+      session.products = newProducts;
+      sessionStorage.setItem("periodicCart", JSON.stringify(session));
+      if (removeHandler) {
+        removeHandler(newProducts);
+      }
+    }
+  }
+
   return (
     <li className={"p-2 shadow-custom1 rounded-lg min-w-[197px]  relative"}>
       <section className={"flex flex-row lg:flex-col items-center gap-4"}>
@@ -56,7 +72,14 @@ const FacktorCard = ({ item }) => {
               </span>
             </div>
             <section className={"text-left"}>
-              <span className={"text-red-600 text-12 cursor-pointer"}>حذف</span>
+              <span
+                className={"text-red-600 text-12 cursor-pointer"}
+                onClick={() => {
+                  setModalState(true);
+                }}
+              >
+                حذف
+              </span>
             </section>
           </div>
         </div>
@@ -78,6 +101,39 @@ const FacktorCard = ({ item }) => {
           {item?.discounted_percent}%
         </span>
       </div>
+      {modalState && (
+        <div
+          className="fixed bg-[#00000050] w-screen h-screen top-0 right-0 z-[2000] flex items-center justify-center"
+          onClick={() => setModalState(false)}
+        >
+          <div
+            className="py-8 px-6 flex flex-col gap-8 items-center bg-white w-[280px] rounded-xl"
+            onClick={(e) => {
+              e.stopPropagation();
+            }}
+          >
+            <span className="text-sm font-medium">
+              آیا مایل به حذف این سرویس هستید؟
+            </span>
+            <div className="flex gap-9 w-full">
+              <button
+                className="font-medium text-sm text-[#f66b34]  border border-[#f66b34] rounded-lg py-[10px] w-full"
+                onClick={() => setModalState(false)}
+              >
+                خیر
+              </button>
+              <button
+                className="font-medium text-sm text-white bg-[#f66b34] rounded-lg py-[10px] w-full"
+                onClick={() => {
+                  removeProduct(item.id);
+                }}
+              >
+                بله
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </li>
   );
 };

@@ -35,7 +35,11 @@ export default function Login(props) {
 
   return (
     <ProtectedRoute>
-      <div className={"my-20"}>
+      <div
+        className={
+          "fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[540px]"
+        }
+      >
         {(() => {
           switch (loginState) {
             case "phone_number":

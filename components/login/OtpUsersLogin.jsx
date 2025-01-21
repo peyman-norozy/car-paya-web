@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter, useSearchParams } from "next/navigation";
 import axios from "axios";
@@ -19,10 +19,43 @@ export default function OtpUsersLogin(props) {
   const [otp, setOtp] = useState("");
   const [sliderShowState, setSliderShowState] = useState(false);
   const [newErrorText, setNewErrorText] = useState("");
+  const [countdown, setCountdown] = useState(120);
   const otpData = useSelector((data) => data.todo.loginOtpData);
   const router = useRouter();
   const dispatch = useDispatch();
   const searchParams = useSearchParams();
+
+  useEffect(() => {
+    startCountdown();
+  }, []);
+
+  function resendOtpHandler() {
+    axios
+      .post(process.env.BASE_API + "/admin/get-otp", {
+        mobile: props.phoneNumber,
+      })
+      .then((res) => {
+        startCountdown();
+      })
+      .catch((err) => {
+        if (err?.response?.status) {
+          setNewErrorText(err?.response?.data?.message);
+        }
+      });
+  }
+
+  function startCountdown() {
+    setCountdown(120);
+    let interval = setInterval(function () {
+      setCountdown((previous) => {
+        if (previous <= 0) {
+          clearInterval(interval);
+          return 0;
+        }
+        return previous - 1;
+      });
+    }, 1000);
+  }
 
   const postOtp = () => {
     let fd = new FormData();
@@ -183,6 +216,26 @@ export default function OtpUsersLogin(props) {
               {newErrorText.length > 0 && (
                 <p className={"text-12 text-red-500"}>{newErrorText}</p>
               )}
+              <div className="flex justify-between w-full">
+                <span className="font-medium text-xs">
+                  <span className="text-[#F66B34] w-7 inline-block text-end">
+                    {parseInt(countdown / 60)
+                      .toString()
+                      .padStart(2, "0") +
+                      ":" +
+                      (countdown % 60).toString().padStart(2, "0")}
+                  </span>{" "}
+                  مانده تا دریافت مجدد کد
+                </span>
+                <button
+                  className={`flex items-center gap-1 ${countdown ? "text-[#888888] cursor-not-allowed" : "text-[#1E67BF] cursor-pointer"}`}
+                  disabled={countdown}
+                  onClick={resendOtpHandler}
+                >
+                  <i className="cc-undo" />
+                  <span className="font-medium text-xs">ارسال مجدد کد</span>
+                </button>
+              </div>
               <Button
                 type={"button"}
                 disabled_btn={sliderShowState}

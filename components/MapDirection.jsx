@@ -1,5 +1,5 @@
-import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
-import { useMemo, useState } from "react";
+import { MapContainer, Marker, Popup, TileLayer, useMap } from "react-leaflet";
+import { useEffect, useMemo, useState } from "react";
 import Image from "next/image";
 import DisplayPosition from "@/components/DisplayPosition";
 import "leaflet/dist/leaflet.css";
@@ -11,6 +11,26 @@ import { useRouter } from "next/navigation";
 import nProgress from "nprogress";
 
 ("23.234234,54.6456456");
+
+const LocateButton = () => {
+  const map = useMap();
+
+  const handleLocate = () => {
+    map.locate({ setView: true, maxZoom: 16 });
+
+    map.on("locationerror", () => {
+      alert("Unable to retrieve your location");
+    });
+  };
+
+  return (
+    <button
+      onClick={handleLocate}
+      className="i-location absolute bottom-[10px] right-[10px] z-[1000] size-8 flex items-center justify-center rounded-[4px] border cursor-pointer bg-white text-xl"
+    ></button>
+  );
+};
+
 const MapDirection = (props) => {
   const [map, setMap] = useState(null);
   const position = props.editData
@@ -82,6 +102,7 @@ const MapDirection = (props) => {
               <Popup>{/*<span>This is marker 2!</span>*/}</Popup>
             </Marker>
           )}
+          <LocateButton />
         </MapContainer>
       </div>
     ),

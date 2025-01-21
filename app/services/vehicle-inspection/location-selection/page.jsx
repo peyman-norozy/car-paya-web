@@ -1,5 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
+import dynamic from "next/dynamic";
 // import ChangeServiceTime from "./ChangeServiceTime";
 // import SelectVerificationPlace from "./SelectVerificationPlace";
 import useSetQuery from "@/hook/useSetQuery";
@@ -22,8 +23,12 @@ import AreaModal from "@/components/vehicle-verification/AreaModal";
 import DeleteModal from "@/components/public/DeleteModal";
 import nProgress from "nprogress";
 import ServiceInformation from "@/components/ServiceInformation/ServiceInformation";
-import LeafletMarker from "@/components/LeafletMarker";
-
+// import LeafletMarker from "@/components/LeafletMarker";
+import no_location from "@/public/assets/images/no_location.png";
+import Image from "next/image";
+const LeafletMarker = dynamic(() => import("@/components/LeafletMarker"), {
+  ssr: false,
+});
 const VerificationThirdStep = (props) => {
   // const [isSelected, setIsSelected] = useState(0);
   // const [chosenTime, setChosenTime] = useState("");
@@ -234,7 +239,7 @@ const VerificationThirdStep = (props) => {
           },
         ]}
       />
-      <div className="mb-[4rem] lg:w-[calc(100%-424px)] mr-auto overflow-hidden flex flex-col gap-4 mt-[28px] bg-[#FDFDFD] lg:shadow-[0_0_6px_0_rgba(125,125,125,0.5)] px-2 lg:p-6 rounded-2xl min-h-[605px]">
+      <div className="mb-[4rem] lg:w-[calc(100%-424px)] mr-auto overflow-hidden flex flex-col gap-4 mt-[28px] bg-[#FDFDFD] lg:shadow-[0_0_6px_0_rgba(125,125,125,0.5)] px-4 lg:p-6 rounded-2xl min-h-[605px]">
         <div
           className={
             "flex items-center gap-2 size752:gap-[16px] text-[#0E0E0E] w-full"
@@ -251,7 +256,7 @@ const VerificationThirdStep = (props) => {
           </p>
         </div>
         <div className=" flex flex-col gap-4 lg:mr-8">
-          <div className="flex gap-2 items-center w-full bg-[#FFFFFF] text-[#D1D1D1]">
+          <div className="flex gap-2 items-center w-full bg-[#FFFFFF] text-[#D1D1D1] border border-[#F2F2F2] rounded-full px-2">
             <i
               className="cc-car-o text-2xl text-[#518DD5] cursor-pointer"
               onClick={() => {
@@ -340,19 +345,20 @@ const VerificationThirdStep = (props) => {
           </div>
           {type === "FIXED" && (
             <button
-              className="flex w-fit p-2 gap-2 items-center text-xs text-[#3C3C3C] bg-[#FEFEFE] shadow-[0_0_4px_0_rgba(224,222,222,0.7)] rounded-[4px]"
+              className="flex w-fit p-2 gap-2 items-center text-xs text-[#3C3C3C] bg-[#FEFEFE] shadow-[0_0_4px_0_rgba(207,207,207,0.7)] rounded-[4px]"
               onClick={() => {
                 dispatch(setAreaeModalState(true));
               }}
             >
-              <i className="cc-filter" />
-              <span>انتخاب محله</span>
+              <i className="i-location" />
+              <span className="font-medium">انتخاب محله</span>
             </button>
           )}
-          <div className="lg:overflow-y-scroll lg:max-h-[calc(100vh-460px)] p-1">
+          <div className="lg:overflow-y-scroll lg:max-h-[calc(100vh-360px)] p-1">
             <div className="flex flex-col gap-2 pb-2">
-              {tab
-                ? userAdressData.map((item, index) => (
+              {tab ? (
+                userAdressData.length ? (
+                  userAdressData.map((item, index) => (
                     <UserAddressCard
                       key={index}
                       data={item}
@@ -365,16 +371,26 @@ const VerificationThirdStep = (props) => {
                       setSelectedAddressId={setSelectedAddressId}
                     />
                   ))
-                : searchedAgentData?.map((item, index) => (
-                    <AgentAdressCard
-                      key={index}
-                      data={item}
-                      selectedAddress={selectedAddress}
-                      setSelectedAddress={setSelectedAddress}
-                      setSelectedAddressText={setSelectedAddressText}
-                      setSelectedAddressId={setSelectedAddressId}
-                    />
-                  ))}
+                ) : (
+                  <div className="flex items-center flex-col mt-4">
+                    <Image src={no_location} />
+                    <span className="text-sm lg:text-base">
+                      در حال حاضر ادرسی ثبت نکرده اید
+                    </span>
+                  </div>
+                )
+              ) : (
+                searchedAgentData?.map((item, index) => (
+                  <AgentAdressCard
+                    key={index}
+                    data={item}
+                    selectedAddress={selectedAddress}
+                    setSelectedAddress={setSelectedAddress}
+                    setSelectedAddressText={setSelectedAddressText}
+                    setSelectedAddressId={setSelectedAddressId}
+                  />
+                ))
+              )}
             </div>
           </div>
           <button
@@ -442,7 +458,7 @@ const VerificationThirdStep = (props) => {
           checkboxChangeHandler={checkboxChangeHandler}
           areaFilterHandler={areaFilterHandler}
         />
-        <ToastContainer />
+
         <DeleteModal />
         {locationModalIsOpen && (
           <div
@@ -469,6 +485,7 @@ const VerificationThirdStep = (props) => {
           </div>
         )}
       </div>
+      <ToastContainer />
     </div>
   );
 };

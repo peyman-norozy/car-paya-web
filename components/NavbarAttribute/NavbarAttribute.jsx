@@ -17,8 +17,10 @@ const NavbarAttribute = ({ data }) => {
   };
 
   return data?.link ? (
-    <li>
-      <Link href={data?.link}>{data?.title}</Link>
+    <li className="hover:border-b border-[#f66b34]">
+      <Link href={data?.link} className="hover:text-[#f66b34]">
+        {data?.title}
+      </Link>
     </li>
   ) : (
     <li

@@ -54,7 +54,7 @@ const UserAddressCard = (props) => {
             }}
           />
           <i
-            className={`cc-filter text-2xl absolute ${openMenu ? "left-24" : "left-0"} transition-all top-0 text-[#DB3737]`}
+            className={`i-trash text-2xl absolute ${openMenu ? "left-24" : "left-0"} transition-all top-0 text-[#DB3737]`}
             onClick={() => {
               dispatch(setDeleteModal(true));
               dispatch(setDeleteModalId(props.data.address_id));

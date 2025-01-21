@@ -1,3 +1,4 @@
+"use client";
 import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
 import { useMemo, useState } from "react";
 import DisplayPosition from "@/components/DisplayPosition";

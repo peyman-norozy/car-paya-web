@@ -26,6 +26,7 @@ const VerificationInvoice = () => {
   const [finalPrice, setFinalPrice] = useState(0);
   const [discountedprice, setDiscountedPrice] = useState(0);
   const [fluctuatingPrice, setFluctuatingPrice] = useState(0);
+  const [fetchingState, setFetchingState] = useState(false);
   const [discount, setDiscount] = useState(0);
   const [cart, setCart] = useState({});
   const [vehicle, setVehicle] = useState({});
@@ -73,6 +74,7 @@ const VerificationInvoice = () => {
     setVehicle(JSON.parse(localStorage.getItem("selectedVehicle")));
   }, []);
   function registerClickHandler() {
+    setFetchingState(true);
     axios
       .post(
         process.env.BASE_API + "/web/order/register",
@@ -96,18 +98,19 @@ const VerificationInvoice = () => {
       .then((res) => {
         nProgress.start();
         router.push(res?.data?.action);
+        setFetchingState(false);
       });
   }
   return (
     <div
       className={
-        "lg:flex lg:gap-6 mb-8 mt-[28px] bg-[#FDFDFD] lg:shadow-[0_0_6px_0_rgba(125,125,125,0.5)] px-2 lg:p-6 rounded-2xl min-h-[605px]"
+        "lg:flex lg:gap-6 mb-8 mt-[28px] bg-[#FDFDFD] lg:shadow-[0_0_6px_0_rgba(125,125,125,0.5)] px-4 lg:p-6 rounded-2xl min-h-[605px] pt-10"
       }
     >
       <div className={"lg:w-[calc(100%-424px)]"}>
         <section
           className={
-            "flex items-center gap-2 lg:static sticky top-0 lg:top-[74px] right-0 bg-white py-2 z-[1000]"
+            "flex items-center gap-2 fixed lg:static top-0 lg:top-[74px] right-0 bg-white py-4 lg:py-2 z-[1000] w-full px-4"
           }
         >
           <i
@@ -158,14 +161,14 @@ const VerificationInvoice = () => {
           >
             <div className={"flex items-start gap-1 w-full flex-col"}>
               <span className="text-[#3C3C3C] font-medium text-sm">
-                محل دریافت خدمات:
+                محل دریافت خدمات: {cart.selectedAddressText?.name}
               </span>
               {/* <span className={"font-medium"}>
               {Object.keys(faktorData).length > 0 &&
                 persianDate(faktorData.reservation_time_day, "dddd")}
             </span> */}
               <span className={"text-[#454545] font-medium text-sm"}>
-                {cart.selectedAddressText?.title}
+                ادرس: {cart.selectedAddressText?.title}
               </span>
             </div>
             <Link
@@ -196,7 +199,7 @@ const VerificationInvoice = () => {
             </div>
             <Link
               href={`/services/vehicle-inspection/time-selection?city_id=${cityId}&package_id=${package_id}&vehicle_tip=${vehicleTipId}&exact_time=${exact_time}&type_service=${typeService}&reservation_time_slice_id=${reservation_time_slice_id}&registrationable_id=${registrationable_id}`}
-              className="text-[#518dd5] flex items-center gap-1 mt-2 self-end border-b-2 border-b-[#518dd5] pb-2 cursor-pointer"
+              className="text-[#518dd5] flex items-center gap-1 mt-2 self-end border-b border-b-[#518dd5] pb-2 cursor-pointer"
             >
               <i className={"cc-edit text-20"} />
               <span className={"font-semibold w-max"}>تغییر تاریخ و زمان</span>
@@ -235,6 +238,7 @@ const VerificationInvoice = () => {
               {innerWidth < 1024 && (
                 <div className="space-y-4 py-4 w-full lg:h-fit border-b border-[#D1D1D1]">
                   <PriceDetails
+                    fetchingState={fetchingState}
                     faktorData={faktorData}
                     length={1}
                     discountPrice={discountPrice}
@@ -340,6 +344,7 @@ const VerificationInvoice = () => {
       {innerWidth > 1024 && (
         <div className="space-y-4 p-4 shadow-custom1 rounded-lg lg:w-[458px] lg:h-fit lg:sticky lg:top-[54px] lg:left-0 lg:block">
           <PriceDetails
+            fetchingState={fetchingState}
             faktorData={faktorData}
             length={1}
             discountPrice={discountPrice}

@@ -14,11 +14,12 @@ import { getCookies } from "cookies-next";
 import { setLoginModal } from "@/store/todoSlice";
 import nProgress from "nprogress";
 import ServiceInformation from "@/components/ServiceInformation/ServiceInformation";
+import no_service from "@/public/assets/images/no_service.png";
 const PackageStep = () => {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const [data, setData] = useState();
+  const [data, setData] = useState([]);
   const [message, setMessage] = useState("");
   const [isSelected, setIsSelected] = useState(null);
   const [title, setTitle] = useState(null);
@@ -133,7 +134,7 @@ const PackageStep = () => {
             </p>
           </div>
           <div className=" flex flex-col gap-4 lg:mr-8">
-            <div className="flex gap-2 items-center w-full bg-[#FFFFFF] text-[#D1D1D1] rounded-full border border-[#F2F2F2] px-2 shadow-[0_0_4px_0_rgba(207,207,207,0.7)]">
+            <div className="flex gap-2 items-center w-full bg-[#FFFFFF] text-[#D1D1D1] border border-[#F2F2F2] rounded-full px-2">
               <i
                 className="cc-car-o text-2xl text-[#518DD5] cursor-pointer"
                 onClick={() => {
@@ -156,13 +157,13 @@ const PackageStep = () => {
               خدمات خود را انتخاب کنید:
             </p>
             {data?.length === 0 ? (
-              <div className={`flex flex-col items-center m-auto my-10 gap-6`}>
+              <div className={`flex flex-col items-center m-auto my-10 gap-4`}>
                 <Image
                   className=""
                   alt="خدمات وجود ندارد"
-                  src={search}
-                  width={175}
-                  height={175}
+                  src={no_service}
+                  width={243}
+                  height={197}
                 />
                 <span className="text-[#454545] font-medium text-sm">
                   در حال حاضر خدماتی برای این خودرو ثبت نشد

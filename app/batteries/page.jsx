@@ -24,19 +24,7 @@ export const metadata = {
         alt: "Og Image Alt Second",
         type: "image/png",
       },
-      { url: "/assets/icons/apple-touch-icon.png" },
-      {
-        url: "/assets/icons/favicon-32x32.png",
-        width: 32,
-        height: 32,
-        type: "image/png",
-      },
-      {
-        url: "/assets/icons/favicon-16x16.png",
-        width: 16,
-        height: 16,
-        type: "image/png",
-      },
+      { url: "/assets/icons/apple-touch-icon.png" }
     ],
     siteName: "کارپایا",
     type: "website",

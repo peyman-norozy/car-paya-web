@@ -25,6 +25,7 @@ const InvoicePage = () => {
   const [finalPrice, setFinalPrice] = useState(0);
   const [discountedprice, setDiscountedPrice] = useState(0);
   const [fluctuatingPrice, setFluctuatingPrice] = useState(0);
+  const [fetchingState, setFetchingState] = useState(false);
   const orderProduct = useRef();
   const { events } = useDraggable(orderProduct);
   const searchParams = useSearchParams();
@@ -37,25 +38,6 @@ const InvoicePage = () => {
   const router = useRouter();
 
   useEffect(() => {
-    // (async () => {
-    //   const response = await getCurrentData(
-    //     "/web/service-periodical?step=step-5",
-    //     {
-    //       city_id: cityId, //ok
-    //       reservation_time_slice_id: reservationTimeSlice, //ok
-    //       vehicle_tip_id: vehicleTipId, //ok
-    //       package_id: packageId, //ok
-    //       registrationable_id: serviceLocationId, //ok
-    //       type_service: type,
-    //     }
-    //   );
-    //   if (response.success) {
-    //     console.log(response);
-    //     setFaktorData(response.data.data);
-    //   } else {
-    //     console.log(response);
-    //   }
-    // })();
     const cartData = JSON.parse(sessionStorage.getItem("periodicCart"));
     let price = 0;
     cartData.products.map((item) => {
@@ -80,9 +62,12 @@ const InvoicePage = () => {
     });
   }, []);
 
-  console.log(faktorData);
+  function removeHandler(item) {
+    setFaktorData({ ...faktorData, product: item });
+  }
 
   function registerClickHandler() {
+    setFetchingState(true);
     axios
       .post(
         process.env.BASE_API + "/web/order/register",
@@ -114,15 +99,20 @@ const InvoicePage = () => {
       .then((res) => {
         nProgress.start();
         router.push(res?.data?.action);
+        setFetchingState(false);
       });
   }
 
   return (
-    <div className={"bg-white py-6 pt-[20px] px-4 lg:flex lg:gap-6 mb-8"}>
-      <div className={"lg:w-[calc(100%-424px)]"}>
+    <div className={"py-6 pt-[20px] px-4 lg:flex lg:gap-6 mb-8"}>
+      <div
+        className={
+          "lg:w-[calc(100%-424px)] shadow-custom1 p-4 rounded-lg bg-white"
+        }
+      >
         <section
           className={
-            "flex items-center gap-2 sticky top-[74px] right-0 bg-white py-2 z-[1000]"
+            "flex items-center gap-2 fixed lg:static top-0 right-0 bg-white py-2 z-[1000] w-full px-4 lg:px-0 lg:w-auto"
           }
         >
           <Link
@@ -163,19 +153,19 @@ const InvoicePage = () => {
             <span>{faktorData?.user_info?.mobile}</span>
           </div>
         </section>
-        <section
+        {/* <section
           className={
             "mt-4 text-14 flex flex-col lg:flex-row gap-4 border-b-2 border-b-[#F5F5F5] pb-4"
           }
         >
           <div className={"flex items-center gap-1 w-full "}>
             <span>تاریخ ثبت سفارش:</span>
-            {/* <span className={"font-semibold"}>
+            <span className={"font-semibold"}>
               {Object.keys(faktorData).length > 0 &&
                 persianDateCovertor(faktorData.created_at)}
-            </span> */}
+            </span>
           </div>
-        </section>
+        </section> */}
         <section className={"lg:flex lg:flex-col-reverse"}>
           <section>
             <div className={"text-14 flex items-center gap-1 my-4"}>
@@ -193,7 +183,11 @@ const InvoicePage = () => {
                 ref={orderProduct}
               >
                 {faktorData.product?.map((item, index) => (
-                  <FacktorCard key={item.id} item={item} />
+                  <FacktorCard
+                    key={item.id}
+                    item={item}
+                    removeHandler={removeHandler}
+                  />
                 ))}
               </ul>
             </div>
@@ -222,7 +216,7 @@ const InvoicePage = () => {
             </div>
 
             {/* Date and Time Section */}
-            <div className="mt-4 space-y-2 flex flex-col gap-2">
+            <div className="mt-4 space-y-2 flex flex-col gap-2 mb-4">
               <div className="flex justify-between lg:justify-start lg:gap-4">
                 <span className="text-gray-500">تاریخ دریافت خدمات:</span>
                 <div className="text-gray-900 flex gap-2 items-start">
@@ -280,6 +274,7 @@ const InvoicePage = () => {
                   setDiscountedPrice={setDiscountedPrice}
                   fluctuatingPrice={fluctuatingPrice}
                   setFluctuatingPrice={setFluctuatingPrice}
+                  fetchingState={fetchingState}
                 />
               </div>
             )}
@@ -301,7 +296,7 @@ const InvoicePage = () => {
         )}
       </div>
       {innerWidth > 1024 && (
-        <div className="space-y-4 p-4 shadow-custom1 rounded-lg lg:w-[400px] lg:h-fit lg:sticky lg:top-[110px] lg:left-0 lg:block">
+        <div className="space-y-4 p-4 shadow-custom1 rounded-lg lg:w-[400px] lg:h-fit lg:sticky lg:top-[20px] lg:left-0 lg:block bg-white">
           <PriceDetails
             faktorData={faktorData}
             length={faktorData?.product?.length}
@@ -323,6 +318,7 @@ const InvoicePage = () => {
             setDiscountedPrice={setDiscountedPrice}
             fluctuatingPrice={fluctuatingPrice}
             setFluctuatingPrice={setFluctuatingPrice}
+            fetchingState={fetchingState}
           />
         </div>
       )}

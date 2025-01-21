@@ -65,129 +65,130 @@ const AllPanelTab = (props) => {
 
   // console.log("allUrl");
 
-  return (
-    <>
-      <div className="mt-4 lg:mt-[120px] mb-[24px]">
-        {/* <div className="flex items-center gap-4 mb-[30px] lg:mt-[100px]">
-          <Image
-            src={"/assets/icons/back.svg"}
-            className={"size1000:hidden block cursor-pointer"}
-            onClick={backClickHandler}
-            alt="back icon"
-            width={34}
-            height={34}
-          />
-          {
-            {
-              profile: <TitleDescription>اطلاعات شخصی من</TitleDescription>,
-              "my-vehicle/my-car": (
-                <TitleDescription>شناسنامه و سوابق خودرو</TitleDescription>
-              ),
-              "my-vehicle/my-motorcycle": (
-                <TitleDescription>شناسنامه و سوابق موتور</TitleDescription>
-              ),
-              destination: <TitleDescription>تاریخچه سفارشات</TitleDescription>,
-              productAddress: (
-                <TitleDescription>آدرس های تحویل کالا</TitleDescription>
-              ),
-              "loyalty-card": (
-                <TitleDescription>بن ها و امتیازات تخفیف</TitleDescription>
-              ),
-            }[
-              props.params["all-panel-tab"] &&
-                props.params["all-panel-tab"].join("/")
-            ]
-          }
-        </div> */}
-        <div className="flex gap-4 size1000:flex-row flex-col mx-4 sm:mx-0">
-          <div
-            className={`bg-[#383838] w-[260px] flex-col justify-start ${showHeaderState ? "top-32 h-[calc(100vh-156px)]" : "top-6 h-[calc(100vh-52px)]"} gap-4 items-center pt-2 size1180:flex hidden rounded-[10px] sticky transition-all duration-100 overflow-y-scroll`}
-          >
-            <UserSpecifications
-              style={"flex-col justify-center items-center gap-2"}
-            />
-            <UserTabsCard
-              data={panelTabData}
-              setLogoutModalState={setLogoutModalState}
-            />
-          </div>
-          {(() => {
-            if (
-              props.params["all-panel-tab"].length >= 5 &&
-              props.params["all-panel-tab"][4] !== "history"
-            ) {
-              return notFound();
-            }
-            if (
-              props.params["all-panel-tab"].length === 6 &&
-              props.params["all-panel-tab"][5] !== "create"
-            ) {
-              return notFound();
-            }
-            if (
-              props.params["all-panel-tab"].length === 5 &&
-              props.params["all-panel-tab"][4] === "history"
-            ) {
-              return <History params={props.params["all-panel-tab"]} />;
-            } else if (
-              props.params["all-panel-tab"].length === 6 &&
-              props.params["all-panel-tab"][5] === "create"
-            ) {
-              return <HistoryCreate params={props.params["all-panel-tab"]} />;
-            }
-            switch (allUrl) {
-              case "/panel/my-vehicle/my-car":
-                return <CreateMyCar />;
-              case "/panel/my-vehicle/my-car/create":
-                return <CarDevice pageType={"create"} />;
-              case "/panel/my-vehicle/my-car/edit":
-                return <CarDevice pageType={"edit"} />;
-              // case "/panel/my-vehicle/my-motorcycle":
-              //   return <CreateMyMotor />;
-              // case "/panel/my-vehicle/my-motorcycle/create":
-              //   return <MotorDevice pageType={"create"} />;
-              // case "/panel/my-vehicle/my-motorcycle/edit":
-              //   return <MotorDevice pageType={"edit"} />;
-              // case "/panel/my-vehicle/my-heavy-car":
-              //   return <CreateMyHeavyCar />;
-              // case "/panel/my-vehicle/my-heavy-car/create":
-              //   return <HeavyCarDevice pageType={"create"} />;
-              // case "/panel/my-vehicle/my-heavy-car/edit":
-              //   return <HeavyCarDevice pageType={"edit"} />;
-              case "/panel/productAddress":
-                return <ProductAddress />;
-              case "/panel/history-orders/buys":
-                return <div>buys</div>;
-              case "/panel/history-orders/verification?status=CURRENT":
-                return <Verification params={props} />;
-              case "/panel/history-orders/verification?status=DELIVERED":
-                return <Verification params={props} />;
-              case "/panel/history-orders/verification?status=REFUSE":
-                return <Verification params={props} />;
-              case "/panel/history-orders/Detail":
-                return <div>Detail</div>;
-              case "/panel/profile":
-                return <PersonalInformation />;
-              case "/panel/discount":
-                return <Discount />;
-              default:
-                if (allUrl === "/panel/history-orders/verification") {
-                  nProgress.start();
-                  router.push(
-                    "/panel/history-orders/verification?status=CURRENT"
-                  );
-                } else {
-                  return notFound();
-                }
-            }
-          })()}
-        </div>
-      </div>
-      {logoutModalState && (
-        <LogoutModal setLogoutModalState={setLogoutModalState} />
-      )}
-    </>
-  );
+  return "";
+  // return (
+  //   <>
+  //     <div className="mt-4 lg:mt-[120px] mb-[24px]">
+  //       {/* <div className="flex items-center gap-4 mb-[30px] lg:mt-[100px]">
+  //         <Image
+  //           src={"/assets/icons/back.svg"}
+  //           className={"size1000:hidden block cursor-pointer"}
+  //           onClick={backClickHandler}
+  //           alt="back icon"
+  //           width={34}
+  //           height={34}
+  //         />
+  //         {
+  //           {
+  //             profile: <TitleDescription>اطلاعات شخصی من</TitleDescription>,
+  //             "my-vehicle/my-car": (
+  //               <TitleDescription>شناسنامه و سوابق خودرو</TitleDescription>
+  //             ),
+  //             "my-vehicle/my-motorcycle": (
+  //               <TitleDescription>شناسنامه و سوابق موتور</TitleDescription>
+  //             ),
+  //             destination: <TitleDescription>تاریخچه سفارشات</TitleDescription>,
+  //             productAddress: (
+  //               <TitleDescription>آدرس های تحویل کالا</TitleDescription>
+  //             ),
+  //             "loyalty-card": (
+  //               <TitleDescription>بن ها و امتیازات تخفیف</TitleDescription>
+  //             ),
+  //           }[
+  //             props.params["all-panel-tab"] &&
+  //               props.params["all-panel-tab"].join("/")
+  //           ]
+  //         }
+  //       </div> */}
+  //       <div className="flex gap-4 size1000:flex-row flex-col mx-4 sm:mx-0">
+  //         <div
+  //           className={`bg-[#383838] w-[260px] flex-col justify-start ${showHeaderState ? "top-32 h-[calc(100vh-156px)]" : "top-6 h-[calc(100vh-52px)]"} gap-4 items-center pt-2 size1180:flex hidden rounded-[10px] sticky transition-all duration-100 overflow-y-scroll`}
+  //         >
+  //           {/* <UserSpecifications
+  //             style={"flex-col justify-center items-center gap-2"}
+  //           /> */}
+  //           <UserTabsCard
+  //             data={panelTabData}
+  //             setLogoutModalState={setLogoutModalState}
+  //           />
+  //         </div>
+  //         {(() => {
+  //           if (
+  //             props.params["all-panel-tab"].length >= 5 &&
+  //             props.params["all-panel-tab"][4] !== "history"
+  //           ) {
+  //             return notFound();
+  //           }
+  //           if (
+  //             props.params["all-panel-tab"].length === 6 &&
+  //             props.params["all-panel-tab"][5] !== "create"
+  //           ) {
+  //             return notFound();
+  //           }
+  //           if (
+  //             props.params["all-panel-tab"].length === 5 &&
+  //             props.params["all-panel-tab"][4] === "history"
+  //           ) {
+  //             return <History params={props.params["all-panel-tab"]} />;
+  //           } else if (
+  //             props.params["all-panel-tab"].length === 6 &&
+  //             props.params["all-panel-tab"][5] === "create"
+  //           ) {
+  //             return <HistoryCreate params={props.params["all-panel-tab"]} />;
+  //           }
+  //           switch (allUrl) {
+  //             case "/panel/my-vehicle/my-car":
+  //               return <CreateMyCar />;
+  //             case "/panel/my-vehicle/my-car/create":
+  //               return <CarDevice pageType={"create"} />;
+  //             case "/panel/my-vehicle/my-car/edit":
+  //               return <CarDevice pageType={"edit"} />;
+  //             // case "/panel/my-vehicle/my-motorcycle":
+  //             //   return <CreateMyMotor />;
+  //             // case "/panel/my-vehicle/my-motorcycle/create":
+  //             //   return <MotorDevice pageType={"create"} />;
+  //             // case "/panel/my-vehicle/my-motorcycle/edit":
+  //             //   return <MotorDevice pageType={"edit"} />;
+  //             // case "/panel/my-vehicle/my-heavy-car":
+  //             //   return <CreateMyHeavyCar />;
+  //             // case "/panel/my-vehicle/my-heavy-car/create":
+  //             //   return <HeavyCarDevice pageType={"create"} />;
+  //             // case "/panel/my-vehicle/my-heavy-car/edit":
+  //             //   return <HeavyCarDevice pageType={"edit"} />;
+  //             case "/panel/productAddress":
+  //               return <ProductAddress />;
+  //             case "/panel/history-orders/buys":
+  //               return <div>buys</div>;
+  //             case "/panel/history-orders/verification?status=CURRENT":
+  //               return <Verification params={props} />;
+  //             case "/panel/history-orders/verification?status=DELIVERED":
+  //               return <Verification params={props} />;
+  //             case "/panel/history-orders/verification?status=REFUSE":
+  //               return <Verification params={props} />;
+  //             case "/panel/history-orders/Detail":
+  //               return <div>Detail</div>;
+  //             case "/panel/profile":
+  //               return <PersonalInformation />;
+  //             case "/panel/discount":
+  //               return <Discount />;
+  //             default:
+  //               if (allUrl === "/panel/history-orders/verification") {
+  //                 nProgress.start();
+  //                 router.push(
+  //                   "/panel/history-orders/verification?status=CURRENT"
+  //                 );
+  //               } else {
+  //                 return notFound();
+  //               }
+  //           }
+  //         })()}
+  //       </div>
+  //     </div>
+  //     {logoutModalState && (
+  //       <LogoutModal setLogoutModalState={setLogoutModalState} />
+  //     )}
+  //   </>
+  // );
 };
 
 export default AllPanelTab;

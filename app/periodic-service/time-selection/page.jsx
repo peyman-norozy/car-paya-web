@@ -4,7 +4,11 @@ import TimeSelectorCard from "@/components/TimeSelectorCard/TimeSelectorCard";
 import { getDataWithFullErrorRes } from "@/utils/api-function-utils";
 import useSetQuery from "@/hook/useSetQuery";
 import { useRouter, useSearchParams } from "next/navigation";
-import { persianDate, persianDateCovertor } from "@/utils/function-utils";
+import {
+  numberWithCommas,
+  persianDate,
+  persianDateCovertor,
+} from "@/utils/function-utils";
 import ReserveTimeVerification from "@/components/TimeSelectorCard/TimeSelectorCard";
 import { ToastContainer } from "react-toastify";
 import nProgress, { start } from "nprogress";
@@ -43,6 +47,12 @@ const Page = (props) => {
       // );
     }
     getTimeData();
+    const product = JSON.parse(sessionStorage.getItem("periodicCart")).products;
+    let price = 0;
+    product.map((item) => {
+      price = price + item.discount_price;
+    });
+    setPackagePrice(price);
   }, []);
 
   function onclick() {
@@ -126,7 +136,11 @@ const Page = (props) => {
             <i
               className={"cc-arrow-right text-24 cursor-pointer"}
               onClick={() => {
-                router.back();
+                nProgress.start();
+                router.push(
+                  `/periodic-service/service-selection?` +
+                    searchParams.toString()
+                );
               }}
             />
             <p className={"text-14 size752:text-16 w-full font-medium"}>
@@ -134,7 +148,7 @@ const Page = (props) => {
             </p>
           </div>
           <div className=" flex flex-col gap-4 lg:mr-8">
-            <div className="flex gap-2 items-center w-full bg-[#FFFFFF] text-[#D1D1D1]">
+            <div className="flex gap-2 items-center w-full bg-[#FFFFFF] text-[#D1D1D1] shadow-[0_0_4px_0_rgba(207,207,207,0.7)] py-1 px-2 rounded-full">
               <i
                 className="cc-car-o text-2xl text-[#518DD5] cursor-pointer"
                 onClick={() => {
@@ -263,7 +277,7 @@ const Page = (props) => {
                               {numberWithCommas(
                                 (packagePrice * item.diff_percent) / 100
                               )}{" "}
-                              تومان تخفیف کارچک
+                              تومان تخفیف کارپایا
                             </span>
                           </p>
                         ) : (
@@ -277,7 +291,7 @@ const Page = (props) => {
             <button
               disabled={timeIsSelected ? false : true}
               onClick={continueSecondStepHandler}
-              className={`${timeIsSelected ? "bg-[#F66B34]" : "bg-[#FCCAAC]"} self-end hidden lg:flex items-center gap-2 mt-4 size690:mt-3 w-fit text-12 size690:text-[16px] p-[8px] text-white rounded-[4px]`}
+              className={`${timeIsSelected ? "bg-[#F66B34]" : "bg-[#FCCAAC]"} self-end hidden lg:flex items-center gap-2 mt-4 size690:mt-3 w-fit text-12 size690:text-[16px] p-[8px] text-white rounded-[8px] min-w-[200px] justify-center`}
             >
               <p>تایید و ادامه</p>
               <i className={"cc-left text-[20px]"} />
