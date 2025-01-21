@@ -71,7 +71,7 @@ const MyVehicleCard = ({ item, getMyVehicleData }) => {
           alt="car"
         />
       </div>
-      {"CAR" === "MOTOR" ? (
+      {item.type === "MOTOR" ? (
         <div className="bg-[#FEFEFE] text-[#0E0E0E] flex-col w-28 rounded-md overflow-hidden border border-black">
           <div className="flex">
             <span className="w-full tracking-[16px] flex justify-center items-center pl-2 font-bold">

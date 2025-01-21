@@ -468,26 +468,46 @@ const CarSelect = (props) => {
                     className="w-[88px] h-[66px]"
                   />
                   {item.plaque ? (
-                    <div className="bg-white flex items-center justify-between border border-[#B0B0B0] font-bold text-14 text-[#3d3d3d] rounded-lg overflow-hidden w-full">
-                      {item.plaque && (
-                        <div className="w-full p-1 text-14 font-bold flex justify-around">
-                          <span>{item.plaque[0]}</span>
-                          <span className="h-5 w-px bg-[#000000]"></span>
-                          <span>{item.plaque[1]}</span>
-                          <span>{item.plaque[2]}</span>
-                          <span>{item.plaque[3]}</span>
+                    item.type === "MOTOR" ? (
+                      <div className="bg-[#FEFEFE] text-[#0E0E0E] flex-col w-28 rounded-md overflow-hidden border border-black">
+                        <div className="flex">
+                          <span className="w-full tracking-[16px] flex justify-center items-center pl-2 font-bold">
+                            {item.plaque[0]}
+                          </span>
+                          <Image
+                            className=""
+                            src={iransFlag}
+                            width={15}
+                            height={30}
+                            alt="پلاک"
+                          />
                         </div>
-                      )}
-                      <div className="w-8 h-full bg-[#3360FF] flex items-center justify-center py-2">
-                        <Image
-                          className="w-[15px] h-[10px]"
-                          src={iransFlag}
-                          width={15}
-                          height={10}
-                          alt="پرچم ایران"
-                        />
+                        <span className="w-full tracking-[12px] flex justify-center items-center pl-2 font-bold">
+                          {item.plaque[1]}
+                        </span>
                       </div>
-                    </div>
+                    ) : (
+                      <div className="bg-white flex items-center justify-between border border-[#B0B0B0] font-bold text-14 text-[#3d3d3d] rounded-lg overflow-hidden w-full">
+                        {item.plaque && (
+                          <div className="w-full p-1 text-14 font-bold flex justify-around">
+                            <span>{item.plaque[0]}</span>
+                            <span className="h-5 w-px bg-[#000000]"></span>
+                            <span>{item.plaque[1]}</span>
+                            <span>{item.plaque[2]}</span>
+                            <span>{item.plaque[3]}</span>
+                          </div>
+                        )}
+                        <div className="w-8 h-full bg-[#3360FF] flex items-center justify-center py-2">
+                          <Image
+                            className="w-[15px] h-[10px]"
+                            src={iransFlag}
+                            width={15}
+                            height={10}
+                            alt="پرچم ایران"
+                          />
+                        </div>
+                      </div>
+                    )
                   ) : (
                     <span className="text-[#000000] font-medium text-sm line-clamp-1 text-center">
                       {item.title}
