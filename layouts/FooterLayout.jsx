@@ -19,7 +19,7 @@ const Footer = (props) => {
   const pathName = usePathname();
   const searchParams = useSearchParams();
   const innerWidthNumber = useSelector(
-    (number) => number.todo.windowInnerWidth
+    (number) => number.todo.windowInnerWidth,
   );
 
   useEffect(() => {
@@ -179,7 +179,7 @@ const Footer = (props) => {
                     height={32}
                   />
                 </a>
-                <a href="https://www.linkedin.com/in/hesam-nejadhassan-51180419a?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app">
+                <a href="https://www.linkedin.com/company/105455223/admin/dashboard/">
                   <Image
                     className="size-8"
                     src={linkedin}
@@ -233,7 +233,7 @@ const Footer = (props) => {
                       window?.open(
                         "https://logo.samandehi.ir/Verify.aspx?id=372680&p=xlaojyoeuiwkgvkamcsiobpd",
                         "Popup",
-                        "toolbar=no, scrollbars=no, location=no, statusbar=no, menubar=no, resizable=0, width=450, height=630, top=30"
+                        "toolbar=no, scrollbars=no, location=no, statusbar=no, menubar=no, resizable=0, width=450, height=630, top=30",
                       );
                     }}
                     alt="logo-samandehi"
