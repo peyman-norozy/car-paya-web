@@ -183,7 +183,7 @@ const CreateVehicleModal = (props) => {
               className="w-full tracking-[16px] flex justify-center items-center pl-2 font-bold outline-none text-center"
               placeholder="999"
               type="number"
-              value={plaque.plaque1}
+              value={plaque.plaque0}
               onChange={(e) =>
                 handlePlaqueChange("plaque0", e.target.value.slice(0, 3))
               }
