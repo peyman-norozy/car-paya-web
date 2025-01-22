@@ -39,7 +39,7 @@ function MobileBottomNav(props) {
       router.push("/");
     } else if (index === 4) {
       nProgress.start();
-      router.push("/login?url=/panel/profile");
+      router.push("/login?url=/panel");
     } else if (index === 1) {
       setServiceModalIsOpen((prevState) => !prevState);
     } else if (index === 2) {
