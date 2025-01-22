@@ -23,7 +23,7 @@ const ServicesModal = (props) => {
       onClick={() => closeModal()}
     >
       <div
-        className="absolute bg-white bottom-0 right-0 sm:inset-0 sm:m-auto h-fit sm:max-w-[560px] sm:rounded-2xl w-full rounded-t-3xl flex flex-col gap-4 p-4 pb-28 sm:pb-4"
+        className="absolute bg-white bottom-0 right-0 sm:inset-0 sm:m-auto h-[100dvh] sm:max-w-[560px] sm:rounded-2xl w-full flex flex-col gap-4 p-4 pb-28 sm:pb-4"
         onClick={(event) => {
           event.stopPropagation();
         }}
