@@ -88,7 +88,7 @@ const SelectProductModal = (props) => {
     }
     props.setInvoiceData(sessionsData.products);
     sessionStorage.setItem("periodicCart", JSON.stringify(sessionsData));
-    success("محصول با موفقیت اضافه شد");
+    // success("محصول با موفقیت اضافه شد");
     closeModal();
   }
 
@@ -111,7 +111,7 @@ const SelectProductModal = (props) => {
       >
         <div className="flex items-center justify-between">
           <span className="text-[#3C3C3C] font-medium">انتخاب محصول</span>
-          <i className="cc-twitter text-xl" onClick={closeModal} />
+          <i className="i-close-circle text-xl" onClick={closeModal} />
         </div>
         <div className="overflow-y-scroll h-[400px]">
           {spinnerState ? (
