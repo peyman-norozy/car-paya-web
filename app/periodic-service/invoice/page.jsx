@@ -253,7 +253,7 @@ const InvoicePage = () => {
             </div>
             {/* Price Details Section */}
             {innerWidth < 1024 && (
-              <div className="space-y-4 p-4 shadow-custom1 rounded-lg w-full lg:h-fit">
+              <div className="space-y-4 p-4 rounded-lg w-full lg:h-fit">
                 <PriceDetails
                   faktorData={faktorData}
                   length={1}
