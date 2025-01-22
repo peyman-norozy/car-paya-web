@@ -315,8 +315,8 @@ const Dealership = (props) => {
                   dispatch(setAreaeModalState(true));
                 }}
               >
-                <i className="cc-filter" />
-                <span>انتخاب محله</span>
+                {/* <i className="cc-filter" /> */}
+                <span className="font-medium">انتخاب محله</span>
               </button>
               <button
                 className="flex w-fit p-2 gap-2 items-center text-xs text-[#3C3C3C] bg-[#FEFEFE] shadow-[0_0_4px_0_rgba(224,222,222,0.7)] rounded-[4px]"
@@ -324,8 +324,8 @@ const Dealership = (props) => {
                   setServiceModal(true);
                 }}
               >
-                <i className="cc-filter" />
-                <span>انتخاب سرویس</span>
+                {/* <i className="cc-filter" /> */}
+                <span className="font-medium">انتخاب سرویس</span>
               </button>
             </div>
           )}
