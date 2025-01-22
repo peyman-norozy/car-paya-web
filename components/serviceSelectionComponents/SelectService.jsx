@@ -108,8 +108,14 @@ const SelectService = (props) => {
               className={"cc-arrow-right text-24 cursor-pointer"}
               onClick={backstopHandler}
             />
+            {console.log(invoiceData)}
+
             <p className={"text-14 size752:text-16 w-full font-medium"}>
-              خدمات سرویس دوره ایی
+              خدمات{" "}
+              {props.params.type === "FIXED"
+                ? JSON.parse(sessionStorage.getItem("periodicCart"))
+                    .location_name
+                : "سرویس دوره ای"}
             </p>
           </div>
           <div className="flex items-center w-fit bg-[#FFFFFF] text-[#6D6D6D] shadow-[0_0_4px_0_rgba(207,207,207,0.7)] rounded-md justify-center px-2 py-1">
