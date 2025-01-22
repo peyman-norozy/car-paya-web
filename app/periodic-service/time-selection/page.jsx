@@ -215,7 +215,9 @@ const Page = (props) => {
               optionIsOpen={optionIsOpen}
               accordionState={props.accordionState}
               /> */}
-              <div className={"grid grid-cols-1 size666:grid-cols-2 gap-4"}>
+              <div
+                className={"grid grid-cols-1 size666:grid-cols-2 gap-4 pb-10"}
+              >
                 {/* <div
         className={
           "col-span-full py-2 px-3 flex items-center justify-between border-r-2 border-[#F58052]"
