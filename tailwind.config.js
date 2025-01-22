@@ -9,6 +9,9 @@ module.exports = {
   ],
   theme: {
     extend: {
+      height: {
+        safe: "calc(100vh - env(safe-area-inset-top))",
+      },
       spacing: {
         "safe-top": "env(safe-area-inset-top)",
       },
