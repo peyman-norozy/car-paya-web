@@ -1,97 +1,3 @@
-// "use client";
-// import dynamic from "next/dynamic";
-// import TitleDescription from "@/components/TitleDescription";
-// import { useEffect, useState } from "react";
-// import PersonalFile from "@/components/PersonalFile";
-// import { useDispatch, useSelector } from "react-redux";
-// import UserSpecifications from "@/components/UserSpecifications";
-// import UserTabsCard from "@/components/cards/UserTabsCard";
-// import LogoutModal from "@/components/modal/LogoutModal";
-// import { panelTabData } from "@/staticData/data";
-// import { useRouter } from "next/navigation";
-// import { getCookie } from "cookies-next";
-// import nProgress from "nprogress";
-// import { setLoginState } from "@/store/todoSlice";
-// const PrivateRoute = dynamic(() => import("@/routes/private-route"), {
-//   ssr: false,
-// });
-// const UserPanel = () => {
-//   const [logoutModalState, setLogoutModalState] = useState(false);
-//   const [isAuthenticated, setIsAuthenticated] = useState(false);
-//   const showHeaderState = useSelector((state) => state.todo.showHeader);
-//   const innerWidthNumber = useSelector(
-//     (number) => number.todo.windowInnerWidth,
-//   );
-
-//   const router = useRouter();
-//   const dispatch = useDispatch();
-
-//   useEffect(() => {
-//     const authCookie = getCookie("Authorization");
-//     if (!authCookie) {
-//       nProgress.start();
-//       router.push("/");
-//       dispatch(setLoginState(true));
-//     } else {
-//       setIsAuthenticated(true);
-//     }
-//   }, [dispatch, router]);
-
-//   if (!isAuthenticated) {
-//     return <div>... loading</div>;
-//   }
-
-//   return (
-//     <div className="mt-[50px] mb-[24px]">
-//       {/* <div className="mb-[30px] mt-[100px]">
-//           <TitleDescription>داشبورد</TitleDescription>
-//         </div> */}
-//       {innerWidthNumber > 1000 ? (
-//         <div className="flex gap-4 items-start">
-//           <div
-//             className={`bg-[#383838] w-[260px] flex-col justify-start ${showHeaderState ? "top-32 h-[calc(100vh-156px)]" : "top-6 h-[calc(100vh-52px)]"} gap-4 items-center pt-2 size1180:flex hidden rounded-[10px] sticky transition-all duration-100 overflow-y-scroll`}
-//           >
-//             <UserSpecifications
-//               style={"flex-col justify-center items-center gap-2"}
-//             />
-//             <UserTabsCard
-//               data={panelTabData}
-//               setLogoutModalState={setLogoutModalState}
-//             />
-//           </div>
-//           <PrivateRoute>
-//             <PersonalFile />
-//           </PrivateRoute>
-//           {/*<div role="status" className="animate-pulse flex flex-col gap-8 flex-1">*/}
-//           {/*  <div className="h-8 bg-gray-200 rounded-lg dark:bg-gray-400 mb-2.5"></div>*/}
-//           {/*  <div className="h-8 bg-gray-200 rounded-lg dark:bg-gray-400 mb-2.5"></div>*/}
-//           {/*  <div className="h-8 bg-gray-200 rounded-lg dark:bg-gray-400 mb-2.5"></div>*/}
-//           {/*  <div className="h-8 bg-gray-200 rounded-lg dark:bg-gray-400 mb-2.5"></div>*/}
-//           {/*  <div className="h-8 bg-gray-200 rounded-lg dark:bg-gray-400 mb-2.5"></div>*/}
-//           {/*  <div className="h-8 bg-gray-200 rounded-lg dark:bg-gray-400"></div>*/}
-//           {/*</div>*/}
-//         </div>
-//       ) : (
-//         <div className="flex flex-col gap-6">
-//           <UserSpecifications style={"flex-row items-center justify-between"} />
-//           <hr />
-//           <PrivateRoute>
-//             <PersonalFile />
-//           </PrivateRoute>
-//           <UserTabsCard
-//             data={panelTabData}
-//             setLogoutModalState={setLogoutModalState}
-//           />
-//         </div>
-//       )}
-//       {logoutModalState && (
-//         <LogoutModal setLogoutModalState={setLogoutModalState} />
-//       )}
-//     </div>
-//   );
-// };
-
-// export default UserPanel;
 "use client";
 import { tabsData } from "@/staticData/data";
 import { getDataWithFullErrorRes } from "@/utils/api-function-utils";
@@ -100,14 +6,21 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import nProgress from "nprogress";
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import businessman from "@/public/assets/images/businessman.png";
+import axios from "axios";
+import { API_PATHS } from "@/configs/routes.config";
+import { deleteCookie, getCookie } from "cookies-next";
+import { setLoginState } from "@/store/todoSlice";
 const UserPanel = () => {
   const pathName = usePathname();
 
   const router = useRouter();
   const [openOptionsState, setOpenOptionsState] = useState(false);
   const [data, setData] = useState();
+  const [isOpen, setIsOpen] = useState(false);
+  const dispatch = useDispatch();
+
   useEffect(() => {
     if (window.innerWidth > 1024) {
       nProgress.start();
@@ -116,6 +29,26 @@ const UserPanel = () => {
       getData();
     }
   }, []);
+
+  const exitLogin = () => {
+    axios
+      .post(
+        process.env.BASE_API + "/admin" + API_PATHS.LOGOUT,
+        {},
+        {
+          headers: {
+            Authorization: "Bearer " + getCookie("Authorization"),
+          },
+        }
+      )
+      .then(() => {
+        deleteCookie("Authorization");
+        localStorage.removeItem("profileData");
+        dispatch(setLoginState(true));
+        nProgress.start();
+        router.push("/");
+      });
+  };
 
   async function getData() {
     const res = await getDataWithFullErrorRes("user/profile");
@@ -179,9 +112,39 @@ const UserPanel = () => {
           ))}
           <div
             className={`py-3 px-2 font-medium text-sm text-[#0f0f0f] cursor-pointer lg:hover:bg-gray-100 flex items-center justify-start gap-1`}
+            onClick={() => setIsOpen(true)}
           >
             <i className="cc-login text-lg leading-3" />
             خروج از پروفایل
+          </div>
+        </div>
+      </div>
+      <div
+        className={`${!isOpen ? "hidden" : "fixed"} fixed top-0 right-0 w-screen h-screen bg-[#72727227] z-[3000] pb-10`}
+        onClick={() => setIsOpen(false)}
+      >
+        <div
+          className="absolute bg-white bottom-0 right-0 sm:inset-0 sm:m-auto w-full rounded-t-3xl sm:rounded-3xl py-16 flex flex-col items-center gap-10 px-9 sm:max-w-[560px] h-fit"
+          onClick={(event) => {
+            event.stopPropagation();
+          }}
+        >
+          <span className="text-sm sm:text-base font-medium">
+            آیا می خواهید از حساب خود خارج شوید
+          </span>
+          <div className="flex items-center gap-9 w-full justify-center">
+            <button
+              className="text-[#FEFEFE] text-sm font-medium flex items-center justify-center bg-[#F66B34] rounded-lg py-3 w-32"
+              onClick={() => setIsOpen(false)}
+            >
+              انصراف
+            </button>
+            <button
+              className="text-[#F58052] text-sm font-medium flex items-center justify-center border border-[#F66B34] rounded-lg py-3 w-32"
+              onClick={exitLogin}
+            >
+              تایید
+            </button>
           </div>
         </div>
       </div>
