@@ -80,7 +80,7 @@ const CreateVehicleModal = (props) => {
       }
     >
       <div className={" flex flex-col gap-4"}>
-        <span>برای ثبت خودرو اطلاعات زیر را کامل کنید</span>
+        <span>برای ثبت وسیله نقلیه اطلاعات زیر را کامل کنید</span>
         {/* <input
           className={`${validation.includes("title") ? "border-red-500" : "border-[#B0B0B0]"} outline-none border bg-[#fdfdfd] rounded-8 flex justify-between h-[48px] w-full text-14 pr-2 text-[#757575]`}
           placeholder="نام"
@@ -108,7 +108,7 @@ const CreateVehicleModal = (props) => {
             id="year"
             onChange={inputChangeHandler}
           >
-            <option value={null}>سال ساخت خودرو</option>
+            <option value={null}>سال ساخت وسیله نقلیه</option>
             <option value={"1403-2024"}>1403-2024</option>
             <option value={"1402-2023"}>1402-2023</option>
             <option value={"1401-2022"}>1401-2022</option>
@@ -147,7 +147,7 @@ const CreateVehicleModal = (props) => {
             id="color"
             onChange={inputChangeHandler}
           >
-            <option value={null}>رنگ خودرو</option>
+            <option value={null}>رنگ وسیله نقلیه</option>
             <option value={"سفید"}>سفید</option>
             <option value={"مشکی"}>مشکی</option>
             <option value={"نوک مدادی"}>نوک مدادی</option>
@@ -165,7 +165,7 @@ const CreateVehicleModal = (props) => {
         </div>
         <input
           className={`${validation.includes("kilometers_now") ? "border-red-500" : "border-[#B0B0B0]"} outline-none border bg-[#fdfdfd] rounded-8 flex justify-between h-[48px] w-full text-14 pr-2 text-[#757575]`}
-          placeholder="کیلومتر خودرو"
+          placeholder="کیلومتر وسیله نقلیه"
           id="kilometers_now"
           onChange={inputChangeHandler}
         />
@@ -176,78 +176,110 @@ const CreateVehicleModal = (props) => {
           onChange={inputChangeHandler}
         />
       </div>
-      <div className="w-full flex items-center justify-between border border-[#B0B0B0] rounded-lg h-10 pr-[11px] overflow-hidden">
-        <input
-          className="outline-none w-10 text-center"
-          placeholder="99"
-          type="number"
-          value={plaque.plaque0}
-          onChange={(e) =>
-            handlePlaqueChange("plaque0", e.target.value.slice(0, 2))
-          }
-        />
-        <div className="h-6 w-px bg-slate-400 my-2"></div>
-        <input
-          className="outline-none w-10 text-center"
-          placeholder="999"
-          value={plaque.plaque1}
-          onChange={(e) =>
-            handlePlaqueChange("plaque1", e.target.value.slice(0, 3))
-          }
-        />
-        <select
-          className="outline-none w-10 text-center bg-transparent text-sm"
-          value={plaque.plaque2}
-          onChange={(e) =>
-            handlePlaqueChange("plaque2", e.target.value.slice(0, 2))
-          }
-        >
-          <option value={"الف"}>الف</option>
-          <option value={"ب"}>ب</option>
-          <option value={"پ"}>پ</option>
-          <option value={"ت"}>ت</option>
-          <option value={"ث"}>ث</option>
-          <option value={"ج"}>ج</option>
-          <option value={"ج"}>ج</option>
-          <option value={"چ"}>چ</option>
-          <option value={"ح"}>ح</option>
-          <option value={"خ"}>خ</option>
-          <option value={"د"}>د</option>
-          <option value={"ذ"}>ذ</option>
-          <option value={"ر"}>ر</option>
-          <option value={"ز"}>ز</option>
-          <option value={"ژ"}>ژ</option>
-          <option value={"س"}>س</option>
-          <option value={"ش"}>ش</option>
-          <option value={"ص"}>ص</option>
-          <option value={"ض"}>ض</option>
-          <option value={"ط"}>ط</option>
-          <option value={"ظ"}>ظ</option>
-          <option value={"ع"}>ع</option>
-          <option value={"غ"}>غ</option>
-          <option value={"ف"}>ف</option>
-          <option value={"ق"}>ق</option>
-          <option value={"ک"}>ک</option>
-          <option value={"گ"}>گ</option>
-          <option value={"ل"}>ل</option>
-          <option value={"م"}>م</option>
-          <option value={"ن"}>ن</option>
-          <option value={"و"}>و</option>
-          <option value={"ه"}>ه</option>
-          <option value={"ی"}>ی</option>
-        </select>
-        <input
-          className="outline-none w-10 text-center"
-          placeholder="99"
-          value={plaque.plaque3}
-          onChange={(e) =>
-            handlePlaqueChange("plaque3", e.target.value.slice(0, 2))
-          }
-        />
-        <div className="w-12 px-2 h-full bg-[#3360FF] flex items-center justify-center">
-          <Image src={iransFlag} className="" />
+      {JSON.parse(localStorage.getItem("selectedVehicle")).type === "motor" ? (
+        <div className="bg-[#FEFEFE] text-[#0E0E0E] flex-col w-28 rounded-md overflow-hidden border border-[#B0B0B0]">
+          <div className="flex">
+            <input
+              className="w-full tracking-[16px] flex justify-center items-center pl-2 font-bold outline-none text-center"
+              placeholder="999"
+              type="number"
+              value={plaque.plaque1}
+              onChange={(e) =>
+                handlePlaqueChange("plaque0", e.target.value.slice(0, 3))
+              }
+            />
+            <Image
+              className=""
+              src={iransFlag}
+              width={15}
+              height={30}
+              alt="پلاک"
+            />
+          </div>
+          <input
+            className="w-full tracking-[11px] flex justify-center items-center pl-2 font-bold outline-none text-center"
+            placeholder="99999"
+            type="number"
+            value={plaque.plaque1}
+            onChange={(e) =>
+              handlePlaqueChange("plaque1", e.target.value.slice(0, 5))
+            }
+          />
         </div>
-      </div>
+      ) : (
+        <div className="w-full flex items-center justify-between border border-[#B0B0B0] rounded-lg h-10 pr-[11px] overflow-hidden">
+          <input
+            className="outline-none w-10 text-center"
+            placeholder="99"
+            type="number"
+            value={plaque.plaque0}
+            onChange={(e) =>
+              handlePlaqueChange("plaque0", e.target.value.slice(0, 2))
+            }
+          />
+          <div className="h-6 w-px bg-slate-400 my-2"></div>
+          <input
+            className="outline-none w-10 text-center"
+            placeholder="999"
+            value={plaque.plaque1}
+            onChange={(e) =>
+              handlePlaqueChange("plaque1", e.target.value.slice(0, 3))
+            }
+          />
+          <select
+            className="outline-none w-10 text-center bg-transparent text-sm"
+            value={plaque.plaque2}
+            onChange={(e) =>
+              handlePlaqueChange("plaque2", e.target.value.slice(0, 2))
+            }
+          >
+            <option value={"الف"}>الف</option>
+            <option value={"ب"}>ب</option>
+            <option value={"پ"}>پ</option>
+            <option value={"ت"}>ت</option>
+            <option value={"ث"}>ث</option>
+            <option value={"ج"}>ج</option>
+            <option value={"ج"}>ج</option>
+            <option value={"چ"}>چ</option>
+            <option value={"ح"}>ح</option>
+            <option value={"خ"}>خ</option>
+            <option value={"د"}>د</option>
+            <option value={"ذ"}>ذ</option>
+            <option value={"ر"}>ر</option>
+            <option value={"ز"}>ز</option>
+            <option value={"ژ"}>ژ</option>
+            <option value={"س"}>س</option>
+            <option value={"ش"}>ش</option>
+            <option value={"ص"}>ص</option>
+            <option value={"ض"}>ض</option>
+            <option value={"ط"}>ط</option>
+            <option value={"ظ"}>ظ</option>
+            <option value={"ع"}>ع</option>
+            <option value={"غ"}>غ</option>
+            <option value={"ف"}>ف</option>
+            <option value={"ق"}>ق</option>
+            <option value={"ک"}>ک</option>
+            <option value={"گ"}>گ</option>
+            <option value={"ل"}>ل</option>
+            <option value={"م"}>م</option>
+            <option value={"ن"}>ن</option>
+            <option value={"و"}>و</option>
+            <option value={"ه"}>ه</option>
+            <option value={"ی"}>ی</option>
+          </select>
+          <input
+            className="outline-none w-10 text-center"
+            placeholder="99"
+            value={plaque.plaque3}
+            onChange={(e) =>
+              handlePlaqueChange("plaque3", e.target.value.slice(0, 2))
+            }
+          />
+          <div className="w-12 px-2 h-full bg-[#3360FF] flex items-center justify-center">
+            <Image src={iransFlag} className="" />
+          </div>
+        </div>
+      )}
       {/* {JSON.parse(localStorage.getItem("selectedVehicle"))?.image ? (
         <div className={"w-full h-[150px]"}>
           <Image
