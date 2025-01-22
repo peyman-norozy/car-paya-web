@@ -38,9 +38,17 @@ const InLocation = () => {
           "flex lg:flex-row flex-col items-center gap-[30px] py-[41px] rounded-8"
         }
       >
-        <div className={"w-fit"}>
+        <div className={"w-fit hidden lg:inline-block"}>
           <Image
             src={"/assets/images/technicalCar.png"}
+            alt={"car location"}
+            width={458}
+            height={381}
+          />
+        </div>
+        <div className={"w-fit lg:hidden"}>
+          <Image
+            src={"/assets/images/technicalCarMobile.png"}
             alt={"car location"}
             width={458}
             height={381}
