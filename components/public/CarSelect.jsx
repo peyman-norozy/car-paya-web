@@ -358,14 +358,14 @@ const CarSelect = (props) => {
         "bg-[#FDFDFD] lg:w-[409px] w-full h-screen lg:h-[485px] lg:rounded-2xl flex flex-col justify-start overflow-hidden shadow-[0_0_6px_6px_rgba(125,125,125,0.2)] z-50"
       }
     >
-      <div className="shadow-[0_2px_8px_0_rgba(148,148,148,0.25)] flex items-center justify-between h-14 px-4 lg:hidden">
-        <span className="text-sm font-medium">انتخاب وسیله نقلیه</span>
+      <div className="shadow-[0_2px_8px_0_rgba(148,148,148,0.25)] flex items-center justify-start h-14 px-4 lg:hidden gap-2">
         <i
-          className="cc-arrow-right rotate-180 text-20 z-[10001]"
+          className="i-arrow-right text-2xl z-[10001]"
           onClick={() => {
             props.setAsideStatus("car_city");
           }}
         />
+        <span className="text-sm font-medium">انتخاب وسیله نقلیه</span>
       </div>
       <div className={"py-4 px-4"}>
         <p className="text-sm font-medium mb-4 hidden lg:inline-block">
