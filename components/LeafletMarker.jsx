@@ -50,10 +50,24 @@ const LeafletMarker = (props) => {
               key={item.title + index}
             >
               <Popup>
-                <div className="flex flex-col gap-2 items-center">
-                  <span>{item.title}</span>
+                <div className="flex flex-col gap-4 items-center w-[200px] sm:w-[280px]">
+                  <div className="flex items-center justify-between w-full">
+                    <span className="text-xs font-semibold text-[#0F0F0F]">
+                      {item.title}
+                    </span>
+                    <div className="flex gap-1 items-center">
+                      <span className="text-sm font-semibold">۴.۲</span>
+                      <i className="cc-star text-base text-[#FDB022]" />
+                    </div>
+                  </div>
+                  <div className="flex items-center justify-start w-full gap-1">
+                    <i className="i-location text-lg" />
+                    <span className=" font-semibold text-xs text-[#0f0f0f]">
+                      آدرس: {item.address}
+                    </span>
+                  </div>
                   <button
-                    className="text-[#F66B34] border border-[#F66B34] bg-transparent w-fit py-1 px-3 text-sm font-bold flex items-center justify-center rounded-lg "
+                    className="text-[#F66B34] border border-[#F66B34] bg-transparent w-fit py-2 px-8 text-sm font-bold flex items-center justify-center rounded-lg "
                     onClick={() => {
                       props.agentClickHandler(item);
                     }}
