@@ -11,6 +11,7 @@ import Spinner from "@/components/Spinner";
 import { postData } from "@/utils/client-api-function-utils";
 import Image from "next/image";
 import loginImage from "@/public/assets/images/login.png";
+import Link from "next/link";
 export default function PhoneNumberLogin(props) {
   const [telPhoneValueNumber, setTelPhoneValueNumber] = useState("");
   const [sliderShowState, setSliderShowState] = useState(false);
@@ -137,8 +138,14 @@ export default function PhoneNumberLogin(props) {
           </Button>
           <span className="text-10 sm:text-12 flex gap-[2px]">
             ورود شما به معنای پذیرش
-            <span className="text-[#1E67BF]">شرایط کار پایا</span>و
-            <span className="text-[#1E67BF]">قوانین حریم خصوصی</span>است
+            <Link href={"/privacy"} className="text-[#1E67BF]">
+              شرایط کار پایا
+            </Link>
+            و
+            <Link href={"/rules"} className="text-[#1E67BF]">
+              قوانین حریم خصوصی
+            </Link>
+            است
           </span>
         </div>
       </div>
