@@ -46,14 +46,14 @@ const SelectCity = (props) => {
         "bg-[#FDFDFD] lg:w-[409px] w-full h-screen lg:h-[485px] lg:rounded-2xl flex flex-col justify-start overflow-hidden gap-4 shadow-[0_0_6px_6px_rgba(125,125,125,0.2)] z-50"
       }
     >
-      <div className="shadow-[0_2px_8px_0_rgba(148,148,148,0.25)] flex items-center justify-between h-14 px-4 lg:hidden">
-        <span className="text-sm font-medium">انتخاب شهر</span>
+      <div className="shadow-[0_2px_8px_0_rgba(148,148,148,0.25)] flex items-center justify-strat h-14 px-4 lg:hidden gap-2">
         <i
-          className="cc-arrow-right rotate-180 text-20 z-[10001]"
+          className="i-arrow-right text-2xl z-[10001]"
           onClick={() => {
             props.setAsideStatus("car_city");
           }}
         />
+        <span className="text-sm font-medium">انتخاب شهر</span>
       </div>
       <div className="h-[calc(100vh-56px)] lg:h-[450px] overflow-y-scroll">
         <ul className={"grid grid-cols-3 gap-y-9 px-4 py-4"}>
