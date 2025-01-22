@@ -98,19 +98,30 @@ const SelectService = (props) => {
     <div className="flex w-full pt-[28px] items-stretch pb-[6rem]">
       <PeriodicOrderDataCard step={2} />
       <div className="w-full lg:w-[calc(100%-424px)] mr-auto overflow-hidden flex flex-col gap-4 bg-[#FDFDFD] lg:shadow-[0_0_6px_0_rgba(125,125,125,0.5)] px-2 lg:p-6 rounded-2xl lg:min-h-[605px] relative">
-        <div
-          className={
-            "flex items-center gap-2 size752:gap-[16px] text-[#0E0E0E] w-full"
-          }
-        >
-          <i
-            className={"cc-arrow-right text-24 cursor-pointer"}
-            onClick={backstopHandler}
-          />
-          <p className={"text-14 size752:text-16 w-full font-medium"}>
-            خدمات سرویس دوره ایی
-          </p>
+        <div className="flex items-center justify-between w-full">
+          <div
+            className={
+              "flex items-center gap-2 size752:gap-[16px] text-[#0E0E0E] w-full"
+            }
+          >
+            <i
+              className={"cc-arrow-right text-24 cursor-pointer"}
+              onClick={backstopHandler}
+            />
+            <p className={"text-14 size752:text-16 w-full font-medium"}>
+              خدمات سرویس دوره ایی
+            </p>
+          </div>
+          <div className="flex items-center w-fit bg-[#FFFFFF] text-[#6D6D6D] shadow-[0_0_4px_0_rgba(207,207,207,0.7)] rounded-md justify-center px-2 py-1">
+            <i
+              className="i-shopping-cart text-xl"
+              onClick={() => {
+                setInvoiceModalState(true);
+              }}
+            />
+          </div>
         </div>
+
         <div className=" flex flex-col gap-4 lg:mr-8">
           <div className="flex gap-2 items-center w-full bg-[#FFFFFF] text-[#D1D1D1] shadow-[0_0_4px_0_rgba(207,207,207,0.7)] py-1 px-2 rounded-full">
             <i
@@ -135,7 +146,7 @@ const SelectService = (props) => {
             <div className="border-b-4 border-dotted border-[#D1D1D1] w-full"></div>
             <i className="cc-timer text-2xl text-[#D1D1D1]" />
           </div>
-          <div className="w-full p-[10px] shadow-[0_0_6px_0_rgba(125,125,125,0.3)] flex justify-between rounded-lg items-center">
+          <div className="w-full p-[10px] shadow-[0_0_6px_0_rgba(125,125,125,0.3)] hidden lg:flex justify-between rounded-lg items-center">
             <span className="font-medium text-sm">
               {JSON.parse(sessionStorage.getItem("periodicCart")).location_name}
             </span>
