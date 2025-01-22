@@ -138,12 +138,12 @@ export default function PhoneNumberLogin(props) {
           </Button>
           <span className="text-10 sm:text-12 flex gap-[2px]">
             ورود شما به معنای پذیرش
-            <Link href={"/privacy"} className="text-[#1E67BF]">
-              شرایط کار پایا
+            <Link href={"/rules"} className="text-[#1E67BF]">
+              قوانین کار پایا
             </Link>
             و
-            <Link href={"/rules"} className="text-[#1E67BF]">
-              قوانین حریم خصوصی
+            <Link href={"/privacy"} className="text-[#1E67BF]">
+              حریم خصوصی
             </Link>
             است
           </span>

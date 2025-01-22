@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setLoginModal, setLoginState } from "@/store/todoSlice";
 import { setCookie } from "cookies-next";
 import TextInput from "../public/TextInput";
+import Link from "next/link";
 
 const LoginModal = () => {
   const [phone, setPhone] = useState("");
@@ -145,8 +146,14 @@ const LoginModal = () => {
                 </button>
                 <span className="text-10 sm:text-12 flex gap-[2px]">
                   ورود شما به معنای پذیرش
-                  <span className="text-[#1E67BF]">شرایط کار پایا</span>و
-                  <span className="text-[#1E67BF]">قوانین حریم خصوصی</span>است
+                  <Link href={"/rules"} className="text-[#1E67BF]">
+                    قوانین کار پایا
+                  </Link>
+                  و
+                  <Link href={"/privacy"} className="text-[#1E67BF]">
+                    حریم خصوصی
+                  </Link>
+                  است
                 </span>
               </div>
             </div>
@@ -220,8 +227,14 @@ const LoginModal = () => {
                 </button>
                 <span className="text-10 sm:text-12 flex gap-[2px]">
                   ورود شما به معنای پذیرش
-                  <span className="text-[#1E67BF]">شرایط کار پایا</span>و
-                  <span className="text-[#1E67BF]">قوانین حریم خصوصی</span>است
+                  <Link href={"/rules"} className="text-[#1E67BF]">
+                    قوانین کار پایا
+                  </Link>
+                  و
+                  <Link href={"/privacy"} className="text-[#1E67BF]">
+                    حریم خصوصی
+                  </Link>
+                  است
                 </span>
               </div>
             </div>

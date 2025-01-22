@@ -176,7 +176,7 @@ const CreateVehicleModal = (props) => {
           onChange={inputChangeHandler}
         />
       </div>
-      {JSON.parse(localStorage.getItem("selectedVehicle")).type === "motor" ? (
+      {JSON.parse(localStorage.getItem("selectedVehicle"))?.type === "motor" ? (
         <div className="bg-[#FEFEFE] text-[#0E0E0E] flex-col w-28 rounded-md overflow-hidden border border-[#B0B0B0]">
           <div className="flex">
             <input
