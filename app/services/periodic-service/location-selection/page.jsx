@@ -332,9 +332,9 @@ const Dealership = (props) => {
           )}
         </div>
         <div className="flex flex-col relative">
-          <div className="flex items-center border-b border-[#D1D1D1]">
+          <div className="flex items-center border-b border-[#fccaac]">
             <div
-              className="w-1/2 flex justify-center items-center text-sm py-3 cursor-pointer"
+              className={`w-1/2 flex justify-center items-center text-sm py-3 cursor-pointer ${type === "MOVING" ? "text-[#F58052]" : "text-[#fccaac]"}`}
               onClick={() => {
                 setTab(1);
                 setType("MOVING");
@@ -344,7 +344,7 @@ const Dealership = (props) => {
               در محل شما
             </div>
             <div
-              className="w-1/2 flex justify-center items-center text-sm py-3 cursor-pointer"
+              className={`w-1/2 flex justify-center items-center text-sm py-3 cursor-pointer ${type === "FIXED" ? "text-[#F58052]" : "text-[#fccaac]"}`}
               onClick={() => {
                 setTab(0);
                 setType("FIXED");
