@@ -147,7 +147,7 @@ const VerificationSecondStep = (props) => {
       />
       <div
         className={
-          "flex items-start justify-between lg:w-[calc(100%-424px)] mr-auto mb-12 lg:mb-4 mt-[28px] bg-[#FDFDFD] lg:shadow-[0_0_6px_0_rgba(125,125,125,0.5)] lg:p-6 rounded-2xl min-h-[605px]"
+          "flex items-start justify-between lg:w-[calc(100%-424px)] mr-auto mb-12 lg:mb-4 mt-[28px] bg-[#FDFDFD] lg:shadow-[0_0_6px_0_rgba(125,125,125,0.5)] lg:p-6 rounded-2xl min-h-[605px] relative"
         }
       >
         <div className={"w-full flex flex-col px-4 sm:px-0 gap-4"}>
@@ -230,14 +230,16 @@ const VerificationSecondStep = (props) => {
                 dayTitleTab={dayTitleTab}
               />
             </div>
-            <button
-              disabled={timeIsSelected ? false : true}
-              onClick={continueSecondStepHandler}
-              className={`${timeIsSelected ? "bg-[#F66B34]" : "bg-[#FCCAAC]"} self-end hidden lg:flex items-center gap-2 mt-4 size690:mt-3 w-fit text-12 size690:text-[16px] p-[8px] text-white rounded-[8px] min-w-[200px] justify-center`}
-            >
-              <p>تایید و ادامه</p>
-              <i className={"cc-left text-[20px]"} />
-            </button>
+            <div className="absolute bottom-0 left-0 w-full justify-end flex bg-white p-4 rounded-2xl">
+              <button
+                disabled={timeIsSelected ? false : true}
+                onClick={continueSecondStepHandler}
+                className={`${timeIsSelected ? "bg-[#F66B34]" : "bg-[#FCCAAC]"} self-end hidden lg:flex items-center gap-2 mt-4 size690:mt-3 w-fit text-12 size690:text-[16px] p-[8px] text-white rounded-[8px] min-w-[200px] justify-center`}
+              >
+                <p>تایید و ادامه</p>
+                <i className={"cc-left text-[20px]"} />
+              </button>
+            </div>
             <div
               className="fixed w-full rounded-t-2xl shadow-[0_-2px_4px_0_rgba(199,199,199,0.25)] flex justify-center pt-4 pb-6 items-start bottom-0 right-0 bg-white z-[2000] px-10 lg:hidden"
               onClick={continueSecondStepHandler}
