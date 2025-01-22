@@ -57,7 +57,7 @@ const OpinionData = [
 
 const Opinion = () => {
   return (
-    <div className="flex flex-col gap-4 bg-[#F8F8F8] pt-[24px]">
+    <div className="flex flex-col sm:gap-4 bg-[#F8F8F8] pt-[24px]">
       <span className="text-sm sm:text-xl font-bold text-black text-start px-4">
         دیدگاه کارپایا
       </span>
@@ -95,9 +95,9 @@ const Opinion = () => {
       >
         {OpinionData?.map((item) => (
           <SwiperSlide style={{ width: "fit-content" }} key={item.id}>
-            <div className="w-[242px] h-[154px] sm:w-[359px]  sm:h-[217px] rounded-2xl md:rounded-[32px] overflow-hidden flex flex-col items-center gap-[10px] bg-[#FFFFFF] shadow-[0_0_8px_0_rgba(162,162,162,0.25)] lg:py-[34px] py-[20px] px-3 sm:p-4">
+            <div className="w-[242px] h-[136px] sm:w-[359px]  sm:h-[154px] rounded-2xl overflow-hidden flex flex-col items-center gap-[10px] bg-[#FFFFFF] shadow-[0_0_8px_0_rgba(162,162,162,0.25)] lg:py-[24px] py-[20px] px-3 sm:p-4">
               <div className={"flex justify-between w-full"}>
-                <span className={"text-[#0F0F0F] font-bold lg:text-16 text-14"}>
+                <span className={"text-[#303030] lg:text-16 text-14"}>
                   {item.name}
                 </span>
                 <div className={"flex items-center gap-2"}>
