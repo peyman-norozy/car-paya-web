@@ -9,6 +9,9 @@ module.exports = {
   ],
   theme: {
     extend: {
+      spacing: {
+        "safe-top": "env(safe-area-inset-top)",
+      },
       keyframes: {
         rotate: {
           "0%": { transform: "rotate(0deg) scale(10)" },

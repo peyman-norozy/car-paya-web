@@ -45,7 +45,7 @@ const CarAndCityContainer = (props) => {
   }
   return (
     <div
-      className={`lg:absolute fixed transition-all duration-500 ${props.modalClickState ? "bottom-0 right-0 left-0" : "-bottom-[100vh] right-0 left-0"} w-full lg:top-2 lg:right-1 lg:h-full lg:z-0 z-[10000]`}
+      className={`lg:absolute fixed transition-all duration-500 right-0 left-0 ${props.modalClickState ? "top-safe-top" : "top-[100vh]"} w-full lg:top-2 lg:right-1 lg:h-full lg:z-0 z-[10000]`}
     >
       {(() => {
         switch (asideStatus) {
