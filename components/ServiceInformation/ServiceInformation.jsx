@@ -31,7 +31,13 @@ const ServiceInformation = (props) => {
         <li className={"flex items-center gap-1"}>
           <i className={"cc-car-o text-[24px]"} />
           <span>نوع وسیله نقلیه : </span>
-          <span>{vehicleInformation?.title}</span>
+          <span>
+            {vehicleInformation?.brand +
+              " " +
+              vehicleInformation?.model +
+              " " +
+              vehicleInformation?.title}
+          </span>
         </li>
         {props?.serviceData?.map((item, index) => (
           <li key={index} className={"flex items-center gap-1"}>
