@@ -35,7 +35,7 @@ const InvoiceModal = (props) => {
       >
         <div className="flex items-center justify-between">
           <span className="text-[#3C3C3C] font-medium">سبد خرید</span>
-          <i className="cc-twitter text-xl" onClick={closeModal} />
+          <i className="i-close-circle text-xl" onClick={closeModal} />
         </div>
         <div className="overflow-y-scroll h-[300px]">
           <div className="px-2 h-fit gap-4 flex flex-col py-1">
@@ -125,7 +125,7 @@ const InvoiceModal = (props) => {
                     removeClickHandler(item.id);
                   }}
                 >
-                  <i className="cc-filter text-[#888888] text-2xl" />
+                  <i className="i-trash text-[#888888] text-2xl" />
                 </div>
               </div>
             ))}

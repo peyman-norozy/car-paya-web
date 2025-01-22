@@ -44,7 +44,7 @@ const AreaModal = (props) => {
         >
           <div className="flex items-center justify-between">
             <span className="text-[#3C3C3C] font-medium">فیلتر</span>
-            <i className="cc-twitter text-xl" onClick={closeModal}/>
+            <i className="i-close-circle text-xl" onClick={closeModal} />
           </div>
           <div className="overflow-y-scroll h-[300px]">
             <div className="px-2 h-fit gap-4 flex flex-col ">
@@ -77,14 +77,17 @@ const AreaModal = (props) => {
               ))}
             </div>
           </div>
-        <div className="fixed sm:static w-full rounded-t-2xl shadow-[0_-2px_4px_0_rgba(199,199,199,0.25)] flex justify-center pt-4 pb-6 items-start bottom-0 right-0 bg-white z-[2000] px-10">
-          <button
-            className={`bg-[#F66B34] rounded-lg w-full sm:max-w-[400px] text-[#FEFEFE] text-sm font-medium py-3`}
-            onClick={()=>{props.areaFilterHandler();closeModal()}}
-          >
-            ثبت
-          </button>
-        </div>
+          <div className="fixed sm:static w-full rounded-t-2xl shadow-[0_-2px_4px_0_rgba(199,199,199,0.25)] flex justify-center pt-4 pb-6 items-start bottom-0 right-0 bg-white z-[2000] px-10">
+            <button
+              className={`bg-[#F66B34] rounded-lg w-full sm:max-w-[400px] text-[#FEFEFE] text-sm font-medium py-3`}
+              onClick={() => {
+                props.areaFilterHandler();
+                closeModal();
+              }}
+            >
+              ثبت
+            </button>
+          </div>
         </div>
       </div>
     </Portal>

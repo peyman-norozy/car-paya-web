@@ -30,7 +30,7 @@ const ServicesModal = (props) => {
       >
         <div className="flex items-center justify-between">
           <span className="text-[#3C3C3C] font-medium">فیلتر</span>
-          <i className="cc-twitter text-xl" onClick={closeModal} />
+          <i className="i-close-circle text-xl" onClick={closeModal} />
         </div>
         <div className="overflow-y-scroll h-[300px]">
           <div className="px-2 h-fit gap-4 flex flex-col ">

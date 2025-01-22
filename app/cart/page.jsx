@@ -26,7 +26,7 @@ const CartPage = () => {
                     </div>
                 </div>
                  <div className="w-full bg-white sm:bg-[#ECEEF880] flex flex-col sm:flex-row sm:gap-1 rounded-lg items-end sm:items-center shadow-[0_0_8px_0_rgba(162,162,162,0.25)]">
-                    <i className="cc-twitter text-2xl pt-2 px-2 sm:pb-2"/>
+                    <i className="i-close-circle text-2xl pt-2 px-2 sm:pb-2"/>
                     <div className="w-full bg-white rounded-lg flex justify-between px-4 pb-4 sm:pt-4 relative flex-col min-[1350px]:flex-row gap-4">
                         <div className="flex gap-4 items-center">
                             <div className="bg-yellow-200 rounded-lg size-20"></div>
@@ -46,7 +46,7 @@ const CartPage = () => {
                     </div>
                  </div>
                  <div className="w-full bg-white sm:bg-[#ECEEF880] flex flex-col sm:flex-row sm:gap-1 rounded-lg items-end sm:items-center shadow-[0_0_8px_0_rgba(162,162,162,0.25)]">
-                    <i className="cc-twitter text-2xl pt-2 px-2 sm:pb-2"/>
+                    <i className="i-close-circle text-2xl pt-2 px-2 sm:pb-2"/>
                     <div className="w-full bg-white rounded-lg flex justify-between px-4 pb-4 sm:pt-4 relative flex-col min-[1350px]:flex-row gap-4">
                         <div className="flex gap-4 items-center">
                             <div className="bg-yellow-200 rounded-lg size-20"></div>
@@ -66,7 +66,7 @@ const CartPage = () => {
                     </div>
                  </div> 
                  <div className="w-full bg-white sm:bg-[#ECEEF880] flex flex-col sm:flex-row sm:gap-1 rounded-lg items-end sm:items-center shadow-[0_0_8px_0_rgba(162,162,162,0.25)]">
-                    <i className="cc-twitter text-2xl pt-2 px-2 sm:pb-2"/>
+                    <i className="i-close-circle text-2xl pt-2 px-2 sm:pb-2"/>
                     <div className="w-full bg-white rounded-lg flex justify-between px-4 pb-4 sm:pt-4 relative flex-col min-[1350px]:flex-row gap-4">
                         <div className="flex gap-4 items-center">
                             <div className="bg-yellow-200 rounded-lg size-20"></div>
