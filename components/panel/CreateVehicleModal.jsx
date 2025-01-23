@@ -212,10 +212,10 @@ const CreateVehicleModal = (props) => {
           <div className="h-6 w-px bg-slate-400 my-2"></div>
           <input
             className="outline-none w-10 text-center"
-            placeholder="999"
+            placeholder="99"
             value={plaque.plaque1}
             onChange={(e) =>
-              handlePlaqueChange("plaque1", e.target.value.slice(0, 3))
+              handlePlaqueChange("plaque1", e.target.value.slice(0, 2))
             }
           />
           <select
@@ -261,10 +261,10 @@ const CreateVehicleModal = (props) => {
           </select>
           <input
             className="outline-none w-10 text-center"
-            placeholder="99"
+            placeholder="999"
             value={plaque.plaque3}
             onChange={(e) =>
-              handlePlaqueChange("plaque3", e.target.value.slice(0, 2))
+              handlePlaqueChange("plaque3", e.target.value.slice(0, 3))
             }
           />
           <div className="w-12 px-2 h-full bg-[#3360FF] flex items-center justify-center">

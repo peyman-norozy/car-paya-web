@@ -283,8 +283,8 @@ const CarSelect = (props) => {
         JSON.stringify({
           id: item.id,
           title: item.title,
-          brand: item.title_brand,
-          model: item.title_model,
+          brand: item.brand,
+          model: item.model,
           image: item.image,
           type: searchParams.get("attribute_value"),
           plaque: item.plaque,

@@ -32,11 +32,8 @@ const ServiceInformation = (props) => {
           <i className={"cc-car-o text-[24px]"} />
           <span>نوع وسیله نقلیه : </span>
           <span>
-            {vehicleInformation?.brand +
-              " " +
-              vehicleInformation?.model +
-              " " +
-              vehicleInformation?.title}
+            {vehicleInformation?.brand} {vehicleInformation?.model}{" "}
+            {vehicleInformation?.title}
           </span>
         </li>
         {props?.serviceData?.map((item, index) => (
