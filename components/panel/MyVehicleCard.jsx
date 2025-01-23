@@ -5,7 +5,7 @@ import iransFlag from "@/public/assets/images/iransFlag.png";
 import Link from "next/link";
 import axios from "axios";
 import { getCookie } from "cookies-next";
-import { success } from "@/utils/function-utils";
+import { error, success } from "@/utils/function-utils";
 
 const MyVehicleCard = ({ item, getMyVehicleData }) => {
   const [openMenu, setOpenMenu] = useState(false);
@@ -24,6 +24,9 @@ const MyVehicleCard = ({ item, getMyVehicleData }) => {
       .then((res) => {
         getMyVehicleData();
         success("خودرو با موفقیت حذف شد");
+      })
+      .catch((err) => {
+        error(err.response.data.msg);
       });
   }
 
@@ -158,7 +161,7 @@ const MyVehicleCard = ({ item, getMyVehicleData }) => {
           // }}
         /> */}
         <i
-          className={`cc-filter text-2xl absolute ${openMenu ? "left-12" : "left-0"} transition-all top-0 text-[#DB3737]`}
+          className={`i-trash text-2xl absolute ${openMenu ? "left-12" : "left-0"} transition-all top-0 text-[#DB3737]`}
           onClick={() => setIsOpen(true)}
         />
       </div>
