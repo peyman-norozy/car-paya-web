@@ -32,7 +32,7 @@ const PlaqueModal = (props) => {
   return (
     <div
       className={`w-screen h-screen flex items-center justify-center bg-[#0000007a] fixed top-0 right-0 ${props.openPlaqueModal ? "" : "hidden"}`}
-      onClick={() => setOpenPlaqueModal(false)}
+      onClick={() => props.setOpenPlaqueModal(false)}
     >
       <div
         className="w-[300px] p-4 bg-white rounded-lg flex flex-col gap-4"
