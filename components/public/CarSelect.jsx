@@ -278,7 +278,6 @@ const CarSelect = (props) => {
       setLevel(level2 + 1);
     } else {
       setQuery.updateQueryParams({ selectTipState: `true,${id}` }, "");
-
       localStorage.setItem(
         "selectedVehicle",
         JSON.stringify({
@@ -288,6 +287,7 @@ const CarSelect = (props) => {
           model: item.title_model,
           image: item.image,
           type: searchParams.get("attribute_value"),
+          plaque: item.plaque,
         })
       );
       // setCarSelected(true);

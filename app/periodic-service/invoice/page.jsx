@@ -13,6 +13,7 @@ import Link from "next/link";
 import axios from "axios";
 import { getCookie } from "cookies-next";
 import nProgress from "nprogress";
+import PlaqueModal from "@/components/invoice/PlaqueModal";
 
 const InvoicePage = () => {
   const [faktorData, setFaktorData] = useState({});
@@ -26,6 +27,8 @@ const InvoicePage = () => {
   const [discountedprice, setDiscountedPrice] = useState(0);
   const [fluctuatingPrice, setFluctuatingPrice] = useState(0);
   const [fetchingState, setFetchingState] = useState(false);
+  const [openPlaqueModal, setOpenPlaqueModal] = useState(false);
+
   const orderProduct = useRef();
   const { events } = useDraggable(orderProduct);
   const searchParams = useSearchParams();
@@ -67,40 +70,44 @@ const InvoicePage = () => {
   }
 
   function registerClickHandler() {
-    setFetchingState(true);
-    axios
-      .post(
-        process.env.BASE_API + "/web/order/register",
-        {
-          item_id: JSON.parse(
-            sessionStorage.getItem("periodicCart")
-          ).products.map((item) => {
-            return item.id;
-          }),
-          type: "periodic_service",
-          address_id: JSON.parse(sessionStorage.getItem("periodicCart"))
-            .location_address_id,
-          vehicle_tip_id: JSON.parse(localStorage.getItem("selectedVehicle"))
-            .id,
-          reservation_time_slice_id: searchParams.get(
-            "reservation_time_slice_id"
-          ),
-          coupon_code: coupon,
-          shipped_time: JSON.parse(sessionStorage.getItem("periodicCart"))?.time
-            .start,
-          plaque: ["11", "ج", "32", "351"],
-        },
-        {
-          headers: {
-            Authorization: "Bearer " + getCookie("Authorization"),
+    if (JSON.parse(localStorage.getItem("selectedVehicle")).plaque) {
+      setFetchingState(true);
+      axios
+        .post(
+          process.env.BASE_API + "/web/order/register",
+          {
+            item_id: JSON.parse(
+              sessionStorage.getItem("periodicCart")
+            ).products.map((item) => {
+              return item.id;
+            }),
+            type: "periodic_service",
+            address_id: JSON.parse(sessionStorage.getItem("periodicCart"))
+              .location_address_id,
+            vehicle_tip_id: JSON.parse(localStorage.getItem("selectedVehicle"))
+              .id,
+            reservation_time_slice_id: searchParams.get(
+              "reservation_time_slice_id"
+            ),
+            coupon_code: coupon,
+            shipped_time: JSON.parse(sessionStorage.getItem("periodicCart"))
+              ?.time.start,
+            plaque: JSON.parse(localStorage.getItem("selectedVehicle")).plaque,
           },
-        }
-      )
-      .then((res) => {
-        nProgress.start();
-        router.push(res?.data?.action);
-        setFetchingState(false);
-      });
+          {
+            headers: {
+              Authorization: "Bearer " + getCookie("Authorization"),
+            },
+          }
+        )
+        .then((res) => {
+          nProgress.start();
+          router.push(res?.data?.action);
+          setFetchingState(false);
+        });
+    } else {
+      setOpenPlaqueModal(true);
+    }
   }
 
   return (
@@ -322,6 +329,11 @@ const InvoicePage = () => {
           />
         </div>
       )}
+      <PlaqueModal
+        openPlaqueModal={openPlaqueModal}
+        setOpenPlaqueModal={setOpenPlaqueModal}
+        registerClickHandler={registerClickHandler}
+      />
     </div>
   );
 };

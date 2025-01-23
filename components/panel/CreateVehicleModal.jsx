@@ -8,7 +8,6 @@ import { postData } from "@/utils/client-api-function-utils";
 
 const CreateVehicleModal = (props) => {
   const [carSelectInputState, setCarSelectInputState] = useState(false);
-  const [disabledInput, setDisabledInput] = useState(true);
   const [validation, setValidation] = useState([]);
   const [plaque, setPlaque] = useState({
     plaque0: "",
@@ -19,7 +18,6 @@ const CreateVehicleModal = (props) => {
   const carBrand = JSON.parse(localStorage.getItem("selectedVehicle"))?.brand;
   const carModel = JSON.parse(localStorage.getItem("selectedVehicle"))?.model;
   const carTitle = JSON.parse(localStorage.getItem("selectedVehicle"))?.title;
-  const cityLabel = JSON.parse(localStorage.getItem("city"))?.label;
 
   const handlePlaqueChange = (key, value) => {
     const data = { ...plaque, [key]: value };
@@ -40,12 +38,6 @@ const CreateVehicleModal = (props) => {
     props.setAsideStatus("carSelection");
     localStorage.removeItem("selectedVehicle");
   };
-
-  useEffect(() => {
-    if (cityLabel) {
-      setDisabledInput(false);
-    }
-  }, []);
 
   function inputChangeHandler(e) {
     props.setCarData({ ...props.carData, [e.target.id]: e.target.value });
@@ -97,7 +89,7 @@ const CreateVehicleModal = (props) => {
         <CarAndCityInput
           placeHolder={"وسیله نقلیه خود را انتخاب کنید"}
           onClick={carAndCityHandler}
-          disabled={disabledInput}
+          disabled={false}
           inputStatus={"select_car"}
           setCarSelectInputState={setCarSelectInputState}
           value={carTitle ? `${carBrand} ${carModel} (${carTitle})` : ""}
