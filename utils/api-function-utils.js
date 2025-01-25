@@ -34,7 +34,8 @@ export async function getDataWithRevalidate(apiRoute, params) {
   try {
     const response = await fetch(apiRoute, {
       method: "GET", // می‌توانید این خط را اضافه کنید
-      cache: "no-store", // برای جلوگیری از کش
+      // cache: "no-store", // برای جلوگیری از کش
+      next: { revalidate: 60 }, // کش داده‌ها برای ۶۰ ثانیه
     });
 
     if (!response.ok) {
