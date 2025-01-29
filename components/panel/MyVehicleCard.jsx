@@ -19,7 +19,7 @@ const MyVehicleCard = ({ item, getMyVehicleData }) => {
           headers: {
             Authorization: "Bearer " + getCookie("Authorization"),
           },
-        }
+        },
       )
       .then((res) => {
         getMyVehicleData();
@@ -29,6 +29,8 @@ const MyVehicleCard = ({ item, getMyVehicleData }) => {
         error(err.response.data.msg);
       });
   }
+
+  console.log(item, "ejejejejej");
 
   return (
     <div
@@ -76,21 +78,21 @@ const MyVehicleCard = ({ item, getMyVehicleData }) => {
       </div>
       {item.type === "MOTOR" ? (
         <div className="bg-[#FEFEFE] text-[#0E0E0E] flex-col w-28 rounded-md overflow-hidden border border-black">
-          <div className="flex">
-            <span className="w-full tracking-[16px] flex justify-center items-center pl-2 font-bold">
-              {data.info.plaque[0]}
-            </span>
-            <Image
-              className=""
-              src={machinTag}
-              width={15}
-              height={30}
-              alt="پلاک"
-            />
-          </div>
-          <span className="w-full tracking-[12px] flex justify-center items-center pl-2 font-bold">
-            {data.info.plaque[1]}
-          </span>
+          {/*<div className="flex">*/}
+          {/*  <span className="w-full tracking-[16px] flex justify-center items-center pl-2 font-bold">*/}
+          {/*    {data.info.plaque[0]}*/}
+          {/*  </span>*/}
+          {/*  <Image*/}
+          {/*    className=""*/}
+          {/*    src={machinTag}*/}
+          {/*    width={15}*/}
+          {/*    height={30}*/}
+          {/*    alt="پلاک"*/}
+          {/*  />*/}
+          {/*</div>*/}
+          {/*<span className="w-full tracking-[12px] flex justify-center items-center pl-2 font-bold">*/}
+          {/*  {data.info.plaque[1]}*/}
+          {/*</span>*/}
         </div>
       ) : (
         <div className="bg-white flex items-center justify-between border border-[#B0B0B0] font-bold text-14 text-[#3d3d3d] rounded-lg overflow-hidden">
